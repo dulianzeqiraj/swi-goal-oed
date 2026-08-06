@@ -40,7 +40,7 @@ function fushe_kuqe_design(xlsxfile)
     F_h  =scatteredInterpolant(xs(ai)',ys(aj)',R.h0,   'linear','nearest'); h_r  =F_h(GXr,GYr);   h_r(~inside_r)=NaN;
 
     % ============================ MAP (eig_map style) ======================
-    figW=760; figH=1180; figure('Color','w','Position',[60 30 figW figH]);
+    figW=760; figH=1180; figure('Color','w','Position',[60 30 figW figH], 'Visible', 'off');
     aspf=figW/figH; dataAsp=max(xsr)/max(ysr);
     mapH=0.82; mapW=mapH*dataAsp/aspf;
     axM=axes('Position',[0.14 0.14 mapW mapH]);
@@ -77,7 +77,6 @@ function fushe_kuqe_design(xlsxfile)
     set(lg,'Units','normalized');
     lp=get(lg,'Position'); set(lg,'Position',[0.5-lp(3)/2, 0.015, lp(3), lp(4)]);  % centred
 
-    try, exportgraphics(gcf,'fushe_kuqe_design.png','Resolution',600);
-    catch, print(gcf,'fushe_kuqe_design','-dpng','-r600'); end
+    save_figure(gcf, 'fushe_kuqe_design.png', 600);
     fprintf('\nFigure written: fushe_kuqe_design.png\n');
 end

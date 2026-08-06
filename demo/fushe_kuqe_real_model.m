@@ -111,7 +111,7 @@ function fushe_kuqe_real_model(xlsxfile)
     if ~isempty(td), fprintf('toe penetration from coast: mean %.1f km, max %.1f km\n',mean(td),max(td)); end
 
     % ---- figures ------------------------------------------------------------
-    figure('Color','w','Position',[60 60 1200 460]);
+    figure('Color','w','Position',[60 60 1200 460], 'Visible', 'off');
     % (a) real K field + wells
     subplot(1,3,1);
     Kp=Kf; Kp(~inside)=NaN; pcolor(xs,ys,Kp); shading flat; hold on; colormap(gca,parula);
@@ -135,8 +135,7 @@ function fushe_kuqe_real_model(xlsxfile)
     [tj,ti]=find(toe); plot(xs(ti),ys(tj),'.','Color',[.85 .1 .1],'MarkerSize',5);
     cb=colorbar; cb.Label.String='interface depth \zeta [m]'; axis equal tight;
     xlabel('E [km]'); ylabel('N [km]'); title(sprintf('(c) Ghyben-Herzberg interface; SWI toe (red, \\zeta<%dm)',par.base));
-    try, exportgraphics(gcf,'fushe_kuqe_real_model.png','Resolution',200);
-    catch, print(gcf,'fushe_kuqe_real_model','-dpng','-r200'); end
+    save_figure(gcf, 'fushe_kuqe_real_model.png', 200);
     fprintf('\nFigure written: fushe_kuqe_real_model.png\n');
     fprintf(['\nScope: geometry + K REAL; coast/recharge/thickness per published\n' ...
              'conceptual model (Eftimi 2003; Cenameri & Beqiraj 2016/2018); the\n' ...

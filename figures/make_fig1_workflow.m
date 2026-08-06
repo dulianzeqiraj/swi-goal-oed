@@ -7,7 +7,7 @@ function make_fig1_workflow(outdir)
 %   Author: D. Zeqiraj.  License: MIT.
 
     if nargin < 1 || isempty(outdir), outdir = pwd; end
-    f = figure('Color','w','Position',[100 100 740 430]); ax=axes('Position',[0 0 1 1]); axis(ax,[0 12 0 8]); axis off; hold on
+    f = figure('Color','w','Position',[100 100 740 430], 'Visible', 'off'); ax=axes('Position',[0 0 1 1]); axis(ax,[0 12 0 8]); axis off; hold on
     blue=[0.86 0.90 0.95]; green=[0.86 0.93 0.87]; gold=[0.96 0.90 0.77]; rose=[0.96 0.85 0.85];
     box_(0.3,6.0,2.8,1.3,'Facies prior  \Gamma_F=D+\rho_F C',gold);
     box_(0.3,3.2,2.8,1.4,sprintf('Variable-density\nforward model  R(u;\\theta,d)=0'),blue);
@@ -23,8 +23,7 @@ function make_fig1_workflow(outdir)
     arr(9.8,4.35,9.85,5.6); arr(9.7,2.85,9.75,1.6);
     text(6,7.6,'Goal-oriented Bayesian OED for variable-density SWI — workflow', ...
          'HorizontalAlignment','center','FontSize',11);
-    try, exportgraphics(f,fullfile(outdir,'Fig1_Workflow.png'),'Resolution',600);
-    catch, print(f,fullfile(outdir,'Fig1_Workflow.png'),'-dpng','-r600'); end
+    save_figure(f, fullfile(outdir,'Fig1_Workflow.png'), 600);
     close(f);
 end
 

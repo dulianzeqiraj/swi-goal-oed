@@ -38,7 +38,7 @@ function gate2_henry(outdir)
     fprintf('Reference (Fahs et al., 2016, Table 3): L_toe = %.3f from the sea, i.e. base crossing at x = %.3f m (%.3f L).\n', ...
             Ltoe_ref, m.L - Ltoe_ref, (m.L - Ltoe_ref)/m.L);
 
-    f = figure('Color','w','Position',[100 100 700 640]);
+    f = figure('Color','w','Position',[100 100 700 640], 'Visible', 'off');
     subplot(2,1,1);
     contourf(Xg, Yg, Cg, linspace(0,Cs,16), 'LineColor','none'); hold on
     try, colormap(gca, jet); catch, end
@@ -55,8 +55,7 @@ function gate2_henry(outdir)
     xlabel('x [m]'); ylabel('C at base (y=0)  [kg/m^3]'); ylim([0 Cs]); grid on; box on
     title(sprintf('(b)  base profile, toe at %.2f m', toe));
 
-    try, exportgraphics(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'Resolution',600);
-    catch, print(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'-dpng','-r600'); end
+    save_figure(f, fullfile(outdir,'Fig4_HenryBenchmark.png'), 600);
     try, close(f); catch, end
     fprintf('Fig4_HenryBenchmark.png written (benchmark-verified solver output).\n');
 end

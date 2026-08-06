@@ -67,7 +67,7 @@ end
 % ===================== plotting (publication style) =====================
 function plot_panel(xsr,ysr,F,h_r,hcrit,Bk,xs,ys,ai,aj,topIdx,cbarLabel,ttl,markerCol,markerSym,cmapName,outpng)
     figW=720; figH=1280;
-    figure('Color','w','Position',[60 30 figW figH]);
+    figure('Color','w','Position',[60 30 figW figH], 'Visible', 'off');
     aspf=figW/figH; dataAsp=max(xsr)/max(ysr);
     mapH=0.86; mapW=mapH*dataAsp/aspf;
     axM=axes('Position',[0.13 0.07 mapW mapH]);
@@ -98,6 +98,5 @@ function plot_panel(xsr,ysr,F,h_r,hcrit,Bk,xs,ys,ai,aj,topIdx,cbarLabel,ttl,mark
     cb.Position=[0.13+mapW+0.015 0.18 0.025 0.55];
     axM.Position=[0.13 0.07 mapW mapH];
     legend(hC,{'interface at aquifer base (toe)'},'Location','northeast','Box','off','FontSize',10);
-    try, exportgraphics(gcf,outpng,'Resolution',600);
-    catch, print(gcf,outpng(1:end-4),'-dpng','-r600'); end
+    save_figure(gcf, outpng, 600);
 end

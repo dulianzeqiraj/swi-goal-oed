@@ -46,7 +46,7 @@ function out = demo_phase_boundary(outdir)
     end
 
     % ================= FIGURE 2: phase boundary / order parameter =========
-    f2 = figure('Color','w','Position',[80 80 820 330]);
+    f2 = figure('Color','w','Position',[80 80 820 330], 'Visible', 'off');
     ymaxL = max(Lmax*1.08, eps);
     % (a) pooling loss
     ax1 = subplot(1,2,1); hold(ax1,'on');
@@ -76,7 +76,7 @@ function out = demo_phase_boundary(outdir)
 
     % ================= FIGURE 3: structural invariance (data collapse) ====
     fprintf('\n--- Size-invariance of rho_c (structural, not finite-size) ---\n');
-    f3 = figure('Color','w','Position',[80 80 600 400]); hold on;
+    f3 = figure('Color','w','Position',[80 80 600 400], 'Visible', 'off'); hold on;
     nklist = [4 8 16]; cols = [0.13 0.31 0.62; 0.85 0.45 0.05; 0.15 0.60 0.25];
     stys = {'-', '--', ':'}; mks = {'o', 's', '^'};
     for q = 1:numel(nklist)
@@ -111,8 +111,7 @@ function shade_deadzone(x0, x1, ymax)
     try, set(get(gca,'Children'),'FaceAlpha',1); catch, end
 end
 function save_fig(f, fname)
-    try, exportgraphics(f, fname, 'Resolution', 600);
-    catch, print(f, fname(1:end-4), '-dpng', '-r600'); end
+    save_figure(f, fname, 600);
 end
 
 % ----------------------------------------------------------------------

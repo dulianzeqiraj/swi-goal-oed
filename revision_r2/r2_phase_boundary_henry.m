@@ -100,7 +100,7 @@ function out = r2_phase_boundary_henry()
     fprintf('synthetic Section-6 value for comparison: rho_c ~ 0.760-0.762\n');
 
     % ---- figure ------------------------------------------------------------
-    f = figure('Color', 'w', 'Position', [80 80 640 420]); hold on
+    f = figure('Color', 'w', 'Position', [80 80 640 420], 'Visible', 'off'); hold on
     cols = [0.13 0.31 0.62; 0.85 0.45 0.05; 0.15 0.60 0.25; 0.55 0.25 0.55];
     stys = {'-', '--', ':', '-.'}; mks = {'o', 's', '^', 'd'};
     for v = 1:nV
@@ -119,8 +119,7 @@ function out = r2_phase_boundary_henry()
     title('Poolability boundary from variable-density Henry adjoint sensitivities', ...
           'FontWeight', 'normal', 'FontSize', 11);
     legend('Location', 'southwest', 'Box', 'off', 'FontSize', 9);
-    try, exportgraphics(f, fullfile(outdir, 'r2_FigS_PhaseBoundary_Henry.png'), 'Resolution', 600);
-    catch, print(f, fullfile(outdir, 'r2_FigS_PhaseBoundary_Henry'), '-dpng', '-r600'); end
+    save_figure(f, fullfile(outdir, 'r2_FigS_PhaseBoundary_Henry.png'), 600);
 
     T = table(name, rc, lossPct, 'VariableNames', {'variant', 'rho_c', 'max_loss_pct'});
     writetable(T, fullfile(outdir, 'r2_phase_boundary_henry.csv'));

@@ -56,7 +56,7 @@ function toe = henry_benchmark_figure(Nx, Ny, solver)
     Cr(Cr<0)=0; Cr(Cr>1)=1;
 
     % --- figure ------------------------------------------------------------
-    figure('Color','w','Position',[80 80 760 440]);
+    figure('Color','w','Position',[80 80 760 440], 'Visible', 'off');
     contourf(Xr,Yr,Cr,0:0.05:1,'LineStyle','none'); hold on;
     try, colormap(turbo); catch, colormap(jet); end
     caxis([0 1]);
@@ -79,8 +79,7 @@ function toe = henry_benchmark_figure(Nx, Ny, solver)
     try, legend(hiso,{'isochlors (0.1:0.2:0.9)'},'Location','southwest','Box','off'); catch, end
 
     out = 'henry_benchmark.png';
-    try, exportgraphics(gcf,out,'Resolution',200);
-    catch, print(gcf,out(1:end-4),'-dpng','-r200'); end
+    save_figure(gcf, out, 200);
     fprintf('Written: %s\n', out);
 end
 

@@ -91,7 +91,7 @@ function section8_design()
             eig_g(4), mean(eig_r(:,4)), prctile(eig_r(:,4),90));
 
     % ---- Figure 5 -----------------------------------------------------------
-    figure('Color','w','Position',[100 100 1000 380]);
+    figure('Color','w','Position',[100 100 1000 380], 'Visible', 'off');
     % Panel A: salinity field + design (use rho_F = 0.5 selection)
     subplot(1,2,1);
     Cg = reshape(C, m.nx, m.nz)';   X = reshape(m.coords(:,1),m.nx,m.nz)'; Z = reshape(m.coords(:,2),m.nx,m.nz)';
@@ -111,8 +111,7 @@ function section8_design()
     xlabel('number of monitoring wells'); ylabel('goal-oriented EIG [nats]');
     title('(b) Greedy design vs random (\rho_F = 0.5)');
     legend({'random 10-90%','random mean','greedy'},'Location','southeast','Box','off'); grid on;
-    try, exportgraphics(gcf,'fig5_section8.png','Resolution',600);
-    catch, print(gcf,'fig5_section8','-dpng','-r600'); end
+    save_figure(gcf, 'fig5_section8.png', 600);
     fprintf('\nWritten: fig5_section8.png (exploratory; not a figure of the article)\n');
 end
 

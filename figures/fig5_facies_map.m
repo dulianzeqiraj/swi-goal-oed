@@ -53,7 +53,7 @@ function fig5_facies_map(xlsxfile, outdir)
     end
 
     % ---- plot (km relative to the polygon origin, Gauss-Kruger preserved) --
-    f = figure('Color', 'w', 'Position', [80 60 760 1020]); hold on
+    f = figure('Color', 'w', 'Position', [80 60 760 1020], 'Visible', 'off'); hold on
     hB = plot(B(:, 1)/1000, B(:, 2)/1000, 'k-', 'LineWidth', 1.2);
     h = gobjects(1, 3);
     for c = 1:3
@@ -90,8 +90,7 @@ function fig5_facies_map(xlsxfile, outdir)
     plot([xb xb+5], [yb yb], 'k-', 'LineWidth', 2.5, 'HandleVisibility', 'off');
     text(xb+2.5, yb + 0.015*diff(yl), '5 km', 'HorizontalAlignment', 'center', 'FontSize', 10);
 
-    try, exportgraphics(f, fullfile(outdir, 'Fig5_FaciesMap.png'), 'Resolution', 600);
-    catch, print(f, fullfile(outdir, 'Fig5_FaciesMap'), '-dpng', '-r600'); end
+    save_figure(f, fullfile(outdir, 'Fig5_FaciesMap.png'), 600);
     fprintf('Fig5_FaciesMap.png written (600 dpi).\n');
 end
 
