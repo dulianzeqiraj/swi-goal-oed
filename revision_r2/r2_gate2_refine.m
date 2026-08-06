@@ -48,9 +48,12 @@ function out = r2_gate2_refine()
         dx(q) = p.L / (nx - 1);
         fprintf('  %2dx%2d (dx=%.3f m): toe = %.3f m (%.3f L)   [%.1f s]\n', ...
                 nx, nz, dx(q), toe(q), toe(q)/p.L, tsec(q));
-        % write what is finished so far, so an interrupted run still leaves a file
+        % Progress file, so an interrupted run still leaves the finished rungs.
+        % It is deliberately a separate name: the archived result file is only
+        % written once the whole ladder has completed, and is never replaced by
+        % a partial one.
         writematrix([ladder(1:q,:) dx(1:q) toe(1:q) toe(1:q)/p.L], ...
-                    fullfile(outdir, 'r2_gate2_refine.csv'));
+                    fullfile(outdir, 'r2_gate2_refine_partial.csv'));
     end
     dtoe = abs(diff(toe));
     fprintf('\nsuccessive toe shifts: %s m;  grid spacings: %s m\n', ...
@@ -59,6 +62,8 @@ function out = r2_gate2_refine()
 
     out = struct('ladder', ladder, 'dx', dx, 'toe', toe, 'toeL', toe / p.L, 'tsec', tsec);
     writematrix([ladder dx toe toe/p.L], fullfile(outdir, 'r2_gate2_refine.csv'));
+    pf = fullfile(outdir, 'r2_gate2_refine_partial.csv');
+    if exist(pf, 'file'), delete(pf); end
     save(fullfile(outdir, 'r2_gate2_refine.mat'), '-struct', 'out');
     fprintf('saved: r2_gate2_refine.csv\n');
 end

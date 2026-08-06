@@ -5,3 +5,6 @@ octave-workspace
 *.png
 *.pdf
 .DS_Store
+
+# progress file of the refinement ladder (the archived result is r2_gate2_refine.csv)
+revision_r2/r2_results/r2_gate2_refine_partial.csv
