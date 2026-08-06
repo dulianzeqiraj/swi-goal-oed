@@ -22,10 +22,21 @@ function out = r2_gate2_refine()
     nL = size(ladder, 1);
     toe = nan(nL, 1); dx = nan(nL, 1); tsec = nan(nL, 1);
 
+    % Indicative single-core run times on the archived runs, so a long wait on
+    % the two finest rungs is recognisable as expected rather than as a hang.
+    approx = [2 340 1040 2270];   % seconds
+
     fprintf('=== R2: Gate 2 toe under mesh refinement ===\n');
+    fprintf(['This ladder takes about %d minutes in total; the 61x31 rung alone\n' ...
+             'runs for roughly %d minutes and 81x41 for roughly %d. The archived\n' ...
+             'results are in r2_results/r2_gate2_refine.csv, so the run can be\n' ...
+             'interrupted without losing them.\n\n'], ...
+            round(sum(approx)/60), round(approx(3)/60), round(approx(4)/60));
+
     for q = 1:nL
         nx = ladder(q, 1); nz = ladder(q, 2);
         m = local_mesh(nx, nz, p.L, p.d); nE = size(m.elem, 1);
+        fprintf('  %2dx%2d ... solving (expect about %.0f s)\n', nx, nz, approx(q));
         tv = tic;
         u = forward_tight(m, p, zeros(nE, 1));
         tsec(q) = toc(tv);
@@ -37,6 +48,9 @@ function out = r2_gate2_refine()
         dx(q) = p.L / (nx - 1);
         fprintf('  %2dx%2d (dx=%.3f m): toe = %.3f m (%.3f L)   [%.1f s]\n', ...
                 nx, nz, dx(q), toe(q), toe(q)/p.L, tsec(q));
+        % write what is finished so far, so an interrupted run still leaves a file
+        writematrix([ladder(1:q,:) dx(1:q) toe(1:q) toe(1:q)/p.L], ...
+                    fullfile(outdir, 'r2_gate2_refine.csv'));
     end
     dtoe = abs(diff(toe));
     fprintf('\nsuccessive toe shifts: %s m;  grid spacings: %s m\n', ...

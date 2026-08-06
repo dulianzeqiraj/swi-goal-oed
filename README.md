@@ -55,6 +55,12 @@ PDE results are mesh-dependent and the figure-grid value is quoted).
 
 The `revision_r2/` folder contains the additional analyses of the R2 revision (jackknife uncertainty of ρ_F, ρ_c configuration sweep, facies-threshold sensitivity, intruded-area consistency check, physics-based poolability boundary, Gate-1 robustness, toe refinement); each script writes to `revision_r2/r2_results/`.
 
+Most of these run in seconds. Two do not: `r2_gate2_refine.m` (the mesh-refinement
+ladder) takes about an hour, dominated by the 61x31 and 81x41 rungs, and
+`r2_gate1_multidir.m` about 15 minutes. Both print what they are doing and write
+their results incrementally, and their archived outputs are already in
+`revision_r2/r2_results/`, so neither needs to be re-run to read the numbers.
+
 Regenerate every main-text figure with `figures/make_all_figures.m`, or run the
 individual scripts listed above; the data-dependent figures (5, 6, 7) are attempted
 only if `data/Fushe_Kuqe_All_Data.xlsx` is present.
