@@ -48,14 +48,14 @@ PDE results are mesh-dependent and the figure-grid value is quoted).
 | **Fig. 1** — conceptual workflow | `figures/make_fig1_workflow.m` | schematic |
 | **Fig. 2** — poolability phase boundary | `demo/demo_phase_boundary.m` | ρ_c = **0.762**, L_max = **0.0769 nats** (19.0% of pooled EIG), dead zone = 0 |
 | **Fig. 3** — structural invariance | `demo/demo_phase_boundary.m` | ρ_c = 0.762 invariant for n_k = 4, 8, 16 (data collapse) |
-| **Fig. 4** — Henry salinity field | `demo/henry_benchmark_figure.m` | validated solver (`vd_residual`) |
-| **Fig. 5** — well/facies map (43 wells) | adapted from the AGS dataset (sheet 2_All_Wells); no generator script |
+| **Fig. 4** — Henry benchmark (wedge + base profile) | `demo/gate2_henry.m` | toe 1.38 m (0.69 L), 41x21 mesh |
+| **Fig. 5** — well/facies map (43 wells) | `figures/fig5_facies_map.m` | K-threshold classes: 17 / 16 / 10 wells |
 | **Fig. 6** — EIG + MAR effectiveness maps | `demo/fushe_kuqe_eig_map.m` | goal-oriented EIG and MAR fields on the shared grid |
 | **Fig. 7** — Fushë-Kuqe design map | `demo/fushe_kuqe_design.m` | 5 monitoring + 3 MAR sites; baseline intruded area ≈ 92.7 km² |
 
 The `revision_r2/` folder contains the additional analyses of the R2 revision (jackknife uncertainty of ρ_F, ρ_c configuration sweep, facies-threshold sensitivity, intruded-area consistency check, physics-based poolability boundary, Gate-1 robustness, toe refinement); each script writes to `revision_r2/r2_results/`.
 
-Regenerate the figures with `figures/make_all_figures.m` (Fig. 4/5 require the
+Regenerate the main-text figures with the scripts listed above; `figures/make_all_figures.m` predates the R2 figure numbering and is kept only for the earlier layout (Fig. 4/5 require the
 validated solver / dataset and are attempted only if available).
 
 > **Figure numbering.** The table follows the manuscript's final numbering;
