@@ -1,0 +1,198 @@
+
+########################################################
+### 1/9  r2_rhoF_uncertainty
+########################################################
+=== R2: rho_F uncertainty (jackknife) ===
+workbook: 180 rows, 43 with K, 32 with K inside the aquifer polygon
+cross-check vs gate3_field hardcoded table: MATCH
+
+rho_F (full data, n=32)      = 0.8055
+rho_c (field prior, recomp.) = 0.7625
+margin rho_F - rho_c         = 0.0430
+jackknife SE                 = 0.1553   (LOO range 0.770 .. 0.943)
+jackknife bias estimate      = -0.0762
+95% CI (normal approx)       = [0.501, 1.000]
+margin in SE units           = 0.28
+P(rho_F > rho_c), normal     = 0.61
+LOO replicates below rho_c   = 0 of 32
+=> the side of the threshold is NOT statistically determined at n=32;
+   under the asymmetric pooling loss (0 above rho_c, up to ~19% below),
+   the conservative recommendation under uncertainty is the facies-AWARE design.
+saved: r2_rhoF_jackknife_loo.csv, r2_rhoF_uncertainty.mat
+--- r2_rhoF_uncertainty OK (6.0 s)
+
+########################################################
+### 2/9  r2_rhoc_sensitivity
+########################################################
+=== R2: rho_c configuration sensitivity (14 variants) ===
+  base (Sec. 6 configuration)         rho_c = 0.762   Lmax = 0.0769 nats ( 15.9% of optimal at rho=0)   (0.6 s)
+  r_within = 0.5                      rho_c = 0.762   Lmax = 0.0346 nats (  7.9% of optimal at rho=0)   (0.4 s)
+  r_within = 0.6                      rho_c = 0.762   Lmax = 0.0527 nats ( 11.5% of optimal at rho=0)   (0.3 s)
+  r_within = 0.8                      rho_c = 0.762   Lmax = 0.1097 nats ( 21.3% of optimal at rho=0)   (0.3 s)
+  r_within = 0.9                      rho_c = 0.988   Lmax = 0.5605 nats (100.0% of optimal at rho=0)   (0.3 s)
+  noise swapped (fine precise)        rho_c = NaN   Lmax = 0.0000 nats (  0.0% of optimal at rho=0)   (0.3 s)
+  noise x0.5                          rho_c = 0.855   Lmax = 0.0716 nats ( 10.3% of optimal at rho=0)   (0.3 s)
+  noise x2                            rho_c = 0.650   Lmax = 0.0668 nats ( 21.6% of optimal at rho=0)   (0.3 s)
+  budget B = 3                        rho_c = 0.892   Lmax = 0.1260 nats ( 23.7% of optimal at rho=0)   (1.0 s)
+  budget B = 4                        rho_c = 0.930   Lmax = 0.1602 nats ( 28.3% of optimal at rho=0)   (2.2 s)
+  goal spread over fine facies        rho_c = 0.960   Lmax = 0.4838 nats (100.0% of optimal at rho=0)   (0.3 s)
+  size nk = 8 (24 params)             rho_c = 0.762   Lmax = 0.0769 nats ( 15.9% of optimal at rho=0)   (1.3 s)
+  size nk = 16 (48 params)            rho_c = 0.762   Lmax = 0.0769 nats ( 15.9% of optimal at rho=0)   (6.4 s)
+  field facies counts [11 14 7]       rho_c = 0.762   Lmax = 0.0769 nats ( 15.9% of optimal at rho=0)   (2.5 s)
+
+rho_c range across variants: 0.650 .. 0.988  (base 0.762)
+saved: r2_rhoc_sensitivity.csv
+--- r2_rhoc_sensitivity OK (17.0 s)
+
+########################################################
+### 3/9  r2_facies_threshold_sensitivity
+########################################################
+=== R2: facies-rule harmonization and design sensitivity ===
+
+[legacy,     rhoF=0.600]  (4.0 s)
+  monitoring: P21, A12, A13, A21, A10
+  MAR:        A18, P21, P16
+  baseline intruded area = 92.7 km^2
+
+[harmonized, rhoF=0.600]  (3.0 s)
+  monitoring: P21, A12, A13, A21, A10
+  MAR:        A18, P21, P16
+  baseline intruded area = 92.7 km^2
+
+[legacy,     rhoF=0.805]  (3.3 s)
+  monitoring: P21, A12, A13, A21, A10
+  MAR:        A18, P21, P16
+  baseline intruded area = 92.7 km^2
+
+[harmonized, rhoF=0.805]  (2.6 s)
+  monitoring: P21, A12, A13, A21, A10
+  MAR:        A18, P21, P16
+  baseline intruded area = 92.7 km^2
+
+--- zone-rule comparison (legacy vs harmonized) ---
+zones: 12;  flipped: 0
+design IDs identical (legacy vs harmonized, rhoF=0.6)?   mon: YES   MAR: YES
+design IDs identical (rhoF 0.600 vs 0.805, harmonized)?  mon: YES   MAR: YES
+EIG-field correlation: legacy-vs-harmonized 1.0000;  rho 0.6-vs-0.805 0.9981
+
+--- well-level classification (43 K-valued wells) ---
+counts gate3 rule [coarse med fine] = [17 16 10]
+wells flipping between rules: 1  (K values: 150)
+
+--- geometry (Gauss-Kruger; X = easting, Y = northing) ---
+polygon centroid: X = 4392409, Y = 4601567;  X range 4381751..4402436, Y range 4576244..4628411
+  coarse (n=17): centroid X = 4386414 (-6.0 km), Y = 4612856 (+11.3 km)  -> NW
+  medium (n=16): centroid X = 4392739 (+0.3 km), Y = 4587840 (-13.7 km)  -> S
+  fine   (n=10): centroid X = 4387198 (-5.2 km), Y = 4602857 (+1.3 km)  -> W
+  model coast-cell centroid vs domain centroid: SW (dx=-3.0 km, dy=-2.5 km)
+
+saved: r2_facies_threshold_sensitivity.mat
+--- r2_facies_threshold_sensitivity OK (13.3 s)
+
+########################################################
+### 4/9  r2_intruded_area
+########################################################
+=== R2: modeled intruded area vs published ~15% ===
+baseline intruded area   = 92.7 km^2
+aquifer polygon area     = 349.1 km^2  (active cells: 349.3 km^2)
+modeled intruded fraction= 26.6% of polygon (26.5% of active cells)
+published (Cenameri & Beqiraj 2016): ~15% of the upper aquifer layer
+
+mean intrusion indicator by distance from the (western) coast:
+    0.0-  2.0 km :  0.810   (n=1618 cells)
+    2.0-  4.0 km :  0.110   (n=1541 cells)
+    4.0-  6.0 km :  0.003   (n=1255 cells)
+    6.0-  8.0 km :  0.000   (n=723 cells)
+    8.0- 10.0 km :  0.000   (n=250 cells)
+   10.0- 14.0 km :  0.000   (n=174 cells)
+   14.0- 18.0 km :  0.000   (n=28 cells)
+   18.0- 25.0 km :    NaN   (n=0 cells)
+   25.0- 40.0 km :    NaN   (n=0 cells)
+monotone decay with distance from coast: YES
+
+intruded-region centroid vs domain centroid: dx=-2.4 km, dy=-1.3 km -> SW side
+saved: r2_intrusion_profile.csv, r2_intruded_area.mat
+--- r2_intruded_area OK (3.5 s)
+
+########################################################
+### 5/9  r2_fit_extras
+########################################################
+=== R2: descriptive transition statistics (base configuration) ===
+rho_c (grid step 0.0025)          = 0.7625
+left slope of Lambda at rho_c     = -3.312 (1-step), -3.278 (5-point)
+log-log exponent beta below rho_c = 0.849 (window rho in [rho_c-0.30, rho_c-0.0125])
+above rho_c: Lambda identically 0 (machine zero) -> slope 0
+saved: r2_fit_extras.csv
+--- r2_fit_extras OK (0.6 s)
+
+########################################################
+### 6/9  r2_phase_boundary_henry
+########################################################
+=== R2: poolability boundary on facies-striped Henry physics ===
+mesh 11x6, nE = 50, bands [coarse med fine] = [20 10 20]
+forward |R| at u* = 1.95e-12
+sensitivities assembled in 2.8 s (12 head candidates, 1 goal)
+  base (B=2)       rho_c = 0.772   max loss =   0.9% of pooled EIG
+  noise x4         rho_c = 0.853   max loss =  12.2% of pooled EIG
+  budget B=3       rho_c = 0.975   max loss =   0.8% of pooled EIG
+  bands inverted   rho_c = 0.772   max loss =   0.9% of pooled EIG
+synthetic Section-6 value for comparison: rho_c ~ 0.760-0.762
+saved: r2_phase_boundary_henry.csv, r2_FigS_PhaseBoundary_Henry.png
+--- r2_phase_boundary_henry OK (11.8 s)
+
+########################################################
+### 7/9  r2_gate2_refine
+########################################################
+=== R2: Gate 2 toe under mesh refinement ===
+  21x11 (dx=0.100 m): toe = 1.382 m (0.691 L)   [1.9 s]
+  41x21 (dx=0.050 m): toe = 1.378 m (0.689 L)   [305.7 s]
+  61x31 (dx=0.033 m): toe = 1.377 m (0.688 L)   [805.6 s]
+  81x41 (dx=0.025 m): toe = 1.376 m (0.688 L)   [1941.8 s]
+
+successive toe shifts: [0.005 0.001 0] m;  grid spacings: [0.05 0.033 0.025] m
+shift < spacing at each refinement: YES
+saved: r2_gate2_refine.csv
+--- r2_gate2_refine OK (3055.0 s)
+
+########################################################
+### 8/9  r2_gate1_floor
+########################################################
+=== R2: Gate-1 floor vs Jacobian FD step delta (banded base, dir seed 2) ===
+  delta = 1e-05 :  min relerr = 2.02e-03
+  delta = 1e-06 :  min relerr = 2.29e-05
+  delta = 1e-07 :  min relerr = 2.04e-05
+floor tracks delta (smaller delta -> smaller floor until roundoff)
+saved: r2_gate1_floor.csv
+--- r2_gate1_floor OK (141.1 s)
+
+########################################################
+### 9/9  r2_gate1_multidir
+########################################################
+=== R2: Gate 1 multi-direction / heterogeneous-base gradient check ===
+
+[homogeneous theta0 = 0]  forward |R| at u* = 2.31e-12
+  dir 1: min relerr = 5.09e-06 (at h = 1e-05)  -> PASS
+  dir 2: min relerr = 1.81e-05 (at h = 1e-06)  -> FAIL
+  dir 3: min relerr = 2.68e-05 (at h = 1e-06)  -> FAIL
+  dir 4: min relerr = 7.35e-06 (at h = 1e-06)  -> PASS
+  dir 5: min relerr = 1.82e-05 (at h = 1e-06)  -> FAIL
+
+[banded log-K (rows)]  forward |R| at u* = 2.47e-12
+  dir 1: min relerr = 4.25e-06 (at h = 1e-06)  -> PASS
+  dir 2: min relerr = 2.29e-05 (at h = 1e-05)  -> FAIL
+  dir 3: min relerr = 2.59e-05 (at h = 1e-07)  -> FAIL
+  dir 4: min relerr = 3.19e-05 (at h = 1e-06)  -> FAIL
+  dir 5: min relerr = 2.94e-05 (at h = 1e-04)  -> FAIL
+
+[iid N(0,0.3^2), rng 42]  forward |R| at u* = 2.71e-12
+  dir 1: min relerr = 1.74e-04 (at h = 1e-06)  -> FAIL
+  dir 2: min relerr = 1.88e-05 (at h = 1e-07)  -> FAIL
+  dir 3: min relerr = 2.91e-05 (at h = 1e-06)  -> FAIL
+  dir 4: min relerr = 1.75e-05 (at h = 1e-07)  -> FAIL
+  dir 5: min relerr = 2.47e-05 (at h = 1e-03)  -> FAIL
+
+overall: 3/15 PASS;  min relerr = 4.25e-06;  median = 2.29e-05
+saved: r2_gate1_multidir.csv, r2_gate1_multidir.mat
+--- r2_gate1_multidir OK (1131.9 s)
+
+=== r2_run_all finished in 4380.1 s ===

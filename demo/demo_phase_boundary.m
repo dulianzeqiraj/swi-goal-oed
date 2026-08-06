@@ -78,10 +78,15 @@ function out = demo_phase_boundary(outdir)
     fprintf('\n--- Size-invariance of rho_c (structural, not finite-size) ---\n');
     f3 = figure('Color','w','Position',[80 80 600 400]); hold on;
     nklist = [4 8 16]; cols = [0.13 0.31 0.62; 0.85 0.45 0.05; 0.15 0.60 0.25];
+    stys = {'-', '--', ':'}; mks = {'o', 's', '^'};
     for q = 1:numel(nklist)
         [Gc, Hh, bk, cr, nz] = build_config(K, nklist(q), r_within);
         o = phase_boundary(Gc, Hh, bk, cr, nz, B, rho_grid);
-        plot(o.rho, o.Lambda, 'LineWidth', 1.8, 'Color', cols(q,:), ...
+        % the three curves collapse onto one another (that is the point);
+        % distinct line styles + staggered markers keep all three visible
+        plot(o.rho, o.Lambda, stys{q}, 'LineWidth', 1.8, 'Color', cols(q,:), ...
+             'Marker', mks{q}, 'MarkerSize', 5, ...
+             'MarkerIndices', (8 + 12*q):36:numel(o.rho), ...
              'DisplayName', sprintf('%d params / facies  (\\rho_c=%.2f)', nklist(q), o.rho_c));
         fprintf('  params/facies %2d -> rho_c = %.3f\n', nklist(q), o.rho_c);
     end

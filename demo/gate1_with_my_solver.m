@@ -4,8 +4,9 @@ function gate1_with_my_solver(my_forward_solve, ctx, theta0, d, goal_region)
 %   gate1_with_my_solver(my_forward_solve, ctx, theta0, d, goal_region)
 %
 %   Once my_solver_residual.m is filled in, this harness verifies the discrete
-%   adjoint on YOUR validated physics (Gate 1) and computes a goal-oriented
-%   design — the step that turns the Section-7/8 placeholders into real numbers.
+%   adjoint on YOUR benchmark-verified physics (Gate 1) and computes a goal-oriented
+%   design — the step that certifies an external production solver before
+%   Section-7/8-style design runs.
 %
 %   INPUTS
 %     my_forward_solve : u = my_forward_solve(theta, d, ctx)  — YOUR solver,

@@ -1,7 +1,0 @@
-# generated artifacts
-octave-workspace
-*.asv
-*.mat
-*.png
-*.pdf
-.DS_Store

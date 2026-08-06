@@ -49,7 +49,11 @@ PDE results are mesh-dependent and the figure-grid value is quoted).
 | **Fig. 2** — poolability phase boundary | `demo/demo_phase_boundary.m` | ρ_c = **0.762**, L_max = **0.0769 nats** (19.0% of pooled EIG), dead zone = 0 |
 | **Fig. 3** — structural invariance | `demo/demo_phase_boundary.m` | ρ_c = 0.762 invariant for n_k = 4, 8, 16 (data collapse) |
 | **Fig. 4** — Henry salinity field | `demo/henry_benchmark_figure.m` | validated solver (`vd_residual`) |
-| **Fig. 5** — Fushë-Kuqe design map | `demo/fushe_kuqe_design.m` | 5 monitoring + 3 MAR sites; baseline intruded area ≈ 92.7 km² |
+| **Fig. 5** — well/facies map (43 wells) | adapted from the AGS dataset (sheet 2_All_Wells); no generator script |
+| **Fig. 6** — EIG + MAR effectiveness maps | `demo/fushe_kuqe_eig_map.m` | goal-oriented EIG and MAR fields on the shared grid |
+| **Fig. 7** — Fushë-Kuqe design map | `demo/fushe_kuqe_design.m` | 5 monitoring + 3 MAR sites; baseline intruded area ≈ 92.7 km² |
+
+The `revision_r2/` folder contains the additional analyses of the R2 revision (jackknife uncertainty of ρ_F, ρ_c configuration sweep, facies-threshold sensitivity, intruded-area consistency check, physics-based poolability boundary, Gate-1 robustness, toe refinement); each script writes to `revision_r2/r2_results/`.
 
 Regenerate the figures with `figures/make_all_figures.m` (Fig. 4/5 require the
 validated solver / dataset and are attempted only if available).
@@ -114,12 +118,10 @@ gate3_field('data/Fushe_Kuqe_All_Data.xlsx')
 make_all_figures('figs')          % auto-finds data/Fushe_Kuqe_All_Data.xlsx
 ```
 
-The Cape Cod cross-check uses publicly available USGS data.
 
 ## Citation
 
-If you use this code, please cite the article and the software (Zenodo DOI to be
-assigned on release; see `CITATION.cff`).
+If you use this code, please cite the article and the software (Zenodo DOI 10.5281/zenodo.20477504; see `CITATION.cff`).
 
 ## License
 

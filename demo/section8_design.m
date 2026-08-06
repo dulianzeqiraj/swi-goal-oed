@@ -1,16 +1,16 @@
 function section8_design()
-%SECTION8_DESIGN  Goal-oriented Bayesian design on the VALIDATED variable-
+%SECTION8_DESIGN  Goal-oriented Bayesian design on the BENCHMARK-VERIFIED variable-
 %   density Henry solver, with a facies-conditioned log-K prior whose
 %   structure is taken from the real Fushe-Kuqe aquifer (coarse/medium/fine).
 %
 %   Honest scope (Route 2 / framework demonstration):
-%     REAL      : variable-density solver (validated, Gate 2 = dissertation
+%     REAL      : variable-density solver (benchmark-verified, Gate 2 = dissertation
 %                 Fig. 4.2); discrete adjoint (Gate 1 PASS); facies prior
 %                 structure from Fushe-Kuqe; goal-oriented method (Lemma 1).
 %     SYNTHETIC : salinity scenario / wedge (no chloride data exist),
 %                 representative cross-section geometry, candidate well grid.
 %
-%   Pipeline: validated forward -> discrete adjoint G_F (candidate monitoring
+%   Pipeline: benchmark-verified forward -> discrete adjoint G_F (candidate monitoring
 %   nodes) and H_F (toe-localization goal) -> facies prior Gamma_F(rho_F) ->
 %   greedy goal-oriented EIG design (Lemma 1) vs random baseline -> Figure 5.
 %
@@ -27,7 +27,7 @@ function section8_design()
                'Dm',1.62925,'Q',5.702,'L',2.0,'d',1.0);
     m = local_mesh(11,6,p.L,p.d); n = m.n; nE = size(m.elem,1); theta0 = zeros(nE,1);
 
-    % ---- validated forward solve -------------------------------------------
+    % ---- benchmark-verified forward solve -------------------------------------------
     u = forward_tight(m,p,theta0); C = u(n+1:2*n);
     base = 1:m.nx; xb = m.coords(base,1); Cb = C(base);
     if max(Cb)>p.Cs/2, toe = interp1(Cb,xb,p.Cs/2); else, toe = xb(end); end
@@ -139,7 +139,7 @@ function Gm = build_prior(ec,fac,sig,Lc,rhoF,nE)
     Gm=Gm+1e-9*eye(nE);
 end
 
-% ====================== validated physics (= gate1_henry_vd) ======================
+% ====================== benchmark-verified physics (= gate1_henry_vd) ======================
 function u = forward_tight(m,p,theta)
     n=m.n; hf=zeros(n,1); C=zeros(n,1); C(m.right)=p.Cs; [sh,qin]=bcv(m,p);
     for it=1:3000

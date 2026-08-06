@@ -1,10 +1,10 @@
 function R = my_solver_residual(u, theta, d, ctx)
-%MY_SOLVER_RESIDUAL  TEMPLATE: residual evaluator wrapping YOUR validated solver.
+%MY_SOLVER_RESIDUAL  TEMPLATE: residual evaluator wrapping YOUR benchmark-verified solver.
 %
 %   R = MY_SOLVER_RESIDUAL(u, theta, d, ctx)
 %
 %   This is the ONE function you fill in to connect the adjoint OED pipeline
-%   to your validated MATLAB/FORTRAN variable-density solver. The pipeline
+%   to your benchmark-verified MATLAB/FORTRAN variable-density solver. The pipeline
 %   (assemble_jacobian_fd -> adjoint_solve -> eig_operator) depends ONLY on
 %   this residual, so once it is correct the whole framework runs on your
 %   real physics. Replace the calls to vd_residual with this function.
@@ -100,7 +100,7 @@ end
 %   resT = @(u,th) my_solver_residual(u, th,     d, ctx);      % theta-dependent
 %
 %   % SELF-TEST: at your solver's converged state u*, the residual is ~0
-%   u_star = my_forward_solve(theta0, d, ctx);  % YOUR validated solver
+%   u_star = my_forward_solve(theta0, d, ctx);  % YOUR benchmark-verified solver
 %   fprintf('residual at u*: %.2e (should be ~1e-8 or smaller)\n', norm(res(u_star)));
 %
 %   % then run Gate 1 on your real physics (see gate1_with_my_solver.m)

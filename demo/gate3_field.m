@@ -82,7 +82,7 @@ function gate3_field(xlsxfile)
     e_pooled0 = eig_operator(Gcand(out.d0,:),H,facies_prior(0,blocks,cross),diag(noise(out.d0)));
     pct = 100*max(out.L)/max(e_pooled0,eps);
 
-    fprintf('rho_c (field, recomputed)   = %.3f   (synthetic ~0.760)\n', out.rho_c);
+    fprintf('rho_c (field, recomputed)   = %.3f   (synthetic 0.762)\n', out.rho_c);
     fprintf('max pooling loss            = %.1f%% of pooled EIG\n', pct);
     fprintf('field rho_F (spatial proxy) = %.3f\n', rhoF);
     if rhoF>=out.rho_c

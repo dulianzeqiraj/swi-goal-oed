@@ -1,6 +1,6 @@
 function demo_internal()
 %DEMO_  Full variable-density goal-oriented OED pipeline on the
-%   VALIDATED Henry solver (the one that passes Gate 1 at <1e-5 and Gate 2
+%   BENCHMARK-VERIFIED Henry solver (the one that passes Gate 1 at <1e-5 and Gate 2
 %   against the dissertation Fig. 4). Per-element log-conductivity theta.
 %
 %     forward (tight Picard) -> assemble_jacobian_fd -> adjoint_solve
@@ -18,7 +18,7 @@ function demo_internal()
     here = fileparts(mfilename('fullpath'));
     addpath(fullfile(here, '..', 'src'));
 
-    % ---- validated physics + mesh (per-element log-K) ---------------------
+    % ---- benchmark-verified physics + mesh (per-element log-K) ---------------------
     p = struct('phi',0.35,'Cs',35,'rho_s',1025,'rho_f',1000,'K',864, ...
                'Dm',1.62925,'Q',5.702,'L',2.0,'d',1.0);
     m = local_mesh(11,6,p.L,p.d); n = m.n; nE = size(m.elem,1);
@@ -33,7 +33,7 @@ function demo_internal()
     dqdu    = @(u) [zeros(1,n), double(region(:))'];     % 1-by-2n
 
     % ---- Gate 1: discrete-adjoint gradient check --------------------------
-    fprintf('=== Gate 1: discrete-adjoint gradient check (validated solver) ===\n');
+    fprintf('=== Gate 1: discrete-adjoint gradient check (benchmark-verified solver) ===\n');
     rng(1); eta = randn(nE,1); eta = eta/norm(eta);
     [passed, ~] = gate1_gradcheck(solve_fwd, resfun_th, goalfun, dqdu, theta0, eta, [1e-2 1e-3 1e-4]);
     if ~passed, warning('Gate 1 did not pass at 1e-5 — check Picard tolerance / mesh.'); end
@@ -57,7 +57,7 @@ function demo_internal()
             eig_operator(G(sel,:), H, GamF, diag(noise(sel))));
 end
 
-% ===================== validated solver (per-element log-K) ============
+% ===================== benchmark-verified solver (per-element log-K) ============
 function u = forward_tight(m,p,theta)
     n=m.n; hf=zeros(n,1); C=zeros(n,1); C(m.right)=p.Cs; [sh,qin]=bcv(m,p);
     for it=1:3000

@@ -1,6 +1,6 @@
 function toe = henry_benchmark_figure(Nx, Ny, solver)
 %HENRY_BENCHMARK_FIGURE  Display the Henry-problem salinity field for benchmark
-%   validation of the variable-density solver, and write a publication figure.
+%   verification of the variable-density solver, and write a publication figure.
 %
 %   toe = HENRY_BENCHMARK_FIGURE(Nx, Ny, solver)
 %
@@ -63,7 +63,7 @@ function toe = henry_benchmark_figure(Nx, Ny, solver)
     set(gca,'FontSize',11,'Layer','top','Box','on');
     xlabel('x [m]   (freshwater inflow at left, sea at right)','FontSize',12);
     ylabel('z [m]','FontSize',12);
-    title('Henry problem - variable-density benchmark validation','FontSize',13,'FontWeight','normal');
+    title('Henry problem - variable-density benchmark verification','FontSize',13,'FontWeight','normal');
     cb_ = colorbar;
     try, cb_.Label.String = 'relative salinity  c = C/C_s';
     catch, try, ylabel(cb_,'relative salinity  c = C/C_s'); catch, end; end

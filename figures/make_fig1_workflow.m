@@ -15,7 +15,7 @@ function make_fig1_workflow(outdir)
     box_(4.0,4.2,3.1,1.2,sprintf('Observation adjoint\nJ^T\\Lambda=(\\partialO/\\partialu)^T  =>  G_F'),green);
     box_(4.0,1.2,3.1,1.2,sprintf('Goal adjoint\nJ^T\\mu=(\\partialq/\\partialu)^T  =>  H_F'),green);
     box_(7.9,2.85,3.8,1.5,sprintf('Information operator\nI_F=H_F\\Gamma_F G_F^T(G_F\\Gamma_F G_F^T+\\Gamma_n)^{-1}G_F\\Gamma_F H_F^T'),blue,7);
-    box_(8.3,5.6,3.1,1.1,'EIG_Q=-�\onehalf log(1-I_F/\sigma_0^2)',blue);
+    box_(8.3,5.6,3.1,1.1,'EIG_Q=-\onehalf log(1-I_F/\sigma_0^2)',blue);
     box_(8.1,0.5,3.4,1.1,sprintf('Joint objective\nJ(d)=E_F[EIG_Q]-\\lambda C(d)'),rose);
     arr(1.7,6.0,1.7,4.6); arr(1.7,3.2,1.7,1.9);
     arr(3.1,3.95,4.0,4.65); arr(3.1,1.45,4.0,1.7); arr(3.1,1.1,4.0,4.35);

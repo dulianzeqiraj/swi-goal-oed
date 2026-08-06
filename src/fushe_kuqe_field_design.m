@@ -56,7 +56,14 @@ function R = fushe_kuqe_field_design(xlsxfile, P)
     pil=[pgx(:) pgy(:)]; pin=inpolygon(pil(:,1),pil(:,2),Bk(:,1),Bk(:,2)); pil=pil(pin,:); Nz=size(pil,1);
     zone=zeros(Nc,1);
     for k=1:Nc, [~,zone(k)]=min(hypot(pil(:,1)-xs(ai(k)),pil(:,2)-ys(aj(k)))); end
-    zK=arrayfun(@(z) mean(K0c(zone==z)), (1:Nz)'); zfac=1+(zK<=150)+(zK<=80);
+    zK=arrayfun(@(z) mean(K0c(zone==z)), (1:Nz)');
+    if ~isfield(P,'faciesRule'), P.faciesRule='legacy'; end
+    switch lower(P.faciesRule)
+        case 'harmonized'   % same rule as the gate3_field wells: coarse K>=150, fine K<75
+            zfac=1+(zK<150)+(zK<75);
+        otherwise           % 'legacy': the rule of the published R1 runs
+            zfac=1+(zK<=150)+(zK<=80);
+    end
     solve=@(theta) zsolve(theta,zone,K0c,P,act,aj,ai,idx,inside,coast,ny,nx,Nc,dxm);
     S=zeros(Nc,Nz); Hg=zeros(1,Nz); dd=1e-3;
     for z=1:Nz
@@ -90,6 +97,7 @@ function R = fushe_kuqe_field_design(xlsxfile, P)
     R.h0=h0; R.baseArea=baseArea; R.hcrit=P.hcrit; R.EIG_c=EIG_c; R.MAR_c=MAR_c;
     R.monCell=monCell; R.marCell=marCell; R.monXY=monXY; R.marXY=marXY;
     R.monID=monID; R.marID=marID;
+    R.zK=zK; R.zfac=zfac; R.pil=pil; R.zone=zone;
 end
 
 % ============================= helpers ==================================

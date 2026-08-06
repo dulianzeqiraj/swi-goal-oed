@@ -5,12 +5,12 @@ function make_all_figures(outdir, xlsx_path)
 %
 %   Writes the data-free theory figures directly and attempts the data-
 %   dependent figures if their inputs are present. Outputs are PNGs in OUTDIR
-%   (default: current folder). All sources are VALIDATED (see README map):
+%   (default: current folder). All sources are BENCHMARK-VERIFIED (see README map):
 %
 %     Fig1  conceptual workflow ...... make_fig1_workflow      (schematic)
 %     Fig2  phase boundary ........... demo_phase_boundary     (rho_c ~ 0.76)
 %     Fig3  structural invariance .... demo_phase_boundary     (data collapse)
-%     Fig4  Henry benchmark .......... henry_benchmark_figure  (validated solver)
+%     Fig4  Henry benchmark .......... henry_benchmark_figure  (benchmark-verified solver)
 %     Fig5  Fushe-Kuqe design map .... fushe_kuqe_design       (real geometry + K)
 %
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
@@ -25,7 +25,7 @@ function make_all_figures(outdir, xlsx_path)
     make_fig1_workflow(outdir);                 fprintf('  Fig1 (workflow) done\n');
     demo_phase_boundary(outdir);                fprintf('  Fig2, Fig3 (phase boundary) done\n');
 
-    % Fig 4 -- validated Henry benchmark (writes henry_benchmark.png in cwd)
+    % Fig 4 -- benchmark-verified Henry benchmark (writes henry_benchmark.png in cwd)
     try
         cwd = pwd; cd(outdir);
         henry_benchmark_figure();

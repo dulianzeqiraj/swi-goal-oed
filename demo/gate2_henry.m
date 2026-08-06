@@ -1,6 +1,6 @@
 function gate2_henry(outdir)
-%GATE2_HENRY  Validate the variable-density solver against the Henry benchmark.
-%   Self-contained, fast (triplet assembly). Uses the SAME validated physics
+%GATE2_HENRY  Verify the variable-density solver against the Henry benchmark.
+%   Self-contained, fast (triplet assembly). Uses the SAME benchmark-verified physics
 %   that passes Gate 1. Reports the toe of the mid-isochlor (C = Cs/2) along
 %   the base and writes Fig4_HenryBenchmark.png.
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
@@ -31,17 +31,17 @@ function gate2_henry(outdir)
     fprintf('toe of C=%.1f isochlor at base: x = %.2f m  (%.0f%% of L)\n', Cs/2, toe, 100*toe/m.L);
     fprintf('Classic-Henry reference: mid-isochlor toe near ~0.6 L (~1.1-1.3 m).\n');
 
-    f = figure('Color','w','Position',[100 100 760 330]);
-    subplot(1,2,1);
+    f = figure('Color','w','Position',[100 100 700 640]);
+    subplot(2,1,1);
     contourf(Xg, Yg, Cg, linspace(0,Cs,16), 'LineColor','none'); hold on
     try, colormap(gca, jet); catch, end
-    contour(Xg, Yg, Cg, [Cs/4 Cs/2 3*Cs/4], 'k', 'LineWidth',0.7);
+    contour(Xg, Yg, Cg, [0.1 0.3 0.5 0.7 0.9]*Cs, 'k', 'LineWidth',0.7);
     cb = colorbar; try, cb.Label.String = 'C  [kg/m^3]'; catch, end
     try, caxis([0 Cs]); catch, set(gca,'CLim',[0 Cs]); end
     xlabel('x [m]'); ylabel('y [m]'); axis equal tight
-    title('(a)  Henry wedge (validated solver)');
+    title('(a)  Henry wedge (benchmark-verified solver)');
 
-    subplot(1,2,2);
+    subplot(2,1,2);
     plot(xs, Cg(1,:), '-o','LineWidth',1.4,'MarkerSize',3,'Color',[0.03 0.19 0.42]); hold on
     try, yline(Cs/2,'--','Color',[0.75 0 0]); catch, plot(xlim,[Cs/2 Cs/2],'--','Color',[0.75 0 0]); end
     if ~isnan(toe), try, xline(toe,':','Color',[0.75 0 0]); catch, plot([toe toe],[0 Cs],':','Color',[0.75 0 0]); end, end
@@ -51,10 +51,10 @@ function gate2_henry(outdir)
     try, exportgraphics(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'Resolution',300);
     catch, print(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'-dpng','-r300'); end
     try, close(f); catch, end
-    fprintf('Fig4_HenryBenchmark.png written (validated solver output).\n');
+    fprintf('Fig4_HenryBenchmark.png written (benchmark-verified solver output).\n');
 end
 
-% ===================== validated solver (fast triplet assembly) ==========
+% ===================== benchmark-verified solver (fast triplet assembly) ==========
 function u = forward_tight(m,p,theta)
     n=m.n; hf=zeros(n,1); C=zeros(n,1); C(m.right)=p.Cs;
     [sh,qin]=bcv(m,p); rmask=m.right(:)'; lmask=m.left(:)';

@@ -1,5 +1,5 @@
 function gate1_henry_vd()
-%GATE1_HENRY_VD  Gate 1 (discrete-adjoint gradient check) on the VALIDATED
+%GATE1_HENRY_VD  Gate 1 (discrete-adjoint gradient check) on the BENCHMARK-VERIFIED
 %   variable-density Henry solver, with per-element log-K parameters.
 %
 %   Confirms that the discrete adjoint is correct on the production physics
