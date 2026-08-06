@@ -119,8 +119,8 @@ function out = r2_phase_boundary_henry()
     title('Poolability boundary from variable-density Henry adjoint sensitivities', ...
           'FontWeight', 'normal', 'FontSize', 11);
     legend('Location', 'southwest', 'Box', 'off', 'FontSize', 9);
-    try, exportgraphics(f, fullfile(outdir, 'r2_FigS_PhaseBoundary_Henry.png'), 'Resolution', 300);
-    catch, print(f, fullfile(outdir, 'r2_FigS_PhaseBoundary_Henry'), '-dpng', '-r300'); end
+    try, exportgraphics(f, fullfile(outdir, 'r2_FigS_PhaseBoundary_Henry.png'), 'Resolution', 600);
+    catch, print(f, fullfile(outdir, 'r2_FigS_PhaseBoundary_Henry'), '-dpng', '-r600'); end
 
     T = table(name, rc, lossPct, 'VariableNames', {'variant', 'rho_c', 'max_loss_pct'});
     writetable(T, fullfile(outdir, 'r2_phase_boundary_henry.csv'));

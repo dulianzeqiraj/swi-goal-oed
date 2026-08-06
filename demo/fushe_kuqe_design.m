@@ -77,7 +77,7 @@ function fushe_kuqe_design(xlsxfile)
     set(lg,'Units','normalized');
     lp=get(lg,'Position'); set(lg,'Position',[0.5-lp(3)/2, 0.015, lp(3), lp(4)]);  % centred
 
-    try, exportgraphics(gcf,'fushe_kuqe_design.png','Resolution',300);
-    catch, print(gcf,'fushe_kuqe_design','-dpng','-r300'); end
+    try, exportgraphics(gcf,'fushe_kuqe_design.png','Resolution',600);
+    catch, print(gcf,'fushe_kuqe_design','-dpng','-r600'); end
     fprintf('\nFigure written: fushe_kuqe_design.png\n');
 end

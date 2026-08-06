@@ -48,8 +48,8 @@ function gate2_henry(outdir)
     xlabel('x [m]'); ylabel('C at base (y=0)  [kg/m^3]'); ylim([0 Cs]); grid on; box on
     title(sprintf('(b)  base profile, toe at %.2f m', toe));
 
-    try, exportgraphics(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'Resolution',300);
-    catch, print(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'-dpng','-r300'); end
+    try, exportgraphics(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'Resolution',600);
+    catch, print(f, fullfile(outdir,'Fig4_HenryBenchmark.png'),'-dpng','-r600'); end
     try, close(f); catch, end
     fprintf('Fig4_HenryBenchmark.png written (benchmark-verified solver output).\n');
 end

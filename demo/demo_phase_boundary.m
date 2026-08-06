@@ -111,8 +111,8 @@ function shade_deadzone(x0, x1, ymax)
     try, set(get(gca,'Children'),'FaceAlpha',1); catch, end
 end
 function save_fig(f, fname)
-    try, exportgraphics(f, fname, 'Resolution', 300);
-    catch, print(f, fname(1:end-4), '-dpng', '-r300'); end
+    try, exportgraphics(f, fname, 'Resolution', 600);
+    catch, print(f, fname(1:end-4), '-dpng', '-r600'); end
 end
 
 % ----------------------------------------------------------------------

@@ -98,6 +98,6 @@ function plot_panel(xsr,ysr,F,h_r,hcrit,Bk,xs,ys,ai,aj,topIdx,cbarLabel,ttl,mark
     cb.Position=[0.13+mapW+0.015 0.18 0.025 0.55];
     axM.Position=[0.13 0.07 mapW mapH];
     legend(hC,{'interface at aquifer base (toe)'},'Location','northeast','Box','off','FontSize',10);
-    try, exportgraphics(gcf,outpng,'Resolution',300);
-    catch, print(gcf,outpng(1:end-4),'-dpng','-r300'); end
+    try, exportgraphics(gcf,outpng,'Resolution',600);
+    catch, print(gcf,outpng(1:end-4),'-dpng','-r600'); end
 end

@@ -104,8 +104,8 @@ function section8_design()
     xlabel('number of monitoring wells'); ylabel('goal-oriented EIG [nats]');
     title('(b) Greedy design vs random (\rho_F = 0.5)');
     legend({'random 10-90%','random mean','greedy'},'Location','southeast','Box','off'); grid on;
-    try, exportgraphics(gcf,'fig5_section8.png','Resolution',300);
-    catch, print(gcf,'fig5_section8','-dpng','-r300'); end
+    try, exportgraphics(gcf,'fig5_section8.png','Resolution',600);
+    catch, print(gcf,'fig5_section8','-dpng','-r600'); end
     fprintf('\nFigure 5 written: fig5_section8.png\n');
 end
 

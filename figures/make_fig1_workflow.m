@@ -23,8 +23,8 @@ function make_fig1_workflow(outdir)
     arr(9.8,4.35,9.85,5.6); arr(9.7,2.85,9.75,1.6);
     text(6,7.6,'Goal-oriented Bayesian OED for variable-density SWI — workflow', ...
          'HorizontalAlignment','center','FontSize',11);
-    try, exportgraphics(f,fullfile(outdir,'Fig1_Workflow.png'),'Resolution',300);
-    catch, print(f,fullfile(outdir,'Fig1_Workflow.png'),'-dpng','-r300'); end
+    try, exportgraphics(f,fullfile(outdir,'Fig1_Workflow.png'),'Resolution',600);
+    catch, print(f,fullfile(outdir,'Fig1_Workflow.png'),'-dpng','-r600'); end
     close(f);
 end
 
