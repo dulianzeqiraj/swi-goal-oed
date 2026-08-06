@@ -46,7 +46,7 @@ function gate1_with_my_solver(my_forward_solve, ctx, theta0, d, goal_region)
 
     % --- design sensitivities + EIG (real numbers for Sections 7-8) -------
     fprintf('\n=== Goal-oriented design on the production solver ===\n');
-    J        = assemble_jacobian_fd(@(uu) resT(uu, theta0), u, [], 'central');
+    J        = assemble_jacobian_fd(@(uu) resT(uu, theta0), u);   % central FD, auto step
     dRdtheta = jac_theta(resT, u, theta0);
     cand     = (1:2:n)';                              % EDIT: your candidate monitoring nodes
     dOdu     = zeros(numel(cand), 2*n);
