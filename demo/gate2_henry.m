@@ -29,7 +29,14 @@ function gate2_henry(outdir)
     cr = find(diff(sign(base - Cs/2)) ~= 0, 1);
     if isempty(cr), toe = NaN; else, toe = interp1(base(cr:cr+1), xs(cr:cr+1), Cs/2); end
     fprintf('toe of C=%.1f isochlor at base: x = %.2f m  (%.0f%% of L)\n', Cs/2, toe, 100*toe/m.L);
-    fprintf('Semianalytical classic-Henry mid-isochlor toe: x = 1.376 m (0.688 L).\n');
+    % Reference value: Fahs et al. (2016), Water Resour. Res. 52,
+    % doi:10.1002/2016WR019288, Table 3 — classic (diffusive) Henry case,
+    % toe penetration measured from the sea L_toe = 0.624 on a domain of
+    % length 2 (Segol, 1994: 0.621), i.e. the mid-isochlor meets the base at
+    % x = 2 - 0.624 = 1.376 m.
+    Ltoe_ref = 0.624;
+    fprintf('Reference (Fahs et al., 2016, Table 3): L_toe = %.3f from the sea, i.e. base crossing at x = %.3f m (%.3f L).\n', ...
+            Ltoe_ref, m.L - Ltoe_ref, (m.L - Ltoe_ref)/m.L);
 
     f = figure('Color','w','Position',[100 100 700 640]);
     subplot(2,1,1);
