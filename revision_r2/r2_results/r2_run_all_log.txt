@@ -147,3 +147,52 @@ saved: r2_phase_boundary_henry.csv, r2_FigS_PhaseBoundary_Henry.png
   21x11 (dx=0.100 m): toe = 1.382 m (0.691 L)   [2.1 s]
   41x21 (dx=0.050 m): toe = 1.378 m (0.689 L)   [342.1 s]
   61x31 (dx=0.033 m): toe = 1.377 m (0.688 L)   [1035.5 s]
+  81x41 (dx=0.025 m): toe = 1.376 m (0.688 L)   [2268.8 s]
+
+successive toe shifts: [0.005 0.001 0] m;  grid spacings: [0.05 0.033 0.025] m
+shift < spacing at each refinement: YES
+saved: r2_gate2_refine.csv
+--- r2_gate2_refine OK (3648.7 s)
+
+########################################################
+### 8/9  r2_gate1_floor
+########################################################
+=== R2: Gate-1 floor vs Jacobian FD step delta (banded base, dir seed 2) ===
+  delta = 1e-05 :  min relerr = 2.02e-03
+  delta = 1e-06 :  min relerr = 2.29e-05
+  delta = 1e-07 :  min relerr = 2.04e-05
+floor tracks delta (smaller delta -> smaller floor until roundoff)
+saved: r2_gate1_floor.csv
+--- r2_gate1_floor OK (126.9 s)
+
+########################################################
+### 9/9  r2_gate1_multidir
+########################################################
+=== R2: Gate 1 multi-direction / heterogeneous-base gradient check ===
+
+[homogeneous theta0 = 0]  forward |R| at u* = 2.31e-12
+  dir 1: min relerr = 5.09e-06 (at h = 1e-05)  -> PASS
+  dir 2: min relerr = 1.81e-05 (at h = 1e-06)  -> FAIL
+  dir 3: min relerr = 2.68e-05 (at h = 1e-06)  -> FAIL
+  dir 4: min relerr = 7.35e-06 (at h = 1e-06)  -> PASS
+  dir 5: min relerr = 1.82e-05 (at h = 1e-06)  -> FAIL
+
+[banded log-K (rows)]  forward |R| at u* = 2.47e-12
+  dir 1: min relerr = 4.25e-06 (at h = 1e-06)  -> PASS
+  dir 2: min relerr = 2.29e-05 (at h = 1e-05)  -> FAIL
+  dir 3: min relerr = 2.59e-05 (at h = 1e-07)  -> FAIL
+  dir 4: min relerr = 3.19e-05 (at h = 1e-06)  -> FAIL
+  dir 5: min relerr = 2.94e-05 (at h = 1e-04)  -> FAIL
+
+[iid N(0,0.3^2), rng 42]  forward |R| at u* = 2.71e-12
+  dir 1: min relerr = 1.74e-04 (at h = 1e-06)  -> FAIL
+  dir 2: min relerr = 1.88e-05 (at h = 1e-07)  -> FAIL
+  dir 3: min relerr = 2.91e-05 (at h = 1e-06)  -> FAIL
+  dir 4: min relerr = 1.75e-05 (at h = 1e-07)  -> FAIL
+  dir 5: min relerr = 2.47e-05 (at h = 1e-03)  -> FAIL
+
+overall: 3/15 PASS;  min relerr = 4.25e-06;  median = 2.29e-05
+saved: r2_gate1_multidir.csv, r2_gate1_multidir.mat
+--- r2_gate1_multidir OK (911.4 s)
+
+=== r2_run_all finished in 4741.9 s ===
