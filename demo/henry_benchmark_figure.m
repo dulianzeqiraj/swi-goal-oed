@@ -1,11 +1,16 @@
 function toe = henry_benchmark_figure(Nx, Ny, solver)
-%HENRY_BENCHMARK_FIGURE  Display the Henry-problem salinity field for benchmark
-%   verification of the variable-density solver, and write a publication figure.
+%HENRY_BENCHMARK_FIGURE  Legacy Henry-problem viewer (earlier prototype).
 %
 %   toe = HENRY_BENCHMARK_FIGURE(Nx, Ny, solver)
 %
-%   Solves the classic Henry seawater-intrusion problem (dissertation §4.1,
-%   eqs 1.1/1.2/4.1; phi=0.35, K=1e-2 m/s, eps=0.025, drho/dC=0.7143,
+%   NOT THE SOURCE OF ANY FIGURE OR NUMBER IN THE ARTICLE. This is an earlier
+%   finite-volume prototype kept for reference; on its default 32 x 16 grid it
+%   returns a toe near 1.20 m. Figure 4 of the article, the reported toe of
+%   1.38 m and the mesh-refinement ladder all come from demo/gate2_henry.m,
+%   which uses the bilinear/SUPG discretization described in the paper.
+%
+%   Solves the classic Henry seawater-intrusion problem
+%   (phi=0.35, K=1e-2 m/s, eps=0.025, drho/dC=0.7143,
 %   Q=6.6e-5 m^2/s, D=6.6e-6 m^2/s, 2 m x 1 m) and plots the relative-salinity
 %   field c=C/Cs with isochlors and the 0.5-isochlor toe at the aquifer base.
 %   The classic-Henry reference toe band is annotated for benchmark comparison.
@@ -39,7 +44,9 @@ function toe = henry_benchmark_figure(Nx, Ny, solver)
         end
     end
     fprintf('Henry solve: 0.5-isochlor toe at base x_toe = %.3f m  (L = %.1f m)\n', toe, g.Lx);
-    fprintf('Classic-Henry reference toe (0.5 isochlor at base): ~1.1-1.3 m.\n');
+    fprintf(['Semianalytical classic-Henry toe: x = 1.376 m (0.688 L).\n' ...
+             'NOTE: this legacy finite-volume prototype is coarser than the solver\n' ...
+             'used in the article; Figure 4 and the reported toe come from gate2_henry.\n']);
 
     % --- smooth render grid ------------------------------------------------
     [Xc,Yc] = meshgrid(g.xc,g.yc);

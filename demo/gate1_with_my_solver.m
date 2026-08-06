@@ -19,6 +19,15 @@ function gate1_with_my_solver(my_forward_solve, ctx, theta0, d, goal_region)
 %
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
 
+    if nargin < 5
+        fprintf(['gate1_with_my_solver is a template: it runs Gate 1 on YOUR solver.\n' ...
+                 'Call it as\n' ...
+                 '    gate1_with_my_solver(my_forward_solve, ctx, theta0, d, goal_region)\n' ...
+                 'after filling in src/my_solver_residual.m.\n' ...
+                 'For the self-contained Gate-1 run of the article, use demo/gate1_henry_vd.\n']);
+        return
+    end
+
     addpath(fullfile(fileparts(mfilename('fullpath')), '..', 'src'));
 
     resT  = @(u,th) my_solver_residual(u, th, d, ctx);

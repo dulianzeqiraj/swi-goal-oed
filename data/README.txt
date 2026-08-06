@@ -8,7 +8,7 @@ Ownership, source and permission
 These data are the property of the Albanian Geological Survey and of
 Arjan Beqiraj, and are used here WITH THEIR PERMISSION.
 
-- Aquifer-boundary polygon and 43 wells (Gauss-Kruger coordinates, hydraulic
+- Aquifer-boundary polygon and 43 wells only 32 inside (Gauss-Kruger coordinates, hydraulic
   conductivity K, piezometric heads): Albanian Geological Survey (2024).
 - Water-chemistry sheets (5_*, 6_*, 7_*): compiled from
   Cenameri, M. & Beqiraj, A. (2016), Bull. Geol. Soc. Greece 50(2), 665-670,

@@ -45,7 +45,7 @@ PDE results are mesh-dependent and the figure-grid value is quoted).
 | **Gate 2** — Henry benchmark | `demo/gate2_henry.m` | toe ≈ **1.38 m** (0.69·L); residual ‖R‖ ≈ 6.9e-8 |
 | **Gate 3** — facies diagnostic (field) | `demo/gate3_field.m` | ρ_c = **0.762**, ρ_F = 0.805; facies-aware vs blind EIG **0.595 vs 0.537 nats** (≈10% gain); pooling loss **19.0%** |
 | **Lemma 1** — EIG ≡ mutual information | `demo/demo_synthetic.m` | EIG = MI to machine precision |
-| **Fig. 1** — conceptual workflow | `figures/make_fig1_workflow.m` | schematic |
+| **Fig. 1** — conceptual workflow | drawn outside MATLAB; `figures/make_fig1_workflow.m` renders the same pipeline as a sketch | schematic |
 | **Fig. 2** — poolability phase boundary | `demo/demo_phase_boundary.m` | ρ_c = **0.762**, L_max = **0.0769 nats** (19.0% of pooled EIG), dead zone = 0 |
 | **Fig. 3** — structural invariance | `demo/demo_phase_boundary.m` | ρ_c = 0.762 invariant for n_k = 4, 8, 16 (data collapse) |
 | **Fig. 4** — Henry benchmark (wedge + base profile) | `demo/gate2_henry.m` | toe 1.38 m (0.69 L), 41x21 mesh |
@@ -55,8 +55,14 @@ PDE results are mesh-dependent and the figure-grid value is quoted).
 
 The `revision_r2/` folder contains the additional analyses of the R2 revision (jackknife uncertainty of ρ_F, ρ_c configuration sweep, facies-threshold sensitivity, intruded-area consistency check, physics-based poolability boundary, Gate-1 robustness, toe refinement); each script writes to `revision_r2/r2_results/`.
 
-Regenerate the main-text figures with the scripts listed above; `figures/make_all_figures.m` predates the R2 figure numbering and is kept only for the earlier layout (Fig. 4/5 require the
-validated solver / dataset and are attempted only if available).
+Regenerate every main-text figure with `figures/make_all_figures.m`, or run the
+individual scripts listed above; the data-dependent figures (5, 6, 7) are attempted
+only if `data/Fushe_Kuqe_All_Data.xlsx` is present.
+
+`demo/henry_benchmark_figure.m` and `demo/section8_design.m` are earlier prototypes
+kept for reference. They use a coarser, different discretization and produce
+different numbers (a Henry toe near 1.20 m and 1.40 m respectively); no figure or
+number of the article comes from them.
 
 > **Figure numbering.** The table follows the manuscript's final numbering;
 > if you renumber figures, update the captions and this table together.

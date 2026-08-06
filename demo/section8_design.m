@@ -1,11 +1,18 @@
 function section8_design()
-%SECTION8_DESIGN  Goal-oriented Bayesian design on the BENCHMARK-VERIFIED variable-
-%   density Henry solver, with a facies-conditioned log-K prior whose
-%   structure is taken from the real Fushe-Kuqe aquifer (coarse/medium/fine).
+%SECTION8_DESIGN  Exploratory greedy design on the variable-density Henry solver
+%   with a facies-conditioned log-K prior whose structure is taken from the
+%   Fushe-Kuqe aquifer (coarse/medium/fine).
 %
-%   Honest scope (Route 2 / framework demonstration):
-%     REAL      : variable-density solver (benchmark-verified, Gate 2 = dissertation
-%                 Fig. 4.2); discrete adjoint (Gate 1 PASS); facies prior
+%   NOT THE SOURCE OF ANY NUMBER IN THE ARTICLE. This script predates the
+%   current Section 8, which reports the field design produced by
+%   src/fushe_kuqe_field_design.m (see demo/gate3_field.m and
+%   demo/fushe_kuqe_design.m). It is kept because it illustrates the greedy
+%   selection on the Henry cross-section; its toe (1.40 m on this coarser
+%   configuration) and its EIG values are not quoted anywhere in the paper.
+%
+%   Scope:
+%     REAL      : variable-density solver (benchmark-verified via Gate 2);
+%                 discrete adjoint (Gate 1 PASS); facies prior
 %                 structure from Fushe-Kuqe; goal-oriented method (Lemma 1).
 %     SYNTHETIC : salinity scenario / wedge (no chloride data exist),
 %                 representative cross-section geometry, candidate well grid.
@@ -106,7 +113,7 @@ function section8_design()
     legend({'random 10-90%','random mean','greedy'},'Location','southeast','Box','off'); grid on;
     try, exportgraphics(gcf,'fig5_section8.png','Resolution',600);
     catch, print(gcf,'fig5_section8','-dpng','-r600'); end
-    fprintf('\nFigure 5 written: fig5_section8.png\n');
+    fprintf('\nWritten: fig5_section8.png (exploratory; not a figure of the article)\n');
 end
 
 % ====================== design helpers ======================

@@ -29,7 +29,7 @@ function gate2_henry(outdir)
     cr = find(diff(sign(base - Cs/2)) ~= 0, 1);
     if isempty(cr), toe = NaN; else, toe = interp1(base(cr:cr+1), xs(cr:cr+1), Cs/2); end
     fprintf('toe of C=%.1f isochlor at base: x = %.2f m  (%.0f%% of L)\n', Cs/2, toe, 100*toe/m.L);
-    fprintf('Classic-Henry reference: mid-isochlor toe near ~0.6 L (~1.1-1.3 m).\n');
+    fprintf('Semianalytical classic-Henry mid-isochlor toe: x = 1.376 m (0.688 L).\n');
 
     f = figure('Color','w','Position',[100 100 700 640]);
     subplot(2,1,1);
