@@ -133,7 +133,7 @@ make_all_figures('figs')          % auto-finds data/Fushe_Kuqe_All_Data.xlsx
 
 ## Citation
 
-If you use this code, please cite the article and the software (Zenodo DOI 10.5281/zenodo.20477504; see `CITATION.cff`).
+If you use this code, please cite the article and the software (Zenodo DOI 10.5281/zenodo.21841208; see `CITATION.cff`).
 
 ## License
 
