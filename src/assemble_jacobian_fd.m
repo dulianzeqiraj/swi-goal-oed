@@ -32,9 +32,16 @@ function J = assemble_jacobian_fd(resfun, u, delta, colors)
 
     u  = u(:);
     n  = numel(u);
-    % FD step for the central-difference Jacobian. 1e-6 is a robust choice for
-    % the coupled head/concentration state (mixed magnitudes: h_f ~ 1e-4,
-    % C ~ O(1)); a larger step degrades the tiny-h_f columns.
+    % FD step for the central-difference Jacobian. CAUTION: scaling by norm(u)
+    % sizes the step to whichever block dominates the norm. On the 41x21 Henry
+    % state that is the concentration (norm 9.99 against 0.577 for the head), so
+    % this default evaluates to 1.0e-5, and at that step the Gate-1 gradient
+    % check stalls at 7.8e-3. Measured sweep on that state, the adjoint against a
+    % converged central-difference reference:
+    %     1e-5 -> 7.8e-3   1e-6 -> 3.2e-4   1e-7 -> 1.3e-6   3e-8 -> 2.4e-10
+    %     1e-8 -> 1.4e-9   1e-9 -> 2.2e-9   1e-10 -> 1.6e-8
+    % Pass DELTA explicitly for any state whose blocks differ in magnitude;
+    % demo/gate1_production_solver.m uses 3e-8.
     if nargin < 3 || isempty(delta), delta = 1e-6 * max(norm(u), 1); end
     R0 = resfun(u); R0 = R0(:);
     m  = numel(R0);

@@ -40,18 +40,23 @@ PDE results are mesh-dependent and the figure-grid value is quoted).
 
 | Manuscript item | Script | Verified output |
 |---|---|---|
-| **Gate 1** — discrete-adjoint gradient check | `demo/gate1_henry_vd.m` | min rel. error **7.46e-6** → PASS (tol 1e-5) |
+| **Gate 1**, discrete-adjoint gradient check, article value | `demo/gate1_production_solver.m` | min rel. error **4.38e-9** at delta = 3e-8, h in {1e-3,1e-4,1e-5} → PASS (tol 1e-5) |
+| Gate 1 on the 11x6 prototype finite-element solver | `demo/gate1_henry_vd.m` | min rel. error 7.46e-6 (different solver and mesh) |
 | Full pipeline + Gate 1 (validated solver) | `demo/demo_internal.m` | Gate 1 PASS (~7.6e-6) |
-| **Gate 2** — Henry benchmark | `demo/gate2_henry.m` | toe ≈ **1.38 m** (0.69·L); residual ‖R‖ ≈ 6.9e-8 |
+| **Gate 2**, Henry benchmark, article value | `figures/make_fig_henry.m` | toe **1.3918 m** (0.696·L) at 41x21; residual ‖R‖ = 3.5e-14 |
+| Gate 2 on the finite-element solver, independent check | `demo/gate2_henry.m` | toe ≈ 1.3776 m (0.689·L); residual ‖R‖ ≈ 6.9e-8 |
 | **Gate 3** — facies diagnostic (field) | `demo/gate3_field.m` | ρ_c = **0.762**, ρ_F = 0.805; facies-aware vs blind EIG **0.595 vs 0.537 nats** (≈10% gain); pooling loss **19.0%** |
 | **Lemma 1** — EIG ≡ mutual information | `demo/demo_synthetic.m` | EIG = MI to machine precision |
 | **Fig. 1** — conceptual workflow | drawn outside MATLAB; `figures/make_fig1_workflow.m` renders the same pipeline as a sketch | schematic |
 | **Fig. 2** — poolability phase boundary | `demo/demo_phase_boundary.m` | ρ_c = **0.762**, L_max = **0.0769 nats** (19.0% of pooled EIG), dead zone = 0 |
 | **Fig. 3** — structural invariance | `demo/demo_phase_boundary.m` | ρ_c = 0.762 invariant for n_k = 4, 8, 16 (data collapse) |
-| **Fig. 4** — Henry benchmark (wedge + base profile) | `demo/gate2_henry.m` | toe 1.38 m (0.69 L), 41x21 mesh |
-| **Fig. 5** — well/facies map (43 wells) | `figures/fig5_facies_map.m` | K-threshold classes: 17 / 16 / 10 wells |
-| **Fig. 6** — EIG + MAR effectiveness maps | `demo/fushe_kuqe_eig_map.m` | goal-oriented EIG and MAR fields on the shared grid |
-| **Fig. 7** — Fushë-Kuqe design map | `demo/fushe_kuqe_design.m` | 5 monitoring + 3 MAR sites; baseline intruded area ≈ 92.7 km² |
+| **Fig. 4**, Henry benchmark and mesh refinement | `figures/make_fig_henry.m` | toe 1.4226, 1.3971, 1.3918, 1.3864, 1.3838 m at 16x8, 32x16, 41x21, 61x31, 81x41 |
+| **Fig. 5**, hydrogeological cross-section of the field site | `figures/make_cross_section.m` | conceptual section plus measured K against distance from the coast, 32 wells inside the polygon |
+| **Fig. 6**, well map and facies classes | `figures/make_fig_wellmap.m` | 43 wells with a K measurement, 32 inside the 349 km² polygon, classes 11 / 14 / 7 |
+| **Fig. 7**, EIG and MAR effectiveness maps | `demo/fushe_kuqe_eig_map.m` | goal-oriented EIG and MAR fields on the shared grid |
+| **Fig. 7**, selected design | `demo/fushe_kuqe_design.m` | 5 monitoring + 3 MAR sites; baseline intruded area ≈ 92.7 km² |
+
+> **The porosity factor in the diffusion coefficient.** `src/vd_params.m` used to hold `Dmol = 6.6e-6`, which is Henry’s TOTAL dispersion coefficient, in the slot that `src/vd_residual.m` multiplies by porosity. The coefficient actually in the transport operator was therefore 0.35 x 6.6e-6 = 2.31e-6 and the Henry number was 0.035 rather than 0.1, which put the toe at 1.19 m instead of 1.39 m. Voss (1984, USGS WRIR 84-4369, section 6.5) names this mistake and gives the pair that matches Henry (1964): D = 6.6e-6 m2/s total, Dm = 18.8571e-6 m2/s molecular, with D = phi·Dm. `Dmol` now holds 1.62925/86400 = 1.88571e-5, the same quantity `demo/gate2_henry.m` has always carried as `Dm = 1.62925` m2/day. If you are reading numbers from a checkout older than this commit, they carry the old coefficient.
 
 The `revision_r2/` folder contains the additional analyses of the R2 revision (jackknife uncertainty of ρ_F, ρ_c configuration sweep, facies-threshold sensitivity, intruded-area consistency check, physics-based poolability boundary, Gate-1 robustness, toe refinement); each script writes to `revision_r2/r2_results/`.
 

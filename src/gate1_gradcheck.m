@@ -14,7 +14,9 @@ function [passed, table_out] = gate1_gradcheck(solve_fwd, resfun_th, goalfun, dq
 %       J   = dR/du               (via assemble_jacobian_fd on resfun_th(.,theta))
 %       mu  : J' mu = dqdu'       (goal adjoint)
 %       dr/dtheta = -mu' * dR/dtheta
-%   and compared to  ( r(theta + h*eta) - r(theta) ) / h.
+%   and compared to the CENTRAL difference
+%       ( r(theta + h*eta) - r(theta - h*eta) ) / (2*h),
+%   which is what the loop below evaluates.
 %
 %   INPUTS
 %     solve_fwd  : u = solve_fwd(theta)            converged forward solve
