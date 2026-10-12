@@ -16,13 +16,24 @@ function R = fushe_kuqe_field_design(xlsxfile, P)
 %   cells (monitoring) and top-Nmar MAR cells (recharge), spaced by P.space km,
 %   and snaps each to the nearest real well ID. Returns everything in R.
 %
+%   Optional PRAG-MAR (risk-oriented recharge): with P.supplyIDs = {'A23','R16'}
+%   (one or two well IDs) the builder also returns the closed-form field
+%   R.RISK_c of PRAG_MAR -- the reduction of the probability that a supply well
+%   is intruded (h < hcrit) per m3/day of recharge -- and its top-Nmar sites
+%   R.pragCell / R.pragID, chosen with the same spacing and snapping rule as
+%   the published MAR sites. Fields that P leaves out take their defaults, so
+%   P = struct('supplyIDs',{{'A23','R16'}}) is enough. Without supplyIDs the
+%   output is unchanged. R.operator(theta) and R.goalA(h) expose the model to
+%   PRAG_MAR_CHECK, the exact ensemble evaluation of MAR site sets.
+%
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
 
     if nargin<1 || isempty(xlsxfile), xlsxfile='Fushe_Kuqe_All_Data.xlsx'; end
-    if nargin<2 || isempty(P)
-        P=struct('b',30,'base',40,'R',5e-4,'delta',0.025,'dx',0.25, ...
-                 'sn',0.2,'rhoF',0.6,'Nmon',5,'Nmar',3,'space',6.0);
-    end
+    Pdef=struct('b',30,'base',40,'R',5e-4,'delta',0.025,'dx',0.25, ...
+                'sn',0.2,'rhoF',0.6,'Nmon',5,'Nmar',3,'space',6.0);
+    if nargin<2 || isempty(P), P=Pdef; end
+    fn=fieldnames(Pdef);                          % fill the fields P leaves out
+    for q=1:numel(fn), if ~isfield(P,fn{q}), P.(fn{q})=Pdef.(fn{q}); end, end
     P.hcrit=P.base*P.delta;
     if exist('eig_operator','file')~=2, addpath(fileparts(mfilename('fullpath'))); end
 
@@ -90,6 +101,26 @@ function R = fushe_kuqe_field_design(xlsxfile, P)
     [monID,monXY]=snap_to_wells(monCell,ai,aj,xs,ys,Wk,wellID);
     [marID,marXY]=snap_to_wells(marCell,ai,aj,xs,ys,Wk,wellID);
 
+    % ---- PRAG-MAR: recharge sites for the supply-well risk (optional) -----
+    doPrag = isfield(P,'supplyIDs') && ~isempty(P.supplyIDs);
+    if doPrag
+        sup=cellstr(P.supplyIDs); sup=sup(:); supCell=zeros(numel(sup),1);
+        for q=1:numel(sup)
+            w=find(strcmp(cellstr(wellID),sup{q}),1);
+            if isempty(w), error('fushe_kuqe_field_design:supply','Unknown supply well ID %s.',sup{q}); end
+            jj=round(Wk(w,2)/dx)+1; ii=round(Wk(w,1)/dx)+1;
+            if jj<1 || jj>ny || ii<1 || ii>nx || idx(jj,ii)==0
+                error('fushe_kuqe_field_design:supply','Supply well %s lies outside the active grid.',sup{q});
+            end
+            supCell(q)=idx(jj,ii);
+        end
+        Ssup=S(supCell,:);
+        [RISK_c,pragInfo]=prag_mar(A0,supCell,Ssup*GamF*Ssup',h0(supCell),P.hcrit);
+        RISK_c(coast(act))=0;
+        pragCell=pick_topk(RISK_c,aj,ys,P.Nmar,P.space);
+        [pragID,pragXY]=snap_to_wells(pragCell,ai,aj,xs,ys,Wk,wellID);
+    end
+
     % ---- pack -------------------------------------------------------------
     R.P=P; R.dx=dx; R.xs=xs; R.ys=ys; R.GX=GX; R.GY=GY; R.ny=ny; R.nx=nx;
     R.inside=inside; R.act=act; R.ai=ai; R.aj=aj; R.Nc=Nc; R.idx=idx; R.coast=coast;
@@ -98,6 +129,13 @@ function R = fushe_kuqe_field_design(xlsxfile, P)
     R.monCell=monCell; R.marCell=marCell; R.monXY=monXY; R.marXY=marXY;
     R.monID=monID; R.marID=marID;
     R.zK=zK; R.zfac=zfac; R.pil=pil; R.zone=zone;
+    R.GamF=GamF; R.S=S; R.Hg=Hg; R.A0=A0;
+    R.operator=@(theta) assemble(theta,zone,K0c,P,act,aj,ai,idx,inside,coast,ny,nx,Nc,dxm,false);
+    R.goalA=@(h) goalA(h,P,area);
+    if doPrag
+        R.supplyID=sup; R.supplyCell=supCell; R.RISK_c=RISK_c; R.pragInfo=pragInfo;
+        R.pragCell=pragCell; R.pragXY=pragXY; R.pragID=pragID;
+    end
 end
 
 % ============================= helpers ==================================

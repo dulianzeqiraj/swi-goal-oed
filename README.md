@@ -55,6 +55,8 @@ PDE results are mesh-dependent and the figure-grid value is quoted).
 | **Fig. 6**, well map and facies classes | `figures/make_fig_wellmap.m` | 43 wells with a K measurement, 32 inside the 349 km² polygon, classes 11 / 14 / 7 |
 | **Fig. 7**, EIG and MAR effectiveness maps | `demo/fushe_kuqe_eig_map.m` | goal-oriented EIG and MAR fields on the shared grid |
 | **Fig. 7**, selected design | `demo/fushe_kuqe_design.m` | 5 monitoring + 3 MAR sites; baseline intruded area ≈ 92.7 km² |
+| PRAG-MAR checks (risk-oriented MAR, new) | `demo/prag_mar_selftest.m` | prints PASS or FAIL for five checks: bivariate normal CDF, published design unchanged, adjoint vs direct solves, closed-form gradient vs central difference, vectorized operator vs assembler |
+| PRAG-MAR on the field (new) | `demo/fushe_kuqe_prag_mar.m` | supply wells A23, R16; PRAG-MAR sites A23, R16, P21 vs published A18, P21, P16; at 5 000 m³/day per site P(A or B intruded) 0.79 → 0.04 vs 0.62 (reference values from the Python port in `experiments/prag_go_fushe_kuqe`; Monte Carlo, 2 000 realizations) |
 
 > **The porosity factor in the diffusion coefficient.** `src/vd_params.m` used to hold `Dmol = 6.6e-6`, which is Henry’s TOTAL dispersion coefficient, in the slot that `src/vd_residual.m` multiplies by porosity. The coefficient actually in the transport operator was therefore 0.35 x 6.6e-6 = 2.31e-6 and the Henry number was 0.035 rather than 0.1, which put the toe at 1.19 m instead of 1.39 m. Voss (1984, USGS WRIR 84-4369, section 6.5) names this mistake and gives the pair that matches Henry (1964): D = 6.6e-6 m2/s total, Dm = 18.8571e-6 m2/s molecular, with D = phi·Dm. `Dmol` now holds 1.62925/86400 = 1.88571e-5, the same quantity `demo/gate2_henry.m` has always carried as `Dm = 1.62925` m2/day. If you are reading numbers from a checkout older than this commit, they carry the old coefficient.
 
@@ -96,6 +98,10 @@ src/    core (validated)
   vd_params.m             physical parameters
   vd_jacobian_fd.m / make_grid.m
   fushe_kuqe_field_design.m   shared confined-flow field model + EIG/MAR fields
+                          (optional P.supplyIDs adds the PRAG-MAR field and sites)
+  prag_mar.m              PRAG-MAR: closed-form recharge field for the supply-well risk
+  prag_mar_check.m        exact prior Monte Carlo evaluation of MAR site sets
+  bvn_cdf.m               bivariate normal CDF (base MATLAB)
   my_solver_residual.m    TEMPLATE: wrap YOUR solver into the pipeline
 demo/   reproducible entry points (see table above)
 figures/
