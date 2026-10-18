@@ -28,7 +28,10 @@ function out = fushe_kuqe_prag_mar(xlsxfile, supplyIDs, Q, N)
 %
 %   Scope: as FUSHE_KUQE_DESIGN, an uncalibrated model; the supply wells stand
 %   in for the Gorre / Fushe-Kuqe pumping stations, whose coordinates are not
-%   in the dataset.
+%   in the dataset. The model treats the whole western margin as the sea; with
+%   the geolocated sea boundary of the chloride study (contact only on the
+%   northern 23 km) the setting changes, and PRAG-MAR is recomputed for pumped
+%   supply wells by chloride_fk/matlab/fkcl_prag_mar.m.
 %
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
 

@@ -8,6 +8,7 @@
   fig6_section     variable-density chloride section A-A' and the toe comparison
   fig7_design      goal-oriented chloride sampling design
   fig8_toolkit     decision modules: key results
+  figS1_prag_mar_geo  PRAG-MAR with the geolocated sea boundary (needs experiments/prag_go_fushe_kuqe/res_geo)
 Usage: python3 fkcl_figs.py [outdir]
 """
 import os
@@ -585,7 +586,67 @@ def fig8_toolkit():
     save(fig, 'fig8_toolkit')
 
 
+# ---------------------------------------------------------------- figure S1: PRAG-MAR, geolocated boundary
+def figS1_prag_mar(G):
+    """PRAG-MAR recomputed with the geolocated sea boundary (experiments/prag_go_fushe_kuqe/fk_mar_geo.py)."""
+    R = os.path.join(EXP, 'prag_go_fushe_kuqe', 'res_geo')
+    J = json.load(open(os.path.join(R, 'mar_geo.json')))
+    Je = json.load(open(os.path.join(R, 'mar_geo_equal.json')))
+    F = np.load(os.path.join(R, 'mar_geo_fields.npz'))
+    m = G.m; v = F['valid']
+    fig = plt.figure(figsize=(190 * MM, 100 * MM))
+    gs = fig.add_gridspec(1, 3, width_ratios=[1, 1, 1.25], wspace=0.32, left=0.06, right=0.98, bottom=0.27, top=0.93)
+    sup = [J['supply']['A'], J['supply']['B']]
+    for p, (key, ttl, sites) in enumerate([('RISK_c', 'PRAG-MAR field', 'prag'), ('MAR_c', 'area-adjoint field', 'area')]):
+        ax = fig.add_subplot(gs[0, p])
+        f = F[key] / F[key][v].max()
+        pc = ax.pcolormesh(G.xe, G.ye, G.grid(f, v), cmap='YlGnBu', vmin=0, vmax=1, shading='flat', rasterized=True)
+        G.outline(ax, lw=0.6)
+        G.sea_contact(ax, color=OI[1], lw=2.0, solid_capstyle='butt', zorder=6)
+        ax.plot([s['x'] for s in sup], [s['y'] for s in sup], 'v', ms=6, mfc=OI[4], mec='k', mew=0.6, zorder=8)
+        for s in J[sites]['sites']:
+            ax.plot(s['x'], s['y'], 'o', ms=8, mfc='none', mec='k', mew=1.4, zorder=9)
+        if p == 1:
+            for s in J['published']['sites']:
+                if s['in_sector']:
+                    ax.plot(s['x'], s['y'], 's', ms=6, mfc='none', mec=OI[3], mew=1.3, zorder=9)
+        ax.set_xlim(-2.5, 14); ax.set_ylim(23.5, 53.5); ax.set_aspect('equal')
+        ax.set_xlabel('Easting from $x_0$ [km]'); ax.set_title(ttl, fontsize=8)
+        if p == 0:
+            ax.set_ylabel('Northing from $y_0$ [km]')
+            for s, nm in zip(sup, ['A', 'B']):
+                ax.annotate(f"{nm} ({s['id']})", (s['x'], s['y']), xytext=(7, 3 if nm == 'A' else -9),
+                            textcoords='offset points', fontsize=6.5, zorder=10)
+        else:
+            ax.set_yticklabels([])
+        panel(ax, 'ab'[p])
+    cax = fig.add_axes([0.08, 0.075, 0.38, 0.016])
+    cb = fig.colorbar(pc, cax=cax, orientation='horizontal'); cb.set_label('reduction per unit recharge (scaled to its maximum)', fontsize=6.5)
+    cb.ax.tick_params(labelsize=6)
+    ax = fig.add_subplot(gs[0, 2])
+    lab = {'published': 'published sites', 'area': 'area adjoint', 'prag': 'PRAG-MAR', 'ens': 'exact optimum'}
+    col = {'published': OI[3], 'area': OI[0], 'prag': OI[1], 'ens': OI[2]}
+    for nm in ['published', 'area', 'prag', 'ens']:
+        for JJ, ls, lw, mk in [(J, '-', 1.3, 'o'), (Je, '--', 0.9, None)]:
+            x = [0] + [r['Q'] / 1000 for r in JJ[nm]['rows']]
+            y = [JJ['none']['pAB']] + [r['pAB'] for r in JJ[nm]['rows']]
+            ax.plot(x, y, ls=ls, lw=lw, marker=mk, ms=3.5, color=col[nm], label=lab[nm] if ls == '-' else None)
+    ax.plot([], [], 'k-', lw=1.3, label='each well P = 1/2'); ax.plot([], [], 'k--', lw=0.9, label='equal pumping')
+    ax.set_xlabel('recharge per site [10$^3$ m$^3$ d$^{-1}$]'); ax.set_ylabel('P(supply well A or B intruded)')
+    ax.set_ylim(0, 0.8); ax.set_xlim(-0.3, 10.3)
+    ax.legend(frameon=False, fontsize=6.3, loc='upper right')
+    panel(ax, 'c')
+    h = [Line2D([], [], marker='v', ls='', mfc=OI[4], mec='k', ms=6, label='supply wells'),
+         Line2D([], [], marker='o', ls='', mfc='none', mec='k', mew=1.4, ms=7, label='recharge sites of the design'),
+         Line2D([], [], marker='s', ls='', mfc='none', mec=OI[3], mew=1.3, ms=6, label='published site in the sector'),
+         Line2D([], [], color=OI[1], lw=2, label='Adriatic contact')]
+    fig.legend(handles=h, loc='lower right', bbox_to_anchor=(0.99, 0.0), ncol=2, frameon=False, fontsize=6.3)
+    save(fig, 'figS1_prag_mar_geo')
+
+
 if __name__ == '__main__':
     G = Geo()
     fig1_framework(); fig2_site(G); fig3_hydrochem(); fig4_calib(); fig5_maps(G); fig6_section(G); fig7_design(G); fig8_toolkit()
+    if os.path.exists(os.path.join(EXP, 'prag_go_fushe_kuqe', 'res_geo', 'mar_geo.json')):
+        figS1_prag_mar(G)
     print('figures written to', os.path.abspath(OUT))

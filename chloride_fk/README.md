@@ -29,7 +29,12 @@ R  = fkcl_run_all();    % everything: about 4 min, plus 10-20 min for the six se
 * By default the random inputs come from `results/calib_prior_draws.csv` and
   `results/post_idx.csv` (the draws of the Python run), so the numbers match the
   paper. `fkcl_run_all(struct('src', 7))` draws its own with seed 7.
-* Only base MATLAB is used: no toolboxes.
+* `out = fkcl_prag_mar()` recomputes PRAG-MAR (risk-oriented recharge siting) with the
+  geolocated sea boundary, in about a minute; it reproduces
+  `experiments/prag_go_fushe_kuqe/fk_mar_geo.py` exactly from the same prior draws and draws
+  Supplementary Fig. S1 to `figures_matlab/`.
+* Only base MATLAB is used: no toolboxes. `fkcl_prag_mar` also uses `src/prag_mar.m` and
+  `src/bvn_cdf.m` from the repository.
 
 **GNU Octave 8** runs the same code. Octave has no `readcell`, so first export the
 workbook sheets to TSV, from the repository root (the code looks in `chloride_fk/tsv`
@@ -74,6 +79,7 @@ steps 6-7 need step 4.
 | Variable-density section (Fig. 6) | `fkcl_section.m`, `fkcl_vd_*.m`, `fkcl_henry_check.m` | `fkcl_section.py`, `fkcl_vd.py` |
 | Sampling design (Table 4, Fig. 7) | `fkcl_design.m` | `fkcl_design.py` |
 | Decision modules (Table 5, Fig. 8) | `fkcl_figures.m` reads the module results | `../experiments/*` |
+| PRAG-MAR, geolocated boundary (Supplementary Fig. S1, Tables S10-S11) | `fkcl_prag_mar.m` | `../experiments/prag_go_fushe_kuqe/fk_mar_geo.py` |
 
 ## The model in brief
 

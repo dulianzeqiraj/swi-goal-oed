@@ -25,6 +25,8 @@ see `data/README.txt` for attribution and terms.
 | `fk_check5.py` | Re-estimates the five-well picks with a 4x larger inner ensemble (48 000). |
 | `fk_mar.py` | PRAG-MAR. It derives the closed-form risk gradient from two adjoint solves and compares, on 2 000 realizations, the published MAR sites, the PRAG-MAR sites and the greedy optimum of the exact ensemble risk. |
 | `fk_figs.py`, `fk_results.py` | Figures and the summary table `results_summary.csv`. |
+| `fk_geo.py` | The same model with the geolocated sea boundary of the chloride study (`chloride_fk/`): sea contact only on the 92 rows north of y = 29.5 km, through a link over the GLOBE shoreline gap, on the coastal sector y ≥ 24 km. Physics unchanged. `python3 fk_geo.py`: intruded area 10.1 km² (92.7 km² with the full-margin boundary). |
+| `fk_mar_geo.py` | PRAG-MAR recomputed on `fk_geo.py` with two pumped supply wells of the Fushë-Kuqe well field (rules in the docstring). Writes `res_geo/`. `python3 fk_mar_geo.py equal` runs the pumping-rule sensitivity. MATLAB port: `chloride_fk/matlab/fkcl_prag_mar.m`. |
 
 ## Run
 
@@ -36,4 +38,34 @@ python3 fk_conv.py res_base; python3 fk_check5.py res_base base
 python3 fk_mar.py                               # ~1 min
 # other priors (after base, which fixes the supply wells): rho805, fine
 python3 fk_results.py; python3 fk_figs.py fig
+python3 fk_mar_geo.py; python3 fk_mar_geo.py equal   # geolocated boundary, ~30 s each
 ```
+
+## PRAG-MAR with the geolocated sea boundary
+
+The companion model treats the whole western margin as the sea. Geolocated against the GLOBE
+shoreline, only its northern 23 km touch the Adriatic (see `chloride_fk/`). With that boundary and
+the same physics, the intruded area is 10.1 km², confined to the northern coast, and no inside well
+is at risk without pumping. The old supply well R16 and two of the three published recharge sites
+(A18, P21) lie in the southern plain, which has no sea contact. The full-margin numbers above
+(0.79 → 0.04 vs 0.62) therefore do not carry over.
+
+`fk_mar_geo.py` poses the question where the risk now is: two wells of the Fushë-Kuqe well field
+(A1 and P10, the inside K-wells with the lowest prior-mean head north and south of section A–A′),
+pumped so that each well's own prior intrusion probability is ½. Recharge sites must be at least
+1 km from both supply wells; the full-margin run had put two of its three sites in the supply-well
+cells themselves. Exact results on 2 000 prior realizations, P(A or B intruded) at 5 000 m³/day per
+site:
+
+| Design | Sites | P(A or B) | Mean intruded area (km²) |
+|---|---|---|---|
+| no recharge | – | 0.559 | 12.9 |
+| published sites | A18, P21 (outside the sector), P16 | 0.525 | 11.0 |
+| area adjoint, recomputed | northern coast and A3 | 0.305 | 9.2 |
+| **PRAG-MAR** | P9, A25, A3 | **0.058** | 11.0 |
+| exact optimum (greedy) | A30, A25, A13 | 0.035 | 11.3 |
+
+With one pumping rate at both wells (`equal`), the probability falls from 0.476 to 0.017 with
+PRAG-MAR, the same as the exact optimum, against 0.226 for the area design and 0.448 for the
+published sites. Each goal calls for its own sites: the area design recharges the northern coast,
+where the intrusion is; PRAG-MAR recharges next to the well field.
