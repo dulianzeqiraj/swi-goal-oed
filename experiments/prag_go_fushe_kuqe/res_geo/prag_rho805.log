@@ -1,0 +1,16 @@
+rho805: supply A = A1, B = P10, pumping 3757 / 17183 m3/d; 16 candidate wells: P3 P4 P12 P13 P17 A3 A4 A9 A10 A11 A13 A23 A24 A25 A28 A30
+ensembles 36s
+area threshold 12 km2; prior P(rA, rAB, rArea) = [0.484 0.564 0.498]
+2-well designs (120): criteria and exact EIG 57s
+  [2] rA: optimum ['A3', 'A23'] 0.361 nats (H0 0.693); area 90%, areaEns 90%, hA 100%, meanAB 100%, pragLin 100%, pragEns 100%, pragNSA 100%, pragNS 100%; published pair 69%
+  [2] rAB: optimum ['A3', 'A23'] 0.294 nats (H0 0.685); area 74%, areaEns 74%, hA 100%, meanAB 100%, pragLin 100%, pragEns 100%, pragNSA 100%, pragNS 100%; published pair 66%
+  [2] rArea: optimum ['P17', 'A3'] 0.382 nats (H0 0.693); area 100%, areaEns 100%, hA 99%, meanAB 99%, pragLin 99%, pragEns 99%, pragNSA 99%, pragNS 99%; published pair 68%
+3-well designs (560): criteria and exact EIG 115s
+  [3] rA: optimum ['A3', 'A10', 'A23'] 0.432 nats (H0 0.693); area 76%, areaEns 76%, hA 100%, meanAB 100%, pragLin 100%, pragEns 100%, pragNSA 100%, pragNS 100%
+  [3] rAB: optimum ['A3', 'A10', 'A23'] 0.402 nats (H0 0.685); area 55%, areaEns 55%, hA 100%, meanAB 100%, pragLin 100%, pragEns 100%, pragNSA 100%, pragNS 100%
+  [3] rArea: optimum ['A3', 'A10', 'A13'] 0.393 nats (H0 0.693); area 99%, areaEns 99%, hA 99%, meanAB 99%, pragLin 99%, pragEns 99%, pragNSA 99%, pragNS 99%
+5-well designs (4368): criteria and exact EIG 561s
+  [5] rA: optimum ['P17', 'A3', 'A10', 'A13', 'A23'] 0.468 nats (H0 0.693); area 72%, areaEns 74%, hA 98%, meanAB 98%, pragLin 98%, pragEns 97%, pragNSA 97%, pragNS 97%
+  [5] rAB: optimum ['P17', 'A3', 'A10', 'A13', 'A23'] 0.450 nats (H0 0.685); area 50%, areaEns 52%, hA 98%, meanAB 98%, pragLin 98%, pragEns 97%, pragNSA 97%, pragNS 97%
+  [5] rArea: optimum ['A3', 'A10', 'A13', 'A23', 'A28'] 0.418 nats (H0 0.693); area 94%, areaEns 94%, hA 96%, meanAB 96%, pragLin 96%, pragEns 97%, pragNSA 97%, pragNS 97%
+done 561s
