@@ -227,6 +227,7 @@ function f = draw(m, RISK, MARf, out, cA, cB, Q)
     P = [0 114 178; 213 94 0; 0 158 115; 204 121 167; 230 159 0; 86 180 233] / 255;
     f = figure('Visible', 'off', 'Units', 'centimeters', 'Position', [2 2 19 8.5], 'Color', 'w');
     set(f, 'PaperUnits', 'centimeters', 'PaperSize', [19 8.5], 'PaperPosition', [0 0 19 8.5]);
+    set(f, 'DefaultAxesFontSize', 7, 'DefaultTextFontSize', 7, 'DefaultAxesLineWidth', 0.6);
     fields = {RISK, MARf}; ttl = {'PRAG-MAR field', 'area-adjoint field'};
     sites = {out.prag.cells, out.area.cells};
     for p = 1:2

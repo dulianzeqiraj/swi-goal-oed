@@ -285,6 +285,7 @@ function f = draw(m, D, out, cid, ids, Wk, kA, kB, names, C5)
     P = [0 114 178; 213 94 0; 0 158 115; 204 121 167; 230 159 0; 86 180 233] / 255;
     f = figure('Visible', 'off', 'Units', 'centimeters', 'Position', [2 2 19 9.5], 'Color', 'w');
     set(f, 'PaperUnits', 'centimeters', 'PaperSize', [19 9.5], 'PaperPosition', [0 0 19 9.5]);
+    set(f, 'DefaultAxesFontSize', 7, 'DefaultTextFontSize', 7, 'DefaultAxesLineWidth', 0.6);
     xy = @(w) Wk(find(strcmp(ids, w), 1), 1:2);
     % (a) map
     ax = axes(f, 'Position', [0.05 0.14 0.22 0.78]); hold(ax, 'on');
