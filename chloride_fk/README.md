@@ -33,6 +33,14 @@ R  = fkcl_run_all();    % everything: about 4 min, plus 10-20 min for the six se
   geolocated sea boundary, in about a minute; it reproduces
   `experiments/prag_go_fushe_kuqe/fk_mar_geo.py` exactly from the same prior draws and draws
   Supplementary Fig. S1 to `figures_matlab/`.
+* `out = fkcl_prag_go()` recomputes PRAG-GO (threshold-risk monitoring design) with the
+  same boundary, supply wells and pumping: every 2-, 3- and 5-well design of the 16 sector
+  candidates is ranked by the eight criteria and scored by its exact EIG. With the prior draws
+  exported by `experiments/prag_go_fushe_kuqe/fk_prag_geo_export.py`
+  (`res_geo/prag_draws_base.bin`, used by default) it reproduces `fk_prag_geo.py` and prints
+  the largest difference; it draws Supplementary Fig. S2 to `figures_matlab/`. About 2 minutes
+  for 2 and 3 wells and 15 more for the 4 368 five-well designs (`struct('budgets', [2 3])`
+  skips them); about 2 GB of memory.
 * Only base MATLAB is used: no toolboxes. `fkcl_prag_mar` also uses `src/prag_mar.m` and
   `src/bvn_cdf.m` from the repository.
 
@@ -80,7 +88,7 @@ steps 6-7 need step 4.
 | Sampling design (Table 4, Fig. 7) | `fkcl_design.m` | `fkcl_design.py` |
 | Decision modules (Table 5, Fig. 8) | `fkcl_figures.m` reads the module results | `../experiments/*` |
 | PRAG-MAR, geolocated boundary (Supplementary Fig. S1, Tables S10-S11) | `fkcl_prag_mar.m` | `../experiments/prag_go_fushe_kuqe/fk_mar_geo.py` |
-| PRAG-GO, geolocated boundary (Supplementary Fig. S2, Tables S12-S13) | not ported | `../experiments/prag_go_fushe_kuqe/fk_prag_geo.py`, `fk_prag_geo_check.py` |
+| PRAG-GO, geolocated boundary (Supplementary Fig. S2, Tables S12-S13) | `fkcl_prag_go.m` | `../experiments/prag_go_fushe_kuqe/fk_prag_geo.py`, `fk_prag_geo_check.py` |
 
 ## The model in brief
 

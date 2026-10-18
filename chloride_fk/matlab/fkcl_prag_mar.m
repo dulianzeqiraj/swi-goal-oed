@@ -50,7 +50,7 @@ function out = fkcl_prag_mar(opts)
     W = D.wells; okK = isfinite(W.X) & isfinite(W.Y) & isfinite(W.K);
     ids = W.id(okK); ins = W.inside(okK); Wk = m.Wk;
     cellOf = @(x, y) m.idx(round(y / m.dx) + 1, round(x / m.dx) + 1);
-    A0 = operator(m, zeros(Nz, 1), b); h0 = A0 \ rhs0;
+    A0 = fkcl_fk_operator(m, zeros(Nz, 1), b); h0 = A0 \ rhs0;
     cand = zeros(0, 3);
     for k = 1:numel(ids)
         if ~ins(k) || any(strcmp(ids{k}, {'P21', 'A12', 'A13', 'A21', 'A10'})), continue; end
@@ -76,7 +76,7 @@ function out = fkcl_prag_mar(opts)
     E = full(sparse([cA cB], [1 2], 1, m.Nc, 2));
     Hc = zeros(size(THc, 1), 6);
     for i = 1:size(THc, 1)
-        F = factor(operator(m, THc(i, :)', b));
+        F = factor(fkcl_fk_operator(m, THc(i, :)', b));
         h = F.solve(rhs0); U = F.solve(E);
         Hc(i, :) = [h(cA) h(cB) U(cA, 1) U(cA, 2) U(cB, 1) U(cB, 2)];
     end
@@ -91,7 +91,7 @@ function out = fkcl_prag_mar(opts)
     h0p = A0 \ rhsP; S = zeros(2, Nz); dz = 1e-3;
     for z = 1:Nz
         tp = zeros(Nz, 1); tp(z) = dz;
-        hp = operator(m, tp, b) \ rhsP; hm = operator(m, -tp, b) \ rhsP;
+        hp = fkcl_fk_operator(m, tp, b) \ rhsP; hm = fkcl_fk_operator(m, -tp, b) \ rhsP;
         S(:, z) = [hp(cA) - hm(cA); hp(cB) - hm(cB)] / (2 * dz);
     end
     Cm = S * m.Gam * S';
@@ -110,7 +110,7 @@ function out = fkcl_prag_mar(opts)
     n = size(THe, 1); HA = zeros(n, 1); HB = zeros(n, 1);
     GA = zeros(n, m.Nc, 'single'); GB = zeros(n, m.Nc, 'single');
     for i = 1:n
-        F = factor(operator(m, THe(i, :)', b));
+        F = factor(fkcl_fk_operator(m, THe(i, :)', b));
         h = F.solve(rhsP); g = F.solveT(E);
         HA(i) = h(cA); HB(i) = h(cB); GA(i, :) = g(:, 1)'; GB(i, :) = g(:, 2)';
     end
@@ -129,7 +129,7 @@ function out = fkcl_prag_mar(opts)
     names = {'published', 'area', 'prag', 'ens'}; cellsD = {pubC, areaC, pragC, ensC};
     nQ = numel(opts.Q); Ar = zeros(n, 1 + 4 * nQ);
     for i = 1:n
-        F = factor(operator(m, THe(i, :)', b)); h = F.solve(rhsP); Ar(i, 1) = goalA(h);
+        F = factor(fkcl_fk_operator(m, THe(i, :)', b)); h = F.solve(rhsP); Ar(i, 1) = goalA(h);
         for d = 1:4
             cs = cellsD{d}(m.valid(cellsD{d})); r = zeros(m.Nc, 1); r(cs) = 1; u = F.solve(r);
             for qq = 1:nQ, Ar(i, 1 + (d - 1) * nQ + qq) = goalA(h + opts.Q(qq) * u); end
@@ -173,16 +173,6 @@ function out = fkcl_prag_mar(opts)
 end
 
 % ======================================================================= helpers
-function A = operator(m, theta, b)
-% confined flow on the sector: positive-definite form, the sea-contact cells drain over the gap
-    n = m.Nc; T = m.Kidw .* exp(theta(m.zone)) * b;
-    Tf = 0.5 * (T(m.fI) + T(m.fJ));
-    dg = accumarray([m.fI; m.fJ], [Tf; Tf], [n 1]);
-    dg(m.sea_idx) = dg(m.sea_idx) + T(m.sea_idx) .* m.sea_cond;
-    dg(~m.valid) = 1;
-    A = sparse([m.fI; m.fJ; (1:n)'], [m.fJ; m.fI; (1:n)'], [-Tf; -Tf; dg], n, n);
-end
-
 function F = factor(A)
 % one sparse LU, reused for A x = b and A' x = b (works in MATLAB and GNU Octave)
     [L, U, P, Q] = lu(A);
