@@ -367,7 +367,7 @@ def fig5_maps(G):
     fig.legend(handles=[Line2D([], [], color='0.5', lw=0.8, label='P(Cl > 250 mg L$^{-1}$) = 0.5 (white line)'),
                         Line2D([], [], color=OI[0], lw=1.0, label='seawater wedge at the base: P = 0.5'),
                         Line2D([], [], color=OI[5], lw=0.6, ls='--', label='P = 0.05 and 0.95')],
-               loc='upper center', ncol=3, fontsize=6.2, frameon=False, bbox_to_anchor=(0.45, 0.065))
+               loc='upper center', ncol=3, fontsize=6.2, frameon=False, bbox_to_anchor=(0.45, 0.035))
     save(fig, 'fig5_maps')
 
 
