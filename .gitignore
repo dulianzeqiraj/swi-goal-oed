@@ -8,3 +8,11 @@ octave-workspace
 
 # progress file of the refinement ladder (the archived result is r2_gate2_refine.csv)
 revision_r2/r2_results/r2_gate2_refine_partial.csv
+
+# chloride study: large or regenerated outputs (fkcl_post.py, fkcl_sensitivity.py, fkcl_run_all.m)
+__pycache__/
+chloride_fk/results/post_ensemble.npz
+chloride_fk/results/calib_ensemble_shallow.npz
+chloride_fk/results_matlab/
+chloride_fk/figures_matlab/
+chloride_fk/tsv/

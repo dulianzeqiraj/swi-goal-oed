@@ -82,6 +82,19 @@ number of the article comes from them.
 
 ---
 
+## Chloride study and decision modules
+
+* `chloride_fk/` — probabilistic chloride maps of the Fushë-Kuqe coastal sector,
+  a variable-density section and the goal-oriented chloride sampling design, in
+  MATLAB R2026b (base MATLAB, `fkcl_run_all`, `fkcl_selftest`) and in Python. See
+  [chloride_fk/README.md](chloride_fk/README.md).
+* `experiments/` — numerical tests of the decision modules (PRAG-GO, KRITIK-GO,
+  KRAMERS-GO, SAFE-GO, KALIB-GO, ATRIB-GO, TMLE-GO, KUFI-GO, RRJEDHA-GO,
+  KANAL-GO, KTHIMI-GO), each with its own README.
+* `docs/manuscript/` — the chloride manuscript and its Supplementary Material.
+
+---
+
 ## Repository layout
 
 ```
