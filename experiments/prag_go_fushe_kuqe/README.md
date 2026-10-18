@@ -26,7 +26,7 @@ see `data/README.txt` for attribution and terms.
 | `fk_mar.py` | PRAG-MAR. It derives the closed-form risk gradient from two adjoint solves and compares, on 2 000 realizations, the published MAR sites, the PRAG-MAR sites and the greedy optimum of the exact ensemble risk. |
 | `fk_figs.py`, `fk_results.py` | Figures and the summary table `results_summary.csv`. |
 | `fk_geo.py` | The same model with the geolocated sea boundary of the chloride study (`chloride_fk/`): sea contact only on the 92 rows north of y = 29.5 km, through a link over the GLOBE shoreline gap, on the coastal sector y ≥ 24 km. Physics unchanged. `python3 fk_geo.py`: intruded area 10.1 km² (92.7 km² with the full-margin boundary). |
-| `fk_prag_geo.py`, `fk_prag_geo_check.py` | PRAG-GO recomputed on `fk_geo.py` with the supply wells and pumping of `fk_mar_geo.py`: every 2-, 3- and 5-well design of the 16 sector candidates scored exactly; the check re-estimates the 5-well results with 48 000 inner realizations. Writes `res_geo/prag_*`. |
+| `fk_prag_geo.py`, `fk_prag_geo_check.py` | PRAG-GO recomputed on `fk_geo.py` with the supply wells and pumping of `fk_mar_geo.py`: every 2-, 3- and 5-well design of the 16 sector candidates scored exactly; the check re-estimates the 5-well results with 48 000 inner realizations. Writes `res_geo/prag_*`. `fk_prag_geo_export.py` writes the prior draws and noise of the run to `res_geo/prag_draws_<prior>.bin` for the MATLAB port `chloride_fk/matlab/fkcl_prag_go.m`. |
 | `fk_mar_geo.py` | PRAG-MAR recomputed on `fk_geo.py` with two pumped supply wells of the Fushë-Kuqe well field (rules in the docstring). Writes `res_geo/`. `python3 fk_mar_geo.py equal` runs the pumping-rule sensitivity. MATLAB port: `chloride_fk/matlab/fkcl_prag_mar.m`. |
 
 ## Run
@@ -88,8 +88,8 @@ exactly. Exact EIG of each criterion's best design, % of the exact optimum (base
 | PRAG-GO, normal scores | 100 | 100 | 98.9 | 99.3 |
 
 \* re-estimated with 48 000 inner realizations (`fk_prag_geo_check.py`). The best three-well design
-for both supply-well goals is A3, A10, A23; the design for the intruded area takes A28 instead of
-A23. With rho_F = 0.805 the numbers change by a few percent. Unlike the full-margin test, the head at A
+for both supply-well goals is A3, A10, A23, and for the intruded area A3, A10, A13; with five wells
+the supply-well optimum is P17, A3, A10, A13, A23 and the area optimum takes A28 in place of P17. With rho_F = 0.805 the numbers change by a few percent. Unlike the full-margin test, the head at A
 alone also finds the optimum here: the two pumped wells of the same field are strongly correlated
 (r = 0.875), so what matters is aiming the design at the supply wells rather than at the area. For
 the area goal every criterion reaches 93-99 %.
