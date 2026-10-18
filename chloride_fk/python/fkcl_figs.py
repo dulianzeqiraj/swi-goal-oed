@@ -650,6 +650,7 @@ def figS2_prag_go(G):
     """PRAG-GO recomputed with the geolocated sea boundary (experiments/prag_go_fushe_kuqe/fk_prag_geo.py)."""
     R = os.path.join(EXP, 'prag_go_fushe_kuqe', 'res_geo')
     J = json.load(open(os.path.join(R, 'prag_base.json')))
+    C5 = json.load(open(os.path.join(R, 'prag_base_check5.json')))      # 5 wells, re-estimated with 48 000 realizations
     Z3 = np.load(os.path.join(R, 'prag_base_d3.npz'))
     W = G.W.set_index(G.W.Well_ID.astype(str))
     xy = lambda w: (W.loc[w, 'x'], W.loc[w, 'y'])
@@ -685,7 +686,7 @@ def figS2_prag_go(G):
     for j, (c, lab, col) in enumerate(crit):
         for gi_, (g, _) in enumerate(goals):
             v3 = J['budgets']['3']['goals'][g]['criteria'][c]['pct_opt']
-            v5 = J['budgets']['5']['goals'][g]['criteria'][c]['pct_opt']
+            v5 = C5['goals'][g]['criteria'][c]['pct_best']
             xx = gi_ + (j - 2) * wb
             ax.bar(xx, v3, wb * 0.92, color=col, label=lab if gi_ == 0 else None)
             ax.plot(xx, v5, '_', color='k', ms=7, mew=1.2, label='5 wells' if (gi_ == 0 and j == 0) else None)

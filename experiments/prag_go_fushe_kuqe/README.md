@@ -26,6 +26,7 @@ see `data/README.txt` for attribution and terms.
 | `fk_mar.py` | PRAG-MAR. It derives the closed-form risk gradient from two adjoint solves and compares, on 2 000 realizations, the published MAR sites, the PRAG-MAR sites and the greedy optimum of the exact ensemble risk. |
 | `fk_figs.py`, `fk_results.py` | Figures and the summary table `results_summary.csv`. |
 | `fk_geo.py` | The same model with the geolocated sea boundary of the chloride study (`chloride_fk/`): sea contact only on the 92 rows north of y = 29.5 km, through a link over the GLOBE shoreline gap, on the coastal sector y ≥ 24 km. Physics unchanged. `python3 fk_geo.py`: intruded area 10.1 km² (92.7 km² with the full-margin boundary). |
+| `fk_prag_geo.py`, `fk_prag_geo_check.py` | PRAG-GO recomputed on `fk_geo.py` with the supply wells and pumping of `fk_mar_geo.py`: every 2-, 3- and 5-well design of the 16 sector candidates scored exactly; the check re-estimates the 5-well results with 48 000 inner realizations. Writes `res_geo/prag_*`. |
 | `fk_mar_geo.py` | PRAG-MAR recomputed on `fk_geo.py` with two pumped supply wells of the Fushë-Kuqe well field (rules in the docstring). Writes `res_geo/`. `python3 fk_mar_geo.py equal` runs the pumping-rule sensitivity. MATLAB port: `chloride_fk/matlab/fkcl_prag_mar.m`. |
 
 ## Run
@@ -39,6 +40,7 @@ python3 fk_mar.py                               # ~1 min
 # other priors (after base, which fixes the supply wells): rho805, fine
 python3 fk_results.py; python3 fk_figs.py fig
 python3 fk_mar_geo.py; python3 fk_mar_geo.py equal   # geolocated boundary, ~30 s each
+python3 fk_prag_geo.py base; python3 fk_prag_geo.py rho805; python3 fk_prag_geo_check.py base   # ~10 + 10 + 4 min
 ```
 
 ## PRAG-MAR with the geolocated sea boundary
@@ -69,3 +71,25 @@ With one pumping rate at both wells (`equal`), the probability falls from 0.476 
 PRAG-MAR, the same as the exact optimum, against 0.226 for the area design and 0.448 for the
 published sites. Each goal calls for its own sites: the area design recharges the northern coast,
 where the intrusion is; PRAG-MAR recharges next to the well field.
+
+## PRAG-GO with the geolocated sea boundary
+
+`fk_prag_geo.py` repeats the monitoring test on the same setting: supply wells A1 and P10 pumped as
+in `fk_mar_geo.py`; goals "A intruded" (prior probability 0.49), "A or B intruded" (0.57) and
+"intruded area of the sector above 12 km²" (its prior median, 0.50); the 16 other inside K-wells of
+the sector as candidates, read with a head error of 0.2 m. With 16 candidates every design is scored
+exactly. Exact EIG of each criterion's best design, % of the exact optimum (base prior):
+
+| Criterion | A, 3 wells | A or B, 3 wells | A, 5 wells* | A or B, 5 wells* |
+|---|---|---|---|---|
+| area (published pipeline) | 74 | 52 | 69 | 48 |
+| head at A | 100 | 100 | 99.7 | 99.6 |
+| PRAG-GO, linearized | 100 | 100 | 99.7 | 99.6 |
+| PRAG-GO, normal scores | 100 | 100 | 98.9 | 99.3 |
+
+\* re-estimated with 48 000 inner realizations (`fk_prag_geo_check.py`). The best three-well design
+for both supply-well goals is A3, A10, A23; the design for the intruded area takes A28 instead of
+A23. With rho_F = 0.805 the numbers change by a few percent. Unlike the full-margin test, the head at A
+alone also finds the optimum here: the two pumped wells of the same field are strongly correlated
+(r = 0.875), so what matters is aiming the design at the supply wells rather than at the area. For
+the area goal every criterion reaches 93-99 %.
