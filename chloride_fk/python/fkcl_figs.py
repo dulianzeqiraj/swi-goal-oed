@@ -9,6 +9,7 @@
   fig7_design      goal-oriented chloride sampling design
   fig8_toolkit     decision modules: key results
   figS1_prag_mar_geo  PRAG-MAR with the geolocated sea boundary (needs experiments/prag_go_fushe_kuqe/res_geo)
+  figS2_prag_go_geo   PRAG-GO with the geolocated sea boundary (same)
 Usage: python3 fkcl_figs.py [outdir]
 """
 import os
@@ -644,9 +645,79 @@ def figS1_prag_mar(G):
     save(fig, 'figS1_prag_mar_geo')
 
 
+# ---------------------------------------------------------------- figure S2: PRAG-GO, geolocated boundary
+def figS2_prag_go(G):
+    """PRAG-GO recomputed with the geolocated sea boundary (experiments/prag_go_fushe_kuqe/fk_prag_geo.py)."""
+    R = os.path.join(EXP, 'prag_go_fushe_kuqe', 'res_geo')
+    J = json.load(open(os.path.join(R, 'prag_base.json')))
+    Z3 = np.load(os.path.join(R, 'prag_base_d3.npz'))
+    W = G.W.set_index(G.W.Well_ID.astype(str))
+    xy = lambda w: (W.loc[w, 'x'], W.loc[w, 'y'])
+    fig = plt.figure(figsize=(190 * MM, 112 * MM))
+    gs = fig.add_gridspec(1, 3, width_ratios=[0.85, 1.25, 1.0], wspace=0.38, left=0.06, right=0.98, bottom=0.33, top=0.94)
+    ax = fig.add_subplot(gs[0, 0])
+    m = G.m
+    ax.pcolormesh(G.xe, G.ye, G.grid(np.ones(m.Nc), m.valid), cmap=mcolors.ListedColormap(['#EEF3EA']), shading='flat', rasterized=True)
+    G.outline(ax, lw=0.6)
+    G.sea_contact(ax, color=OI[1], lw=2.0, solid_capstyle='butt', zorder=6)
+    for w in J['candidates']:
+        ax.plot(*xy(w), 'o', ms=3, color='0.45', zorder=7)
+    for s in ('A', 'B'):
+        ax.plot(*xy(J['supply'][s]['id']), 'v', ms=6.5, mfc=OI[4], mec='k', mew=0.6, zorder=9)
+    g3 = J['budgets']['3']['goals']['rAB']
+    for w in g3['criteria']['pragLin']['wells']:
+        ax.plot(*xy(w), 'o', ms=9, mfc='none', mec=OI[1], mew=1.5, zorder=10)
+    for w in g3['criteria']['area']['wells']:
+        ax.plot(*xy(w), 's', ms=10.5, mfc='none', mec=OI[0], mew=1.1, zorder=10)
+    for w in ['A10', 'A13']:
+        ax.plot(*xy(w), 'D', ms=5, mfc=OI[3], mec='k', mew=0.4, zorder=11)
+    for w in sorted(set(g3['criteria']['pragLin']['wells']) | set(g3['criteria']['area']['wells']) | {'A13'}):
+        ax.annotate(w, xy(w), xytext=(6, 2), textcoords='offset points', fontsize=6, zorder=12)
+    ax.set_xlim(-2.5, 14); ax.set_ylim(23.5, 53.5); ax.set_aspect('equal')
+    ax.set_xlabel('Easting from $x_0$ [km]'); ax.set_ylabel('Northing from $y_0$ [km]')
+    panel(ax, 'a')
+    # (b) share of the exact optimum
+    ax = fig.add_subplot(gs[0, 1])
+    crit = [('area', 'area (published)', OI[0]), ('hA', 'head at A', OI[5]), ('meanAB', 'mean head A, B', OI[2]),
+            ('pragLin', 'PRAG-GO', OI[1]), ('pragNS', 'PRAG-GO, normal scores', OI[3])]
+    goals = [('rA', 'A intruded'), ('rAB', 'A or B intruded'), ('rArea', 'area > %d km$^2$' % J['area_threshold_km2'])]
+    wb = 0.15
+    for j, (c, lab, col) in enumerate(crit):
+        for gi_, (g, _) in enumerate(goals):
+            v3 = J['budgets']['3']['goals'][g]['criteria'][c]['pct_opt']
+            v5 = J['budgets']['5']['goals'][g]['criteria'][c]['pct_opt']
+            xx = gi_ + (j - 2) * wb
+            ax.bar(xx, v3, wb * 0.92, color=col, label=lab if gi_ == 0 else None)
+            ax.plot(xx, v5, '_', color='k', ms=7, mew=1.2, label='5 wells' if (gi_ == 0 and j == 0) else None)
+    ax.set_xticks(range(3)); ax.set_xticklabels([g[1] for g in goals], fontsize=7)
+    ax.set_ylabel('exact EIG of the chosen design [% of optimum]'); ax.set_ylim(0, 118); ax.set_yticks([0, 25, 50, 75, 100])
+    ax.legend(frameon=False, fontsize=6.2, ncol=2, loc='upper center', bbox_to_anchor=(0.5, -0.13), handlelength=1.2, columnspacing=0.8)
+    panel(ax, 'b')
+    # (c) criterion against the exact EIG over all 3-well designs, goal rAB
+    ax = fig.add_subplot(gs[0, 2])
+    names = ['area', 'areaEns', 'hA', 'meanAB', 'pragLin', 'pragEns', 'pragNSA', 'pragNS']
+    ex = Z3['EX'][:, 1]
+    for c, col, lab in [('area', OI[0], 'area criterion'), ('pragLin', OI[1], 'PRAG-GO')]:
+        v = Z3['LIN'][:, names.index(c)]
+        rs = J['budgets']['3']['goals']['rAB']['criteria'][c]['spearman']
+        ax.plot(v / v.max(), ex, 'o', ms=2.2, alpha=0.55, color=col, mew=0, label=f'{lab} ($\\rho_s$ = {rs:.2f})')
+    ax.set_xlabel('design criterion (scaled to its maximum)'); ax.set_ylabel('exact EIG, A or B intruded [nats]')
+    ax.legend(frameon=False, fontsize=6.3, loc='upper left')
+    panel(ax, 'c')
+    h = [Line2D([], [], marker='v', ls='', mfc=OI[4], mec='k', ms=6, label='supply wells (pumped)'),
+         Line2D([], [], marker='o', ls='', color='0.45', ms=3, label='candidate wells'),
+         Line2D([], [], marker='o', ls='', mfc='none', mec=OI[1], mew=1.5, ms=8, label='PRAG-GO design'),
+         Line2D([], [], marker='s', ls='', mfc='none', mec=OI[0], mew=1.1, ms=9, label='area design'),
+         Line2D([], [], marker='D', ls='', mfc=OI[3], mec='k', ms=5, label='published wells in the sector')]
+    fig.legend(handles=h, loc='lower left', bbox_to_anchor=(0.0, 0.0), ncol=1, frameon=False, fontsize=6.2)
+    save(fig, 'figS2_prag_go_geo')
+
+
 if __name__ == '__main__':
     G = Geo()
     fig1_framework(); fig2_site(G); fig3_hydrochem(); fig4_calib(); fig5_maps(G); fig6_section(G); fig7_design(G); fig8_toolkit()
     if os.path.exists(os.path.join(EXP, 'prag_go_fushe_kuqe', 'res_geo', 'mar_geo.json')):
         figS1_prag_mar(G)
+    if os.path.exists(os.path.join(EXP, 'prag_go_fushe_kuqe', 'res_geo', 'prag_base.json')):
+        figS2_prag_go(G)
     print('figures written to', os.path.abspath(OUT))
