@@ -80,6 +80,7 @@ steps 6-7 need step 4.
 | Sampling design (Table 4, Fig. 7) | `fkcl_design.m` | `fkcl_design.py` |
 | Decision modules (Table 5, Fig. 8) | `fkcl_figures.m` reads the module results | `../experiments/*` |
 | PRAG-MAR, geolocated boundary (Supplementary Fig. S1, Tables S10-S11) | `fkcl_prag_mar.m` | `../experiments/prag_go_fushe_kuqe/fk_mar_geo.py` |
+| PRAG-GO, geolocated boundary (Supplementary Fig. S2, Tables S12-S13) | not ported | `../experiments/prag_go_fushe_kuqe/fk_prag_geo.py`, `fk_prag_geo_check.py` |
 
 ## The model in brief
 
