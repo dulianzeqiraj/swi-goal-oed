@@ -25,8 +25,16 @@ function out = fkcl_prag_go(opts)
 %     pragNSA, pragNS  PRAG-GO for rA and rAB after the normal-score transform
 %   Each criterion's best design is reported as a percentage of the exact optimum.
 %
-%   Options (struct): prior 'base' (rho_F = 0.6) | 'rho805'; budgets (subset of [2 3 5]);
-%   src 'python' | integer seed; figure true | false; tsvdir (GNU Octave).
+%   Options (struct):
+%     prior    'base' (rho_F = 0.6, default) | 'rho805' (rho_F = 0.805)
+%     budgets  numbers of wells, any of [2 3 5] (default all three); Fig. S2 needs 3
+%     src      'python': the prior draws and noise of fk_prag_geo.py, exported by
+%              fk_prag_geo_export.py to res_geo/prag_draws_<prior>.bin, and a comparison with
+%              res_geo/prag_<prior>.json (default when that file exists) | integer seed: own draws
+%     figure   true | false: Supplementary Fig. S2, figures_matlab/figS2_prag_go_geo[_rho805];
+%              the five-well marks come from the 48 000-realization re-check when
+%              res_geo/prag_<prior>_check5.json exists (base prior), else from this run
+%     tsvdir   folder of the TSV sheets (GNU Octave)
 %   Run time in GNU Octave 8.4 (one core): about 1 minute for the ensembles, 7 more for the 2- and
 %   3-well designs and about 55 more for the 4368 five-well designs (opts.budgets = [2 3] skips
 %   them); MATLAB runs the element-wise steps on several cores and is faster. Memory: about 2 GB.
@@ -42,9 +50,15 @@ function out = fkcl_prag_go(opts)
     def = struct('prior', 'base', 'budgets', [2 3 5], 'figure', true, 'src', 11);
     fn = fieldnames(def);
     for q = 1:numel(fn), if ~isfield(opts, fn{q}), opts.(fn{q}) = def.(fn{q}); end, end
+    % text options may be given as MATLAB strings ("rho805"): work with char vectors
+    opts.prior = lower(char(opts.prior));
+    if isstring(opts.src), opts.src = char(opts.src); end
+    if ~any(strcmp(opts.prior, {'base', 'rho805'})), error('fkcl:prior', 'opts.prior must be ''base'' or ''rho805'''); end
+    fdr = fullfile(RG, ['prag_draws_' opts.prior '.bin']);
     % without an explicit opts.src, use the exported Python draws when they exist
-    if ~userSrc && exist(fullfile(RG, ['prag_draws_' opts.prior '.bin']), 'file'), opts.src = 'python'; end
-    C.rhoF = 0.6; if strcmpi(opts.prior, 'rho805'), C.rhoF = 0.805; end
+    if ~userSrc && exist(fdr, 'file'), opts.src = 'python'; end
+    usePy = ischar(opts.src) && strcmpi(opts.src, 'python');
+    C.rhoF = 0.6; if strcmp(opts.prior, 'rho805'), C.rhoF = 0.805; end
     D = fkcl_read_data(C); m = fkcl_model_init(C, D);
     b = 30; R = 5e-4; hc = 1.0; SN = 0.2; Nz = m.Nz;
     goalA = @(h) sum(m.area ./ (1 + exp(-(hc - h(m.valid)) / 0.15))) / 1e6;
@@ -76,15 +90,20 @@ function out = fkcl_prag_go(opts)
             opts.prior, idA, idB, QA, QB, NC, strjoin(cid', ' '));
 
     % ------------------------------------------------ prior draws
-    if ischar(opts.src) && strcmpi(opts.src, 'python')
-        fid = fopen(fullfile(RG, ['prag_draws_' opts.prior '.bin']), 'r', 'ieee-le');
+    if usePy
+        fid = fopen(fdr, 'r', 'ieee-le');
+        if fid < 0
+            error('fkcl:draws', 'cannot open %s: run  python3 fk_prag_geo_export.py %s  in experiments/prag_go_fushe_kuqe', fdr, opts.prior);
+        end
         THi = fread(fid, [Nz 12000], 'double')'; THo = fread(fid, [Nz 2000], 'double')';
         NSn = fread(fid, [NC 12000], 'double')'; NSe = fread(fid, [NC 2000], 'double')';
         fclose(fid);
+        fprintf('prior draws and noise: Python export %s\n', fdr);
     else
         rng(opts.src);
         THi = (m.Lgam * randn(Nz, 12000))'; THo = (m.Lgam * randn(Nz, 2000))';
         NSn = randn(12000, NC); NSe = randn(2000, NC);
+        fprintf('prior draws and noise: own random numbers, rng(%s); no comparison with Python\n', num2str(opts.src));
     end
 
     % ------------------------------------------------ ensembles
@@ -160,24 +179,36 @@ function out = fkcl_prag_go(opts)
     end
     % ------------------------------------------------ comparison with the Python reference
     ref = fullfile(RG, ['prag_' opts.prior '.json']);
-    if ischar(opts.src) && exist(ref, 'file')
-        Jr = jsondecode(fileread(ref)); dmax = 0;
+    if usePy && exist(ref, 'file')
+        Jr = jsondecode(fileread(ref)); dmax = 0; ncmp = 0;
         for kb = opts.budgets(:)'
+            fk = sprintf('x%d', kb);
+            if ~isfield(Jr.budgets, fk), fprintf('no Python reference for %d wells\n', kb); continue; end
+            ncmp = ncmp + 1;
             for gk = 1:3
-                Gp = Jr.budgets.(sprintf('x%d', kb)).goals.(goals{gk}); Gm = out.(sprintf('k%d', kb)).goals.(goals{gk});
+                Gp = Jr.budgets.(fk).goals.(goals{gk}); Gm = out.(sprintf('k%d', kb)).goals.(goals{gk});
                 dmax = max(dmax, abs(Gp.optimum.eig - Gm.optimum.eig));
                 for j = 1:8, dmax = max(dmax, abs(Gp.criteria.(names{j}).pct_opt - Gm.criteria.(names{j}).pct_opt) / 100); end
             end
         end
-        fprintf('Python reference (%s): max |difference| of optimum EIG and of the percentages/100: %.2g\n', ref, dmax);
+        if ncmp > 0
+            fprintf('Python reference (%s): max |difference| of optimum EIG and of the percentages/100: %.2g\n', ref, dmax);
+        end
     end
-    if opts.figure && isfield(out, 'k3')
-        % five-well marks: the 48 000-realization re-check of fk_prag_geo_check.py when present
+    if opts.figure && ~isfield(out, 'k3')
+        fprintf('figure skipped: Fig. S2 needs 3 in opts.budgets\n');
+    elseif opts.figure
+        % five-well marks: the 48 000-realization re-check of fk_prag_geo_check.py when present,
+        % otherwise this run's own five-well results (if computed)
         c5 = fullfile(RG, ['prag_' opts.prior '_check5.json']); C5 = [];
         if exist(c5, 'file'), C5 = jsondecode(fileread(c5)); end
-        f = draw(m, D, out, cid, ids, Wk, kA, kB, names, C5);
-        if ~exist(C.figdir, 'dir'), mkdir(C.figdir); end
-        fkcl_save_figure(f, C.figdir, ['figS2_prag_go_geo' repmat('_rho805', 1, strcmpi(opts.prior, 'rho805'))]); close(f);
+        try                                  % a drawing problem must not lose the computed results
+            f = draw(m, D, out, cid, ids, Wk, kA, kB, names, C5);
+            if ~exist(C.figdir, 'dir'), mkdir(C.figdir); end
+            fkcl_save_figure(f, C.figdir, ['figS2_prag_go_geo' repmat('_rho805', 1, strcmp(opts.prior, 'rho805'))]); close(f);
+        catch err
+            warning('fkcl:figure', 'Fig. S2 not drawn: %s', err.message);
+        end
     end
 end
 
@@ -325,7 +356,7 @@ function f = draw(m, D, out, cid, ids, Wk, kA, kB, names, C5)
     set(ax, 'XTick', 1:3, 'XTickLabel', {'A intruded', 'A or B', sprintf('area > %d km^2', out.area_threshold_km2)}); xlim(ax, [0.5 3.5]); ylim(ax, [0 118]);
     ylabel(ax, 'exact EIG of the chosen design [% of optimum]');
     labs = {'area (published)', 'head at A', 'mean head A, B', 'PRAG-GO', 'PRAG-GO, normal scores'};
-    if ~isempty(h5), hb = [hb h5]; labs{end + 1} = '5 wells'; end
+    if ~isempty(h5), hb(end + 1) = h5; labs{end + 1} = '5 wells'; end
     legend(ax, hb, labs, 'Location', 'southoutside', ...
            'NumColumns', 3, 'FontSize', 5.6, 'Box', 'off', 'Color', 'none');
     text(ax, -0.02, 1.02, 'b', 'Units', 'normalized', 'FontWeight', 'bold', 'HorizontalAlignment', 'right', 'VerticalAlignment', 'bottom');
