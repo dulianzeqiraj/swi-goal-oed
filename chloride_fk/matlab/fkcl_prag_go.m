@@ -27,8 +27,10 @@ function out = fkcl_prag_go(opts)
 %
 %   Options (struct): prior 'base' (rho_F = 0.6) | 'rho805'; budgets (subset of [2 3 5]);
 %   src 'python' | integer seed; figure true | false; tsvdir (GNU Octave).
-%   Run time in MATLAB: about 2 minutes for 2 and 3 wells; the 4368 five-well designs add about
-%   15 minutes. Memory: about 2 GB. Base MATLAB only.
+%   Run time in GNU Octave 8.4 (one core): about 1 minute for the ensembles, 7 more for the 2- and
+%   3-well designs and about 55 more for the 4368 five-well designs (opts.budgets = [2 3] skips
+%   them); MATLAB runs the element-wise steps on several cores and is faster. Memory: about 2 GB.
+%   Base MATLAB only.
 %
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
 

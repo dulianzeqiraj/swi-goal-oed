@@ -38,9 +38,10 @@ R  = fkcl_run_all();    % everything: about 4 min, plus 10-20 min for the six se
   candidates is ranked by the eight criteria and scored by its exact EIG. With the prior draws
   exported by `experiments/prag_go_fushe_kuqe/fk_prag_geo_export.py`
   (`res_geo/prag_draws_base.bin`, used by default) it reproduces `fk_prag_geo.py` and prints
-  the largest difference; it draws Supplementary Fig. S2 to `figures_matlab/`. About 2 minutes
-  for 2 and 3 wells and 15 more for the 4 368 five-well designs (`struct('budgets', [2 3])`
-  skips them); about 2 GB of memory.
+  the largest difference (4.4e-6, from single-precision sums); it draws Supplementary Fig. S2 to
+  `figures_matlab/`. In GNU Octave 8.4 on one core it takes about 8 minutes for 2 and 3 wells and
+  about 55 more for the 4 368 five-well designs (`struct('budgets', [2 3])` skips them); MATLAB
+  is faster. About 2 GB of memory.
 * Only base MATLAB is used: no toolboxes. `fkcl_prag_mar` also uses `src/prag_mar.m` and
   `src/bvn_cdf.m` from the repository.
 
