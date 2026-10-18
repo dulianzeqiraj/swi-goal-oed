@@ -38,6 +38,7 @@ function out = fkcl_prag_mar(opts)
     if exist(drawFile, 'file'), def.src = 'python'; end
     fn = fieldnames(def);
     for q = 1:numel(fn), if ~isfield(opts, fn{q}), opts.(fn{q}) = def.(fn{q}); end, end
+    opts.mode = char(opts.mode); if isstring(opts.src), opts.src = char(opts.src); end   % MATLAB strings
     if exist('prag_mar', 'file') ~= 2, addpath(fullfile(C.repo, 'src')); end
 
     C.rhoF = 0.6;                                       % base prior of the companion model

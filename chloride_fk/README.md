@@ -42,6 +42,12 @@ R  = fkcl_run_all();    % everything: about 4 min, plus 10-20 min for the six se
   `figures_matlab/`. In GNU Octave 8.4 on one core it takes about 8 minutes for 2 and 3 wells and
   about 55 more for the 4 368 five-well designs (`struct('budgets', [2 3])` skips them); MATLAB
   is faster. About 2 GB of memory.
+* `out = fkcl_prag_go(struct('prior', 'rho805'))` repeats it with the field cross-facies
+  correlation rho_F = 0.805 (the robustness columns of Supplementary Table S13): it reads
+  `res_geo/prag_draws_rho805.bin`, compares with `res_geo/prag_rho805.json` and writes
+  `figures_matlab/figS2_prag_go_geo_rho805`. No 48 000-realization re-check exists for this
+  prior, so the five-well marks of that figure come from the run itself (12 000 realizations).
+  The prior name is checked ('base' or 'rho805'); double-quoted MATLAB strings are accepted.
 * Only base MATLAB is used: no toolboxes. `fkcl_prag_mar` also uses `src/prag_mar.m` and
   `src/bvn_cdf.m` from the repository.
 
