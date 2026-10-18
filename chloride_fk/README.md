@@ -43,7 +43,7 @@ R  = fkcl_run_all();    % everything: about 4 min, plus 10-20 min for the six se
   about 55 more for the 4 368 five-well designs (`struct('budgets', [2 3])` skips them); MATLAB
   is faster. About 2 GB of memory.
 * `out = fkcl_prag_go(struct('prior', 'rho805'))` repeats it with the field cross-facies
-  correlation rho_F = 0.805 (the robustness columns of Supplementary Table S13): it reads
+  correlation rho_F = 0.805 (the robustness columns of Supplementary Table S12): it reads
   `res_geo/prag_draws_rho805.bin`, compares with `res_geo/prag_rho805.json` and writes
   `figures_matlab/figS2_prag_go_geo_rho805`. No 48 000-realization re-check exists for this
   prior, so the five-well marks of that figure come from the run itself (12 000 realizations).
@@ -94,8 +94,8 @@ steps 6-7 need step 4.
 | Variable-density section (Fig. 6) | `fkcl_section.m`, `fkcl_vd_*.m`, `fkcl_henry_check.m` | `fkcl_section.py`, `fkcl_vd.py` |
 | Sampling design (Table 4, Fig. 7) | `fkcl_design.m` | `fkcl_design.py` |
 | Decision modules (Table 5, Fig. 8) | `fkcl_figures.m` reads the module results | `../experiments/*` |
-| PRAG-MAR, geolocated boundary (Supplementary Fig. S1, Tables S10-S11) | `fkcl_prag_mar.m` | `../experiments/prag_go_fushe_kuqe/fk_mar_geo.py` |
-| PRAG-GO, geolocated boundary (Supplementary Fig. S2, Tables S12-S13) | `fkcl_prag_go.m` | `../experiments/prag_go_fushe_kuqe/fk_prag_geo.py`, `fk_prag_geo_check.py` |
+| PRAG-MAR, geolocated boundary (Supplementary Fig. S1, Tables S9-S10) | `fkcl_prag_mar.m` | `../experiments/prag_go_fushe_kuqe/fk_mar_geo.py` |
+| PRAG-GO, geolocated boundary (Supplementary Fig. S2, Tables S11-S12) | `fkcl_prag_go.m` | `../experiments/prag_go_fushe_kuqe/fk_prag_geo.py`, `fk_prag_geo_check.py` |
 
 ## The model in brief
 
