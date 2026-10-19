@@ -103,13 +103,16 @@ def panel_b(ax):
                     label=lab if suf == '' else None)
     ax.axhline(1, color=MUTED, lw=0.7, ls=':')
     ax.text(10, 1.25, 'niveli i zhurmës', fontsize=5.6, color=MUTED, ha='right', va='bottom')
-    ax.set_yscale('log'); ax.set_xlim(0, ST['n_iter']); ax.set_xticks(it[::2]); ax.set_ylim(2e-3, 2e4)
-    ax.set_xlabel('iteracioni $n$'); ax.set_ylabel('vlera pa njësi (mediana, 10–90%)', labelpad=1)
+    ax.set_yscale('log'); ax.set_xlim(0, ST['n_iter']); ax.set_xticks(it[::2]); ax.set_ylim(3e-4, 3e4)
+    ax.set_xlabel('iteracioni $n$'); ax.set_ylabel('vlera (mediana, 10–90%)', labelpad=1)
     ax.set_title('TEKI: mospërputhja ngec, ansambli shembet', color=INK)
-    h, l = ax.get_legend_handles_labels()
-    h += [Line2D([], [], color=MUTED, lw=1.2, ls='-'), Line2D([], [], color=MUTED, lw=0.9, ls=(0, (3, 1.6)))]
-    l += ['TEKI (100 anëtarë)', 'ES-MDA (krahasim)']
-    ax.legend(h, l, loc='lower left', fontsize=5.4, handlelength=1.8, borderaxespad=0.3)
+    ax.text(2.6, 3.5e3, 'mospërputhja $\\|y-\\bar G\\|^2/(m\\sigma^2)$', fontsize=5.6, color=OI['vermillion'],
+            ha='left', va='center')
+    ax.text(0.15, 0.07, 'përhapja $\\mathrm{tr}\\,C^{GG}/(m\\sigma^2)$', fontsize=5.6, color=OI['blue'], ha='left',
+            va='center')
+    h = [Line2D([], [], color=MUTED, lw=1.2, ls='-'), Line2D([], [], color=MUTED, lw=0.9, ls=(0, (3, 1.6)))]
+    ax.legend(h, ['TEKI (100 anëtarë)', 'ES-MDA (krahasim)'], loc='lower left', fontsize=5.4, handlelength=1.8,
+              borderaxespad=0.3)
     mf = np.median(PT['misfit'][:, -1]); sp = np.median(PT['dspread'][:, -1])
     ax.annotate(f'$\\chi^2/m\\approx{mf:.0f}$', xy=(ST['n_iter'], mf), xytext=(7.4, mf * 6), fontsize=5.8,
                 color=OI['vermillion'], arrowprops=dict(arrowstyle='-', color=OI['vermillion'], lw=0.5))
@@ -125,26 +128,33 @@ def panel_c(ax):
     o = np.argsort(h[t]); t = t[o]; yt = yt[o]
     xh = h[t]; res = yt - mu[t]
     xs = np.arange(len(t))
+    w_n = q_scn * sde[t]; w_e = Z90 * s[t]
+    lim = 2.4 * max(np.abs(res).max(), q_sc)
     ax.axhspan(-q_sc, q_sc, color=C['sc'], alpha=0.12, lw=0)
     ax.axhline(q_sc, color=C['sc'], lw=0.7); ax.axhline(-q_sc, color=C['sc'], lw=0.7)
     ax.axhline(0, color=RULE, lw=0.6)
-    w_n = q_scn * sde[t]; w_e = Z90 * s[t]
-    ax.vlines(xs + 0.18, -w_n, w_n, color=C['scn'], lw=1.6, alpha=0.85)
-    ax.vlines(xs - 0.18, -w_e, w_e, color=C['ens'], lw=1.6)
+    wn_c = np.minimum(w_n, 0.93 * lim)
+    ax.vlines(xs + 0.2, -wn_c, wn_c, color=C['scn'], lw=1.5, alpha=0.85)
+    big = w_n > 0.93 * lim
+    ax.scatter(xs[big] + 0.2, np.full(big.sum(), 0.95 * lim), marker='^', s=7, color=C['scn'], lw=0, zorder=4)
+    ax.scatter(xs[big] + 0.2, np.full(big.sum(), -0.95 * lim), marker='v', s=7, color=C['scn'], lw=0, zorder=4)
+    ax.errorbar(xs - 0.2, np.zeros(len(t)), yerr=w_e, fmt='none', ecolor=C['ens'], elinewidth=1.1, capsize=1.3,
+                capthick=0.7)
     cov_e = np.abs(res) <= w_e; cov_s = np.abs(res) <= q_sc; cov_n = np.abs(res) <= w_n
-    ax.scatter(xs, res, s=9, c=INK, zorder=4, lw=0)
+    ax.scatter(xs, res, s=9, c=INK, zorder=5, lw=0)
     ax.set_xticks(xs[::5]); ax.set_xticklabels([f'{v:.1f}' for v in xh[::5]])
-    ax.set_xlabel('koka e vërtetë $h(x)$ në piezometrat test [m] (renditur)')
+    ax.set_xlabel('niveli piezometrik i vërtetë $h(x)$ [m], piezometrat test të renditur')
     ax.set_ylabel('$y-\\hat h_{\\rm TEKI}(x)$ [m]')
-    lim = max(np.abs(res).max(), q_sc, w_n.max()) * 1.18
-    ax.set_ylim(-lim, lim * 1.38); ax.set_xlim(-0.8, len(t) - 0.2)
+    ax.set_ylim(-lim, lim * 1.8); ax.set_xlim(-0.8, len(t) - 0.2)
     ax.grid(axis='x', visible=False)
     h_ = [Line2D([], [], color=C['ens'], lw=1.6, label=f'ansambli: {cov_e.sum()}/{len(t)} të mbuluara'),
           Rectangle((0, 0), 1, 1, fc=C['sc'], alpha=0.25, ec=C['sc'], lw=0.7,
                     label=f'konformal: {cov_s.sum()}/{len(t)}'),
           Line2D([], [], color=C['scn'], lw=1.6, label=f'konformal i normalizuar: {cov_n.sum()}/{len(t)}'),
-          Line2D([], [], marker='o', ls='', ms=2.8, mfc=INK, mec='none', label='mbetja e vëzhguar')]
-    ax.legend(handles=h_, loc='upper left', ncol=2, fontsize=5.4, handlelength=1.4, columnspacing=1.0)
+          Line2D([], [], marker='o', ls='', ms=2.8, mfc=INK, mec='none', label='mbetja e vëzhguar'),
+          Line2D([], [], marker='^', ls='', ms=2.8, mfc=C['scn'], mec='none', label='del jashtë boshtit')]
+    ax.legend(handles=h_, loc='upper left', ncol=2, fontsize=5.4, handlelength=1.4, columnspacing=1.0,
+              borderaxespad=0.2)
     ax.set_title('Një akuifer: intervalet 90% në 30 piezometra test', color=INK)
 
 
@@ -172,14 +182,14 @@ def panel_d(ax):
         if k in ('ens', 'esmda'):
             ax.text(i, v.max() + 0.03, f'{m:.3f}', fontsize=5.6, color=C[k], ha='center', va='bottom', zorder=6)
         else:
-            ax.text(i, 0.62, f'{m:.3f}', fontsize=5.6, color=C[k], ha='center', va='top', zorder=6)
+            ax.text(i + 0.1, 0.68, f'{m:.3f}', fontsize=5.6, color=C[k], ha='left', va='center', zorder=6)
         if k in ('sc', 'scn'):
             bd = beta_dist(a, b).pdf(grid); mm = bd > 1e-3 * bd.max()
             ax.plot(i - c * bd[mm], grid[mm], color=INK, lw=0.6, ls=(0, (2, 1.2)))
             ax.plot(i + c * bd[mm], grid[mm], color=INK, lw=0.6, ls=(0, (2, 1.2)))
             va = PT[f'cov_{k}_avg']
             rng = np.random.default_rng(i)
-            ax.scatter(i + 0.43 + 0.05 * rng.standard_normal(len(va)), va, s=1.2, color=INK, alpha=0.35, lw=0,
+            ax.scatter(i + 0.43 + 0.04 * rng.standard_normal(len(va)), va, s=0.8, color=MUTED, alpha=0.3, lw=0,
                        zorder=3)
     ax.axhline(1 - ST['alpha'], color=MUTED, lw=0.7, ls='--')
     ax.text(-0.45, 0.915, '$1-\\alpha=0.90$', fontsize=5.6, color=MUTED, va='bottom')
@@ -198,24 +208,25 @@ def panel_d(ax):
 def panel_e(ax):
     keys = ['ens', 'esmda', 'sc', 'scn']
     vals = dict(ens=PT['wid_ens'], esmda=PT['wid_esmda'], sc=PT['wid_sc_avg'], scn=PT['wid_scn_avg'])
-    lg = np.linspace(np.log10(0.05), np.log10(200), 600)
+    lg = np.linspace(np.log10(0.05), np.log10(400), 800)
     dens = {k: gaussian_kde(np.log10(vals[k]), bw_method=0.25)(lg) for k in keys}
     for i, k in enumerate(keys):
-        d = dens[k]; m = d > 2e-3 * d.max(); c = 0.3 / d.max()
+        d = dens[k]; lv = np.log10(vals[k]); c = 0.3 / d.max()
+        m = (lg >= lv.min()) & (lg <= lv.max())
         ax.fill_betweenx(10 ** lg[m], i - c * d[m], i + c * d[m], color=C[k], alpha=0.25, lw=0)
         ax.plot(i - c * d[m], 10 ** lg[m], color=C[k], lw=0.6); ax.plot(i + c * d[m], 10 ** lg[m], color=C[k], lw=0.6)
         md = np.median(vals[k])
         ax.plot([i - 0.3, i + 0.3], [md, md], color=C[k], lw=1.4)
-        ax.text(i + 0.33, md, f'{md:.2f} m', fontsize=5.6, color=C[k], va='center', ha='left')
+        ax.text(i, vals[k].max() * 1.25, f'{md:.2f} m', fontsize=5.6, color=C[k], va='bottom', ha='center')
     w0 = 2 * Z90 * SIG
     ax.axhline(w0, color=MUTED, lw=0.7, ls=':')
     ax.text(3.6, w0 * 0.82, f'vetëm zhurma: $2\\cdot1.645\\,\\sigma$ = {w0:.3f} m', fontsize=5.4, color=MUTED,
             ha='right', va='top')
-    ax.set_yscale('log'); ax.set_ylim(0.05, 200); ax.set_xlim(-0.55, 3.85)
+    ax.set_yscale('log'); ax.set_ylim(0.05, 900); ax.set_xlim(-0.55, 3.85)
     ax.set_xticks(range(4)); ax.set_xticklabels([LBL[k] for k in keys], fontsize=6.0)
     ax.set_ylabel('gjerësia mesatare [m]')
     ax.grid(axis='x', visible=False)
-    ax.set_title('Çmimi i vlefshmërisë: gjerësia', color=INK)
+    ax.set_title('Çmimi i vlefshmërisë: gjerësia (vija = mediana)', color=INK)
     # inset: coverage by distance from the coast
     ins = ax.inset_axes([0.07, 0.62, 0.36, 0.33])
     xb = np.array(ST['xbands']) / 1000; xm = 0.5 * (xb[1:] + xb[:-1])
@@ -224,7 +235,9 @@ def panel_e(ax):
         m = v.mean(0); e = 1.96 * v.std(0, ddof=1) / np.sqrt(R)
         ins.fill_between(xm, m - e, m + e, color=C[k], alpha=0.2, lw=0)
         ins.plot(xm, m, color=C[k], lw=1.0, marker='o', ms=2.0)
-    ins.axhline(0.9, color=MUTED, lw=0.6, ls='--')
+    ins.axhline(0.9, color=MUTED, lw=0.6, ls='--'); ins.set_ylim(0.7, 1.0); ins.set_yticks([0.8, 0.9, 1.0])
+    ins.text(3.0, 0.775, '$|y-\\hat h|$', fontsize=4.9, color=C['sc'], ha='left', va='center')
+    ins.text(0.68, 0.74, 'i normalizuar', fontsize=4.9, color=C['scn'], ha='left', va='center')
     ins.set_xlim(0, 4); ins.set_xticks([0, 2, 4]); ins.tick_params(labelsize=5.0, length=1.5, pad=1)
     ins.set_xlabel('$x$ [km]', fontsize=5.2, labelpad=0.5)
     ins.set_title('mbulimi sipas largësisë nga bregu', fontsize=5.3, color=MUTED, loc='left', pad=2)
@@ -236,19 +249,25 @@ def panel_f(ax, axb):
     sty = dict(u=(OI['vermillion'], '-', 'o'), w=(OI['blue'], '-', 'o'), un=(OI['vermillion'], (0, (3, 1.5)), 's'),
                wn=(OI['blue'], (0, (3, 1.5)), 's'))
     lo_all, hi_all = 1.0, 0.0
+    ends = []
     for k, (col, ls, mk) in sty.items():
         m = np.array([PT[f'cl{n}_cov_{k}_avg'].mean() for n in ns])
         e = np.array([1.96 * se(PT[f'cl{n}_cov_{k}_avg']) for n in ns])
         lo_all = min(lo_all, (m - e).min()); hi_all = max(hi_all, (m + e).max())
         ax.fill_between(ns, m - e, m + e, color=col, alpha=0.18, lw=0)
         ax.plot(ns, m, color=col, ls=ls, lw=1.2, marker=mk, ms=2.6, mec='white', mew=0.3)
-        ax.text(ns[-1] * 1.08, m[-1], f'{m[-1]:.3f}', fontsize=5.4, color=col, va='center', ha='left')
-    ax.axhline(0.9, color=MUTED, lw=0.7, ls='--')
-    ax.text(ns[0] * 0.86, 0.9 + 0.004, '$1-\\alpha$', fontsize=5.4, color=MUTED, va='bottom', ha='left')
+        ends.append((m[-1], col))
+    span = hi_all - lo_all
+    ends.sort(key=lambda e: e[0]); ypos = [e[0] for e in ends]
+    for j in range(1, len(ypos)):
+        ypos[j] = max(ypos[j], ypos[j - 1] + 0.16 * span)
+    for (v, col), yp in zip(ends, ypos):
+        ax.text(ns[-1] * 1.08, yp, f'{v:.3f}', fontsize=5.4, color=col, va='center', ha='left')
+    ax.plot([ns[0] * 0.8, ns[-1] * 1.04], [0.9, 0.9], color=MUTED, lw=0.7, ls='--')   # stops before the end labels
+    ax.text(ns[0] * 0.84, 0.9 - 0.004, '$1-\\alpha$', fontsize=5.4, color=MUTED, va='top', ha='left')
     ax.set_xscale('log'); ax.set_xticks(ns); ax.set_xticklabels([]); ax.minorticks_off()
     ax.set_xlim(ns[0] * 0.8, ns[-1] * 1.5)
-    span = hi_all - lo_all
-    ax.set_ylim(lo_all - 0.62 * span, hi_all + 0.06 * span)
+    ax.set_ylim(lo_all - 0.78 * span, hi_all + 0.08 * span)
     ax.set_ylabel('mbulimi marxhinal')
     h_ = [Line2D([], [], color=OI['vermillion'], lw=1.4, label='pa pesha'),
           Line2D([], [], color=OI['blue'], lw=1.4, label='me pesha $w=p_{\\rm test}/q$'),
@@ -281,7 +300,7 @@ def main():
     top = gs[0].subgridspec(1, 3, width_ratios=[1.0, 0.03, 0.62], wspace=0.06)
     ax = fig.add_subplot(top[0, 0]); cax = fig.add_subplot(top[0, 1])
     panel_a(ax, cax); panel(ax, 'a', x=-0.1, y=1.1)
-    gb = top[0, 2].subgridspec(1, 2, width_ratios=[0.42, 1.0], wspace=0.0)
+    gb = top[0, 2].subgridspec(1, 2, width_ratios=[0.56, 1.0], wspace=0.0)
     ax = fig.add_subplot(gb[0, 1]); panel_b(ax); panel(ax, 'b', x=-0.3)
     mid = gs[1].subgridspec(1, 2, wspace=0.27)
     ax = fig.add_subplot(mid[0, 0]); panel_c(ax); panel(ax, 'c', x=-0.13)

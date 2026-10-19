@@ -32,7 +32,7 @@ SETTING = {'batched': ('batched bandit', 'bandit\nme grupe'),
            'conformal': ('conformal design (feedback covariate shift)', 'projektim\nkonformal'),
            'rl': ('RL off-policy', 'RL jashtë\npolitike')}
 ESTIMAND = {'means': ('arm means / ATE', 'mesatare\nkrahësh / ATE'),
-            'M': ('M-estimand (parameter or functional)', 'parametër M $\\theta^*$'),
+            'M': ('M-estimand (parameter or functional)', 'parametër ose\nfunksional'),
             'value': ('policy value', 'vlera e\npolitikës'),
             'risk': ('risk minimiser', 'minimizues\nrreziku'),
             'pred': ('prediction set', 'bashkësi\nparashikimi'),
@@ -67,8 +67,9 @@ W = [
     dict(k=1, cite='Zhang, Janson & Murphy (2020)', short='Zhang', year=2020, venue='NeurIPS',
          venue_full='Advances in Neural Information Processing Systems 33: 9818-9829', vtype='conference', group='Harvard',
          route='A', setting='batched', estimand='means', inference='wald', guarantee='asym', prop='no', stab='no',
-         misspec='partly', real='no', indirect=['misspec'],
+         misspec='partly', real='no', indirect=['misspec', 'group'],
          notes=dict(estimand='arm-mean difference (margin) per batch (p01 §2 rows 11-12)',
+                    group='Zhang: Dept. of Computer Science confirmed; "Harvard" for all three only indirect (author copy on Janson\'s Harvard page) (p01 §1, §2 rows 4-5)',
                     inference='batch-studentised BOLS, t_{n-2} / N(0,1) reference (p01 §2 rows 10, 18)',
                     guarantee='n -> infinity with T fixed (p01 §3.1)',
                     prop='BOLS does not use the logged pi_t (p01 §3.4)',
@@ -78,8 +79,9 @@ W = [
     dict(k=2, cite='Bibaut et al. (2021a)', short='Bibaut', year=2021, venue='NeurIPS',
          venue_full='Advances in Neural Information Processing Systems 34: 28548-28559', vtype='conference', group='Berkeley',
          route='A', setting='contextual', estimand='value', inference='wald', guarantee='asym', prop='yes', stab='no',
-         misspec='yes', real='yes', indirect=['real'],
+         misspec='yes', real='yes', indirect=['real', 'group'],
          notes=dict(inference='CADR: inverse-sd stabilised one-step estimator, asymptotically normal (p02 §3)',
+                    group='Bibaut (first author) at Netflix confirmed; van der Laan (UC Berkeley, last author) from the earlier extraction only (p02 §1, §2 row 4); group from context_routes.md',
                     prop='known logging policy g_t; DR score uses g*/g_t (p02 §3)',
                     stab='does not need asymptotic stabilisation of the logging policy; needs exploration-rate A3/A6 instead (p02 §3 limitations)',
                     misspec='outcome model need only converge to a fixed limit (A4), black-box regressors allowed (p02 §3)',
@@ -107,11 +109,11 @@ W = [
     dict(k=5, cite='Du, Nair & Janson (2025)', short='Du', year=2025, venue='NeurIPS',
          venue_full='Advances in Neural Information Processing Systems 38 (pages not verified)', vtype='conference', group='Harvard',
          route='A', setting='bayes', estimand='M', inference='bayes', guarantee='asym', prop='no', stab='partly',
-         misspec='no', real='no', indirect=[],
+         misspec='no', real='no', indirect=['misspec'],
          notes=dict(setting='adaptive linear Gaussian: bandits, adaptive regression, LQR (p05 §3.1)',
                     inference='Bernstein-von Mises in TV to the representative normal (p05 §2 rows 8-10)',
                     stab='BvM itself needs no stability; frequentist validity of credible sets needs it (negative result) (p05 §2 rows 9, 14)',
-                    misspec='theorems stated for the correctly specified linear Gaussian / exponential-family model (p05 §3.1)',
+                    misspec='theorems stated for the linear Gaussian / exponential-family model (p05 §3.1); author-stated limitations on misspecification NOT verified (p05 §3.5) - our reading',
                     real='"a range of simulations" (abstract) (p05 §3.4)')),
     dict(k=6, cite='Howard et al. (2021)', short='Howard', year=2021, venue='Ann. Statist.',
          venue_full='Annals of Statistics 49(2): 1055-1080', vtype='journal', group='Berkeley',
@@ -177,12 +179,12 @@ W = [
     dict(k=13, cite='Dwivedi et al. (2025)', short='Dwivedi', year=2025, venue='Ann. Statist.',
          venue_full='Annals of Statistics 53(6): 2380-2408', vtype='journal', group='Harvard',
          route='D', setting='sequential', estimand='means', inference='wald', guarantee='asym', prop='no', stab='partly',
-         misspec='no', real='yes', indirect=['stab'],
+         misspec='partly', real='yes', indirect=['stab', 'misspec'],
          notes=dict(setting='multi-unit sequential experiment with pooled adaptive policies (p13 §2 rows 10-12)',
                     estimand='counterfactual mean of each unit at each time (p13 §2 row 10)',
                     prop='nearest neighbours, no inverse-propensity weighting (p13 §2 row 14)',
                     stab='exploration floor + conditional independence across units; a policy-stability quantity enters the 2022 CLT, final version NOT verified (p13 §2 row 18, §3.3)',
-                    misspec='latent factor model, no carry-over (p13 §2 rows 15, 26)',
+                    misspec='non-parametric latent factor model: no parametric form for f, latent factors or noise (p13 §2 row 15), but the factor structure, i.i.d. time factors and no carry-over are required (p13 §2 rows 15, 26) - our reading',
                     real='HeartSteps mobile-health trial (p13 §3.5)')),
     dict(k=14, cite='Duan, Jia & Wang (2020)', short='Duan', year=2020, venue='ICML',
          venue_full='Proceedings of ICML 2020, PMLR 119: 2701-2709', vtype='conference', group='Princeton',
@@ -196,10 +198,10 @@ W = [
     dict(k=15, cite='Hao et al. (2021)', short='Hao', year=2021, venue='ICML',
          venue_full='Proceedings of ICML 2021, PMLR 139: 4074-4084', vtype='conference', group='Princeton',
          route='D', setting='rl', estimand='ope', inference='boot', guarantee='asym', prop='no', stab='yes',
-         misspec='no', real='no', indirect=['stab'],
+         misspec='no', real='no', indirect=['stab', 'misspec'],
          notes=dict(inference='episode-level bootstrap; Theorem 4.2 CLT and Theorem 5.1 bootstrap consistency (p15 §3.2)',
                     stab='K independent episodes from one behaviour policy: no adaptivity across episodes (stronger than stability) (p15 §5a) - classification is ours',
-                    misspec='linear FQE under completeness (Condition 4.1) (p15 §2 rows 4, 11)',
+                    misspec='theory for linear FQE (p15 §2 row 4); the completeness condition (Condition 4.1) itself NOT verified (p15 §2 row 11) - our reading',
                     real='Cliff Walking, Mountain Car, sepsis simulator (simulators) (p15 §3.4)')),
     dict(k=16, cite='Zhang, Zhang, Ni & Wang (2022)', short='Zhang R.', year=2022, venue='ICML',
          venue_full='Proceedings of ICML 2022, PMLR 162: 26713-26749', vtype='conference', group='Princeton',
@@ -419,7 +421,7 @@ def panel_b(fig, y0):
     tot = LABW + sum(c[2] for c in COLS)
     hh = 10.5
     H = hh + 0.6 + rowh * len(W) + 3 * 1.2 + 10.5
-    ax = ax_mm(fig, 1.0, y0, tot, H)
+    ax = ax_mm(fig, 2.4, y0, tot, H)
     ax.set_xlim(0, tot); ax.set_ylim(H, 0); ax.axis('off')
     ax.text(3.0, hh - 1.0, 'Punimi', ha='left', va='bottom', fontsize=5.8, color=INK)
     xc = LABW
@@ -446,7 +448,7 @@ def panel_b(fig, y0):
             ax.add_patch(Rectangle((xc + 0.25, y + 0.2), wd - 0.5, rowh - 0.4, facecolor=fc, edgecolor=GRID, lw=0.35))
             two = '\n' in txt
             t = ax.text(xc + wd / 2, y + rowh / 2 + 0.1, txt, ha='center', va='center', fontsize=5.0 if two else 5.4, color=tc,
-                        linespacing=0.92, fontweight='bold' if bold else 'normal')
+                        linespacing=0.96, fontweight='bold' if bold else 'normal')
             fit(ax, t, wd - (3.3 if f in w['indirect'] else 1.3))
             if f in w['indirect']:
                 ax.text(xc + wd - 0.45, y + 0.3, '†', ha='right', va='top', fontsize=5.6, color=MUTED)
@@ -455,7 +457,7 @@ def panel_b(fig, y0):
     # legend (measured placement, so nothing overlaps)
     y += 2.0
     ax.text(1.0, y + 1.0, 'Katër kolonat e fundit:', fontsize=5.5, color=INK, va='center')
-    xl = swatches(ax, 23.5, y, [(C_FAV, 'vetí e favorshme'), (C_MID, 'pjesërisht'), (C_BAD, 'kërkesë kufizuese'),
+    xl = swatches(ax, 23.5, y, [(C_FAV, 'veti e favorshme'), (C_MID, 'pjesërisht'), (C_BAD, 'kërkesë kufizuese'),
                                 (C_NEU, 'mungon'), ('white', 'e paqartë nga raportet (?)')])
     ax.text(xl + 2.0, y + 1.0, '†  evidencë indirekte ose interpretim ynë', fontsize=5.5, color=MUTED, va='center')
     y += 3.7
@@ -464,7 +466,7 @@ def panel_b(fig, y0):
     t = ax.text(xl + 3.0, y + 1.0, 'Garancia:', fontsize=5.5, color=INK, va='center')
     xl = swatches(ax, xl + 3.0 + width_data(ax, t) + 1.2, y,
                   [(GUARC[g], GUAR[g][1].replace('\n', ' ')) for g in ('asym', 'finite', 'unif')])
-    ax.text(xl + 3.0, y + 1.0, 'Kolonat e tjera: ngjyra vetëm dallon kategoritë e shkruara në qelizë.', fontsize=5.5,
+    ax.text(xl + 3.0, y + 1.0, 'Kolonat e tjera: ngjyra dallon kategoritë.', fontsize=5.5,
             color=MUTED, va='center')
     ax.text(0.0, -1.6, 'Matrica e vetive: çfarë kërkon dhe çfarë garanton secili punim', fontsize=7.6, color=INK, ha='left',
             va='bottom')
@@ -478,13 +480,13 @@ def rbox(ax, x, y, w, h, fc, ec, lw=0.8, z=1):
 
 
 def panel_c(fig, top):
-    W_, H_ = 104.0, 57.0
-    ax = ax_mm(fig, 1.5, top, W_, H_)
+    W_, H_ = 102.0, 57.0
+    ax = ax_mm(fig, 2.4, top, W_, H_)
     ax.set_xlim(0, W_); ax.set_ylim(0, H_); ax.axis('off')
     ax.text(0.0, H_ - 1.6, 'Katër rrugë rreth kushtit unifikues', fontsize=7.6, color=INK, ha='left', va='center')
     ax.text(-0.4, H_ - 1.6, 'c', fontsize=8.6, fontweight='bold', color=INK, ha='right', va='center')
     # centre box
-    cx, cy, cw, ch = 25.0, 21.5, 54.0, 14.0
+    cx, cy, cw, ch = 24.0, 21.5, 54.0, 14.0
     rbox(ax, cx, cy, cw, ch, 'white', INK, lw=0.9, z=3)
     ax.text(cx + cw / 2, cy + ch - 2.0, 'kushti unifikues i CLT martingale', ha='center', va='center', fontsize=5.9,
             color=INK, fontweight='bold', zorder=4)
@@ -494,17 +496,17 @@ def panel_c(fig, top):
     ax.text(cx + cw / 2, cy + 1.9,
             '$\\Sigma$ jo e rastit;  identiteti:  $\\mathbb{E}[W_t^2 f\\mid\\mathcal{H}_{t-1}]=\\mathbb{E}_{\\pi^{\\rm sta}}[f]$',
             ha='center', va='center', fontsize=5.5, color=MUTED, zorder=4)
-    bw, bh = 50.0, 14.0
+    bw, bh = 49.0, 14.0
     spec = {'A': (0.0, 39.5, 'pesha ose stabilizim',
                   ['$W_t=\\sqrt{\\pi^{\\rm sta}/\\pi_t}$ [0];  studentizim grupor [1];',
                    '$\\hat\\sigma_t^{-1}$ [2];  ndarje jo të rastit [3, 4];  BvM [5]']),
-            'B': (54.0, 39.5, 'supermartingale',
+            'B': (53.0, 39.5, 'supermartingale',
                   ['mosbarazimi i Ville-s, pa CLT: sekuenca besimi [6];',
                    'raport përgjasash [7];  kufij të vetënormalizuar [8, 9]']),
             'C': (0.0, 2.0, 'mësim dhe parashikim',
                   ['pesha të plota $g^*/g_t$: rrezik i peshuar [10];',
                    'rrezik i paanshëm [11];  konformal me reagim [12]']),
-            'D': (54.0, 2.0, 'strukturë në vend të peshave',
+            'D': (53.0, 2.0, 'strukturë në vend të peshave',
                   ['episode i.i.d. [15, 16];  model faktorësh [13];',
                    'kufi përqendrimi nën filtrim adaptiv [14]'])}
     lab = {'A': 'e arrin', 'B': 'e anashkalon', 'C': 'e anashkalon', 'D': 'e arrin\nnga struktura'}
@@ -529,7 +531,7 @@ def panel_c(fig, top):
 
 
 def panel_d(fig, top, prof):
-    ax = ax_mm(fig, 121.0, top + 18.5, 54.0, 28.5)
+    ax = ax_mm(fig, 118.0, top + 18.5, 49.0, 28.5)
     M = np.zeros((4, len(PROFILE_COLS))); T = [[''] * len(PROFILE_COLS) for _ in range(4)]
     for i, r in enumerate('ABCD'):
         n = prof[r]['n']

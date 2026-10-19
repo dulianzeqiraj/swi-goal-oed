@@ -47,8 +47,10 @@ q_inf, sqrt(q_sta q_inf) and q_sta respectively (q_inf = limit design).
 Exploration (zero margin, gamma = 0): which design choices make the OLS under-coverage strong
 (zone geometry, clipping, prior, tempered/greedy allocation, campaigns of 10 wells).
 
-Run: python3 sim_aquifer.py [--workers 3]   (jobs run in parallel processes, one BLAS thread each).
-Output: results/aquifer.json
+Run: python3 sim_aquifer.py --workers 2   (35 jobs in parallel processes, one BLAS thread each; about
+18 CPU-minutes in total, 8 min 53 s wall with 2 workers on a lightly loaded 4-core machine, 15 min 43 s
+under heavy load from other jobs). --rscale 0.2 gives a quick run with 1/5 of the replications.
+Seeds are fixed (np.random.default_rng), so the results are reproducible. Output: results/aquifer.json
 """
 import argparse
 import multiprocessing as mp
@@ -256,6 +258,7 @@ def run(kap, gamma, design='ts', R=5000, n_max=400, seed=0, misspec=False, every
                     st[kk]['se3'] = np.sqrt(V3[:, 2, 2])
                     z3 = (st[kk]['est'][:, 2] - kap) / st[kk]['se3']
                     o[nm]['hc3'] = dict(cov=np.mean(np.abs(z3) <= zq), up=np.mean(z3 > zq), lo=np.mean(z3 < -zq),
+                                        onesided_fa=np.mean(z3 > norm.ppf(1 - ALPHA)),
                                         mean_z=z3.mean(), sd_z=z3.std(), width_med=np.median(2 * zq * np.sqrt(V3[:, 2, 2])),
                                         hist=np.histogram(np.clip(z3, -4.999, 4.999), bins=ZBINS)[0],
                                         cov_proj=np.mean(np.abs(z3) <= np.sqrt(chi2.ppf(1 - ALPHA, 3))))
@@ -357,6 +360,8 @@ def do_job(spec):
                              for e in ('olscl', 'olsk', 'olssw', 'aw', 'ipw')}
                          | {'share_K_mean': r['ck'][n]['share_K']['mean'], 'share_K_sd': r['ck'][n]['share_K']['sd'],
                             'aw_hc3': r['ck'][n]['aw']['hc3']['cov'], 'olssw_hc3': r['ck'][n]['olssw']['hc3']['cov'],
+                            'aw_hc3_fa': r['ck'][n]['aw']['hc3']['onesided_fa'], 'aw_hc3_up': r['ck'][n]['aw']['hc3']['up'],
+                            'aw_hc3_lo': r['ck'][n]['aw']['hc3']['lo'],
                             'ols_bias': r['ck'][n]['ols_est']['bias'], 'ols_sd': r['ck'][n]['ols_est']['sd']}
                          for n in (100, 400)})
     return spec['path'], r, time.time() - t0
@@ -378,7 +383,11 @@ def brief(path, r):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--workers', type=int, default=3)
+    ap.add_argument('--rscale', type=float, default=1.0, help='multiply all replication counts (quick runs: 0.2)')
     a = ap.parse_args()
+    global RMAIN, RLONG, RMIS, REXP
+    if a.rscale != 1.0:
+        RMAIN, RLONG, RMIS, REXP = (max(200, int(round(r * a.rscale))) for r in (RMAIN, RLONG, RMIS, REXP))
     t00 = time.time()
     J = dict(setting=dict(L_km=L_KM, sigma=SIG, T=T_TR, N0_mm=N0_MM, N1_mm=N1_MM, kappa0=KAP0, kappa1=KAP1,
                           c0=C0, c1=C1, a=A_IN, beta=BETA, h_coast=H_COAST, zone_C=ZC, zone_K=ZK, clip=CLIP,

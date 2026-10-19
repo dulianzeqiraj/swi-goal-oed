@@ -33,6 +33,9 @@ Estimators of taubar_K (S'_k = 1{s_k = +1}, W_k = sqrt(pi_sta(s_k) / pi_k(s_k)),
          E[tauhat_k | F_{k-1}] = tau_k exactly, so tauhat_k - tau_k is a martingale difference.
          Variance proxy V_K = sum_k (tauhat_k - mean)^2 (conservative: it also contains sum (tau_k - taubar)^2).
          Fixed-K Wald:  mean +- 1.96 sqrt(V_K) / K.
+  IPW-h  stabilised IPW (as in the OU case, sim_switchback_ou.py): sum h_k tauhat_k / sum h_k with the
+         predictable variance-stabilising weights h_k = sqrt(pi_k (1 - pi_k)); its own estimand is
+         sum h_k tau_k / sum h_k (= taubar_K when tau_k is constant, as in the linear OU aquifer).
          Asymptotic CS (Waudby-Smith et al. 2024, normal mixture, empirical variance):
              mean +- sigmahat_K sqrt((K + r)(log((K + r) / r) + 2 log(1/alpha))) / K,
              sigmahat_K^2 = V_K / K,  r = t* / (2 log(1/alpha) + log(2 log(1/alpha) + 1)),  t* = 2500.
@@ -47,7 +50,8 @@ Dependence on ell and b: step responses from 24000 states of the switchback proc
 ell = 5), both forcings over 10 time units, give E[tau](ell, b) for all (ell, b) at once; validated by
 direct switchbacks with pi = 1/2 at ell in {0.5, 1, 2} (and B at ell = 5). FDT-predicted curve:
 2 Delta / (ell - b) int_b^ell chi_F(t) dt, chi_F(t) = int_0^min(t,4) [C(u) C(0)^{-1}]_{gp} du.
-Run: OMP_NUM_THREADS=1 python3 sim_switchback_l96.py   (2 worker processes; about 9 min).
+Run: OMP_NUM_THREADS=1 python3 sim_switchback_l96.py   (2 worker processes; 13.4 min wall, 14.7 min CPU,
+on a shared 4-core machine with load 4-10).
 Output: results/switchback_l96.json
 """
 import os
@@ -75,6 +79,7 @@ LA = 2 * np.log(1 / ALPHA)
 RHO = T_STAR / (LA + np.log(LA + 1))
 K0 = 20
 H_TARGET = 0.03
+EST = ('ipw', 'ipw_h', 'naive', 'aw', 'hajek')
 B_LIST = (0.0, 0.5, 1.0)          # burn-ins recorded for the ell-dependence (B and validation runs)
 QUICK = os.environ.get('QUICK') == '1'
 if QUICK:
@@ -139,8 +144,10 @@ def switchback(cfg, seed, ell=ELL, burn=BURN, K=None, Rr=None, record_b=False, h
     # estimator state
     m_base = np.zeros(Rr); sumY = np.zeros(Rr)
     ipw_s = np.zeros(Rr); ipw_q = np.zeros(Rr); tau_s = np.zeros(Rr)
-    est = {k: np.zeros((K, Rr)) for k in ('ipw', 'naive', 'aw', 'hajek', 'taubar')}
-    se = {k: np.zeros((K, Rr)) for k in ('ipw', 'naive', 'aw', 'hajek')}
+    hs = {k: np.zeros(Rr) for k in ('h', 'h2', 'ht', 'h2t', 'h2tt', 'htau')}
+    est = {k: np.zeros((K, Rr)) for k in ('ipw', 'ipw_h', 'naive', 'aw', 'hajek', 'taubar', 'taubar_h')}
+    se = {k: np.zeros((K, Rr)) for k in ('ipw', 'ipw_h', 'naive', 'aw', 'hajek')}
+    sig_h = np.zeros((K, Rr))
     # weighted sums per arm: index 0 = '+', 1 = '-'; powers of weights used
     acc = {w: np.zeros((3, 2, Rr)) for w in ('u', 'W', 'W2', 'W4')}   # sum w, sum w Y, sum w Y^2
     hovrec = None
@@ -185,6 +192,9 @@ def switchback(cfg, seed, ell=ELL, burn=BURN, K=None, Rr=None, record_b=False, h
         tau_s += Yp[k] - Ym[k]
         th = (yobs - m_base) * np.where(s1, 1 / pi, -1 / (1 - pi))
         ipw_s += th; ipw_q += th ** 2
+        hk = np.sqrt(pi * (1 - pi))
+        hs['h'] += hk; hs['h2'] += hk ** 2; hs['ht'] += hk * th; hs['h2t'] += hk ** 2 * th
+        hs['h2tt'] += hk ** 2 * th ** 2; hs['htau'] += hk * (Yp[k] - Ym[k])
         lam = max(1.0 / (k + 1), LAM)
         m_base = (1 - lam) * m_base + lam * yobs
         sumY += yobs
@@ -199,6 +209,10 @@ def switchback(cfg, seed, ell=ELL, burn=BURN, K=None, Rr=None, record_b=False, h
         mi = ipw_s / K1
         est['ipw'][k] = mi
         se['ipw'][k] = np.sqrt(np.maximum(ipw_q / K1 - mi ** 2, 0) / K1)
+        mh = hs['ht'] / hs['h']
+        vh = np.maximum(hs['h2tt'] - 2 * mh * hs['h2t'] + mh ** 2 * hs['h2'], 0)   # sum h^2 (tauhat - mh)^2
+        est['ipw_h'][k] = mh; se['ipw_h'][k] = np.sqrt(vh) / hs['h']; sig_h[k] = np.sqrt(vh / K1)
+        est['taubar_h'][k] = hs['htau'] / hs['h']
         with np.errstate(divide='ignore', invalid='ignore'):
             # naive with Welch s.e.
             nn, sy, syy = acc['u']
@@ -210,7 +224,7 @@ def switchback(cfg, seed, ell=ELL, burn=BURN, K=None, Rr=None, record_b=False, h
                 mu = swy / sw
                 vv = (s2yy - 2 * mu * s2y + mu ** 2 * s2) / sw ** 2
                 est[key][k] = mu[0] - mu[1]; se[key][k] = np.sqrt(np.maximum(vv[0], 0) + np.maximum(vv[1], 0))
-    out = dict(Yp=Yp, Ym=Ym, S=S, PI=PI, est=est, se=se, Yb=Yb, hov=hovrec, ell=ell, burn=burn)
+    out = dict(Yp=Yp, Ym=Ym, S=S, PI=PI, est=est, se=se, Yb=Yb, hov=hovrec, ell=ell, burn=burn, sig_h=sig_h)
     return out
 
 
@@ -232,6 +246,14 @@ def summarise(cfg, o):
     mon = Ks >= K0
     ever_w = np.logical_or.accumulate(miss_w & mon[:, None], axis=0)
     ever_cs = np.logical_or.accumulate(miss_cs & mon[:, None], axis=0)
+    # stabilised IPW: CS for sum h (tauhat - tau) with the same mixture boundary in "period time"
+    hsum = np.cumsum(np.sqrt(o['PI'] * (1 - o['PI'])), 0)
+    hw_csh = o['sig_h'] * np.sqrt((Ks + RHO) * (np.log((Ks + RHO) / RHO) + LA))[:, None] / hsum
+    miss_csh = np.abs(est['ipw_h'] - tb) > hw_csh
+    ever_csh = np.logical_or.accumulate(miss_csh & mon[:, None], axis=0)
+    miss_csh_own = np.abs(est['ipw_h'] - est['taubar_h']) > hw_csh
+    ever_csh_own = np.logical_or.accumulate(miss_csh_own & mon[:, None], axis=0)
+    miss_ipwh = np.abs(est['ipw_h'] - tb) > Z * se['ipw_h']
     miss_naive = np.abs(est['naive'] - tb) > Z * se['naive']
     miss_aw = np.abs(est['aw'] - tb) > Z * se['aw']
     miss_haj = np.abs(est['hajek'] - tb) > Z * se['hajek']
@@ -251,18 +273,6 @@ def summarise(cfg, o):
         mid = np.sqrt(lo * hi); big = mix_halfwidth(sK, mid) > H_TARGET
         lo = np.where(big, mid, lo); hi = np.where(big, hi, mid)
     Kh_cs = hi; Kh_w = (Z * sK / H_TARGET) ** 2
-    # first K with half-width <= h for checkable h, to validate the projection
-    hcheck = {}
-    for h in (0.25, 0.2, 0.15, 0.12, 0.1):
-        b = hw_cs <= h
-        f = first(b)
-        proj_lo = np.full(Rr, 10.0); proj_hi = np.full(Rr, 1e8)
-        for _ in range(80):
-            mid = np.sqrt(proj_lo * proj_hi); big = mix_halfwidth(sK, mid) > h
-            proj_lo = np.where(big, mid, proj_lo); proj_hi = np.where(big, proj_hi, mid)
-        hcheck[str(h)] = dict(frac_reached=float((f > 0).mean()),
-                              median_observed=float(np.median(f[f > 0])) if (f > 0).any() else None,
-                              median_projected=float(np.median(proj_hi)))
     # true conditional variance of the IPW term vs the variance proxy (conservativeness)
     PI = o['PI']; Yp, Ym = o['Yp'], o['Ym']
     yo = np.where(o['S'], Yp, Ym)
@@ -279,16 +289,19 @@ def summarise(cfg, o):
     Kf = [k for k in (100, 300, 1000, 1500, 3000) if k <= K]
     res = dict(
         R=Rr, K=K, grid=grid,
-        ever_miss=dict(cs=ever_cs[gi].mean(1), wald_peek=ever_w[gi].mean(1)),
+        ever_miss=dict(cs=ever_cs[gi].mean(1), wald_peek=ever_w[gi].mean(1), cs_h=ever_csh[gi].mean(1),
+                       cs_h_own=ever_csh_own[gi].mean(1)),
         miss=dict(wald=miss_w[gi].mean(1), cs=miss_cs[gi].mean(1), naive=miss_naive[gi].mean(1),
-                  aw=miss_aw[gi].mean(1), hajek=miss_haj[gi].mean(1)),
-        bias=dict({k: (est[k][gi] - tb[gi]).mean(1) for k in ('ipw', 'naive', 'aw', 'hajek')}),
-        bias_se=dict({k: (est[k][gi] - tb[gi]).std(1) / np.sqrt(Rr) for k in ('ipw', 'naive', 'aw', 'hajek')}),
+                  aw=miss_aw[gi].mean(1), hajek=miss_haj[gi].mean(1), ipw_h=miss_ipwh[gi].mean(1)),
+        bias=dict({k: (est[k][gi] - tb[gi]).mean(1) for k in EST}),
+        bias_se=dict({k: (est[k][gi] - tb[gi]).std(1) / np.sqrt(Rr) for k in EST}),
+        taubar_h_minus_taubar=dict(mean=(est['taubar_h'][gi] - tb[gi]).mean(1), sd=(est['taubar_h'][gi] - tb[gi]).std(1)),
+        hw_csh_median=np.median(hw_csh[gi], 1),
         hw_cs_median=np.median(hw_cs[gi], 1), hw_w_median=np.median(hw_w[gi], 1),
         frac_excl_cs=(f_cs[None, :] > 0) & (f_cs[None, :] <= grid[:, None]),
         frac_excl_w=(f_w[None, :] > 0) & (f_w[None, :] <= grid[:, None]),
         first_excl_cs=f_cs, first_excl_w=f_w,
-        K_half_cs=Kh_cs, K_half_w=Kh_w, hcheck=hcheck,
+        K_half_cs=Kh_cs, K_half_w=Kh_w,
         sigmahat_Kmax=sK,
         mean_condvar=condvar.mean(), mean_proxy_minus_tau2=(proxy.mean() - (tau.mean(0) ** 2).mean()),
         tau_stats=dict(mean=tau.mean(), se=tau.mean(0).std() / np.sqrt(Rr), sd=tau.std(),
@@ -303,15 +316,16 @@ def summarise(cfg, o):
                                        cover=1 - (np.abs(est[e][k - 1] - tb[k - 1]) > Z * se[e][k - 1]).mean(),
                                        cover_Etau=1 - (np.abs(est[e][k - 1] - tau.mean()) > Z * se[e][k - 1]).mean(),
                                        med_se=np.median(se[e][k - 1]))
-                              for e in ('ipw', 'naive', 'aw', 'hajek')},
+                              for e in EST},
                              cs_cover=1 - miss_cs[k - 1].mean(), cs_ever=ever_cs[k - 1].mean(),
+                             csh_ever=ever_csh[k - 1].mean(), med_hw_csh=np.median(hw_csh[k - 1]),
                              wald_ever=ever_w[k - 1].mean(), med_hw_cs=np.median(hw_cs[k - 1]),
                              med_hw_w=np.median(hw_w[k - 1]))
                 for k in Kf},
-        dist_err=dict({e: (est[e][-1] - tb[-1]) for e in ('ipw', 'naive', 'aw', 'hajek')}),
+        dist_err=dict({e: (est[e][-1] - tb[-1]) for e in EST}),
         dist_err_K=K,
-        dist_err_common=dict({e: (est[e][min(K, 1500) - 1] - tb[min(K, 1500) - 1]) for e in ('ipw', 'naive', 'aw', 'hajek')}),
-        dist_est_common=dict({e: est[e][min(K, 1500) - 1] for e in ('ipw', 'naive', 'aw', 'hajek', 'taubar')}),
+        dist_err_common=dict({e: (est[e][min(K, 1500) - 1] - tb[min(K, 1500) - 1]) for e in EST}),
+        dist_est_common=dict({e: est[e][min(K, 1500) - 1] for e in EST + ('taubar',)}),
         dist_err_common_K=min(K, 1500),
     )
     res['frac_excl_cs'] = res['frac_excl_cs'].mean(1); res['frac_excl_w'] = res['frac_excl_w'].mean(1)
@@ -320,6 +334,7 @@ def summarise(cfg, o):
     medf = np.median(fc)
     rr = int(np.argmin(np.abs(fc - medf))) if np.isfinite(medf) else 0
     res['trace'] = dict(rep=rr, ipw=est['ipw'][:, rr], taubar=tb[:, rr], naive=est['naive'][:, rr],
+                        ipw_h=est['ipw_h'][:, rr], hw_csh=hw_csh[:, rr],
                         aw=est['aw'][:, rr], hw_cs=hw_cs[:, rr], hw_w=hw_w[:, rr], pi=PI[:, rr],
                         first_excl_cs=int(f_cs[rr]))
     # histogram of tau_k
