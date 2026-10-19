@@ -16,7 +16,7 @@ Sections (each writes into one JSON file, results/kauz_verify.json of the M-esti
               sensor sets; finite-record parametric-bootstrap tests (exact OU sampling).
   6 mse       finite-record variance of the integrated partial-FDT estimate, bias^2 + Var along the KAUZ
               sequence, MSE-greedy design vs bias-only design on independent test models.
-Run:  python3 kauz_verify.py            (all sections, about 6-9 min on 2 cores)
+Run:  python3 kauz_verify.py            (all sections, about 7 min on 2 shared cores)
       python3 kauz_verify.py --skip-l96 (without the Lorenz-96 check, about 1 min less)
 Symbolic checks need sympy on PYTHONPATH (optional).
 """
@@ -936,6 +936,18 @@ def sec_mse(Ts=(100.0, 1000.0), dt=0.1, tau_max=20.0, n_design_reps=40, n_test=4
         res['runtime'] = dict(design_sims_s=t_design, test_sims_s=t_test)
         out[f'T={T:g}'] = res
         print(f'    T={T:g}: kstar {res["kstar"]}  design {t_design:.0f}s test {t_test:.0f}s', flush=True)
+    # passive FDT vs an intervention on the true model: record length for sd(R_hat) = 0.2 R_gp
+    A, C0, Q = truth(); Mt = Model(A, C0, Q); S6 = pseq[6]
+    st = ou_stats(A, C0, dt, int(1000 / dt), 60, rng, L)
+    th = theta_from_stats(st['C0'], st['Cint'], S6)
+    sd1000 = th.std(ddof=1); target = 0.2 * Mt.R
+    Sgg = 2 * Mt.Cint[G, G]                                   # long-run variance (spectral density at 0) of x_g
+    out['intervention_vs_fdt'] = dict(S=sorted(S6), R=Mt.R, fdt_sd_T1000=sd1000, fdt_mean_T1000=th.mean(),
+                                      fdt_T_needed=1000 * (sd1000 / target) ** 2, S_gg0=Sgg,
+                                      switchback_T_needed={str(dF): 4 * Sgg / (target * dF) ** 2 for dF in (0.5, 1.0, 2.0)},
+                                      tau_c=-1 / np.linalg.eigvals(A).real.max(),
+                                      note='switchback: two halves of length T/2 with forcing 0 and dF at p, asymptotic variance '
+                                           '4 S_gg(0)/(T dF^2), switching transients ignored')
     return out
 
 

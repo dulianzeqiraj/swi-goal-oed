@@ -204,7 +204,7 @@ def panel_e(ax, nz=1600):
     xx = np.linspace(-4, 4, 300)
     ax.plot(xx, norm.pdf(xx), color=INK, lw=0.8, ls='--', label='$N(0,1)$')
     for s_ in (-1.96, 1.96):
-        ax.axvline(s_, color=RULE, lw=0.6, ls=':')
+        ax.vlines(s_, 0, 0.45, color=RULE, lw=0.6, ls=':')     # stop below the legend
     o = ck(dl, nz, 'olscl'); a3 = ck(dl, nz, 'aw', 'hc3')
     fa_a = a3.get('onesided_fa', np.nan)
     ax.text(2.12, 0.47, f"$P(Z>1.96)$\nOLS ${o['up']:.3f}$\nAW ${a3['up']:.3f}$\n(nominale $0.025$)\n\n"
@@ -239,10 +239,10 @@ def panel_f(ax, gkey='g0.2', nm=1600):
     ax.set_title('Specifikim i gabuar: tre objektiva', color=INK)
     h = [Line2D([], [], color=C_OLS, lw=1.0), Line2D([], [], color=C_AW, lw=1.0), Line2D([], [], color=C_IPW, lw=1.0),
          Line2D([], [], color=MUTED, lw=0.9, ls='--', marker='v', ms=3.0, mew=0), Line2D([], [], color=MUTED, lw=0.7, ls=':')]
-    ax.legend(h, ['OLS', 'AW-LS, $W_t$', 'IPW, $W_t^2$', 'objektivi $c^*(q)$', '$1.25\\,c_0$ (pa $\\delta$)'],
+    ax.legend(h, ['OLS', 'AW-LS, $W_t$', 'IPW, $W_t^2$', 'objektivi $c^*(q)$', '$1.25\\,c_0$ (pa paleokanal)'],
               loc='upper left', fontsize=5.0, handlelength=1.8, borderaxespad=0.2, labelspacing=0.3)
     nsm = M['ck']
-    ins = ax.inset_axes([0.67, 0.61, 0.31, 0.27])
+    ins = ax.inset_axes([0.71, 0.61, 0.27, 0.27])
     for key, col in (('ols', C_OLS), ('aw', C_AW), ('ipw', C_IPW)):
         c = np.array([ck(dm, n, key + '_est', 'cov3_sta') for n in nsm]); lo_, hi_ = mc_band(c, dm['R'])
         ins.fill_between(nsm, lo_, hi_, color=col, alpha=0.18, lw=0)
@@ -250,7 +250,7 @@ def panel_f(ax, gkey='g0.2', nm=1600):
     ins.axhline(0.95, color=MUTED, lw=0.6, ls=':')
     ins.set_xscale('log'); ins.set_xticks([100, 400, 1600]); ins.set_xticklabels(['100', '400', '1600'])
     ins.minorticks_off()
-    ins.set_ylim(-0.04, 1.06); ins.set_yticks([0, 0.5, 0.95]); ins.set_yticklabels(['0', '0.5', '0.95'])
+    ins.set_ylim(-0.04, 1.06); ins.set_yticks([0, 0.95]); ins.set_yticklabels(['0', '0.95'])
     ins.tick_params(labelsize=4.6, length=1.5, pad=1); ins.grid(True, lw=0.4)
     ins.set_title('mbulimi i $c^*(q^{\\rm sta})$ sipas $n$', fontsize=5.0, color=MUTED, loc='center', pad=2)
     return ax

@@ -20,10 +20,10 @@ P, G = 8, 27
 
 def pa(ax):
     th = J['theorem']
-    bins = np.arange(-17.0, -8.49, 0.25)
+    bins = np.arange(-17.0, -5.99, 0.25)
     items = [('partial', 'formula e $B_S(\\tau)$', OI['blue']),
-             ('direct', 'zhvendosja $(g,p)$: formula/direkt', OI['green']),
-             ('defect', 'identiteti i defektit $D$', OI['purple']), ('lyap', 'mbetja e Lyapunovit', OI['orange'])]
+             ('direct', 'zhvendosja $(g,p)$', OI['green']),
+             ('defect', 'identiteti i $D$', OI['purple']), ('lyap', 'mbetja e Lyapunovit', OI['orange'])]
     for k, lab, c in items:
         v = np.clip(np.array(th[k]['log10']), bins[0] + 1e-9, bins[-1] - 1e-9)
         ax.hist(v, bins=bins, histtype='step', color=c, lw=1.1, label=lab)
@@ -31,14 +31,14 @@ def pa(ax):
     ax.axvline(-10, color=OI['vermillion'], lw=0.9, ls='--')
     ax.text(-9.9, 0.03, 'tolerança $10^{-10}$', transform=ax.get_xaxis_transform(), ha='left', va='bottom',
             fontsize=5.4, color=OI['vermillion'], rotation=90)
-    ax.set_xlim(-17, -8.5); ax.set_ylim(0, 500)
+    ax.set_xlim(-17, -6); ax.set_ylim(0, 560)
     ax.set_xlabel('$\\log_{10}$ i gabimit relativ')
     ax.set_ylabel('numri i sistemeve')
     ax.set_title('Teorema: formula kundrejt direktes', color=INK)
-    ax.legend(loc='upper right', fontsize=5.1, handlelength=1.2, borderaxespad=0.2)
+    ax.legend(loc='upper left', bbox_to_anchor=(0.03, 1.0), fontsize=5.1, handlelength=1.2, borderaxespad=0.2)
     n = th['nsys']
-    ax.text(0.99, 0.58, f'{n} sisteme të rastit\n$3\\leq n\\leq 30$, cond$(C_0)\\leq 10^8$', transform=ax.transAxes,
-            ha='right', va='top', fontsize=5.3, color=MUTED)
+    ax.text(0.995, 0.98, f'{n} sisteme\ntë rastit,\n$3\\leq n\\leq 30$,\ncond$(C_0)$\n$\\leq 10^8$', transform=ax.transAxes,
+            ha='right', va='top', fontsize=5.2, color=MUTED)
     panel(ax, 'a', x=-0.2)
 
 
@@ -122,27 +122,30 @@ def pd(ax):
 
 
 def pe(ax):
-    if 'mse' not in J:
-        ax.text(0.5, 0.5, 'mse: pending', transform=ax.transAxes, ha='center'); panel(ax, 'e'); return
     M = J['mse']; Ts = M['Ts']
     k = np.arange(len(M[f'T={Ts[0]:g}']['kauz'])); s = k + 2
     rows0 = M[f'T={Ts[0]:g}']['kauz']
-    ax.plot(s, [r['bias2_exact'] for r in rows0], color=INK, lw=1.2, ls='-', label='$E_\\pi[$zhvendosja$^2]$')
+    ax.plot(s, [r['bias2_pop'] for r in rows0], color=INK, lw=1.3, ls='-', label='$E_\\pi[$zhvendosja$^2]$')
     cT = [OI['vermillion'], OI['blue']]
     for c, T in zip(cT, Ts):
-        rows = M[f'T={T:g}']['kauz']
+        d = M[f'T={T:g}']; rows = d['kauz']
         var = np.array([r['var'] for r in rows]); mse = np.array([r['mse'] for r in rows]); se = np.array([r['mse_se'] for r in rows])
-        ax.plot(s, var, color=c, lw=1.0, ls='--', label=f'varianca, $T={T:g}$')
-        ax.fill_between(s, np.maximum(mse - 1.96 * se, 1e-9), mse + 1.96 * se, color=c, alpha=0.12, lw=0)
-        ax.plot(s, mse, color=c, lw=1.3, marker='o', ms=2.4, label=f'GKM, $T={T:g}$')
-        ks = M[f'T={T:g}']['kstar']['kauz']
-        ax.plot(ks + 2, mse[ks], marker='*', ms=7, color=c, mec='white', mew=0.4, ls='none')
-    ax.set_yscale('log')
+        ax.fill_between(s, np.maximum(mse - 1.96 * se, 1e-9), mse + 1.96 * se, color=c, alpha=0.13, lw=0)
+        ax.plot(s, mse, color=c, lw=1.3, marker='o', ms=2.4, label=f'GKM, $T$={T:g}')
+        ax.plot(s, var, color=c, lw=0.9, ls='--', label=f'var., $T$={T:g}')
+        ax.plot(s, [r['mse'] for r in d['mse']], ls='none', marker='s', ms=3.2, mfc='none', mec=c, mew=0.7)
+        ax.axhline(d['naive']['mse'], color=c, lw=0.8, ls=':')
+    ax.text(10.1, M[f'T={Ts[0]:g}']['naive']['mse'] * 1.25, 'regresioni naiv', fontsize=5.0, color=OI['vermillion'], ha='right', va='bottom')
+    ax.text(10.1, M[f'T={Ts[1]:g}']['naive']['mse'] * 1.25, 'regresioni naiv', fontsize=5.0, color=OI['blue'], ha='right', va='bottom')
+    ax.set_yscale('log'); ax.set_ylim(2e-4, 3e4)
     ax.set_xticks(s)
     ax.set_xlabel('numri i sensorëve $|S|$ (vargu KAUZ-OED)')
     ax.set_ylabel('gabimi katror mesatar mbi prior-in')
     ax.set_title('Zhvendosja$^2$ + varianca', color=INK)
-    ax.legend(loc='upper right', fontsize=5.2, handlelength=1.5, borderaxespad=0.2)
+    from matplotlib.lines import Line2D
+    h, l = ax.get_legend_handles_labels()
+    h.append(Line2D([], [], ls='none', marker='s', ms=3.2, mfc='none', mec=MUTED, mew=0.7)); l.append('GKM-greedy')
+    ax.legend(h, l, loc='upper right', fontsize=4.9, handlelength=1.4, borderaxespad=0.2, ncol=2, columnspacing=0.7)
     panel(ax, 'e')
 
 

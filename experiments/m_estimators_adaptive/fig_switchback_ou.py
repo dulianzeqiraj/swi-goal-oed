@@ -184,6 +184,8 @@ def panel_d(fig, spec):
     ax.axhline(0.05, color=MUTED, lw=0.7, ls=':')
     ax.text(13, 0.044, '$\\alpha=0.05$', fontsize=5.8, color=MUTED, va='top')
     ax.set_xscale('log'); ax.set_xlim(t0, KMAX); ax.set_ylim(0, 0.48)
+    ax.set_xticks([10, 20, 50, 100, 200, 400]); ax.set_xticklabels(['10', '20', '50', '100', '200', '400'])
+    ax.minorticks_off()
     ax.set_xlabel('periudha $t$'); ax.set_ylabel('$P(\\exists s\\leq t:\\ \\bar\\tau_s\\notin C_s)$')
     ax.set_title('Shikimi i vazhdueshëm i të dhënave', color=INK)
     hs = [Line2D([], [], color=sty[k][0], ls=sty[k][1], lw=1.1) for k in ('wald', 'wald_aw', 'cs', 'cs_aw')]
@@ -214,7 +216,7 @@ def panel_e(fig, spec):
     at.tick_params(labelbottom=False)
     at.set_ylabel('gjysmë-gjerësia')
     at.text(0.012, 0.325, '$K=400$', fontsize=6.0, color=MUTED, va='top')
-    at.set_title('Çmimi i kufirit $\\pi_k\\in[\\pi_{\\min},1-\\pi_{\\min}]$ (propozimi N1)', color=INK)
+    at.set_title('Gjerësia dhe mungesa kundrejt $\\pi_{\\min}$ (propozimi N1)', color=INK)
     at.legend(loc='upper right', fontsize=5.6, ncol=2, handlelength=1.6, columnspacing=1.0)
     at.set_ylim(0, 0.34)
     # validity strip

@@ -16,7 +16,8 @@ Lag-0 effect (derived from linearity): Y_k(u_{1:k}) = Y_k(0) + a sum_{j>=0} h_j 
     tau_k = Y_k(U_{1:k-1}, 1) - Y_k(U_{1:k-1}, 0) = a h_0 = tau_0,
     h_0 = (1/M) sum_j e_g' A^{-1}(e^{A s_j} - I) e_p,  s_j = b + j dl,
 a deterministic constant, and tau_0 -> a R_gp as b grows (verified by branching simulation with common
-random numbers on every period of every replication).
+random numbers on every period of separate check runs: R = 100 replications x 120 periods for each b and for
+the seasonal nature; max |error| <= 1.7e-15).
 
 Nature. (i) stationary: exactly the Test 1 model above; (ii) seasonal: the same aquifer plus a deterministic
 sinusoidal forcing of the sea-boundary cell 29 with a period of 12 switchback periods (steady periodic
@@ -37,7 +38,8 @@ Estimators of tau_bar_K = (1/K) sum_k tau_k (= tau_0 here):
          ARX fit on data up to k-1 (regressors 1, Y_{k-1}, U_{k-1}, U_{k-2}, U_k), evaluated as
          Yhat(0) + (1 - pi_k) beta_U (the variance-minimising predictable baseline); Wald interval with the
          conservative design-based variance sum_k tau_hat_k^2 / K^2
-  AW     sum h_k tau_hat_k / sum h_k, h_k = sqrt(pi_k (1 - pi_k)), self-normalised Wald with
+  AW     sum h_k tau_hat_k / sum h_k, h_k = sqrt(pi_k (1 - pi_k)) (a ratio: only approximately unbiased;
+         sum h_k (tau_hat_k - tau_k) has mean zero exactly), self-normalised Wald with
          sqrt(sum h_k^2 tau_hat_k^2) / sum h_k
   CS     asymptotic confidence sequence for tau_bar_t from the martingale S_t = sum (tau_hat_k - tau_k):
          |S_t| <= sqrt((rho^2 V_t + 1)/rho^2 * 2 log(sqrt(rho^2 V_t + 1)/alpha)),  V_t = sum tau_hat_k^2
