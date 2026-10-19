@@ -84,14 +84,15 @@ def panel_a(fig, spec):
         a2.plot(tt, cf, color=C_FDT, lw=0.65, ls=(0, (2.2, 1.2)), label='dega kundërfaktike' if k == 0 else None)
         ib = i0 + int(round(b / dts))
         yr = x3[ib:i1].mean(); yc = x3cf[ib:i1].mean()
-        a2.plot([k * ell + b, (k + 1) * ell], [yr, yr], color=INK, lw=1.5, solid_capstyle='butt')
-        a2.plot([k * ell + b, (k + 1) * ell], [yc, yc], color=C_FDT, lw=1.5, solid_capstyle='butt')
+        # realised mean drawn wide underneath, counterfactual mean narrow on top: both stay visible when close
+        a2.plot([k * ell + b, (k + 1) * ell], [yr, yr], color=INK, lw=2.6, solid_capstyle='butt', zorder=4)
+        a2.plot([k * ell + b, (k + 1) * ell], [yc, yc], color=C_FDT, lw=1.0, solid_capstyle='butt', zorder=5)
         a2.axvline(k * ell, color=RULE, lw=0.5)
     a2.set_xlim(0, T); a2.set_ylim(-9, 25)
     a2.set_yticks([-5, 0, 5, 10]); a2.set_yticklabels(['\u22125', '0', '5', '10'])
     a2.set_xlabel('koha $t$ (njësi L96)', labelpad=1); a2.set_ylabel('$x_3$', labelpad=1)
     h = [Line2D([], [], color=INK, lw=0.7), Line2D([], [], color=C_FDT, lw=0.65, ls=(0, (2.2, 1.2))),
-         Line2D([], [], color=MUTED, lw=1.5)]
+         (Line2D([], [], color=INK, lw=2.6), Line2D([], [], color=C_FDT, lw=1.0))]
     a2.legend(h, ['dega e realizuar', 'dega kundërfaktike', '$Y_k(\\pm 1)$: mesatarja pas $b$'], loc='upper center',
               ncol=3, fontsize=5.3, handlelength=1.6, columnspacing=1.0, borderaxespad=0.1, bbox_to_anchor=(0.5, 1.02))
     return a0
@@ -123,7 +124,7 @@ def panel_b(ax):
     ax.text(0.985, 0.50, f"d.s.$(\\tau_k)$ = {st['sd']:.2f}\n$P(\\tau_k<0)$ = {st['frac_neg']:.2f}",
             transform=ax.transAxes, ha='right', va='top', fontsize=5.6, color=INK, linespacing=1.3)
     # inset: the four numbers with uncertainty
-    ins = ax.inset_axes([0.15, 0.62, 0.26, 0.33])
+    ins = ax.inset_axes([0.20, 0.62, 0.26, 0.33])
     vals = [(st['mean'], 1.96 * st['se'], INK, 'o', 'switchback'), (TWO_R, 1.96 * 2 * REF['R_direct_se'], INK, 'D', '$2\\Delta R$'),
             (TWO_FDT, None, C_FDT, 's', 'FDT'), (TWO_REG, None, C_REG, 'v', 'regres.')]
     for i, (v, ci, col, mk, lab) in enumerate(vals):
@@ -169,8 +170,8 @@ def panel_c(ax):
          Line2D([], [], color=C_IPW, lw=0.6, ls=(0, (2.5, 1.5))), Line2D([], [], color=INK, lw=1.0),
          Line2D([], [], color=C_NAIVE, lw=0.7)]
     hx = Line2D([], [], color=C_IPW, marker='o', ms=3.2, mfc='white', mew=0.9, ls='none')
-    l1 = ax.legend(h[:3] + [hx], ['IPW $\\hat\\tau_K$', 'SB 95% (e vlefshme në çdo $K$)', 'Wald 95% ($K$ fikse)',
-                                  f'SB përjashton 0 në $K={fe}$'],
+    l1 = ax.legend(h[:3] + [hx], ['IPW $\\hat\\tau_K$', 'SB 95% (në çdo $K$)', 'Wald 95% ($K$ fikse)',
+                                  f'SB përjashton 0: $K={fe}$'],
                    loc='upper right', fontsize=5.3, handlelength=1.6, borderaxespad=0.1)
     ax.add_artist(l1)
     ax.legend([h[3], h[4]], ['$\\bar\\tau_K$ (e vërteta, nga degëzimi)', 'diferenca naive e mesatareve'],
@@ -268,8 +269,8 @@ def panel_f(ax):
     ax.text(0.105, TWO_R + 0.012, f'$2\\Delta R={TWO_R:.3f}$', fontsize=5.6, color=INK, va='bottom')
     ax.text(0.105, TWO_FDT + 0.012, f'$2\\Delta R_{{\\rm FDT}}={TWO_FDT:.3f}$', fontsize=5.6, color=C_FDT, va='bottom')
     ax.text(0.105, TWO_REG + 0.012, f'regresion: ${TWO_REG:.3f}$', fontsize=5.6, color=C_REG, va='bottom')
-    ax.annotate('dizajni\nkryesor', xy=(S['ell'], J['B']['Yb']['1.0']['mean']), xytext=(5.0, 0.235), fontsize=5.4,
-                color=INK, ha='center', arrowprops=dict(arrowstyle='-', color=MUTED, lw=0.5))
+    ax.annotate('dizajni kryesor', xy=(S['ell'], J['B']['Yb']['1.0']['mean']), xytext=(5.0, 0.205), fontsize=5.4,
+                color=INK, ha='center', va='bottom', arrowprops=dict(arrowstyle='-', color=MUTED, lw=0.5))
     ax.set_xscale('log'); ax.set_xlim(0.1, 10); ax.set_ylim(-0.31, 0.45)
     ax.set_xticks([0.1, 0.2, 0.5, 1, 2, 5, 10]); ax.set_xticklabels(['0.1', '0.2', '0.5', '1', '2', '5', '10'])
     ax.set_xlabel('gjatësia e periudhës $\\ell$'); ax.set_ylabel('$\\mathbb{E}[\\tau_k]$')

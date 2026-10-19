@@ -37,7 +37,7 @@ The rerun logs are `kauz_l96_rerun.log` and `kauz_l96check_rerun.log` in the dra
 
 `fig_kauz_verify.py` draws `../m_estimators_adaptive/figures/fig10_kauz_check.(png|pdf)` from the JSON.
 
-Run (about 8-10 min on two shared cores; sympy is optional):
+Run (7 min on a shared 4-core machine, 2 BLAS threads; sympy is optional):
 
 ```
 python3 kauz_verify.py            # all sections
