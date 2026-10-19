@@ -6,6 +6,8 @@ The property table below is the single source of truth. It was extracted by hand
 indirect evidence or on our own reading are listed in `indirect` and drawn with a small corner mark in panel (b).
 Outputs: results/landscape.json, figures/fig1_landscape.(png|pdf).
 """
+import json
+import os
 import time
 
 import matplotlib.pyplot as plt
@@ -13,42 +15,42 @@ import numpy as np
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle
 
-from common import OI, INK, MUTED, RULE, GRID, MM, panel, save, dump
+from common import OI, INK, MUTED, RULE, GRID, MM, RES, panel, save, dump
 
 # ----------------------------------------------------------------------------------------------------------------------
-# 1. Categories (key -> English, Albanian cell text)
+# 1. Categories (key -> full English name written to results/landscape.json, short English cell text drawn in the figure)
 # ----------------------------------------------------------------------------------------------------------------------
-ROUTE = {'A': ('weights / stabilisation (Wald)', 'pesha, stabilizim (Wald)'),
-         'B': ('supermartingales / confidence sequences', 'supermartingale, sekuenca besimi'),
-         'C': ('learning and prediction under adaptive collection', 'mësim dhe parashikim'),
-         'D': ('structure instead of weights', 'strukturë në vend të peshave')}
+ROUTE = {'A': ('weights / stabilisation (Wald)', 'weights / stabilization (Wald)'),
+         'B': ('supermartingales / confidence sequences', 'supermartingales / confidence sequences'),
+         'C': ('learning and prediction under adaptive collection', 'learning and prediction'),
+         'D': ('structure instead of weights', 'structure instead of weights')}
 RCOL = {'A': OI['blue'], 'B': OI['vermillion'], 'C': OI['green'], 'D': OI['purple']}
-SETTING = {'batched': ('batched bandit', 'bandit\nme grupe'),
-           'contextual': ('contextual bandit', 'bandit\nkontekstual'),
-           'policy': ('adaptive experiment for policy choice', 'eksperiment për\nzgjedhje politike'),
-           'bayes': ('Bayesian posterior (adaptive linear Gaussian / exp. family)', 'posterior\nbayesian'),
-           'sequential': ('generic sequential', 'sekuencial i\npërgjithshëm'),
-           'active': ('active learning', 'mësim aktiv'),
-           'conformal': ('conformal design (feedback covariate shift)', 'projektim\nkonformal'),
-           'rl': ('RL off-policy', 'RL jashtë\npolitike')}
-ESTIMAND = {'means': ('arm means / ATE', 'mesatare\nkrahësh / ATE'),
-            'M': ('M-estimand (parameter or functional)', 'parametër ose\nfunksional'),
-            'value': ('policy value', 'vlera e\npolitikës'),
-            'risk': ('risk minimiser', 'minimizues\nrreziku'),
-            'pred': ('prediction set', 'bashkësi\nparashikimi'),
-            'ope': ('OPE value', 'vlera OPE')}
+SETTING = {'batched': ('batched bandit', 'batched\nbandit'),
+           'contextual': ('contextual bandit', 'contextual\nbandit'),
+           'policy': ('adaptive experiment for policy choice', 'experiment for\npolicy choice'),
+           'bayes': ('Bayesian posterior (adaptive linear Gaussian / exp. family)', 'Bayesian\nposterior'),
+           'sequential': ('generic sequential', 'generic\nsequential'),
+           'active': ('active learning', 'active\nlearning'),
+           'conformal': ('conformal design (feedback covariate shift)', 'conformal\ndesign'),
+           'rl': ('RL off-policy', 'off-policy\nRL')}
+ESTIMAND = {'means': ('arm means / ATE', 'arm means /\nATE'),
+            'M': ('M-estimand (parameter or functional)', 'parameter or\nfunctional'),
+            'value': ('policy value', 'policy\nvalue'),
+            'risk': ('risk minimiser', 'risk\nminimizer'),
+            'pred': ('prediction set', 'prediction\nset'),
+            'ope': ('OPE value', 'OPE value')}
 INFER = {'wald': ('Wald CLT', 'Wald (CLT)'),
-         'cs': ('confidence sequence', 'sekuencë\nbesimi'),
-         'lr': ('likelihood-ratio set', 'raport\npërgjasash'),
-         'bayes': ('Bayesian', 'bayesiane'),
-         'conformal': ('conformal', 'konformale'),
+         'cs': ('confidence sequence', 'confidence\nsequence'),
+         'lr': ('likelihood-ratio set', 'likelihood-\nratio set'),
+         'bayes': ('Bayesian', 'Bayesian'),
+         'conformal': ('conformal', 'conformal'),
          'boot': ('bootstrap', 'bootstrap'),
-         'conc': ('concentration bound (finite-sample CI)', 'kufi\npërqendrimi'),
-         'none': ('none (rates / point estimates only)', 'pa interval')}
-GUAR = {'asym': ('asymptotic', 'asimptotike'), 'finite': ('finite-sample', 'mostër\ne fundme'),
-        'unif': ('time-uniform', 'uniforme\nnë kohë')}
-YN = {'yes': ('yes', 'po'), 'no': ('no', 'jo'), 'partly': ('partly', 'pjesërisht'), '?': ('unclear', '?')}
-VTYPE = {'journal': ('journal', 'revistë'), 'conference': ('conference', 'konferencë')}
+         'conc': ('concentration bound (finite-sample CI)', 'concentration\nbound'),
+         'none': ('none (rates / point estimates only)', 'no interval')}
+GUAR = {'asym': ('asymptotic', 'asymptotic'), 'finite': ('finite-sample', 'finite-\nsample'),
+        'unif': ('time-uniform', 'time-\nuniform')}
+YN = {'yes': ('yes', 'yes'), 'no': ('no', 'no'), 'partly': ('partly', 'partly'), '?': ('unclear', '?')}
+VTYPE = {'journal': ('journal', 'journal'), 'conference': ('conference', 'conference')}
 
 # ----------------------------------------------------------------------------------------------------------------------
 # 2. The property vectors (17 works)
@@ -233,8 +235,8 @@ NOT_DRAWN = [
 # ----------------------------------------------------------------------------------------------------------------------
 FAV = {'prop': {'no': 1.0, 'yes': 0.0}, 'stab': {'no': 1.0, 'partly': 0.5, 'yes': 0.0},
        'misspec': {'yes': 1.0, 'partly': 0.5, 'no': 0.0}, 'real': {'yes': 1.0, 'no': 0.0}}
-PROFILE_COLS = [('nonasym', 'garanci jo-\nasimptotike'), ('prop', 'pa\npropensitete'), ('stab', 'pa kusht\nstabiliteti'),
-                ('misspec', 'i qëndrueshëm\nndaj spec.'), ('interval', 'jep interval\nose bashkësi'), ('real', 'të dhëna\nreale')]
+PROFILE_COLS = [('nonasym', 'non-\nasymptotic guarantee'), ('prop', 'no known\npropensities'), ('stab', 'no stability\ncondition'),
+                ('misspec', 'robust to\nmisspecification'), ('interval', 'gives interval\nor set'), ('real', 'real\ndata')]
 
 
 def profile():
@@ -341,14 +343,14 @@ def panel_a(fig):
         ax.axvline(yr, color=GRID, lw=0.6, zorder=0.6)
     ax.set_xticks(range(2020, 2027)); ax.tick_params(axis='x', length=0, pad=2.0)
     ax.set_yticks([LANE_Y[r] + 0.5 for r in 'ABCD'])
-    ax.set_yticklabels(['A  pesha,\nstabilizim (Wald)', 'B  supermartingale,\nsekuenca besimi', 'C  mësim\ndhe parashikim',
-                        'D  strukturë\nnë vend të peshave'], fontsize=6.0)
+    ax.set_yticklabels(['A  weights /\nstabilization (Wald)', 'B  supermartingales /\nconfidence sequences', 'C  learning\nand prediction',
+                        'D  structure\ninstead of weights'], fontsize=6.0)
     for t, r in zip(ax.get_yticklabels(), 'ABCD'):
         t.set_color(RCOL[r]); t.set_fontweight('bold')
     ax.tick_params(axis='y', length=0, pad=3)
     for s in ('left', 'bottom', 'top', 'right'):
         ax.spines[s].set_visible(False)
-    ax.set_xlabel('viti i versionit të botuar', fontsize=6.6, labelpad=1.5)
+    ax.set_xlabel('year of the published version', fontsize=6.6, labelpad=1.5)
     P = {w['k']: pos(w) for w in W}
     rad = {(10, 2): -0.50, (9, 7): 0.45, (14, 15): 0.24, (15, 16): 0.24, (14, 16): 0.36}
     for a, b, _ in REL:
@@ -360,7 +362,7 @@ def panel_a(fig):
         if w['k'] == 0:
             ax.plot(x, y, 'o', ms=10.5, mfc='white', mec=c, mew=0.9, zorder=3)
             ax.plot(x, y, mk, ms=6.2, mfc=c, mec='white', mew=0.6, zorder=4)
-            ax.text(x + 0.13, y, '[0] Zhang, Janson & Murphy: punimi bazë', fontsize=6.0, fontweight='bold', color=INK,
+            ax.text(x + 0.13, y, '[0] Zhang, Janson & Murphy: base paper', fontsize=6.0, fontweight='bold', color=INK,
                     va='center', ha='left', zorder=5)
             continue
         ax.plot(x, y, mk, ms=4.6 if mk == 'o' else 4.2, mfc=c, mec='white', mew=0.5, zorder=4)
@@ -370,25 +372,25 @@ def panel_a(fig):
                 va='bottom' if lift else 'center', ha='left', zorder=5)
     # legend in the empty right part of lane C
     lx = 2023.2
-    for i, (m, t) in enumerate((('o', 'konferencë'), ('s', 'revistë'))):
+    for i, (m, t) in enumerate((('o', 'conference'), ('s', 'journal'))):
         ax.plot(lx + 0.05 + i * 1.05, 1.80, m, ms=4.2, mfc=MUTED, mec='white', mew=0.5)
         ax.text(lx + 0.15 + i * 1.05, 1.80, t, fontsize=5.7, color=INK, va='center')
     ax.plot(lx + 2.15, 1.80, 'o', ms=8.0, mfc='white', mec=MUTED, mew=0.8)
     ax.plot(lx + 2.15, 1.80, 'o', ms=4.4, mfc=MUTED, mec='white', mew=0.5)
-    ax.text(lx + 2.30, 1.80, 'punimi bazë', fontsize=5.7, color=INK, va='center')
+    ax.text(lx + 2.30, 1.80, 'base paper', fontsize=5.7, color=INK, va='center')
     ax.add_patch(FancyArrowPatch((lx - 0.02, 1.47), (lx + 0.42, 1.47), arrowstyle='-|>', mutation_scale=5.5, lw=0.7, color=MUTED))
-    ax.text(lx + 0.5, 1.47, 'X → Y: Y ndërton mbi X (lidhje e verifikuar)', fontsize=5.7, color=INK, va='center')
-    ax.text(lx - 0.02, 1.17, 'brenda një viti, pozicioni vertikal është vetëm për lexueshmëri', fontsize=5.2, color=MUTED,
+    ax.text(lx + 0.5, 1.47, 'X → Y: Y builds on X (verified link)', fontsize=5.7, color=INK, va='center')
+    ax.text(lx - 0.02, 1.17, 'within a year, vertical position is for readability only', fontsize=5.2, color=MUTED,
             ha='left', va='center', style='italic')
-    ax.set_title('Harta kohore: 17 punime në katër rrugët e inferencës', color=INK, x=-0.17, ha='left')
+    ax.set_title('Timeline: 17 works along the four inference routes', color=INK, x=-0.17, ha='left')
     panel(ax, 'a', x=-0.2, y=1.02)
 
 
 # matrix columns: (field, header, width in mm)
-COLS = [('venue', 'Botimi', 13.5), ('group', 'Grupi', 11.0), ('route', 'Rruga', 6.5), ('setting', 'Mjedisi i\nmbledhjes', 17.0),
-        ('estimand', 'Objektivi', 16.5), ('inference', 'Lloji i\ninferencës', 14.0), ('guarantee', 'Garancia', 13.0),
-        ('prop', 'Kërkon\npropensitete\ntë njohura', 12.5), ('stab', 'Kërkon\nkusht\nstabiliteti', 12.5),
-        ('misspec', 'I qëndrueshëm\nndaj spec.\ntë gabuar', 13.5), ('real', 'Të dhëna\nreale', 9.5)]
+COLS = [('venue', 'Venue', 13.5), ('group', 'Group', 11.0), ('route', 'Route', 6.5), ('setting', 'Data-\ncollection\nsetting', 17.0),
+        ('estimand', 'Estimand', 16.5), ('inference', 'Inference\ntype', 14.0), ('guarantee', 'Guarantee', 13.0),
+        ('prop', 'Needs\nknown\npropensities', 12.5), ('stab', 'Needs\nstability\ncondition', 12.5),
+        ('misspec', 'Robust to\nmisspeci-\nfication', 13.5), ('real', 'Real\ndata', 9.5)]
 LABW = 36.0
 QUAL = ['#dbe8f5', '#fde3cc', '#d5efe4', '#f4dbea', '#fbf0bf', '#e2def2', '#d3edf5', '#ece5d8']
 GROUPC = {'Harvard': '#f3dada', 'Berkeley': '#d9e5f3', 'Oxford': '#e2def2', 'ETH': '#dcefdc', 'Princeton': '#fbe6cb'}
@@ -423,7 +425,7 @@ def panel_b(fig, y0):
     H = hh + 0.6 + rowh * len(W) + 3 * 1.2 + 10.5
     ax = ax_mm(fig, 2.4, y0, tot, H)
     ax.set_xlim(0, tot); ax.set_ylim(H, 0); ax.axis('off')
-    ax.text(3.0, hh - 1.0, 'Punimi', ha='left', va='bottom', fontsize=5.8, color=INK)
+    ax.text(3.0, hh - 1.0, 'Work', ha='left', va='bottom', fontsize=5.8, color=INK)
     xc = LABW
     for f, h, wd in COLS:
         ax.text(xc + wd / 2, hh - 1.0, h, ha='center', va='bottom', fontsize=5.6, color=INK, linespacing=1.05)
@@ -456,19 +458,19 @@ def panel_b(fig, y0):
         y += rowh
     # legend (measured placement, so nothing overlaps)
     y += 2.0
-    ax.text(1.0, y + 1.0, 'Katër kolonat e fundit:', fontsize=5.5, color=INK, va='center')
-    xl = swatches(ax, 23.5, y, [(C_FAV, 'veti e favorshme'), (C_MID, 'pjesërisht'), (C_BAD, 'kërkesë kufizuese'),
-                                (C_NEU, 'mungon'), ('white', 'e paqartë nga raportet (?)')])
-    ax.text(xl + 2.0, y + 1.0, '†  evidencë indirekte ose interpretim ynë', fontsize=5.5, color=MUTED, va='center')
+    ax.text(1.0, y + 1.0, 'Last four columns:', fontsize=5.5, color=INK, va='center')
+    xl = swatches(ax, 23.5, y, [(C_FAV, 'favorable property'), (C_MID, 'partly'), (C_BAD, 'restrictive requirement'),
+                                (C_NEU, 'absent'), ('white', 'unclear in the reports (?)')])
+    ax.text(xl + 2.0, y + 1.0, '†  indirect evidence or our reading', fontsize=5.5, color=MUTED, va='center')
     y += 3.7
-    ax.text(1.0, y + 1.0, 'Botimi:', fontsize=5.5, color=INK, va='center')
-    xl = swatches(ax, 9.5, y, [('#efe5d3', 'revistë'), ('#e6ecf2', 'konferencë')])
-    t = ax.text(xl + 3.0, y + 1.0, 'Garancia:', fontsize=5.5, color=INK, va='center')
+    ax.text(1.0, y + 1.0, 'Venue:', fontsize=5.5, color=INK, va='center')
+    xl = swatches(ax, 9.5, y, [('#efe5d3', 'journal'), ('#e6ecf2', 'conference')])
+    t = ax.text(xl + 3.0, y + 1.0, 'Guarantee:', fontsize=5.5, color=INK, va='center')
     xl = swatches(ax, xl + 3.0 + width_data(ax, t) + 1.2, y,
-                  [(GUARC[g], GUAR[g][1].replace('\n', ' ')) for g in ('asym', 'finite', 'unif')])
-    ax.text(xl + 3.0, y + 1.0, 'Kolonat e tjera: ngjyra dallon kategoritë.', fontsize=5.5,
+                  [(GUARC[g], GUAR[g][1].replace('-\n', '-').replace('\n', ' ')) for g in ('asym', 'finite', 'unif')])
+    ax.text(xl + 3.0, y + 1.0, 'Other columns: color distinguishes categories.', fontsize=5.5,
             color=MUTED, va='center')
-    ax.text(0.0, -1.6, 'Matrica e vetive: çfarë kërkon dhe çfarë garanton secili punim', fontsize=7.6, color=INK, ha='left',
+    ax.text(0.0, -1.6, 'Property matrix: what each work requires and what it guarantees', fontsize=7.6, color=INK, ha='left',
             va='bottom')
     ax.text(-0.4, -1.8, 'b', fontsize=8.6, fontweight='bold', color=INK, ha='right', va='bottom')
     return y0 + H
@@ -483,33 +485,33 @@ def panel_c(fig, top):
     W_, H_ = 102.0, 57.0
     ax = ax_mm(fig, 2.4, top, W_, H_)
     ax.set_xlim(0, W_); ax.set_ylim(0, H_); ax.axis('off')
-    ax.text(0.0, H_ - 1.6, 'Katër rrugë rreth kushtit unifikues', fontsize=7.6, color=INK, ha='left', va='center')
+    ax.text(0.0, H_ - 1.6, 'Four routes around the unifying condition', fontsize=7.6, color=INK, ha='left', va='center')
     ax.text(-0.4, H_ - 1.6, 'c', fontsize=8.6, fontweight='bold', color=INK, ha='right', va='center')
     # centre box
     cx, cy, cw, ch = 24.0, 21.5, 54.0, 14.0
     rbox(ax, cx, cy, cw, ch, 'white', INK, lw=0.9, z=3)
-    ax.text(cx + cw / 2, cy + ch - 2.0, 'kushti unifikues i CLT martingale', ha='center', va='center', fontsize=5.9,
+    ax.text(cx + cw / 2, cy + ch - 2.0, 'unifying condition of the martingale CLT', ha='center', va='center', fontsize=5.9,
             color=INK, fontweight='bold', zorder=4)
     ax.text(cx + cw / 2, cy + ch / 2 - 0.4,
             '$\\frac{1}{T}\\sum_{t=1}^{T}\\mathbb{E}\\left[W_t^2\\,\\dot m\\,\\dot m^{\\top}\\mid\\mathcal{H}_{t-1}\\right]\\ \\to\\ \\Sigma$',
             ha='center', va='center', fontsize=7.0, color=INK, zorder=4)
     ax.text(cx + cw / 2, cy + 1.9,
-            '$\\Sigma$ jo e rastit;  identiteti:  $\\mathbb{E}[W_t^2 f\\mid\\mathcal{H}_{t-1}]=\\mathbb{E}_{\\pi^{\\rm sta}}[f]$',
+            '$\\Sigma$ non-random;  identity:  $\\mathbb{E}[W_t^2 f\\mid\\mathcal{H}_{t-1}]=\\mathbb{E}_{\\pi^{\\rm sta}}[f]$',
             ha='center', va='center', fontsize=5.5, color=MUTED, zorder=4)
     bw, bh = 49.0, 14.0
-    spec = {'A': (0.0, 39.5, 'pesha ose stabilizim',
-                  ['$W_t=\\sqrt{\\pi^{\\rm sta}/\\pi_t}$ [0];  studentizim grupor [1];',
-                   '$\\hat\\sigma_t^{-1}$ [2];  ndarje jo të rastit [3, 4];  BvM [5]']),
-            'B': (53.0, 39.5, 'supermartingale',
-                  ['mosbarazimi i Ville-s, pa CLT: sekuenca besimi [6];',
-                   'raport përgjasash [7];  kufij të vetënormalizuar [8, 9]']),
-            'C': (0.0, 2.0, 'mësim dhe parashikim',
-                  ['pesha të plota $g^*/g_t$: rrezik i peshuar [10];',
-                   'rrezik i paanshëm [11];  konformal me reagim [12]']),
-            'D': (53.0, 2.0, 'strukturë në vend të peshave',
-                  ['episode i.i.d. [15, 16];  model faktorësh [13];',
-                   'kufi përqendrimi nën filtrim adaptiv [14]'])}
-    lab = {'A': 'e arrin', 'B': 'e anashkalon', 'C': 'e anashkalon', 'D': 'e arrin\nnga struktura'}
+    spec = {'A': (0.0, 39.5, 'weights or stabilization',
+                  ['$W_t=\\sqrt{\\pi^{\\rm sta}/\\pi_t}$ [0];  batched studentization [1];',
+                   '$\\hat\\sigma_t^{-1}$ [2];  non-random allocation [3, 4];  BvM [5]']),
+            'B': (53.0, 39.5, 'supermartingales',
+                  ["Ville's inequality, no CLT: confidence sequences [6];",
+                   'likelihood ratio [7];  self-normalized bounds [8, 9]']),
+            'C': (0.0, 2.0, 'learning and prediction',
+                  ['full weights $g^*/g_t$: weighted risk [10];',
+                   'unbiased risk [11];  conformal under feedback [12]']),
+            'D': (53.0, 2.0, 'structure instead of weights',
+                  ['i.i.d. episodes [15, 16];  latent factor model [13];',
+                   'concentration bound under adaptive filtration [14]'])}
+    lab = {'A': 'achieves it', 'B': 'bypasses it', 'C': 'bypasses it', 'D': 'achieves it\nvia structure'}
     for r, (x, y, title, lines) in spec.items():
         rbox(ax, x, y, bw, bh, tint(RCOL[r], 0.10), RCOL[r], lw=0.8, z=2)
         ax.text(x + 1.5, y + bh - 2.3, f'{r}   {title}', fontsize=6.0, color=RCOL[r], fontweight='bold', va='center', zorder=4)
@@ -557,12 +559,16 @@ def panel_d(fig, top, prof):
     ax.grid(False); ax.grid(which='minor', color='white', lw=1.2); ax.tick_params(which='minor', length=0)
     for s in ax.spines.values():
         s.set_visible(False)
-    fig.text(110.5 / FIGW, 1 - (top + 1.6) / FIGH, 'Profili i rrugëve', fontsize=7.6, color=INK, ha='left', va='center')
+    fig.text(110.5 / FIGW, 1 - (top + 1.6) / FIGH, 'Route profile', fontsize=7.6, color=INK, ha='left', va='center')
     fig.text(110.1 / FIGW, 1 - (top + 1.6) / FIGH, 'd', fontsize=8.6, fontweight='bold', color=INK, ha='right', va='center')
-    fig.text(110.5 / FIGW, 1 - (top + 50.5) / FIGH, 'qeliza: numri i punimeve të rrugës me vetinë e favorshme',
+    fig.text(110.5 / FIGW, 1 - (top + 50.5) / FIGH, 'cell: number of works in the route with the favorable property',
              fontsize=5.4, color=MUTED, ha='left', va='center')
-    fig.text(110.5 / FIGW, 1 - (top + 53.6) / FIGH, '«pjesërisht» numërohet 0.5; «?» numërohet si jo e favorshme',
+    fig.text(110.5 / FIGW, 1 - (top + 53.6) / FIGH, '“partly” counts as 0.5; “?” counts as not favorable',
              fontsize=5.2, color=MUTED, ha='left', va='center', style='italic')
+
+
+def one_line(s):
+    return s.replace('-\n', '-').replace('\n', ' ')
 
 
 def main():
@@ -574,16 +580,25 @@ def main():
     panel_c(fig, bottom_b + 2.0)
     panel_d(fig, bottom_b + 2.0, prof)
     save(fig, 'fig1_landscape')
+    # earlier versions of this script drew the cells with Albanian labels and stored them under 'albanian_labels';
+    # that key is carried over unchanged from the previous results file, the figure itself is now fully in English
+    prev = {}
+    try:
+        with open(os.path.join(RES, 'landscape.json'), encoding='utf-8') as f:
+            prev = json.load(f)
+    except (OSError, ValueError):
+        pass
     out = dict(
         description='Property vectors of the base paper [0] and the 16 reviewed works [1]-[16]; hand-extracted from the verified '
                     'reader reports mv/papers/pNN.md (sections 1-3, 5) and the earlier entries; no simulation.',
         categories=dict(route={k: v[0] for k, v in ROUTE.items()}, setting={k: v[0] for k, v in SETTING.items()},
                         estimand={k: v[0] for k, v in ESTIMAND.items()}, inference={k: v[0] for k, v in INFER.items()},
                         guarantee={k: v[0] for k, v in GUAR.items()}, yes_no={k: v[0] for k, v in YN.items()}),
-        albanian_labels=dict(route={k: v[1] for k, v in ROUTE.items()}, setting={k: v[1].replace('\n', ' ') for k, v in SETTING.items()},
-                             estimand={k: v[1].replace('\n', ' ') for k, v in ESTIMAND.items()},
-                             inference={k: v[1].replace('\n', ' ') for k, v in INFER.items()},
-                             guarantee={k: v[1].replace('\n', ' ') for k, v in GUAR.items()}, yes_no={k: v[1] for k, v in YN.items()}),
+        **({'albanian_labels': prev['albanian_labels']} if 'albanian_labels' in prev else {}),
+        english_labels=dict(route={k: v[1] for k, v in ROUTE.items()}, setting={k: one_line(v[1]) for k, v in SETTING.items()},
+                            estimand={k: one_line(v[1]) for k, v in ESTIMAND.items()},
+                            inference={k: one_line(v[1]) for k, v in INFER.items()},
+                            guarantee={k: one_line(v[1]) for k, v in GUAR.items()}, yes_no={k: v[1] for k, v in YN.items()}),
         works=W,
         relations_drawn=[dict(built_upon=a, builder=b, evidence=e) for a, b, e in REL],
         relations_not_drawn=NOT_DRAWN,

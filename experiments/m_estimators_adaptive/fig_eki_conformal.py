@@ -19,7 +19,7 @@ XC = np.array(J['grid']['xc']) / 1000; YC = np.array(J['grid']['yc']) / 1000
 SIG = ST['sigma']; Z90 = 1.6448536269514722
 CMAP = LinearSegmentedColormap.from_list('sand_blue', ['#f7f3e6', '#e6dcbc', '#b5d3dc', '#5ea7d3', '#2a6fae', '#1d4f86'])
 C = dict(ens=OI['vermillion'], esmda=OI['purple'], sc=OI['blue'], scn=OI['green'])
-LBL = dict(ens='ansambli\nTEKI', esmda='ansambli\nES-MDA', sc='konformal\n$|y-\\hat h|$', scn='konformal\ni normalizuar')
+LBL = dict(ens='TEKI\nensemble', esmda='ES-MDA\nensemble', sc='conformal\n$|y-\\hat h|$', scn='normalized\nconformal')
 NAME = os.environ.get('EKI_FIG', 'fig7_n4_eki_conformal')
 
 
@@ -64,36 +64,36 @@ def panel_a(ax, cax):
     ax.scatter(XC[t], YC[t], marker='s', s=8, c='white', edgecolors=INK, linewidths=0.5, zorder=5)
     # sea strip
     ax.add_patch(Rectangle((-0.16, 0), 0.16, LY, color=OI['sky'], alpha=0.55, lw=0, clip_on=False, zorder=0))
-    ax.text(-0.08, LY / 2, 'deti,  $h=0$', rotation=90, ha='center', va='center', fontsize=5.6, color=INK)
+    ax.text(-0.08, LY / 2, 'sea,  $h=0$', rotation=90, ha='center', va='center', fontsize=5.6, color=INK)
     ax.add_patch(Rectangle((LX, 0), 0.16, LY, color=OI['green'], alpha=0.30, lw=0, clip_on=False, zorder=0))
-    ax.text(LX + 0.08, LY / 2, f"brendësia, $h={ST['h_in']:.0f}$ m", rotation=90, ha='center', va='center',
+    ax.text(LX + 0.08, LY / 2, f"inland, $h={ST['h_in']:.0f}$ m", rotation=90, ha='center', va='center',
             fontsize=5.6, color=INK)
     ich = int(np.argmax(yc)); xl = xs[ich]
-    ax.text(xl, yc[ich] + hw + 0.04, 'paleokanali', fontsize=5.6, color=INK, ha='center', va='bottom', zorder=6,
+    ax.text(xl, yc[ich] + hw + 0.04, 'paleochannel', fontsize=5.6, color=INK, ha='center', va='bottom', zorder=6,
             bbox=dict(boxstyle='round,pad=0.12', fc='white', ec='none', alpha=0.8))
     ax.set_xlim(-0.16, LX + 0.16); ax.set_ylim(0, LY)
     ax.set_xticks([0, 1, 2, 3, 4]); ax.set_yticks([0, 1, 2])
-    ax.set_xlabel('largësia nga bregu $x$ [km]'); ax.set_ylabel('$y$ [km]')
+    ax.set_xlabel('distance from the coast $x$ [km]'); ax.set_ylabel('$y$ [km]')
     ax.grid(False)
     for sp in ('top', 'right'):
         ax.spines[sp].set_visible(True)
     cb = plt.colorbar(im, cax=cax)
     cb.set_label('$\\log_{10}K$ [m/d]', fontsize=6.4); cb.ax.tick_params(labelsize=5.8); cb.outline.set_edgecolor(RULE)
     h = [Line2D([], [], marker='^', ls='', ms=4, mfc=OI['orange'], mec=INK, mew=0.4,
-                label=f"përshtatja e TEKI ({ST['n_fit']})"),
+                label=f"TEKI fitting ({ST['n_fit']})"),
          Line2D([], [], marker='o', ls='', ms=3.8, mfc=OI['purple'], mec='white', mew=0.5,
-                label=f"kalibrimi konformal ({ST['n_cal']})"),
+                label=f"conformal calibration ({ST['n_cal']})"),
          Line2D([], [], marker='s', ls='', ms=3.2, mfc='white', mec=INK, mew=0.5, label=f"test ({ST['n_test_show']})"),
-         Line2D([], [], color=INK, lw=0.6, ls='--', label='zonat e modelit')]
+         Line2D([], [], color=INK, lw=0.6, ls='--', label='model zones')]
     ax.legend(handles=h, loc='lower left', bbox_to_anchor=(-0.04, 0.995), ncol=4, fontsize=5.5, handletextpad=0.25,
               columnspacing=0.8, borderaxespad=0.2, handlelength=1.4)
-    ax.set_title('Akuiferi i vërtetë (një realizim) dhe rrjeti i piezometrave', color=INK, pad=13)
+    ax.set_title('True aquifer (one realization) and piezometer network', color=INK, pad=13)
 
 
 def panel_b(ax):
     it = np.arange(ST['n_iter'] + 1)
-    for key, col, ls, lab in (('misfit', OI['vermillion'], '-', 'mospërputhja $\\|y-\\bar G\\|^2/(m\\sigma^2)$'),
-                              ('dspread', OI['blue'], '-', 'përhapja $\\mathrm{tr}\\,C^{GG}/(m\\sigma^2)$')):
+    for key, col, ls, lab in (('misfit', OI['vermillion'], '-', 'misfit $\\|y-\\bar G\\|^2/(m\\sigma^2)$'),
+                              ('dspread', OI['blue'], '-', 'spread $\\mathrm{tr}\\,C^{GG}/(m\\sigma^2)$')):
         for suf, lsx in (('', '-'), ('_mda', (0, (3, 1.6)))):
             v = PT[key + suf]
             med = np.median(v, 0); lo = np.quantile(v, 0.1, 0); hi = np.quantile(v, 0.9, 0)
@@ -102,16 +102,16 @@ def panel_b(ax):
             ax.plot(it, med, color=col, lw=1.2 if suf == '' else 0.9, ls=lsx,
                     label=lab if suf == '' else None)
     ax.axhline(1, color=MUTED, lw=0.7, ls=':')
-    ax.text(10, 1.25, 'niveli i zhurmës', fontsize=5.6, color=MUTED, ha='right', va='bottom')
+    ax.text(10, 1.25, 'noise level', fontsize=5.6, color=MUTED, ha='right', va='bottom')
     ax.set_yscale('log'); ax.set_xlim(0, ST['n_iter']); ax.set_xticks(it[::2]); ax.set_ylim(3e-4, 3e4)
-    ax.set_xlabel('iteracioni $n$'); ax.set_ylabel('vlera (mediana, 10–90%)', labelpad=1)
-    ax.set_title('TEKI: mospërputhja ngec, ansambli shembet', color=INK)
-    ax.text(2.6, 3.5e3, 'mospërputhja $\\|y-\\bar G\\|^2/(m\\sigma^2)$', fontsize=5.6, color=OI['vermillion'],
+    ax.set_xlabel('iteration $n$'); ax.set_ylabel('value (median, 10–90%)', labelpad=1)
+    ax.set_title('TEKI: misfit stalls, ensemble collapses', color=INK)
+    ax.text(2.6, 3.5e3, 'misfit $\\|y-\\bar G\\|^2/(m\\sigma^2)$', fontsize=5.6, color=OI['vermillion'],
             ha='left', va='center')
-    ax.text(0.15, 0.07, 'përhapja $\\mathrm{tr}\\,C^{GG}/(m\\sigma^2)$', fontsize=5.6, color=OI['blue'], ha='left',
+    ax.text(0.15, 0.07, 'spread $\\mathrm{tr}\\,C^{GG}/(m\\sigma^2)$', fontsize=5.6, color=OI['blue'], ha='left',
             va='center')
     h = [Line2D([], [], color=MUTED, lw=1.2, ls='-'), Line2D([], [], color=MUTED, lw=0.9, ls=(0, (3, 1.6)))]
-    ax.legend(h, ['TEKI (100 anëtarë)', 'ES-MDA (krahasim)'], loc='lower left', fontsize=5.4, handlelength=1.8,
+    ax.legend(h, ['TEKI (100 members)', 'ES-MDA (comparison)'], loc='lower left', fontsize=5.4, handlelength=1.8,
               borderaxespad=0.3)
     mf = np.median(PT['misfit'][:, -1]); sp = np.median(PT['dspread'][:, -1])
     ax.annotate(f'$\\chi^2/m\\approx{mf:.0f}$', xy=(ST['n_iter'], mf), xytext=(7.4, mf * 6), fontsize=5.8,
@@ -143,19 +143,19 @@ def panel_c(ax):
     cov_e = np.abs(res) <= w_e; cov_s = np.abs(res) <= q_sc; cov_n = np.abs(res) <= w_n
     ax.scatter(xs, res, s=9, c=INK, zorder=5, lw=0)
     ax.set_xticks(xs[::5]); ax.set_xticklabels([f'{v:.1f}' for v in xh[::5]])
-    ax.set_xlabel('niveli piezometrik i vërtetë $h(x)$ [m], piezometrat test të renditur')
+    ax.set_xlabel('true hydraulic head $h(x)$ [m] at the test piezometers (sorted)')
     ax.set_ylabel('$y-\\hat h_{\\rm TEKI}(x)$ [m]')
     ax.set_ylim(-lim, lim * 1.8); ax.set_xlim(-0.8, len(t) - 0.2)
     ax.grid(axis='x', visible=False)
-    h_ = [Line2D([], [], color=C['ens'], lw=1.6, label=f'ansambli: {cov_e.sum()}/{len(t)} të mbuluara'),
+    h_ = [Line2D([], [], color=C['ens'], lw=1.6, label=f'ensemble: {cov_e.sum()}/{len(t)} covered'),
           Rectangle((0, 0), 1, 1, fc=C['sc'], alpha=0.25, ec=C['sc'], lw=0.7,
-                    label=f'konformal: {cov_s.sum()}/{len(t)}'),
-          Line2D([], [], color=C['scn'], lw=1.6, label=f'konformal i normalizuar: {cov_n.sum()}/{len(t)}'),
-          Line2D([], [], marker='o', ls='', ms=2.8, mfc=INK, mec='none', label='mbetja e vëzhguar'),
-          Line2D([], [], marker='^', ls='', ms=2.8, mfc=C['scn'], mec='none', label='del jashtë boshtit')]
+                    label=f'conformal: {cov_s.sum()}/{len(t)}'),
+          Line2D([], [], color=C['scn'], lw=1.6, label=f'normalized conformal: {cov_n.sum()}/{len(t)}'),
+          Line2D([], [], marker='o', ls='', ms=2.8, mfc=INK, mec='none', label='observed residual'),
+          Line2D([], [], marker='^', ls='', ms=2.8, mfc=C['scn'], mec='none', label='off scale')]
     ax.legend(handles=h_, loc='upper left', ncol=2, fontsize=5.4, handlelength=1.4, columnspacing=1.0,
               borderaxespad=0.2)
-    ax.set_title('Një akuifer: intervalet 90% në 30 piezometra test', color=INK)
+    ax.set_title('One aquifer: 90% intervals at 30 test piezometers', color=INK)
 
 
 def violin(ax, x, v, col, c, side=0.0, alpha=0.25, grid=None):
@@ -195,14 +195,15 @@ def panel_d(ax):
     ax.text(-0.45, 0.915, '$1-\\alpha=0.90$', fontsize=5.6, color=MUTED, va='bottom')
     ax.set_xticks(range(4)); ax.set_xticklabels([LBL[k] for k, _ in keys], fontsize=6.0)
     ax.set_xlim(-0.55, 3.65); ax.set_ylim(0, 1.02)
-    ax.set_ylabel('mbulimi në një akuifer')
+    ax.set_ylabel('coverage in one aquifer')
     ax.grid(axis='x', visible=False)
-    h_ = [Line2D([], [], color=INK, lw=0.6, ls=(0, (2, 1.2)), label=f'teoria: Beta$({a},{b})$ (1 set kalibrimi)'),
+    h_ = [Line2D([], [], color=INK, lw=0.6, ls=(0, (2, 1.2)), label=f'theory: Beta$({a},{b})$, 1 calibration set'),
           Line2D([], [], marker='o', ls='', ms=1.8, mfc=INK, mec='none', alpha=0.6,
-                 label=f"mesatarja mbi {ST['K_draws']} sete kalibrimi"),
-          Line2D([], [], marker='o', ls='-', ms=3, color=MUTED, mec='white', label='mesatarja $\\pm$ 1.96 GS (MC)')]
-    ax.legend(handles=h_, loc='lower right', bbox_to_anchor=(1.0, 0.02), fontsize=5.4, handlelength=1.6)
-    ax.set_title(f'Mbulimi mbi {R} akuiferë të vërtetë', color=INK)
+                 label=f"mean over {ST['K_draws']} calibration sets"),
+          Line2D([], [], marker='o', ls='-', ms=3, color=MUTED, mec='white', label='mean $\\pm$ 1.96 SE (MC)')]
+    ax.legend(handles=h_, loc='lower right', bbox_to_anchor=(1.0, 0.0), fontsize=5.4, handlelength=1.3,
+              handletextpad=0.5, borderaxespad=0.3)
+    ax.set_title(f'Coverage over {R} true aquifers', color=INK)
 
 
 def panel_e(ax):
@@ -220,13 +221,13 @@ def panel_e(ax):
         ax.text(i, vals[k].max() * 1.25, f'{md:.2f} m', fontsize=5.6, color=C[k], va='bottom', ha='center')
     w0 = 2 * Z90 * SIG
     ax.axhline(w0, color=MUTED, lw=0.7, ls=':')
-    ax.text(3.6, w0 * 0.82, f'vetëm zhurma: $2\\cdot1.645\\,\\sigma$ = {w0:.3f} m', fontsize=5.4, color=MUTED,
+    ax.text(3.6, w0 * 0.82, f'noise only: $2\\cdot1.645\\,\\sigma$ = {w0:.3f} m', fontsize=5.4, color=MUTED,
             ha='right', va='top')
     ax.set_yscale('log'); ax.set_ylim(0.05, 900); ax.set_xlim(-0.55, 3.85)
     ax.set_xticks(range(4)); ax.set_xticklabels([LBL[k] for k in keys], fontsize=6.0)
-    ax.set_ylabel('gjerësia mesatare [m]')
+    ax.set_ylabel('mean width [m]')
     ax.grid(axis='x', visible=False)
-    ax.set_title('Çmimi i vlefshmërisë: gjerësia (vija = mediana)', color=INK)
+    ax.set_title('Price of validity: width (bar = median)', color=INK)
     # inset: coverage by distance from the coast
     ins = ax.inset_axes([0.07, 0.62, 0.36, 0.33])
     xb = np.array(ST['xbands']) / 1000; xm = 0.5 * (xb[1:] + xb[:-1])
@@ -237,10 +238,10 @@ def panel_e(ax):
         ins.plot(xm, m, color=C[k], lw=1.0, marker='o', ms=2.0)
     ins.axhline(0.9, color=MUTED, lw=0.6, ls='--'); ins.set_ylim(0.7, 1.0); ins.set_yticks([0.8, 0.9, 1.0])
     ins.text(3.0, 0.775, '$|y-\\hat h|$', fontsize=4.9, color=C['sc'], ha='left', va='center')
-    ins.text(0.68, 0.74, 'i normalizuar', fontsize=4.9, color=C['scn'], ha='left', va='center')
+    ins.text(0.68, 0.74, 'normalized', fontsize=4.9, color=C['scn'], ha='left', va='center')
     ins.set_xlim(0, 4); ins.set_xticks([0, 2, 4]); ins.tick_params(labelsize=5.0, length=1.5, pad=1)
     ins.set_xlabel('$x$ [km]', fontsize=5.2, labelpad=0.5)
-    ins.set_title('mbulimi sipas largësisë nga bregu', fontsize=5.3, color=MUTED, loc='left', pad=2)
+    ins.set_title('coverage vs. distance from the coast', fontsize=5.3, color=MUTED, loc='left', pad=2)
     ins.grid(True, lw=0.4)
 
 
@@ -268,16 +269,16 @@ def panel_f(ax, axb):
     ax.set_xscale('log'); ax.set_xticks(ns); ax.set_xticklabels([]); ax.minorticks_off()
     ax.set_xlim(ns[0] * 0.8, ns[-1] * 1.5)
     ax.set_ylim(lo_all - 0.78 * span, hi_all + 0.08 * span)
-    ax.set_ylabel('mbulimi marxhinal')
-    h_ = [Line2D([], [], color=OI['vermillion'], lw=1.4, label='pa pesha'),
-          Line2D([], [], color=OI['blue'], lw=1.4, label='me pesha $w=p_{\\rm test}/q$'),
-          Line2D([], [], color=MUTED, lw=1.0, ls='-', marker='o', ms=2.4, label='rezultati $|y-\\hat h|$'),
+    ax.set_ylabel('marginal coverage')
+    h_ = [Line2D([], [], color=OI['vermillion'], lw=1.4, label='unweighted'),
+          Line2D([], [], color=OI['blue'], lw=1.4, label='weighted, $w=p_{\\rm test}/q$'),
+          Line2D([], [], color=MUTED, lw=1.0, ls='-', marker='o', ms=2.4, label='score $|y-\\hat h|$'),
           Line2D([], [], color=MUTED, lw=1.0, ls=(0, (3, 1.5)), marker='s', ms=2.4,
-                 label='rezultati $|y-\\hat h|/s_{\\rm ens}$')]
+                 label='score $|y-\\hat h|/s_{\\rm ens}$')]
     ax.legend(handles=h_, loc='lower left', ncol=2, fontsize=5.3, handlelength=2.0, columnspacing=1.0,
-              borderaxespad=0.3, title='kalibrimi $\\sim q(x)\\propto e^{-x/1\\,{\\rm km}}$, testi uniform',
+              borderaxespad=0.3, title='calibration $\\sim q(x)\\propto e^{-x/1\\,{\\rm km}}$, test uniform',
               title_fontsize=5.4, alignment='left')
-    ax.set_title('Kalibrim i grumbulluar pranë bregut', color=INK)
+    ax.set_title('Calibration clustered near the coast', color=INK)
     inf = np.array([PT[f'cl{n}_inf_w_avg'].mean() for n in ns])
     ess = np.array([PT[f'cl{n}_ess'].mean() for n in ns])
     axb.bar(ns, inf, width=np.array(ns) * 0.28, color=OI['blue'], alpha=0.35, edgecolor=OI['blue'], lw=0.6)
@@ -288,8 +289,8 @@ def panel_f(ax, axb):
     axb.minorticks_off()
     axb.set_xlim(ns[0] * 0.8, ns[-1] * 1.5); axb.set_ylim(0, max(0.62, inf.max() * 1.45))
     axb.set_yticks([0, 0.25, 0.5]); axb.set_yticklabels(['0', '25%', '50%'])
-    axb.set_ylabel('$\\infty$-intervale', fontsize=6.2)
-    axb.set_xlabel('numri i piezometrave të kalibrimit $n$')
+    axb.set_ylabel('$\\infty$ intervals', fontsize=6.2)
+    axb.set_xlabel('number of calibration piezometers $n$')
     axb.grid(axis='x', visible=False)
 
 

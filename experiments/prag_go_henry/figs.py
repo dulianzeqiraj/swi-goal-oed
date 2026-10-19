@@ -48,7 +48,7 @@ else:
 def domain(ax, field, cmap, levels, label, bar=True):
     cf = ax.contourf(X, Z, field, levels=levels, cmap=cmap)
     ax.set_xlim(0, 2); ax.set_ylim(0, 1); ax.set_aspect('equal')
-    ax.set_xlabel('x [m]  (ujë i ëmbël majtas, deti djathtas)'); ax.set_ylabel('z [m]')
+    ax.set_xlabel('x [m]  (freshwater left, sea right)'); ax.set_ylabel('z [m]')
     if bar:
         cb = plt.colorbar(cf, ax=ax, fraction=0.025, pad=0.02); cb.set_label(label, color=INK2); cb.outline.set_edgecolor(MUTED)
     return cf
@@ -65,35 +65,35 @@ def wells(ax, sel=None, sel_color=ORANGE):
 
 # Figure 1: setup
 fig, axs = plt.subplots(2, 1, figsize=(6.6, 6.4), constrained_layout=True)
-domain(axs[0], C0, SEQ, np.linspace(0, 1, 21), 'kripësia relative c')
+domain(axs[0], C0, SEQ, np.linspace(0, 1, 21), 'relative salinity c')
 cs = axs[0].contour(X, Z, C0, levels=[0.01, 0.5], colors=[INK, INK], linewidths=[1.0, 1.6], linestyles=['--', '-'])
 axs[0].clabel(cs, fmt={0.01: '1%', 0.5: '50%'}, fontsize=7.5, colors=INK)
 axs[0].add_patch(plt.Rectangle((1.0, 0.0), 0.6, 1.0, fill=False, ls=':', lw=1.2, ec=INK2))
-axs[0].text(1.3, 0.93, 'dritarja e masës së kripës', ha='center', color=INK2, fontsize=7.5)
-toe = m.toe(U0); axs[0].annotate(f'maja e pykës {toe:.2f} m', (toe, 0.0), xytext=(toe - 0.33, 0.20), color=INK, fontsize=7.5,
+axs[0].text(1.41, 0.955, 'salt-mass\nwindow', ha='center', va='top', color=INK2, fontsize=7.5)
+toe = m.toe(U0); axs[0].annotate(f'wedge toe {toe:.2f} m', (toe, 0.0), xytext=(toe - 0.33, 0.20), color=INK, fontsize=7.5,
                                 arrowprops=dict(arrowstyle='->', color=INK, lw=0.8))
 wells(axs[0])
-axs[0].set_title('(a) kripësia në prior-in mesatar, 32 kandidatët dhe puset A, B', loc='left')
+axs[0].set_title('(a) salinity at the prior mean, the 32 candidates and supply wells A, B', loc='left')
 domain(axs[1], P, SEQ, np.linspace(0, 1, 11), 'P(c > 1%)')
 wells(axs[1])
-axs[1].set_title('(b) probabiliteti prior P(c > 1%)', loc='left')
+axs[1].set_title('(b) prior probability P(c > 1%)', loc='left')
 fig.savefig(f'{FIG}/fig1_setup.png', dpi=220)
 
 # Figure 2: the chosen designs
 D3, EX, LIN = R['D3'], R['EX'], R['LIN']
 best = int(np.argmax(EX[:, 1])); i_prag = int(np.argmax(LIN[:, 4])); i_mass = int(np.argmax(LIN[:, 0])); i_ens = int(np.argmax(LIN[:, 5]))
 fig, axs = plt.subplots(3, 1, figsize=(6.0, 8.6), constrained_layout=True)
-for ax, i, ttl in [(axs[0], i_prag, 'PRAG-GO me adjoint'), (axs[1], i_mass, 'masa e kripës (qëllimi aktual i projektit)'),
-                   (axs[2], i_ens, 'PRAG-GO me momente ansambli')]:
+for ax, i, ttl in [(axs[0], i_prag, 'PRAG-GO with adjoint'), (axs[1], i_mass, 'salt mass (current project goal)'),
+                   (axs[2], i_ens, 'PRAG-GO with ensemble moments')]:
     domain(ax, C0, SEQ, np.linspace(0, 1, 21), 'c', bar=False)
     ax.contour(X, Z, C0, levels=[0.01], colors=[INK], linewidths=1.0, linestyles='--')
     wells(ax, D3[i])
-    ax.set_title(f'{ttl}\npuset {tuple(int(v) for v in D3[i])}: {EX[i, 1]:.3f} nats, {EX[i, 1] / EX[best, 1]:.1%} e optimumit', loc='left')
+    ax.set_title(f'{ttl}\nwells {tuple(int(v) for v in D3[i])}: {EX[i, 1]:.3f} nats, {EX[i, 1] / EX[best, 1]:.1%} of the optimum', loc='left')
 fig.savefig(f'{FIG}/fig2_designs.png', dpi=220)
 
 # Figure 3: criterion versus exact EIG over all 4960 designs
 fig, axs = plt.subplots(1, 2, figsize=(6.8, 3.0), constrained_layout=True, sharey=True)
-for ax, j, ttl in [(axs[0], 0, 'EIG lineare e masës së kripës [nats]'), (axs[1], 4, 'PRAG-GO me adjoint [nats]')]:
+for ax, j, ttl in [(axs[0], 0, 'linear EIG of the salt mass [nats]'), (axs[1], 4, 'PRAG-GO with adjoint [nats]')]:
     rho = spearmanr(LIN[:, j], EX[:, 1]).correlation
     ax.scatter(LIN[:, j], EX[:, 1], s=4, color=BLUE, alpha=0.35, linewidths=0)
     k = int(np.argmax(LIN[:, j]))
@@ -102,8 +102,8 @@ for ax, j, ttl in [(axs[0], 0, 'EIG lineare e masës së kripës [nats]'), (axs[
     ax.set_xlabel(ttl); ax.set_title(f'Spearman {rho:.2f}', loc='left')
     for s in ['top', 'right']:
         ax.spines[s].set_visible(False)
-axs[0].set_ylabel('EIG e saktë, rreziku A ose B [nats]')
-axs[1].text(0.98, 0.04, 'pika portokalli: dizajni i zgjedhur nga kriteri\nvija: optimumi i saktë', transform=axs[1].transAxes,
+axs[0].set_ylabel('exact EIG, risk at A or B [nats]')
+axs[1].text(0.98, 0.04, 'orange dot: design chosen by the criterion\ndashed line: exact optimum', transform=axs[1].transAxes,
             ha='right', va='bottom', color=INK2, fontsize=7)
 fig.savefig(f'{FIG}/fig3_scatter.png', dpi=220)
 print('saved', FIG, 'toe', toe)

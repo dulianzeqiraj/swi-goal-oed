@@ -15,7 +15,7 @@ J = json.load(open(os.path.join(RES, 'switchback_ou.json')))
 I = J['info']
 TAU0 = I['tau0_main']; AR = I['aR']; KMAX = I['K']
 C = dict(naive=OI['vermillion'], arx=OI['orange'], ipw=OI['blue'], aw=OI['green'], cs=OI['purple'], na=OI['sky'])
-SHORT = dict(naive='naiv', arx='ARX', ipw='IPW', aw='AW')
+SHORT = dict(naive='naive', arx='ARX', ipw='IPW', aw='AW')
 EST = ('naive', 'arx', 'ipw', 'aw')
 
 
@@ -43,14 +43,14 @@ def panel_a(fig, spec):
     lo, hi = Y[sl].min(), Y[sl].max()
     ax.set_ylim(lo - 0.1, hi + 0.5 * (hi - lo))
     ax.set_xlim(0, n_show + 1)
-    ax.set_ylabel('kripësia $Y_k$')
+    ax.set_ylabel('salinity $Y_k$')
     ax.tick_params(labelbottom=False)
     hs = [Line2D([], [], marker='o', ls='', ms=3, color=OI['vermillion'], mec='white', mew=0.3),
           Line2D([], [], marker='o', ls='', ms=3, color=OI['blue'], mec='white', mew=0.3),
           Line2D([], [], color=MUTED, lw=0.9)]
-    ax.legend(hs, ['pompim, $U_k=1$', 'pa pompim, $U_k=0$', 'cikli sezonal i natyrës (12 periudha)'],
+    ax.legend(hs, ['pumping, $U_k=1$', 'no pumping, $U_k=0$', 'seasonal cycle (12 periods)'],
               loc='upper left', ncol=3, fontsize=5.9, handlelength=1.4, columnspacing=1.2, borderaxespad=0.2)
-    ax.set_title('Një eksperiment adaptiv i realizuar (natyrë sezonale, $b=30$, $\\ell=50$, $\\pi_{\\min}=0.1$)',
+    ax.set_title('One adaptive experiment (seasonal background, $b=30$, $\\ell=50$, $\\pi_{\\min}=0.1$)',
                  color=INK)
     panel(ax, 'a', x=-0.085, y=1.03)
     # a2: assignment probabilities
@@ -61,11 +61,11 @@ def panel_a(fig, spec):
     ax.axhline(0.5, color=RULE, lw=0.5, ls=':')
     ax.set_ylim(-0.17, 1.3); ax.set_yticks([0.1, 0.5, 0.9]); ax.set_yticklabels(['0.1', '0.5', '0.9'])
     ax.set_xlim(0, n_show + 1)
-    ax.set_xlabel('periudha $k$'); ax.set_ylabel('$\\pi_k$')
+    ax.set_xlabel('period $k$'); ax.set_ylabel('$\\pi_k$')
     hs = [Line2D([], [], color=OI['blue'], lw=1.0),
           Line2D([], [], color=OI['vermillion'], lw=0.9, marker='|', ls='', ms=4),
           Line2D([], [], color=RULE, lw=0.6, ls='--')]
-    ax.legend(hs, ['$\\pi_k=P(U_k=1\\mid\\mathcal{F}_{k-1})$: Thompson + kripësia e fundit', 'pompim',
+    ax.legend(hs, ['$\\pi_k=P(U_k=1\\mid\\mathcal{F}_{k-1})$: Thompson + latest salinity', 'pumping',
                    '$\\pi_{\\min}$, $1-\\pi_{\\min}$'],
               loc='upper left', ncol=3, fontsize=5.9, handlelength=1.4, columnspacing=1.2, borderaxespad=0.2)
     # a3: running estimates over the whole experiment
@@ -81,25 +81,25 @@ def panel_a(fig, spec):
     ylo = (est - cs)[m].min(); yhi = (est + cs)[m].max()
     ax.set_ylim(ylo - 0.62 * (yhi - ylo), yhi + 0.04)
     ax.set_xticks([20, 50, 100, 200, 400]); ax.set_xticklabels(['20', '50', '100', '200', '400']); ax.minorticks_off()
-    ax.set_xlabel('periudha $t$ (nga $t=20$)'); ax.set_ylabel('vlerësimi vijues i $\\bar\\tau_t$')
-    ax.set_title('Vlerësimi vijues, i njëjti eksperiment', color=INK)
+    ax.set_xlabel('period $t$ (from $t=20$)'); ax.set_ylabel('running estimate of $\\bar\\tau_t$')
+    ax.set_title('Running estimate, same experiment', color=INK)
     hs = [Line2D([], [], color=OI['blue'], lw=1.0), Patch(color=OI['blue'], alpha=0.3, lw=0),
           Patch(color=OI['purple'], alpha=0.25, lw=0), Line2D([], [], color=OI['vermillion'], lw=1.0),
           Line2D([], [], color=INK, lw=0.8, ls='--')]
-    ax.legend(hs, ['IPW $\\hat{\\bar\\tau}_t$', 'Wald 95 % ($t$ fiks)', 'SB 95 % (uniforme)',
-                   'diferenca naive', '$\\bar\\tau_t=\\tau_0$'], loc='lower right', fontsize=5.6, ncol=2,
-              handlelength=1.3, columnspacing=0.9, borderaxespad=0.3)
+    ax.legend(hs, ['IPW $\\hat{\\bar\\tau}_t$', 'Wald 95% (fixed $t$)', 'CS 95% (all $t$)',
+                   'naive difference', '$\\bar\\tau_t=\\tau_0$'], loc='lower right', fontsize=5.6, ncol=2,
+              handlelength=1.2, columnspacing=0.7, borderaxespad=0.2)
 
 
 def panel_b(fig, spec):
     ax = fig.add_subplot(spec)
-    groups = (('main', 'nonadaptive', 'natyrë stacionare'), ('seasonal', 'seasonal_na', 'natyrë sezonale'))
+    groups = (('main', 'nonadaptive', 'stationary'), ('seasonal', 'seasonal_na', 'seasonal'))
     ypos = []; labels = []; y = 0; heads = []
     for gi, (key, keyna, gname) in enumerate(groups):
         F = J[key]['fixed'][str(KMAX)]; Fna = J[keyna]['fixed'][str(KMAX)]
         heads.append((y + 0.75, gname))
         rows = [(F[e]['draws'], C[e], SHORT[e]) for e in EST]
-        rows.append((Fna['naive']['draws'], C['na'], 'naiv, $\\pi_k=1/2$'))
+        rows.append((Fna['naive']['draws'], C['na'], 'naive, $\\pi_k=1/2$'))
         for v, c, lab in rows:
             v = np.asarray(v, float)
             vp = ax.violinplot([v], positions=[y], orientation='horizontal', widths=0.82, showextrema=False)
@@ -125,10 +125,10 @@ def panel_b(fig, spec):
     ax.text(AR + 0.006, 1.42, '$aR_{gp}$', ha='left', va='center', fontsize=6.4, color=MUTED)
     Fs = J['seasonal']['fixed'][str(KMAX)]['naive']
     bias = Fs['mean'] - TAU0
-    ax.text(0.497, heads[1][0], f"{bias:+.3f} ({100 * bias / TAU0:+.0f} %)".replace('-', '−'),
+    ax.text(0.497, heads[1][0], f"{bias:+.3f} ({100 * bias / TAU0:+.0f}%)".replace('-', '−'),
             ha='right', va='center', fontsize=5.5, color=OI['vermillion'])
-    ax.set_xlabel('vlerësimi i efektit në $K=400$')
-    ax.set_title('Shpërndarja e vlerësuesve', color=INK)
+    ax.set_xlabel('effect estimate at $K=400$')
+    ax.set_title('Estimator distributions', color=INK)
     panel(ax, 'b', x=-0.42)
 
 
@@ -152,23 +152,23 @@ def panel_c(fig, spec):
     at.spines['bottom'].set_visible(False); at.tick_params(axis='x', length=0, labelbottom=False)
     broken_marks(at, ab)
     ab.set_xticks(Ks); ab.set_xticklabels([str(k) for k in Ks])
-    ab.set_xlabel('numri i periudhave $K$')
-    at.set_ylabel('mbulimi (nominal 0.95)')
+    ab.set_xlabel('number of periods $K$')
+    at.set_ylabel('coverage (nominal 0.95)')
     at.yaxis.set_label_coords(-0.2, 0.25)
-    at.set_title('Mbulimi i intervaleve me $K$ fiks', color=INK)
+    at.set_title('Coverage of fixed-$K$ intervals', color=INK)
     hs = [Line2D([], [], color=C[e], lw=1.2) for e in EST]
     hs += [Line2D([], [], color=MUTED, lw=1.0, ls='-', marker='o', ms=2.3),
            Line2D([], [], color=MUTED, lw=1.0, ls='--', marker='s', ms=2.3, mfc='white')]
-    ab.legend(hs, ['naiv', 'ARX', 'IPW', 'AW', 'stacionare', 'sezonale'], loc='lower left', fontsize=5.5, ncol=3,
-              handlelength=1.6, columnspacing=0.7, borderaxespad=0.2, labelspacing=0.3)
+    ab.legend(hs, ['naive', 'ARX', 'IPW', 'AW', 'stationary', 'seasonal'], loc='lower left', fontsize=5.5, ncol=3,
+              handlelength=1.3, columnspacing=0.5, borderaxespad=0.2, labelspacing=0.3)
     panel(at, 'c', x=-0.27, y=1.045)
 
 
 def panel_d(fig, spec):
     ax = fig.add_subplot(spec)
     t = np.arange(1, KMAX + 1); t0 = I['t0']; m = t >= t0
-    sty = dict(wald=(OI['blue'], '-', 'Wald IPW në çdo $t$'), wald_aw=(OI['green'], '-', 'Wald AW në çdo $t$'),
-               cs=(OI['purple'], '-', 'SB IPW'), cs_aw=(OI['purple'], '-.', 'SB AW'))
+    sty = dict(wald=(OI['blue'], '-', 'Wald IPW at every $t$'), wald_aw=(OI['green'], '-', 'Wald AW at every $t$'),
+               cs=(OI['purple'], '-', 'CS IPW'), cs_aw=(OI['purple'], '-.', 'CS AW'))
     for key in ('main', 'seasonal'):
         R = J[key]['R']
         for k in ('wald', 'wald_aw', 'cs', 'cs_aw'):
@@ -186,11 +186,11 @@ def panel_d(fig, spec):
     ax.set_xscale('log'); ax.set_xlim(t0, KMAX); ax.set_ylim(0, 0.48)
     ax.set_xticks([10, 20, 50, 100, 200, 400]); ax.set_xticklabels(['10', '20', '50', '100', '200', '400'])
     ax.minorticks_off()
-    ax.set_xlabel('periudha $t$'); ax.set_ylabel('$P(\\exists s\\leq t:\\ \\bar\\tau_s\\notin C_s)$')
-    ax.set_title('Shikimi i vazhdueshëm i të dhënave', color=INK)
+    ax.set_xlabel('period $t$'); ax.set_ylabel('$P(\\exists s\\leq t:\\ \\bar\\tau_s\\notin C_s)$')
+    ax.set_title('Continuous monitoring of the data', color=INK)
     hs = [Line2D([], [], color=sty[k][0], ls=sty[k][1], lw=1.1) for k in ('wald', 'wald_aw', 'cs', 'cs_aw')]
     hs.append(Line2D([], [], color=MUTED, ls=(0, (3, 1.6)), lw=0.9))
-    ax.legend(hs, [sty[k][2] for k in ('wald', 'wald_aw', 'cs', 'cs_aw')] + ['natyrë sezonale'],
+    ax.legend(hs, [sty[k][2] for k in ('wald', 'wald_aw', 'cs', 'cs_aw')] + ['seasonal'],
               loc='upper left', fontsize=5.6, handlelength=1.6, borderaxespad=0.2)
     panel(ax, 'd', x=-0.25)
 
@@ -200,7 +200,7 @@ def panel_e(fig, spec):
     at = fig.add_subplot(gs[0]); ab = fig.add_subplot(gs[1], sharex=at)
     S = J['pimin_sweep']; pm = np.array(sorted(float(k) for k in S)); keys = [f'{p:g}' for p in pm]
     R = S[keys[0]].get('R', 1000)
-    sty = dict(cs=(OI['purple'], '-', 'o', 'SB IPW'), cs_aw=(OI['purple'], '-.', 'D', 'SB AW'),
+    sty = dict(cs=(OI['purple'], '-', 'o', 'CS IPW'), cs_aw=(OI['purple'], '-.', 'D', 'CS AW'),
                wald=(OI['blue'], '-', 'o', 'Wald IPW'), wald_aw=(OI['green'], '-', 's', 'Wald AW'))
     for k, (c, ls, mk, lab) in sty.items():
         mu = np.array([S[q]['hw']['at_K'][k]['mean'] for q in keys])
@@ -209,20 +209,20 @@ def panel_e(fig, spec):
             at.fill_between(pm, qq[:, 1], qq[:, 3], color=c, alpha=0.13, lw=0)
         at.plot(pm, mu, ls=ls, marker=mk, ms=2.4, color=c, lw=1.1, label=lab)
     nv = np.array([S[q]['fixed'][str(KMAX)]['naive']['hw'] for q in keys])
-    at.plot(pm, nv, ls=':', marker='v', ms=2.4, color=OI['vermillion'], lw=1.0, label='Welch naiv (pa garanci)')
+    at.plot(pm, nv, ls=':', marker='v', ms=2.4, color=OI['vermillion'], lw=1.0, label='naive Welch (no guarantee)')
     at.set_xscale('log')
     tk = [0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.5]
     at.set_xticks(tk); at.set_xticklabels([f'{p:g}' for p in tk]); at.minorticks_off()
     at.tick_params(labelbottom=False)
-    at.set_ylabel('gjysmë-gjerësia')
+    at.set_ylabel('half-width')
     at.text(0.012, 0.325, '$K=400$', fontsize=6.0, color=MUTED, va='top')
-    at.set_title('Gjerësia dhe mungesa kundrejt $\\pi_{\\min}$ (propozimi N1)', color=INK)
+    at.set_title('Width and miss rate versus $\\pi_{\\min}$ (Proposal N1)', color=INK)
     at.legend(loc='upper right', fontsize=5.6, ncol=2, handlelength=1.6, columnspacing=1.0)
     at.set_ylim(0, 0.34)
     # validity strip
-    for k, c, ls, lab in (('cs', OI['purple'], '-', 'SB IPW: $P(\\exists t\\leq 400$: mungesë$)$'),
-                          ('cs_aw', OI['purple'], '-.', 'SB AW'),
-                          ('wald', OI['blue'], '-', 'Wald IPW: $1-$mbulimi, $K=400$')):
+    for k, c, ls, lab in (('cs', OI['purple'], '-', 'CS IPW: $P(\\exists t\\leq 400$: miss$)$'),
+                          ('cs_aw', OI['purple'], '-.', 'CS AW'),
+                          ('wald', OI['blue'], '-', 'Wald IPW: $1-$coverage, $K=400$')):
         if k == 'wald':
             p = np.array([1 - S[q]['fixed'][str(KMAX)]['ipw']['cov'] for q in keys])
         else:
@@ -233,8 +233,8 @@ def panel_e(fig, spec):
         ab.plot(pm, p, ls=ls, marker='o' if k != 'cs_aw' else 'D', ms=2.2, color=c, lw=1.0, label=lab)
     ab.axhline(0.05, color=MUTED, lw=0.7, ls=':')
     ab.set_ylim(0, 0.24); ab.set_yticks([0, 0.05, 0.1, 0.2])
-    ab.set_ylabel('mungesa')
-    ab.set_xlabel('$\\pi_{\\min}$ (0.5 = switchback jo-adaptiv)')
+    ab.set_ylabel('miss rate')
+    ab.set_xlabel('$\\pi_{\\min}$ (0.5 = nonadaptive switchback)')
     ab.legend(loc='upper right', fontsize=5.4, handlelength=1.6, borderaxespad=0.1, labelspacing=0.25)
     for ax in (at, ab):
         ax.yaxis.set_label_coords(-0.105, 0.5)
@@ -261,21 +261,21 @@ def panel_f(fig, spec):
     bm = I['b_main']
     for ax in (at, ab):
         ax.axvline(bm, color=RULE, lw=0.7, ls=':')
-    at.text(bm + 0.7, 1.035, 'zgjedhja $b=30$', fontsize=5.8, color=MUTED, va='bottom')
-    at.text(0.3, 0.975, 'mbartja\n$1-\\tau_0/(aR_{gp})$', fontsize=5.8, color=OI['blue'], ha='left',
+    at.text(bm + 0.7, 1.035, 'chosen $b=30$', fontsize=5.8, color=MUTED, va='bottom')
+    at.text(0.3, 0.975, 'carryover\n$1-\\tau_0/(aR_{gp})$', fontsize=5.8, color=OI['blue'], ha='left',
             va='top')
     at.set_ylim(0, 1.13); at.set_xlim(-2, 61)
     at.tick_params(labelbottom=False)
     at.set_ylabel('$\\tau_0(b)\\,/\\,(aR_{gp})$')
-    at.set_title(f'Efekti lag-0 kundrejt $aR_{{gp}}$ (koha e relaksimit $1/|\\lambda_{{\\max}}|={tr:.1f}$)',
+    at.set_title(f'Lag-0 effect versus $aR_{{gp}}$ (relaxation time $1/|\\lambda_{{\\max}}|={tr:.1f}$)',
                  color=INK)
     hs = [Line2D([], [], color=INK, lw=1.3), Line2D([], [], marker='D', ls='', ms=3.4, mfc='white', mec=INK, mew=0.8)]
-    at.legend(hs, ['$\\tau_0(b)$ analitik (nga $A$)', 'simulim i degëzuar me zhurmë të përbashkët'],
+    at.legend(hs, ['analytical $\\tau_0(b)$ (from $A$)', 'branched simulation with common noise'],
               loc='lower right', fontsize=5.6, handlelength=1.4)
     ab.axhline(0, color=MUTED, lw=0.7)
     ab.set_ylim(-4.5, 9.5)
-    ab.set_ylabel('zhvendosja\n(% e $aR_{gp}$)')
-    ab.set_xlabel('koha e pritjes $b$ para matjes (dritarja $w=20$, $\\ell=b+w$)')
+    ab.set_ylabel('bias\n(% of $aR_{gp}$)')
+    ab.set_xlabel('burn-in $b$ before measuring (window $w=20$, $\\ell=b+w$)')
     ab.legend(loc='upper right', fontsize=5.5, ncol=4, handlelength=1.4, columnspacing=0.9, borderaxespad=0.2)
     for ax in (at, ab):
         ax.yaxis.set_label_coords(-0.105, 0.5)
