@@ -1,0 +1,925 @@
+{
+ "description": "Property vectors of the base paper [0] and the 16 reviewed works [1]-[16]; hand-extracted from the verified reader reports mv/papers/pNN.md (sections 1-3, 5) and the earlier entries; no simulation.",
+ "categories": {
+  "route": {
+   "A": "weights / stabilisation (Wald)",
+   "B": "supermartingales / confidence sequences",
+   "C": "learning and prediction under adaptive collection",
+   "D": "structure instead of weights"
+  },
+  "setting": {
+   "batched": "batched bandit",
+   "contextual": "contextual bandit",
+   "policy": "adaptive experiment for policy choice",
+   "bayes": "Bayesian posterior (adaptive linear Gaussian / exp. family)",
+   "sequential": "generic sequential",
+   "active": "active learning",
+   "conformal": "conformal design (feedback covariate shift)",
+   "rl": "RL off-policy"
+  },
+  "estimand": {
+   "means": "arm means / ATE",
+   "M": "M-estimand (parameter or functional)",
+   "value": "policy value",
+   "risk": "risk minimiser",
+   "pred": "prediction set",
+   "ope": "OPE value"
+  },
+  "inference": {
+   "wald": "Wald CLT",
+   "cs": "confidence sequence",
+   "lr": "likelihood-ratio set",
+   "bayes": "Bayesian",
+   "conformal": "conformal",
+   "boot": "bootstrap",
+   "conc": "concentration bound (finite-sample CI)",
+   "none": "none (rates / point estimates only)"
+  },
+  "guarantee": {
+   "asym": "asymptotic",
+   "finite": "finite-sample",
+   "unif": "time-uniform"
+  },
+  "yes_no": {
+   "yes": "yes",
+   "no": "no",
+   "partly": "partly",
+   "?": "unclear"
+  }
+ },
+ "albanian_labels": {
+  "route": {
+   "A": "pesha, stabilizim (Wald)",
+   "B": "supermartingale, sekuenca besimi",
+   "C": "m\u00ebsim dhe parashikim",
+   "D": "struktur\u00eb n\u00eb vend t\u00eb peshave"
+  },
+  "setting": {
+   "batched": "bandit me grupe",
+   "contextual": "bandit kontekstual",
+   "policy": "eksperiment p\u00ebr zgjedhje politike",
+   "bayes": "posterior bayesian",
+   "sequential": "sekuencial i p\u00ebrgjithsh\u00ebm",
+   "active": "m\u00ebsim aktiv",
+   "conformal": "projektim konformal",
+   "rl": "RL jasht\u00eb politike"
+  },
+  "estimand": {
+   "means": "mesatare krah\u00ebsh / ATE",
+   "M": "paramet\u00ebr M $\\theta^*$",
+   "value": "vlera e politik\u00ebs",
+   "risk": "minimizues rreziku",
+   "pred": "bashk\u00ebsi parashikimi",
+   "ope": "vlera OPE"
+  },
+  "inference": {
+   "wald": "Wald (CLT)",
+   "cs": "sekuenc\u00eb besimi",
+   "lr": "raport p\u00ebrgjasash",
+   "bayes": "bayesiane",
+   "conformal": "konformale",
+   "boot": "bootstrap",
+   "conc": "kufi p\u00ebrqendrimi",
+   "none": "pa interval"
+  },
+  "guarantee": {
+   "asym": "asimptotike",
+   "finite": "most\u00ebr e fundme",
+   "unif": "uniforme n\u00eb koh\u00eb"
+  },
+  "yes_no": {
+   "yes": "po",
+   "no": "jo",
+   "partly": "pjes\u00ebrisht",
+   "?": "?"
+  }
+ },
+ "works": [
+  {
+   "k": 0,
+   "cite": "Zhang, Janson & Murphy (2021)",
+   "short": "Zhang, Janson & Murphy",
+   "year": 2021,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 34: 7460-7471",
+   "vtype": "conference",
+   "group": "Harvard",
+   "route": "A",
+   "setting": "contextual",
+   "estimand": "M",
+   "inference": "wald",
+   "guarantee": "asym",
+   "prop": "yes",
+   "stab": "no",
+   "misspec": "no",
+   "real": "no",
+   "indirect": [
+    "misspec"
+   ],
+   "notes": {
+    "setting": "history-dependent policy pi_t(A_t|X_t,H_{t-1}); simulations: two-arm and contextual Thompson sampling (p00 \u00a73.4)",
+    "inference": "self-normalised chi^2 ellipsoid, Theorem 1 (uniform asymptotic normality) (p00 \u00a72 row 17, \u00a73.3)",
+    "prop": "weights W_t = sqrt(pi_sta/pi_t) need the logged pi_t; C9 bounded ratios (p00 \u00a72 rows 12, 15d)",
+    "stab": "weights replace stability: conditional variance fixed under pi_sta (p00 \u00a73.2, \u00a75a)",
+    "misspec": "correct specification: target defined conditionally on (X,A) (p00 \u00a72 row 8); explicit statement NOT re-verified (row 27c); follow-ups target the misspecified case (\u00a73.7)",
+    "real": "simulations only (p00 \u00a73.4)"
+   }
+  },
+  {
+   "k": 1,
+   "cite": "Zhang, Janson & Murphy (2020)",
+   "short": "Zhang",
+   "year": 2020,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 33: 9818-9829",
+   "vtype": "conference",
+   "group": "Harvard",
+   "route": "A",
+   "setting": "batched",
+   "estimand": "means",
+   "inference": "wald",
+   "guarantee": "asym",
+   "prop": "no",
+   "stab": "no",
+   "misspec": "partly",
+   "real": "no",
+   "indirect": [
+    "misspec"
+   ],
+   "notes": {
+    "estimand": "arm-mean difference (margin) per batch (p01 \u00a72 rows 11-12)",
+    "inference": "batch-studentised BOLS, t_{n-2} / N(0,1) reference (p01 \u00a72 rows 10, 18)",
+    "guarantee": "n -> infinity with T fixed (p01 \u00a73.1)",
+    "prop": "BOLS does not use the logged pi_t (p01 \u00a73.4)",
+    "stab": "BOLS needs conditionally i.i.d. actions within a batch and clipping, not Lai-Wei stability (OLS does) (p01 \u00a73.2)",
+    "misspec": "robust to a non-stationary baseline (abstract, p01 \u00a72 row 17); otherwise a difference of arm means (our reading)",
+    "real": "simulations (T = 25 batches of n = 25) (p01 \u00a73.4)"
+   }
+  },
+  {
+   "k": 2,
+   "cite": "Bibaut et al. (2021a)",
+   "short": "Bibaut",
+   "year": 2021,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 34: 28548-28559",
+   "vtype": "conference",
+   "group": "Berkeley",
+   "route": "A",
+   "setting": "contextual",
+   "estimand": "value",
+   "inference": "wald",
+   "guarantee": "asym",
+   "prop": "yes",
+   "stab": "no",
+   "misspec": "yes",
+   "real": "yes",
+   "indirect": [
+    "real"
+   ],
+   "notes": {
+    "inference": "CADR: inverse-sd stabilised one-step estimator, asymptotically normal (p02 \u00a73)",
+    "prop": "known logging policy g_t; DR score uses g*/g_t (p02 \u00a73)",
+    "stab": "does not need asymptotic stabilisation of the logging policy; needs exploration-rate A3/A6 instead (p02 \u00a73 limitations)",
+    "misspec": "outcome model need only converge to a fixed limit (A4), black-box regressors allowed (p02 \u00a73)",
+    "real": "57 OpenML datasets (semi-synthetic bandit simulation) (p02 \u00a73)"
+   }
+  },
+  {
+   "k": 3,
+   "cite": "Caria et al. (2024)",
+   "short": "Caria",
+   "year": 2024,
+   "venue": "JEEA",
+   "venue_full": "Journal of the European Economic Association 22(2): 781-836",
+   "vtype": "journal",
+   "group": "Oxford",
+   "route": "A",
+   "setting": "policy",
+   "estimand": "means",
+   "inference": "wald",
+   "guarantee": "asym",
+   "prop": "no",
+   "stab": "yes",
+   "misspec": "partly",
+   "real": "yes",
+   "indirect": [
+    "misspec"
+   ],
+   "notes": {
+    "estimand": "stratum x arm means (Theorem 1 item 4) (p03 \u00a72 row 17)",
+    "inference": "Wald \"as if assignment were not adaptive\"; also randomisation p-values (exact under the sharp null) and Bayesian credible sets (p03 \u00a72 row 24, \u00a73.4)",
+    "prop": "unweighted cell means; randomisation inference needs the algorithm, not the propensities (p03 \u00a73.4)",
+    "stab": "converging shares from a floor gamma/k plus a unique optimum (Assumption 1, Theorem 1 item 2) (p03 \u00a72 rows 15, 18)",
+    "misspec": "saturated Bernoulli cell means; stationarity assumed (B.8) (p03 \u00a73.6) - our reading",
+    "real": "field experiment, 3,770 refugees and Jordanians (p03 \u00a73.5)"
+   }
+  },
+  {
+   "k": 4,
+   "cite": "Kasy & Sautmann (2021)",
+   "short": "Kasy",
+   "year": 2021,
+   "venue": "Econometrica",
+   "venue_full": "Econometrica 89(1): 113-132 (author correction note 10 Nov 2021)",
+   "vtype": "journal",
+   "group": "Oxford",
+   "route": "A",
+   "setting": "policy",
+   "estimand": "means",
+   "inference": "bayes",
+   "guarantee": "asym",
+   "prop": "no",
+   "stab": "partly",
+   "misspec": "partly",
+   "real": "yes",
+   "indirect": [
+    "stab",
+    "misspec"
+   ],
+   "notes": {
+    "estimand": "arm success rates theta^d; goal is the choice of the best arm (policy regret) (p04 \u00a73.1)",
+    "inference": "posterior means / SDs / p_T^d; no frequentist interval (p04 \u00a72 row 19)",
+    "guarantee": "T -> infinity with fixed wave size; corrected Theorem 1 (p04 \u00a73.2)",
+    "stab": "unique best arm assumed; non-random limit shares are a result; link to Wald stability is our inference (p04 \u00a72 row 20)",
+    "misspec": "binary outcomes, no interference, i.i.d. stationary (p04 \u00a73.1) - our reading",
+    "real": "PAD agricultural-extension field implementation in India, 17 waves of 600 (p04 \u00a73.4)"
+   }
+  },
+  {
+   "k": 5,
+   "cite": "Du, Nair & Janson (2025)",
+   "short": "Du",
+   "year": 2025,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 38 (pages not verified)",
+   "vtype": "conference",
+   "group": "Harvard",
+   "route": "A",
+   "setting": "bayes",
+   "estimand": "M",
+   "inference": "bayes",
+   "guarantee": "asym",
+   "prop": "no",
+   "stab": "partly",
+   "misspec": "no",
+   "real": "no",
+   "indirect": [],
+   "notes": {
+    "setting": "adaptive linear Gaussian: bandits, adaptive regression, LQR (p05 \u00a73.1)",
+    "inference": "Bernstein-von Mises in TV to the representative normal (p05 \u00a72 rows 8-10)",
+    "stab": "BvM itself needs no stability; frequentist validity of credible sets needs it (negative result) (p05 \u00a72 rows 9, 14)",
+    "misspec": "theorems stated for the correctly specified linear Gaussian / exponential-family model (p05 \u00a73.1)",
+    "real": "\"a range of simulations\" (abstract) (p05 \u00a73.4)"
+   }
+  },
+  {
+   "k": 6,
+   "cite": "Howard et al. (2021)",
+   "short": "Howard",
+   "year": 2021,
+   "venue": "Ann. Statist.",
+   "venue_full": "Annals of Statistics 49(2): 1055-1080",
+   "vtype": "journal",
+   "group": "Berkeley",
+   "route": "B",
+   "setting": "sequential",
+   "estimand": "means",
+   "inference": "cs",
+   "guarantee": "unif",
+   "prop": "yes",
+   "stab": "no",
+   "misspec": "yes",
+   "real": "?",
+   "indirect": [
+    "prop",
+    "group"
+   ],
+   "notes": {
+    "estimand": "means, sample ATE, covariance (p06 \u00a73.1)",
+    "prop": "only Corollary 2 (ATE under adaptive P_t in [p_min, 1-p_min]) uses the known propensities; mean CSs do not (p06 \u00a72 row 14, \u00a73.2)",
+    "stab": "supermartingale + Ville: no stability or CLT (p06 \u00a75a)",
+    "misspec": "nonparametric (bounded / sub-psi) conditions (p06 \u00a73.1)",
+    "real": "experiments NOT verified (p06 \u00a73.4)",
+    "group": "affiliations not verified in p06; group from context_routes.md"
+   }
+  },
+  {
+   "k": 7,
+   "cite": "Emmenegger, Mutn\u00fd & Krause (2023)",
+   "short": "Emmenegger",
+   "year": 2023,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 36 (volume number not explicitly verified)",
+   "vtype": "conference",
+   "group": "ETH",
+   "route": "B",
+   "setting": "sequential",
+   "estimand": "M",
+   "inference": "lr",
+   "guarantee": "unif",
+   "prop": "no",
+   "stab": "no",
+   "misspec": "no",
+   "real": "?",
+   "indirect": [],
+   "notes": {
+    "setting": "adaptively chosen covariates / GLM bandits (p07 \u00a73.1)",
+    "inference": "weighted plug-in likelihood-ratio confidence sequence (Theorem 1) (p07 \u00a73.2)",
+    "misspec": "\"especially suitable for problems with well-specified likelihoods\" (abstract) (p07 \u00a72 row 14)",
+    "real": "GLM bandits, survival analysis, noise families; data sources NOT verified (p07 \u00a73.4)"
+   }
+  },
+  {
+   "k": 8,
+   "cite": "P\u00e1sztor, Kassraie & Krause (2024)",
+   "short": "P\u00e1sztor",
+   "year": 2024,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 37",
+   "vtype": "conference",
+   "group": "ETH",
+   "route": "B",
+   "setting": "sequential",
+   "estimand": "M",
+   "inference": "cs",
+   "guarantee": "unif",
+   "prop": "no",
+   "stab": "no",
+   "misspec": "no",
+   "real": "yes",
+   "indirect": [
+    "real"
+   ],
+   "notes": {
+    "setting": "kernelised (dueling / logistic) bandit on an infinite domain (p08 \u00a73.1)",
+    "estimand": "RKHS utility f (kernel logistic regression function) (p08 \u00a72 row 9)",
+    "misspec": "Bradley-Terry link, f in RKHS with known norm bound B (p08 \u00a72 rows 9, 14)",
+    "real": "Yelp-based utility (semi-synthetic) plus 7 test functions (p08 \u00a73.3)"
+   }
+  },
+  {
+   "k": 9,
+   "cite": "Mutn\u00fd & Krause (2022)",
+   "short": "Mutn\u00fd",
+   "year": 2022,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 35",
+   "vtype": "conference",
+   "group": "ETH",
+   "route": "B",
+   "setting": "sequential",
+   "estimand": "M",
+   "inference": "cs",
+   "guarantee": "unif",
+   "prop": "no",
+   "stab": "no",
+   "misspec": "partly",
+   "real": "?",
+   "indirect": [
+    "guarantee"
+   ],
+   "notes": {
+    "setting": "adaptive experimental design: queries depend on past noise (p09 \u00a73.1)",
+    "estimand": "linear functional C theta of an RKHS element (p09 \u00a72 row 4)",
+    "guarantee": "mixture supermartingale (time-uniform route); \"for all t\" wording NOT verified (p09 \u00a72 row 18)",
+    "misspec": "fixed, explicitly bounded bias allowed; kernel and V_0 assumed known (p09 \u00a73.1)",
+    "real": "differential equations, linear bandits, gradient maps, stability verification; data sources NOT verified (p09 \u00a73.4)"
+   }
+  },
+  {
+   "k": 10,
+   "cite": "Bibaut et al. (2021b)",
+   "short": "Bibaut",
+   "year": 2021,
+   "venue": "NeurIPS",
+   "venue_full": "Advances in Neural Information Processing Systems 34: 19261-19273",
+   "vtype": "conference",
+   "group": "Berkeley",
+   "route": "C",
+   "setting": "contextual",
+   "estimand": "risk",
+   "inference": "none",
+   "guarantee": "finite",
+   "prop": "yes",
+   "stab": "no",
+   "misspec": "yes",
+   "real": "?",
+   "indirect": [
+    "misspec",
+    "group"
+   ],
+   "notes": {
+    "inference": "excess-risk and regret rates, no intervals (p10 \u00a72 row 16)",
+    "guarantee": "high-probability (1 - 2e^{-x}) maximal inequality (p10 \u00a72 row 13)",
+    "prop": "importance weights g*/g_t from the known logging policy (p10 \u00a72 rows 10, 19)",
+    "misspec": "target is the best-in-class risk minimiser under the reference design - our reading of \"minimise the average of a loss over a hypothesis class\"",
+    "real": "\"an empirical investigation validates our theory\"; designs NOT verified (p10 \u00a73)",
+    "group": "affiliations not verified in p10; group from context_routes.md"
+   }
+  },
+  {
+   "k": 11,
+   "cite": "Farquhar, Gal & Rainforth (2021)",
+   "short": "Farquhar",
+   "year": 2021,
+   "venue": "ICLR",
+   "venue_full": "International Conference on Learning Representations 2021 (spotlight)",
+   "vtype": "conference",
+   "group": "Oxford",
+   "route": "C",
+   "setting": "active",
+   "estimand": "risk",
+   "inference": "none",
+   "guarantee": "finite",
+   "prop": "yes",
+   "stab": "no",
+   "misspec": "yes",
+   "real": "yes",
+   "indirect": [],
+   "notes": {
+    "estimand": "population (pool) risk used for training / evaluation (p11 \u00a73.1)",
+    "inference": "unbiased point estimators PURE / LURE, no CLT or intervals (p11 \u00a72 rows 13, 16)",
+    "guarantee": "exact unbiasedness for every M (Theorems 1, 3) (p11 \u00a72 row 9)",
+    "prop": "acquisition probabilities q must be known and positive (p11 \u00a72 row 15)",
+    "misspec": "design-based: unbiased for any model (p11 \u00a72 row 9)",
+    "real": "MNIST, FashionMNIST (p11 \u00a73.4)"
+   }
+  },
+  {
+   "k": 12,
+   "cite": "Fannjiang et al. (2022)",
+   "short": "Fannjiang",
+   "year": 2022,
+   "venue": "PNAS",
+   "venue_full": "Proceedings of the National Academy of Sciences 119(43): e2204569119",
+   "vtype": "journal",
+   "group": "Berkeley",
+   "route": "C",
+   "setting": "conformal",
+   "estimand": "pred",
+   "inference": "conformal",
+   "guarantee": "finite",
+   "prop": "yes",
+   "stab": "no",
+   "misspec": "yes",
+   "real": "yes",
+   "indirect": [],
+   "notes": {
+    "prop": "known, randomised design density including its normalising constant (p12 \u00a72 row 12)",
+    "misspec": "valid \"for arbitrary regression models\" (p12 \u00a72 row 8)",
+    "real": "fluorescent proteins (2^13 sequences) and AAV capsids (p12 \u00a73.2-3.3)"
+   }
+  },
+  {
+   "k": 13,
+   "cite": "Dwivedi et al. (2025)",
+   "short": "Dwivedi",
+   "year": 2025,
+   "venue": "Ann. Statist.",
+   "venue_full": "Annals of Statistics 53(6): 2380-2408",
+   "vtype": "journal",
+   "group": "Harvard",
+   "route": "D",
+   "setting": "sequential",
+   "estimand": "means",
+   "inference": "wald",
+   "guarantee": "asym",
+   "prop": "no",
+   "stab": "partly",
+   "misspec": "no",
+   "real": "yes",
+   "indirect": [
+    "stab"
+   ],
+   "notes": {
+    "setting": "multi-unit sequential experiment with pooled adaptive policies (p13 \u00a72 rows 10-12)",
+    "estimand": "counterfactual mean of each unit at each time (p13 \u00a72 row 10)",
+    "prop": "nearest neighbours, no inverse-propensity weighting (p13 \u00a72 row 14)",
+    "stab": "exploration floor + conditional independence across units; a policy-stability quantity enters the 2022 CLT, final version NOT verified (p13 \u00a72 row 18, \u00a73.3)",
+    "misspec": "latent factor model, no carry-over (p13 \u00a72 rows 15, 26)",
+    "real": "HeartSteps mobile-health trial (p13 \u00a73.5)"
+   }
+  },
+  {
+   "k": 14,
+   "cite": "Duan, Jia & Wang (2020)",
+   "short": "Duan",
+   "year": 2020,
+   "venue": "ICML",
+   "venue_full": "Proceedings of ICML 2020, PMLR 119: 2701-2709",
+   "vtype": "conference",
+   "group": "Princeton",
+   "route": "D",
+   "setting": "rl",
+   "estimand": "ope",
+   "inference": "conc",
+   "guarantee": "finite",
+   "prop": "no",
+   "stab": "no",
+   "misspec": "no",
+   "real": "no",
+   "indirect": [],
+   "notes": {
+    "inference": "Theorem 4: computable confidence bound under Assumption 3 (filtration-adapted, adaptive data allowed) (p14 \u00a73.3)",
+    "prop": "behaviour policy not known (p14 \u00a73.1)",
+    "stab": "Theorem 4 needs only Assumption 3; Theorems 2-3 need i.i.d. episodes (p14 \u00a72 row 14)",
+    "misspec": "Assumption 1 (Bellman completeness); no misspecification analysis (p14 \u00a73.6)",
+    "real": "no experiments (p14 \u00a73.5)"
+   }
+  },
+  {
+   "k": 15,
+   "cite": "Hao et al. (2021)",
+   "short": "Hao",
+   "year": 2021,
+   "venue": "ICML",
+   "venue_full": "Proceedings of ICML 2021, PMLR 139: 4074-4084",
+   "vtype": "conference",
+   "group": "Princeton",
+   "route": "D",
+   "setting": "rl",
+   "estimand": "ope",
+   "inference": "boot",
+   "guarantee": "asym",
+   "prop": "no",
+   "stab": "yes",
+   "misspec": "no",
+   "real": "no",
+   "indirect": [
+    "stab"
+   ],
+   "notes": {
+    "inference": "episode-level bootstrap; Theorem 4.2 CLT and Theorem 5.1 bootstrap consistency (p15 \u00a73.2)",
+    "stab": "K independent episodes from one behaviour policy: no adaptivity across episodes (stronger than stability) (p15 \u00a75a) - classification is ours",
+    "misspec": "linear FQE under completeness (Condition 4.1) (p15 \u00a72 rows 4, 11)",
+    "real": "Cliff Walking, Mountain Car, sepsis simulator (simulators) (p15 \u00a73.4)"
+   }
+  },
+  {
+   "k": 16,
+   "cite": "Zhang, Zhang, Ni & Wang (2022)",
+   "short": "Zhang R.",
+   "year": 2022,
+   "venue": "ICML",
+   "venue_full": "Proceedings of ICML 2022, PMLR 162: 26713-26749",
+   "vtype": "conference",
+   "group": "Princeton",
+   "route": "D",
+   "setting": "rl",
+   "estimand": "ope",
+   "inference": "boot",
+   "guarantee": "asym",
+   "prop": "no",
+   "stab": "yes",
+   "misspec": "partly",
+   "real": "no",
+   "indirect": [
+    "stab"
+   ],
+   "notes": {
+    "inference": "Z-estimator CLT (Theorem 6.1) and vanilla / multiplier bootstrap CI (Corollary 7.2) (p16 \u00a72 rows 14-17)",
+    "stab": "K i.i.d. episodes from a fixed behaviour policy (p16 \u00a72 rows 9, 19) - classification is ours",
+    "misspec": "without completeness the statistical error of theta-hat is still bounded, the variance formula is not (p16 \u00a73.7)",
+    "real": "no experiments in the arXiv text (p16 \u00a73.6)"
+   }
+  }
+ ],
+ "relations_drawn": [
+  {
+   "built_upon": 10,
+   "builder": 2,
+   "evidence": "[2] restates Theorem 1 (maximal inequality) of [10] as its supplement Theorem 3 and uses it (p10 \u00a73; p02 \u00a73)"
+  },
+  {
+   "built_upon": 9,
+   "builder": 7,
+   "evidence": "[7] cites [9] for \"bias does not vanish in many infinite-dimensional Hilbert spaces\" (p09 \u00a72 row 23, \u00a73.7)"
+  },
+  {
+   "built_upon": 14,
+   "builder": 15,
+   "evidence": "[15] uses the Theorem 4 bound of [14] as baseline and reuses its Lemmas B.3, B.5, B.6, B.10 (p14 \u00a73.7)"
+  },
+  {
+   "built_upon": 14,
+   "builder": 16,
+   "evidence": "[16] cites [14] (PMLR 119: 2701-2709), recovers its Corollary 1 and matches its lower bound (p14 \u00a73.7; p16 \u00a73.3)"
+  },
+  {
+   "built_upon": 15,
+   "builder": 16,
+   "evidence": "[16] cites [15]: same variance in the linear case (Remark 6.2), episode bootstrap (p15 \u00a73.6; p16 \u00a73.2, \u00a73.4)"
+  }
+ ],
+ "relations_not_drawn": [
+  "[1] -> [0]: same authors and chronology; whether the base paper cites [1] is NOT verified (p01 \u00a72 row 22)",
+  "[13] -> [0], [2]: 2022 slides of [13] cite \"Zhang et al. '21\" and \"Bibaut et al. '21\" without full references (p13 \u00a72 row 30)",
+  "[5] -> [0], [7] -> [0], [9] -> [0], [10] -> [0], [2] -> [0]: citation of the base paper NOT verified (p05, p07, p09, p10, p02)",
+  "verified non-relations: [3] cites Hadad et al., not the base paper (p03 \u00a72 row 29); [16] does not cite the base paper (p16 \u00a72 row 19)"
+ ],
+ "unclear": [
+  {
+   "k": 6,
+   "field": "real"
+  },
+  {
+   "k": 7,
+   "field": "real"
+  },
+  {
+   "k": 9,
+   "field": "real"
+  },
+  {
+   "k": 10,
+   "field": "real"
+  }
+ ],
+ "indirect": [
+  {
+   "k": 0,
+   "field": "misspec",
+   "note": "correct specification: target defined conditionally on (X,A) (p00 \u00a72 row 8); explicit statement NOT re-verified (row 27c); follow-ups target the misspecified case (\u00a73.7)"
+  },
+  {
+   "k": 1,
+   "field": "misspec",
+   "note": "robust to a non-stationary baseline (abstract, p01 \u00a72 row 17); otherwise a difference of arm means (our reading)"
+  },
+  {
+   "k": 2,
+   "field": "real",
+   "note": "57 OpenML datasets (semi-synthetic bandit simulation) (p02 \u00a73)"
+  },
+  {
+   "k": 3,
+   "field": "misspec",
+   "note": "saturated Bernoulli cell means; stationarity assumed (B.8) (p03 \u00a73.6) - our reading"
+  },
+  {
+   "k": 4,
+   "field": "stab",
+   "note": "unique best arm assumed; non-random limit shares are a result; link to Wald stability is our inference (p04 \u00a72 row 20)"
+  },
+  {
+   "k": 4,
+   "field": "misspec",
+   "note": "binary outcomes, no interference, i.i.d. stationary (p04 \u00a73.1) - our reading"
+  },
+  {
+   "k": 6,
+   "field": "prop",
+   "note": "only Corollary 2 (ATE under adaptive P_t in [p_min, 1-p_min]) uses the known propensities; mean CSs do not (p06 \u00a72 row 14, \u00a73.2)"
+  },
+  {
+   "k": 6,
+   "field": "group",
+   "note": "affiliations not verified in p06; group from context_routes.md"
+  },
+  {
+   "k": 8,
+   "field": "real",
+   "note": "Yelp-based utility (semi-synthetic) plus 7 test functions (p08 \u00a73.3)"
+  },
+  {
+   "k": 9,
+   "field": "guarantee",
+   "note": "mixture supermartingale (time-uniform route); \"for all t\" wording NOT verified (p09 \u00a72 row 18)"
+  },
+  {
+   "k": 10,
+   "field": "misspec",
+   "note": "target is the best-in-class risk minimiser under the reference design - our reading of \"minimise the average of a loss over a hypothesis class\""
+  },
+  {
+   "k": 10,
+   "field": "group",
+   "note": "affiliations not verified in p10; group from context_routes.md"
+  },
+  {
+   "k": 13,
+   "field": "stab",
+   "note": "exploration floor + conditional independence across units; a policy-stability quantity enters the 2022 CLT, final version NOT verified (p13 \u00a72 row 18, \u00a73.3)"
+  },
+  {
+   "k": 15,
+   "field": "stab",
+   "note": "K independent episodes from one behaviour policy: no adaptivity across episodes (stronger than stability) (p15 \u00a75a) - classification is ours"
+  },
+  {
+   "k": 16,
+   "field": "stab",
+   "note": "K i.i.d. episodes from a fixed behaviour policy (p16 \u00a72 rows 9, 19) - classification is ours"
+  }
+ ],
+ "counts": {
+  "route": {
+   "A": 6,
+   "B": 4,
+   "C": 3,
+   "D": 4
+  },
+  "vtype": {
+   "conference": 12,
+   "journal": 5
+  },
+  "group": {
+   "Harvard": 4,
+   "Berkeley": 4,
+   "Oxford": 3,
+   "ETH": 3,
+   "Princeton": 3
+  },
+  "setting": {
+   "contextual": 3,
+   "batched": 1,
+   "policy": 2,
+   "bayes": 1,
+   "sequential": 5,
+   "active": 1,
+   "conformal": 1,
+   "rl": 3
+  },
+  "estimand": {
+   "M": 5,
+   "means": 5,
+   "value": 1,
+   "risk": 2,
+   "pred": 1,
+   "ope": 3
+  },
+  "inference": {
+   "wald": 5,
+   "bayes": 2,
+   "cs": 3,
+   "lr": 1,
+   "none": 2,
+   "conformal": 1,
+   "conc": 1,
+   "boot": 2
+  },
+  "guarantee": {
+   "asym": 9,
+   "unif": 4,
+   "finite": 4
+  },
+  "prop": {
+   "yes": 6,
+   "no": 11
+  },
+  "stab": {
+   "no": 11,
+   "yes": 3,
+   "partly": 3
+  },
+  "misspec": {
+   "no": 7,
+   "partly": 5,
+   "yes": 5
+  },
+  "real": {
+   "no": 6,
+   "yes": 7,
+   "?": 4
+  }
+ },
+ "route_profile": {
+  "A": {
+   "n": 6,
+   "works": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "nonasym": {
+    "score": 0,
+    "unclear": 0
+   },
+   "interval": {
+    "score": 6,
+    "unclear": 0
+   },
+   "prop": {
+    "score": 4.0,
+    "unclear": 0
+   },
+   "stab": {
+    "score": 4.0,
+    "unclear": 0
+   },
+   "misspec": {
+    "score": 2.5,
+    "unclear": 0
+   },
+   "real": {
+    "score": 3.0,
+    "unclear": 0
+   }
+  },
+  "B": {
+   "n": 4,
+   "works": [
+    6,
+    7,
+    8,
+    9
+   ],
+   "nonasym": {
+    "score": 4,
+    "unclear": 0
+   },
+   "interval": {
+    "score": 4,
+    "unclear": 0
+   },
+   "prop": {
+    "score": 3.0,
+    "unclear": 0
+   },
+   "stab": {
+    "score": 4.0,
+    "unclear": 0
+   },
+   "misspec": {
+    "score": 1.5,
+    "unclear": 0
+   },
+   "real": {
+    "score": 1.0,
+    "unclear": 3
+   }
+  },
+  "C": {
+   "n": 3,
+   "works": [
+    10,
+    11,
+    12
+   ],
+   "nonasym": {
+    "score": 3,
+    "unclear": 0
+   },
+   "interval": {
+    "score": 1,
+    "unclear": 0
+   },
+   "prop": {
+    "score": 0.0,
+    "unclear": 0
+   },
+   "stab": {
+    "score": 3.0,
+    "unclear": 0
+   },
+   "misspec": {
+    "score": 3.0,
+    "unclear": 0
+   },
+   "real": {
+    "score": 2.0,
+    "unclear": 1
+   }
+  },
+  "D": {
+   "n": 4,
+   "works": [
+    13,
+    14,
+    15,
+    16
+   ],
+   "nonasym": {
+    "score": 1,
+    "unclear": 0
+   },
+   "interval": {
+    "score": 4,
+    "unclear": 0
+   },
+   "prop": {
+    "score": 4.0,
+    "unclear": 0
+   },
+   "stab": {
+    "score": 1.5,
+    "unclear": 0
+   },
+   "misspec": {
+    "score": 0.5,
+    "unclear": 0
+   },
+   "real": {
+    "score": 1.0,
+    "unclear": 0
+   }
+  }
+ },
+ "profile_rule": "score = number of works with the favourable value; \"partly\" counts 0.5; \"?\" counts as not favourable",
+ "markdown_table": "| # | Work | Year | Venue | Type | Group | Route | Data-collection setting | Estimand | Inference | Guarantee | Needs known propensities | Needs stability | Robust to misspecification | Real data |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| [0] | Zhang, Janson & Murphy (2021) | 2021 | NeurIPS | conference | Harvard | A | contextual bandit | M-estimand (parameter or functional) | Wald CLT | asymptotic | yes | no | no* | no |\n| [1] | Zhang, Janson & Murphy (2020) | 2020 | NeurIPS | conference | Harvard | A | batched bandit | arm means / ATE | Wald CLT | asymptotic | no | no | partly* | no |\n| [2] | Bibaut et al. (2021a) | 2021 | NeurIPS | conference | Berkeley | A | contextual bandit | policy value | Wald CLT | asymptotic | yes | no | yes | yes* |\n| [3] | Caria et al. (2024) | 2024 | JEEA | journal | Oxford | A | adaptive experiment for policy choice | arm means / ATE | Wald CLT | asymptotic | no | yes | partly* | yes |\n| [4] | Kasy & Sautmann (2021) | 2021 | Econometrica | journal | Oxford | A | adaptive experiment for policy choice | arm means / ATE | Bayesian | asymptotic | no | partly* | partly* | yes |\n| [5] | Du, Nair & Janson (2025) | 2025 | NeurIPS | conference | Harvard | A | Bayesian posterior (adaptive linear Gaussian / exp. family) | M-estimand (parameter or functional) | Bayesian | asymptotic | no | partly | no | no |\n| [6] | Howard et al. (2021) | 2021 | Ann. Statist. | journal | Berkeley* | B | generic sequential | arm means / ATE | confidence sequence | time-uniform | yes* | no | yes | unclear |\n| [7] | Emmenegger, Mutn\u00fd & Krause (2023) | 2023 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | likelihood-ratio set | time-uniform | no | no | no | unclear |\n| [8] | P\u00e1sztor, Kassraie & Krause (2024) | 2024 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | confidence sequence | time-uniform | no | no | no | yes* |\n| [9] | Mutn\u00fd & Krause (2022) | 2022 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | confidence sequence | time-uniform* | no | no | partly | unclear |\n| [10] | Bibaut et al. (2021b) | 2021 | NeurIPS | conference | Berkeley* | C | contextual bandit | risk minimiser | none (rates / point estimates only) | finite-sample | yes | no | yes* | unclear |\n| [11] | Farquhar, Gal & Rainforth (2021) | 2021 | ICLR | conference | Oxford | C | active learning | risk minimiser | none (rates / point estimates only) | finite-sample | yes | no | yes | yes |\n| [12] | Fannjiang et al. (2022) | 2022 | PNAS | journal | Berkeley | C | conformal design (feedback covariate shift) | prediction set | conformal | finite-sample | yes | no | yes | yes |\n| [13] | Dwivedi et al. (2025) | 2025 | Ann. Statist. | journal | Harvard | D | generic sequential | arm means / ATE | Wald CLT | asymptotic | no | partly* | no | yes |\n| [14] | Duan, Jia & Wang (2020) | 2020 | ICML | conference | Princeton | D | RL off-policy | OPE value | concentration bound (finite-sample CI) | finite-sample | no | no | no | no |\n| [15] | Hao et al. (2021) | 2021 | ICML | conference | Princeton | D | RL off-policy | OPE value | bootstrap | asymptotic | no | yes* | no | no |\n| [16] | Zhang, Zhang, Ni & Wang (2022) | 2022 | ICML | conference | Princeton | D | RL off-policy | OPE value | bootstrap | asymptotic | no | yes* | partly | no |",
+ "runtime_s": 3.03
+}
