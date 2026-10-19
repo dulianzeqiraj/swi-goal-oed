@@ -233,36 +233,43 @@ def panel_e(ax):
 
 def panel_f(ax, axb):
     ns = list(ST['n_cal_clust'])
-    sty = dict(u=(OI['vermillion'], '-'), w=(OI['blue'], '-'), un=(OI['vermillion'], (0, (3, 1.5))),
-               wn=(OI['blue'], (0, (3, 1.5))))
-    lo_all = 1.0
-    for k, (col, ls) in sty.items():
+    sty = dict(u=(OI['vermillion'], '-', 'o'), w=(OI['blue'], '-', 'o'), un=(OI['vermillion'], (0, (3, 1.5)), 's'),
+               wn=(OI['blue'], (0, (3, 1.5)), 's'))
+    lo_all, hi_all = 1.0, 0.0
+    for k, (col, ls, mk) in sty.items():
         m = np.array([PT[f'cl{n}_cov_{k}_avg'].mean() for n in ns])
         e = np.array([1.96 * se(PT[f'cl{n}_cov_{k}_avg']) for n in ns])
-        lo_all = min(lo_all, (m - e).min())
+        lo_all = min(lo_all, (m - e).min()); hi_all = max(hi_all, (m + e).max())
         ax.fill_between(ns, m - e, m + e, color=col, alpha=0.18, lw=0)
-        ax.plot(ns, m, color=col, ls=ls, lw=1.2, marker='o' if ls == '-' else 's', ms=2.6)
+        ax.plot(ns, m, color=col, ls=ls, lw=1.2, marker=mk, ms=2.6, mec='white', mew=0.3)
+        ax.text(ns[-1] * 1.08, m[-1], f'{m[-1]:.3f}', fontsize=5.4, color=col, va='center', ha='left')
     ax.axhline(0.9, color=MUTED, lw=0.7, ls='--')
+    ax.text(ns[0] * 0.86, 0.9 + 0.004, '$1-\\alpha$', fontsize=5.4, color=MUTED, va='bottom', ha='left')
     ax.set_xscale('log'); ax.set_xticks(ns); ax.set_xticklabels([]); ax.minorticks_off()
-    ax.set_xlim(ns[0] * 0.8, ns[-1] * 1.25)
+    ax.set_xlim(ns[0] * 0.8, ns[-1] * 1.5)
+    span = hi_all - lo_all
+    ax.set_ylim(lo_all - 0.62 * span, hi_all + 0.06 * span)
     ax.set_ylabel('mbulimi marxhinal')
     h_ = [Line2D([], [], color=OI['vermillion'], lw=1.4, label='pa pesha'),
           Line2D([], [], color=OI['blue'], lw=1.4, label='me pesha $w=p_{\\rm test}/q$'),
-          Line2D([], [], color=MUTED, lw=1.0, ls='-', label='rezultati $|y-\\hat h|$'),
-          Line2D([], [], color=MUTED, lw=1.0, ls=(0, (3, 1.5)), label='rezultati i normalizuar')]
-    ax.legend(handles=h_, loc='center right', bbox_to_anchor=(1.0, 0.36), ncol=2, fontsize=5.3, handlelength=1.8,
-              columnspacing=0.9)
-    ax.text(0.02, 0.97, 'kalibrimi $\\sim q(x)\\propto e^{-x/1\\,{\\rm km}}$, testi uniform', transform=ax.transAxes,
-            fontsize=5.6, color=MUTED, va='top')
+          Line2D([], [], color=MUTED, lw=1.0, ls='-', marker='o', ms=2.4, label='rezultati $|y-\\hat h|$'),
+          Line2D([], [], color=MUTED, lw=1.0, ls=(0, (3, 1.5)), marker='s', ms=2.4,
+                 label='rezultati $|y-\\hat h|/s_{\\rm ens}$')]
+    ax.legend(handles=h_, loc='lower left', ncol=2, fontsize=5.3, handlelength=2.0, columnspacing=1.0,
+              borderaxespad=0.3, title='kalibrimi $\\sim q(x)\\propto e^{-x/1\\,{\\rm km}}$, testi uniform',
+              title_fontsize=5.4, alignment='left')
     ax.set_title('Kalibrim i grumbulluar pranë bregut', color=INK)
     inf = np.array([PT[f'cl{n}_inf_w_avg'].mean() for n in ns])
+    ess = np.array([PT[f'cl{n}_ess'].mean() for n in ns])
     axb.bar(ns, inf, width=np.array(ns) * 0.28, color=OI['blue'], alpha=0.35, edgecolor=OI['blue'], lw=0.6)
-    for n, fi in zip(ns, inf):
-        axb.text(n, fi + 0.03, f'{100 * fi:.0f}%', fontsize=5.5, color=OI['blue'], ha='center', va='bottom')
-    axb.set_xscale('log'); axb.set_xticks(ns); axb.set_xticklabels([str(n) for n in ns]); axb.minorticks_off()
-    axb.set_xlim(ns[0] * 0.8, ns[-1] * 1.25); axb.set_ylim(0, max(0.62, inf.max() * 1.45))
+    for n, fi, es in zip(ns, inf, ess):
+        axb.text(n, fi + 0.03, f'{100 * fi:.0f}%', fontsize=5.4, color=OI['blue'], ha='center', va='bottom')
+    axb.set_xscale('log'); axb.set_xticks(ns)
+    axb.set_xticklabels([f'{n}\n(ESS {es:.0f})' for n, es in zip(ns, ess)], fontsize=5.8)
+    axb.minorticks_off()
+    axb.set_xlim(ns[0] * 0.8, ns[-1] * 1.5); axb.set_ylim(0, max(0.62, inf.max() * 1.45))
     axb.set_yticks([0, 0.25, 0.5]); axb.set_yticklabels(['0', '25%', '50%'])
-    axb.set_ylabel('intervale $\\infty$', fontsize=6.2)
+    axb.set_ylabel('$\\infty$-intervale', fontsize=6.2)
     axb.set_xlabel('numri i piezometrave të kalibrimit $n$')
     axb.grid(axis='x', visible=False)
 
