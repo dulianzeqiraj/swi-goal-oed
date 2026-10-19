@@ -447,7 +447,7 @@ def panel_b(fig, y0):
             two = '\n' in txt
             t = ax.text(xc + wd / 2, y + rowh / 2 + 0.1, txt, ha='center', va='center', fontsize=5.0 if two else 5.4, color=tc,
                         linespacing=0.92, fontweight='bold' if bold else 'normal')
-            fit(ax, t, wd - (2.6 if f in w['indirect'] else 1.3))
+            fit(ax, t, wd - (3.3 if f in w['indirect'] else 1.3))
             if f in w['indirect']:
                 ax.text(xc + wd - 0.45, y + 0.3, '†', ha='right', va='top', fontsize=5.6, color=MUTED)
             xc += wd
