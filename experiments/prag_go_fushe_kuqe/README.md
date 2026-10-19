@@ -27,6 +27,7 @@ see `data/README.txt` for attribution and terms.
 | `fk_figs.py`, `fk_results.py` | Figures and the summary table `results_summary.csv`. |
 | `fk_geo.py` | The same model with the geolocated sea boundary of the chloride study (`chloride_fk/`): sea contact only on the 92 rows north of y = 29.5 km, through a link over the GLOBE shoreline gap, on the coastal sector y ≥ 24 km. Physics unchanged. `python3 fk_geo.py`: intruded area 10.1 km² (92.7 km² with the full-margin boundary). |
 | `fk_prag_geo.py`, `fk_prag_geo_check.py` | PRAG-GO recomputed on `fk_geo.py` with the supply wells and pumping of `fk_mar_geo.py`: every 2-, 3- and 5-well design of the 16 sector candidates scored exactly; the check re-estimates the 5-well results with 48 000 inner realizations. Writes `res_geo/prag_*`. `fk_prag_geo_export.py` writes the prior draws and noise of the run to `res_geo/prag_draws_<prior>.bin` for the MATLAB port `chloride_fk/matlab/fkcl_prag_go.m`. |
+| `fk_geo_figs.py` | Figure 1 of the research note *PRAG-GO and PRAG-MAR at Fushë-Kuqe* (version 2): the full-margin and the geolocated sea boundary side by side, with the intruded zone at the prior mean, the supply wells of both versions and the published MAR sites. `python3 fk_geo_figs.py [outdir]` writes `fig1_boundary.png` and `.pdf` (default `fig/`). Figures 2 and 3 of the note are Supplementary Figs. S2 and S1 of the chloride study (`chloride_fk/python/fkcl_figs.py`). |
 | `fk_mar_geo.py` | PRAG-MAR recomputed on `fk_geo.py` with two pumped supply wells of the Fushë-Kuqe well field (rules in the docstring). Writes `res_geo/`. `python3 fk_mar_geo.py equal` runs the pumping-rule sensitivity. MATLAB port: `chloride_fk/matlab/fkcl_prag_mar.m`. |
 
 ## Run
@@ -44,6 +45,8 @@ python3 fk_prag_geo.py base; python3 fk_prag_geo.py rho805; python3 fk_prag_geo_
 ```
 
 ## PRAG-MAR with the geolocated sea boundary
+
+These results, and those of the next section, are the subject of version 2 of the research note (`docs/research_notes/Research_note_PRAG-GO_PRAG-MAR_Fushe_Kuqe.docx`, 19 October 2026), which replaces the full-margin version of 12 October 2026.
 
 The companion model treats the whole western margin as the sea. Geolocated against the GLOBE
 shoreline, only its northern 23 km touch the Adriatic (see `chloride_fk/`). With that boundary and
