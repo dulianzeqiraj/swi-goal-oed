@@ -68,5 +68,5 @@ effect: picking the addition that narrows the interval most favours realisations
 is optimistic.
 
 The report is
-`docs/literature/Kerkim_artikujsh_Bayes_i_Keqspecifikuar_II_Princeton_Oxford_Caltech_ETH_Berkeley_2020-2026.docx`
+`docs/literature/Literature_review_Misspecified_Bayes_II_Princeton_Oxford_Caltech_ETH_Berkeley_2020-2026.docx`
 (section 10).

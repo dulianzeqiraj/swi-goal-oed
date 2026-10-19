@@ -71,5 +71,5 @@ with it, so the twin-world PN equals 1 − p0/p1 (= FAR) exactly.
   with a median minimum effective sample size of 457.
 
 The report is
-`docs/literature/Kerkim_artikujsh_Modelimi_Kauzal_Sisteme_Komplekse_Stokastike_Deterministike_2020-2026.docx`
+`docs/literature/Literature_review_Causal_Modelling_Stochastic_Deterministic_Complex_Systems_2020-2026.docx`
 (section 10).

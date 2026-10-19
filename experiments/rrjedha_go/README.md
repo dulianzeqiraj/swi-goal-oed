@@ -85,4 +85,4 @@ Under the randomized rotation, standard transfer entropy is itself causal and no
 Its SD at 800 wells is 2.4 millibits, against 5.5 for `te_adj_bc` from observational records.
 
 The report is
-`docs/literature/Kerkim_artikujsh_Teoria_Informacionit_Kauzaliteti_2020-2026.docx` (section 9).
+`docs/literature/Literature_review_Information_Theory_Causality_2020-2026.docx` (section 9).

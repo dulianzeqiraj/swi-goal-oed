@@ -85,4 +85,4 @@ Run `python3 kanal_exp.py` and then `python3 kanal_figs.py`. The experiment take
   17% at 2 000. At 500 it is 14–40% too small.
 
 The report is
-`docs/literature/Kerkim_artikujsh_Teoria_Informacionit_Kauzaliteti_II_2020-2026.docx` (section 9).
+`docs/literature/Literature_review_Information_Theory_Causality_II_2020-2026.docx` (section 9).

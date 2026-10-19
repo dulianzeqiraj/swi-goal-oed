@@ -54,5 +54,5 @@ Mean time to salinisation [yr]:
 - Elasticities of Q_100: s −0.40, θ −0.10, τ +0.17, K −1.20, q0 +2.29. Q_c itself does not depend on
   s, θ or τ, so a static calibration cannot set a return-period-safe pumping rate.
 
-The report is `docs/literature/Kerkim_artikujsh_Fizika_Statistikore_Jo-ekuiliber_2020-2026.docx`
+The report is `docs/literature/Literature_review_Nonequilibrium_Statistical_Physics_2020-2026.docx`
 (section 10).

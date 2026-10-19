@@ -75,4 +75,4 @@ Equal feedback information does not guarantee equal risk:
 So the criterion is a ranking tool, not a complete substitute for the risk computation.
 
 The report is
-`docs/literature/Kerkim_artikujsh_Teoria_Informacionit_Kauzaliteti_III_2020-2026.docx` (section 9).
+`docs/literature/Literature_review_Information_Theory_Causality_III_2020-2026.docx` (section 9).
