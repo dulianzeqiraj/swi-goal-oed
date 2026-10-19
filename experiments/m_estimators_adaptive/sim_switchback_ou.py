@@ -18,6 +18,11 @@ Lag-0 effect (derived from linearity): Y_k(u_{1:k}) = Y_k(0) + a sum_{j>=0} h_j 
 a deterministic constant, and tau_0 -> a R_gp as b grows (verified by branching simulation with common
 random numbers on every period of every replication).
 
+Nature. (i) stationary: exactly the Test 1 model above; (ii) seasonal: the same aquifer plus a deterministic
+sinusoidal forcing of the sea-boundary cell 29 with a period of 12 switchback periods (steady periodic
+response added by superposition, amplitude 0.35 at x_g, random phase per replication). Seasonal forcing is
+part of 'nature': it does not depend on U, so tau_k = tau_0 is unchanged.
+
 Adaptive assignment (operationally realistic). pi_k = P(U_k = 1 | F_{k-1}),
     q_k   = Phi((delta - est_{k-1}) / se_{k-1})                 Thompson-type: P(effect tolerable)
     z_k   = (Y_{k-1} - mean(Y_{1:k-1})) / sd(Y_{1:k-1})           standardised last salinity
@@ -37,7 +42,7 @@ Estimators of tau_bar_K = (1/K) sum_k tau_k (= tau_0 here):
   CS     asymptotic confidence sequence for tau_bar_t from the martingale S_t = sum (tau_hat_k - tau_k):
          |S_t| <= sqrt((rho^2 V_t + 1)/rho^2 * 2 log(sqrt(rho^2 V_t + 1)/alpha)),  V_t = sum tau_hat_k^2
          (two-sided normal mixture; also the AW version with h_k weights)
-Run: python3 sim_switchback_ou.py   (about 6 min on 1 core). Output: results/switchback_ou.json
+Run: python3 sim_switchback_ou.py   (5.5 min wall, 1 core, measured). Figure: python3 fig_switchback_ou.py. Output: results/switchback_ou.json
 """
 import os
 import time
@@ -280,19 +285,21 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
         ever[key] = np.maximum.accumulate(mm, 0).mean(1)
     out['ever'] = ever
     out['t0'] = t0; out['rho2'] = rho2; out['rho2w'] = rho2w
-    hw_cs = bd / ts; hw_csw = bdw / cum_h
-    out['cs_hw'] = dict(cs=np.median(hw_cs, 1), cs_q=np.quantile(hw_cs, [0.1, 0.25, 0.75, 0.9], 1),
-                        cs_aw=np.median(hw_csw, 1), cs_aw_q=np.quantile(hw_csw, [0.1, 0.25, 0.75, 0.9], 1),
-                        wald=np.median(Z * se_t, 1), wald_aw=np.median(Z * sew_t, 1),
-                        cs_mean_K=hw_cs[-1].mean(), cs_se_K=hw_cs[-1].std() / np.sqrt(R),
-                        cs_aw_mean_K=hw_csw[-1].mean(), cs_aw_se_K=hw_csw[-1].std() / np.sqrt(R),
-                        wald_mean_K=(Z * se_t[-1]).mean(), wald_se_K=(Z * se_t[-1]).std() / np.sqrt(R))
+    hw = dict(cs=bd / ts, cs_aw=bdw / cum_h, wald=Z * se_t, wald_aw=Z * sew_t)
+
+    def summ(v):
+        return dict(mean=v.mean(), se=v.std() / np.sqrt(R), q=np.quantile(v, [0.1, 0.25, 0.5, 0.75, 0.9]))
+    out['hw'] = dict(median_t={k: np.median(v, 1) for k, v in hw.items()},
+                     at_K={k: summ(v[-1]) for k, v in hw.items()},
+                     at_100={k: summ(v[min(99, K - 1)]) for k, v in hw.items()})
     # ---------------- diagnostics: martingale-difference checks and design summaries
     D = TH - tau0
     out['diag'] = dict(
         mean_D=D.mean(), se_mean_D=D.mean(1).std() / np.sqrt(K),   # se across periods of the per-period mean
         corr_D_lag1=np.corrcoef(D[1:].ravel(), D[:-1].ravel())[0, 1],
-        corr_D_pi=np.corrcoef(D[k_warm:].ravel(), PI[k_warm:].ravel())[0, 1],
+        corr_D_pi=np.corrcoef(D[k_warm:].ravel(), PI[k_warm:].ravel())[0, 1] if PI[k_warm:].std() > 0 else 0.0,
+        corr_D_Yprev=np.corrcoef(D[1:].ravel(), Y[:-1].ravel())[0, 1],
+        corr_D_Uprev=np.corrcoef(D[1:].ravel(), U[:-1].ravel())[0, 1],
         mean_pi=PI.mean(), sd_pi=PI.std(), frac_clip=np.mean((PI <= pi_min + 1e-12) | (PI >= 1 - pi_min - 1e-12)),
         mean_inv_pi=np.mean(1 / (PI * (1 - PI))),
         corrU_lag1=np.corrcoef(U[1:].ravel(), U[:-1].ravel())[0, 1],
@@ -300,7 +307,8 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
         sdY=Y.std(), mean_th2=np.mean(TH ** 2), mean_th2_late=np.mean(TH[100:] ** 2),
         mean_h2th2_late=np.mean(Hh[100:] ** 2 * TH[100:] ** 2),
         # does pi_k settle? correlation between the average pi over the first and second halves
-        pi_half_corr=np.corrcoef(PI[:K // 2].mean(0), PI[K // 2:].mean(0))[0, 1],
+        pi_half_corr=(np.corrcoef(PI[:K // 2].mean(0), PI[K // 2:].mean(0))[0, 1]
+                      if PI[K // 2:].mean(0).std() > 0 else 0.0),
         pi_var_across_reps=np.var(PI[K // 2:].mean(0)),
     )
     if keep_path:
@@ -320,51 +328,66 @@ def pilot_rho2(seed=99, t_star=200, **kw):
     return (c + np.log(c + 1)) / (t_star * s2), (c + np.log(c + 1)) / (t_star * s2w), s2, s2w
 
 
+def branch_check(b, seed, **kw):
+    """Branching simulation with common random numbers along realised adaptive paths."""
+    kw = {k: v for k, v in kw.items() if k != 'K'}
+    r = run(R=100, K=120, b=b, seed=seed, branch=True, checkpoints=(), keep_draws=False, **kw)
+    return r['branch_err']
+
+
 def main():
     t_start = time.time()
     a = 5.0; w = 20.0; dl = 1.0; b_main = 30.0; K = 400
+    season_amp, season_T = 0.35, 12
     ev = np.linalg.eigvals(MOD['A'])
+    om = 2 * np.pi / (season_T * (b_main + w))
+    Hg = np.linalg.solve(1j * om * np.eye(NX) - MOD['A'], np.eye(NX)[:, NX - 1])[G]
     info = dict(n=NX, p=P, g=G, R_gp=MOD['R'], a=a, aR=a * MOD['R'], w=w, dl=dl, b_main=b_main,
                 ell_main=b_main + w, K=K, slowest_eig=float(ev.real.max()), fastest_eig=float(ev.real.min()),
                 max_imag=float(np.abs(ev.imag).max()), relax_time=float(-1 / ev.real.max()),
-                C0gg=MOD['C0'][G, G], alpha=ALPHA)
+                C0gg=MOD['C0'][G, G], alpha=ALPHA, gamma=1.0, pi_min=0.1, k_warm=10, t0=10,
+                season_amp=season_amp, season_T_periods=season_T, season_forcing_amp_cell29=season_amp / abs(Hg),
+                tau0_main=tau0_analytic(b_main, w, dl, a))
     tgrid = np.linspace(0, 70, 141)
     info['step_t'] = tgrid; info['step_frac'] = step_frac(tgrid)
     bgrid = np.linspace(0, 60, 61)
     info['b_grid'] = bgrid
     info['tau0_b'] = np.array([tau0_analytic(bb, w, dl, a) for bb in bgrid])
-    info['carry_main'] = carry_analytic(b_main, w, dl, a)
-    info['carry_b10'] = carry_analytic(10.0, w, dl, a)
-    print('slowest eigenvalue', info['slowest_eig'], 'R_gp', MOD['R'], 'tau0(main)', tau0_analytic(b_main, w, dl, a),
+    info['carry'] = {f'{bb:g}': carry_analytic(bb, w, dl, a) for bb in (0.0, 10.0, 20.0, 30.0)}
+    print('slowest eigenvalue', info['slowest_eig'], 'R_gp', MOD['R'], 'tau0(main)', info['tau0_main'],
           'aR', a * MOD['R'], flush=True)
-    rho2, s2p = pilot_rho2(b=b_main, w=w, dl=dl, a=a)
-    info['rho2'] = rho2; info['pilot_s2'] = s2p
-    print('rho2', rho2, 'pilot s2', s2p, f'{time.time() - t_start:.0f}s', flush=True)
+    rho2, rho2w, s2p, s2wp = pilot_rho2(b=b_main, w=w, dl=dl, a=a)
+    info.update(rho2=rho2, rho2w=rho2w, pilot_s2=s2p, pilot_s2w=s2wp, t_star=200)
+    print('rho2', rho2, rho2w, 'pilot s2', s2p, s2wp, f'{time.time() - t_start:.0f}s', flush=True)
     res = dict(info=info)
-    common = dict(K=K, w=w, dl=dl, a=a, rho2=rho2)
-    # main adaptive experiment (with branching check), and the non-adaptive switchback
-    res['main'] = run(R=2000, b=b_main, seed=11, branch=True, keep_path=True, **common)
+    common = dict(K=K, w=w, dl=dl, a=a, rho2=rho2, rho2w=rho2w)
+    # stationary nature (exact Test 1 model): adaptive and non-adaptive switchback
+    res['main'] = run(R=2000, b=b_main, seed=11, keep_path=True, **common)
     print('main', f'{time.time() - t_start:.0f}s', flush=True)
     res['nonadaptive'] = run(R=2000, b=b_main, seed=12, adaptive=False, **common)
     print('non-adaptive', f'{time.time() - t_start:.0f}s', flush=True)
-    # short burn-in operating point (carryover + adaptivity)
-    res['short'] = run(R=2000, b=10.0, seed=13, branch=True, **common)
-    res['short_na'] = run(R=2000, b=10.0, seed=14, adaptive=False, **common)
-    print('short', f'{time.time() - t_start:.0f}s', flush=True)
-    # sweep of the burn-in b (fixed averaging window w)
+    # same aquifer, nature with a seasonal sea-boundary cycle (12 periods); adaptive and non-adaptive
+    res['seasonal'] = run(R=2000, b=b_main, seed=13, keep_path=True, season_amp=season_amp, season_T=season_T, **common)
+    print('seasonal', f'{time.time() - t_start:.0f}s', flush=True)
+    res['seasonal_na'] = run(R=2000, b=b_main, seed=14, adaptive=False, season_amp=season_amp, season_T=season_T,
+                             **common)
+    print('seasonal non-adaptive', f'{time.time() - t_start:.0f}s', flush=True)
+    # sweep of the burn-in b (fixed averaging window w), stationary nature
     res['b_sweep'] = {}
     for i, bb in enumerate((0.0, 5.0, 10.0, 15.0, 20.0, 30.0, 40.0)):
-        r = run(R=1000, b=bb, seed=100 + i, branch=True, checkpoints=(K,), keep_draws=False, **common)
-        res['b_sweep'][f'{bb:g}'] = dict(tau0=r['tau0'], branch_err=r['branch_err'],
-                                         fixed=r['fixed'][str(K)], ever_cs=r['ever']['cs'][-1],
-                                         diag=r['diag'])
+        r = run(R=2000, b=bb, seed=100 + i, checkpoints=(K,), keep_draws=False, **common)
+        res['b_sweep'][f'{bb:g}'] = dict(tau0=r['tau0'], fixed=r['fixed'][str(K)], R=r['R'],
+                                         ever={k: v[-1] for k, v in r['ever'].items()}, diag=r['diag'],
+                                         branch_err=branch_check(bb, 300 + i, **common))
         print('b', bb, f'{time.time() - t_start:.0f}s', flush=True)
-    # sweep of pi_min (price of keeping pi bounded away from 0 and 1)
+    res['branch_err_seasonal'] = branch_check(b_main, 399, season_amp=season_amp, season_T=season_T, **common)
+    # sweep of pi_min (price of keeping pi bounded away from 0 and 1), stationary nature
     res['pimin_sweep'] = {}
     for i, pm in enumerate((0.01, 0.02, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5)):
-        r = run(R=1000, b=b_main, seed=200 + i, pi_min=pm, checkpoints=(K,), keep_draws=False, **common)
-        res['pimin_sweep'][f'{pm:g}'] = dict(fixed=r['fixed'][str(K)], ever=dict((k, v[-1]) for k, v in r['ever'].items()),
-                                             cs_hw=r['cs_hw'], diag=r['diag'])
+        r = run(R=1000, b=b_main, seed=200 + i, pi_min=pm, checkpoints=(100, K), keep_draws=False, **common)
+        res['pimin_sweep'][f'{pm:g}'] = dict(fixed=r['fixed'], ever={k: v[-1] for k, v in r['ever'].items()}, R=r['R'],
+                                             hw=dict(at_K=r['hw']['at_K'], at_100=r['hw']['at_100']),
+                                             diag=r['diag'])
         print('pi_min', pm, f'{time.time() - t_start:.0f}s', flush=True)
     res['runtime_s'] = time.time() - t_start
     dump(res, 'switchback_ou.json')

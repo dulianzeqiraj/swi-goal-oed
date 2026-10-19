@@ -66,7 +66,7 @@
   },
   "estimand": {
    "means": "mesatare krah\u00ebsh / ATE",
-   "M": "paramet\u00ebr M $\\theta^*$",
+   "M": "paramet\u00ebr ose funksional",
    "value": "vlera e politik\u00ebs",
    "risk": "minimizues rreziku",
    "pred": "bashk\u00ebsi parashikimi",
@@ -144,10 +144,12 @@
    "misspec": "partly",
    "real": "no",
    "indirect": [
-    "misspec"
+    "misspec",
+    "group"
    ],
    "notes": {
     "estimand": "arm-mean difference (margin) per batch (p01 \u00a72 rows 11-12)",
+    "group": "Zhang: Dept. of Computer Science confirmed; \"Harvard\" for all three only indirect (author copy on Janson's Harvard page) (p01 \u00a71, \u00a72 rows 4-5)",
     "inference": "batch-studentised BOLS, t_{n-2} / N(0,1) reference (p01 \u00a72 rows 10, 18)",
     "guarantee": "n -> infinity with T fixed (p01 \u00a73.1)",
     "prop": "BOLS does not use the logged pi_t (p01 \u00a73.4)",
@@ -175,10 +177,12 @@
    "misspec": "yes",
    "real": "yes",
    "indirect": [
-    "real"
+    "real",
+    "group"
    ],
    "notes": {
     "inference": "CADR: inverse-sd stabilised one-step estimator, asymptotically normal (p02 \u00a73)",
+    "group": "Bibaut (first author) at Netflix confirmed; van der Laan (UC Berkeley, last author) from the earlier extraction only (p02 \u00a71, \u00a72 row 4); group from context_routes.md",
     "prop": "known logging policy g_t; DR score uses g*/g_t (p02 \u00a73)",
     "stab": "does not need asymptotic stabilisation of the logging policy; needs exploration-rate A3/A6 instead (p02 \u00a73 limitations)",
     "misspec": "outcome model need only converge to a fixed limit (A4), black-box regressors allowed (p02 \u00a73)",
@@ -264,12 +268,14 @@
    "stab": "partly",
    "misspec": "no",
    "real": "no",
-   "indirect": [],
+   "indirect": [
+    "misspec"
+   ],
    "notes": {
     "setting": "adaptive linear Gaussian: bandits, adaptive regression, LQR (p05 \u00a73.1)",
     "inference": "Bernstein-von Mises in TV to the representative normal (p05 \u00a72 rows 8-10)",
     "stab": "BvM itself needs no stability; frequentist validity of credible sets needs it (negative result) (p05 \u00a72 rows 9, 14)",
-    "misspec": "theorems stated for the correctly specified linear Gaussian / exponential-family model (p05 \u00a73.1)",
+    "misspec": "theorems stated for the linear Gaussian / exponential-family model (p05 \u00a73.1); author-stated limitations on misspecification NOT verified (p05 \u00a73.5) - our reading",
     "real": "\"a range of simulations\" (abstract) (p05 \u00a73.4)"
    }
   },
@@ -487,17 +493,18 @@
    "guarantee": "asym",
    "prop": "no",
    "stab": "partly",
-   "misspec": "no",
+   "misspec": "partly",
    "real": "yes",
    "indirect": [
-    "stab"
+    "stab",
+    "misspec"
    ],
    "notes": {
     "setting": "multi-unit sequential experiment with pooled adaptive policies (p13 \u00a72 rows 10-12)",
     "estimand": "counterfactual mean of each unit at each time (p13 \u00a72 row 10)",
     "prop": "nearest neighbours, no inverse-propensity weighting (p13 \u00a72 row 14)",
     "stab": "exploration floor + conditional independence across units; a policy-stability quantity enters the 2022 CLT, final version NOT verified (p13 \u00a72 row 18, \u00a73.3)",
-    "misspec": "latent factor model, no carry-over (p13 \u00a72 rows 15, 26)",
+    "misspec": "non-parametric latent factor model: no parametric form for f, latent factors or noise (p13 \u00a72 row 15), but the factor structure, i.i.d. time factors and no carry-over are required (p13 \u00a72 rows 15, 26) - our reading",
     "real": "HeartSteps mobile-health trial (p13 \u00a73.5)"
    }
   },
@@ -547,12 +554,13 @@
    "misspec": "no",
    "real": "no",
    "indirect": [
-    "stab"
+    "stab",
+    "misspec"
    ],
    "notes": {
     "inference": "episode-level bootstrap; Theorem 4.2 CLT and Theorem 5.1 bootstrap consistency (p15 \u00a73.2)",
     "stab": "K independent episodes from one behaviour policy: no adaptivity across episodes (stronger than stability) (p15 \u00a75a) - classification is ours",
-    "misspec": "linear FQE under completeness (Condition 4.1) (p15 \u00a72 rows 4, 11)",
+    "misspec": "theory for linear FQE (p15 \u00a72 row 4); the completeness condition (Condition 4.1) itself NOT verified (p15 \u00a72 row 11) - our reading",
     "real": "Cliff Walking, Mountain Car, sepsis simulator (simulators) (p15 \u00a73.4)"
    }
   },
@@ -648,9 +656,19 @@
    "note": "robust to a non-stationary baseline (abstract, p01 \u00a72 row 17); otherwise a difference of arm means (our reading)"
   },
   {
+   "k": 1,
+   "field": "group",
+   "note": "Zhang: Dept. of Computer Science confirmed; \"Harvard\" for all three only indirect (author copy on Janson's Harvard page) (p01 \u00a71, \u00a72 rows 4-5)"
+  },
+  {
    "k": 2,
    "field": "real",
    "note": "57 OpenML datasets (semi-synthetic bandit simulation) (p02 \u00a73)"
+  },
+  {
+   "k": 2,
+   "field": "group",
+   "note": "Bibaut (first author) at Netflix confirmed; van der Laan (UC Berkeley, last author) from the earlier extraction only (p02 \u00a71, \u00a72 row 4); group from context_routes.md"
   },
   {
    "k": 3,
@@ -666,6 +684,11 @@
    "k": 4,
    "field": "misspec",
    "note": "binary outcomes, no interference, i.i.d. stationary (p04 \u00a73.1) - our reading"
+  },
+  {
+   "k": 5,
+   "field": "misspec",
+   "note": "theorems stated for the linear Gaussian / exponential-family model (p05 \u00a73.1); author-stated limitations on misspecification NOT verified (p05 \u00a73.5) - our reading"
   },
   {
    "k": 6,
@@ -703,9 +726,19 @@
    "note": "exploration floor + conditional independence across units; a policy-stability quantity enters the 2022 CLT, final version NOT verified (p13 \u00a72 row 18, \u00a73.3)"
   },
   {
+   "k": 13,
+   "field": "misspec",
+   "note": "non-parametric latent factor model: no parametric form for f, latent factors or noise (p13 \u00a72 row 15), but the factor structure, i.i.d. time factors and no carry-over are required (p13 \u00a72 rows 15, 26) - our reading"
+  },
+  {
    "k": 15,
    "field": "stab",
    "note": "K independent episodes from one behaviour policy: no adaptivity across episodes (stronger than stability) (p15 \u00a75a) - classification is ours"
+  },
+  {
+   "k": 15,
+   "field": "misspec",
+   "note": "theory for linear FQE (p15 \u00a72 row 4); the completeness condition (Condition 4.1) itself NOT verified (p15 \u00a72 row 11) - our reading"
   },
   {
    "k": 16,
@@ -774,8 +807,8 @@
    "partly": 3
   },
   "misspec": {
-   "no": 7,
-   "partly": 5,
+   "no": 6,
+   "partly": 6,
    "yes": 5
   },
   "real": {
@@ -910,7 +943,7 @@
     "unclear": 0
    },
    "misspec": {
-    "score": 0.5,
+    "score": 1.0,
     "unclear": 0
    },
    "real": {
@@ -920,6 +953,6 @@
   }
  },
  "profile_rule": "score = number of works with the favourable value; \"partly\" counts 0.5; \"?\" counts as not favourable",
- "markdown_table": "| # | Work | Year | Venue | Type | Group | Route | Data-collection setting | Estimand | Inference | Guarantee | Needs known propensities | Needs stability | Robust to misspecification | Real data |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| [0] | Zhang, Janson & Murphy (2021) | 2021 | NeurIPS | conference | Harvard | A | contextual bandit | M-estimand (parameter or functional) | Wald CLT | asymptotic | yes | no | no\u2020 | no |\n| [1] | Zhang, Janson & Murphy (2020) | 2020 | NeurIPS | conference | Harvard | A | batched bandit | arm means / ATE | Wald CLT | asymptotic | no | no | partly\u2020 | no |\n| [2] | Bibaut et al. (2021a) | 2021 | NeurIPS | conference | Berkeley | A | contextual bandit | policy value | Wald CLT | asymptotic | yes | no | yes | yes\u2020 |\n| [3] | Caria et al. (2024) | 2024 | JEEA | journal | Oxford | A | adaptive experiment for policy choice | arm means / ATE | Wald CLT | asymptotic | no | yes | partly\u2020 | yes |\n| [4] | Kasy & Sautmann (2021) | 2021 | Econometrica | journal | Oxford | A | adaptive experiment for policy choice | arm means / ATE | Bayesian | asymptotic | no | partly\u2020 | partly\u2020 | yes |\n| [5] | Du, Nair & Janson (2025) | 2025 | NeurIPS | conference | Harvard | A | Bayesian posterior (adaptive linear Gaussian / exp. family) | M-estimand (parameter or functional) | Bayesian | asymptotic | no | partly | no | no |\n| [6] | Howard et al. (2021) | 2021 | Ann. Statist. | journal | Berkeley\u2020 | B | generic sequential | arm means / ATE | confidence sequence | time-uniform | yes\u2020 | no | yes | unclear |\n| [7] | Emmenegger, Mutn\u00fd & Krause (2023) | 2023 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | likelihood-ratio set | time-uniform | no | no | no | unclear |\n| [8] | P\u00e1sztor, Kassraie & Krause (2024) | 2024 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | confidence sequence | time-uniform | no | no | no | yes\u2020 |\n| [9] | Mutn\u00fd & Krause (2022) | 2022 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | confidence sequence | time-uniform\u2020 | no | no | partly | unclear |\n| [10] | Bibaut et al. (2021b) | 2021 | NeurIPS | conference | Berkeley\u2020 | C | contextual bandit | risk minimiser | none (rates / point estimates only) | finite-sample | yes | no | yes\u2020 | unclear |\n| [11] | Farquhar, Gal & Rainforth (2021) | 2021 | ICLR | conference | Oxford | C | active learning | risk minimiser | none (rates / point estimates only) | finite-sample | yes | no | yes | yes |\n| [12] | Fannjiang et al. (2022) | 2022 | PNAS | journal | Berkeley | C | conformal design (feedback covariate shift) | prediction set | conformal | finite-sample | yes | no | yes | yes |\n| [13] | Dwivedi et al. (2025) | 2025 | Ann. Statist. | journal | Harvard | D | generic sequential | arm means / ATE | Wald CLT | asymptotic | no | partly\u2020 | no | yes |\n| [14] | Duan, Jia & Wang (2020) | 2020 | ICML | conference | Princeton | D | RL off-policy | OPE value | concentration bound (finite-sample CI) | finite-sample | no | no | no | no |\n| [15] | Hao et al. (2021) | 2021 | ICML | conference | Princeton | D | RL off-policy | OPE value | bootstrap | asymptotic | no | yes\u2020 | no | no |\n| [16] | Zhang, Zhang, Ni & Wang (2022) | 2022 | ICML | conference | Princeton | D | RL off-policy | OPE value | bootstrap | asymptotic | no | yes\u2020 | partly | no |",
- "runtime_s": 4.05
+ "markdown_table": "| # | Work | Year | Venue | Type | Group | Route | Data-collection setting | Estimand | Inference | Guarantee | Needs known propensities | Needs stability | Robust to misspecification | Real data |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| [0] | Zhang, Janson & Murphy (2021) | 2021 | NeurIPS | conference | Harvard | A | contextual bandit | M-estimand (parameter or functional) | Wald CLT | asymptotic | yes | no | no\u2020 | no |\n| [1] | Zhang, Janson & Murphy (2020) | 2020 | NeurIPS | conference | Harvard\u2020 | A | batched bandit | arm means / ATE | Wald CLT | asymptotic | no | no | partly\u2020 | no |\n| [2] | Bibaut et al. (2021a) | 2021 | NeurIPS | conference | Berkeley\u2020 | A | contextual bandit | policy value | Wald CLT | asymptotic | yes | no | yes | yes\u2020 |\n| [3] | Caria et al. (2024) | 2024 | JEEA | journal | Oxford | A | adaptive experiment for policy choice | arm means / ATE | Wald CLT | asymptotic | no | yes | partly\u2020 | yes |\n| [4] | Kasy & Sautmann (2021) | 2021 | Econometrica | journal | Oxford | A | adaptive experiment for policy choice | arm means / ATE | Bayesian | asymptotic | no | partly\u2020 | partly\u2020 | yes |\n| [5] | Du, Nair & Janson (2025) | 2025 | NeurIPS | conference | Harvard | A | Bayesian posterior (adaptive linear Gaussian / exp. family) | M-estimand (parameter or functional) | Bayesian | asymptotic | no | partly | no\u2020 | no |\n| [6] | Howard et al. (2021) | 2021 | Ann. Statist. | journal | Berkeley\u2020 | B | generic sequential | arm means / ATE | confidence sequence | time-uniform | yes\u2020 | no | yes | unclear |\n| [7] | Emmenegger, Mutn\u00fd & Krause (2023) | 2023 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | likelihood-ratio set | time-uniform | no | no | no | unclear |\n| [8] | P\u00e1sztor, Kassraie & Krause (2024) | 2024 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | confidence sequence | time-uniform | no | no | no | yes\u2020 |\n| [9] | Mutn\u00fd & Krause (2022) | 2022 | NeurIPS | conference | ETH | B | generic sequential | M-estimand (parameter or functional) | confidence sequence | time-uniform\u2020 | no | no | partly | unclear |\n| [10] | Bibaut et al. (2021b) | 2021 | NeurIPS | conference | Berkeley\u2020 | C | contextual bandit | risk minimiser | none (rates / point estimates only) | finite-sample | yes | no | yes\u2020 | unclear |\n| [11] | Farquhar, Gal & Rainforth (2021) | 2021 | ICLR | conference | Oxford | C | active learning | risk minimiser | none (rates / point estimates only) | finite-sample | yes | no | yes | yes |\n| [12] | Fannjiang et al. (2022) | 2022 | PNAS | journal | Berkeley | C | conformal design (feedback covariate shift) | prediction set | conformal | finite-sample | yes | no | yes | yes |\n| [13] | Dwivedi et al. (2025) | 2025 | Ann. Statist. | journal | Harvard | D | generic sequential | arm means / ATE | Wald CLT | asymptotic | no | partly\u2020 | partly\u2020 | yes |\n| [14] | Duan, Jia & Wang (2020) | 2020 | ICML | conference | Princeton | D | RL off-policy | OPE value | concentration bound (finite-sample CI) | finite-sample | no | no | no | no |\n| [15] | Hao et al. (2021) | 2021 | ICML | conference | Princeton | D | RL off-policy | OPE value | bootstrap | asymptotic | no | yes\u2020 | no\u2020 | no |\n| [16] | Zhang, Zhang, Ni & Wang (2022) | 2022 | ICML | conference | Princeton | D | RL off-policy | OPE value | bootstrap | asymptotic | no | yes\u2020 | partly | no |",
+ "runtime_s": 4.39
 }

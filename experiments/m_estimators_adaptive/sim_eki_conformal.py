@@ -44,7 +44,7 @@ Coverage is computed EXACTLY over the uniform test distribution: for each candid
 probability that y = h + eps, eps ~ N(0, sigma^2), falls in the interval, averaged over cells. It is
 therefore the coverage conditional on the aquifer, the fit data and the calibration set. For each
 truth K = 50 independent calibration sets are drawn; their average is the coverage conditional on
-the aquifer only (marginal over calibration and test locations and noise).
+the aquifer and the fitted ensemble only (marginal over calibration and test locations and noise).
 
 Run: python3 sim_eki_conformal.py [--R 500]   Output: results/eki_conformal.json
 """
