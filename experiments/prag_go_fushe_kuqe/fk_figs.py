@@ -65,11 +65,11 @@ C5 = json.load(open('res_base/check5.json'))      # 48 000-member re-estimate of
 pos = {w: k for k, w in enumerate(ids)}
 fig, axs = plt.subplots(1, 4, figsize=(7.0, 4.5), constrained_layout=True, sharey=True)
 im = base_map(axs[0], P, 0, 1); wells(axs[0], labels=False)
-axs[0].set_title('(a) prior-i dhe puset', loc='left', fontsize=8)
+axs[0].set_title('(a) prior and wells', loc='left', fontsize=8)
 cb = fig.colorbar(im, ax=axs, location='bottom', fraction=0.035, pad=0.02, shrink=0.45)
-cb.set_label('probabiliteti prior i intrusionit, P(h < 1 m)', color=INK2); cb.outline.set_edgecolor(MUTED)
+cb.set_label('prior intrusion probability, P(h < 1 m)', color=INK2); cb.outline.set_edgecolor(MUTED)
 panels = [(axs[i + 1], [pos[w] for w in C5[k]['design']], t, C5[k]['eig'][1], C5[k]['pct']['rAB'])
-          for i, (k, t) in enumerate([('published', '(b) dizajni i publikuar'), ('pragLin', '(c) PRAG-GO'), ('best_rAB', '(d) greedy + shkëmbime')])]
+          for i, (k, t) in enumerate([('published', '(b) published design'), ('pragLin', '(c) PRAG-GO'), ('best_rAB', '(d) greedy + swaps')])]
 for ax, sel, ttl, v, pct in panels:
     base_map(ax, P, 0, 1); wells(ax, sel)
     ax.set_title(f'{ttl}\n{v:.3f} nats, {pct:.0%}', loc='left', fontsize=8)
@@ -81,16 +81,16 @@ fig.savefig(f'{FIG}/fig1_map_designs.png', dpi=220)
 # ---------------- Figure 2: criterion against exact EIG, 3-well designs
 R3 = np.load('res_base/d3.npz'); LIN3, EX3 = R3['LIN'], R3['EX']
 fig, axs = plt.subplots(1, 3, figsize=(7.0, 2.6), constrained_layout=True)
-for ax, j, gk, xl, yl, lt in [(axs[0], 0, 2, 'EIG lineare e sipërfaqes [nats]', 'EIG e saktë, sipërfaqja > 100 km²', '(a)'),
-                          (axs[1], 0, 1, 'EIG lineare e sipërfaqes [nats]', 'EIG e saktë, rreziku A ose B', '(b)'),
-                          (axs[2], NAMES.index('pragLin'), 1, 'PRAG-GO [nats]', 'EIG e saktë, rreziku A ose B', '(c)')]:
+for ax, j, gk, xl, yl, lt in [(axs[0], 0, 2, 'linear EIG of the area [nats]', 'exact EIG, area > 100 km²', '(a)'),
+                          (axs[1], 0, 1, 'linear EIG of the area [nats]', 'exact EIG, risk A or B', '(b)'),
+                          (axs[2], NAMES.index('pragLin'), 1, 'PRAG-GO [nats]', 'exact EIG, risk A or B', '(c)')]:
     rho = spearmanr(LIN3[:, j], EX3[:, gk]).correlation
     ax.scatter(LIN3[:, j], EX3[:, gk], s=3, color=BLUE, alpha=0.35, linewidths=0)
     k = int(np.argmax(LIN3[:, j])); best = EX3[:, gk].max()
     ax.scatter([LIN3[k, j]], [EX3[k, gk]], s=46, color=ORANGE, edgecolors='white', linewidths=1.4, zorder=4)
     ax.axhline(best, color=INK2, lw=0.8, ls='--')
     ax.set_xlabel(xl); ax.set_ylabel(yl, fontsize=7.2)
-    ax.set_title(f'{lt} Spearman {rho:.3f}\nkriteri zgjedh {EX3[k, gk] / best:.0%} të optimumit', loc='left', fontsize=8)
+    ax.set_title(f'{lt} Spearman {rho:.3f}\ncriterion pick: {EX3[k, gk] / best:.0%} of optimum', loc='left', fontsize=8)
     for s in ['top', 'right']:
         ax.spines[s].set_visible(False)
 fig.savefig(f'{FIG}/fig2_scatter.png', dpi=220)
@@ -99,18 +99,18 @@ fig.savefig(f'{FIG}/fig2_scatter.png', dpi=220)
 if os.path.exists('res_base/mar.json'):
     MJ = json.load(open('res_base/mar.json')); F = np.load('res_base/mar_fields.npz')
     fig, axs = plt.subplots(1, 2, figsize=(4.6, 4.6), constrained_layout=True, sharey=True)
-    for ax, fld, key, ttl in [(axs[0], F['MAR_c'], 'area', '(a) adjointi i sipërfaqes\n(rregulli i publikuar)'),
-                              (axs[1], F['RISK_c'], 'prag', '(b) PRAG-MAR: rreziku\nnë A ose B')]:
+    for ax, fld, key, ttl in [(axs[0], F['MAR_c'], 'area', '(a) area adjoint\n(published rule)'),
+                              (axs[1], F['RISK_c'], 'prag', '(b) PRAG-MAR: risk\nat A or B')]:
         f = np.where(m.coastc, np.nan, fld); f = f / np.nanmax(f)
         im = base_map(ax, f, 0, 1, norm=PowerNorm(0.5, vmin=0, vmax=1))
         wells(ax, cand=False)
         for (x, y), t in zip(MJ[key]['xy'], MJ[key]['ids']):
             ax.scatter([x], [y], marker='D', s=58, color=ORANGE, edgecolors='white', linewidths=1.2, zorder=6)
         r = MJ[key]['rows'][1]
-        ax.set_title(f"{ttl}\nP(A ose B) {MJ['base']['pAB']:.2f} → {r['pAB']:.2f}", loc='left', fontsize=8)
+        ax.set_title(f"{ttl}\nP(A or B) {MJ['base']['pAB']:.2f} → {r['pAB']:.2f}", loc='left', fontsize=8)
         ax.set_xlabel('E [km]')
     axs[0].set_ylabel('N [km]')
     cb = fig.colorbar(im, ax=axs, location='bottom', fraction=0.04, pad=0.03, shrink=0.8)
-    cb.set_label('efekti relativ i rimbushjes (max = 1, shkallë rrënjë katrore)', color=INK2); cb.outline.set_edgecolor(MUTED)
+    cb.set_label('relative recharge effect (max = 1, square-root scale)', color=INK2); cb.outline.set_edgecolor(MUTED)
     fig.savefig(f'{FIG}/fig3_mar.png', dpi=220)
 print('saved', FIG)
