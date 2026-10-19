@@ -117,10 +117,16 @@ def mix_boundary(V, rho2):
 
 # ---------------------------------------------------------------- one Monte Carlo experiment (vectorised over R)
 def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, adaptive=True, delta=None,
-        seed=0, checkpoints=(25, 50, 100, 200, 400), t0=10, rho2=None, k_warm=10, branch=False,
-        keep_path=False, keep_draws=True):
+        seed=0, checkpoints=(25, 50, 100, 200, 400), t0=10, rho2=None, rho2w=None, k_warm=10, branch=False,
+        keep_path=False, keep_draws=True, season_amp=0.0, season_T=12):
     rng = np.random.default_rng(seed)
     M = int(round(w / dl))
+    ell = b + w
+    # 'nature' with a deterministic seasonal cycle (steady periodic response of the linear aquifer to a
+    # sinusoidal sea-boundary forcing; superposition keeps the OU simulation exact). Random phase per run.
+    phase = rng.uniform(0, 2 * np.pi, R)
+    om = 2 * np.pi / (season_T * ell)
+    s_read = b + dl * np.arange(1, M + 1)
     tau0 = tau0_analytic(b, w, dl, a)
     if delta is None:
         delta = tau0
@@ -133,7 +139,7 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
     x = rng.standard_normal((R, NX)) @ cholesky(MOD['C0'], lower=True).T
     # histories
     Y = np.zeros((K, R)); U = np.zeros((K, R)); PI = np.zeros((K, R)); TH = np.zeros((K, R)); MB = np.zeros((K, R))
-    Hh = np.zeros((K, R))
+    Hh = np.zeros((K, R)); SEA = np.zeros((K, R))
     # recursive ARX for the baseline: regressors (1, Y_{j-1}, U_{j-1}, U_{j-2}, U_j)
     lam = 1e-2
     XtX = np.repeat(lam * np.eye(5)[None], R, 0); Xty = np.zeros((R, 5))
@@ -185,6 +191,10 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
             x = x @ EdT + (a * u)[:, None] * Gd + noise_d[j]
             acc += x[:, G]
         y = acc / M
+        if season_amp > 0:
+            sea = season_amp * np.cos(om * (k * ell + s_read)[None, :] + phase[:, None]).mean(1)
+            y = y + sea
+            SEA[k] = sea
         # ---------------- IPW increment and book-keeping
         th = (y - m) * (u / pi - (1 - u) / (1 - pi))
         Y[k] = y; U[k] = u; PI[k] = pi; TH[k] = th; MB[k] = m; Hh[k] = np.sqrt(pi * (1 - pi))
@@ -194,7 +204,8 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
             XtX += xr[:, :, None] * xr[:, None, :]; Xty += xr * y[:, None]
     # ---------------- estimators at the checkpoints (fixed-K intervals)
     out = dict(tau0=tau0, delta=delta, aR=a * MOD['R'], K=K, R=R, b=b, w=w, dl=dl, a=a, pi_min=pi_min,
-               gamma=gamma, adaptive=adaptive, branch_err=branch_err, fixed={})
+               gamma=gamma, adaptive=adaptive, branch_err=branch_err, season_amp=season_amp,
+               season_T=season_T, fixed={})
     cum_th = np.cumsum(TH, 0); cum_th2 = np.cumsum(TH ** 2, 0)
     cum_h = np.cumsum(Hh, 0); cum_hth = np.cumsum(Hh * TH, 0); cum_h2th2 = np.cumsum(Hh ** 2 * TH ** 2, 0)
     for Kc in checkpoints:
@@ -251,7 +262,8 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
         rho2 = 1.0
     bd = mix_boundary(cum_th2, rho2)
     miss_cs = np.abs(cum_th - ts * tau0) > bd
-    rho2w = rho2 / (np.median(cum_h2th2[-1] / cum_th2[-1]))  # same tuning in the AW variance units
+    if rho2w is None:
+        rho2w = rho2 * 4.0
     bdw = mix_boundary(cum_h2th2, rho2w)
     miss_csw = np.abs(cum_hth - cum_h * tau0) > bdw
     mask = ts >= t0
@@ -279,6 +291,7 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
         corrU_lag1=np.corrcoef(U[1:].ravel(), U[:-1].ravel())[0, 1],
         corrY_lag1=np.corrcoef(Y[1:].ravel(), Y[:-1].ravel())[0, 1],
         sdY=Y.std(), mean_th2=np.mean(TH ** 2), mean_th2_late=np.mean(TH[100:] ** 2),
+        mean_h2th2_late=np.mean(Hh[100:] ** 2 * TH[100:] ** 2),
         # does pi_k settle? correlation between the average pi over the first and second halves
         pi_half_corr=np.corrcoef(PI[:K // 2].mean(0), PI[K // 2:].mean(0))[0, 1],
         pi_var_across_reps=np.var(PI[K // 2:].mean(0)),
@@ -286,16 +299,18 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
     if keep_path:
         r0 = 0
         out['path'] = dict(Y=Y[:, r0], U=U[:, r0], PI=PI[:, r0], est=est_t[:, r0], se=se_t[:, r0],
-                           cs=(bd / ts)[:, r0], m=MB[:, r0])
+                           cs=(bd / ts)[:, r0], m=MB[:, r0], season=SEA[:, r0],
+                           naive_run=np.array([Y[:t, r0][U[:t, r0] == 1].mean() - Y[:t, r0][U[:t, r0] == 0].mean()
+                                               if 0 < U[:t, r0].sum() < t else np.nan for t in range(1, K + 1)]))
     return out
 
 
 def pilot_rho2(seed=99, t_star=200, **kw):
     """Tuning constant of the mixture fixed before the experiment from a pilot run (different seed)."""
     pr = run(R=300, K=t_star, seed=seed, checkpoints=(), keep_draws=False, **kw)
-    s2 = pr['diag']['mean_th2_late']
+    s2 = pr['diag']['mean_th2_late']; s2w = pr['diag']['mean_h2th2_late']
     c = -2 * np.log(ALPHA)
-    return (c + np.log(c + 1)) / (t_star * s2), s2
+    return (c + np.log(c + 1)) / (t_star * s2), (c + np.log(c + 1)) / (t_star * s2w), s2, s2w
 
 
 def main():
