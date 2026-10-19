@@ -7,8 +7,11 @@
     A1 and P10 pumped as in fk_mar_geo.py (res_geo/mar_geo_fields.npz, field h0p).
 Figures 2 and 3 of the note are Supplementary Figs. S2 and S1 of the chloride study
 (chloride_fk/python/fkcl_figs.py), drawn from res_geo/.
+With --paper the same figure is drawn as Fig. 9 of the chloride paper (panel titles without the
+note's version dates, file fig9_boundary); MATLAB: chloride_fk/matlab/fkcl_boundary_figure.m.
 
-Usage: python3 fk_geo_figs.py [outdir]      (default: fig/; ~10 s)
+Usage: python3 fk_geo_figs.py [outdir] [--paper]      (default: fig/; ~10 s)
+       python3 fk_geo_figs.py ../../chloride_fk/figures --paper     (Fig. 9 of the paper)
 """
 import os
 import sys
@@ -18,7 +21,10 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', '..', 'chloride_fk', 'python'))
-OUTDIR = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'fig')
+PAPER = '--paper' in sys.argv[1:]
+_pos = [a for a in sys.argv[1:] if not a.startswith('--')]
+OUTDIR = _pos[0] if _pos else os.path.join(HERE, 'fig')
+NAME = 'fig9_boundary' if PAPER else 'fig1_boundary'
 _argv, sys.argv = sys.argv, sys.argv[:1]          # fkcl_figs reads sys.argv at import
 import fkcl_figs as CF                             # noqa: E402  style, Okabe-Ito colours, shoreline
 sys.argv = _argv
@@ -73,7 +79,8 @@ def main():
     for c, w in zip(full.marCell, full.marID):
         ax.plot(full.cx[c], full.cy[c], 'D', ms=5.5, mfc='white', mec='k', mew=1.0, zorder=9)
         ax.annotate(w, (full.cx[c], full.cy[c]), xytext=(6, -8), **lab)
-    ax.set_title(f'a  First version (12 Oct)\nwhole western margin as sea\nintruded area {full.baseArea:.1f} km$^2$, no pumping',
+    head_a = 'a  Companion model (Zeqiraj, 2026)' if PAPER else 'a  First version (12 Oct)'
+    ax.set_title(f'{head_a}\nwhole western margin as sea\nintruded area {full.baseArea:.1f} km$^2$, no pumping',
                  loc='left', fontsize=7.5)
 
     # (b) geolocated boundary
@@ -98,7 +105,8 @@ def main():
         ax.annotate(w + ('' if inside else '\n(no sea contact)'), (full.cx[c], full.cy[c]), xytext=(6, -12 if not inside else -8),
                     color='k' if inside else '0.35', **lab)
     a_p = float(geo.goalA(F['h0p']))                 # the model's intruded-area measure, as geo.baseArea
-    ax.set_title(f'b  This version (19 Oct)\ngeolocated Adriatic contact, 23 km\nintruded area {geo.baseArea:.1f} km$^2$; '
+    head_b = 'b  This study (Section 2.3)' if PAPER else 'b  This version (19 Oct)'
+    ax.set_title(f'{head_b}\ngeolocated Adriatic contact, 23 km\nintruded area {geo.baseArea:.1f} km$^2$; '
                  f'{a_p:.1f} km$^2$ with pumping', loc='left', fontsize=7.5)
     ax.set_yticklabels([])
 
@@ -114,9 +122,14 @@ def main():
          Line2D([], [], marker='v', ls='', mfc=OI[4], mec='k', ms=7, label='supply wells'),
          Line2D([], [], marker='D', ls='', mfc='white', mec='k', ms=5.5, label='published MAR sites')]
     fig.legend(handles=h, loc='lower center', bbox_to_anchor=(0.5, 0.0), ncol=2, frameon=False, fontsize=6.3, columnspacing=1.0, handlelength=1.6)
+    with open(os.path.join(HERE, 'res_geo', 'boundary_areas.json'), 'w') as fh:   # quoted in Section 4.7 of the paper
+        json.dump({'full_margin_km2': float(full.baseArea), 'geolocated_km2': float(geo.baseArea),
+                   'geolocated_pumped_km2': a_p, 'supply': [J['supply']['A']['id'], J['supply']['B']['id']],
+                   'QA': J['pumping']['QA'], 'QB': J['pumping']['QB'],
+                   'note': 'smoothed intrusion indicator of the companion code (s = 0.15 m), prior mean'}, fh, indent=1)
     os.makedirs(OUTDIR, exist_ok=True)
     for ext in ('png', 'pdf'):
-        fig.savefig(os.path.join(OUTDIR, 'fig1_boundary.' + ext), dpi=300, bbox_inches='tight')
+        fig.savefig(os.path.join(OUTDIR, NAME + '.' + ext), dpi=400 if PAPER else 300, bbox_inches='tight')
     plt.close(fig)
     print(f'full margin {full.baseArea:.1f} km2; geolocated {geo.baseArea:.1f} km2, {a_p:.1f} km2 with pumping;'
           f' MAR sites {full.marID}; written to {os.path.abspath(OUTDIR)}')
