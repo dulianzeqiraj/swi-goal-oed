@@ -413,10 +413,9 @@ def reference_values():
     reg = C[0][G, P] / C[0][P, P]
     # response function r_F(u) = [C(u) C0^{-1}]_{gp} for u up to 4 (beyond: frozen, as in Test 2)
     rF = (C[:, G, :] @ C0inv[:, P])
-    lags = np.arange(maxlag) * dts
-    # chi_F(t) at lag grid: same rectangle rule as Cint (sum dts - half first term)
-    chiF = np.concatenate([[0.0], np.cumsum(rF[:-1] * dts) - 0.5 * dts * rF[0] + 0.5 * dts * rF[1:]]) \
-        if False else np.cumsum(rF) * dts - 0.5 * dts * rF[0]
+    # chi_F(t_j) = dts (sum_{i<j} r_F(t_i)) - dts r_F(0) / 2 (the rule of Cint), so chi_F(4) = R_fdt exactly
+    lags = np.arange(maxlag + 1) * dts
+    chiF = np.concatenate([[0.0], np.cumsum(rF) * dts - 0.5 * dts * rF[0]])
     return dict(R_direct=Rdirect[G], R_direct_row=Rdirect[:8], R_fdt=R_fdt, reg=reg,
                 rF=rF, lags=lags, chiF=chiF, R_direct_se_from_l96check=0.006)
 
@@ -474,7 +473,7 @@ def main():
     for b, cur in step['curves'].items():
         cur['fdt'] = fdt_curve(ref, cur['ell'], float(b))
         # per-period IPW sigma at pi = 1/2 with an ideal constant baseline: E tauhat^2 - (E tau)^2
-        sig = np.sqrt(4 * np.asarray(cur['sd_branch']) ** 2 + 0 * np.asarray(cur['mean']))
+        sig = 2 * np.asarray(cur['sd_branch'])
         Kn = periods_needed(np.asarray(cur['mean']), sig)
         cur['K_excl_pred'] = Kn; cur['T_excl_pred'] = Kn * np.asarray(cur['ell'])
     J = dict(setting=dict(N=N, F=F, dt=DT, p=P, g=G, Delta=DELTA, ell=ELL, burn=BURN, R=R, Kmax=KMAX,
