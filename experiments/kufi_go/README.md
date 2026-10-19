@@ -88,4 +88,4 @@ python3 kufi_figs.py
 The experiment keeps every well monitored (no drop-out), which is part of its advantage.
 
 The report is
-`docs/literature/Kerkim_artikujsh_TMLE_II_Regjime_Politika_Dizajne_2020-2026.docx` (section 10).
+`docs/literature/Literature_review_TMLE_II_Regimes_Policies_Designs_2020-2026.docx` (section 10).

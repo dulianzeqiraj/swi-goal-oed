@@ -86,9 +86,9 @@ operator rarely takes, because the cumulative weights 1/G_j grow large (weak pos
 
 Without the drought index, bias stays near 0.07 however many wells are added. A more precise toe sensor
 does not fix this. Recording what the operator based decisions on (a decision log) makes the effect
-identifiable. With 1 000 wells, the decision log already reaches an error that the design without it
-does not reach even with 8 000 wells.
+identifiable. With 2 000 wells, the decision log already reaches an error (RMSE 0.050) that the design
+without it does not reach even with 8 000 wells (RMSE 0.073).
 
 The report is
-`docs/literature/Kerkim_artikujsh_TMLE_Kohe_Vazhdueshme_Mesatare_Nen_Nderhyrje_2020-2026.docx`
+`docs/literature/Literature_review_TMLE_Continuous_Time_Outcome_Means_Under_Intervention_2020-2026.docx`
 (section 10).
