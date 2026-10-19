@@ -39,13 +39,17 @@ Estimators of tau_bar_K = (1/K) sum_k tau_k (= tau_0 here):
          (two-sided normal mixture; also the AW version with h_k weights)
 Run: python3 sim_switchback_ou.py   (about 6 min on 1 core). Output: results/switchback_ou.json
 """
+import os
 import time
 
-import numpy as np
-from scipy.linalg import solve_continuous_lyapunov, expm, cholesky
-from scipy.stats import norm, t as tdist
+for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'):
+    os.environ.setdefault(_v, '1')   # one BLAS thread: the machine is shared, and R x 30 products are small
 
-from common import dump
+import numpy as np  # noqa: E402
+from scipy.linalg import solve_continuous_lyapunov, expm, cholesky  # noqa: E402
+from scipy.stats import norm, t as tdist  # noqa: E402
+
+from common import dump  # noqa: E402
 
 ALPHA = 0.05
 Z = norm.ppf(1 - ALPHA / 2)
@@ -226,13 +230,15 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
         Xa = np.stack([np.ones((Kc - 1, R)), uu[1:], y[:-1]], 2).transpose(1, 0, 2)  # R x (Kc-1) x 3
         ya = y[1:].T
         XtXa = np.einsum('rki,rkj->rij', Xa, Xa); Xtya = np.einsum('rki,rk->ri', Xa, ya)
+        oka = (uu[1:].sum(0) >= 2) & ((1 - uu[1:]).sum(0) >= 2)
+        XtXa = XtXa + 1e-9 * np.eye(3)
         ba = np.linalg.solve(XtXa, Xtya[..., None])[..., 0]
         res = ya - np.einsum('rki,ri->rk', Xa, ba)
         s2 = (res ** 2).sum(1) / (Kc - 1 - 3)
         se_a = np.sqrt(s2 * np.linalg.inv(XtXa)[:, 1, 1])
         hw_a = tdist.ppf(1 - ALPHA / 2, Kc - 4) * se_a
         arx = ba[:, 1]
-        cov_a = np.abs(arx - tau0) <= hw_a
+        cov_a = (np.abs(arx - tau0) <= hw_a) & oka
         # IPW and AW
         ipw = cum_th[Kc - 1] / Kc; se_i = np.sqrt(cum_th2[Kc - 1]) / Kc
         aw = cum_hth[Kc - 1] / cum_h[Kc - 1]; se_w = np.sqrt(cum_h2th2[Kc - 1]) / cum_h[Kc - 1]
@@ -242,7 +248,8 @@ def run(R=1000, K=400, b=30.0, w=20.0, dl=1.0, a=5.0, pi_min=0.1, gamma=1.0, ada
         d = dict(
             naive=dict(cov=cov_n.mean(), mean=np.nanmean(naive), sd=np.nanstd(naive), hw=np.nanmedian(hw_n),
                        nan=float((~ok).mean())),
-            arx=dict(cov=cov_a.mean(), mean=arx.mean(), sd=arx.std(), hw=np.median(hw_a)),
+            arx=dict(cov=cov_a.mean(), mean=arx[oka].mean(), sd=arx[oka].std(), hw=np.median(hw_a[oka]),
+                     nan=float((~oka).mean())),
             ipw=dict(cov=cov_i.mean(), mean=ipw.mean(), sd=ipw.std(), hw=np.median(Z * se_i),
                      tsd=np.std((ipw - tau0) / se_i)),
             aw=dict(cov=cov_w.mean(), mean=aw.mean(), sd=aw.std(), hw=np.median(Z * se_w),
