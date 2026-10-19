@@ -29,6 +29,10 @@ R  = fkcl_run_all();    % everything: about 4 min, plus 10-20 min for the six se
 * By default the random inputs come from `results/calib_prior_draws.csv` and
   `results/post_idx.csv` (the draws of the Python run), so the numbers match the
   paper. `fkcl_run_all(struct('src', 7))` draws its own with seed 7.
+* `out = fkcl_boundary_figure()` draws Fig. 9 (the full-margin and the geolocated sea boundary of the
+  design model) to `figures_matlab/fig9_boundary` in a few seconds and prints the three intruded areas of
+  Section 4.7 (92.7, 10.1 and 11.6 km²). It reads the pumping rates of `fkcl_prag_mar` from
+  `experiments/prag_go_fushe_kuqe/res_geo/mar_geo.json` (or `struct('QA', ..., 'QB', ...)`).
 * `out = fkcl_prag_mar()` recomputes PRAG-MAR (risk-oriented recharge siting) with the
   geolocated sea boundary, in about a minute; it reproduces
   `experiments/prag_go_fushe_kuqe/fk_mar_geo.py` exactly from the same prior draws and draws
@@ -78,6 +82,7 @@ also needs pyproj and global-land-mask.
 | 7 variable-density sections | `fkcl_section.py` | `results/section_*.npz`, `section_summary.json` |
 | 8 sensitivity of the calibration | `fkcl_sensitivity.py` | `results/calib_sensitivity.json` |
 | 9 figures | `fkcl_figs.py` | `figures/fig1-8` (PNG, PDF) |
+| 10 Fig. 9 (sea boundaries; needs `res_geo/mar_geo.json`) | `../../experiments/prag_go_fushe_kuqe/fk_geo_figs.py ../figures --paper` | `figures/fig9_boundary` (PNG, PDF), `res_geo/boundary_areas.json` |
 
 Run the scripts from `chloride_fk/python/` in this order. Step 4 needs step 3, and
 steps 6-7 need step 4.
@@ -94,6 +99,7 @@ steps 6-7 need step 4.
 | Variable-density section (Fig. 6) | `fkcl_section.m`, `fkcl_vd_*.m`, `fkcl_henry_check.m` | `fkcl_section.py`, `fkcl_vd.py` |
 | Sampling design (Table 4, Fig. 7) | `fkcl_design.m` | `fkcl_design.py` |
 | Decision modules (Table 5, Fig. 8) | `fkcl_figures.m` reads the module results | `../experiments/*` |
+| Sea boundaries and threshold risk at the well field (Section 4.7, Fig. 9, Tables 6-7) | `fkcl_boundary_figure.m`, `fkcl_prag_go.m`, `fkcl_prag_mar.m` | `../experiments/prag_go_fushe_kuqe/fk_geo_figs.py --paper`, `fk_prag_geo.py`, `fk_prag_geo_check.py`, `fk_mar_geo.py` |
 | PRAG-MAR, geolocated boundary (Supplementary Fig. S1, Tables S9-S10) | `fkcl_prag_mar.m` | `../experiments/prag_go_fushe_kuqe/fk_mar_geo.py` |
 | PRAG-GO, geolocated boundary (Supplementary Fig. S2, Tables S11-S12) | `fkcl_prag_go.m` | `../experiments/prag_go_fushe_kuqe/fk_prag_geo.py`, `fk_prag_geo_check.py` |
 

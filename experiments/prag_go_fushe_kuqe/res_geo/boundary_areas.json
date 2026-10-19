@@ -1,0 +1,12 @@
+{
+ "full_margin_km2": 92.7204898433895,
+ "geolocated_km2": 10.147730910368837,
+ "geolocated_pumped_km2": 11.6073421226862,
+ "supply": [
+  "A1",
+  "P10"
+ ],
+ "QA": 3756.7027377153477,
+ "QB": 17182.907748308215,
+ "note": "smoothed intrusion indicator of the companion code (s = 0.15 m), prior mean"
+}
