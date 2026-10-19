@@ -35,7 +35,7 @@ Estimators of taubar_K (S'_k = 1{s_k = +1}, W_k = sqrt(pi_sta(s_k) / pi_k(s_k)),
          Fixed-K Wald:  mean +- 1.96 sqrt(V_K) / K.
          Asymptotic CS (Waudby-Smith et al. 2024, normal mixture, empirical variance):
              mean +- sigmahat_K sqrt((K + r)(log((K + r) / r) + 2 log(1/alpha))) / K,
-             sigmahat_K^2 = V_K / K,  r = t* / (2 log(1/alpha) + log(2 log(1/alpha) + 1)),  t* = 1500.
+             sigmahat_K^2 = V_K / K,  r = t* / (2 log(1/alpha) + log(2 log(1/alpha) + 1)),  t* = 2500.
 Coverage of taubar_K: fixed-K miss rate, "Wald peeking" ever-miss and CS ever-miss over K0 <= K' <= K
 (K0 = 20). Cost: first K with 0 outside the CS; K at which the CS half-width reaches 0.03 (projected
 from sigmahat at K_max with the same boundary, since 0.03 is far beyond the simulated horizon).
@@ -64,13 +64,13 @@ N, F, DT, P, G = 20, 8.0, 0.01, 0, 3
 DELTA = 1.0
 ELL, BURN = 5.0, 1.0
 R = 300
-KMAX = dict(A=3000, B=3000, C=1500)
+KMAX = dict(A=5000, B=3000, C=1500)
 PI_MIN, A1, A2, SIG_Y, K_WARM = 0.15, 1.0, 0.5, 1.0, 10
 LAM = 0.1
 SEAS_A, SEAS_T = 0.75, 52
 ALPHA = 0.05
 Z = norm.ppf(1 - ALPHA / 2)
-T_STAR = 1500
+T_STAR = 2500
 LA = 2 * np.log(1 / ALPHA)
 RHO = T_STAR / (LA + np.log(LA + 1))
 K0 = 20
@@ -310,6 +310,9 @@ def summarise(cfg, o):
                 for k in Kf},
         dist_err=dict({e: (est[e][-1] - tb[-1]) for e in ('ipw', 'naive', 'aw', 'hajek')}),
         dist_err_K=K,
+        dist_err_common=dict({e: (est[e][min(K, 1500) - 1] - tb[min(K, 1500) - 1]) for e in ('ipw', 'naive', 'aw', 'hajek')}),
+        dist_est_common=dict({e: est[e][min(K, 1500) - 1] for e in ('ipw', 'naive', 'aw', 'hajek', 'taubar')}),
+        dist_err_common_K=min(K, 1500),
     )
     res['frac_excl_cs'] = res['frac_excl_cs'].mean(1); res['frac_excl_w'] = res['frac_excl_w'].mean(1)
     # representative replicate: CS exclusion time closest to the median exclusion time
@@ -334,14 +337,14 @@ def step_response(seed=7, n_states=24000, T=10.0, batch=600):
     s = L96(nchain); Fv = np.full((N, nchain), F)
     sim = L96(2 * batch); Fb = np.full((N, 2 * batch), F); Fb[P, :batch] += DELTA; Fb[P, batch:] -= DELTA
     nT = int(round(T / DT)); every = 5
-    CD = []; CA = []; CP = []; CM = []
+    CP = []; CM = []; X0 = []
     nb = n_states // batch
     for bi in range(nb):
         for _ in range(2):          # two switchback periods (10 time units) between samples
             Fv[P] = F + DELTA * np.where(rng.random(nchain) < 0.5, 1, -1)
             for _ in range(int(round(ELL / DT))):
                 s.step(x, Fv)
-        xx = np.concatenate([x, x], 1)
+        xx = np.concatenate([x, x], 1); X0.append(x.copy())
         cp = np.zeros((nT // every + 1, batch)); cm = np.zeros_like(cp)
         run_p = np.zeros(batch); run_m = np.zeros(batch)
         for i in range(nT):
@@ -351,7 +354,7 @@ def step_response(seed=7, n_states=24000, T=10.0, batch=600):
                 cp[(i + 1) // every] = run_p; cm[(i + 1) // every] = run_m
         CP.append(cp); CM.append(cm)
     CP = np.concatenate(CP, 1); CM = np.concatenate(CM, 1)     # cumulative sums of x_g at steps 1..i
-    return CP, CM, every
+    return CP, CM, every, np.concatenate(X0, 1)
 
 
 def ell_curves(CP, CM, every):
@@ -456,9 +459,17 @@ def task(name):
                              for b, v in o['Yb'].items()}
         return name, dict(points=out, time_s=time.time() - t0)
     if name == 'step':
-        CP, CM, every = step_response(n_states=24000 if not QUICK else 1200)
+        CP, CM, every, X0 = step_response(n_states=24000 if not QUICK else 1200)
         res = ell_curves(CP, CM, every)
-        return name, dict(curves=res, n_states=CP.shape[1], time_s=time.time() - t0)
+        # predictability of the period outcome from the period-start state (best linear predictor, in-sample R^2)
+        Phi = np.vstack([np.ones(X0.shape[1]), X0]).T
+        r2 = {}
+        for ell, b in ((0.5, 0.0), (1.0, 0.0), (2.0, 0.0), (2.0, 1.0), (5.0, 0.0), (5.0, 1.0), (10.0, 1.0)):
+            ie = int(round(ell / DT)) // every; ib = int(round(b / DT)) // every; nst = (ie - ib) * every
+            ybar = ((CP[ie] - CP[ib]) + (CM[ie] - CM[ib])) / (2 * nst)
+            beta = np.linalg.lstsq(Phi, ybar, rcond=None)[0]
+            r2[f'{ell}_{b}'] = 1 - (ybar - Phi @ beta).var() / ybar.var()
+        return name, dict(curves=res, n_states=CP.shape[1], r2_state=r2, time_s=time.time() - t0)
     if name == 'ref':
         return name, dict(reference_values(), time_s=time.time() - t0)
 

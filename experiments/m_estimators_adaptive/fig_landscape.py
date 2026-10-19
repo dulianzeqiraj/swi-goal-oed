@@ -231,7 +231,7 @@ NOT_DRAWN = [
 # ----------------------------------------------------------------------------------------------------------------------
 FAV = {'prop': {'no': 1.0, 'yes': 0.0}, 'stab': {'no': 1.0, 'partly': 0.5, 'yes': 0.0},
        'misspec': {'yes': 1.0, 'partly': 0.5, 'no': 0.0}, 'real': {'yes': 1.0, 'no': 0.0}}
-PROFILE_COLS = [('nonasym', 'garanci jo\nasimptotike'), ('prop', 'pa\npropensitete'), ('stab', 'pa kusht\nstabiliteti'),
+PROFILE_COLS = [('nonasym', 'garanci jo-\nasimptotike'), ('prop', 'pa\npropensitete'), ('stab', 'pa kusht\nstabiliteti'),
                 ('misspec', 'i qëndrueshëm\nndaj spec.'), ('interval', 'jep interval\nose bashkësi'), ('real', 'të dhëna\nreale')]
 
 
@@ -268,9 +268,9 @@ def md_table():
     for w in W:
         def v(f, d):
             s = d[w[f]][0]
-            return s + ('*' if f in w['indirect'] else '')
+            return s + ('†' if f in w['indirect'] else '')
         rows.append(f"| [{w['k']}] | {w['cite']} | {w['year']} | {w['venue']} | {w['vtype']} | {w['group']}"
-                    f"{'*' if 'group' in w['indirect'] else ''} | {w['route']} | {v('setting', SETTING)} | {v('estimand', ESTIMAND)} | "
+                    f"{'†' if 'group' in w['indirect'] else ''} | {w['route']} | {v('setting', SETTING)} | {v('estimand', ESTIMAND)} | "
                     f"{v('inference', INFER)} | {v('guarantee', GUAR)} | {v('prop', YN)} | {v('stab', YN)} | {v('misspec', YN)} | {v('real', YN)} |")
     return '\n'.join(rows)
 
@@ -278,7 +278,7 @@ def md_table():
 # ----------------------------------------------------------------------------------------------------------------------
 # 4. Figure
 # ----------------------------------------------------------------------------------------------------------------------
-FIGW, FIGH = 178.0, 226.0
+FIGW, FIGH = 178.0, 229.5
 ROWLAB = {7: 'Emmenegger et al. (2023)', 8: 'Pásztor et al. (2024)', 11: 'Farquhar et al. (2021)', 16: 'Zhang R. et al. (2022)'}
 
 
@@ -319,7 +319,7 @@ def swatches(ax, x, y, items, fs=5.5, h=2.0, gap=2.6):
 SLOT = {1: 0.50, 0: 0.80, 4: 0.50, 2: 0.20, 3: 0.50, 5: 0.50,
         6: 0.50, 9: 0.62, 7: 0.62, 8: 0.50,
         10: 0.72, 11: 0.28, 12: 0.50,
-        14: 0.78, 15: 0.78, 16: 0.78, 13: 0.50}
+        14: 0.70, 15: 0.70, 16: 0.70, 13: 0.50}
 LANE_Y = {'A': 3, 'B': 2, 'C': 1, 'D': 0}
 
 
@@ -348,7 +348,7 @@ def panel_a(fig):
         ax.spines[s].set_visible(False)
     ax.set_xlabel('viti i versionit të botuar', fontsize=6.6, labelpad=1.5)
     P = {w['k']: pos(w) for w in W}
-    rad = {(10, 2): -0.40, (9, 7): 0.45, (14, 15): 0.34, (15, 16): 0.34, (14, 16): 0.28}
+    rad = {(10, 2): -0.50, (9, 7): 0.45, (14, 15): 0.24, (15, 16): 0.24, (14, 16): 0.36}
     for a, b, _ in REL:
         ax.add_patch(FancyArrowPatch(P[a], P[b], connectionstyle=f'arc3,rad={rad[(a, b)]}', arrowstyle='-|>',
                                      mutation_scale=5.5, lw=0.7, color=MUTED, shrinkA=4.2, shrinkB=4.8, zorder=2))
@@ -362,7 +362,10 @@ def panel_a(fig):
                     va='center', ha='left', zorder=5)
             continue
         ax.plot(x, y, mk, ms=4.6 if mk == 'o' else 4.2, mfc=c, mec='white', mew=0.5, zorder=4)
-        ax.text(x + 0.09, y, f"[{w['k']}] {w['short']}", fontsize=5.8, color=INK, va='center', ha='left', zorder=5)
+        # works with arcs below the marker: lift the label so the arcs never touch the text
+        lift = w['k'] in (7, 9, 14, 15, 16)
+        ax.text(x + 0.08, y + (0.03 if lift else 0.0), f"[{w['k']}] {w['short']}", fontsize=5.8, color=INK,
+                va='bottom' if lift else 'center', ha='left', zorder=5)
     # legend in the empty right part of lane C
     lx = 2023.2
     for i, (m, t) in enumerate((('o', 'konferencë'), ('s', 'revistë'))):
@@ -380,10 +383,10 @@ def panel_a(fig):
 
 
 # matrix columns: (field, header, width in mm)
-COLS = [('venue', 'Botimi', 13.5), ('group', 'Grupi', 11.5), ('route', 'Rruga', 6.5), ('setting', 'Mjedisi i\nmbledhjes', 17.0),
-        ('estimand', 'Objektivi', 16.5), ('inference', 'Lloji i\ninferencës', 14.0), ('guarantee', 'Garancia', 12.5),
-        ('prop', 'Kërkon\npropensitete\ntë njohura', 13.0), ('stab', 'Kërkon\nkusht\nstabiliteti', 11.5),
-        ('misspec', 'I qëndrueshëm\nndaj spec.\ntë gabuar', 14.0), ('real', 'Të dhëna\nreale', 9.5)]
+COLS = [('venue', 'Botimi', 13.5), ('group', 'Grupi', 11.0), ('route', 'Rruga', 6.5), ('setting', 'Mjedisi i\nmbledhjes', 17.0),
+        ('estimand', 'Objektivi', 16.5), ('inference', 'Lloji i\ninferencës', 14.0), ('guarantee', 'Garancia', 13.0),
+        ('prop', 'Kërkon\npropensitete\ntë njohura', 12.5), ('stab', 'Kërkon\nkusht\nstabiliteti', 12.5),
+        ('misspec', 'I qëndrueshëm\nndaj spec.\ntë gabuar', 13.5), ('real', 'Të dhëna\nreale', 9.5)]
 LABW = 36.0
 QUAL = ['#dbe8f5', '#fde3cc', '#d5efe4', '#f4dbea', '#fbf0bf', '#e2def2', '#d3edf5', '#ece5d8']
 GROUPC = {'Harvard': '#f3dada', 'Berkeley': '#d9e5f3', 'Oxford': '#e2def2', 'ETH': '#dcefdc', 'Princeton': '#fbe6cb'}
@@ -414,7 +417,7 @@ def cell_style(w, f):
 def panel_b(fig, y0):
     rowh = 4.75
     tot = LABW + sum(c[2] for c in COLS)
-    hh = 12.0
+    hh = 10.5
     H = hh + 0.6 + rowh * len(W) + 3 * 1.2 + 10.5
     ax = ax_mm(fig, 1.0, y0, tot, H)
     ax.set_xlim(0, tot); ax.set_ylim(H, 0); ax.axis('off')
@@ -444,9 +447,9 @@ def panel_b(fig, y0):
             two = '\n' in txt
             t = ax.text(xc + wd / 2, y + rowh / 2 + 0.1, txt, ha='center', va='center', fontsize=5.0 if two else 5.4, color=tc,
                         linespacing=0.92, fontweight='bold' if bold else 'normal')
-            fit(ax, t, wd - 1.3)
+            fit(ax, t, wd - (2.6 if f in w['indirect'] else 1.3))
             if f in w['indirect']:
-                ax.text(xc + wd - 0.45, y + 0.35, '*', ha='right', va='top', fontsize=6.0, color=MUTED)
+                ax.text(xc + wd - 0.45, y + 0.3, '†', ha='right', va='top', fontsize=5.6, color=MUTED)
             xc += wd
         y += rowh
     # legend (measured placement, so nothing overlaps)
@@ -454,7 +457,7 @@ def panel_b(fig, y0):
     ax.text(1.0, y + 1.0, 'Katër kolonat e fundit:', fontsize=5.5, color=INK, va='center')
     xl = swatches(ax, 23.5, y, [(C_FAV, 'vetí e favorshme'), (C_MID, 'pjesërisht'), (C_BAD, 'kërkesë kufizuese'),
                                 (C_NEU, 'mungon'), ('white', 'e paqartë nga raportet (?)')])
-    ax.text(xl + 2.0, y + 1.0, '*  evidencë indirekte ose interpretim ynë', fontsize=5.5, color=MUTED, va='center')
+    ax.text(xl + 2.0, y + 1.0, '†  evidencë indirekte ose interpretim ynë', fontsize=5.5, color=MUTED, va='center')
     y += 3.7
     ax.text(1.0, y + 1.0, 'Botimi:', fontsize=5.5, color=INK, va='center')
     xl = swatches(ax, 9.5, y, [('#efe5d3', 'revistë'), ('#e6ecf2', 'konferencë')])
@@ -526,7 +529,7 @@ def panel_c(fig, top):
 
 
 def panel_d(fig, top, prof):
-    ax = ax_mm(fig, 121.0, top + 19.0, 54.0, 29.0)
+    ax = ax_mm(fig, 121.0, top + 18.5, 54.0, 28.5)
     M = np.zeros((4, len(PROFILE_COLS))); T = [[''] * len(PROFILE_COLS) for _ in range(4)]
     for i, r in enumerate('ABCD'):
         n = prof[r]['n']
@@ -541,7 +544,7 @@ def panel_d(fig, top, prof):
             ax.text(j, i, T[i][j], ha='center', va='center', fontsize=5.5 if '\n' not in T[i][j] else 5.0,
                     color='white' if M[i, j] > 0.62 else INK, linespacing=0.95)
     ax.set_xticks(range(len(PROFILE_COLS)))
-    ax.set_xticklabels([c[1].replace('\n', ' ') for c in PROFILE_COLS], fontsize=5.5, rotation=32, ha='left',
+    ax.set_xticklabels([c[1].replace('-\n', '-').replace('\n', ' ') for c in PROFILE_COLS], fontsize=5.5, rotation=32, ha='left',
                        rotation_mode='anchor')
     ax.xaxis.tick_top(); ax.tick_params(axis='x', length=0, pad=1.5)
     ax.set_yticks(range(4)); ax.set_yticklabels([f"{r} (n={prof[r]['n']})" for r in 'ABCD'], fontsize=6.0)
@@ -554,9 +557,9 @@ def panel_d(fig, top, prof):
         s.set_visible(False)
     fig.text(110.5 / FIGW, 1 - (top + 1.6) / FIGH, 'Profili i rrugëve', fontsize=7.6, color=INK, ha='left', va='center')
     fig.text(110.1 / FIGW, 1 - (top + 1.6) / FIGH, 'd', fontsize=8.6, fontweight='bold', color=INK, ha='right', va='center')
-    fig.text(110.5 / FIGW, 1 - (top + 5.2) / FIGH, 'numri i punimeve me vetinë e favorshme', fontsize=5.6, color=MUTED,
-             ha='left', va='center')
-    fig.text(110.5 / FIGW, 1 - (top + 52.0) / FIGH, '«pjesërisht» numërohet 0.5; «?» si jo e favorshme',
+    fig.text(110.5 / FIGW, 1 - (top + 50.5) / FIGH, 'qeliza: numri i punimeve të rrugës me vetinë e favorshme',
+             fontsize=5.4, color=MUTED, ha='left', va='center')
+    fig.text(110.5 / FIGW, 1 - (top + 53.6) / FIGH, '«pjesërisht» numërohet 0.5; «?» numërohet si jo e favorshme',
              fontsize=5.2, color=MUTED, ha='left', va='center', style='italic')
 
 
