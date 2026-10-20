@@ -16,3 +16,6 @@ chloride_fk/results/calib_ensemble_shallow.npz
 chloride_fk/results_matlab/
 chloride_fk/figures_matlab/
 chloride_fk/tsv/
+
+# VEGLA-GO graph-space cache (rebuilt by vegla_exp.py in about 1 minute)
+experiments/vegla_go/vegla_space.npz
