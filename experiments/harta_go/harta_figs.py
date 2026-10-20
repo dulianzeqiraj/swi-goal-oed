@@ -68,4 +68,15 @@ fig.text(0.5, 0.005, 'numbers above the bars: different well sets the policy use
 fig.tight_layout(rect=(0, 0.04, 1, 1))
 fig.savefig(os.path.join(OUT, 'figH2_seq.png'), dpi=200)
 plt.close(fig)
-print('figures written')
+# ---------------------------------------------------------------- summary for the report
+RF = np.load('harta_ref.npz'); Z = np.load('harta_ens.npz')
+ids = Z['ids']
+summ = {'P0': RF['P0'].tolist(), 'optimum': {}, 'ess_mean': {}}
+for k in (3, 5):
+    D = RF[f'D{k}']; EX = RF[f'EX{k}']
+    summ['ess_mean'][str(k)] = float(RF[f'ESS{k}'].mean())
+    for g, goal in enumerate(GOALS):
+        i = int(EX[:, g].argmax())
+        summ['optimum'][f'{k}|{goal}'] = {'wells': ids[list(D[i])].tolist(), 'eig': float(EX[i, g]), 'median_design_eig': float(np.median(EX[:, g]))}
+json.dump(summ, open(os.path.join(OUT, 'harta_summary.json'), 'w'), indent=1)
+print('figures and summary written')
