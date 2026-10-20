@@ -10,7 +10,7 @@ import numpy as np
 from multiprocessing import Pool
 import harta as H
 
-Z = np.load('harta_ens.npz')
+Z = dict(np.load('harta_ens.npz'))
 REF = Z['ref'].astype(np.float32)
 GREF = H.goal_of(Z['ref']).astype(np.float32)
 P0 = GREF.mean(0).astype(np.float64)
