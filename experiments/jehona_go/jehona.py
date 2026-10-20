@@ -11,6 +11,9 @@ transient sharp-interface model:
   longer tau_ret when it retreats (intrusion is fast, flushing is slow): a nonlinear memory.
 Outcomes per period: head at the supply well (linear in the path), toe position (nonlinear) and the
 fraction of the month in which the toe is beyond the supply well ("salinization exposure").
+Exogenous forcing, part of the fixed population: the regional inflow varies with the season and from
+year to year, q_in(t) = q_in (1 + 0.3 sin(2 pi (t + 1/2)/12 + phi_i) + 0.2 a_{i,year}); it is observed and
+given to the surrogate as well.
 
 The surrogate (a deliberately wrong model): the same equations with T x 0.8, Sy x 1.4 and a symmetric
 toe relaxation of 90 days, i.e. wrong memory and no hysteresis.
@@ -40,7 +43,8 @@ def make_units(n, seed=2026):
         vmax = min(1.5, 0.95 * xw / x0)
         v = rng.uniform(0.6, vmax)                    # steady head at the well under full pumping, m
         Q = qin - v * T / xw                          # pumping per unit width, m2/d
-        U.append(dict(T=T, Sy=Sy, qin=qin, xw=xw, Q=Q, tau_adv=rng.uniform(20, 60), tau_ret=rng.uniform(120, 360)))
+        U.append(dict(T=T, Sy=Sy, qin=qin, xw=xw, Q=Q, tau_adv=rng.uniform(20, 60), tau_ret=rng.uniform(120, 360),
+                      phase=rng.uniform(0, 2 * np.pi), ya=rng.standard_normal(4)))
     return U
 
 
@@ -60,9 +64,11 @@ def _matrix(u, steady=False):
     return ab
 
 
-def _rhs_const(u):
+def _rhs_const(u, t=None):
+    """inflow term at x = L; with t (month index) the seasonal and yearly forcing is applied."""
     n = NX - 1; b = np.zeros(n)
-    b[n - 1] = 2 * u['qin'] / DX                     # inflow at x = L
+    q = u['qin'] if t is None else u['qin'] * (1 + 0.3 * np.sin(2 * np.pi * (t + 0.5) / 12 + u['phase']) + 0.2 * u['ya'][t // 12])
+    b[n - 1] = 2 * q / DX
     return b
 
 
@@ -95,13 +101,15 @@ def initial_state(u, pump=0.5):
 
 
 def simulate(u, W):
-    """W: (R, NT) 0/1 paths for one unit. Returns {'head','toe','sal'}: (R, NT)."""
+    """W: (R, NT) paths for one unit (0/1, or a constant fraction for a reference run).
+    Returns {'head','toe','sal'}: (R, NT)."""
     W = np.asarray(W, float); R = W.shape[0]
     h0, xt0 = initial_state(u)
     h = np.repeat(h0[:, None], R, 1); xt = np.full(R, xt0)
-    ab = _matrix(u); b = _rhs_const(u); iw = _well(u); a = u['Sy'] / DT
+    ab = _matrix(u); iw = _well(u); a = u['Sy'] / DT
     out = {k: np.zeros((R, W.shape[1])) for k in OUTS}
     for t in range(W.shape[1]):
+        b = _rhs_const(u, t)
         sink = u['Q'] * W[:, t] / DX
         hs = np.zeros(R); sal = np.zeros(R)
         for _ in range(NSUB):
