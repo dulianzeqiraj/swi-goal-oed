@@ -145,7 +145,7 @@ if __name__ == '__main__':
         for o in J.OUTS:
             out['designs'][str(B)][o]['lam_mean'] = float(RES[B][o]['lam_mean'][0].mean())
         for o in J.OUTS:
-            out['designs'][str(B)][o]['model'] = dict(mean=GM[o], bias=GM[o] - G[o], sd=0.0, rmse=abs(GM[o] - G[o]), cover=float('nan'), mean_se=0.0)
+            out['designs'][str(B)][o]['model'] = dict(mean=GM[o], bias=GM[o] - G[o], sd=0.0, rmse=abs(GM[o] - G[o]), cover=None, mean_se=0.0)
     # Walsh summary over units
     ws = {}
     for o in J.OUTS:
@@ -162,12 +162,16 @@ if __name__ == '__main__':
              **{f'{o}_wdeg': np.array([w[o]['wdeg'] for w in WA]) for o in J.OUTS},
              **{f'{o}_delta': np.array([w[o]['delta'] for w in WA]) for o in J.OUTS},
              **{f'{o}_rem': np.array([w[o]['rem'] for w in WA]) for o in J.OUTS})
-    json.dump(out, open('jehona_results.json', 'w'), indent=1)
+    for B in BS:                       # the cross-fitted weight is undefined when the model's control has no variance
+        for o in J.OUTS:
+            if not np.isfinite(out['designs'][str(B)][o]['lam_mean']) or abs(out['designs'][str(B)][o]['lam_mean']) > 1e6:
+                out['designs'][str(B)][o]['lam_mean'] = None
+    json.dump(out, open('jehona_results.json', 'w'), indent=1, allow_nan=False)
     for o in J.OUTS:
         print(o, 'G = %.4g' % G[o])
         for B in BS:
             d = out['designs'][str(B)][o]
             if o == 'sal':
                 print('  harm B=%2d' % B, out['designs'][str(B)]['harm'])
-            print('  B=%2d ' % B + '  '.join(f'{k}: b {v["bias"]:+.3g} rmse {v["rmse"]:.3g} cov {v["cover"]:.2f}' for k, v in d.items() if k in ('plain_K36', 'mbase_K36', 'ppi_K36', 'ppix_K36', 'mbase_K12', 'ht', 'model')) + '  lam %.2f' % d['lam_mean'])
+            print('  B=%2d ' % B + '  '.join(f'{k}: b {v["bias"]:+.3g} rmse {v["rmse"]:.3g} cov {v["cover"] if v["cover"] is None else round(v["cover"], 2)}' for k, v in d.items() if k in ('plain_K36', 'mbase_K36', 'ppi_K36', 'ppix_K36', 'mbase_K12', 'ht', 'model')) + f'  lam {d["lam_mean"]}')
     print(f'done {time.time() - t0:.0f}s')
