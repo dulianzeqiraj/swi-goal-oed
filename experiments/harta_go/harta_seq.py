@@ -22,7 +22,7 @@ import harta as H
 GOAL = sys.argv[1] if len(sys.argv) > 1 else 'rAB'
 NTRUTH = int(sys.argv[2]) if len(sys.argv) > 2 else 1000
 GI = H.GOALS.index(GOAL)
-Z = np.load('harta_ens.npz'); RF = np.load('harta_ref.npz')
+Z = dict(np.load('harta_ens.npz', allow_pickle=False)); RF = dict(np.load('harta_ref.npz'))   # eager: forked workers must not share a lazy file
 TR = Z['train']; TE = Z['test'][:NTRUTH]; REF = Z['ref'].astype(np.float32)
 YTR = TR[:, :H.NC] + H.SN * np.random.default_rng(3).standard_normal((len(TR), H.NC))
 YTE = TE[:, :H.NC] + H.SN * np.random.default_rng(13).standard_normal((len(TE), H.NC))

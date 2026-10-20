@@ -18,7 +18,7 @@ from multiprocessing import Pool
 from scipy.stats import spearmanr
 import harta as H
 
-Z = np.load('harta_ens.npz'); RF = np.load('harta_ref.npz')
+Z = dict(np.load('harta_ens.npz', allow_pickle=False)); RF = dict(np.load('harta_ref.npz'))   # eager: forked workers must not share a lazy file
 TR = Z['train']
 YTR = TR[:, :H.NC] + H.SN * np.random.default_rng(3).standard_normal((len(TR), H.NC))
 NS_ = [250, 500, 1000, 2000, 4000]
