@@ -79,6 +79,9 @@ def run_design(args):
         y = J.simulate(U[i], W[:, i, :]); z = J.simulate(UM[i], W[:, i, :])
         for o in J.OUTS:
             Y[o][:, i, :] = y[o]; M[o][:, i, :] = z[o]
+    # harm of the experiment itself: salinization exposure of the supply wells during the 36 months
+    est['harm'] = {'exposure': float(Y['sal'].mean()), 'units_saline_at_end': float((Y['sal'][:, :, -1] > 0.5).mean()),
+                   'max_toe_advance': float((Y['toe'].max(-1) - np.array([BASE[i]['toe'] for i in range(N)])[None, :]).mean())}
     for o in J.OUTS:
         c = np.array([BASE[i][o] + ETA[o][i, 0] for i in range(N)])[None, :, None]   # measured pre-level
         cM = np.array([BASEM[i][o] for i in range(N)])[None, :, None]
@@ -138,6 +141,7 @@ if __name__ == '__main__':
     out = {'N': N, 'R': R, 'NT': J.NT, 'window': [int(WIN[0]) + 1, int(WIN[-1]) + 1], 'goal': G, 'goal_surrogate': GM, 'designs': {}}
     for B in BS:
         out['designs'][str(B)] = {o: {name: summarize(e, G[o]) for name, e in RES[B][o].items() if name != 'lam_mean'} for o in J.OUTS}
+        out['designs'][str(B)]['harm'] = RES[B]['harm']
         for o in J.OUTS:
             out['designs'][str(B)][o]['lam_mean'] = float(RES[B][o]['lam_mean'][0].mean())
         for o in J.OUTS:
@@ -163,5 +167,7 @@ if __name__ == '__main__':
         print(o, 'G = %.4g' % G[o])
         for B in BS:
             d = out['designs'][str(B)][o]
+            if o == 'sal':
+                print('  harm B=%2d' % B, out['designs'][str(B)]['harm'])
             print('  B=%2d ' % B + '  '.join(f'{k}: b {v["bias"]:+.3g} rmse {v["rmse"]:.3g} cov {v["cover"]:.2f}' for k, v in d.items() if k in ('plain_K36', 'mbase_K36', 'ppi_K36', 'ppix_K36', 'mbase_K12', 'ht', 'model')) + '  lam %.2f' % d['lam_mean'])
     print(f'done {time.time() - t0:.0f}s')
