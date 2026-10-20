@@ -25,3 +25,6 @@ experiments/harta_go/harta_ens.npz
 experiments/harta_go/*.log
 # JEHONA-GO run logs
 experiments/jehona_go/*.log
+# SHKALLA-GO: prior banks (about 8.5 MB, rebuilt by shkalla_exp.py in about 9 minutes) and run logs
+experiments/shkalla_go/shkalla_bank.npz
+experiments/shkalla_go/*.log
