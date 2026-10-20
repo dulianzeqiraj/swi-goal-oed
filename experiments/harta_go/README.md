@@ -41,4 +41,31 @@ bash run_all.sh
 
 ## Results
 
-(see below; filled from the result files)
+- **Exact reference** (48 000 runs). Best 3-well design A3, A10, A23 for `rA` and `rAB` (0.425 and
+  0.380 nats), A3, A10, A28 for `rArea`; best 5-well design P17, A3, A10, A13, A23 for `rA` and `rAB`,
+  P17, A3, A13, A23, A28 for `rArea`. Mean effective sample size 1 526 (3 wells) and 503 (5 wells).
+- **Static designs, three wells** (share of the optimum reached, mean over goals and 8 ensembles).
+  Nested Monte Carlo 86.6 / 89.9 / 89.9 / 93.3 / 99.7% with 250 / 500 / 1 000 / 2 000 / 4 000 runs;
+  every map family reaches at least 98.6% from 500 runs. The maps need about ten times fewer runs.
+- **Static designs, five wells.** All methods are within a few per cent of the optimum (nested Monte
+  Carlo 97.7–99.8%, maps 95–98%); the best five-well designs differ by only a few per cent of their
+  information, which the simple map families do not resolve. Rank correlation with the exact
+  criterion over all 4 368 designs at 1 000 runs: maps 0.94–0.95, nested Monte Carlo 0.64. With 250
+  runs the HARTA map ranks poorly (0.49 against 0.82 for the Gaussian map): it needs about 1 000 runs.
+- **Cost.** Scoring all 5-well designs for one goal from 4 000 runs: about 20 s with a map, about
+  2 000 s with nested Monte Carlo (3 wells: 3 s and 197 s).
+- **The project's linearized criterion** (no ensemble) picks the exact optimum for every 3-well goal
+  (98.7% on average with five wells).
+- **Sequential policies** (three wells chosen one at a time, 1 000 synthetic truths; information
+  relative to the best fixed 3-well design in millinats, ± standard error, number of distinct well
+  sets in parentheses):
+
+| Goal | Gaussian map | HARTA (12 000 runs) | HARTA (1 000 runs) | Re-weighting (12 000 runs) |
+|---|---|---|---|---|
+| `rA` | 0.0 ± 0.0 (2) | +4.7 ± 6.4 (16) | −3.8 ± 8.1 (12) | −3.0 ± 7.8 (63) |
+| `rAB` | −2.9 ± 6.3 (7) | +7.1 ± 6.6 (9) | −4.0 ± 8.7 (12) | −17.5 ± 8.2 (73) |
+| `rArea` | +0.5 ± 3.4 (1) | +0.8 ± 4.3 (17) | −2.0 ± 4.4 (20) | −2.3 ± 5.2 (90) |
+
+  The Gaussian policy hardly adapts; the HARTA policy adapts and never loses against the best fixed
+  design; re-weighting adapts most and loses (significantly for `rAB`). Adaptivity gains under 2% of
+  the information at Fushë-Kuqe, so a fixed design suffices there.

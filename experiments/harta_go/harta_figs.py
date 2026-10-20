@@ -44,10 +44,13 @@ plt.close(fig)
 
 # ---------------------------------------------------------------- figure 2: sequential policies
 POL = ['static_lin', 'gauss', 'rew', 'harta1k', 'harta']
-PLAB = {'static_lin': 'fixed design of the\nlinearized criterion', 'gauss': 'adaptive,\nGaussian map', 'rew': 'adaptive,\nre-weighting (12 000)',
-        'harta1k': 'adaptive, HARTA\n(1 000 runs)', 'harta': 'adaptive, HARTA\n(12 000 runs)'}
+PLAB = {'static_lin': 'fixed\n(linearized)', 'gauss': 'Gaussian\nmap', 'rew': 're-weighting\n12 000',
+        'harta1k': 'HARTA\n1 000', 'harta': 'HARTA\n12 000'}
+PLEG = {'static_lin': 'fixed design of the linearized criterion', 'gauss': 'adaptive, Gaussian map (12 000 runs)',
+        'rew': 'adaptive, re-weighting (12 000 runs)', 'harta1k': 'adaptive, HARTA map (1 000 runs)',
+        'harta': 'adaptive, HARTA map (12 000 runs)'}
 PCOL = {'static_lin': '#111827', 'gauss': '#2563EB', 'rew': '#6B7280', 'harta1k': '#34D399', 'harta': '#059669'}
-fig, ax = plt.subplots(1, 3, figsize=(10.2, 3.6), sharey=True)
+fig, ax = plt.subplots(1, 3, figsize=(10.2, 3.9), sharey=True)
 for j, goal in enumerate(GOALS):
     f = f'harta_seq_{goal}.json'
     if not os.path.exists(f):
@@ -60,12 +63,15 @@ for j, goal in enumerate(GOALS):
         n = R[p]['n_distinct_designs']
         ax[j].text(xi, (max(g[xi] + e[xi], 0) + 2), f'{n}', ha='center', va='bottom', fontsize=7.5, color='#374151')
     ax[j].axhline(0, color='#111827', lw=0.8)
-    ax[j].set_xticks(x); ax[j].set_xticklabels([PLAB[p] for p in POL], fontsize=6.8, rotation=0)
+    ax[j].set_xticks(x); ax[j].set_xticklabels([PLAB[p] for p in POL], fontsize=7.2, rotation=0)
     ax[j].set_title(GLAB[goal], fontsize=9); ax[j].grid(axis='y', alpha=0.25, lw=0.5)
 ax[0].set_ylabel('information gained relative to the best\nfixed 3-well design (millinats, 95% CI)')
+from matplotlib.patches import Patch
+fig.legend([Patch(color=PCOL[p]) for p in POL], [PLEG[p] for p in POL], loc='lower center', ncol=3,
+           frameon=False, fontsize=7.5, bbox_to_anchor=(0.5, 0.035))
 fig.text(0.5, 0.005, 'numbers above the bars: different well sets the policy used over 1 000 synthetic truths',
          ha='center', fontsize=7.5, color='#374151')
-fig.tight_layout(rect=(0, 0.04, 1, 1))
+fig.tight_layout(rect=(0, 0.15, 1, 1))
 fig.savefig(os.path.join(OUT, 'figH2_seq.png'), dpi=200)
 plt.close(fig)
 # ---------------------------------------------------------------- summary for the report
