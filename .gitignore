@@ -28,3 +28,6 @@ experiments/jehona_go/*.log
 # SHKALLA-GO: prior banks (about 8.5 MB, rebuilt by shkalla_exp.py in about 9 minutes) and run logs
 experiments/shkalla_go/shkalla_bank.npz
 experiments/shkalla_go/*.log
+# DARA-GO: cores of map D (about 4 MB, rebuilt by dara_exp.py) and run logs
+experiments/dara_go/dara_maps.npz
+experiments/dara_go/*.log
