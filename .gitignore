@@ -23,3 +23,5 @@ experiments/vegla_go/vegla_space.npz
 # HARTA-GO: prior ensembles (about 10 MB, rebuilt by harta_ens.py in about 3 minutes) and run logs
 experiments/harta_go/harta_ens.npz
 experiments/harta_go/*.log
+# JEHONA-GO run logs
+experiments/jehona_go/*.log
