@@ -31,3 +31,5 @@ experiments/shkalla_go/*.log
 # DARA-GO: cores of map D (about 4 MB, rebuilt by dara_exp.py) and run logs
 experiments/dara_go/dara_maps.npz
 experiments/dara_go/*.log
+# KURSIM-GO run logs
+experiments/kursim_go/*.log
