@@ -48,8 +48,14 @@ Monte Carlo, 1000 data sets per scenario (`kursim_mc.json`):
 | | doubly robust | | 0.018 / 0.016 | | 0.05 / 0.04 |
 | | **frugal MLE** | | **0.014 / 0.012** | 0.96 / 0.96 | 0.04 / 0.04 |
 
-With a Student-t copula (4 d.f.), where the Gaussian frugal likelihood is misspecified, the frugal MLE still had
-bias −0.001 / −0.003, RMSE 0.026 / 0.024 and coverage 0.95 / 0.95 at n = 1500.
+With a Student-t conditional for the outcome score (4 d.f., recalibrated so that the causal margin stays exact), where
+the Gaussian frugal likelihood is misspecified, the frugal MLE still had bias −0.001 / −0.002, RMSE 0.025 / 0.024 and
+coverage 0.95 / 0.96 at n = 1500.
+
+Exactness (`kursim_check.json`, one million wells per regime): the causal means of the four regimes match the MSM to
+within 1.7 standard errors and the standard deviations are 0.500 to within 0.001, for the baseline past, the
+strong-feedback past and the Student-t copula; the residual of Proposition B has regression coefficients within 2.4
+standard errors of zero on (1, A1, A2, L1, L2).
 
 Policy design on a 11 × 15 grid of (b0, b3), 200 000 simulated well-seasons per policy (`kursim_design.json`),
 n · Var(θ̂2) with production P(A2 = 1) ≥ 0.40:
@@ -70,7 +76,8 @@ Cutting the risk from 11% to 2% costs the frugal MLE a factor of 1.6 in variance
 |---|---|
 | `kursim_model.py` | The frugal model: simulation (Gaussian or Student-t copula, observational or under intervention), the exact regression of Proposition B, and the log-likelihood of Theorem C. |
 | `kursim_est.py` | Six estimators: OLS with and without the alarm, parametric g-formula (bootstrap SE), IPW with stabilized weights (sandwich SE), doubly robust iterated conditional expectations (influence-function SE) and the frugal MLE (observed-information SE). |
-| `kursim_exp.py` | Monte Carlo study, seven scenario–size pairs × 1000 data sets; writes `kursim_mc.json` (about 7 minutes on 4 cores). |
+| `kursim_check.py` | Exactness checks of the causal margin (Theorem A) and of the observational regression (Proposition B); writes `kursim_check.json`. |
+| `kursim_exp.py` | Monte Carlo study, seven scenario–size pairs × 1000 data sets; writes `kursim_mc.json` (about 8 minutes on 4 cores; `python3 kursim_exp.py effect_tcopula` reruns one scenario). |
 | `kursim_design.py` | Asymptotic variances over the policy grid; writes `kursim_design.json` (under 1 minute on 4 cores). |
 | `kursim_figs.py` | Figures `figK1_estimators.png` and `figK2_design.png`. |
 | `run_all.sh` | Runs every stage. |
@@ -85,7 +92,7 @@ bash run_all.sh
 ## Limitations
 
 The model has two seasons, one binary alarm and binary pumping; the copula is Gaussian with fixed form, tested
-against one misspecification (Student-t). The design variances are asymptotic (expected information and influence
+against one misspecification (a Student-t conditional). The design variances are asymptotic (expected information and influence
 functions at the true parameters), evaluated on a grid; finite-sample variances at extreme policies, where IPW
 weights explode, will be worse than these figures. The numbers are synthetic and are not calibrated to
 Fushë-Kuqe wells.
