@@ -6,7 +6,7 @@ Scenarios (1000 replications each):
   null_strong     strong alarm feedback (g1 = 2, g2 = 2.5, rho = (0.2, 0.8), b3 = -3), theta = (0, 0); n = 1500, 6000
   effect_tcopula  theta = (0.25, 0.45) with a Student-t copula (4 d.f.): the Gaussian frugal likelihood is misspecified;
                   n = 1500
-Writes kursim_mc.json. About 25 minutes on 4 cores.
+Writes kursim_mc.json. About 8 minutes on 4 cores; `python3 kursim_exp.py effect_tcopula` reruns one scenario.
 """
 import os
 os.environ.setdefault('OMP_NUM_THREADS', '1'); os.environ.setdefault('OPENBLAS_NUM_THREADS', '1')
@@ -51,10 +51,15 @@ def summarize(arr, truth):
     return res
 
 
-def main():
-    t0 = time.time(); out = {}
+def main(only=None):
+    """Run every scenario, or only the named ones (merged into an existing kursim_mc.json)."""
+    t0 = time.time()
+    out = json.load(open('kursim_mc.json'))['results'] if only and os.path.exists('kursim_mc.json') else {}
+    K._t_margin(K.COPULA['rho1'], K.COPULA['rho2'], 4.0)       # table of the t margin, inherited by the workers
     with Pool(4) as pool:
         for name, sc in SCEN.items():
+            if only and name not in only:
+                continue
             truth = np.array([sc['causal']['theta1'], sc['causal']['theta2']])
             for n in sc['ns']:
                 arr = np.array(pool.map(one, [(name, n, r) for r in range(R)], chunksize=10))
@@ -70,4 +75,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    main(sys.argv[1:] or None)

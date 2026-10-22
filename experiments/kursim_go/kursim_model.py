@@ -48,14 +48,37 @@ def score(U, rng, cop, copula='gauss', nu=4.0):
     if copula == 'gauss':
         W = ndtri(np.clip(U, 1e-15, 1 - 1e-15))
         return r1 * W[:, 0] + r2 * W[:, 1] + np.sqrt(1 - r1 ** 2 - r2 ** 2) * rng.standard_normal(n)
-    # Student-t copula with nu degrees of freedom and the same correlation matrix
+    # Student-t conditional with nu degrees of freedom: given the past scores T = F_nu^-1(U), the latent outcome score is
+    # TV = rho1 T1 + rho2 T2 + scale(T) * t_{nu+2}; it is mapped to V = Phi^-1(G(TV)) with G the exact marginal law of TV
+    # (U1, U2 independent uniform), so V ~ N(0, 1) and the causal margin stays exact (only the copula is non-Gaussian).
     from scipy.stats import t as tdist
     T = tdist.ppf(np.clip(U, 1e-15, 1 - 1e-15), nu)
-    q = (T ** 2).sum(1)                                  # the two past scores are uncorrelated (R22 = I)
+    q = (T ** 2).sum(1)
     mu = r1 * T[:, 0] + r2 * T[:, 1]
     scale = np.sqrt((1 - r1 ** 2 - r2 ** 2) * (nu + q) / (nu + 2))
     TV = mu + scale * tdist.rvs(nu + 2, size=n, random_state=rng)
-    return ndtri(np.clip(tdist.cdf(TV, nu), 1e-15, 1 - 1e-15))
+    xs, G = _t_margin(r1, r2, nu)
+    return ndtri(np.clip(np.interp(TV, xs, G), 1e-15, 1 - 1e-15))
+
+
+_TCACHE = {}
+
+
+def _t_margin(r1, r2, nu, m=2 ** 16):
+    """Marginal CDF of the latent score TV of the Student-t conditional, by randomized quasi-Monte Carlo over the two
+    independent uniform past scores (Sobol points, 2^16) on a grid of 2401 values; error well below 1e-4."""
+    key = (r1, r2, nu)
+    if key not in _TCACHE:
+        from scipy.stats import qmc, t as tdist
+        P = qmc.Sobol(2, scramble=True, seed=12345).random(m)
+        T = tdist.ppf(P, nu)
+        mu = r1 * T[:, 0] + r2 * T[:, 1]
+        scale = np.sqrt((1 - r1 ** 2 - r2 ** 2) * (nu + (T ** 2).sum(1)) / (nu + 2))
+        xs = np.concatenate([-np.logspace(3, np.log10(12), 200), np.linspace(-12, 12, 2001), np.logspace(np.log10(12), 3, 200)])
+        xs = np.unique(xs)
+        G = np.array([tdist.cdf((x - mu) / scale, nu + 2).mean() for x in xs])
+        _TCACHE[key] = (xs, G)
+    return _TCACHE[key]
 
 
 def cond_mean(L1, A1, L2, A2, past=PAST, causal=CAUSAL, cop=COPULA):
