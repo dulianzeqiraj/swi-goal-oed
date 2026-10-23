@@ -21,19 +21,18 @@ Q = chi2.ppf(0.95, 2)
 
 # ---------------------------------------------------------------- figure 1: along the path of copulas
 G = np.array([c['gap'] for c in CV['curve']])
-fig, ax = plt.subplots(1, 3, figsize=(10.8, 3.4), gridspec_kw=dict(width_ratios=[1.05, 1.05, 1.0]))
-for key, lab, col, ls in (('mle_common', NAME['mle_common'], COL['mle_common'], '-'),
-                          ('mle_flex', NAME['mle_flex'], COL['mle_flex'], '-'),
-                          ('drf_common', 'frugal-augmented DR (common copula)', COL['drf_flex'], '--')):
+fig, ax = plt.subplots(1, 3, figsize=(10.8, 3.9), gridspec_kw=dict(width_ratios=[1.05, 1.05, 1.0]))
+for key, lab, col, ls in (('mle_common', 'MLE, common copula', COL['mle_common'], '-'),
+                          ('mle_flex', 'MLE, pumping-dependent copula', COL['mle_flex'], '-'),
+                          ('drf_common', 'augmented DR, common copula', COL['drf_flex'], '--')):
     ax[0].plot(G, [c[key][1] for c in CV['curve']], color=col, lw=2.0 if key != 'drf_common' else 1.5, ls=ls, marker='o', ms=3.5, label=lab)
-ax[0].axhline(TH2, color=INK, lw=0.8, ls=':')
-ax[0].text(0.005, TH2 + 0.0015, f'true θ₂ = {TH2}', fontsize=6.8, color=INK)
+ax[0].axhline(TH2, color=INK, lw=0.8, ls=':', label=f'true θ₂ = {TH2}')
 for k, g, mk in (('correct_n6000', 0.0, 's'), ('pumpdep_n6000', 0.5, 's')):
     if k in MC:
         ax[0].plot(g, MC[k]['mle_common']['mean'][1], marker=mk, ms=6, mfc='white', mec=COL['mle_common'], mew=1.4, ls='none')
 ax[0].set_xlabel('pumping effect on the copula, ρ₂(1) − ρ₂(0)')
 ax[0].set_ylabel('limit of the estimate of θ₂')
-ax[0].legend(frameon=False, fontsize=6.6, loc='lower left')
+ax[0].legend(frameon=False, fontsize=6.4, loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=2)
 ax[0].set_title('(a) a common copula biases the effect', fontsize=9)
 
 ng = np.linspace(0, G.max(), 61)
@@ -50,7 +49,7 @@ ax[1].axhline(0.05, color=INK, lw=0.7, ls=':')
 ax[1].set_ylim(0, 1.03)
 ax[1].set_xlabel('pumping effect on the copula, ρ₂(1) − ρ₂(0)')
 ax[1].set_ylabel('probability of detecting it (5% tests)')
-ax[1].legend(frameon=False, fontsize=6.4, loc='center right')
+ax[1].legend(frameon=False, fontsize=6.6, loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=2)
 ax[1].set_title('(b) power of the two checks (circles: Monte Carlo)', fontsize=9)
 
 # (c) relative efficiency at the correct model: variance of DR / variance of MLE along the path
@@ -59,7 +58,7 @@ ax[2].axhline(1, color=INK, lw=0.7, ls=':')
 ax[2].set_xlabel('pumping effect on the copula, ρ₂(1) − ρ₂(0)')
 ax[2].set_ylabel('Var(doubly robust) / Var(frugal MLE), θ₂')
 ax[2].set_title('(c) the price of robustness', fontsize=9)
-fig.tight_layout(); fig.savefig('figB1_path.png', dpi=200); plt.close(fig)
+fig.tight_layout(); fig.subplots_adjust(bottom=0.3); fig.savefig('figB1_path.png', dpi=200); plt.close(fig)
 
 # ---------------------------------------------------------------- figure 2: the Monte Carlo scenarios
 SC = [('correct_n1500', 'correct model, n = 1500'), ('correct_n6000', 'correct model, n = 6000'),
