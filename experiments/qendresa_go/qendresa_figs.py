@@ -40,7 +40,7 @@ if CV is not None:
     for c, col in zip(nc['curves'], shades):
         ax[1].plot(m, c['contrast'], color=col, lw=1.6, label=f'season {c["k"]}')
     ax[1].axhline(nc['beta'], color=INK, lw=0.9, ls=':', label=f'marginal β = {nc["beta"]}')
-    ax[1].set_xlabel('dryness index of the well, m_k = ρ (W₁ + … + W_k)')
+    ax[1].set_xlabel(r'dryness index of the well, $m_k=\rho\,(W_1+\dots+W_k)$')
     ax[1].set_ylabel('conditional log hazard ratio of pumping')
     ax[1].legend(frameon=False, fontsize=6.4, loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=3)
     ax[1].set_title('(b) the hazard ratio is not collapsible', fontsize=9)
@@ -58,9 +58,9 @@ if CV is not None:
     ax[2].set_yticks(y); ax[2].set_yticklabels([NAME[lb] for lb in labs], fontsize=7)
     ax[2].set_xlabel('limit minus truth (n = 400 000)')
     h = [plt.Line2D([], [], color='#555', marker='o', ls='none', ms=5, label='β, no effect'),
-         plt.Line2D([], [], color='#555', marker='o', mfc='white', ls='none', ms=5, label='β_ℓ (lag), no effect'),
+         plt.Line2D([], [], color='#555', marker='o', mfc='white', ls='none', ms=5, label=r'$\beta_\ell$ (lag), no effect'),
          plt.Line2D([], [], color='#555', marker='s', ls='none', ms=5, label='β, with effect'),
-         plt.Line2D([], [], color='#555', marker='s', mfc='white', ls='none', ms=5, label='β_ℓ, with effect')]
+         plt.Line2D([], [], color='#555', marker='s', mfc='white', ls='none', ms=5, label=r'$\beta_\ell$, with effect')]
     ax[2].legend(handles=h, frameon=False, fontsize=6.4, loc='upper center', bbox_to_anchor=(0.4, -0.2), ncol=2)
     ax[2].set_title('(c) where each estimator converges', fontsize=9)
     fig.tight_layout(); fig.subplots_adjust(bottom=0.33); fig.savefig('figQ1_mechanism.png', dpi=200); plt.close(fig)
@@ -77,7 +77,7 @@ for j, mth in enumerate(METH):
     for c, (par, mk) in enumerate(((2, 'o'), (3, '^'))):
         ax[c].scatter([min(MC[k][mth]['rmse'][par], 0.33) for k, _ in SC], y + off[j], color=COL[mth], s=18, marker=mk,
                       label=NAME[mth] if c == 0 else None, zorder=3)
-for a, tt in zip(ax[:2], ('(a) error of β (current pumping)', '(b) error of β_ℓ (pumping last season)')):
+for a, tt in zip(ax[:2], ('(a) error of β (current pumping)', r'(b) error of $\beta_\ell$ (pumping last season)')):
     a.set_yticks(y); a.set_ylim(-0.6, len(SC) - 0.4); a.set_xlim(0, 0.34)
     for yy in y[:-1]:
         a.axhline(yy - 0.5, color=GRID, lw=0.6, zorder=0)
@@ -95,7 +95,7 @@ ax[2].axvline(0.95, color=INK, lw=0.7, ls=':')
 ax[2].set_yticks(y); ax[2].set_yticklabels([]); ax[2].set_ylim(-0.6, len(SC) - 0.4); ax[2].set_xlim(-0.03, 1.03)
 for yy in y[:-1]:
     ax[2].axhline(yy - 0.5, color=GRID, lw=0.6, zorder=0)
-ax[2].set_xlabel('95% coverage (● β, △ β_ℓ)')
+ax[2].set_xlabel(r'95% coverage (● $\beta$, △ $\beta_\ell$)')
 ax[2].set_title('(c) honesty of the intervals', fontsize=9)
 fig.tight_layout(); fig.subplots_adjust(bottom=0.24); fig.savefig('figQ2_montecarlo.png', dpi=200); plt.close(fig)
 
@@ -109,7 +109,7 @@ for mth, dx in (('frugal', -0.03), ('ipw', 0.0), ('gform', 0.03)):
     mu, sd = np.array(r['rules'][mth]['risk_mean']), np.array(r['rules'][mth]['risk_sd'])
     ax[0].errorbar(TAUS + dx, mu, yerr=1.96 * sd, color=COL[mth], fmt='o', ms=3, lw=1.0, capsize=1.5, label=NAME[mth])
 ax[0].axhline(BUDGET, color=COL['frugal_safe'], lw=1.0, ls='--', label=f'risk budget {BUDGET:.2f}')
-ax[0].set_xlabel('rule: pump unless dryness L_k ≥ τ')
+ax[0].set_xlabel(r'rule: pump unless dryness $L_k\geq\tau$')
 ax[0].set_ylabel('risk of salinization within 5 seasons')
 ax[0].legend(frameon=False, fontsize=6.4, loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=2)
 ax[0].set_title(f'(a) risk of each rule, n = {r["n"]} (bars: 95% of data sets)', fontsize=9)
