@@ -39,3 +39,4 @@ experiments/besa_go/*.log
 experiments/qendresa_go/*.log
 # ZGJEDHJA-GO run logs
 experiments/zgjedhja_go/*.log
+experiments/baraspesha_go/*.log
