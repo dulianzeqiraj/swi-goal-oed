@@ -1,0 +1,23 @@
+S: steady logdet 12.10, history logdet 28.77, drift 5.5e-05, SO4 sv [0.824 0.    0.   ], cos 1.000 (16 s)
+   sd steady [0.88 1.   0.04 1.   1.   0.92 0.78 1.   1.   1.   1.   0.88]
+   sd hist   [0.32 0.61 0.13 0.91 0.91 0.57 0.45 0.41 0.37 0.63 0.83 0.49]
+D status quo     cost   0.0 relief  -0.0 logdet 50.43 sd(a1,b1,E) [0.86 0.9  0.27] goal_sd [1.09 3.23 0.1 ]
+D sine 0.5 yr    cost   1.4 relief   0.0 logdet 50.42 sd(a1,b1,E) [0.86 0.89 0.27] goal_sd [1.09 3.23 0.1 ]
+D sine 1 yr      cost   2.2 relief   0.1 logdet 50.43 sd(a1,b1,E) [0.86 0.89 0.27] goal_sd [1.09 3.22 0.1 ]
+D sine 2 yr      cost   4.6 relief   0.2 logdet 50.47 sd(a1,b1,E) [0.86 0.88 0.27] goal_sd [1.14 3.26 0.1 ]
+D sine 5 yr      cost   8.8 relief   0.3 logdet 50.60 sd(a1,b1,E) [0.84 0.85 0.27] goal_sd [1.09 3.17 0.1 ]
+D doublet 2 yr   cost   7.9 relief   0.0 logdet 50.48 sd(a1,b1,E) [0.85 0.86 0.27] goal_sd [1.17 3.27 0.1 ]
+D doublet 5 yr   cost  14.3 relief  -0.0 logdet 50.69 sd(a1,b1,E) [0.82 0.83 0.27] goal_sd [1.11 3.13 0.1 ]
+D PRBS 0.25 yr   cost   5.6 relief  -0.0 logdet 50.44 sd(a1,b1,E) [0.86 0.87 0.27] goal_sd [1.1  3.19 0.1 ]
+D pause 1 yr     cost   0.0 relief   6.1 logdet 50.45 sd(a1,b1,E) [0.86 0.89 0.28] goal_sd [1.05 3.22 0.1 ]
+D pause 2 yr     cost   0.0 relief  12.0 logdet 50.50 sd(a1,b1,E) [0.85 0.88 0.28] goal_sd [1.01 3.2  0.1 ]
+D surge 1 yr     cost   6.8 relief  -0.0 logdet 50.46 sd(a1,b1,E) [0.85 0.88 0.27] goal_sd [1.16 3.24 0.1 ]
+D surge 2 yr     cost  14.0 relief  -0.0 logdet 50.51 sd(a1,b1,E) [0.85 0.86 0.27] goal_sd [1.24 3.25 0.1 ]
+G greedy [('ions', '340', 2031.0), ('ions', '341', 2031.0), ('ions', '340', 2030.5), ('ions', '341', 2030.5), ('ions', '340', 2030.0), ('ions', '341', 2030.0), ('Cl', '340', 2031.0), ('ions', '341', 2029.5), ('Cl', '340', 2030.916667), ('ions', '341', 2029.0), ('ions', '340', 2029.5), ('ions', '341', 2028.5)]
+  goal sd hist [ 7.83 13.71  0.38] greedy [3.25 6.07 0.16] routine [3.58 7.3  0.21] all [1.09 3.23 0.1 ]
+T M2               post sd (D,a1,b1,a2,b2) [0.03 0.8  0.8  1.   1.  ] informed 2
+T M2+K1            post sd (D,a1,b1,a2,b2) [0.02 0.76 0.74 1.   1.  ] informed 2
+T M2+K1+MSf        post sd (D,a1,b1,a2,b2) [0.02 0.58 0.47 0.94 0.93] informed 3
+T M2+K1+MSf+Sa     post sd (D,a1,b1,a2,b2) [0.02 0.58 0.46 0.78 0.69] informed 3
+done in 49 s
+EXIT 0
