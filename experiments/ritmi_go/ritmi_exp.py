@@ -229,7 +229,10 @@ def part_V(G):
 
 # ---------------------------------------------------------------------------------------------------- tides (flow)
 TIDE = {'M2': 12.4206 / 24.0, 'K1': 23.9345 / 24.0, 'MSf': 14.7653, 'Sa': 365.2422}     # periods in days
-XW_TIDE = np.array([500.0, 1000.0, 2000.0])                  # wells (m from the coast)
+XW_TIDE = np.array([500.0, 1000.0, 2000.0, 4000.0])          # wells (m from the coast)
+# errors of the harmonic analysis of one year of hourly heads: amplitude ratio (relative) and phase (degrees);
+# the annual constituent is confounded with seasonal recharge, hence its larger error
+ERR_TIDE = {'M2': (0.01, 0.5), 'K1': (0.01, 0.5), 'MSf': (0.02, 1.0), 'Sa': (0.05, 3.0)}
 TH_TIDE = dict(D=2.0e7, a1=1.0, b1=0.5, a2=1.0 / 60.0, b2=2.0)  # T/S = 6000/3e-4 m2/d, rates (1/d), capacities
 SD_TIDE = np.array([0.4, 0.3, 0.3, 0.4, 0.4])                 # prior sd of log D, log a1, log b1, log a2, log b2
 
@@ -253,14 +256,16 @@ def tide_obs(u, names):
 
 def part_T():
     u0 = np.log([TH_TIDE[k] for k in ('D', 'a1', 'b1', 'a2', 'b2')])
-    sig = np.concatenate([np.full(1, 0.02), np.full(1, np.deg2rad(1.0))])     # 2 % amplitude, 1 degree phase
     out = {}
     for names in (['M2'], ['M2', 'K1'], ['M2', 'K1', 'MSf'], ['M2', 'K1', 'MSf', 'Sa']):
         h = 1e-4
         J = np.stack([(tide_obs(u0 + h * SD_TIDE * e, names) - tide_obs(u0 - h * SD_TIDE * e, names)) / (2 * h)
                       for e in np.eye(5)], 1)
-        n = len(names) * XW_TIDE.size
-        W = np.concatenate([np.full(n, 1 / 0.02 ** 2), np.full(n, 1 / np.deg2rad(1.0) ** 2)])
+        nw = XW_TIDE.size
+        # tide_obs ravels (wells, constituents) row by row: the constituent index runs fastest
+        ea = np.tile([ERR_TIDE[n][0] for n in names], nw)
+        ep = np.tile([np.deg2rad(ERR_TIDE[n][1]) for n in names], nw)
+        W = np.concatenate([1 / ea ** 2, 1 / ep ** 2])
         Hm = J.T @ (W[:, None] * J)
         S = np.linalg.inv(Hm + np.eye(5))
         out['+'.join(names)] = dict(sd=np.sqrt(np.diag(S)).tolist(), logdet=float(np.linalg.slogdet(Hm + np.eye(5))[1]),
@@ -279,7 +284,8 @@ def part_T():
             k = np.sqrt(1j * w * (1 + kap) / D)
             r = np.exp(-xs * k)
             prof[f'{n}|{lab}'] = dict(amp=np.abs(r).tolist(), phase_deg=np.rad2deg(-np.angle(r)).tolist())
-    out['profiles'] = dict(x=xs.tolist(), curves=prof, periods_days=TIDE, wells=XW_TIDE.tolist(), theta=TH_TIDE)
+    out['profiles'] = dict(x=xs.tolist(), curves=prof, periods_days=TIDE, wells=XW_TIDE.tolist(), theta=TH_TIDE,
+                           errors=ERR_TIDE)
     return out
 
 
