@@ -33,3 +33,5 @@ experiments/dara_go/dara_maps.npz
 experiments/dara_go/*.log
 # KURSIM-GO run logs
 experiments/kursim_go/*.log
+# BESA-GO run logs
+experiments/besa_go/*.log
