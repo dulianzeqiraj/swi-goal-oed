@@ -35,3 +35,5 @@ experiments/dara_go/*.log
 experiments/kursim_go/*.log
 # BESA-GO run logs
 experiments/besa_go/*.log
+# QENDRESA-GO run logs
+experiments/qendresa_go/*.log
