@@ -8,7 +8,8 @@ transport equation. It is split on five reactions (stoichiometric matrix N, meq-
   R4 sulfate reduction (SO4 -1, HCO3 +1), R5 calcite dissolution (Ca +1, HCO3 +1).
 N has rank 5 on the six non-conservative ions; its left null vector is the charge balance, so the residual of the
 split is the charge imbalance of the departures. Uncertainty: analytical error, fresh end-member, and seawater salinity
-between standard seawater and the Adriatic. Writes gjurma_field.json.
+between standard seawater and the southern Adriatic (S = 38.3, density 1.0285, as in the chloride article of
+chloride_fk/). Writes gjurma_field.json.
 """
 import json, os
 import numpy as np
@@ -79,7 +80,7 @@ if __name__ == '__main__':
         f, d, xi, res = split(mgl, fresh, SEA_MGL)
         draws = []
         for _ in range(4000):
-            sal = rng.uniform(1.0, 21500.0 / 19353.0)                      # standard -> Adriatic salinity
+            sal = rng.uniform(1.0, 38.3 / 35.0 * 1.0285)                   # S = 35 -> southern Adriatic (S = 38.3, rho 1.0285)
             fr = fresh * np.exp(0.10 * rng.standard_normal(7))
             mg = mgl * np.exp(0.03 * rng.standard_normal(7))
             fd, dd, xd, rd = split(mg, fr, SEA_MGL * sal)
