@@ -40,20 +40,22 @@ limited by the availability of the ion they consume.
 
 Seawater fraction f from Cl between the fresh end-member (well 193) and seawater; departures Δ = N ξ (meq/L);
 uncertainty from a 3% analytical error, a 10% error of the fresh end-member and a seawater salinity between standard
-seawater and the Adriatic (4000 draws). Seawater fraction with standard seawater (90% interval over all sources of
-uncertainty) and reaction extents, median and 90% interval (meq/L):
+seawater and the southern Adriatic (S = 38.3, as in the chloride article; 4000 draws). The table gives the seawater
+fraction with standard seawater (90% interval over all sources of uncertainty) and the reaction extents, median and
+90% interval (meq/L):
 
 | well | f | Na–Ca exch. | Na–Mg exch. | K–Ca exch. | sulfate red. | calcite |
 |---|---|---|---|---|---|---|
 | 503 | 5.4% [4.7, 5.4] | 4.7 [3.5, 6.0] | 5.8 [5.2, 6.5] | 0.47 [0.16, 0.77] | 3.6 [3.2, 4.1] | −1.9 [−2.8, −1.1] |
-| 341 | 5.3% [4.7, 5.4] | 4.5 [3.2, 5.8] | 0.38 [−0.08, 0.85] | 0.43 [0.12, 0.73] | 1.7 [1.3, 2.2] | −2.3 [−3.2, −1.5] |
+| 341 | 5.3% [4.6, 5.4] | 4.5 [3.2, 5.8] | 0.38 [−0.08, 0.85] | 0.43 [0.12, 0.73] | 1.7 [1.3, 2.2] | −2.3 [−3.2, −1.5] |
 | 340 | 2.1% [1.8, 2.1] | −0.22 [−0.87, 0.45] | −1.8 [−2.2, −1.5] | 0.22 [0.03, 0.39] | 0.83 [0.55, 1.11] | −0.49 [−1.02, 0.02] |
 
 On the six non-conservative ions N has rank 5 and its left null vector is the charge balance, so the residual of the
 split is the charge imbalance of the departures (0.02–0.05 meq/L). The small residual is a consistency check, not a
 proof that these reactions occurred. Read physically: the coastal wells show intrusion-type exchange (Na taken up,
 Ca and Mg released) and sulfate reduction; well 340 shows the opposite sign of Na–Mg exchange (Na released, as in
-freshening of a once-marine exchanger).
+freshening of a once-marine exchanger), consistent with the Na–HCO3 facies that the source reports between the
+Mg–Ca–HCO3 waters of the recharge zone and the Na–Cl waters of the coast (sheet 7).
 
 ## The twin experiment (B)
 
