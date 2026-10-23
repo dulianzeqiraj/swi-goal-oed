@@ -1,3 +1,5 @@
+"""BESA-GO quick check: every estimator and both checks on one simulated data set per scenario and sample size
+(n = 1500, 6000, 100 000). About 3 minutes; prints one line per data set."""
 import time, numpy as np
 import besa_model as M, besa_est as B
 for name, kw in [('correct', dict(cop=M.COMMON)), ('pumpdep', dict(cop=M.PUMPDEP)), ('wrongprop', dict(cop=M.COMMON, past=M.WRONGPROP)),
