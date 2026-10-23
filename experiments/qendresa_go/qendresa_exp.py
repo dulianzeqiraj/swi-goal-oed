@@ -31,8 +31,14 @@ SCEN = {
 METHODS = ['frugal', 'twostep', 'ipw', 'gform']
 RULES = ['frugal', 'ipw', 'gform']
 Z95 = 1.645                                                          # one-sided 95% upper bound of the risk
-Zg = np.random.default_rng(2024).standard_normal((4000, M.K))       # fixed draws of the g-formula
-Wf = np.random.default_rng(2025).standard_normal((20000, M.K))      # fixed scores of the frugal simulator
+from scipy.stats import qmc
+from scipy.special import ndtri
+Zg = np.random.default_rng(2024).standard_normal((4000, M.K))       # fixed draws of the g-formula (MSM projection)
+# Rules are integrated with scrambled Sobol points: 2^14 of them are accurate to about 5e-4 in the risk, while
+# 20 000 pseudo-random draws reused in every data set gave a common error of about -0.0045.
+_sob = lambda seed: ndtri(np.clip(qmc.Sobol(M.K, scramble=True, seed=seed).random(2 ** 14), 1e-12, 1 - 1e-12))
+Wf = _sob(2025)                                                       # scores of the frugal simulator
+Zr = _sob(2026)                                                       # draws of the g-formula for the rules
 
 
 def one(args):
@@ -50,7 +56,7 @@ def one(args):
         th_g, se_g, phi = E.gform(P, Zg)
         if sc.get('rules', True):
             fr, fse = E.frugal_rules_band(f['p'], f['cov'], f['free'], TAUS, Wf)
-            rules = np.stack([fr, E.ipw_rules(P, TAUS), E.gform_rules(phi, TAUS, Zg)])
+            rules = np.stack([fr, E.ipw_rules(P, TAUS), E.gform_rules(phi, TAUS, Zr)])
         else:
             rules = fse = None
     except Exception:

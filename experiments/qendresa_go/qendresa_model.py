@@ -87,7 +87,7 @@ def cond_hazard(m, s, c_prev, c_now):
     return 1 - np.exp(log_ndtr((c_now - m) / s) - log_ndtr((c_prev - m) / s))
 
 
-def dynamic_truth(taus, past=PAST, msm=MSM, rho=RHO, copula='gauss', n=400_000, seed=11):
+def dynamic_truth(taus, past=PAST, msm=MSM, rho=RHO, copula="gauss", n=2_000_000, seed=11):
     """Risk P(T^g <= K) and yield E[sum_k A_k^g 1{T^g >= k}] of the rules A_k = 1{L_k < tau}, by large simulation
     with the failure-time noise integrated out analytically (Gaussian copula) or simulated ('tcop')."""
     out = []
