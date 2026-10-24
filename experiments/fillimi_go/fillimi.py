@@ -11,7 +11,7 @@ in the storage-weighted inner product W = diag(S_y, s_k), so every goal response
 Boundary forcing: sea-level anomaly eta and recharge anomaly r, both Ornstein-Uhlenbeck processes.
 Goal: the head g(t) = h(x_g, t) at a coastal well.
 
-Writes fillimi_results.json and fillimi.log. Theory: section 9 of review 44 (Theorem F).
+Writes fillimi_results.json and fillimi.log. Theory: section 10 of review 44 (Theorem F, Proposition G).
 """
 import json
 import os

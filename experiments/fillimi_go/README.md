@@ -10,7 +10,7 @@ t* grows only like the logarithm of the variance ratio. FILLIMI-GO asks what a c
 clay lenses, immobile zones) does to t*, and how the position of the goal relative to a fixed (Dirichlet) boundary
 changes the answer.
 
-**Theory (section 9 of the review, Theorem F).** For a system that is self-adjoint in the storage-weighted inner product
+**Theory (section 10 of the review, Theorem F, and Proposition G).** For a system that is self-adjoint in the storage-weighted inner product
 (diffusion with symmetric exchange to storage compartments, Dirichlet/Neumann/Robin boundaries) and a prior that is a
 function of the operator, P0 = φ(M):
 1. the initial-condition variance of any linear goal is completely monotone in time, V_IC(t) = ∫ φ(λ) e^{-2λt} dν_g(λ);
