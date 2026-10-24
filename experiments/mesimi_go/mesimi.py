@@ -11,9 +11,10 @@ estimates the head row (a_h, b_r, beta) by least squares from (h, r, q), then pl
 optimal rule of its policy class. Two classes:
     full:  q = -K z (the rule may respond to the soil-moisture index m, which is excluded from the head row);
     head:  q = -k h (the rule responds to the head only; q is then collinear with a regressor of the head row).
-Proposition M (review 46, section 10): the estimate of beta is consistent without injected exploration iff the
+Proposition M (review 46, section 9): the estimate of beta is consistent without injected exploration if the
 policy's variation of q orthogonal to the other regressors of the head row has positive variance; then the regret
-of certainty equivalence grows like log T. Otherwise exploration must be injected and the regret grows like sqrt T.
+of certainty equivalence grows like log T. If that variance is zero, certainty equivalence can lock onto a wrong
+(self-confirming) value; exploration must be injected and the regret grows like sqrt T.
 Writes mesimi_results.json and mesimi.log.
 """
 import json
