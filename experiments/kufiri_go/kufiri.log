@@ -1,0 +1,12 @@
+H=   1 yr  toe sd= 133.0 m  mean=   -0.1 m  groups: initial state 99.1%, atmosphere 0.7%, sea 0.1%, pumping 0.0%, river 0.0%  | top: initial toe 99.0%, rain anomaly 0.7%, sea interannual 0.1%, initial head 0.1%
+H=   5 yr  toe sd= 108.2 m  mean=    2.9 m  groups: initial state 55.4%, atmosphere 42.4%, sea 1.9%, pumping 0.3%, river 0.0%  | top: initial toe 55.0%, rain anomaly 41.6%, sea interannual 1.6%, temperature anomaly 0.6%
+H=  20 yr  toe sd= 142.7 m  mean=   69.1 m  groups: atmosphere 94.5%, sea 4.4%, initial state 0.8%, pumping 0.3%, river 0.0%  | top: rain anomaly 59.9%, drying trend 32.9%, sea-level-rise rate 2.6%, sea interannual 1.6%
+Monte Carlo check at 20 yr: budget var 20358 m2, simulated 19683 +- 508 m2
+H=   1 yr atmosphere var      124 = recharge       58 + river      0 + pumping      12 + cross       54 (m2)
+H=   5 yr atmosphere var     4972 = recharge     2559 + river      1 + pumping     361 + cross     2050 (m2)
+H=  20 yr atmosphere var    19236 = recharge    10351 + river      5 + pumping    1219 + cross     7662 (m2)
+H=   1 yr policy: k_sq=500 sd  133.0 m mean   -0.1 | do(k=0) sd  132.8 mean   -0.1 | k*=  -1118 sd  132.5 mean   -0.1
+H=   5 yr policy: k_sq=500 sd  108.2 m mean    2.9 | do(k=0) sd   97.0 mean    0.9 | k*=  -1351 sd   82.2 mean   -4.4
+H=  20 yr policy: k_sq=500 sd  142.7 m mean   69.1 | do(k=0) sd  109.1 mean   39.9 | k*=  -1482 sd   34.6 mean  -46.4
+largest variance reduction from halving one uncertainty: 1 yr: initial toe (74%), 5 yr: initial toe (41%), 20 yr: rain anomaly (45%)
+runtime 88 s

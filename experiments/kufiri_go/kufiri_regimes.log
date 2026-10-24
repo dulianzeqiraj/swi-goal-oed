@@ -1,0 +1,12 @@
+soil-moisture index sd 0.165 m/yr; regime threshold +-0.083 m/yr
+constant pumping                                     toe sd  109.9 m  mean   38.5 m  95th pct  217.8 m  mean pumping anomaly     0.0 m2/yr
+linear status quo (k=+500)                           toe sd  143.9 m  mean   67.1 m  95th pct  301.4 m  mean pumping anomaly    20.2 m2/yr
+linear optimal (k*=-1482)                            toe sd   34.1 m  mean  -46.2 m  95th pct    8.9 m  mean pumping anomaly   -59.9 m2/yr
+regimes, status quo (emergency +150 in drought)      toe sd  133.7 m  mean  110.0 m  95th pct  328.9 m  mean pumping anomaly    59.6 m2/yr
+regimes, adaptive (restricted -150 in drought)       toe sd   87.3 m  mean  -32.9 m  95th pct  108.5 m  mean pumping anomaly   -59.6 m2/yr
+regimes, adaptive both ways (-150 drought, +100 wet) toe sd   76.7 m  mean   -8.7 m  95th pct  117.2 m  mean pumping anomaly   -36.6 m2/yr
+linear optimal rule, soil-moisture sensing error sd 0.00 m/yr (   0% of index sd): toe sd   34.1 m  mean  -46.2 m
+linear optimal rule, soil-moisture sensing error sd 0.05 m/yr (  30% of index sd): toe sd   34.7 m  mean  -46.1 m
+linear optimal rule, soil-moisture sensing error sd 0.10 m/yr (  61% of index sd): toe sd   36.5 m  mean  -46.1 m
+linear optimal rule, soil-moisture sensing error sd 0.20 m/yr ( 121% of index sd): toe sd   42.8 m  mean  -46.0 m
+runtime 584 s
