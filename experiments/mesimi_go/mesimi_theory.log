@@ -1,0 +1,10 @@
+Hessian eigenvalues [ 0.151  0.703 41.499]; per-step constant (1/2) tr(H Sigma) = 0.3363
+predicted regret of the drought-aware learner at T=20000: 3.52 (from t=1), 2.26 (from the warm-up), measured 10.03 +- 0.47
+full, no exploration             excess cost per month over the last 8854 months: 0.0000
+head-only, no exploration        excess cost per month over the last 8854 months: 0.0378
+head-only, exploration t^-1/4    excess cost per month over the last 8854 months: 0.0291
+regret increment from T0=104 to T=20000: measured 1.73, predicted c ln(T/T0) = 1.77
+regret increment from T0=275 to T=20000: measured 1.41, predicted c ln(T/T0) = 1.44
+regret increment from T0=1075 to T=20000: measured 0.95, predicted c ln(T/T0) = 0.98
+regret increment from T0=2848 to T=20000: measured 0.66, predicted c ln(T/T0) = 0.66
+regret increment from T0=9172 to T=20000: measured 0.24, predicted c ln(T/T0) = 0.26
