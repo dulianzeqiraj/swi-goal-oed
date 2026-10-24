@@ -1,0 +1,23 @@
+baseline only, known signatures (): fibre [6] over 20 random draws; predicted (n-k)(n-1) = 6
+baseline only, known signatures (0,): fibre [4] over 20 random draws; predicted (n-k)(n-1) = 4
+baseline only, known signatures (2,): fibre [4] over 20 random draws; predicted (n-k)(n-1) = 4
+baseline only, known signatures (0, 1): fibre [2] over 20 random draws; predicted (n-k)(n-1) = 2
+baseline only, known signatures (0, 2): fibre [2] over 20 random draws; predicted (n-k)(n-1) = 2
+baseline only, known signatures (0, 1, 2): fibre [0] over 20 random draws; predicted (n-k)(n-1) = 0
+no stoichiometry, baseline only                            fibre at random parameters: min 6, max 6
+no stoichiometry, pumping regime                           fibre at random parameters: min 4, max 4
+no stoichiometry, irrigation regime                        fibre at random parameters: min 2, max 2
+no stoichiometry, clay-facies regime                       fibre at random parameters: min 2, max 2
+no stoichiometry, pumping + clay-facies regimes            fibre at random parameters: min 1, max 1
+no stoichiometry, irrigation + clay-facies regimes         fibre at random parameters: min 0, max 0
+no stoichiometry, all three regimes                        fibre at random parameters: min 0, max 0
+seawater signature known, baseline only                    fibre at random parameters: min 4, max 4
+seawater signature known, pumping regime                   fibre at random parameters: min 2, max 2
+seawater signature known, clay-facies regime               fibre at random parameters: min 1, max 1
+seawater signature known, pumping + clay-facies regimes    fibre at random parameters: min 0, max 0
+seawater + weathering signatures known, baseline only      fibre at random parameters: min 2, max 2
+seawater + weathering signatures known, pumping regime     fibre at random parameters: min 1, max 1
+seawater + weathering signatures known, clay-facies regime fibre at random parameters: min 0, max 0
+all three signatures known, baseline only                  fibre at random parameters: min 0, max 0
+exchange signature known only, baseline only               fibre at random parameters: min 4, max 4
+source regime: ||S1 - S0 - (sigma^2 - 1) h h^T|| / ||S1 - S0|| = 1.3e-16; second/first singular value of S1 - S0 = 7.8e-17

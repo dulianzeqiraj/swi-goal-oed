@@ -1,0 +1,593 @@
+{
+ "ions": [
+  "Cl",
+  "Na",
+  "K",
+  "Ca",
+  "Mg",
+  "SO4",
+  "HCO3"
+ ],
+ "S": [
+  [
+   565.0,
+   0.0,
+   0.0
+  ],
+  [
+   480.0,
+   0.0,
+   -1.0
+  ],
+  [
+   10.0,
+   0.0,
+   -0.05
+  ],
+  [
+   20.0,
+   1.0,
+   0.6
+  ],
+  [
+   108.0,
+   0.2,
+   0.45
+  ],
+  [
+   58.0,
+   0.0,
+   0.0
+  ],
+  [
+   -2.0,
+   1.2,
+   0.0
+  ]
+ ],
+ "true": {
+  "sd": [
+   0.01,
+   0.8,
+   0.5
+  ],
+  "A": [
+   [
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    20.0,
+    0.0,
+    0.0
+   ],
+   [
+    120.0,
+    -0.3,
+    0.0
+   ]
+  ],
+  "tau": [
+   0.3,
+   0.3,
+   0.02,
+   0.1,
+   0.1,
+   0.05,
+   0.1
+  ],
+  "regime_sd": {
+   "0": 0.025,
+   "1": 1.5,
+   "2": 1.2
+  }
+ },
+ "N_BASE": 300,
+ "N_REG": 150,
+ "x_obs": [
+  6.78,
+  4.359999999999999,
+  0.05,
+  1.68,
+  2.0460000000000003,
+  0.696,
+  0.6959999999999998
+ ],
+ "identifiability": [
+  {
+   "n_par": 24,
+   "rank": 18,
+   "fibre": 6,
+   "Q1 seawater halved (unit)": 0.06687733162958523,
+   "Q2 no exchange (unit)": 0.3793348698270808,
+   "Q3 unobserved pumping regime (population)": 0.021601392068665265,
+   "name": "no stoichiometry, baseline only",
+   "known": [],
+   "targets": []
+  },
+  {
+   "n_par": 25,
+   "rank": 21,
+   "fibre": 4,
+   "Q1 seawater halved (unit)": 5.251070142535629e-16,
+   "Q2 no exchange (unit)": 0.3098488830690899,
+   "Q3 unobserved pumping regime (population)": 2.235642753785998e-16,
+   "name": "no stoichiometry, pumping regime",
+   "known": [],
+   "targets": [
+    0
+   ]
+  },
+  {
+   "n_par": 25,
+   "rank": 23,
+   "fibre": 2,
+   "Q1 seawater halved (unit)": 5.964702816133824e-16,
+   "Q2 no exchange (unit)": 0.13565834198384774,
+   "Q3 unobserved pumping regime (population)": 2.186218320555668e-16,
+   "name": "no stoichiometry, irrigation regime",
+   "known": [],
+   "targets": [
+    1
+   ]
+  },
+  {
+   "n_par": 25,
+   "rank": 23,
+   "fibre": 2,
+   "Q1 seawater halved (unit)": 0.056418092060969295,
+   "Q2 no exchange (unit)": 1.6049333254520901e-16,
+   "Q3 unobserved pumping regime (population)": 0.01683336622864284,
+   "name": "no stoichiometry, clay-facies regime",
+   "known": [],
+   "targets": [
+    2
+   ]
+  },
+  {
+   "n_par": 26,
+   "rank": 25,
+   "fibre": 1,
+   "Q1 seawater halved (unit)": 1.6457430712423231e-16,
+   "Q2 no exchange (unit)": 3.1186641112322994e-16,
+   "Q3 unobserved pumping regime (population)": 1.3418986986953453e-16,
+   "name": "no stoichiometry, pumping + clay-facies regimes",
+   "known": [],
+   "targets": [
+    0,
+    2
+   ]
+  },
+  {
+   "n_par": 26,
+   "rank": 26,
+   "fibre": 0,
+   "Q1 seawater halved (unit)": 0.0,
+   "Q2 no exchange (unit)": 0.0,
+   "Q3 unobserved pumping regime (population)": 0.0,
+   "name": "no stoichiometry, irrigation + clay-facies regimes",
+   "known": [],
+   "targets": [
+    1,
+    2
+   ]
+  },
+  {
+   "n_par": 27,
+   "rank": 27,
+   "fibre": 0,
+   "Q1 seawater halved (unit)": 0.0,
+   "Q2 no exchange (unit)": 0.0,
+   "Q3 unobserved pumping regime (population)": 0.0,
+   "name": "no stoichiometry, all three regimes",
+   "known": [],
+   "targets": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "n_par": 18,
+   "rank": 14,
+   "fibre": 4,
+   "Q1 seawater halved (unit)": 0.0029388205313943348,
+   "Q2 no exchange (unit)": 0.554483628896158,
+   "Q3 unobserved pumping regime (population)": 0.00014483746127798438,
+   "name": "seawater signature known, baseline only",
+   "known": [
+    0
+   ],
+   "targets": []
+  },
+  {
+   "n_par": 19,
+   "rank": 17,
+   "fibre": 2,
+   "Q1 seawater halved (unit)": 2.853854306380486e-17,
+   "Q2 no exchange (unit)": 0.29176436965266916,
+   "Q3 unobserved pumping regime (population)": 1.285763859768463e-18,
+   "name": "seawater signature known, pumping regime",
+   "known": [
+    0
+   ],
+   "targets": [
+    0
+   ]
+  },
+  {
+   "n_par": 19,
+   "rank": 18,
+   "fibre": 1,
+   "Q1 seawater halved (unit)": 0.002509037580556289,
+   "Q2 no exchange (unit)": 2.2318564407230493e-16,
+   "Q3 unobserved pumping regime (population)": 0.00010791491457572838,
+   "name": "seawater signature known, clay-facies regime",
+   "known": [
+    0
+   ],
+   "targets": [
+    2
+   ]
+  },
+  {
+   "n_par": 20,
+   "rank": 20,
+   "fibre": 0,
+   "Q1 seawater halved (unit)": 0.0,
+   "Q2 no exchange (unit)": 0.0,
+   "Q3 unobserved pumping regime (population)": 0.0,
+   "name": "seawater signature known, pumping + clay-facies regimes",
+   "known": [
+    0
+   ],
+   "targets": [
+    0,
+    2
+   ]
+  },
+  {
+   "n_par": 12,
+   "rank": 10,
+   "fibre": 2,
+   "Q1 seawater halved (unit)": 0.0004976283503543208,
+   "Q2 no exchange (unit)": 0.5653590706324313,
+   "Q3 unobserved pumping regime (population)": 6.975798706692826e-05,
+   "name": "seawater + weathering signatures known, baseline only",
+   "known": [
+    0,
+    1
+   ],
+   "targets": []
+  },
+  {
+   "n_par": 13,
+   "rank": 12,
+   "fibre": 1,
+   "Q1 seawater halved (unit)": 6.2347418683944915e-18,
+   "Q2 no exchange (unit)": 0.26721437800973313,
+   "Q3 unobserved pumping regime (population)": 4.618225146270537e-19,
+   "name": "seawater + weathering signatures known, pumping regime",
+   "known": [
+    0,
+    1
+   ],
+   "targets": [
+    0
+   ]
+  },
+  {
+   "n_par": 13,
+   "rank": 13,
+   "fibre": 0,
+   "Q1 seawater halved (unit)": 0.0,
+   "Q2 no exchange (unit)": 0.0,
+   "Q3 unobserved pumping regime (population)": 0.0,
+   "name": "seawater + weathering signatures known, clay-facies regime",
+   "known": [
+    0,
+    1
+   ],
+   "targets": [
+    2
+   ]
+  },
+  {
+   "n_par": 6,
+   "rank": 6,
+   "fibre": 0,
+   "Q1 seawater halved (unit)": 0.0,
+   "Q2 no exchange (unit)": 0.0,
+   "Q3 unobserved pumping regime (population)": 0.0,
+   "name": "all three signatures known, baseline only",
+   "known": [
+    0,
+    1,
+    2
+   ],
+   "targets": []
+  },
+  {
+   "n_par": 18,
+   "rank": 14,
+   "fibre": 4,
+   "Q1 seawater halved (unit)": 0.09548800327704375,
+   "Q2 no exchange (unit)": 0.24291852085575477,
+   "Q3 unobserved pumping regime (population)": 0.03079417824333301,
+   "name": "exchange signature known only, baseline only",
+   "known": [
+    2
+   ],
+   "targets": []
+  }
+ ],
+ "cf_true": {
+  "pump": [
+   3.39,
+   2.163999999999999,
+   0.02419999999999993,
+   1.0296000000000005,
+   1.0662000000000005,
+   0.348,
+   0.5639999999999995
+  ],
+  "exch": [
+   6.78,
+   5.76,
+   0.12,
+   0.8399999999999996,
+   1.416,
+   0.696,
+   0.6959999999999995
+  ]
+ },
+ "estimation": [
+  {
+   "name": "no stoichiometry, baseline only",
+   "known": [],
+   "targets": [],
+   "n_data": 10,
+   "restarts": 6,
+   "err_pump_median": 0.06570157277237451,
+   "err_pump_p90": 0.14275126193703858,
+   "err_exch_median": 4.03397469496714,
+   "err_exch_p90": 5.821392488289288,
+   "spread_pump_median": 0.09528395764346738,
+   "spread_exch_median": 5.396552717079073,
+   "n_good_median": 3.0,
+   "err_pump_all": [
+    0.06555413000257423,
+    0.06584901554217479,
+    0.0741662173086703,
+    0.16917404189814975,
+    0.08384215122357253,
+    0.06403357544724489,
+    0.05301566080241489,
+    0.031411074013564015,
+    0.13981539749691513,
+    0.02548798825415071
+   ],
+   "err_exch_all": [
+    3.576697137111499,
+    6.3114641701225835,
+    1.2626397575611148,
+    1.3554487631859382,
+    5.739085909633563,
+    4.911391510523044,
+    3.2437929828628422,
+    4.491252252822781,
+    5.766940079196699,
+    3.3745532869681245
+   ]
+  },
+  {
+   "name": "seawater + weathering signatures known, baseline only",
+   "known": [
+    0,
+    1
+   ],
+   "targets": [],
+   "n_data": 10,
+   "restarts": 6,
+   "err_pump_median": 0.02069621532231326,
+   "err_pump_p90": 0.04187441802415329,
+   "err_exch_median": 1.8798297610955026,
+   "err_exch_p90": 3.245313471719406,
+   "spread_pump_median": 0.05355249398389846,
+   "spread_exch_median": 2.9834091583839726,
+   "n_good_median": 6.0,
+   "err_pump_all": [
+    0.012056469044897145,
+    0.03157864241860677,
+    0.01015512042446045,
+    0.02866889270815512,
+    0.04167923255383729,
+    0.006939071297932119,
+    0.03633996310731901,
+    0.0127235379364714,
+    0.011481318207963448,
+    0.043631087256997256
+   ],
+   "err_exch_all": [
+    1.9100708700219737,
+    4.3703365939472745,
+    1.3502797470039996,
+    1.7743781314100944,
+    3.1203109025829767,
+    1.3872026872707655,
+    1.8495886521690312,
+    1.5078117924601413,
+    2.5382846324532564,
+    2.791992021836208
+   ]
+  },
+  {
+   "name": "no stoichiometry, pumping regime",
+   "known": [],
+   "targets": [
+    0
+   ],
+   "n_data": 10,
+   "restarts": 6,
+   "err_pump_median": 0.027989881595120093,
+   "err_pump_p90": 0.06552420059155999,
+   "err_exch_median": 3.7708910869922287,
+   "err_exch_p90": 6.7331961198781345,
+   "spread_pump_median": 0.0008111415574157902,
+   "spread_exch_median": 0.0625367808800451,
+   "n_good_median": 1.5,
+   "err_pump_all": [
+    0.030603449144601627,
+    0.022761065379646138,
+    0.0427980971945981,
+    0.016054876412319865,
+    0.010560905008405397,
+    0.19649543132035954,
+    0.029724350724264336,
+    0.05097184162169342,
+    0.02625541246597585,
+    0.02309559583665137
+   ],
+   "err_exch_all": [
+    3.940567828776764,
+    2.058669216755171,
+    3.6012143452076937,
+    1.9161995619528338,
+    4.229173117682948,
+    10.761079904929797,
+    2.739073979183598,
+    6.285653477094618,
+    4.352721354455184,
+    2.273732727226463
+   ]
+  },
+  {
+   "name": "no stoichiometry, irrigation + clay-facies regimes",
+   "known": [],
+   "targets": [
+    1,
+    2
+   ],
+   "n_data": 10,
+   "restarts": 6,
+   "err_pump_median": 0.0653781412921757,
+   "err_pump_p90": 0.15554568444669795,
+   "err_exch_median": 1.6909560966056374,
+   "err_exch_p90": 4.702950674304795,
+   "spread_pump_median": 0.0568383010873573,
+   "spread_exch_median": 0.22604048560714368,
+   "n_good_median": 2.0,
+   "err_pump_all": [
+    0.15497924541867764,
+    0.06678331496122807,
+    0.16064363569888063,
+    0.06397296762312332,
+    0.05408838726260405,
+    0.05560607604874891,
+    0.027166266100324177,
+    0.04973989777570857,
+    0.09779159759594411,
+    0.1292895522816478
+   ],
+   "err_exch_all": [
+    3.269510031163087,
+    0.575649566443988,
+    2.8062626267672868,
+    0.2297768864440297,
+    2.828171318322159,
+    5.075758296070779,
+    0.3030913094332412,
+    0.5501103631102084,
+    0.5750101089901458,
+    4.6615276052196855
+   ]
+  },
+  {
+   "name": "seawater signature known, pumping + clay-facies regimes",
+   "known": [
+    0
+   ],
+   "targets": [
+    0,
+    2
+   ],
+   "n_data": 10,
+   "restarts": 6,
+   "err_pump_median": 0.03249738376331629,
+   "err_pump_p90": 0.05729610717288915,
+   "err_exch_median": 0.15249848053235787,
+   "err_exch_p90": 0.2965565988479078,
+   "spread_pump_median": 0.03313673166052796,
+   "spread_exch_median": 0.12523910678214772,
+   "n_good_median": 4.0,
+   "err_pump_all": [
+    0.022399824309943514,
+    0.019367395478537806,
+    0.04019485084648299,
+    0.009367984488929854,
+    0.06515464364491036,
+    0.03500087732414746,
+    0.03278930640465232,
+    0.03220546112198025,
+    0.01457109068477966,
+    0.05642293645377569
+   ],
+   "err_exch_all": [
+    0.13279832052736293,
+    0.12676242682848876,
+    0.2590602836448192,
+    0.12347433380378416,
+    0.15296579421796527,
+    0.21493276697493696,
+    0.43043643600308296,
+    0.1304408441957227,
+    0.15203116684675047,
+    0.28168106138622173
+   ]
+  },
+  {
+   "name": "all three signatures known, baseline only",
+   "known": [
+    0,
+    1,
+    2
+   ],
+   "targets": [],
+   "n_data": 10,
+   "restarts": 6,
+   "err_pump_median": 0.009547406251977173,
+   "err_pump_p90": 0.013312239583242479,
+   "err_exch_median": 7.330837235847162e-16,
+   "err_exch_p90": 1.3419544529555577e-15,
+   "spread_pump_median": 0.0004344084173813893,
+   "spread_exch_median": 1.1071196386556092e-15,
+   "n_good_median": 5.0,
+   "err_pump_all": [
+    0.008099557524119946,
+    0.002765950829789408,
+    0.01237939770994474,
+    0.01120494876448901,
+    0.021707816442922162,
+    0.011080589492801881,
+    0.006390163373670284,
+    0.004596144194831713,
+    0.010778342794519604,
+    0.008316469709434742
+   ],
+   "err_exch_all": [
+    6.313398124506723e-16,
+    7.502153745547132e-16,
+    5.418415281578117e-16,
+    1.1559295831772486e-15,
+    7.323251478892251e-16,
+    1.274060521233834e-15,
+    7.338422992802073e-16,
+    1.9529998384510732e-15,
+    6.113683859583561e-16,
+    6.145948970201664e-16
+   ]
+  }
+ ],
+ "runtime_s": 502.290372133255
+}
