@@ -1,0 +1,16 @@
+no stoichiometry, baseline only                            predicted relative error: seawater halved not identified, no exchange not identified
+no stoichiometry, pumping regime                           predicted relative error: seawater halved 0.037, no exchange not identified
+no stoichiometry, irrigation regime                        predicted relative error: seawater halved 0.116, no exchange not identified
+no stoichiometry, clay-facies regime                       predicted relative error: seawater halved not identified, no exchange 0.375
+no stoichiometry, pumping + clay-facies regimes            predicted relative error: seawater halved 0.032, no exchange 0.354
+no stoichiometry, irrigation + clay-facies regimes         predicted relative error: seawater halved 0.129, no exchange 0.373
+no stoichiometry, all three regimes                        predicted relative error: seawater halved 0.031, no exchange 0.331
+seawater signature known, baseline only                    predicted relative error: seawater halved not identified, no exchange not identified
+seawater signature known, pumping regime                   predicted relative error: seawater halved 0.037, no exchange not identified
+seawater signature known, clay-facies regime               predicted relative error: seawater halved not identified, no exchange 0.312
+seawater signature known, pumping + clay-facies regimes    predicted relative error: seawater halved 0.032, no exchange 0.301
+seawater + weathering signatures known, baseline only      predicted relative error: seawater halved not identified, no exchange not identified
+seawater + weathering signatures known, pumping regime     predicted relative error: seawater halved 0.007, no exchange not identified
+seawater + weathering signatures known, clay-facies regime predicted relative error: seawater halved 0.011, no exchange 0.282
+all three signatures known, baseline only                  predicted relative error: seawater halved 0.011, no exchange 0.000
+exchange signature known only, baseline only               predicted relative error: seawater halved not identified, no exchange not identified

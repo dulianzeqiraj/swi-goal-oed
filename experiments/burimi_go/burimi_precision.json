@@ -1,0 +1,164 @@
+[
+ {
+  "name": "no stoichiometry, baseline only",
+  "known": [],
+  "targets": [],
+  "pred_rel_err_pump": null,
+  "pred_rel_err_exch": null
+ },
+ {
+  "name": "no stoichiometry, pumping regime",
+  "known": [],
+  "targets": [
+   0
+  ],
+  "pred_rel_err_pump": 0.036690824440443054,
+  "pred_rel_err_exch": null
+ },
+ {
+  "name": "no stoichiometry, irrigation regime",
+  "known": [],
+  "targets": [
+   1
+  ],
+  "pred_rel_err_pump": 0.11640619962557848,
+  "pred_rel_err_exch": null
+ },
+ {
+  "name": "no stoichiometry, clay-facies regime",
+  "known": [],
+  "targets": [
+   2
+  ],
+  "pred_rel_err_pump": null,
+  "pred_rel_err_exch": 0.3753899687512269
+ },
+ {
+  "name": "no stoichiometry, pumping + clay-facies regimes",
+  "known": [],
+  "targets": [
+   0,
+   2
+  ],
+  "pred_rel_err_pump": 0.03205261745981008,
+  "pred_rel_err_exch": 0.3539438407774391
+ },
+ {
+  "name": "no stoichiometry, irrigation + clay-facies regimes",
+  "known": [],
+  "targets": [
+   1,
+   2
+  ],
+  "pred_rel_err_pump": 0.12860491751490113,
+  "pred_rel_err_exch": 0.37304826377554356
+ },
+ {
+  "name": "no stoichiometry, all three regimes",
+  "known": [],
+  "targets": [
+   0,
+   1,
+   2
+  ],
+  "pred_rel_err_pump": 0.030708520944159715,
+  "pred_rel_err_exch": 0.33062997937420924
+ },
+ {
+  "name": "seawater signature known, baseline only",
+  "known": [
+   0
+  ],
+  "targets": [],
+  "pred_rel_err_pump": null,
+  "pred_rel_err_exch": null
+ },
+ {
+  "name": "seawater signature known, pumping regime",
+  "known": [
+   0
+  ],
+  "targets": [
+   0
+  ],
+  "pred_rel_err_pump": 0.036667037869145075,
+  "pred_rel_err_exch": null
+ },
+ {
+  "name": "seawater signature known, clay-facies regime",
+  "known": [
+   0
+  ],
+  "targets": [
+   2
+  ],
+  "pred_rel_err_pump": null,
+  "pred_rel_err_exch": 0.3122190324775789
+ },
+ {
+  "name": "seawater signature known, pumping + clay-facies regimes",
+  "known": [
+   0
+  ],
+  "targets": [
+   0,
+   2
+  ],
+  "pred_rel_err_pump": 0.0320402582042455,
+  "pred_rel_err_exch": 0.3010173895316501
+ },
+ {
+  "name": "seawater + weathering signatures known, baseline only",
+  "known": [
+   0,
+   1
+  ],
+  "targets": [],
+  "pred_rel_err_pump": null,
+  "pred_rel_err_exch": null
+ },
+ {
+  "name": "seawater + weathering signatures known, pumping regime",
+  "known": [
+   0,
+   1
+  ],
+  "targets": [
+   0
+  ],
+  "pred_rel_err_pump": 0.006887630719041481,
+  "pred_rel_err_exch": null
+ },
+ {
+  "name": "seawater + weathering signatures known, clay-facies regime",
+  "known": [
+   0,
+   1
+  ],
+  "targets": [
+   2
+  ],
+  "pred_rel_err_pump": 0.01062255675178934,
+  "pred_rel_err_exch": 0.2815107189914155
+ },
+ {
+  "name": "all three signatures known, baseline only",
+  "known": [
+   0,
+   1,
+   2
+  ],
+  "targets": [],
+  "pred_rel_err_pump": 0.011136472376175424,
+  "pred_rel_err_exch": 1.327737514521397e-16
+ },
+ {
+  "name": "exchange signature known only, baseline only",
+  "known": [
+   2
+  ],
+  "targets": [],
+  "pred_rel_err_pump": null,
+  "pred_rel_err_exch": null
+ }
+]
