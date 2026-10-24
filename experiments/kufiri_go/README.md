@@ -22,7 +22,7 @@ source contributions (independent sources, linear system), computed by exact (Va
 |---|---|---|
 | 1 yr | 133 m | initial toe 99% |
 | 5 yr | 108 m | initial toe 55%, rain anomaly 42% |
-| 20 yr | 143 m | rain anomaly 60%, drying trend 33%, sea-level-rise rate 2.6%; initial state 0.8%; storm surges ≈ 0 |
+| 20 yr | 143 m | rain anomaly 60%, drying trend 33%, sea-level-rise rate 2.6%; initial state 0.8%; storm surges ≤ 0.3% |
 
 - Monte Carlo check (3,000 paths, all sources together): 19,683 ± 508 m² against the budget's 20,358 m² at 20 yr.
 - Causal paths of the atmosphere at 20 yr (variance, m²): recharge 10,351, pumping response 1,219, river 5, and a
