@@ -1,0 +1,4 @@
+unit left eigenvector of the slow mode on (m, h, X, c): [-0.0187 -0.0604  0.0696  0.9956]; right: [0.000e+00 1.960e-01 8.000e-04 9.806e-01]
+controllability through the head |l_i^T B| (unit left eigenvectors): [0.0181 0.     0.2347 0.2347]
+policy evaluation from zero: greedy gain within 1% on every state after 7 updates, when the relative error of P_cc is still 0.481; at 25 updates P_cc error 0.341, gain error on c 0.0087
+with physics shaping: all gains within 1% after 1 updates

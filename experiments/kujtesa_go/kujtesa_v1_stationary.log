@@ -1,0 +1,10 @@
+optimal pumping rule K* on (m, h, X, c) = [-0.6947 -1.4381  0.7343  0.3834]; closed-loop eigenvalues [0.995 +0.j     0.7   +0.j     0.6593+0.2241j 0.6593-0.2241j]
+modal contraction of fitted value iteration: max |measured - g mu_i mu_j| over all mode pairs = 6.39e-15
+updates to reach 1% error: slow x slow mode 230 (predicted 230); slow x fast 13; fastest pair 7
+Q-iteration of the control problem: iterations until the pumping gain is within 1%: m 8, h 7, X 7, c 7; tail contraction of the gain on c 0.9802 (g mu_slow = 0.9851, g mu_slow^2 = 0.9802)
+exact relative error of P_cc after 25/50/100 updates: FVI 0.341/0.207/0.076 (below 10% at 87); FVI, lambda-returns 0.006/0.000/0.000 (below 10% at 10); FVI, physics shaping 0.064/0.039/0.014 (below 10% at 3)
+physics potential from a model with clay memory 0.993 instead of 0.995: initial slow-mode error 18.8% of the unshaped one; saves 83 updates
+neural FVI                   : relative error of P_cc after 25/50/100/200 updates 8.022/5.975/0.665/0.726; first below 10% at update 107; fast mode at 25: 0.085; total relative error at the end 0.083
+neural FVI, lambda-returns   : relative error of P_cc after 25/50/100/200 updates 2.230/0.865/0.511/0.627; first below 10% at update 101; fast mode at 25: 0.279; total relative error at the end 0.106
+neural FVI, physics shaping  : relative error of P_cc after 25/50/100/200 updates 0.370/0.418/0.456/0.719; first below 10% at update 1; fast mode at 25: 0.022; total relative error at the end 0.075
+runtime 3238 s
