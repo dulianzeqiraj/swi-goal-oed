@@ -42,3 +42,5 @@ experiments/zgjedhja_go/*.log
 experiments/baraspesha_go/*.log
 experiments/mjegulla_go/*.log
 experiments/gjurma_go/*.log
+# ZBULIMI-GO: console copy of the run log (zbulimi.log holds the same text)
+experiments/zbulimi_go/run_main.out
