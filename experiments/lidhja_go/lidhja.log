@@ -1,0 +1,19 @@
+L | salinisation | E -30%                       | equal | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | salinisation | E -30%                       | fick  | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | salinisation | E -30%                       | np    | max|dCl| 4.033e-01 mmol/L  ||u|| 2.951e-01  bound 1.078e+04 / 1.141e+00 / 1.069e+00  rel uptake @100yr -0.0095
+L | salinisation | K_Na\Ca x1.5, K_Na\Mg x1.5   | equal | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | salinisation | K_Na\Ca x1.5, K_Na\Mg x1.5   | fick  | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | salinisation | K_Na\Ca x1.5, K_Na\Mg x1.5   | np    | max|dCl| 4.402e-01 mmol/L  ||u|| 3.278e-01  bound 1.327e+04 / 1.413e+00 / 1.316e+00  rel uptake @100yr +0.0106
+L | freshening ( | E -30%                       | equal | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | freshening ( | E -30%                       | fick  | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | freshening ( | E -30%                       | np    | max|dCl| 2.361e-02 mmol/L  ||u|| 1.600e-02  bound 3.263e+04 / 2.189e-01 / 1.548e-01  rel uptake @100yr -0.0000
+L | freshening ( | K_Na\Ca x1.5, K_Na\Mg x1.5   | equal | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | freshening ( | K_Na\Ca x1.5, K_Na\Mg x1.5   | fick  | max|dCl| 0.000e+00 mmol/L  ||u|| 0.000e+00  bound 0.000e+00 / 0.000e+00 / 0.000e+00  rel uptake @100yr +0.0000
+L | freshening ( | K_Na\Ca x1.5, K_Na\Mg x1.5   | np    | max|dCl| 2.453e-02 mmol/L  ||u|| 1.521e-02  bound 3.395e+04 / 2.317e-01 / 1.610e-01  rel uptake @100yr +0.0001
+P | Pe    0.0 | equal max|dCl| 0.00e+00 | np max|dCl| 7.251e-02 ||u|| 2.833e-02 bound 8.230e+00 / 1.274e-01
+P | Pe    1.0 | equal max|dCl| 0.00e+00 | np max|dCl| 2.522e-02 ||u|| 1.039e-02 bound 9.946e-02 / 4.255e-02
+P | Pe    3.0 | equal max|dCl| 0.00e+00 | np max|dCl| 1.107e-02 ||u|| 4.579e-03 bound 2.244e-02 / 1.847e-02
+P | Pe   10.0 | equal max|dCl| 0.00e+00 | np max|dCl| 3.732e-03 ||u|| 1.550e-03 bound 6.378e-03 / 6.225e-03
+P | Pe   30.0 | equal max|dCl| 0.00e+00 | np max|dCl| 1.294e-03 ||u|| 5.362e-04 bound 2.159e-03 / 2.152e-03
+P | Pe  100.0 | equal max|dCl| 0.00e+00 | np max|dCl| 3.940e-04 ||u|| 1.630e-04 bound 6.545e-04 / 6.544e-04
+P | Pe  300.0 | equal max|dCl| 0.00e+00 | np max|dCl| 1.319e-04 ||u|| 5.456e-05 bound 2.190e-04 / 2.190e-04
