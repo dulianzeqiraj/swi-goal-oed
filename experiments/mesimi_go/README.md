@@ -21,12 +21,14 @@ exploration for free.
 Cost per month X² + 0.5 q². The learner knows the structure and estimates the head row (a_h, b_r, β) from the
 regressors (h, r, q), re-solving the rule every 50 months.
 
-**Theory (section 10 of the review, Proposition M).** The estimate of β is consistent without injected exploration
-iff the policy's variation of q orthogonal to the other regressors of the head row (h, r) has positive variance. A
-drought-aware rule q = −Kz loads on m, which is excluded from the head row, so m acts as an instrument: the
+**Theory (section 9 of the review, Proposition M).** The estimate of β is consistent without injected exploration
+if the policy's variation of q orthogonal to the other regressors of the head row (h, r) has positive variance. A
+drought-aware rule q = −Kz loads on m and on the toe X, which are excluded from the head row and act as instruments: the
 estimation error decays like t^(−1/2) and the regret of certainty equivalence grows like c ln T with
 c = ½ tr(H σ_h² Σ_x⁻¹), H the Hessian of the average cost in the head-row parameters. A head-only rule q = −kh has
-zero orthogonal variance; without exploration the estimate stalls and the regret is linear, with exploration ~ √T.
+zero orthogonal variance: the data identify only a projection of the head-row parameters, certainty equivalence can
+lock onto a wrong value that the data cannot refute (a self-confirming parameter), and the regret is linear; with
+injected exploration it is ~ √T.
 
 ## Results (`mesimi.log`, `mesimi_theory.log`; 160 seeds, T = 20 000 months, common random numbers)
 
@@ -45,7 +47,7 @@ zero orthogonal variance; without exploration the estimate stalls and the regret
 Meaning: a pumping rule that also reads the soil-moisture index learns the aquifer's response to pumping on its own,
 with no deliberate perturbation of the well field, and pays only about ten months' worth of excess cost over 1 700
 years of simulated operation. A rule that reads only the head must perturb the wells, or it can lock onto a wrong β.
-The ln T constant is predicted within 2–8 % from the Hessian alone; the absolute regret also contains a burn-in of
+The ln T constant is predicted within 9 % (mostly 1–3 %) from the Hessian alone; the absolute regret also contains a burn-in of
 about 8 cost units from the first 100 months, which the asymptotic formula does not cover.
 
 ## Files
