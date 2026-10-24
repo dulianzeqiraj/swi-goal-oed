@@ -1,0 +1,61 @@
+{
+ "J_opt": 0.6334046637336134,
+ "rows": [
+  {
+   "month": 50,
+   "share_out_of_range": 0.0,
+   "median_excess": 0.008732865905340448,
+   "mean_excess": 0.014134386359050169,
+   "median_condition": 70015.51518504767
+  },
+  {
+   "month": 100,
+   "share_out_of_range": 0.1,
+   "median_excess": 0.01544071856303314,
+   "mean_excess": 0.03540125969533094,
+   "median_condition": 172625.32676124305
+  },
+  {
+   "month": 150,
+   "share_out_of_range": 0.8125,
+   "median_excess": 0.7850886634753339,
+   "mean_excess": 1.864804002750958,
+   "median_condition": 21484.569358372468
+  },
+  {
+   "month": 200,
+   "share_out_of_range": 0.2625,
+   "median_excess": 0.010759738010904185,
+   "mean_excess": 0.031698534632253784,
+   "median_condition": 198.46457993551465
+  },
+  {
+   "month": 250,
+   "share_out_of_range": 0.1125,
+   "median_excess": 0.00859749783395447,
+   "mean_excess": 0.011702131829214394,
+   "median_condition": 192.34120643511892
+  },
+  {
+   "month": 300,
+   "share_out_of_range": 0.075,
+   "median_excess": 0.007355213332430777,
+   "mean_excess": 0.011025821942135697,
+   "median_condition": 216.26599969298144
+  },
+  {
+   "month": 350,
+   "share_out_of_range": 0.0625,
+   "median_excess": 0.0065454598359617755,
+   "mean_excess": 0.010553175381101761,
+   "median_condition": 234.67206584577553
+  },
+  {
+   "month": 400,
+   "share_out_of_range": 0.075,
+   "median_excess": 0.0067848259757368745,
+   "mean_excess": 0.010177395262582425,
+   "median_condition": 274.74673087047506
+  }
+ ]
+}
