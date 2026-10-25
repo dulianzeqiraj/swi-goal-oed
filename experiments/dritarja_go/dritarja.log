@@ -1,0 +1,20 @@
+open-loop eigenvalue moduli [1.0127 0.8823 0.85   0.7   ] (the toe-clay loop is unstable)
+J* (LQG, head + sentinel chloride) = 0.4125; full-state LQR 0.2746 (x1.50)
+controller poles [0.9691 0.6843 0.5563 0.0391]; filter poles [0.9691 0.6841 0.1861 0.1861]
+observation-only window (truncated optimal controller), relative excess cost: w=1 unstable, w=2 unstable, w=4 unstable, w=5 unstable, w=8 8.05e-02, w=16 1.33e-02, w=32 2.91e-03, w=64 2.91e-04, w=128 4.74e-06
+smallest stabilising window 7; window for 1% excess 20, for 0.1% 48; decay per extra observation 0.9369 (predicted rho_c^2 = 0.9391)
+ARX window (4 past actions, 5 observations): J = 0.412530, relative difference from J* 4.0e-13; numerator coefficients beyond lag 4: max norm 1.4e-16 (Cayley-Hamilton)
+best linear observation-only window, relative excess: w=1 1.38e-01, w=2 5.74e-02, w=3 2.90e-02, w=4 1.67e-02, w=5 1.10e-02, w=6 8.33e-03, w=7 6.93e-03, w=8 6.11e-03, w=10 5.03e-03, w=12 4.18e-03, w=16 2.87e-03, w=24 1.42e-03, w=32 7.70e-04
+best linear ARX window of order k (k past actions, k+1 observations), relative excess: k=1 8.74e-03, k=2 2.40e-04, k=3 8.75e-05, k=4 -8.87e-13
+kappa 0.25, chloride noise sd 0.1: rho_c 0.9741, J* 0.4059, smallest stabilising window 4, window for 1% excess 24
+kappa 0.25, chloride noise sd 0.3: rho_c 0.9751, J* 0.4139, smallest stabilising window 24, window for 1% excess 48
+kappa 0.25, chloride noise sd 0.6: rho_c 0.9774, J* 0.4252, smallest stabilising window 48, window for 1% excess 64
+kappa 0.50, chloride noise sd 0.1: rho_c 0.9678, J* 0.4053, smallest stabilising window 2, window for 1% excess 4
+kappa 0.50, chloride noise sd 0.3: rho_c 0.9691, J* 0.4125, smallest stabilising window 8, window for 1% excess 24
+kappa 0.50, chloride noise sd 0.6: rho_c 0.9723, J* 0.4222, smallest stabilising window 32, window for 1% excess 48
+kappa 1.00, chloride noise sd 0.1: rho_c 0.9552, J* 0.4054, smallest stabilising window 1, window for 1% excess 4
+kappa 1.00, chloride noise sd 0.3: rho_c 0.9570, J* 0.4117, smallest stabilising window 3, window for 1% excess 6
+kappa 1.00, chloride noise sd 0.6: rho_c 0.9616, J* 0.4196, smallest stabilising window 12, window for 1% excess 24
+kappa 2.00, chloride noise sd 0.1: rho_c 0.9320, J* 0.4071, smallest stabilising window 1, window for 1% excess 16
+kappa 2.00, chloride noise sd 0.3: rho_c 0.9340, J* 0.4121, smallest stabilising window 2, window for 1% excess 12
+kappa 2.00, chloride noise sd 0.6: rho_c 0.9403, J* 0.4181, smallest stabilising window 4, window for 1% excess 12

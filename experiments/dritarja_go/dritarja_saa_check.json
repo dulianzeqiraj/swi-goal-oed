@@ -1,0 +1,74 @@
+[
+ {
+  "kind": "obs",
+  "w": 1,
+  "loss_network": 0.4622514565498877,
+  "loss_optimal_rule": 0.4121724162852269,
+  "rel_gap": 0.12150022244575844,
+  "n_weights": 1185
+ },
+ {
+  "kind": "obs",
+  "w": 2,
+  "loss_network": 0.43332094471041976,
+  "loss_optimal_rule": 0.4126911736662262,
+  "rel_gap": 0.04998839897864735,
+  "n_weights": 1249
+ },
+ {
+  "kind": "obs",
+  "w": 4,
+  "loss_network": 0.41787182723796895,
+  "loss_optimal_rule": 0.41209394612303085,
+  "rel_gap": 0.01402078620493277,
+  "n_weights": 1377
+ },
+ {
+  "kind": "obs",
+  "w": 8,
+  "loss_network": 0.4130355465410847,
+  "loss_optimal_rule": 0.41179768325645993,
+  "rel_gap": 0.0030059986613714283,
+  "n_weights": 1633
+ },
+ {
+  "kind": "obs",
+  "w": 16,
+  "loss_network": 0.41144023710579913,
+  "loss_optimal_rule": 0.41175062267666235,
+  "rel_gap": -0.0007538193114208168,
+  "n_weights": 2145
+ },
+ {
+  "kind": "obs",
+  "w": 32,
+  "loss_network": 0.4101150846441491,
+  "loss_optimal_rule": 0.41295219360365265,
+  "rel_gap": -0.006870308484731269,
+  "n_weights": 3169
+ },
+ {
+  "kind": "arx",
+  "w": 1,
+  "loss_network": 0.4190360597096822,
+  "loss_optimal_rule": 0.4171170895938963,
+  "rel_gap": 0.004600555008796698,
+  "n_weights": 1281
+ },
+ {
+  "kind": "arx",
+  "w": 2,
+  "loss_network": 0.41220240882643855,
+  "loss_optimal_rule": 0.41209394612303085,
+  "rel_gap": 0.0002631989730208636,
+  "n_weights": 1377
+ },
+ {
+  "kind": "arx",
+  "w": 4,
+  "loss_network": 0.41178754740065887,
+  "loss_optimal_rule": 0.41231652566488614,
+  "rel_gap": -0.0012829421847068924,
+  "n_weights": 1569
+ }
+]
