@@ -1,0 +1,52 @@
+records-only optimum J* = 0.4270; full-state optimum 0.2785; open-loop eigenvalue moduli [1.0127 0.8823 0.85   0.7   ]
+== operators near-optimal (gain 1.0 x optimal, private toe reading sd 0.1, unrecorded variation sd 0.1): cost +0.3%; private share of unexplained pumping 0.393
+(ii) one-step effect of pumping on (head, chloride): true [-0.3  0. ], logs [-0.307  -0.4623], formula [-0.307  -0.4625]
+  physical model, 4 parameters                 : deployed     +0.1%, believed   -2.9%   | without private information +0.0%
+  physical model, 8 parameters                 : deployed     +0.1%, believed   -3.1%   | without private information +0.0%
+  black-box 4-state model (20 parameters)      : deployed  unstable, believed  -84.0%   | without private information -0.0%
+  black-box ARX model, 8 lags                  : deployed  unstable, believed  -83.6%   | without private information unstable
+  black-box ARX model, 32 lags                 : deployed  unstable, believed  -77.1%   | without private information +0.2%
+  world model of unlimited capacity            : deployed  +2893.9%, believed  -76.2%   | without private information -0.0%
+  clone, unlimited window                      : deployed     +0.1%                     | without private information -0.0%
+  clone, 4 past rates + 5 observations         : deployed    +20.5%                     | without private information +7.3%
+  clone, 8 past rates + 9 observations         : deployed     +5.6%                     | without private information +1.2%
+  clone, 8 observations only                   : deployed     +4.5%                     | without private information +4.5%
+  clone, 16 observations only                  : deployed     +1.8%                     | without private information +1.7%
+  calibrated physical parameters (4): pumping -> head (0.3) 0.300, head -> toe (0.5) 0.478, toe retention (0.9) 0.897, clay -> toe (0.1) 0.091
+(iii) aquifer' (order 8) with operators' who use only the logs reproduces the autocovariances of the logs (lags 0-60) to 3.3e-16; chloride after 12/36/60 months of one extra unit of pumping: true 4.65/13.99/22.86, aquifer' -1.76/-1.70/-1.45
+behaviour-regularised offline RL in the world model of the logs (lam = weight on staying close to the operators): 0: +2893.9%, 0.01: +2425.3%, 0.03: +1812.6%, 0.1: +911.4%, 0.3: +322.3%, 1: +67.5%, 3: +11.7%, 10: +1.4%, 30: +0.2%, 100: +0.1%, 1000: +0.1%, 10000: +0.1%; best +0.1% at lam 10000
+(iv) dither sd 0.05 (operators' cost +0.7%): physical model by dither moments: parameter error 8.3e-17, deployed +0.0%; black-box 4-state by moments only +106.5% (eigenvalues [0.516 0.85  0.882 1.013]), by moments + likelihood +0.0%, by likelihood only unstable; world model of the logs, dither inside the pumping: unstable
+(iv) dither sd 0.2 (operators' cost +7.8%): physical model by dither moments: parameter error 8.3e-17, deployed +0.0%; black-box 4-state by moments only +106.5% (eigenvalues [0.516 0.85  0.882 1.013]), by moments + likelihood +0.0%, by likelihood only unstable; world model of the logs, dither inside the pumping: +183.9%
+== operators timid (gain 0.4 x optimal, private toe reading sd 0.1, unrecorded variation sd 0.1): cost +108.6%; private share of unexplained pumping 0.119
+(ii) one-step effect of pumping on (head, chloride): true [-0.3  0. ], logs [-0.3041 -0.341 ], formula [-0.3041 -0.3409]
+  physical model, 4 parameters                 : deployed     +0.0%, believed   -0.6%   | without private information -0.0%
+  physical model, 8 parameters                 : deployed     +0.0%, believed   -0.9%   | without private information +0.0%
+  black-box 4-state model (20 parameters)      : deployed  unstable, believed  +55.0%   | without private information +0.0%
+  black-box ARX model, 8 lags                  : deployed  unstable, believed  -82.3%   | without private information unstable
+  black-box ARX model, 32 lags                 : deployed  unstable, believed  +61.4%   | without private information +22.4%
+  world model of unlimited capacity            : deployed   +460.5%, believed  +83.7%   | without private information +0.0%
+  clone, unlimited window                      : deployed   +107.7%                     | without private information +107.6%
+  clone, 4 past rates + 5 observations         : deployed   +195.7%                     | without private information +149.0%
+  clone, 8 past rates + 9 observations         : deployed   +122.3%                     | without private information +115.0%
+  clone, 8 observations only                   : deployed   +125.0%                     | without private information +125.0%
+  clone, 16 observations only                  : deployed   +114.3%                     | without private information +114.0%
+  calibrated physical parameters (4): pumping -> head (0.3) 0.301, head -> toe (0.5) 0.497, toe retention (0.9) 0.900, clay -> toe (0.1) 0.099
+(iii) aquifer' (order 8) with operators' who use only the logs reproduces the autocovariances of the logs (lags 0-60) to 4.4e-16; chloride after 12/36/60 months of one extra unit of pumping: true 4.65/13.99/22.86, aquifer' 0.38/1.55/1.66
+behaviour-regularised offline RL in the world model of the logs (lam = weight on staying close to the operators): 0: +460.5%, 0.01: +443.4%, 0.03: +413.4%, 0.1: +338.9%, 0.3: +239.7%, 1: +154.9%, 3: +121.7%, 10: +111.1%, 30: +108.7%, 100: +108.0%, 1000: +107.7%, 10000: +107.7%; best +107.7% at lam 10000
+(iv) dither sd 0.05 (operators' cost +109.1%): physical model by dither moments: parameter error 2.1e-16, deployed -0.0%; black-box 4-state by moments only +186.6% (eigenvalues [0.423 0.85  0.882 1.013]), by moments + likelihood +0.0%, by likelihood only +17.3%; world model of the logs, dither inside the pumping: +51.6%
+(iv) dither sd 0.2 (operators' cost +118.1%): physical model by dither moments: parameter error 2.1e-16, deployed -0.0%; black-box 4-state by moments only +186.6% (eigenvalues [0.423 0.85  0.882 1.013]), by moments + likelihood +0.0%, by likelihood only +0.2%; world model of the logs, dither inside the pumping: +0.2%
+scan sd_s  0.03 sd_e 0.03: private share 0.865, chloride effect in the logs -1.041; phys4 +0.2%, free unstable, ARX32 unstable, world model +134.5% (believed -59.9%), clone +0.4%, clone obs8 +4.5%
+scan sd_s  0.03 sd_e 0.10: private share 0.446, chloride effect in the logs -0.529; phys4 +0.2%, free unstable, ARX32 unstable, world model +870.4% (believed -72.7%), clone +0.1%, clone obs8 +4.5%
+scan sd_s  0.03 sd_e 0.30: private share 0.109, chloride effect in the logs -0.127; phys4 +0.1%, free unstable, ARX32 +93.2%, world model +45.4% (believed -14.3%), clone +0.0%, clone obs8 +5.1%
+scan sd_s   0.1 sd_e 0.03: private share 0.838, chloride effect in the logs -0.998; phys4 +0.1%, free unstable, ARX32 unstable, world model +147.4% (believed -59.8%), clone +0.2%, clone obs8 +4.5%
+scan sd_s   0.1 sd_e 0.10: private share 0.393, chloride effect in the logs -0.462; phys4 +0.1%, free unstable, ARX32 unstable, world model +2893.9% (believed -76.2%), clone +0.1%, clone obs8 +4.5%
+scan sd_s   0.1 sd_e 0.30: private share 0.087, chloride effect in the logs -0.100; phys4 +0.1%, free +14.4%, ARX32 +29.9%, world model +16.9% (believed -7.8%), clone +0.0%, clone obs8 +5.1%
+scan sd_s   0.3 sd_e 0.03: private share 0.696, chloride effect in the logs -0.815; phys4 +0.0%, free unstable, ARX32 unstable, world model +239.1% (believed -61.6%), clone +0.0%, clone obs8 +4.5%
+scan sd_s   0.3 sd_e 0.10: private share 0.224, chloride effect in the logs -0.259; phys4 +0.0%, free unstable, ARX32 unstable, world model unstable (believed -85.6%), clone +0.0%, clone obs8 +4.5%
+scan sd_s   0.3 sd_e 0.30: private share 0.039, chloride effect in the logs -0.043; phys4 +0.0%, free +0.5%, ARX32 +2.5%, world model +1.2% (believed -1.0%), clone +0.0%, clone obs8 +5.0%
+scan sd_s   1.0 sd_e 0.03: private share 0.288, chloride effect in the logs -0.331; phys4 +0.0%, free unstable, ARX32 unstable, world model unstable (believed -86.5%), clone +0.0%, clone obs8 +4.5%
+scan sd_s   1.0 sd_e 0.10: private share 0.047, chloride effect in the logs -0.051; phys4 +0.0%, free +0.2%, ARX32 +5.5%, world model +1.8% (believed -1.2%), clone +0.0%, clone obs8 +4.5%
+scan sd_s   1.0 sd_e 0.30: private share 0.009, chloride effect in the logs -0.008; phys4 +0.0%, free +0.0%, ARX32 +0.3%, world model +0.0% (believed -0.0%), clone +0.0%, clone obs8 +5.0%
+scan sd_s   inf sd_e 0.03: private share 0.008, chloride effect in the logs -0.005; phys4 +0.0%, free +0.0%, ARX32 +0.3%, world model -0.0% (believed -0.0%), clone -0.0%, clone obs8 +4.5%
+scan sd_s   inf sd_e 0.10: private share 0.007, chloride effect in the logs -0.004; phys4 +0.0%, free -0.0%, ARX32 +0.2%, world model -0.0% (believed +0.0%), clone -0.0%, clone obs8 +4.5%
+scan sd_s   inf sd_e 0.30: private share 0.004, chloride effect in the logs -0.003; phys4 +0.0%, free +0.0%, ARX32 +0.2%, world model -0.0% (believed -0.0%), clone -0.0%, clone obs8 +5.0%
