@@ -54,7 +54,32 @@ Without private information every model-based learner is exact (+0.0 %).
   the black-box model needs moments + likelihood (+0.0 %; moments alone +106.5 %, because pumping never excites the
   soil-moisture mode).
 
-Part B (mirror test) and part C (deep agents): see `pasqyra_dither.log` and `pasqyra_neural.log`.
+Part B, the mirror test (`pasqyra_dither.log`, 500 test periods per cell): a world model trained on long logs without
+dither is tested during a period with a recorded dither; targeted test on the lag-0 chloride moment, 5 % level.
+
+| Test period | dither sd 0.05 (7 % of pumping variation) | sd 0.1 (13 %) | sd 0.2 (26 %) |
+|---|---|---|---|
+| 10 years, deluded model (near-optimal operators) | 12 % | 33 % | 83 % |
+| 20 years | 19 % | 54 % | 98 % |
+| 30 years | 24 % | 72 % | 100 % |
+| any length, causal model (false alarms) | 4–8 % | 4–8 % | 4–8 % |
+| extra cost to the operators while it lasts | +0.47 % | +1.88 % | +7.51 % |
+
+The omnibus test over 12 lags is much weaker (34 % at 10 years, sd 0.2); the physical model passes (3–8 %).
+
+Part C, deep agents on 12,000 months of simulated logs (`pasqyra_neural.log`, two seeds; deployment 256 × 2,400 months
+paired with the optimal rule):
+
+- Deep world model + neural policy: unstable in all four runs with private information (after 78–1,257 months),
+  believing −69 % and −65 % (near-optimal operators); without private information stable (+23 %, +29 %; with timid
+  operators +30 %, +15 %, better than the operators' +110 %).
+- Deep clone with 4 past rates + 5 observations: +40 %, +17 % with private information against +9 %, +7 % without
+  (timid: +304 %, +409 % against +175 %, +150 %); observation-only clone ≈ +5 % (near-optimal) and ≈ +125 % (timid),
+  with or without private information.
+- Neural policy trained through the physical model calibrated by likelihood on the same logs: +5.3 % to +5.7 % (the
+  training floor of these networks; the calibrated model's exact rule is within 0.2 %). Through the physical model
+  calibrated by dither moments alone: +6 % to +111 % (exact rules from +0.5 % to unstable): on logs of realistic length
+  the dither is best used to test a model.
 
 ## Files
 
