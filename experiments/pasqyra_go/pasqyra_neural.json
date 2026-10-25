@@ -1,0 +1,287 @@
+{
+ "P": {
+  "T_log": 12000,
+  "burn_log": 600,
+  "width": 64,
+  "pol_width": 32,
+  "k": 4,
+  "wm_iters": 4000,
+  "wm_batch": 512,
+  "wm_lr": 0.001,
+  "T": 60,
+  "batch": 256,
+  "iters": 1500,
+  "lr": 0.003,
+  "avg_from": 750,
+  "clone_iters": 3000,
+  "eval_batch": 256,
+  "eval_T": 2400,
+  "burn": 300,
+  "believe_T": 600,
+  "sd_d": 0.1,
+  "seeds": 2
+ },
+ "J_star": 0.42702090072004184,
+ "runs": [
+  {
+   "case": "near-optimal",
+   "private": true,
+   "seed": 0,
+   "world_model_agent": {
+    "rel_excess": null,
+    "se": null,
+    "unstable": true,
+    "month": 116,
+    "believed_rel": -0.693941752754428
+   },
+   "clone_arx4": {
+    "rel_excess": 0.3999781446328414,
+    "se": 0.04237714871869164,
+    "unstable": false,
+    "J_ref": 0.4238003949538307
+   },
+   "clone_obs8": {
+    "rel_excess": 0.056285196362684524,
+    "se": 0.0024251074076326023,
+    "unstable": false,
+    "J_ref": 0.42793396839656683
+   },
+   "physics_iv_agent": {
+    "rel_excess": 0.2642282462135745,
+    "se": 0.014740696151414727,
+    "unstable": false,
+    "J_ref": 0.42883426708148165,
+    "theta": [
+     0.2677938512162151,
+     0.5679792655929667,
+     0.8929484751841509,
+     0.03960084685378381
+    ],
+    "J_op_dither_rel": 0.02132004611317103
+   },
+   "J_op_rel": 0.0025530939531183297,
+   "seconds": 872.29798579216
+  },
+  {
+   "case": "near-optimal",
+   "private": true,
+   "seed": 1,
+   "world_model_agent": {
+    "rel_excess": null,
+    "se": null,
+    "unstable": true,
+    "month": 78,
+    "believed_rel": -0.6534822178967199
+   },
+   "clone_arx4": {
+    "rel_excess": 0.17293024790135625,
+    "se": 0.008669555952415038,
+    "unstable": false,
+    "J_ref": 0.42767195967406685
+   },
+   "clone_obs8": {
+    "rel_excess": 0.04741056851446115,
+    "se": 0.0014942849271860716,
+    "unstable": false,
+    "J_ref": 0.42579895752936747
+   },
+   "physics_iv_agent": {
+    "rel_excess": 0.05956092218265451,
+    "se": 0.0010027863872782157,
+    "unstable": false,
+    "J_ref": 0.4287226059291027,
+    "theta": [
+     0.3212016796199948,
+     0.5228733486434863,
+     0.8820208682295311,
+     0.18259568599644632
+    ],
+    "J_op_dither_rel": 0.02132004611317103
+   },
+   "J_op_rel": 0.0025530939531183297,
+   "seconds": 877.1554498672485
+  },
+  {
+   "case": "near-optimal",
+   "private": false,
+   "seed": 0,
+   "world_model_agent": {
+    "rel_excess": 0.23128989048388182,
+    "se": 0.011162058397658747,
+    "unstable": false,
+    "J_ref": 0.42842867691386743,
+    "believed_rel": -0.021082257813867886
+   },
+   "clone_arx4": {
+    "rel_excess": 0.09344774949908212,
+    "se": 0.004610656353556044,
+    "unstable": false,
+    "J_ref": 0.4288024180741028
+   },
+   "clone_obs8": {
+    "rel_excess": 0.05444864630771232,
+    "se": 0.002367888087314809,
+    "unstable": false,
+    "J_ref": 0.4240583955576045
+   },
+   "J_op_rel": 0.01876695216005166,
+   "seconds": 497.474951505661
+  },
+  {
+   "case": "near-optimal",
+   "private": false,
+   "seed": 1,
+   "world_model_agent": {
+    "rel_excess": 0.2870958746566688,
+    "se": 0.012784663559313904,
+    "unstable": false,
+    "J_ref": 0.4275506600288036,
+    "believed_rel": -0.01115157062118157
+   },
+   "clone_arx4": {
+    "rel_excess": 0.0706836562929371,
+    "se": 0.0031811455906101027,
+    "unstable": false,
+    "J_ref": 0.42634676378565106
+   },
+   "clone_obs8": {
+    "rel_excess": 0.05531019679260489,
+    "se": 0.0021468209085934845,
+    "unstable": false,
+    "J_ref": 0.4284647706295054
+   },
+   "J_op_rel": 0.01876695216005166,
+   "seconds": 496.4374792575836
+  },
+  {
+   "case": "timid",
+   "private": true,
+   "seed": 0,
+   "world_model_agent": {
+    "rel_excess": null,
+    "se": null,
+    "unstable": true,
+    "month": 115,
+    "believed_rel": null
+   },
+   "clone_arx4": {
+    "rel_excess": 3.0428093612781026,
+    "se": 0.1289774380364859,
+    "unstable": false,
+    "J_ref": 0.42448408438581053
+   },
+   "clone_obs8": {
+    "rel_excess": 1.2551083155906737,
+    "se": 0.011591731281504584,
+    "unstable": false,
+    "J_ref": 0.4264373439021983
+   },
+   "physics_iv_agent": {
+    "rel_excess": 0.12299607649871583,
+    "se": 0.004668421518790098,
+    "unstable": false,
+    "J_ref": 0.4256668557285333,
+    "theta": [
+     0.326045465401401,
+     0.41229979693758273,
+     0.9411890741159753,
+     -0.10994981816503784
+    ],
+    "J_op_dither_rel": 1.109324001122701
+   },
+   "J_op_rel": 1.0855583345011381,
+   "seconds": 945.28045129776
+  },
+  {
+   "case": "timid",
+   "private": true,
+   "seed": 1,
+   "world_model_agent": {
+    "rel_excess": null,
+    "se": null,
+    "unstable": true,
+    "month": 1257,
+    "believed_rel": 0.6959090615209034
+   },
+   "clone_arx4": {
+    "rel_excess": 4.088462192376809,
+    "se": 0.4039026102819299,
+    "unstable": false,
+    "J_ref": 0.4282252056342084
+   },
+   "clone_obs8": {
+    "rel_excess": 1.2268614673606735,
+    "se": 0.011266312893398836,
+    "unstable": false,
+    "J_ref": 0.4264152489976344
+   },
+   "physics_iv_agent": {
+    "rel_excess": 1.1072174701850168,
+    "se": 0.06566589280005643,
+    "unstable": false,
+    "J_ref": 0.426254445982267,
+    "theta": [
+     0.2957044275752945,
+     0.43729033301221193,
+     0.8824887058396957,
+     -0.1294354149254709
+    ],
+    "J_op_dither_rel": 1.109324001122701
+   },
+   "J_op_rel": 1.0855583345011381,
+   "seconds": 936.0889072418213
+  },
+  {
+   "case": "timid",
+   "private": false,
+   "seed": 0,
+   "world_model_agent": {
+    "rel_excess": 0.29846192052725173,
+    "se": 0.008352654837107813,
+    "unstable": false,
+    "J_ref": 0.4250124718503504,
+    "believed_rel": 0.40404124712758277
+   },
+   "clone_arx4": {
+    "rel_excess": 1.748674335786207,
+    "se": 0.03876850281209812,
+    "unstable": false,
+    "J_ref": 0.4273425564878336
+   },
+   "clone_obs8": {
+    "rel_excess": 1.2937347845843126,
+    "se": 0.012754786521237887,
+    "unstable": false,
+    "J_ref": 0.4282661273366485
+   },
+   "J_op_rel": 1.0999754798079313,
+   "seconds": 567.0080263614655
+  },
+  {
+   "case": "timid",
+   "private": false,
+   "seed": 1,
+   "world_model_agent": {
+    "rel_excess": 0.14934813600755825,
+    "se": 0.002945092634199063,
+    "unstable": false,
+    "J_ref": 0.42681708319536454,
+    "believed_rel": 0.48299120150298314
+   },
+   "clone_arx4": {
+    "rel_excess": 1.498971159091393,
+    "se": 0.031484378460976445,
+    "unstable": false,
+    "J_ref": 0.4261992424273743
+   },
+   "clone_obs8": {
+    "rel_excess": 1.251999778095545,
+    "se": 0.013038892050344463,
+    "unstable": false,
+    "J_ref": 0.42574862419654064
+   },
+   "J_op_rel": 1.0999754798079313,
+   "seconds": 564.2746479511261
+  }
+ ]
+}

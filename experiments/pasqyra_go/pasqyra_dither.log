@@ -1,0 +1,21 @@
+== operators near-optimal, private: the ARX world model's one-step effect of pumping on chloride -0.460 (true 0); physical model head->toe 0.478 (true 0.5); extra cost of the dither to the operators (% of J*): sd 0.02: 0.08, sd 0.05: 0.47, sd 0.1: 1.88, sd 0.2: 7.51
+   60 months, rejection rate (targeted/omnibus): sd 0.02: ARX 6/6%, physical 6/6%; sd 0.05: ARX 9/6%, physical 6/5%; sd 0.1: ARX 18/9%, physical 5/5%; sd 0.2: ARX 53/16%, physical 5/5%
+  120 months, rejection rate (targeted/omnibus): sd 0.02: ARX 7/5%, physical 7/4%; sd 0.05: ARX 12/6%, physical 7/3%; sd 0.1: ARX 33/9%, physical 6/4%; sd 0.2: ARX 83/34%, physical 6/3%
+  240 months, rejection rate (targeted/omnibus): sd 0.02: ARX 7/7%, physical 5/6%; sd 0.05: ARX 19/9%, physical 5/7%; sd 0.1: ARX 54/21%, physical 5/7%; sd 0.2: ARX 98/76%, physical 6/7%
+  360 months, rejection rate (targeted/omnibus): sd 0.02: ARX 8/6%, physical 5/6%; sd 0.05: ARX 24/9%, physical 6/5%; sd 0.1: ARX 72/28%, physical 6/5%; sd 0.2: ARX 100/93%, physical 6/6%
+== operators near-optimal, no private: the ARX world model's one-step effect of pumping on chloride -0.007 (true 0); physical model head->toe 0.500 (true 0.5); extra cost of the dither to the operators (% of J*): sd 0.02: 0.08, sd 0.05: 0.47, sd 0.1: 1.88, sd 0.2: 7.51
+   60 months, rejection rate (targeted/omnibus): sd 0.02: ARX 6/7%, physical 6/7%; sd 0.05: ARX 5/7%, physical 5/7%; sd 0.1: ARX 5/6%, physical 5/6%; sd 0.2: ARX 6/4%, physical 6/4%
+  120 months, rejection rate (targeted/omnibus): sd 0.02: ARX 5/3%, physical 5/4%; sd 0.05: ARX 6/4%, physical 6/4%; sd 0.1: ARX 6/5%, physical 6/5%; sd 0.2: ARX 6/6%, physical 5/6%
+  240 months, rejection rate (targeted/omnibus): sd 0.02: ARX 5/4%, physical 5/4%; sd 0.05: ARX 5/4%, physical 5/4%; sd 0.1: ARX 5/4%, physical 6/4%; sd 0.2: ARX 6/4%, physical 6/5%
+  360 months, rejection rate (targeted/omnibus): sd 0.02: ARX 6/4%, physical 6/4%; sd 0.05: ARX 6/4%, physical 5/4%; sd 0.1: ARX 7/5%, physical 6/5%; sd 0.2: ARX 6/5%, physical 5/4%
+== operators timid, private: the ARX world model's one-step effect of pumping on chloride -0.344 (true 0); physical model head->toe 0.497 (true 0.5); extra cost of the dither to the operators (% of J*): sd 0.02: 0.10, sd 0.05: 0.59, sd 0.1: 2.38, sd 0.2: 9.51
+   60 months, rejection rate (targeted/omnibus): sd 0.02: ARX 4/5%, physical 4/4%; sd 0.05: ARX 6/5%, physical 5/4%; sd 0.1: ARX 11/6%, physical 5/4%; sd 0.2: ARX 30/13%, physical 5/4%
+  120 months, rejection rate (targeted/omnibus): sd 0.02: ARX 4/5%, physical 4/4%; sd 0.05: ARX 8/6%, physical 4/4%; sd 0.1: ARX 20/9%, physical 4/5%; sd 0.2: ARX 57/24%, physical 4/4%
+  240 months, rejection rate (targeted/omnibus): sd 0.02: ARX 6/5%, physical 4/5%; sd 0.05: ARX 13/8%, physical 5/6%; sd 0.1: ARX 31/16%, physical 5/7%; sd 0.2: ARX 86/56%, physical 5/7%
+  360 months, rejection rate (targeted/omnibus): sd 0.02: ARX 6/4%, physical 6/4%; sd 0.05: ARX 14/8%, physical 5/4%; sd 0.1: ARX 47/20%, physical 5/4%; sd 0.2: ARX 96/81%, physical 4/5%
+== operators timid, no private: the ARX world model's one-step effect of pumping on chloride -0.015 (true 0); physical model head->toe 0.500 (true 0.5); extra cost of the dither to the operators (% of J*): sd 0.02: 0.10, sd 0.05: 0.59, sd 0.1: 2.38, sd 0.2: 9.51
+   60 months, rejection rate (targeted/omnibus): sd 0.02: ARX 5/5%, physical 5/5%; sd 0.05: ARX 5/5%, physical 5/5%; sd 0.1: ARX 4/5%, physical 4/5%; sd 0.2: ARX 5/5%, physical 5/5%
+  120 months, rejection rate (targeted/omnibus): sd 0.02: ARX 5/5%, physical 5/5%; sd 0.05: ARX 4/4%, physical 4/4%; sd 0.1: ARX 4/4%, physical 4/4%; sd 0.2: ARX 4/5%, physical 5/4%
+  240 months, rejection rate (targeted/omnibus): sd 0.02: ARX 4/5%, physical 4/5%; sd 0.05: ARX 4/5%, physical 4/5%; sd 0.1: ARX 6/6%, physical 5/5%; sd 0.2: ARX 5/6%, physical 5/6%
+  360 months, rejection rate (targeted/omnibus): sd 0.02: ARX 8/5%, physical 8/5%; sd 0.05: ARX 7/6%, physical 7/5%; sd 0.1: ARX 7/5%, physical 7/5%; sd 0.2: ARX 6/5%, physical 5/5%
+500 test periods per cell; chi-square critical value 36.42 (24 degrees of freedom); 139 s

@@ -21,7 +21,7 @@ plt.rcParams.update({'font.size': 10, 'axes.spines.top': False, 'axes.spines.rig
                      'axes.grid': True, 'grid.color': '#e6e6e6', 'grid.linewidth': 0.8})
 Js = D['J_star']
 COL = {'near-optimal': '#2a78d6', 'timid': '#eb6834'}
-fig = plt.figure(figsize=(15.5, 11.2))
+fig = plt.figure(figsize=(15.5, 11.8))
 gs = fig.add_gridspec(2, 2, width_ratios=[1.15, 1], hspace=0.42, wspace=0.28)
 
 # (a) believed against deployed
@@ -104,7 +104,7 @@ if T is not None:
     d.set_ylim(0, 1.02)
     d.set_xlabel('months of the test period with a recorded dither')
     d.set_ylabel('share of test periods that reject the world model (5% test)')
-    d.legend(frameon=False, fontsize=8, loc='center right')
+    d.legend(frameon=False, fontsize=8, loc='upper center', bbox_to_anchor=(0.5, -0.13), ncol=2)
 d.set_title('(d) the mirror test: a small recorded dither exposes the deluded model', fontsize=11)
 
 fig.savefig(os.path.join(HERE, 'figP1_mirror.png'), dpi=170, bbox_inches='tight')
