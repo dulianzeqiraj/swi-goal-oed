@@ -1,0 +1,7 @@
+information floor tr(H I^-1)/(2 N J*): 120 months 2.092%, 360 months 0.697%, 1200 months 0.209%
+  120 months, seed 0: deep world model (6 lags) + neural policy +52.03%; physics by likelihood: exact rule +1.883%, neural policy through it +8.91%  [635 s]
+  120 months, seed 1: deep world model (6 lags) + neural policy unstable (month 1917); physics by likelihood: exact rule +1.611%, neural policy through it +5.47%  [628 s]
+  360 months, seed 0: deep world model (18 lags) + neural policy +16.28%; physics by likelihood: exact rule +2.280%, neural policy through it +6.60%  [724 s]
+  360 months, seed 1: deep world model (18 lags) + neural policy +17823.46%; physics by likelihood: exact rule +1.081%, neural policy through it +6.28%  [712 s]
+ 1200 months, seed 0: deep world model (32 lags) + neural policy +12.11%; physics by likelihood: exact rule +0.086%, neural policy through it +4.99%  [902 s]
+ 1200 months, seed 1: deep world model (32 lags) + neural policy +9.43%; physics by likelihood: exact rule +0.207%, neural policy through it +6.76%  [900 s]
