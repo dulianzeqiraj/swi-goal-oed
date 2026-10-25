@@ -79,8 +79,8 @@ if DP:
         for r in DP['runs']:
             v = r[key]
             x = r['N'] / 12 * (1.06 if k else 0.94)
-            if v.get('unstable'):
-                c.plot([x], [TOP], mk, color=col, mfc='white', mew=1.6, ms=7, label=None)
+            if v.get('unstable') or 100 * v['rel_excess'] > TOP:
+                c.plot([x], [TOP], mk, color=col, mfc='white' if v.get('unstable') else col, mew=1.6, ms=7, label=None)
                 c.annotate('', xy=(x, TOP * 1.5), xytext=(x, TOP), arrowprops=dict(arrowstyle='->', color=col, lw=1.4))
             else:
                 c.plot([x], [max(100 * v['rel_excess'], 0.02)], mk, color=col, ms=7, label=lab if first else None)
@@ -91,7 +91,7 @@ c.set_xscale('log'); c.set_yscale('log'); c.set_ylim(0.05, TOP * 2)
 c.set_xticks([10, 30, 100]); c.set_xticklabels(['10', '30', '100'])
 c.set_xlabel('years of logs (log scale)'); c.set_ylabel('excess cost on the true aquifer (% of J*, log scale)')
 c.legend(frameon=False, fontsize=8, loc='lower left')
-c.set_title('(c) the floor and the learners (open symbols, arrow: unstable)', fontsize=11)
+c.set_title('(c) the floor and the learners (arrows: off the scale; open: unstable)', fontsize=11)
 
 # (d) where the uncertainty sits
 d = fig.add_subplot(gs[1, 1])
