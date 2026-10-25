@@ -7,8 +7,9 @@ connection; the linear part is initialised by least squares, then everything is 
     (an ARX window of 5 observations and 4 past pumping rates, review 50) is trained by backpropagation through 60-month
     rollouts of the world model (model-based offline deep RL); the cost it believes is measured in the world model;
   * deep clones of the operators: ARX window (5 observations, 4 past rates) and observation-only window (8 months);
-  * the remedy: a recorded dither (sd 0.1) in the logs, the physical model calibrated by the dither moments on the finite
-    logs, and the same neural policy trained through that model.
+  * physics-structured agents: the physical model (4 parameters) calibrated on the finite logs, either by the moments of a
+    recorded dither (sd 0.1, a separate log) or by likelihood with pumping as forcing (the logs without dither), and the
+    same neural policy trained through it by backpropagation.
 Deployment: 256 aquifers x 2,400 months on the true aquifer, paired with the optimal records-only rule on the same
 noise. Writes pasqyra_neural.json and pasqyra_neural.log.
 """
@@ -198,6 +199,21 @@ def calibrate_moments(Y, Q, D, m_lags=24):
     return r.x
 
 
+def calibrate_likelihood(Y, Q):
+    """Physical model (4 parameters) calibrated by likelihood with pumping as forcing, from a start 20 % off the truth."""
+    def f(th):
+        try:
+            A, B, Kp, Sth = p.predictor_matrices(th)
+            E = pred_errors(th, Y, Q)[50:]
+        except Exception:
+            return 1e6
+        if not np.all(np.isfinite(E)):
+            return 1e6
+        return 0.5 * np.linalg.slogdet(Sth)[1] + 0.5 * np.mean(np.sum((E @ np.linalg.inv(Sth)) * E, 1))
+    from scipy.optimize import minimize
+    return minimize(f, p.THETA0 * 0.8, method='Nelder-Mead', options=dict(xatol=1e-6, fatol=1e-11, maxfev=3000)).x
+
+
 def phys_rollout_loss(th, A, B, x0, qh, yh, nw, nv, sy, sq):
     """Neural ARX policy in the physical model (A, B): latent state, observations with noise, cost (X + 0.5 c)^2 + R q^2."""
     x = x0; ybuf = [yh[:, j, :] for j in range(P['k'])]; qbuf = [qh[:, j] for j in range(P['k'])]
@@ -321,6 +337,14 @@ def task(args):
         out['physics_iv_agent'] = deploy(nn_policy(thr, syr, sqr), rng)
         out['physics_iv_agent']['theta'] = th_iv.tolist()
         out['physics_iv_agent']['J_op_dither_rel'] = float((Ld.J - JSTAR) / JSTAR)
+        # the robust route with finite logs: the same physical model calibrated by likelihood on the logs without dither
+        th_ml = calibrate_likelihood(Y, Q)
+        Am, Bm = p.model(th_ml)
+        thm, sym, sqm = train_policy_in_physics(Am, Bm, rng)
+        out['physics_ml_agent'] = deploy(nn_policy(thm, sym, sqm), rng)
+        out['physics_ml_agent']['theta'] = th_ml.tolist()
+        out['physics_ml_agent']['lqg_rel'] = float((p.J_of(p.lqg_controller(Am, Bm)) - JSTAR) / JSTAR)
+        out['physics_iv_agent']['lqg_rel'] = float((p.J_of(p.lqg_controller(Ai, Bi)) - JSTAR) / JSTAR)
     out['J_op_rel'] = float((L.J - JSTAR) / JSTAR)
     out['seconds'] = time.time() - t0
     return out
@@ -345,7 +369,9 @@ def run():
                 f'{"diverges" if r["world_model_agent"]["believed_rel"] is None else f"{100 * r["world_model_agent"]["believed_rel"]:+.1f}%"}; '
                 f'deep clone ARX {fmt(r["clone_arx4"])}; deep clone obs8 {fmt(r["clone_obs8"])}')
         if 'physics_iv_agent' in r:
-            line += f'; physics by dither moments + neural policy {fmt(r["physics_iv_agent"])} (theta {np.round(r["physics_iv_agent"]["theta"], 3)})'
+            line += (f'; physics by dither moments + neural policy {fmt(r["physics_iv_agent"])} (theta {np.round(r["physics_iv_agent"]["theta"], 3)}, '
+                     f'its exact rule {100 * r["physics_iv_agent"]["lqg_rel"]:+.1f}%); physics by likelihood + neural policy {fmt(r["physics_ml_agent"])} '
+                     f'(theta {np.round(r["physics_ml_agent"]["theta"], 3)}, its exact rule {100 * r["physics_ml_agent"]["lqg_rel"]:+.1f}%)')
         log.append(line + f'  [{r["seconds"]:.0f} s]')
     json.dump(dict(P=P, J_star=JSTAR, runs=p.clean(res)), open(os.path.join(HERE, 'pasqyra_neural.json'), 'w'), indent=1)
     open(os.path.join(HERE, 'pasqyra_neural.log'), 'w').write('\n'.join(log) + '\n')

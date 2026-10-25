@@ -1,0 +1,9 @@
+J* = 0.4270; logs of 12000 months; deployment 256 x 2400 months, paired with the optimal rule
+near-optimal private seed 0: operators +0.3%; deep world-model agent unstable (month 116), believed -69.4%; deep clone ARX +40.0% (SE 4.2); deep clone obs8 +5.6% (SE 0.2); physics by dither moments + neural policy +26.4% (SE 1.5) (theta [0.268 0.568 0.893 0.04 ])  [872 s]
+near-optimal private seed 1: operators +0.3%; deep world-model agent unstable (month 78), believed -65.3%; deep clone ARX +17.3% (SE 0.9); deep clone obs8 +4.7% (SE 0.1); physics by dither moments + neural policy +6.0% (SE 0.1) (theta [0.321 0.523 0.882 0.183])  [877 s]
+near-optimal no private seed 0: operators +1.9%; deep world-model agent +23.1% (SE 1.1), believed -2.1%; deep clone ARX +9.3% (SE 0.5); deep clone obs8 +5.4% (SE 0.2)  [497 s]
+near-optimal no private seed 1: operators +1.9%; deep world-model agent +28.7% (SE 1.3), believed -1.1%; deep clone ARX +7.1% (SE 0.3); deep clone obs8 +5.5% (SE 0.2)  [496 s]
+timid        private seed 0: operators +108.6%; deep world-model agent unstable (month 115), believed diverges; deep clone ARX +304.3% (SE 12.9); deep clone obs8 +125.5% (SE 1.2); physics by dither moments + neural policy +12.3% (SE 0.5) (theta [ 0.326  0.412  0.941 -0.11 ])  [945 s]
+timid        private seed 1: operators +108.6%; deep world-model agent unstable (month 1257), believed +69.6%; deep clone ARX +408.8% (SE 40.4); deep clone obs8 +122.7% (SE 1.1); physics by dither moments + neural policy +110.7% (SE 6.6) (theta [ 0.296  0.437  0.882 -0.129])  [936 s]
+timid        no private seed 0: operators +110.0%; deep world-model agent +29.8% (SE 0.8), believed +40.4%; deep clone ARX +174.9% (SE 3.9); deep clone obs8 +129.4% (SE 1.3)  [567 s]
+timid        no private seed 1: operators +110.0%; deep world-model agent +14.9% (SE 0.3), believed +48.3%; deep clone ARX +149.9% (SE 3.1); deep clone obs8 +125.2% (SE 1.3)  [564 s]
