@@ -27,26 +27,30 @@ med, lo, hi = np.array(pr['median']), np.array(pr['q10']), np.array(pr['q90'])
 a.bar(x + 0.18, med, 0.34, color=COL, alpha=0.45, edgecolor='white', linewidth=1.5, label='after the chloride sample (median)')
 a.errorbar(x + 0.18, med, yerr=[med - lo, hi - med], fmt='none', ecolor=MUTED, elinewidth=1, capsize=2)
 for v, t in ((R['rho_env'], 'ρ_env'), (R['rho_max'], 'ρ_max')):
-    a.axhline(v, color=INK, lw=0.8, ls=':'); a.text(4.55, v, t, va='bottom', ha='right', fontsize=8, color=INK)
+    a.axhline(v, color=INK, lw=0.8, ls=':'); a.text(-0.45, v, t, va='bottom', ha='left', fontsize=8, color=INK)
 a.set_xticks(x); a.set_xticklabels(SHORT, rotation=12)
 a.set_ylabel('relative entropy from the calibration (nats)')
 a.set_title('(a) How far each stated belief is from the calibration', loc='left', fontsize=10)
-a.legend(frameon=False, fontsize=8, loc='upper center')
+from matplotlib.patches import Patch
+a.legend(handles=[Patch(color='#5b6573', label='before data'), Patch(color='#5b6573', alpha=0.45, label='after the chloride sample (median, 10–90%)')],
+         frameon=False, fontsize=8, loc='upper right', bbox_to_anchor=(1.0, 0.97))
 # (b) frontier
 b = ax[0, 1]
-fr = R['frontier']; rg = np.array(fr['rho'])
+fr = R['frontier']
 for (dn, lab), c in zip(DES, ('#5b6573', '#1baf7a')):
+    rg = np.array(fr[dn]['rho'])
     b.plot(rg, fr[dn]['ball_z8'], '-o', color=c, ms=3.5, lw=2, label=f'tilt ball, 8 drivers ({lab})')
     b.plot(rg, fr[dn]['full'], '--', color=c, lw=1.4, label=f'full ball ({lab})')
-    b.scatter([R['rho_max'] * 1.02], [R['designs'][dn]['vendimi']['net']], marker='*', s=90, color=c, edgecolor='white', zorder=5)
+    b.scatter([R['rho_env']], [R['designs'][dn]['vendimi']['net']], marker='*', s=110, color=c, edgecolor=INK, linewidth=0.6, zorder=5)
 for v in (R['rho_env'], R['rho_max']):
     b.axvline(v, color=INK, lw=0.8, ls=':')
-b.text(R['rho_env'], b.get_ylim()[1] if False else 7800, ' ρ_env', fontsize=8, va='top')
-b.text(R['rho_max'], 7800, ' ρ_max', fontsize=8, va='top')
+b.set_ylim(-16000, 9500)
+b.text(R['rho_env'], 9300, ' ρ_env', fontsize=8, va='top')
+b.text(R['rho_max'], 9300, ' ρ_max', fontsize=8, va='top')
 b.set_xlabel('radius of belief ρ (nats)'); b.set_ylabel('net water (m³/d)')
 b.set_title('(b) One number to agree on: net water against the radius', loc='left', fontsize=10)
 b.legend(frameon=False, fontsize=7.5, loc='lower left')
-b.text(0.98, 0.97, '★ five stated beliefs (VENDIMI-GO)', transform=b.transAxes, ha='right', va='top', fontsize=8, color=MUTED)
+b.text(0.98, 0.30, '★ five stated beliefs (VENDIMI-GO),\ndrawn at ρ_env for comparison', transform=b.transAxes, ha='right', va='top', fontsize=7.5, color=MUTED)
 # (c) unstated beliefs
 c = ax[1, 0]
 w = 0.38
