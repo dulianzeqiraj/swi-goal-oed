@@ -1,0 +1,29 @@
+host: loss 0.711, oracle 0.379, allows 0.48
+Monitoring agency    n 300 treated 0.50 gain 0.1260±0.0185 value 0.0993 eigall 5.94 eigcate 4.22 eiggoal 0.251 best 0.19 | info alone 5.99 merged 6.76 sumsep 6.53 synergy 0.227 superadd 1.00
+Private irrigators   n 120 treated 0.85 gain 0.1562±0.0195 value 0.1348 eigall 6.31 eigcate 4.93 eiggoal 0.310 best 0.55 | info alone 5.60 merged 6.69 sumsep 6.39 synergy 0.303 superadd 1.00
+Coastal hotels       n  32 treated 0.50 gain 0.0968±0.0166 value 0.1065 eigall 4.76 eigcate 3.31 eiggoal 0.217 best 0.23 | info alone 3.40 merged 5.46 sumsep 4.86 synergy 0.592 superadd 1.00
+Research campaign    n  24 treated 0.50 gain 0.0624±0.0145 value 0.0623 eigall 2.07 eigcate 1.40 eiggoal 0.128 best 0.04 | info alone 1.71 merged 3.50 sumsep 3.06 synergy 0.438 superadd 1.00
+host info (1.7457774311156078, 0.02876281107368832)
+Largest dataset                          gain 0.1260±0.0185 regret 0.0432 P(best) 0.19 value-minus +0.0280±0.0074 agree 0.07 picks {'Monitoring agency': 200, 'Private irrigators': 0, 'Coastal hotels': 0, 'Research campaign': 0}
+EIG of all parameters                    gain 0.1490±0.0188 regret 0.0203 P(best) 0.45 value-minus +0.0050±0.0034 agree 0.69 picks {'Monitoring agency': 49, 'Private irrigators': 150, 'Coastal hotels': 1, 'Research campaign': 0}
+EIG of the CATE parameters (anchor)      gain 0.1551±0.0195 regret 0.0141 P(best) 0.53 value-minus -0.0011±0.0047 agree 0.83 picks {'Monitoring agency': 11, 'Private irrigators': 189, 'Coastal hotels': 0, 'Research campaign': 0}
+Mean EIG of the target CATEs             gain 0.1563±0.0195 regret 0.0129 P(best) 0.54 value-minus -0.0023±0.0045 agree 0.84 picks {'Monitoring agency': 6, 'Private irrigators': 193, 'Coastal hotels': 1, 'Research campaign': 0}
+BASHKIMI-GO decision value               gain 0.1540±0.0186 regret 0.0152 P(best) 0.56 value-minus +0.0000±0.0000 agree 1.00 picks {'Monitoring agency': 13, 'Private irrigators': 166, 'Coastal hotels': 21, 'Research campaign': 0}
+random {'gain': (0.11036561629216943, 0.015846564544042607), 'regret': (0.05888046523260078, 0.005129173327921777)} oracle {'gain': (0.1692460815247702, 0.018813158297442453)}
+kendall {'eig_all': 0.4227500510218448, 'eig_cate': 0.45625088854278284, 'eig_goal': 0.4710065162981921, 'value': 0.511687145016837}
+calibration {'pred_mean': 0.10073946193589478, 'real_mean': 0.11036561629216943, 'corr': 0.3092056726927686, 'slope': 0.8759123172843502, 'by_candidate': [{'name': 'Monitoring agency', 'pred': 0.0993270838466485, 'real': 0.12600540847872505}, {'name': 'Private irrigators', 'pred': 0.13475756142275877, 'real': 0.15622365247493863}, {'name': 'Coastal hotels', 'pred': 0.1065350531954223, 'real': 0.09678921996514138}, {'name': 'Research campaign', 'pred': 0.06233814927874957, 'real': 0.062444184249872615}]}
+disagree {'share': 0.165, 'diff': (-0.006843953516848318, 0.028835624433677258), 'value_picks': {'Monitoring agency': 7, 'Private irrigators': 5, 'Coastal hotels': 21, 'Research campaign': 0}, 'anchor_picks': {'Monitoring agency': 5, 'Private irrigators': 28, 'Coastal hotels': 0, 'Research campaign': 0}}
+dV {'0.1': (0.0258897935722488, 0.0011052261335053313), '0.3': (0.05594900820272017, 0.0022362885538366106), '1.0': (0.10850704531254668, 0.0041326477203628776)} BE2 852.7856804560415
+eps   0.3: A agree 0.28 keep 0.72 | B0.1 0.36/0.78 C0.1 0.44/0.85 | B0.3 0.27/0.75 C0.3 0.46/0.84 | B1.0 0.23/0.69 C1.0 0.38/0.76 | 
+eps   1.0: A agree 0.23 keep 0.71 | B0.1 0.43/0.87 C0.1 0.65/0.97 | B0.3 0.28/0.78 C0.3 0.77/1.00 | B1.0 0.30/0.77 C1.0 0.56/0.92 | 
+eps   3.0: A agree 0.27 keep 0.75 | B0.1 0.51/0.87 C0.1 0.70/0.99 | B0.3 0.43/0.83 C0.3 0.83/1.02 | B1.0 0.34/0.77 C1.0 0.80/0.98 | 
+eps  10.0: A agree 0.41 keep 0.86 | B0.1 0.63/0.97 C0.1 0.74/1.00 | B0.3 0.65/0.94 C0.3 0.88/1.02 | B1.0 0.47/0.85 C1.0 0.85/1.02 | 
+eps  30.0: A agree 0.43 keep 0.89 | B0.1 0.69/0.99 C0.1 0.76/1.00 | B0.3 0.78/0.99 C0.3 0.88/1.02 | B1.0 0.72/0.98 C1.0 0.89/1.02 | 
+clip 0.1: agree 0.74 keep 1.00 bias -0.0408 conservative 1.000 clipped share {'Monitoring agency': 0.2638666666666667, 'Private irrigators': 0.8209166666666667, 'Coastal hotels': 0.9075, 'Research campaign': 0.48375}
+clip 0.3: agree 0.88 keep 1.02 bias -0.0179 conservative 1.000 clipped share {'Monitoring agency': 0.02246666666666667, 'Private irrigators': 0.4171250000000001, 'Coastal hotels': 0.74453125, 'Research campaign': 0.26}
+clip 1.0: agree 0.92 keep 1.02 bias -0.0032 conservative 1.000 clipped share {'Monitoring agency': 0.0, 'Private irrigators': 0.019125, 'Coastal hotels': 0.53515625, 'Research campaign': 0.10333333333333333}
+merge cost 0.01: rule merges 0.98, net +0.1438±0.0187; always (value pick) +0.1440; always (anchor pick) +0.1451; never 0; oracle +0.1617
+merge cost 0.02: rule merges 0.98, net +0.1340±0.0186; always (value pick) +0.1340; always (anchor pick) +0.1351; never 0; oracle +0.1526
+merge cost 0.03: rule merges 0.98, net +0.1241±0.0186; always (value pick) +0.1240; always (anchor pick) +0.1251; never 0; oracle +0.1436
+merge cost 0.04: rule merges 0.97, net +0.1139±0.0186; always (value pick) +0.1140; always (anchor pick) +0.1151; never 0; oracle +0.1348
+merge cost 0.06: rule merges 0.96, net +0.0952±0.0185; always (value pick) +0.0940; always (anchor pick) +0.0951; never 0; oracle +0.1184

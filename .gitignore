@@ -48,3 +48,4 @@ experiments/*/run_*.out
 experiments/vendi_go/res/setup.npz
 # SIGURIA-GO: scenario ensembles (about 80 MB, rebuilt by siguria.py ensemble in about 3 minutes) and figure arrays
 experiments/siguria_go/res/*.npz
+experiments/bashkimi_go/res/*.npz
