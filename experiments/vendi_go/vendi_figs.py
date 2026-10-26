@@ -65,40 +65,43 @@ def main(path):
     a.set_title(f'(a) Prior truth {tex}: what was tested and built', fontsize=10, color=INK, loc='left')
     # ---------------------------------------------------------- (b) risk against tests
     b = ax[1]
-    kx = np.linspace(0, 12.5, 50)
+    kx = np.linspace(-0.4, 12.6, 50)
     J0 = stat['vendi'][0] + kappa * stat['vendi'][2]
-    for J in (J0 - 0.04, J0, J0 + 0.04, J0 + 0.08, J0 + 0.12):
+    for J in (J0 - 0.04, J0, J0 + 0.04, J0 + 0.08, J0 + 0.12, J0 + 0.16):
         b.plot(kx, J - kappa * kx, color=GRID, lw=0.8, zorder=0)
-    b.annotate(f'equal cost, κ = {kappa:g}', (10.4, J0 + 0.08 - kappa * 10.4), fontsize=7.5, color=INK2, rotation=-4, va='bottom')
-    groups = {'earlier': (['published_cells', 'area_cells', 'prag_cells', 'prag_prior', 'prag_s0'], '#7a7975'),
+    b.annotate(f'lines of equal cost J = risk + {kappa:g} × tests', (6.3, J0 - kappa * 6.3), xytext=(0, 3), textcoords='offset points',
+               fontsize=7.3, color=INK2, rotation=-3.2, ha='left', va='bottom')
+    groups = {'earlier': (['prag_cells', 'prag_prior', 'prag_s0'], '#7a7975'),
               'learning': (['random', 'thompson', 'confirm', 'vendi_noS0'], BLUE),
               'vendi': (['vendi'], ORANGE)}
-    offs = {'published_cells': (6, 2), 'area_cells': (6, -2), 'prag_cells': (6, 4), 'prag_prior': (6, -9), 'prag_s0': (-8, -12),
-            'random': (6, 0), 'thompson': (-6, 7), 'confirm': (6, 5), 'vendi_noS0': (6, -2), 'vendi': (6, -12), 'oracle': (6, -3)}
+    offs = {'prag_cells': (-9, 1, 'right'), 'prag_prior': (-9, 0, 'right'), 'prag_s0': (-9, -2, 'right'),
+            'random': (9, 0, 'left'), 'thompson': (-9, 0, 'right'), 'confirm': (-7, -17, 'right'),
+            'vendi_noS0': (8, 13, 'left'), 'vendi': (9, -15, 'left'), 'oracle': (9, -2, 'left')}
     for g, (pols, col) in groups.items():
         for p in pols:
             mu, ci, k = stat[p]
             b.errorbar(k, mu, yerr=ci, fmt='o', ms=6 if p != 'vendi' else 8, color=col, mec=INK if p == 'vendi' else col,
                        ecolor=col, elinewidth=1, capsize=2, zorder=3)
-            ha = 'right' if offs[p][0] < 0 else 'left'
-            b.annotate(NAMES[p], (k, mu), xytext=offs[p], textcoords='offset points', fontsize=7.6, color=INK, ha=ha, va='center')
+            dx, dy, ha = offs[p]
+            b.annotate(NAMES[p], (k, mu), xytext=(dx, dy), textcoords='offset points', fontsize=7.6,
+                       color=INK, ha=ha, va='center', fontweight='bold' if p == 'vendi' else 'normal')
     mu, ci, k = stat['oracle']
     b.errorbar(k, mu, yerr=ci, fmt='D', ms=6, mfc='white', mec=INK, ecolor=INK, elinewidth=1, capsize=2, zorder=3)
-    b.annotate(NAMES['oracle'], (k, mu), xytext=offs['oracle'], textcoords='offset points', fontsize=7.6, color=INK, va='center')
-    mu, _, _ = stat['none']
-    b.axhline(mu, color=INK2, lw=0.8, ls=(0, (4, 3)))
-    b.annotate(f'no recharge: {mu:.2f}', (12.3, mu), xytext=(0, -9), textcoords='offset points', fontsize=7.6, color=INK2, ha='right')
-    b.set_xlim(-0.4, 12.6); b.set_ylim(0.0, max(stat['none'][0] + 0.05, 0.7))
+    dx, dy, ha = offs['oracle']
+    b.annotate(NAMES['oracle'], (k, mu), xytext=(dx, dy), textcoords='offset points', fontsize=7.6, color=INK, ha=ha, va='center')
+    off = ', '.join(f"{NAMES[p]} {stat[p][0]:.2f}" for p in ('none', 'published_cells', 'area_cells'))
+    b.text(0.02, 0.98, f'Above the frame: {off}', transform=b.transAxes, fontsize=7.3, color=INK2, va='top', ha='left')
+    b.set_xlim(-0.6, 12.6); b.set_ylim(0.10, 0.40)
     b.set_xlabel('Mean number of pilot tests', color=INK2, fontsize=9)
     b.set_ylabel('Mean P(A1 or P10 intruded) over prior truths', color=INK2, fontsize=9)
-    b.tick_params(colors=INK2, labelsize=8); b.grid(axis='y', color=GRID, lw=0.6); b.set_axisbelow(True)
+    b.tick_params(colors=INK2, labelsize=8); b.grid(axis='y', color='#eceae6', lw=0.6); b.set_axisbelow(True)
     for s_ in ('top', 'right'): b.spines[s_].set_visible(False)
     for s_ in ('left', 'bottom'): b.spines[s_].set_color(GRID)
     b.set_title(f'(b) Risk against pilot tests, {len(T)} prior truths (95% intervals)', fontsize=10, color=INK, loc='left')
     fig.tight_layout()
     out = os.path.join(HERE, 'res', 'figV1_vendi.png')
     fig.savefig(out, dpi=200); print('wrote', out, 'example truth', tex)
-    json.dump({'example_truth': tex, 'stat': {p: list(map(float, s)) for p, s in stat.items()}},
+    json.dump({'example_truth': tex, 'oracle_risk': float(by['oracle'][tex]['risk']), 'stat': {p: list(map(float, s)) for p, s in stat.items()}},
               open(os.path.join(HERE, 'res', 'fig_stats.json'), 'w'), indent=1)
 
 

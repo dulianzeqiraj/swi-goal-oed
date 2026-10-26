@@ -39,3 +39,27 @@ linearly); cost J = risk + kappa × tests.
 - `vendi_summary.py` — paired comparisons, calibration and checks → `res/vendi_summary.json`.
 - `vendi_figs.py` — Figure V1 → `res/figV1_vendi.png`.
 - `run_all.sh` — the whole pipeline (about 50 minutes on four cores).
+
+## Results (`res/vendi_summary.json`, 200 prior truths, kappa = 0.01)
+
+| Policy | Pilot tests | P(A or B intruded) ± 95% | Cost J | J − J(VENDI-GO) ± 95% |
+|---|---|---|---|---|
+| No recharge | 0.00 | 0.609 ± 0.049 | 0.609 | +0.400 ± 0.041 |
+| Published MAR cells | 3.00 | 0.593 ± 0.049 | 0.623 | +0.414 ± 0.040 |
+| Area adjoint | 3.00 | 0.467 ± 0.051 | 0.497 | +0.288 ± 0.035 |
+| PRAG-MAR cells | 3.00 | 0.250 ± 0.045 | 0.280 | +0.071 ± 0.020 |
+| PRAG-MAR on the lattice | 3.00 | 0.228 ± 0.044 | 0.258 | +0.049 ± 0.015 |
+| PRAG-MAR after Stage 0 | 3.00 | 0.213 ± 0.044 | 0.243 | +0.034 ± 0.013 |
+| Random tests | 6.00 | 0.355 ± 0.050 | 0.415 | +0.206 ± 0.028 |
+| Thompson sampling | 11.37 | 0.180 ± 0.042 | 0.293 | +0.085 ± 0.011 |
+| Plan and confirm | 4.47 | 0.167 ± 0.040 | 0.212 | +0.003 ± 0.005 |
+| VENDI-GO without Stage 0 | 5.53 | 0.172 ± 0.040 | 0.228 | +0.019 ± 0.007 |
+| **VENDI-GO** | 4.96 | 0.159 ± 0.040 | 0.209 | — |
+| Oracle (bound) | 0.00 | 0.145 ± 0.038 | 0.145 | -0.064 ± 0.006 |
+
+- VENDI-GO closes 83% of the gap between PRAG-MAR on the lattice and the oracle; its design is within 0.005 of the oracle risk in 66% of the aquifers.
+- Against plan-and-confirm (same planning, no value of information) it lowers the risk by 0.008 ± 0.005 with 0.48 more tests; the cost difference (+0.003 ± 0.005) is within the noise.
+- Stage 0 (no drilling) lowers the cost by 0.019 ± 0.007; Thompson sampling reaches a similar risk but uses 11.4 tests.
+- Calibration: mean posterior risk 0.157, realised 0.159; posterior 0–0.05: predicted 0.009, realised 0.009 (n = 115); posterior 0.05–0.3: predicted 0.125, realised 0.107 (n = 50); posterior 0.3–1: predicted 0.690, realised 0.727 (n = 35).
+- Proposition V1 check: max |u − g| = 8.1e-20 (sensitivities up to 1.8e-04); the flow matrix is exactly symmetric.
+- The oracle is the best lattice design: off-lattice PRAG-MAR cells beat it in 7.5% of the aquifers.
