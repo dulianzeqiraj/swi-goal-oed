@@ -28,14 +28,14 @@ def main():
     P = json.load(open(os.path.join(HERE, 'res', 'koalicioni_summary_drift.json')))
     L = json.load(open(os.path.join(HERE, 'res', 'koalicioni_summary_local.json')))
     fig = plt.figure(figsize=(12.0, 9.2))
-    gs = fig.add_gridspec(2, 2, hspace=0.38, wspace=0.26)
+    gs = fig.add_gridspec(2, 2, hspace=0.55, wspace=0.40)
     # ------------------------------------------------------------ (a) holders alone
     a = fig.add_subplot(gs[0, 0]); x = np.arange(5)
     for off, S, col, lab in ((-0.2, P, BLUE, 'physics-informed'), (0.2, L, ORANGE, 'local statistical')):
         v = [s['V'][0] for s in S['singles']]; r = [s['R'][0] for s in S['singles']]; re = [s['R'][1] for s in S['singles']]
         a.bar(x + off, v, width=0.36, color=col, alpha=0.35, edgecolor=col, lw=1.0, label=f'{lab}: predicted value')
         a.errorbar(x + off, r, yerr=re, fmt='o', ms=5, color=col, mec=INK, mew=0.5, capsize=3, lw=1.1, label=f'{lab}: realised gain (95% CI)')
-    a.axhline(0, color=INK2, lw=0.9)
+    a.axhline(0, color=INK2, lw=0.9); a.set_ylim(top=0.37)
     a.set_xticks(x); a.set_xticklabels(SHORT, fontsize=7.5)
     a.set_ylabel('value of merging this holder alone (loss units)', color=INK2, fontsize=8.5)
     a.legend(loc='upper right', fontsize=6.8, frameon=False)
@@ -52,7 +52,7 @@ def main():
     b.axvline(0, color=INK2, lw=0.9)
     b.set_yticks(y); b.set_yticklabels([k.replace('+', ' + ') for k in keys], fontsize=7.2); b.invert_yaxis()
     b.set_xlabel('synergy  V(i and j) − V(i) − V(j)   (< 0: substitutes, > 0: complements)', color=INK2, fontsize=8)
-    b.legend(loc='lower left', fontsize=6.8, frameon=True, framealpha=0.9, edgecolor=GRID)
+    b.legend(loc='upper center', bbox_to_anchor=(0.5, -0.13), ncol=2, fontsize=6.8, frameon=False)
     b.set_title('(b) Pairs of holders: substitutes or complements?', fontsize=9.5, color=INK, loc='left')
     b.grid(axis='x', color=GRID, lw=0.6); style(b)
     # ------------------------------------------------------------ (c) policies

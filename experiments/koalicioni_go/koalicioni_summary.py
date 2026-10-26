@@ -60,6 +60,27 @@ S['shapley'] = dict(pred=[ci(shV[:, k]) for k in range(K.NH)], real=[ci(shR[:, k
                     host_share=ci([r['hostShareV'] for r in R]), convex=float(np.mean([r['convV'] for r in R])),
                     core=float(np.mean([r['coreV'] for r in R])), convex_real=float(np.mean([r['convR'] for r in R])),
                     core_real=float(np.mean([r['coreR'] for r in R])))
+# a stable alternative: pay each holder its marginal contribution to the grand coalition, the utility keeps the rest
+def marginal_rule(v):
+    full = v[grand]; x = np.array([full - v[key([j for j in range(K.NH) if j != k])] for k in range(K.NH)]); x0 = full - x.sum()
+    ok = x0 >= -1e-12 and (x >= -1e-12).all()
+    for s in K.SUBSETS[1:]:
+        ok = ok and (x0 + x[list(s)].sum() >= v[key(s)] - 1e-12)
+    return ok, (x0 / full if full > 0 else 0.0)
+def pair_rule(v):
+    # the complementary pair hotels (2) + municipal (3) is paid once, jointly, its marginal contribution to the grand
+    # coalition, split in proportion to the two individual marginal contributions; the others as in marginal_rule
+    full = v[grand]; x = np.array([full - v[key([j for j in range(K.NH) if j != k])] for k in range(K.NH)])
+    joint = full - v[key([0, 1, 4])]; wt = np.clip(x[[2, 3]], 0, None); wt = wt / wt.sum() if wt.sum() > 0 else np.array([0.5, 0.5])
+    x[[2, 3]] = joint * wt; x0 = full - x.sum()
+    ok = x0 >= -1e-12 and (x >= -1e-12).all()
+    for s in K.SUBSETS[1:]:
+        ok = ok and (x0 + x[list(s)].sum() >= v[key(s)] - 1e-12)
+    return ok, (x0 / full if full > 0 else 0.0)
+pr_ = [pair_rule(r['V']) for r in R]; prR = [pair_rule(r['R']) for r in R]
+S['pair_rule'] = dict(core=float(np.mean([m[0] for m in pr_])), host_share=ci([m[1] for m in pr_]), core_real=float(np.mean([m[0] for m in prR])))
+mr = [marginal_rule(r['V']) for r in R]; mrR = [marginal_rule(r['R']) for r in R]
+S['marginal_rule'] = dict(core=float(np.mean([m[0] for m in mr])), host_share=ci([m[1] for m in mr]), core_real=float(np.mean([m[0] for m in mrR])))
 S['robustness'] = {sg: dict(shapley=ci([r['rob'][sg]['shapley'] for r in R]), banzhaf=ci([r['rob'][sg]['banzhaf'] for r in R]),
                             banzhaf_minus_shapley=ci([r['rob'][sg]['banzhaf'] - r['rob'][sg]['shapley'] for r in R])) for sg in R[0]['rob']}
 # privacy (noise once per holder on clipped whitened information)
@@ -83,6 +104,7 @@ for c, row in S['policies'].items():
           f"| sizes opt {row['optimal_size'][0]:.2f} adapt {row['adaptive_size'][0]:.2f} | adapt-opt {row['adaptive_minus_optimal'][0]:+.4f}±{row['adaptive_minus_optimal'][1]:.4f} opt-greedy {row['optimal_minus_greedy'][0]:+.4f}±{row['optimal_minus_greedy'][1]:.4f} opt-single {row['optimal_minus_single'][0]:+.4f}±{row['optimal_minus_single'][1]:.4f} greedy differs {row['greedy_differs']:.2f} HM in opt {row['optimal_has_pair_HM']:.2f}")
 print('shapley pred', [round(x[0], 4) for x in S['shapley']['pred']], 'real', [round(x[0], 4) for x in S['shapley']['real']], 'banzhaf', [round(x[0], 4) for x in S['shapley']['banzhaf']])
 print('  per record', [round(x[0], 5) for x in S['shapley']['per_record']], 'host share', S['shapley']['host_share'], 'convex', S['shapley']['convex'], 'core', S['shapley']['core'], 'corr', round(S['shapley']['corr_pred_real'], 3), 'real convex/core', S['shapley']['convex_real'], S['shapley']['core_real'])
+print('marginal rule', S['marginal_rule'], 'pair rule', S['pair_rule'])
 print('robustness', {k: (round(v['shapley'][0], 3), round(v['banzhaf'][0], 3), round(v['banzhaf_minus_shapley'][0], 4), round(v['banzhaf_minus_shapley'][1], 4)) for k, v in S['robustness'].items()})
 for e, v in S['privacy'].items():
     print(f"privacy eps {e}: shapley tau {v['shapley_tau'][0]:.2f} | " + '  '.join(f"c{c}: net {v[c]['net'][0]:+.4f} same {v[c]['same']:.2f}" for c in map(str, K.COSTS)))
