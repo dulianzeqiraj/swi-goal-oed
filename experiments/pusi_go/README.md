@@ -21,7 +21,8 @@ P(Cl > 250 mg/L) = 1/2 (the PRAG-MAR rule, now on chemistry).
    mixing zone, for every supply well.
 3. *P3, which standard binds.* With Fushë-Kuqe end-members chloride reaches its limit first under intrusion (sea
    fraction 1.09 % against 1.50 % for sodium by mixing, and exchange only delays sodium); behind a recharge well the
-   dissolved sodium cannot exceed the anion equivalents of the recharge water (4.57 meq/L = 105 mg/L for well 193).
+   dissolved sodium cannot exceed the cation equivalents of the recharge water (exchange swaps charge equivalent for
+   equivalent): 4.47 meq/L = 103 mg/L for well 193.
 
 ## Files
 - `pusi_run.py`: runs the 20 000 draws once (phi and the two unit responses at the supply, monitoring and recharge
