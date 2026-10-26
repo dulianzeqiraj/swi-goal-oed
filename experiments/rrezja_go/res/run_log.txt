@@ -1,0 +1,7 @@
+prior radii [0.     0.4116 0.0953 0.2834 0.2928] 2s
+posterior radii (median) [0.     0.157  0.0443 0.2439 0.1374] gen eig 1.184 10s
+none z2 0.2928 net 1281 dead 0.0 unstated z8_env max 0.089 0s step, 14s total
+none z8 0.2928 net 1281 dead 0.0 unstated z8_env max 0.089 0s step, 14s total
+none z2 0.4116 net -528 dead 0.0 unstated z8_env max 0.053 0s step, 14s total
+none z8 0.4116 net -1131 dead 0.0 unstated z8_env max 0.041 0s step, 14s total
+none vendimi net 2148 unstated z8_env max 0.119 width pessimist 0.119 14s
