@@ -30,28 +30,28 @@ def main():
         x = np.sort(r); y = np.arange(1, len(x) + 1) / len(x)
         a.step(x, y, where='post', color=col, lw=1.6, label=lab)
     a.axvline(float(Z['truth_risk']), color=INK, lw=1, ls=(0, (4, 3)))
-    a.annotate('true aquifer', (float(Z['truth_risk']), 0.08), xytext=(5, 0), textcoords='offset points', fontsize=7.5, color=INK)
+    a.annotate('true aquifer', (float(Z['truth_risk']), 0.5), xytext=(4, 0), textcoords='offset points', fontsize=7.5, color=INK, rotation=90, va='center')
     a.set_xscale('symlog', linthresh=1e-3); a.set_xlim(0, 1)
     a.set_xlabel('Intrusion probability of the scheme for one aquifer', color=INK2, fontsize=8.5)
     a.set_ylabel('Fraction of plausible aquifers', color=INK2, fontsize=8.5)
-    a.legend(loc='lower right', fontsize=7.2, frameon=False)
-    a.set_title('(a) Uncertainty of the risk', fontsize=9.5, color=INK, loc='left')
-    # ---------------------------------------------------------------- (b) robustness radius
+    a.legend(loc='upper left', fontsize=7.2, frameon=False)
+    a.set_title(f"(a) Uncertainty of the risk (truth {J['after_tests']['truth']})", fontsize=9.5, color=INK, loc='left')
+    # ---------------------------------------------------------------- (b) certificates after the tests
     b = fig.add_subplot(gs[1])
-    rho = np.linspace(0, 0.06, 100)
-    for key, col, lab in (('best', ORANGE, 'optimal scheme'), ('prag', BLUE, 'PRAG-MAR scheme')):
-        cv = J[key]['cvar']
-        b.plot(rho, cv + rho / alpha, color=col, lw=1.6, label=f"{lab}: ρ* = {J[key]['rho_star_m'] * 100:.1f} cm")
-        if J[key]['rho_star_m'] > 0:
-            b.plot([J[key]['rho_star_m']], [0], 'o', color=col, ms=5)
-    w1 = J['misspecification']['w1_coupling_bound_m']
-    b.axvline(w1, color=INK, lw=1, ls=(0, (4, 3)))
-    b.annotate('model error of the\n12-zone model (bound)', (w1, b.get_ylim()[0] if False else -0.9), xytext=(4, 0), textcoords='offset points', fontsize=7.2, color=INK)
-    b.axhline(0, color=INK2, lw=0.8)
-    b.set_xlabel('Wasserstein radius ρ (m of head)', color=INK2, fontsize=8.5)
-    b.set_ylabel('Worst-case CVaR$_{0.05}$ of the head deficit (m)', color=INK2, fontsize=8.5)
+    rows = J['after_tests_all']['rows']
+    lo = 1e-5
+    x = np.array([max(r_['post'], lo) for r_ in rows]); y = np.array([max(r_['truth_risk'], lo) for r_ in rows])
+    c5 = np.array([r_['rho'] > 0 for r_ in rows]); c10 = np.array([r_['rho10'] > 0 for r_ in rows]) & ~c5
+    no = ~(c5 | c10)
+    b.plot([lo, 1], [lo, 1], color=GRID, lw=1, zorder=0)
+    b.scatter(x[c5], y[c5], s=34, c=ORANGE, edgecolors=INK, lw=0.5, zorder=3, label=f'certified at 5% ({c5.sum()})')
+    b.scatter(x[c10], y[c10], s=34, c=BLUE, edgecolors=INK, lw=0.5, zorder=3, label=f'certified at 10% only ({c10.sum()})')
+    b.scatter(x[no], y[no], s=34, facecolors='white', edgecolors=INK2, lw=0.9, zorder=3, label=f'not certified ({no.sum()})')
+    b.set_xscale('log'); b.set_yscale('log'); b.set_xlim(lo, 1.5); b.set_ylim(lo, 1.5)
+    b.set_xlabel('Posterior risk of the built scheme (VENDI-GO belief)', color=INK2, fontsize=8.5)
+    b.set_ylabel('Risk in the true aquifer', color=INK2, fontsize=8.5)
     b.legend(loc='upper left', fontsize=7.2, frameon=False)
-    b.set_title('(b) Robustness to model error', fontsize=9.5, color=INK, loc='left')
+    b.set_title(f"(b) Certificates after the tests, {len(rows)} aquifers", fontsize=9.5, color=INK, loc='left')
     # ---------------------------------------------------------------- (c) uniqueness map
     c = fig.add_subplot(gs[2]); m = V.m; v = m.valid
     tp = V.triples(); bd = Z['best_d']
