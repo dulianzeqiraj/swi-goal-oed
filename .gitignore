@@ -44,3 +44,7 @@ experiments/mjegulla_go/*.log
 experiments/gjurma_go/*.log
 # ZBULIMI-GO: console copy of the run log (zbulimi.log holds the same text)
 experiments/*/run_*.out
+# VENDI-GO: approximation-error statistics and pumping calibration (about 4 MB, rebuilt by vendi.py setup in about 1 minute)
+experiments/vendi_go/res/setup.npz
+# SIGURIA-GO: scenario ensembles (about 80 MB, rebuilt by siguria.py ensemble in about 3 minutes) and figure arrays
+experiments/siguria_go/res/*.npz
