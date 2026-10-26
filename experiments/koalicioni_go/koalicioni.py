@@ -6,8 +6,8 @@ AISTATS 2025, "Is merging worth it?"). It extends BASHKIMI-GO (review 55, ../bas
 physics-informed Bayesian CATE model and decision value it reuses, from one merge to coalitions of holders.
 
 Holders (host = water utility, as in review 55): monitoring agency (inland, balanced), private irrigators (mid plain,
-mostly pumped hard), coastal hotels (ALWAYS pumped hard in summer, p = 0.95), municipal coastal wells (capped by law,
-ALWAYS pumped low, p = 0.05) and a research campaign (designed). Hotels and municipal wells each see one pumping regime
+mostly pumped hard), coastal hotels (ALWAYS pumped hard in summer, p = 1), municipal coastal wells (capped by law,
+ALWAYS pumped low, p = 0) and a research campaign (designed). Hotels and municipal wells each see one pumping regime
 near the coast: alone they barely identify the effect there; together they do (Proposition K2).
 For every world (plausible aquifer):
   * predicted decision value V(S) of every coalition S of the five holders, from the sum of their Gram matrices
@@ -18,7 +18,7 @@ For every world (plausible aquifer):
   * Shapley and Banzhaf shares of the holders (and of the host as a veto player), convexity and the core;
   * robustness of the shares to noise on the coalition values (the Data Banzhaf claim) and privacy: per-holder noise
     on clipped whitened information, after which all coalition values are post-processing (no composition).
-Run: python3 koalicioni.py run 200 ; python3 koalicioni_summary.py ; python3 koalicioni_figs.py
+Run: see run_all.sh (KOA_DRIFT=1: physics-informed model with a drift field; KOA_MODEL=local: local statistical model)
 """
 import os, sys, json, time, itertools
 for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'):
