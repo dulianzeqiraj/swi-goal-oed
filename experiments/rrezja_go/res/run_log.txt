@@ -5,3 +5,24 @@ none z8 0.2928 net 1281 dead 0.0 unstated z8_env max 0.089 0s step, 14s total
 none z2 0.4116 net -528 dead 0.0 unstated z8_env max 0.053 0s step, 14s total
 none z8 0.4116 net -1131 dead 0.0 unstated z8_env max 0.041 0s step, 14s total
 none vendimi net 2148 unstated z8_env max 0.119 width pessimist 0.119 14s
+chloride sample (A30) z2 0.2928 net 4466 dead 0.069 unstated z8_env max 0.06 329s step, 350s total
+chloride sample (A30) z8 0.2928 net 3981 dead 0.077 unstated z8_env max 0.043 341s step, 691s total
+chloride sample (A30) z2 0.4116 net 4026 dead 0.074 unstated z8_env max 0.041 343s step, 1035s total
+chloride sample (A30) z8 0.4116 net 3493 dead 0.085 unstated z8_env max 0.037 322s step, 1357s total
+chloride sample (A30) vendimi net 5125 unstated z8_env max 0.065 width pessimist 0.039 1357s
+none z8 0.0 net 5295 dead 0.0 unstated z8_env max 0.194 0s step, 1357s total
+none z8 0.05 net 3354 dead 0.0 unstated z8_env max 0.139 0s step, 1357s total
+none z8 0.1 net 3354 dead 0.0 unstated z8_env max 0.139 0s step, 1357s total
+none z8 0.15 net 2148 dead 0.0 unstated z8_env max 0.119 0s step, 1357s total
+none z8 0.2 net 1545 dead 0.0 unstated z8_env max 0.11 0s step, 1357s total
+none z8 0.25 net 1281 dead 0.0 unstated z8_env max 0.089 0s step, 1357s total
+none z8 0.35 net -528 dead 0.0 unstated z8_env max 0.053 0s step, 1357s total
+none z8 0.5 net -6558 dead 0.0 unstated z8_env max 0.027 0s step, 1357s total
+frontier none [ 5295.  3354.  3354.  2148.  1545.  1281.  1281.  -528. -1131. -6558.] [  5295.     75.  -2940. -10176. -15000. -15000. -15000. -15000. -15000.
+ -15000.] 1357s
+chloride sample (A30) z8 0.0 net 7624 dead 0.015 unstated z8_env max 0.149 27s step, 1384s total
+chloride sample (A30) z8 0.1 net 5300 dead 0.057 unstated z8_env max 0.087 294s step, 1678s total
+chloride sample (A30) z8 0.2 net 4478 dead 0.073 unstated z8_env max 0.066 290s step, 1968s total
+frontier chloride sample (A30) [7624. 5300. 4478. 3981. 3493.] [7624. 4022. 2663. 1804. 1009.] 1970s
+wrote res/rrezja.json 1972s
+done
