@@ -263,7 +263,7 @@ def analyse():
         D, HA, HB = deficit(Ev, sites, q)
         Dm, _, _ = deficit(Em, sites, q)                    # 12-zone model ensemble (misspecified)
         # coupling bound on W1 between model and truth heads: same theta, xi, eta, the truth adds zeta
-        cv = cvar(D); rho = ALPHA * max(0.0, -cv)
+        cv = cvar(D); rho = ALPHA * max(0.0, -cv); cv10 = cvar(D, 0.10); rho10 = 0.10 * max(0.0, -cv10)
         mu = np.array([HA.mean(), HB.mean()]); sd = np.array([HA.std(), HB.std()])
         cant = float(min(1.0, sum(s ** 2 / (s ** 2 + (m_ - V.HC) ** 2) if m_ > V.HC else 1.0 for m_, s in zip(mu, sd))))
         out[nm] = dict(sites=V.SITE[sites].tolist(), fixed_rate=V.QD,
@@ -271,7 +271,7 @@ def analyse():
                        risk_climate_integrated=float(r_aq.mean()),
                        risk_over_aquifers=dict(q50=float(np.quantile(r_aq, .5)), q90=float(np.quantile(r_aq, .9)),
                                                q99=float(np.quantile(r_aq, .99)), p_above_10pct=float(np.mean(r_aq > 0.1))),
-                       cvar=float(cv), rho_star_m=float(rho), cantelli=cant,
+                       cvar=float(cv), rho_star_m=float(rho), cvar10=float(cv10), rho10_m=float(rho10), cantelli=cant,
                        gaussian=float(1 - V.bvnu(-(mu[0] - V.HC) / sd[0], -(mu[1] - V.HC) / sd[1], np.corrcoef(HA, HB)[0, 1])),
                        risk_model_ensemble=float(np.mean(Dm > 0)), cvar_model=float(cvar(Dm)))
         print(nm, json.dumps(out[nm]))
@@ -301,13 +301,30 @@ def analyse():
                            eps_certificate=float(eps), val_violation=float(np.mean(Dv2 > 0)),
                            val_violation_se=float(np.std(Dv2 > 0) / np.sqrt(len(Dv2))), face_ranges=fr2)
     print('scenario', out['scenario'])
-    # ---- after the pilot tests: the scheme VENDI-GO builds for one prior truth, certified under its posterior
-    fs_ = os.path.join(HERE, '..', 'vendi_go', 'res', 'fig_stats.json')
-    tex = int(json.load(open(fs_))['example_truth']) if os.path.exists(fs_) else 0
-    out['after_tests'] = after_tests(tex, schemes['best'])
-    print('after tests', json.dumps(out['after_tests']))
+    # ---- after the pilot tests: the schemes VENDI-GO builds for prior truths 0..N_AT-1, certified under its posterior
+    with Pool(4, initializer=V.init_worker) as pool:
+        AG = pool.map(after_light, range(N_AT), chunksize=1)
+    pr = np.array([a['risk_climate_integrated'] for a in AG]); trv = np.array([a['truth_risk_fixed_rate'] for a in AG])
+    rho = np.array([a['rho_star_m'] for a in AG]); eps = np.array([a['scenario']['eps'] for a in AG])
+    rho10 = np.array([a['rho10_m'] for a in AG])
+    sct = np.array([a['scenario']['truth_risk'] for a in AG])
+    out['after_tests_all'] = dict(n=len(AG), truths=list(range(N_AT)), frac_certified=float(np.mean(rho > 0)),
+                                  frac_certified10=float(np.mean(rho10 > 0)), rho10_median_certified=float(np.median(rho10[rho10 > 0])) if np.any(rho10 > 0) else 0.0,
+                                  frac_post_below_5pct=float(np.mean(pr < 0.05)), frac_post_below_10pct=float(np.mean(pr < 0.10)),
+                                  post_risk_mean=float(pr.mean()), truth_risk_mean=float(trv.mean()),
+                                  prior_risk_same_mean=float(np.mean([a['prior_risk_same_scheme'] for a in AG])),
+                                  rho_median_certified=float(np.median(rho[rho > 0])) if np.any(rho > 0) else 0.0,
+                                  eps_median=float(np.median(eps)), eps_q90=float(np.quantile(eps, .9)),
+                                  scen_truth_le_eps=float(np.mean(sct <= eps)), unfixable_median=float(np.median([a['unfixable'] for a in AG])),
+                                  rows=[dict(truth=a['truth'], post=a['risk_climate_integrated'], truth_risk=a['truth_risk_fixed_rate'],
+                                             rho=a['rho_star_m'], rho10=a['rho10_m'], eps=a['scenario']['eps'], scen_truth=a['scenario']['truth_risk'],
+                                             unfixable=a['unfixable'], tests=len(a['tested'])) for a in AG])
+    print('after tests, all', json.dumps({k: v for k, v in out['after_tests_all'].items() if k != 'rows'}))
+    tex = int(np.argsort(pr)[len(pr) // 2])                 # the typical case: median posterior risk
+    out['after_tests'] = after_tests(tex)
+    print('after tests, typical case', json.dumps(out['after_tests']))
     json.dump(out, open(os.path.join(OUT, 'siguria.json'), 'w'), indent=1)
-    np.savez(os.path.join(OUT, 'siguria_fig.npz'), r_prior=cond_risk(Ev, (schemes['best'], np.full(3, V.QD))),
+    np.savez(os.path.join(OUT, 'siguria_fig.npz'), r_prior=POST['r_prior'],
              r_post=POST['r'], truth_risk=POST['truth'], best_d=best_d, mean_s=mean_s[order[:2000]], order=order[:2000],
              conf=np.array(conf), defl=np.array(defl), jbest=jbest)
     print(f'done {time.time() - t0:.0f} s')
@@ -316,7 +333,7 @@ def analyse():
 BUDGET = 3 * 5000.0
 
 
-def cvar_split(El, Ev, sites, truth=None):
+def cvar_split(El, Ev, sites, truth=None, full=True):
     """the split of a recharge budget among the three wells that minimises CVaR_alpha of the deficit, its
     validation, and the range of each rate over the optimal face (uniqueness)."""
     res, lp = rate_lp(El, sites, 'cvarmin', budget=BUDGET)
@@ -324,7 +341,7 @@ def cvar_split(El, Ev, sites, truth=None):
     Deq, _, _ = deficit(Ev, sites, np.full(len(sites), BUDGET / len(sites)))
     out = dict(budget=BUDGET, q=q.tolist(), status=int(res.status), cvar_lp=float(res.fun), val_cvar=float(cvar(Dv)),
                val_risk=float(np.mean(Dv > 0)), equal_split_cvar=float(cvar(Deq)), equal_split_risk=float(np.mean(Deq > 0)),
-               face_ranges=face_ranges(res, lp, len(sites)))
+               face_ranges=face_ranges(res, lp, len(sites)) if full else None)
     if truth is not None:
         tr, cells = truth
         out['truth_risk'] = float(V.truth_risk(tr, cells, np.minimum(q, tr['c'][cells])))
@@ -332,6 +349,11 @@ def cvar_split(El, Ev, sites, truth=None):
 
 
 POST = {}
+N_AT = 24 if not os.environ.get('SIG_SMALL') else 4
+
+
+def after_light(tex):
+    return after_tests(tex, full=False)
 def posterior_ensemble(B, T, cmeas, n, seed):
     """scenarios of the supply-well quantities, sensitivities and injectivities drawn from the (linearised Gaussian)
     belief of VENDI-GO; tested sites keep their measured injectivity."""
@@ -350,7 +372,7 @@ def posterior_ensemble(B, T, cmeas, n, seed):
     return dict(S=S, gA=np.exp(Y[:, V.GA(k)]).astype(np.float32), gB=np.exp(Y[:, V.GB(k)]).astype(np.float32), c=c.astype(np.float32))
 
 
-def after_tests(tex, prior_best):
+def after_tests(tex, prior_best=None, full=True):
     tr = V.make_truth(tex); cap = {}
     orig = V.finish
     def fin(tr_, B, T, qT, name, extra=None):
@@ -365,7 +387,7 @@ def after_tests(tex, prior_best):
     El_ = posterior_ensemble(B, T, cmeas, N_LP, 456)
     q = np.full(len(sites), V.QD)
     r_aq = cond_risk(Ep, (sites, q)); D, _, _ = deficit(Ep, sites, q)
-    cv = cvar(D)
+    cv = cvar(D); cv10 = cvar(D, 0.10)
     truth = float(V.truth_risk(tr, V.SITE[sites], np.minimum(q, tr['c'][V.SITE[sites]])))
     # minimum-recharge scheme under the posterior: scenario programme, certificate and its truth risk
     Dmax, _, _ = deficit(El_, sites, np.full(len(sites), QMAX))
@@ -375,21 +397,23 @@ def after_tests(tex, prior_best):
     eps = cg_epsilon(N_LP, N_LP - len(keep), len(sites))
     Dv, _, _ = deficit(Ep, sites, qr)
     truth_r = float(V.truth_risk(tr, V.SITE[sites], np.minimum(qr, tr['c'][V.SITE[sites]])))
-    split = cvar_split(El_, Ep, sites, truth=(tr, V.SITE[sites]))
+    split = cvar_split(El_, Ep, sites, truth=(tr, V.SITE[sites]), full=full)
     Dmv, _, _ = deficit(Ep, sites, np.full(len(sites), QMAX))
     # prior certificate of the same scheme for comparison
     Ev = load('val')
     r_pr = cond_risk(Ev, (sites, q))
-    POST.update(r=r_aq, truth=truth)
+    if full:
+        POST.update(r=r_aq, truth=truth, r_prior=r_pr)
     return dict(truth=tex, tested=[int(V.SITE[s]) for s in T], sites=V.SITE[sites].tolist(), vendi_post_risk=res['post_risk'],
                 risk=float(np.mean(D > 0)), risk_climate_integrated=float(r_aq.mean()),
                 risk_over_aquifers=dict(q50=float(np.quantile(r_aq, .5)), q90=float(np.quantile(r_aq, .9)), q99=float(np.quantile(r_aq, .99))),
-                cvar=float(cv), rho_star_m=float(ALPHA * max(0.0, -cv)), truth_risk_fixed_rate=truth,
+                cvar=float(cv), rho_star_m=float(ALPHA * max(0.0, -cv)), cvar10=float(cv10), rho10_m=float(0.10 * max(0.0, -cv10)),
+                truth_risk_fixed_rate=truth,
                 prior_risk_same_scheme=float(r_pr.mean()), prior_q90_same_scheme=float(np.quantile(r_pr, .9)),
                 cvar_split=split, unfixable=float(np.mean(Dmv > 0)),
                 scenario=dict(q=qr.tolist(), total=float(qr.sum()), discarded=int(N_LP - len(keep)), eps=float(eps),
                               post_violation=float(np.mean(Dv > 0)), truth_risk=truth_r,
-                              face_ranges=face_ranges(res2, lp2, len(sites))))
+                              face_ranges=face_ranges(res2, lp2, len(sites)) if full else None))
 
 
 if __name__ == '__main__':

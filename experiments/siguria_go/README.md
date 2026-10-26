@@ -30,7 +30,23 @@ recharge (1 + xi) R.
 
 - `siguria.py` — scenario ensembles (`python3 siguria.py ensemble`: search 4 000, LP 4 000, validation 20 000,
   12-zone model 4 000, paired with the search set) and the certificate (`python3 siguria.py analyse` →
-  `res/siguria.json`), including the certificate of the scheme VENDI-GO builds for one prior truth, under its
-  posterior after the pilot tests.
+  `res/siguria.json`), including the certificate of the schemes VENDI-GO builds for prior truths 0–23 under its
+  posterior after the pilot tests, and in full for the typical one (median posterior risk).
 - `siguria_figs.py` — Figure S1 → `res/figS1_siguria.png`.
 - `run_all.sh` — the whole pipeline (needs `../vendi_go/res/setup.npz` and `../vendi_go/res/fig_stats.json`).
+
+## Results (`res/siguria.json`, log in `res/siguria.log`)
+
+| | Best scheme, before tests | PRAG-MAR scheme, before tests | VENDI-GO scheme after tests (truth 18) |
+|---|---|---|---|
+| P(A or B intruded), 5 000 m³/d per well | 0.226 | 0.228 | 0.024 |
+| risk for one aquifer: median / 90% | 0.06 / 0.82 | 0.06 / 0.83 | 0.022 / 0.044 |
+| CVaR 5% / 10% of the head deficit (m) | +0.98 / +0.69 | +0.93 / +0.64 | +0.013 / -0.038 |
+| robustness radius 5% / 10% (cm) | 0.0 / 0.0 | 0.0 / 0.0 | 0.0 / 0.4 |
+| P according to the 12-zone model alone | 0.098 | 0.098 | — |
+
+- Before tests, 13.9% of scenarios cannot be saved by any rate up to 20 000 m³/d per well; the scenario programme discards 588 of 4000, needs 55689 m³/d and guarantees eps = 18.8% at beta = 1e-6 (fresh scenarios: 13.9%).
+- CVaR split of 15 000 m³/d before tests: 5095, 4272, 5634 m³/d, rates unique to 5.3 m³/d. After tests (truth 18): 9479, 5431, 91 m³/d, posterior risk 0.0024 (equal split 0.024), true risk 0.0082 (equal split 0.051).
+- After tests, over prior truths 0–23: certified at 5% in 12 (median radius 0.9 cm), at 10% in 16 (median 1.9 cm); mean posterior risk 0.187, true 0.195; scenario guarantee median 1.2%, held in the true aquifer in 22 of 24.
+- Model error: the 12-zone model gives P = 0.098 where the generator with the finer field gives 0.232; coupling bound on W1 of the supply-well heads 43 cm.
+- Siting: best 0.2318, PRAG-MAR (also the 12-zone optimum) rank 2 at 0.2319; 13 / 75 / 479 triples within 0.0025 / 0.01 / 0.02; 95% confidence set 3 triples (5 wells); deflation risks 0.232, 0.251, 0.270, 0.273, 0.284; the per-aquifer optimum equals the prior optimum in 1.5% of aquifers (1169 distinct optima, 8.9 bits).
