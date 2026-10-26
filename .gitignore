@@ -50,3 +50,4 @@ experiments/vendi_go/res/setup.npz
 experiments/siguria_go/res/*.npz
 experiments/bashkimi_go/res/*.npz
 experiments/koalicioni_go/res/run_log.txt
+experiments/pusi_go/res/ens.npz
