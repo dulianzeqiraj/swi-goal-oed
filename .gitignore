@@ -56,3 +56,10 @@ experiments/pusi_go/res/ens.npz
 experiments/karst_go/node_modules
 experiments/karst_go/package-lock.json
 experiments/karst_go/karst_diagram.html
+
+# ML paradigm diagrams: KaTeX install, generated pages and Word copies (rebuilt by run_all.sh)
+experiments/ml_paradigms/node_modules
+experiments/ml_paradigms/package-lock.json
+experiments/ml_paradigms/*.html
+experiments/ml_paradigms/*.docx
+experiments/ml_paradigms/__pycache__
