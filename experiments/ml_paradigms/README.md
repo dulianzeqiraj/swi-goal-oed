@@ -1,11 +1,21 @@
-# Four machine-learning paradigm diagrams
+# A diagram series: the problem, four machine-learning paradigms, stakeholder decisions
 
-Four A3 landscape diagrams that teach one machine-learning paradigm each, built from four literature documents of the
-project. Each has an illustrated schematic with computed pictures, a column with the innovation, and eight numbered
-panels with the key equations of the 2020–2026 papers. English only. The Word versions in
-`docs/research_notes/ML_Paradigm_*.docx` have large type on four A4 landscape pages per diagram: the schematic at full
+Six A3 landscape diagrams, English only. The introduction states the problem; four diagrams teach one machine-learning
+paradigm each, built from four literature documents of the project; the last shows how stakeholders decide together.
+Each has an illustrated schematic, a column with the innovation, and eight numbered panels with the key equations.
+The Word versions in `docs/research_notes/` (`Introduction_The_Problem_Statement.docx`, `ML_Paradigm_*.docx`,
+`Stakeholder_Decision_Making.docx`) have large type on four A4 landscape pages per diagram: the schematic at full
 width, the innovation, then the eight panels four to a page. Every equation in the innovation and the panels is native,
 editable Word math (OMML).
+
+| Diagram | Built from | What it shows | Innovation column |
+|---|---|---|---|
+| `d0_problem.py` (introduction) | `../pusi_go/res/pusi.json` (the test bed: 20,000 weighted draws of a calibrated coastal-aquifer model) | A schematic cross-section (sea, wedge, upconing under a supply well, recharge, head and chloride wells, the unknowns), the risk at the supply wells by head and by chloride, the pumping allowed at 10% risk by data set, and the decision loop with the diagram that answers each step | One goal event, one rule for everyone: the problem in one line (max E[W(a)] s.t. max_k P_k(F(a) given y) ≤ α), chemistry not head (0.044 vs 0.594), one chloride sample doubles the safe pumping (4,221 → 8,417 m³/d) |
+| `d5_stakeholders.py` (stakeholder decisions) | `../vendimi_go`, `../rrezja_go`, `../moti_go` results and the 2020–2026 papers of reviews 57–59 | Five beliefs as tilts of one calibration, the unanimous rule and its no-veto choice, what data end a dispute, a belief radius, human factors, plans agreed before each weather | A decision nobody can veto: 5,125 m³/d net with one sample, worst unstated-belief risk 0.119 → 0.089, dry-year risk 0.231 → 0.053 |
+
+Both read every number from the stored results; `d5_stakeholders.py` also asserts each quoted number against them.
+
+The four paradigm diagrams:
 
 | Diagram | Source document | Paradigm | Innovation column |
 |---|---|---|---|
@@ -24,8 +34,10 @@ editable Word math (OMML).
 ```
 npm install          # once: KaTeX 0.16.11
 ./run_all.sh         # HTML -> PNG (3600 x 2546), vector PDF (A3 landscape) and a one-page picture copy in Word
-./word/build_word.sh # Word versions with OMML equations and large type -> word/out/ML_Paradigm_*.docx
+./word/build_word.sh # Word versions with OMML equations and large type -> word/out/*.docx (six diagrams)
 ```
+`d0_problem.py` and `d5_stakeholders.py` look for the results in `../pusi_go`, `../vendimi_go`, `../rrezja_go` and
+`../moti_go` (run those experiments first; `d5` also accepts the folder in `SWI_EXPERIMENTS`).
 `word/build_word.sh` reads the text and equations of each diagram through `export_content.py` and crops the schematic from
 the PNG. `paradigms_word.js` (docx-js) lays out the pages. `omml.py` converts all LaTeX with pandoc to OMML in one run;
 `lo_safe.py` and the builder rewrite a few forms, such as \sup, so that LibreOffice also reads them. It needs pandoc 3

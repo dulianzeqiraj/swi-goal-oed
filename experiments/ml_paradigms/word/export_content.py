@@ -3,8 +3,14 @@ import importlib, json, os, sys, tempfile
 ML4 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ML4)
 out = []
-for name, html in (('d1_robust_design', 'd1_robust_design'), ('d2_causal', 'd2_causal_generative'),
-                   ('d3_deep_rl', 'd3_deep_rl_theory'), ('d4_value_info', 'd4_value_of_information')):
+# diagram number k of the Word builder = position in this list (1-4: the paradigms, 5: introduction, 6: stakeholders)
+DIAGRAMS = (('d1_robust_design', 'd1_robust_design'), ('d2_causal', 'd2_causal_generative'),
+            ('d3_deep_rl', 'd3_deep_rl_theory'), ('d4_value_info', 'd4_value_of_information'),
+            ('d0_problem', 'd0_problem_statement'), ('d5_stakeholders', 'd5_stakeholder_decisions'))
+for name, html in DIAGRAMS:
+    if not os.path.exists(os.path.join(ML4, name + '.py')):
+        print('skipped (no builder):', name)
+        continue
     m = importlib.import_module(name)
     cap = {}
     def fake(tex, **kw):

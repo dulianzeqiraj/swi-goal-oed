@@ -232,7 +232,7 @@ def build_page(tex, *, kicker, title, tags, hero_svg, overlays, hero_y1, innov, 
                   f'<div class="head"><span class="num">{i + 1}</span><span class="title">{tex.text(c["t"])}</span></div>'
                   f'<div class="idea"><span class="pill">IDEA</span>{tex.text(c["idea"])}</div>'
                   f'<div class="eqs">{eqs}</div>'
-                  f'<div class="land"><span class="pill pk">2020–2026</span>{tex.text(c["land"])}</div></div>')
+                  f'<div class="land"><span class="pill pk">{esc(c.get("pill", "2020–2026"))}</span>{tex.text(c["land"])}</div></div>')
     cards_html = (f'<div id="cards" style="top:{card_top}px;grid-auto-rows:{card_h}px">{"".join(cc)}</div>')
     katex_css = os.path.join(HERE, 'node_modules', 'katex', 'dist', 'katex.min.css')
     html = (f'<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file://{katex_css}">'
