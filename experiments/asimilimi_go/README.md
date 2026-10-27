@@ -1,11 +1,12 @@
-# ASIMILIMI-GO: updating boundary and initial conditions by data assimilation, and why the update is right
+# ASIMILIMI-GO: updating boundary and initial conditions by data assimilation, why the update is right, and how it stays right in extreme events
 
 Numerical checks of the technical note *Updating the boundary and initial conditions of the Fushë-Kuqe system by data
-assimilation: the expanded equations, and why the update is right* (October 2026,
-`docs/research_notes/Fushe_Kuqe_Data_Assimilation_Boundary_Initial_Conditions_Theorems.docx`). The note puts the twenty
+assimilation: the expanded equations, why the update is right, and how it stays right in extreme events* (October 2026,
+`docs/research_notes/Fushe_Kuqe_Data_Assimilation_Boundary_Initial_Conditions_Extreme_Events_Diagrams.docx`). The note puts the twenty
 papers of the author's document on dynamic data assimilation for missing dynamics into the equations of the complete
 Fushë-Kuqe system (augmented state: initial fields, aquitard legacy as internal variables of a Markovian memory,
-boundary forcings as stochastic processes, closure for missing dynamics) and proves seven results. *Asimilimi* is
+boundary forcings as stochastic processes, closure for missing dynamics) and proves eleven results, four of them for
+extreme events (storm surges, droughts, floods, dry rivers, sensor spikes). *Asimilimi* is
 Albanian for the assimilation.
 
 **Test bed.** The linear coastal aquifer of FILLIMI-GO and KUFIRI-GO (5 km, 50 cells, sea Dirichlet at x = 0, no flow
