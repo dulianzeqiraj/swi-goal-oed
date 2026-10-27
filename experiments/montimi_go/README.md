@@ -33,8 +33,9 @@ follow, then a 30-year decision. The decision has three parts:
 
 The constraint is P(screen chloride > 250 mg/L at 30 years) ≤ 10%, which gives 25 layouts.
 
-Uncertain parameters: K, regional inflow, dispersivity, slow immobile capacity and sea-level rise. There are 30 design
-draws (the cheap assemblies choose) and 30 evaluation draws (the complete assembly judges).
+Uncertain parameters: K, regional inflow, dispersivity, slow immobile capacity and sea-level rise. There are 25 design
+draws (the cheap assemblies choose) and 25 evaluation draws (the complete assembly judges). The two counter-example
+assemblies (S and N) use the first 10 design draws only.
 
 ## Stages
 - `mg_stage0_checks.py`: Newton against Picard, split against coupled for four steps, adjoint gradients against
@@ -52,8 +53,21 @@ draws (the cheap assemblies choose) and 30 evaluation draws (the complete assemb
 - `mg_stage5_calib.py`: calibration cases on the complete assembly for the conformal margin.
 - `mg_stage4_extra.py`: the ion block run once, the toe relaxation law and the toe as a proxy, the cost of each assembly.
 - `mg_analysis.py` → `res/montimi.json`; `mg_figs.py` → `res/figM1`–`figM4`.
-- `run_all.sh`: the whole pipeline (3–4 hours on 4 cores).
+- `run_all.sh`: the whole pipeline (about 4–5 hours on 4 cores; the complete assembly dominates).
 
 ## Results
-See `res/montimi.json` and the note (docs/research_notes). The main numbers are written into the note by its builder,
-which checks every claim against these files.
+All numbers are in `res/montimi.json` and the note
+(docs/research_notes/Assembled_System_Equations_Placing_Recharge_and_Pumping_Wells.docx). The note's builder checks
+every claim against these files. In short:
+- **Goal weights:** the goal cut the hydraulic memory of the lenses and the sea-level rise (weights at most 2.1e-5).
+  It kept the immobile zones, dispersion, buoyancy and the same-step coupling (3.0e-3 to 2.6e-2; the limit is 0.0109).
+- **Complete assembly:** best layout S3.5-R3.0 at 6.36 m²/d per metre of coast (25 evaluation draws).
+- **Goal-guided assembly:** chooses the same layout.
+  - It is conservative at all 25 layouts and has rank correlation 0.997.
+  - Without the margin it chooses 5.80 m²/d (risk 4% on the complete assembly).
+  - With the calibrated margin (-0.154) it chooses 5.95 m²/d (risk 8%, 10% allowed).
+- **Counter-examples (same 10 design draws):**
+  - Lagging the density removes the conservative bias and is unsafe (risk 20%).
+  - Removing the immobile zones is safe (risk 8%) but conservative.
+- **Certified safe yield:** a Learn-then-Test certificate of the safe yield with 25 draws would cost 11.6% of the
+  value (experiments/spiranca_go, sg_ltt.py).

@@ -1,6 +1,7 @@
 #!/bin/bash
 # MONTIMI-GO: the assembled system and an assembly set by the well-placement goal.
-# Whole pipeline about 3-4 hours on 4 cores (the placement on the complete assembly dominates).
+# Whole pipeline about 4-5 hours on 4 cores (the placement on the complete assembly dominates).
+# 25 design and 25 evaluation draws (mg_setup.py); the counter-examples S and N use the first 10 design draws.
 set -e
 cd "$(dirname "$0")"
 mkdir -p res
@@ -14,4 +15,4 @@ python3 -W ignore mg_stage3_place.py N DES 4 > res/stage3_N_DES_log.txt 2>&1   #
 python3 -W ignore mg_stage5_calib.py 4 > res/stage5_log.txt 2>&1         # calibration cases for the margin
 python3 -W ignore mg_stage4_extra.py > res/stage4_log.txt 2>&1           # ions, toe law, costs
 python3 -W ignore mg_analysis.py > res/analysis_log.txt 2>&1             # margins, choices, risks -> res/montimi.json
-python3 -W ignore mg_figs.py                                              # res/figM1..M4
+python3 -W ignore mg_figs.py                                              # res/figM1..M4, res/figs.json
