@@ -1,0 +1,21 @@
+aquifer  1 seed 7000 Qbar 2.97 exc [0.13, 0.55, 0.22] spir over [0.0, 0.0, 0.0] olsA [0.0, 0.0, 0.0] ols 0.71 cpu 121s
+aquifer  2 seed 7013 Qbar 2.79 exc [0.05, 0.45, 0.09] spir over [0.719, 0.912, 0.702] olsA [0.773, 0.938, 0.762] ols 0.567 cpu 126s
+aquifer  3 seed 7026 Qbar 1.80 exc [0.18, 0.68, 0.25] spir over [0.017, 0.0, 0.0] olsA [0.06, 0.0, 0.0] ols 0.002 cpu 128s
+aquifer  4 seed 7039 Qbar 2.57 exc [0.12, 0.63, 0.25] spir over [0.467, 0.0, 0.279] olsA [0.692, 0.779, 0.692] ols 0.0 cpu 122s
+aquifer  5 seed 7052 Qbar 1.96 exc [0.06, 0.53, 0.08] spir over [0.91, 0.796, 0.933] olsA [0.263, 0.942, 0.931] ols 1.0 cpu 126s
+aquifer  6 seed 7065 Qbar 3.66 exc [0.67, 0.89, 0.71] spir over [0.098, 0.048, 0.002] olsA [0.487, 0.885, 0.023] ols 0.0 cpu 115s
+aquifer  7 seed 7078 Qbar 1.53 exc [0.26, 0.65, 0.39] spir over [0.069, 0.0, 0.0] olsA [0.167, 0.0, 0.035] ols 0.0 cpu 127s
+aquifer  8 seed 7091 Qbar 3.12 exc [0.06, 0.5, 0.1] spir over [0.0, 0.0, 0.0] olsA [0.002, 0.023, 0.008] ols 0.01 cpu 107s
+aquifer  9 seed 7104 Qbar 2.27 exc [0.13, 0.61, 0.26] spir over [0.0, 0.0, 0.0] olsA [0.0, 0.0, 0.0] ols 0.019 cpu 123s
+aquifer 10 seed 7117 Qbar 2.47 exc [0.01, 0.35, 0.05] spir over [0.315, 0.0, 0.0] olsA [0.725, 0.154, 0.094] ols 0.196 cpu 117s
+aquifer 11 seed 7130 Qbar 3.14 exc [0.58, 0.89, 0.68] spir over [0.0, 0.004, 0.031] olsA [0.138, 0.073, 0.35] ols 0.102 cpu 122s
+aquifer 12 seed 7143 Qbar 3.46 exc [0.04, 0.58, 0.11] spir over [0.0, 0.0, 0.173] olsA [0.094, 0.346, 0.446] ols 0.081 cpu 119s
+aquifer 13 seed 7156 Qbar 3.87 exc [0.42, 0.86, 0.52] spir over [0.044, 0.0, 0.0] olsA [0.76, 0.008, 0.229] ols 0.096 cpu 128s
+aquifer 14 seed 7169 Qbar 3.54 exc [0.31, 0.71, 0.39] spir over [0.0, 0.0, 0.0] olsA [0.0, 0.0, 0.0] ols 0.054 cpu 121s
+aquifer 15 seed 7182 Qbar 3.35 exc [0.0, 0.53, 0.04] spir over [0.66, 0.0, 0.144] olsA [0.74, 0.142, 0.233] ols 0.01 cpu 117s
+aquifer 16 seed 7195 Qbar 3.72 exc [0.42, 0.91, 0.54] spir over [0.004, 0.006, 0.058] olsA [0.069, 0.079, 0.177] ols 0.206 cpu 119s
+aquifer 17 seed 7208 Qbar 2.86 exc [0.44, 0.77, 0.55] spir over [0.204, 0.0, 0.0] olsA [0.887, 0.485, 0.442] ols 0.008 cpu 121s
+aquifer 18 seed 7221 Qbar 3.14 exc [0.61, 0.82, 0.65] spir over [0.335, 0.017, 0.152] olsA [0.929, 0.96, 0.927] ols 0.019 cpu 120s
+aquifer 19 seed 7234 Qbar 2.45 exc [0.4, 0.79, 0.51] spir over [0.931, 0.0, 0.8] olsA [0.933, 0.925, 0.917] ols 0.673 cpu 111s
+aquifer 20 seed 7247 Qbar 3.12 exc [0.04, 0.48, 0.12] spir over [0.496, 0.071, 0.158] olsA [0.312, 0.919, 0.494] ols 0.646 cpu 108s
+done in 601 s

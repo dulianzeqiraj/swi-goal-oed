@@ -10,6 +10,7 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 RES = os.path.join(HERE, 'res')
+M_CLF, M_CLS = 12.92, 21781.0          # fresh and sea chloride of the section model (mg/L)
 NAVY, ORANGE, TEAL, GREY, RED, GREEN, PURPLE = '#1F3864', '#D97706', '#0F766E', '#6B7280', '#B91C1C', '#15803D', '#6D28D9'
 plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 9, 'axes.spines.top': False, 'axes.spines.right': False})
 D = json.load(open(os.path.join(RES, 'sg.json')))
@@ -180,8 +181,67 @@ def fig_checks():
     plt.close(fig)
 
 
+def fig_section():
+    """res/figS4_section.png: the test on the variable-density section (res/sv.json)."""
+    from matplotlib.ticker import FixedLocator, FixedFormatter, NullLocator
+    DV = json.load(open(os.path.join(RES, 'sv.json')))
+    RV = DV['rows']
+    SCV = ['none', 'worst', 'offspan']
+    ROWSV = [('least squares on heads', 'ols', ''), ('anchor regression, gamma = inf (IV)', 'iv', ''),
+             ('least squares on heads and anchors', 'olsA', ''), ('... + SPIRANCA certificate', 'olsA_c', ''),
+             ('SPIRANCA-GO', 'spir', ''), ('least squares on heads and anchors,\nre-anchored yearly', 'olsA', '_ra'),
+             ('SPIRANCA-GO, re-anchored yearly', 'spir', '_ra')]
+    fig, axs = plt.subplots(1, 2, figsize=(11.6, 5.1), gridspec_kw=dict(width_ratios=[1.45, 1.0], wspace=0.3))
+    ax = axs[0]
+    y0 = np.arange(len(ROWSV))[::-1]
+    for j, sc in enumerate(SCV):
+        for i, (lab, nm, suf) in enumerate(ROWSV):
+            o = np.array([r['all'][nm][sc + suf]['over'] for r in RV])
+            yy = y0[i] + (1 - j) * 0.2
+            ax.plot([np.quantile(o, 0.1), np.quantile(o, 0.9)], [yy, yy], color=SC_COL[sc], lw=1.2, alpha=0.8)
+            ax.scatter([o.mean()], [yy], s=16, color=SC_COL[sc], zorder=3, label=SC_LAB[sc] if i == 0 else None)
+    ax.axvline(0.10, color='#1F2328', ls='--', lw=0.9)
+    ax.text(0.105, y0[-1] - 0.6, 'alpha = 10 %', fontsize=7.4)
+    ax.axhspan(y0[-1] - 0.45, y0[-2] + 0.45, color='#EEF3FA', zorder=0)
+    ax.set_yticks(y0); ax.set_yticklabels([r[0] for r in ROWSV], fontsize=7.8)
+    ax.set_ylim(y0[-1] - 0.75, y0[0] + 0.6)
+    ax.set_xscale('symlog', linthresh=0.05); ax.set_xlim(0, 1.05)
+    ax.xaxis.set_major_locator(FixedLocator([0, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0]))
+    ax.xaxis.set_major_formatter(FixedFormatter(['0', '2 %', '5 %', '10 %', '20 %', '50 %', '100 %']))
+    ax.xaxis.set_minor_locator(NullLocator())
+    ax.set_xlabel('share of future seasons in which the alarm over-predicts by more than its margin\n(dot: mean over %d aquifers; line: 10-90 %% range)' % len(RV), fontsize=8.4)
+    ax.legend(fontsize=7.4, loc='upper center', frameon=False, ncol=3, bbox_to_anchor=(0.5, -0.2))
+    ax.set_title('(a) Variable-density section: is the alarm still valid?', fontsize=10, fontweight='bold', color=NAVY, loc='left')
+    # (b) one aquifer where the static alarm fails: chloride over the 30 years after the decision
+    ax = axs[1]
+    fails = [r for r in RV if r['all']['spir']['none']['over'] > 0.3]
+    ex = max(fails, key=lambda r: r['all']['spir']['none']['over']) if fails else RV[0]
+    ser = ex['all']['spir']['none_series']
+    cl = lambda y: M_CLF + 10 ** (-np.asarray(y)) * (M_CLS - M_CLF)
+    tY = np.arange(1, len(ser['Y']) + 1) * 0.5
+    mg = ex['all']['spir']['margin']
+    ax.plot(tY, cl(ser['Y']), color='#1F2328', lw=1.8, label='chloride at the supply screen')
+    ax.plot(tY, cl(ser['yh']), color=RED, lw=1.2, label='SPIRANCA-GO prediction from heads')
+    ax.plot(tY, cl(ser['yh_ra']), color=NAVY, lw=1.2, label='the same, re-anchored by a yearly sample')
+    ax.axhline(250, color=ORANGE, ls='--', lw=1.0)
+    ax.text(0.5, 262, '250 mg/L', fontsize=7.4, color=ORANGE)
+    lim_alarm = cl(DV.get('ystar', ex.get('ystar', 1.963)) + mg)
+    ax.axhline(lim_alarm, color=GREY, ls=':', lw=1.0)
+    ax.text(0.5, lim_alarm * 1.04, 'alarm level of the prediction (%.0f mg/L)' % lim_alarm, fontsize=7.0, color=GREY)
+    ax.set_yscale('log'); ax.set_xlabel('years after the decision'); ax.set_ylabel('chloride (mg/L)')
+    ax.legend(fontsize=7.0, loc='upper left', frameon=False)
+    ax.set_title('(b) One aquifer after the decision', fontsize=10, fontweight='bold', color=NAVY, loc='left')
+    from matplotlib.ticker import FixedLocator as FL2, FixedFormatter as FF2, NullLocator as NL2
+    ax.yaxis.set_major_locator(FL2([10, 20, 50, 100, 200, 500])); ax.yaxis.set_major_formatter(FF2(['10', '20', '50', '100', '200', '500'])); ax.yaxis.set_minor_locator(NL2())
+    fig.subplots_adjust(left=0.19, right=0.985, bottom=0.26, top=0.9)
+    fig.savefig(os.path.join(RES, 'figS4_section.png'), dpi=220)
+    plt.close(fig)
+    return ex['seed']
+
+
 if __name__ == '__main__':
     which = sys.argv[1:] or ['map', 'results', 'checks']
     if 'map' in which: fig_map()
     if 'results' in which: fig_results()
     if 'checks' in which: fig_checks()
+    if 'section' in which: fig_section()
