@@ -161,7 +161,9 @@ function page2() {
     kids.push(para(it.t, { size: 30, bold: true, color: BR, before: 160, after: 60, keepNext: true, lead: [chip(String(i + 1), G0, 'FFFFFF', 30), new TextRun({ text: '  ', size: 30 })] }));
     it.eqs.forEach((e) => kids.push(eqp(e, { fill: 'FFFDF8', size: 30, before: 40, after: 60 })));
     kids.push(para(it.x, { size: 26, color: '3D2B1A', after: 30 }));
-    if (it.kv) kids.push(para(`**${it.kv}**   ${it.kc.toLowerCase()}`, { size: 26, color: G1, align: AlignmentType.RIGHT, after: 20 }));
+    // the caption is in capitals on the diagram: lower-case its words, but keep symbols such as T or R1
+    const kc = (it.kc || '').split(' ').map((w) => (/^\(?[A-Z][A-Z–-]+[,.)]?$/.test(w) ? w.toLowerCase() : w)).join(' ');
+    if (it.kv) kids.push(para(`**${it.kv}**   ${kc}`, { size: 26, color: G1, align: AlignmentType.RIGHT, after: 20 }));
   });
   if (I.foot) kids.push(para(I.foot, { size: 24, color: '6B4A2A', before: 120, after: 0 }));
   const gold = line(G0, 24);
