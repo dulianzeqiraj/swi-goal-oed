@@ -51,3 +51,8 @@ experiments/siguria_go/res/*.npz
 experiments/bashkimi_go/res/*.npz
 experiments/koalicioni_go/res/run_log.txt
 experiments/pusi_go/res/ens.npz
+
+# KARST-GO diagram: KaTeX install and generated page (rebuilt by karst_diagram.py)
+experiments/karst_go/node_modules
+experiments/karst_go/package-lock.json
+experiments/karst_go/karst_diagram.html

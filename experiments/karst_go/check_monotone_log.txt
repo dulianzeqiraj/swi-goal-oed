@@ -1,0 +1,5 @@
+largest ratio ||dh_n|| / bound over 30 random networks: 0.3273 (must stay <= 1)
+
+real	3m12.771s
+user	3m10.659s
+sys	0m0.052s
