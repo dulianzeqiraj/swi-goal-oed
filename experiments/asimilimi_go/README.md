@@ -35,7 +35,38 @@ block exponential on a small step and doubling); exact posteriors by Gaussian co
 - **Proposition 6.** The equilibrium constraint survives the ensemble update exactly; an EnKF on the sea fraction
   leaves 10.5% of members outside [0, 1].
 
+## Extreme events (`asimilimi_extreme.py` → `res/extreme.json`, `res/extreme_log.txt`)
+Same aquifer, daily data for three years, 60 twins. The truth adds storm surges (4 per year, 0.25 + Exp(0.5) m, 2-day
+decay), a 300-day drought (recharge −0.25 m/yr, unlicensed pumping E +300 m³/d per km) and, where stated, sensor
+spikes (0.5% of readings, sd 0.8 m). Filters: the best single Gaussian model, an alarm that opens the boundaries, and
+regime switching (IMM: normal, surge, drought or flood) whose surge regime carries a surge state with the 2-day decay,
+with and without a spike model (exact mixture over 'no spike' and 'spike at sensor i').
+- **E8/E11, coverage of 90% intervals** (heads + tide gauge + spikes; Gaussian → regimes → regimes + spike model):
+  E in drought 0.49 → 0.85 → 0.95; recharge in drought 0.66 → 0.88 → 0.95; head 50 m from the sea in surges
+  0.70 → 0.85 → 0.93; sea level in surges 0.86 → 0.92 → 0.93. Without spikes the regime filter gives 0.90–0.98.
+  Drought found (E above half the jump) in a median 14.5 days against 63.5 for the Gaussian filter; without the spike
+  model spikes put the filter in the drought regime on 30% of the days before the drought, with it on 1.3%.
+- **Surges need a tide gauge.** With heads only, the sea level in surges covers 0.72 even with regimes, and only 37% of
+  surges are recognised; with the gauge 0.93 and all of them.
+- **E8b: a regime must carry the event's dynamics.** If the surge regime only adds variance to the slow anomaly, the
+  head 50 m from the sea covers 0.19 in surges (0.90 with the surge state).
+- **E10, the alarm (Theorem 9).** Model right: false-alarm rate 0.103% and 0.104% (nominal 0.1%), mean NIS 4.005 and
+  5.001 (m = 4, 5). Detection of a surge within 6 days matches the noncentral chi-square prediction at every amplitude
+  (heads: 0.47 against 0.48 at 0.5 m; with the gauge 0.50 against 0.49 at 0.05 m).
+- **E12, switching river and drain (Lemma 2).** 400 pairs of forcings with floods and dry spells: the ratio of the
+  head difference to the bound never exceeds 0.86 (it must stay below 1).
+- **E9, spikes in the ten-year monthly setting.** Coverage of E: Gaussian 0.58 (standardised error 2.49),
+  down-weighting 0.895 (1.00), no spikes 0.90.
+
+## Diagrams
+- `diagrams.py` → `res/diagram_bc.{svg,html}` (every boundary and initial condition, its data, its normal update and
+  its change in an extreme event) and `res/diagram_cycle.{svg,html}` (one assimilation step, normal and extreme);
+  `render_diagrams.js` renders them to PNG and fails if any text overlaps or leaves its box.
+
 ## Files
 - `asimilimi.py` → `res/asimilimi.json` (about 75 s on 4 cores).
 - `asimilimi_figs.py` → `res/figA1_asimilimi.png`, `res/figA2_asimilimi.png`.
+- `asimilimi_extreme.py` → `res/extreme.json`, `res/extreme_trace.json` (about 15 minutes on 4 cores; `ONLY=E8b`,
+  `ONLY=TRACE`, `ONLY=E10`, `ONLY=E12`, `ONLY=E9` run single parts).
+- `asimilimi_extreme_figs.py` → `res/figA3_extreme.png`.
 - `run_all.sh`.
