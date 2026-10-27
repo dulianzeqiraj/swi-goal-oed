@@ -67,3 +67,6 @@ experiments/ml_paradigms/word/out
 experiments/ml_paradigms/word/draft*.docx
 experiments/ml_paradigms/word/eq*.json
 experiments/ml_paradigms/word/content.json
+experiments/ml_paradigms/*.png
+experiments/ml_paradigms/*.pdf
+experiments/ml_paradigms/word/hero*.png

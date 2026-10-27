@@ -1,10 +1,10 @@
 'use strict';
-// Word version of one paradigm diagram, with large type: four A4 landscape pages.
+// Word version of one diagram of the series, with large type: four A4 landscape pages.
 //   page 1: title band and the schematic at full page width (a picture; its numbers 1-8 point to the panels)
 //   page 2: the innovation, in large type
 //   pages 3-4: the eight panels, four per page
 // Every equation is a placeholder that omml.py turns into native, editable Word math (OMML).
-// usage: node paradigms_word.js <diagram 1-4> draft.docx equations.json
+// usage: node paradigms_word.js <diagram 1-6, order of export_content.py> draft.docx equations.json
 const fs = require('fs');
 const path = require('path');
 const {
@@ -163,7 +163,7 @@ function card(c, n, wc) {
     para(c.t, { size: 30, bold: true, color: deep, after: 80, line: 240, lead: [chip(String(n), base, 'FFFFFF', 30), new TextRun({ text: '  ', size: 30 })] }),
     para(c.idea, { size: 24, after: 80, lead: [chip('IDEA', '8A93A0', 'FFFFFF', 18), new TextRun({ text: ' ', size: 24 })] }),
     ...c.eqs.map((e, i) => eqp(e, { fill: tint, size: 26, before: i ? 0 : 30, after: i === c.eqs.length - 1 ? 100 : 0 })),
-    para(c.land, { size: 22, color: '3A4350', after: 0, lead: [chip('2020–2026', deep, 'FFFFFF', 18), new TextRun({ text: ' ', size: 22 })] }),
+    para(c.land, { size: 22, color: '3A4350', after: 0, lead: [chip(c.pill || '2020–2026', deep, 'FFFFFF', 18), new TextRun({ text: ' ', size: 22 })] }),
   ];
   const thin = line('D0D7DE', 6);
   return cell(kids, wc, { fill: 'FFFFFF', borders: { top: line(base, 36), bottom: thin, left: thin, right: thin }, margins: { top: 110, bottom: 110, left: 170, right: 170 } });
