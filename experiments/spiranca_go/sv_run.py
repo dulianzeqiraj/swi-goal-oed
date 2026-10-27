@@ -3,8 +3,9 @@
 For each aquifer (parameter draw of MONTIMI-GO):
   spin-up   pre-development equilibrium, then 100 years of the private abstraction alone (it predates the utility)
   record    80 years (160 half-year seasons): the supply well at 2 km ramps up over 10 years and then varies by season;
-            rainfall, inflow and private abstraction vary as in sv_model.py. The mean pumping Qbar is set so that the
-            screen sea fraction at the end of the record is a fifth of the limit (chloride about 60 mg/L).
+            rainfall, inflow and private abstraction vary as in sv_model.py. The mean pumping Qbar is set so that,
+            after the decision, with the weather of the first future sequence and no warming, the screen reaches the
+            limit at the end of the 30 years.
   fit/cal   seasons 60-129 fit the alarm, 130-159 calibrate its margin (split conformal)
   future    30 years after the decision (pumping anomaly +0.3, sustained), NTRAJ weather sequences per scenario:
             no warming; worst unrecorded warming (du = DU_MAX); off-span stress (private abstraction +30 %)
@@ -29,9 +30,10 @@ Z = norm.ppf(1 - ALPHA)
 KAPPA = norm.ppf(0.95)
 FIT, CAL = slice(60, 130), slice(130, 160)
 NTRAJ = 8
+RA_K = 3                          # re-anchoring: mean of the last three yearly chloride samples
 U_DEC = 0.3
 DU_MAX = 1.0
-TARGET = 0.2                      # screen sea fraction at the end of the record, as a fraction of the limit
+TARGET = 1.0                      # screen sea fraction at the end of the future (decision, no warming), / limit
 TAUS = [2.0, 8.0, 20.0]           # years
 SCEN = ['none', 'worst', 'offspan']
 METHODS = ['ols', 'olsA', 'ar_cv', 'iv', 'olsA_c', 'spir']
@@ -162,18 +164,23 @@ def one(seed):
     hfac = hfac * Hbar
     def run_rec(Qbar):
         return V.simulate(G, P, y0, z0, 0.0, Qbar, r, u, fac, hfac / (V.HFRAC * Qbar), ramp)
-    # mean pumping so that the screen ends the record at TARGET of the limit (J increases with Qbar): log-bisection
+    # mean pumping such that, after the decision and with the weather of the first future sequence and no warming,
+    # the screen reaches the limit at the end of the 30 years (J increases with Qbar): log-bisection
+    T_rec = V.N_REC * V.DT_YR * M.YR
+    d0 = V.drivers(np.random.default_rng(seed + 100), V.N_FUT, r0=r[-1], decision=U_DEC)
+    def end_J(Qbar):
+        _, _, ye_, ze_ = run_rec(Qbar)
+        JF = V.simulate(G, P, ye_, ze_, T_rec, Qbar, d0[0], d0[1], d0[2], d0[3] * Hbar / (V.HFRAC * Qbar), np.ones(V.N_FUT))[0]
+        return JF[-1]
     lo, hi = 0.2, 12.0
-    Jhi = run_rec(hi)[0][-1]
-    if Jhi < TARGET * M.EPS_LIM:
+    if end_J(hi) < TARGET * M.EPS_LIM:
         return None
     for _ in range(9):
         mid = np.sqrt(lo * hi)
-        if run_rec(mid)[0][-1] < TARGET * M.EPS_LIM: lo = mid
+        if end_J(mid) < TARGET * M.EPS_LIM: lo = mid
         else: hi = mid
     Qbar = np.sqrt(lo * hi)
     Jr, Hr, ye, ze = run_rec(Qbar)
-    T_rec = V.N_REC * V.DT_YR * M.YR
     p_rec = ramp * (1 + u) - 1
     noise_rec = np.random.default_rng(seed + 2).standard_normal(Hr.shape) * V.HEAD_SD
     fut = {}
@@ -197,7 +204,7 @@ def one(seed):
     ystar = -np.log10(M.EPS_LIM)
     dec_A = fut['none'][0][0].mean(0)                 # mean anchor features after the decision (no warming)
     out = dict(seed=seed, Qbar=Qbar, cpu=time.time() - tt, y_sd=float(Y_rec[FIT].std()),
-               J_end_rec=float(Jr[-1] / M.EPS_LIM),
+               J_end_rec=float(Jr[-1] / M.EPS_LIM), Y_rec_tail=Y_rec[-40:].round(4).tolist(), ystar=float(ystar),
                exc={sc: float(np.mean(np.concatenate([t[2] for t in fut[sc]]) < ystar)) for sc in SCEN},
                J_end_fut={sc: float(np.median([10 ** (-t[2][-1]) for t in fut[sc]]) / M.EPS_LIM) for sc in SCEN})
 
@@ -214,13 +221,30 @@ def one(seed):
         marg += cert
         res = dict(margin=marg, cert=cert)
         for sc in SCEN:
-            yh = np.concatenate([f(t[1][:, cols2], t[0]) for t in fut[sc]])
+            yh_l = [f(t[1][:, cols2], t[0]) for t in fut[sc]]
+            yh = np.concatenate(yh_l)
             Yf = np.concatenate([t[2] for t in fut[sc]])
-            over = yh - Yf > marg; bad = Yf < ystar; alarm = yh <= ystar + marg
             late = np.concatenate([np.arange(V.N_FUT) >= V.N_FUT - 20 for _ in fut[sc]])
-            res[sc] = dict(over=float(over.mean()), over_late=float(over[late].mean()),
-                           miss=float(np.mean(~alarm[bad])) if bad.any() else 0.0,
-                           false=float(np.mean(alarm[~bad])) if (~bad).any() else 0.0)
+            bad = Yf < ystar
+            def scores(yh):
+                over = yh - Yf > marg; alarm = yh <= ystar + marg
+                return dict(over=float(over.mean()), over_late=float(over[late].mean()),
+                            miss=float(np.mean(~alarm[bad])) if bad.any() else 0.0,
+                            false=float(np.mean(alarm[~bad])) if (~bad).any() else 0.0)
+            res[sc] = scores(yh)
+            # re-anchoring: one chloride sample at the supply screen at the end of every year after the decision;
+            # the alarm subtracts the mean residual of the last RA_K samples taken before the season it judges
+            ra = []
+            for yh_t, t in zip(yh_l, fut[sc]):
+                e = yh_t - t[2]; bias = np.zeros(V.N_FUT); smp = []
+                for k in range(V.N_FUT):
+                    bias[k] = np.mean(smp[-RA_K:]) if smp else 0.0
+                    if k % 2 == 1:
+                        smp.append(e[k])
+                ra.append(yh_t - bias)
+            res[sc + '_ra'] = scores(np.concatenate(ra))
+            if name == 'spir' and len(cols) == 6:
+                res[sc + '_series'] = dict(Y=fut[sc][0][2].round(4).tolist(), yh=yh_l[0].round(4).tolist(), yh_ra=ra[0].round(4).tolist())
         return res
 
     allc = list(range(6))
@@ -259,7 +283,7 @@ def main():
                       f"ols {round(r['all']['ols']['none']['over'], 3)} cpu {r['cpu']:.0f}s", flush=True)
             if len(rows) >= NA:
                 pool.terminate(); break
-    json.dump(dict(rows=rows, alpha=ALPHA, du_max=DU_MAX, u_dec=U_DEC, ntraj=NTRAJ, target=TARGET, taus=TAUS,
+    json.dump(dict(rows=rows, alpha=ALPHA, du_max=DU_MAX, u_dec=U_DEC, ntraj=NTRAJ, target=TARGET, taus=TAUS, ra_k=RA_K,
                    piezo_x=V.PIEZO_X, xs=V.XS, cpu_s=time.time() - t0), open(os.path.join(HERE, 'res', 'sv.json'), 'w'), indent=1)
     print('done in', round(time.time() - t0), 's')
 
