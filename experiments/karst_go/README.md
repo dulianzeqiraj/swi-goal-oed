@@ -1,7 +1,9 @@
 # KARST-GO: what changes in the model when the aquifer is karstic
 
 One diagram (A3 landscape) that shows how a coastal karst aquifer is modelled and what changes with respect to a porous
-aquifer. Word copy: `docs/research_notes/Karst_Aquifer_What_Changes_In_The_Model.docx` (the diagram on one A3 page).
+aquifer. Word version: `docs/research_notes/Karst_Aquifer_What_Changes_In_The_Model.docx`, six A4 landscape pages in
+large type: the section, the section enlarged in two halves, the innovation written out with its equations, and the
+eight panels four to a page. Every equation of the innovation and the panels is editable Word math (OMML).
 
 **The section.** A coastal karst massif: sea with a submarine spring, a coastal spring (brackish) and an overflow spring,
 seawater entering the conduits at a deep inlet, the seawater wedge in the matrix, dolines and vadose shafts, a polje whose
@@ -37,9 +39,12 @@ largest ratio of the head difference to this bound over the 30 networks is 0.327
 npm install                 # once: KaTeX 0.16.11 for the equations
 python3 karst_diagram.py    # -> karst_diagram.html (section in SVG, panels in HTML, equations typeset by KaTeX)
 node render.js 1.5          # -> karst_diagram.png (3600 x 2546) and karst_diagram.pdf (vector, one A3 landscape page)
-python3 make_docx.py karst_diagram.png Karst_Aquifer_What_Changes_In_The_Model.docx
+./build_word.sh            # -> word_karst/Karst_Aquifer_What_Changes_In_The_Model.docx (OMML, large type)
 python3 check_monotone_karst.py
 ```
+`build_word.sh` runs `word_content.py` (the text, equations and crops of the diagram) and the Word builder of
+`../ml_paradigms/word` (`paradigms_word.js`, docx from npm; `omml.py`, pandoc 3 and lxml).
+`make_docx.py karst_diagram.png <out>.docx` still makes a one-page picture copy.
 `render.js` needs Playwright with Chromium; it shrinks an equation that is wider than its panel and exits with an error if
 an equation falls below 19 px, a panel or the innovation band overflows, the title meets the header tags, or a label
 overlaps another label, a badge, the inset or the legend, or leaves the section. `make_docx.py` needs python-docx.
@@ -48,5 +53,6 @@ overlaps another label, a badge, the inset or the legend, or leaves the section.
 - `karst_diagram.py`: geometry, labels, inset, legend, the eight panels and the page layout.
 - `katex_render.js`: typesets the equations (LaTeX → KaTeX HTML).
 - `render.js`: PNG, vector PDF and the layout checks.
-- `make_docx.py`: the one-page Word copy.
+- `word_content.py`, `build_word.sh`: the Word version with OMML equations.
+- `make_docx.py`: a one-page picture copy in Word.
 - `check_monotone_karst.py`, `check_monotone_log.txt`: the stability check.

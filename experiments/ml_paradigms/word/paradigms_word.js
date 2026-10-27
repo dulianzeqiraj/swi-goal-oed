@@ -4,7 +4,8 @@
 //   page 2: the innovation, in large type
 //   pages 3-4: the eight panels, four per page
 // Every equation is a placeholder that omml.py turns into native, editable Word math (OMML).
-// usage: node paradigms_word.js <diagram 1-6, order of export_content.py> draft.docx equations.json
+// usage: node paradigms_word.js <diagram 1-6, order of export_content.py> draft.docx equations.json [content.json] [hero.png]
+//   (the optional content file and picture let other diagrams, such as the karst diagram, use the same layout)
 const fs = require('fs');
 const path = require('path');
 const {
@@ -14,7 +15,9 @@ const {
 
 const K = Number(process.argv[2]);
 const OUT = process.argv[3] || 'draft.docx', OUTEQ = process.argv[4] || 'equations.json';
-const D = JSON.parse(fs.readFileSync(path.join(__dirname, 'content.json'), 'utf8'))[K - 1];
+const CONTENT = process.argv[5] || path.join(__dirname, 'content.json');
+const HERO = process.argv[6] || path.join(__dirname, `hero${K}.png`);
+const D = JSON.parse(fs.readFileSync(CONTENT, 'utf8'))[K - 1];
 const SANS = 'Calibri';
 const PAL = {   // base, deep, tint
   blue: ['2A78D6', '1B5FAE', 'EAF2FC'], purple: ['7D4FC9', '5D35A3', 'F1ECFA'], green: ['1BAF7A', '11805A', 'E6F6EF'],
@@ -128,11 +131,22 @@ function band(sub) {
 function page1() {
   const tags = D.tags.map(([t, x], i) => para(x, { size: 21, color: 'DBE6F5', after: i ? 0 : 30,
     lead: [chip(t, i ? 'F6B73C' : 'C9D3E0', '13284D', 17), new TextRun({ text: '  ', size: 21 })] }));
-  const png = fs.readFileSync(path.join(__dirname, `hero${K}.png`));
-  const wpx = Math.round(WU / 1440 * 96), hpx = Math.round(wpx * 1095 / 2361);
+  const png = fs.readFileSync(HERO);
+  const wpx = Math.round(WU / 1440 * 96), hpx = Math.round(wpx * png.readUInt32BE(20) / png.readUInt32BE(16));
   return [band(tags), blank(140),
     new Paragraph({ alignment: AlignmentType.CENTER, spacing: sp(0, 60), children: [new ImageRun({ type: 'png', data: png, transformation: { width: wpx, height: hpx } })] }),
-    para('The numbers 1–8 in the picture point to the eight panels on the next pages; the innovation follows on the next page.', { size: 19, color: '5B6573', align: AlignmentType.CENTER, after: 0 })];
+    para(D.zoom ? 'The numbers 1–8 in the picture point to the eight panels; the next two pages show the picture enlarged, then the innovation and the panels follow.' : 'The numbers 1–8 in the picture point to the eight panels on the next pages; the innovation follows on the next page.', { size: 19, color: '5B6573', align: AlignmentType.CENTER, after: 0 })];
+}
+
+// optional pages after page 1: parts of the schematic enlarged to the full page width (D.zoom = [{png, caption}])
+function zoomPages() {
+  return (D.zoom || []).flatMap((z) => {
+    const png = fs.readFileSync(path.join(path.dirname(CONTENT), z.png));
+    const wpx = Math.round(WU / 1440 * 96), hpx = Math.round(wpx * png.readUInt32BE(20) / png.readUInt32BE(16));
+    return [new Paragraph({ children: [new PageBreak()], spacing: sp(0, 0) }),
+      para(z.caption, { size: 22, bold: true, color: NAVY, after: 120 }),
+      new Paragraph({ alignment: AlignmentType.CENTER, spacing: sp(0, 0), children: [new ImageRun({ type: 'png', data: png, transformation: { width: wpx, height: hpx } })] })];
+  });
 }
 
 // page 2: the innovation in large type
@@ -161,7 +175,7 @@ function card(c, n, wc) {
   const [base, deep, tint] = PAL[c.color];
   const kids = [
     para(c.t, { size: 30, bold: true, color: deep, after: 80, line: 240, lead: [chip(String(n), base, 'FFFFFF', 30), new TextRun({ text: '  ', size: 30 })] }),
-    para(c.idea, { size: 24, after: 80, lead: [chip('IDEA', '8A93A0', 'FFFFFF', 18), new TextRun({ text: ' ', size: 24 })] }),
+    para(c.idea, { size: 24, after: 80, lead: [chip(c.ideaPill || 'IDEA', '8A93A0', 'FFFFFF', 18), new TextRun({ text: ' ', size: 24 })] }),
     ...c.eqs.map((e, i) => eqp(e, { fill: tint, size: 26, before: i ? 0 : 30, after: i === c.eqs.length - 1 ? 100 : 0 })),
     para(c.land, { size: 22, color: '3A4350', after: 0, lead: [chip(c.pill || '2020–2026', deep, 'FFFFFF', 18), new TextRun({ text: ' ', size: 22 })] }),
   ];
@@ -183,7 +197,7 @@ const doc = new Document({
   styles: { default: { document: { run: { font: SANS, size: 22 } } } },
   sections: [{
     properties: { page: { size: { width: PH, height: PW, orientation: PageOrientation.LANDSCAPE }, margin: { top: MA, bottom: MA, left: MA, right: MA, header: 0, footer: 0 } } },
-    children: [...page1(), ...page2(), ...panels(0), ...panels(4)],
+    children: [...page1(), ...zoomPages(), ...page2(), ...panels(0), ...panels(4)],
   }],
 });
 Packer.toBuffer(doc).then((buf) => {

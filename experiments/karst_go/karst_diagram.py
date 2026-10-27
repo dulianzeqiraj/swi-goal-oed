@@ -359,7 +359,7 @@ html,body{{margin:0;padding:0;background:#fff}}
 <div class="rows"><div class="row"><span class="tag tp">POROUS</span>one continuum · Darcy flow · diffuse recharge · a sea face</div>
 <div class="row"><span class="tag tk">KARST</span>matrix + conduits · pipe flow · point recharge · springs and sea inlets</div></div></div>
 <div id="cards">{panels_html()}</div>
-<div id="innov"><b>INNOVATION · KARST-GO</b><span>{innovation}</span></div>
+<div id="innov"><b>INNOVATION</b><span>{innovation}</span></div>
 </div></body></html>'''
     open(os.path.join(HERE, 'karst_diagram.html'), 'w').write(html)
     print('wrote karst_diagram.html')
