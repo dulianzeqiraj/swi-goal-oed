@@ -193,7 +193,7 @@ def fig_place():
     ax.set_ylabel('safe pumping rate Q* (m²/d per m of coast)')
     ax.set_title('(a) Safe yield of every layout at a 10% risk of exceeding 250 mg/L (S: supply well, R: recharge well, km from the coast)', fontsize=9, loc='left', color=NAVY)
     ax.legend(fontsize=7.2, loc='upper left', ncol=2, frameon=False)
-    ax2 = fig.add_axes([0.07, 0.07, 0.40, 0.24])
+    ax2 = fig.add_axes([0.07, 0.07, 0.40, 0.22])
     ks = [k for k in ('G', 'U', 'S', 'N') if k in A['assemblies']]
     r0 = [A['assemblies'][k]['nomargin']['realised_risk'] for k in ks]
     r1 = [A['assemblies'][k]['withmargin']['realised_risk'] for k in ks]
@@ -204,12 +204,16 @@ def fig_place():
     ax2.set_xticks(xx); ax2.set_xticklabels(ks); ax2.set_ylabel('risk on the complete\nassembly', fontsize=8)
     ax2.set_title('(b) Risk of the chosen layout and rate', fontsize=9, loc='left', color=NAVY)
     ax2.legend(fontsize=7, frameon=False)
-    ax3 = fig.add_axes([0.57, 0.07, 0.40, 0.24])
+    ax3 = fig.add_axes([0.57, 0.07, 0.40, 0.22])
+    allr = np.concatenate([np.asarray(A['assemblies'][k]['residuals']) for k in A['assemblies'] if A['assemblies'][k].get('residuals')])
+    lo_r, hi_r = float(allr.min()), float(allr.max())
+    pad = 0.1 * (hi_r - lo_r + 1e-9)
+    BINS = np.linspace(lo_r - pad, hi_r + pad, 25)
     for k in ks:
         r = A['assemblies'][k].get('residuals')
         if r:
             col = sty[k][0]
-            ax3.hist(r, bins=np.linspace(-2, 3, 26), histtype='step', lw=1.6, color=col, label=k)
+            ax3.hist(r, bins=BINS, histtype='step', lw=1.6, color=col, label=k)
             ax3.axvline(A['assemblies'][k]['margin'], color=col, ls='--', lw=1)
     ax3.set_xlabel('Q_c(cheap) − Q_c(complete) on calibration cases (m²/d)', fontsize=8)
     ax3.set_title('(c) Calibration of the margin', fontsize=9, loc='left', color=NAVY)

@@ -54,8 +54,8 @@ def draws(n, seed):
     return out
 
 
-DES = draws(40, 2026)[:30]        # design draws: the assemblies choose on these
-EVA = draws(40, 4052)[:30]        # evaluation draws: the full assembly judges the choices on these
+DES = draws(40, 2026)[:25]        # design draws: the assemblies choose on these
+EVA = draws(40, 4052)[:25]        # evaluation draws: the full assembly judges the choices on these
 MED = dict(K=100.0, q_in=4.0, aL=20.0, aT=2.0, b_c=(0.3, 0.6), eta_rate=4.0)
 
 

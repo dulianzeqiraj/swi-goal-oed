@@ -1,1 +1,8 @@
 17:19 stage1 finished
+18:56 G stopped at 25 draws
+18:58 F stopped at 25 draws
+19:13 U stopped at 25 draws
+19:26 placement runs finished
+19:32 calibration finished
+19:37 stage4 finished
+19:37 analysis finished

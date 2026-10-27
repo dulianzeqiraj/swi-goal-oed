@@ -87,7 +87,9 @@ def main():
         rank_corr = float(np.corrcoef(np.argsort(np.argsort(qstar(QA))), np.argsort(np.argsort(QsF)))[0, 1])
         res.update(margin=m, residuals=(r.tolist() if r is not None else None), n_design=int(QA.shape[0]),
                    cpu_per_draw=float(np.median(D['cpu'][D['cpu'] > 0])), runs_per_qcrit=float(np.mean(D['nev'][:len(S.DES)][okA])),
-                   rank_corr_qstar=rank_corr, mean_abs_diff_qstar=float(np.mean(np.abs(qstar(QA) - QsF))))
+                   rank_corr_qstar=rank_corr, mean_abs_diff_qstar=float(np.mean(np.abs(qstar(QA) - QsF))),
+                   mean_diff_qstar=float(np.mean(qstar(QA) - QsF)), n_below=int(np.sum(qstar(QA) < QsF)),
+                   n_calib=(int(r.size) if r is not None else 0))
         out['assemblies'][A] = res
         print(A, 'margin %.3f' % m, {t: (res[t]['best'], round(res[t]['best_q'], 2), round(res[t]['realised_risk'], 3)) for t in ('nomargin', 'withmargin')})
     print('F best', out['F']['best'], round(out['F']['best_q'], 2))
@@ -111,7 +113,18 @@ def main():
                             r2_median=float(np.median([t['r2'] for t in rows])), law_err_median=float(np.median([t['toe_law_err_m'] for t in rows])),
                             toeH_median=float(np.median(X)), toe0_median=float(np.median([t['toe0'] for t in rows])))
         out['toe_proxy'] = tp
-    json.dump(out, open(os.path.join(RES, 'montimi.json'), 'w'), indent=1)
+    json.dump(finite(out), open(os.path.join(RES, 'montimi.json'), 'w'), indent=1)
+
+
+def finite(o):
+    """non-finite numbers (e.g. a relaxation time with no toe movement) are written as null, valid JSON."""
+    if isinstance(o, dict):
+        return {k: finite(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [finite(v) for v in o]
+    if isinstance(o, float) and not np.isfinite(o):
+        return None
+    return o
 
 
 if __name__ == '__main__':

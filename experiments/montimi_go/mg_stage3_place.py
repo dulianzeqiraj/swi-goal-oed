@@ -92,8 +92,8 @@ def task(args):
 def main():
     asm, setname, workers = sys.argv[1], sys.argv[2], int(sys.argv[3])
     nd = len(S.DES if setname == 'DES' else S.EVA)
-    if asm in ('S', 'N'):                 # the two counter-examples run on the first 15 design draws
-        nd, workers = min(nd, 15), max(workers, 2)
+    if asm in ('S', 'N'):                 # the two counter-examples run on the first 10 design draws
+        nd, workers = min(nd, 10), max(workers, 2)
     os.makedirs(RES, exist_ok=True)
     Q = np.full((nd, len(S.LAYOUTS)), np.nan); NEV = np.zeros_like(Q); CPU = np.zeros(nd); TOE = np.zeros(nd)
     t0 = time.time()
