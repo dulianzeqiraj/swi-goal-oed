@@ -180,7 +180,9 @@ def main():
                 tot = 0.0; totv = np.zeros(K); net = 0.0
                 for j, (p, r) in enumerate(zip(pi, REG)):
                     jj = min(max(j + step, 0), len(REG) - 1)
-                    alt = evaluate(dict(s=rows[jj]['PC']['s'], q=min(rows[jj]['PC']['q'], r['qmax']), stop=rows[jj]['PC']['stop']), r)
+                    pj = rows[jj]['PC']                                          # plan of the regime the trigger declares
+                    qa = r['qmax'] if pj['stop'] else min(pj['q'], r['qmax'])     # a stop uses the largest recharge available
+                    alt = evaluate(dict(s=pj['s'], q=qa, stop=pj['stop']), r)
                     own = rows[j]['PC']
                     mm = m if jj != j else 0.0
                     tot += p * ((1 - mm) * own['risk'] + mm * alt['risk'])
@@ -225,21 +227,78 @@ def main():
         print('rule curve', 'heat' if heat else 'no heat', [(c['f'], c['s'], c['q'], c['stop']) for c in cs], f'{time.time() - t0:.0f}s', flush=True)
     out['rule_curve'] = curve
     # ---------------------------------------------------------------- what it takes: emergency recharge needed for a safe stop
-    need = {}
+    need, needc = {}, {}
     for f in (0.5, 0.6, 0.75):
         for E in (0.0, 2000.0, 4000.0):
-            lo, hi = 0.0, 60000.0
-            for _ in range(60):
-                mid = 0.5 * (lo + hi)
-                F = fail(D, 0.0, mid, f, E).astype(float)
-                if max(WK[k] @ F for k in range(K)) <= ALPHA: hi = mid
-                else: lo = mid
-            need[f'f{f}_E{int(E)}'] = hi
-    out['recharge_needed_for_safe_stop'] = need
+            for certified, store in ((False, need), (True, needc)):
+                lo, hi = 0.0, 60000.0
+                for _ in range(60):
+                    mid = 0.5 * (lo + hi)
+                    F = fail(D, 0.0, mid, f, E).astype(float)
+                    p = WK @ F
+                    if certified:
+                        p = p + ZM * np.sqrt(np.sum(WK ** 2 * (F[None, :] - p[:, None]) ** 2, 1))
+                    if p.max() <= ALPHA: hi = mid
+                    else: lo = mid
+                store[f'f{f}_E{int(E)}'] = hi
+    out['recharge_needed_for_safe_stop'] = need                                  # nominal, as in Proposition S4
+    out['recharge_needed_for_safe_stop_certified'] = needc                       # with the certified Monte Carlo margin
     for r in REG[2:]:
         rr = dict(r); rr['E'] = 0.0
         out.setdefault('stop_with_ban', {})[r['key']] = evaluate(dict(s=0.0, q=r['qmax'], stop=True), rr)['risk']
     print('recharge needed', need, out['stop_with_ban'], flush=True)
+    # ---------------------------------------------------------------- S3: are the plans nested (severer plan safer in every regime)?
+    nest = []
+    for j, r in enumerate(REG):
+        for jj in range(j + 1, len(REG)):
+            pj = rows[jj]['PC']; qa = r['qmax'] if pj['stop'] else min(pj['q'], r['qmax'])
+            nest.append(dict(true=r['key'], plan=REG[jj]['key'], s=pj['s'], q=qa, own_s=rows[j]['PC']['s'], own_q=rows[j]['PC']['q'],
+                             componentwise=bool(pj['s'] <= rows[j]['PC']['s'] and qa >= rows[j]['PC']['q'])))
+    out['nested'] = nest
+    # ---------------------------------------------------------------- what it takes: the stop with emergency recharge capacity
+    cap = {}
+    for r in REG[2:]:
+        qn = needc[f"f{r['fR']}_E{int(r['E'])}"]
+        ev = evaluate(dict(s=0.0, q=qn, stop=True), r)
+        kw = int(np.argmax(ev['risk_by_view']))
+        cap[r['key']] = dict(q=qn, risk=ev['risk'], risk_se=ev['risk_se'], worst_view=max(ev['risk_by_view']), se_worst_view=ev['se_by_view'][kw], net=ev['net'])
+    out['stop_with_capacity'] = cap
+    ac = {}
+    for cn, pi in CLIM.items():
+        rk = [rows[0]['PC']['risk'], rows[1]['PC']['risk'], cap['X']['risk'], cap['H']['risk']]
+        rv = [max(rows[0]['PC']['risk_by_view']), max(rows[1]['PC']['risk_by_view']), cap['X']['worst_view'], cap['H']['worst_view']]
+        vv = np.array([rows[0]['PC']['risk_by_view'], rows[1]['PC']['risk_by_view'],
+                       evaluate(dict(s=0.0, q=cap['X']['q'], stop=True), REG[2])['risk_by_view'],
+                       evaluate(dict(s=0.0, q=cap['H']['q'], stop=True), REG[3])['risk_by_view']])
+        ac[cn] = dict(risk=float(np.dot(pi, rk)), worst_view=float((np.array(pi) @ vv).max()),
+                      net=float(np.dot(pi, [rows[0]['PC']['net'], rows[1]['PC']['net'], cap['X']['net'], cap['H']['net']])))
+    out['annual_with_capacity'] = ac
+    # ---------------------------------------------------------------- S1 bound and S2 equivalence, checked on the design ensemble
+    chk = {}
+    beta = 0.05
+    for r in (REG[1], REG[3]):
+        eb = r['mu'] + 1.6448536269514722 * r['sd']                                      # upper 5% quantile of the slippage
+        qq = 10000.0 if r['qmax'] >= 10000 else 5000.0
+        rows_b = []
+        for s_ in (0.2, 0.4, 0.6, 0.8, 1.0):
+            Fc = np.zeros(len(D))
+            for x, w in zip(GH_X, GH_W):
+                e = max(r['mu'] + np.sqrt(2) * r['sd'] * x, -0.9)
+                Fc += w * fail(D, s_ * (1 + e), qq, r['fR'], r['E'])
+            Fb = fail(D, s_ * (1 + eb), qq, r['fR'], r['E']).astype(float)
+            conv = float(max(WK[k] @ Fc for k in range(K))); bnd = float(max(WK[k] @ Fb for k in range(K)))
+            rows_b.append(dict(s=s_, conv=conv, bound=bnd + beta, quantile_only=bnd))
+        chk[r['key']] = dict(q=qq, e_beta=eb, rows=rows_b)
+    out['S1_bound'] = dict(beta=beta, regimes=chk)
+    eqv = {}
+    for r in REG[1:]:
+        ag = float(np.exp(-(-np.log(ALPHA)) ** (1.0 / r['gamma'])))
+        P0, S0 = risk_table(r['fR'], 0.0, 0.0, 0.0, r['qmax'], WK, slip=False)
+        U = (P0 + ZM * S0).max(0)
+        a1 = cap_of(prelec(U, r['gamma'])); a2 = np.cumprod(U <= ag + 1e-12, axis=0).sum(0) - 1
+        eqv[r['key']] = dict(gamma=r['gamma'], alpha_gamma=ag, same_caps=bool(np.all(a1 == a2)))
+    out['S2_weighting'] = eqv
+    print('nested', [n['componentwise'] for n in nest], 'capacity', cap, ac, chk, eqv, flush=True)
     out['seconds'] = time.time() - t0
     json.dump(out, open(os.path.join(RES, 'moti.json'), 'w'), indent=1)
     print('wrote res/moti.json', f'{time.time() - t0:.0f}s')
