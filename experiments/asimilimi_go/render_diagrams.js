@@ -29,6 +29,9 @@ const RES = path.join(__dirname, 'res');
     console.log(name + ': ' + (bad.length ? '\n  ' + bad.map((r) => r.join(' | ')).join('\n  ') : 'no text problems'));
     const el = await p.$('svg');
     await el.screenshot({ path: path.join(RES, name + '.png') });
+    const box = await el.boundingBox();                          // vector PDF, 170 mm wide, for print
+    await p.pdf({ path: path.join(RES, name + '.pdf'), width: '170mm', height: `${(box.height / 10).toFixed(1)}mm`,
+      printBackground: true, pageRanges: '1', scale: 170 / (1700 * 0.2645833) });
     await p.close();
   }
   await b.close();
