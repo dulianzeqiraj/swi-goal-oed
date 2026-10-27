@@ -2,8 +2,10 @@
 
 Four A3 landscape diagrams that teach one machine-learning paradigm each, built from four literature documents of the
 project. Each has an illustrated schematic with computed pictures, a column with the innovation, and eight numbered
-panels with the key equations of the 2020–2026 papers. English only. Word copies (one A3 page each) are in
-`docs/research_notes/ML_Paradigm_*.docx`.
+panels with the key equations of the 2020–2026 papers. English only. The Word versions in
+`docs/research_notes/ML_Paradigm_*.docx` have large type on four A4 landscape pages per diagram: the schematic at full
+width, the innovation, then the eight panels four to a page. Every equation in the innovation and the panels is native,
+editable Word math (OMML).
 
 | Diagram | Source document | Paradigm | Innovation column |
 |---|---|---|---|
@@ -21,8 +23,13 @@ panels with the key equations of the 2020–2026 papers. English only. Word copi
 ## Build
 ```
 npm install          # once: KaTeX 0.16.11
-./run_all.sh         # HTML -> PNG (3600 x 2546), vector PDF (A3 landscape) and a one-page Word copy for each diagram
+./run_all.sh         # HTML -> PNG (3600 x 2546), vector PDF (A3 landscape) and a one-page picture copy in Word
+./word/build_word.sh # Word versions with OMML equations and large type -> word/out/ML_Paradigm_*.docx
 ```
+`word/build_word.sh` reads the text and equations of each diagram through `export_content.py` and crops the schematic from
+the PNG. `paradigms_word.js` (docx-js) lays out the pages. `omml.py` converts all LaTeX with pandoc to OMML in one run;
+`lo_safe.py` and the builder rewrite a few forms, such as \sup, so that LibreOffice also reads them. It needs pandoc 3
+and Python with lxml.
 Needs Python 3 with numpy, scipy, matplotlib and python-docx, and Node with Playwright and Chromium. `ml_common.py` holds
 the page framework (header, schematic helpers, cards, innovation column, one KaTeX batch per page). `render.js <name>`
 shrinks an equation wider than its box and fails if one falls below 18 px. It also fails if a panel or the innovation

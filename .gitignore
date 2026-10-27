@@ -63,3 +63,7 @@ experiments/ml_paradigms/package-lock.json
 experiments/ml_paradigms/*.html
 experiments/ml_paradigms/*.docx
 experiments/ml_paradigms/__pycache__
+experiments/ml_paradigms/word/out
+experiments/ml_paradigms/word/draft*.docx
+experiments/ml_paradigms/word/eq*.json
+experiments/ml_paradigms/word/content.json
