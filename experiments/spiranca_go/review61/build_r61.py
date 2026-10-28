@@ -198,6 +198,7 @@ for s in SC:
         cells.append(f'{pc(e)}' + ('' if p == 'none' else f' ({pc(w)})'))
     A(f'| {LAB[s]} | ' + ' | '.join(cells) + ' |')
 A('')
+A(f'![Figure 1. (a) Share of seasons above 250 mg/L at the supply screen with the rule "cut pumping after an alarm" (dot: mean over {nm}; line: 10–90% range). (b) One aquifer in the record drought, open loop: chloride at the screen, the yearly re-anchored prediction and the ROJA-GO prediction; ticks: seasons when the watch fires and an extra sample is taken.](/home/user/swi-goal-oed/experiments/spiranca_go/res/figR1_extremes.png){{width=25cm}}\n')
 A(f'Table 2. Alarm validity in open loop (no curtailment): share of seasons in the stress period in which the alarm under-warns by more than its margin (target ≤ {pc(D["alpha"])}), mean over {nm}; in brackets the aquifers above the target; and chloride samples in 30 years.\n')
 OM = [('spir', 'Static'), ('spir_ra', 'Yearly sample'), ('spir_trig', 'Extra samples only'), ('spir_adK', 'Adaptive window only'), ('spir_roja', 'ROJA-GO'), ('olsA_roja', 'Least squares + ROJA')]
 A('| Storyline | ' + ' | '.join(l for _, l in OM) + ' |')
