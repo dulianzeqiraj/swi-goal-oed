@@ -56,7 +56,12 @@ OTHER = [
 
 def main(out='HALOMAR_References_500words.docx'):
     import re
-    lines = [re.sub(r' doi:\S+$', '', l) for l in SCI] + OTHER
+    def compact(l):
+        l = re.sub(r' doi:\S+$', '', l)                          # no DOI
+        l = re.sub(r'^([^,(]+?), [^()]+? \((\d{4}[ab]?)\)', lambda m: (m.group(1) + ' et al. (' + m.group(2) + ')') if m.group(0).count(',') >= 2 else m.group(0), l)  # 3+ authors -> et al.
+        l = re.sub(r'(\w+)–\w+\.$', r'\1.', l)                  # first page only
+        return l
+    lines = [compact(l) for l in SCI]
     words = sum(len(l.split()) for l in lines)
     text = '\n'.join(lines)
     strict = len(re.findall(r'\w+', text)); ecost = len(re.findall(r'[^\s/–\-:]+', text))
