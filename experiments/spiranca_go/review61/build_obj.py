@@ -103,7 +103,51 @@ A('')
 if best:
     A(f'Only **{best[0]}** satisfies (8) with $\\varepsilon=10\\%$, so among the tested rules it is the solution of (13): it delivers {100*best[1]:.0f}% of the planned water in the worst storyline, the {NAME[best[3]]}, where the exceedance share is {100*best[2]:.1f}%. ')
 A('To tighten to $\\varepsilon=5\\%$ the binding storyline is the causal change, so the next lever is the cap $H_{\\max}$ on private abstraction in a declared drought, or a lower $u_{\\mathrm{dec}}$; the objective (13) tells how much water each costs.\n')
-A('*Caveat:* synthetic aquifers on a 2-D section; $\\lambda_D$, $c_s$ and $\\varepsilon$ are for the stakeholders to set. Code: experiments/spiranca_go/sx_run.py; results res/sx.json.')
+SHP = '/home/user/swi-goal-oed/experiments/spiranca_go/res/sh.json'
+if os.path.exists(SHP):
+    import sys
+    sys.path.insert(0, '/home/user/swi-goal-oed/experiments/spiranca_go')
+    import sh_figs as HF
+    SH = HF.summary(); CF = HF.CF; NAq = len(HF.rows)
+    def lab(c):
+        u, h = c.split('_'); u = u[1:]; h = h[1:]
+        return (f'Cap $H_{{\\max}}={float(h):.2f}$' if h != 'none' else ('No cap (as in Section 6)' if u == '0.3' else 'No cap')) + f', $u_{{\\mathrm{{dec}}}}={u}$'
+    A('## 7. The cap on private abstraction for $\\varepsilon=5\\%$\n')
+    A('A drought is declared when the two-year filtered gauge anomaly known at the start of the season, $\\tilde r^{g}_{t-1}$, is below $-1$ sd. While it lasts, private abstraction is capped:\n')
+    A('$$H_t=\\overline{H}\\,\\min(h_{\\xi,t},H_{\\max})\\quad\\text{if}\\ \\tilde r^{g}_{t-1}<-1,\\qquad H_t=\\overline{H}\\,h_{\\xi,t}\\quad\\text{otherwise}\\qquad(15)$$\n')
+    A('$H_{\\max}=1$ lets the farmers pump their normal mean in a drought, but not more; without a cap they pump about 1.5 times it in the record drought and 2.5 times under the causal change. The other lever, a lower decided pumping $u_{\\mathrm{dec}}$, is tested for comparison. Everything runs with ROJA-GO and the rule (10). Water is given as the share of what each user would have pumped without the measure, in the worst storyline.\n')
+    A(f'Table 3. The measures on {NAq} aquifers, {HF.D["ntraj"]} weather sequences each, five storylines, 30 years after the decision.\n')
+    A('| Measure | Worst-storyline exceedance | Aquifers above 5% | Utility water | Farmers\' water | Total water | Seasons declared (ordinary / drought) | Meets $\\varepsilon=5\\%$ |')
+    A('|---|---|---|---|---|---|---|---|')
+    for c in CF:
+        v = SH[c]
+        A(f"| {lab(c)} | {100*v['exc']:.1f}% ({NAME[v['exc_sc']]}) | {v['n10']} of {NAq} | {100*v['water']:.1f}% | {100*v['priv']:.1f}% | {100*v['total']:.1f}% | {100*v['decl_none']:.0f}% / {100*v['decl_dry']:.0f}% | {'yes' if v['exc'] <= 0.05 else 'no'} |")
+    A('')
+    feas = [c for c in CF if SH[c]['exc'] <= 0.05]
+    capf = [c for c in feas if not c.endswith('Hnone')]
+    uf = [c for c in feas if c.endswith('Hnone')]
+    if feas:
+        best = max(feas, key=lambda c: SH[c]['total'])
+        v = SH[best]
+        A(f"**Solution of (13) with $\\varepsilon=5\\%$.** Among the measures that meet the limit in every storyline, the one that keeps the most total water in the worst storyline is **{lab(best)}**: exceedance {100*v['exc']:.1f}% in the worst storyline ({NAME[v['exc_sc']]}), utility water {100*v['water']:.1f}%, farmers' water {100*v['priv']:.1f}%, total {100*v['total']:.1f}%.")
+        if capf:
+            loosest = max(capf, key=lambda c: float(c.split('_H')[1]))
+            A(f" The least restrictive cap that meets 5% is $H_{{\\max}}={float(loosest.split('_H')[1]):.2f}$.")
+        if uf:
+            ub = max(uf, key=lambda c: SH[c]['total'])
+            A(f" Lowering the decided pumping also meets 5% ({lab(ub)}), but it costs utility water in every year, not only in declared droughts: utility water {100*SH[ub]['water']:.1f}% against {100*v['water']:.1f}%.")
+        else:
+            ul = [c for c in CF if c.endswith('Hnone') and not c.startswith('u0.3')]
+            if ul:
+                ub = min(ul, key=lambda c: SH[c]['exc'])
+                A(f" Lowering the decided pumping alone does not meet 5%: the best tested ({lab(ub)}) leaves {100*SH[ub]['exc']:.1f}% in the {NAME[SH[ub]['exc_sc']]} storyline, because it does not touch the abstraction that the drought and the farmers add.")
+        A('\n')
+    else:
+        best = min(CF, key=lambda c: SH[c]['exc'])
+        A(f"No tested measure meets 5% in every storyline; the closest is **{lab(best)}** with {100*SH[best]['exc']:.1f}% ({NAME[SH[best]['exc_sc']]}).\n")
+    A('![Figure 1. Each measure in the plane of the constrained objective (13): exceedance in the worst storyline (constraint) against total water delivered in the worst storyline (objective). The best measure is the highest point left of the red line.](/home/user/swi-goal-oed/experiments/spiranca_go/res/figH1_hmax.png){width=14cm}\n')
+
+A('*Caveat:* synthetic aquifers on a 2-D section; $\\lambda_D$, $c_s$ and $\\varepsilon$ are for the stakeholders to set. Code: experiments/spiranca_go/sx_run.py and sh_run.py; results res/sx.json and res/sh.json.')
 
 mdp = os.path.join(HERE, 'objective.md')
 open(mdp, 'w').write('\n'.join(md))
@@ -114,9 +158,9 @@ doc = Document(raw)
 for s in doc.sections:
     s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(1.8)
 st = {x.name: x for x in doc.styles}
-for nm, size in (('Normal', 10.5), ('Body Text', 10.5), ('First Paragraph', 10.5), ('Compact', 9)):
+for nm, size in (('Normal', 12), ('Body Text', 12), ('First Paragraph', 12), ('Compact', 10.5), ('Image Caption', 10.5)):
     if nm in st: st[nm].font.size = Pt(size); st[nm].font.name = 'Calibri'
-for nm, size, col in (('Title', 18, '1F3864'), ('Subtitle', 11.5, '2E5597'), ('Heading 2', 13, '1F3864')):
+for nm, size, col in (('Title', 21, '1F3864'), ('Subtitle', 13, '2E5597'), ('Heading 2', 15, '1F3864')):
     if nm in st: st[nm].font.size = Pt(size); st[nm].font.color.rgb = RGBColor.from_string(col); st[nm].font.name = 'Calibri'
 for t in doc.tables:
     b = OxmlElement('w:tblBorders')
@@ -127,10 +171,17 @@ for t in doc.tables:
         for c in row.cells:
             for p in c.paragraphs:
                 for rn in p.runs:
-                    rn.font.size = Pt(9)
+                    rn.font.size = Pt(10.5)
                     if i == 0: rn.font.bold = True
             if i == 0:
                 sh = OxmlElement('w:shd'); sh.set(qn('w:val'), 'clear'); sh.set(qn('w:fill'), 'DCE6F2'); c._tc.get_or_add_tcPr().append(sh)
 out = os.path.join(HERE, 'Objective_Function_Stakeholder_Decision_Under_Extremes.docx')
+
+# image widths (pandoc caps them at the portrait text width)
+_W = [15.0]
+for _i, _shp in enumerate(doc.inline_shapes):
+    _w = _W[min(_i, len(_W) - 1)]
+    _r = _shp.height / _shp.width
+    _shp.width = Cm(_w); _shp.height = Cm(_w * _r)
 doc.save(out)
 print(out, best)

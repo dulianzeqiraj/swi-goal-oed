@@ -200,7 +200,7 @@ for s in SC:
         cells.append(f'{pc(e, 1)}' + ('' if p == 'none' else f' ({pc(w)})'))
     A(f'| {LAB[s]} | ' + ' | '.join(cells) + ' |')
 A('')
-A(f'![Figure 1. (a) Share of seasons above 250 mg/L at the supply screen with the rule "cut pumping after an alarm" (dot: mean over {nm}; line: 10–90% range). (b) One aquifer in the record drought, open loop: chloride at the screen, the yearly re-anchored prediction and the ROJA-GO prediction; ticks: seasons when the watch fires and an extra sample is taken.](/home/user/swi-goal-oed/experiments/spiranca_go/res/figR1_extremes.png){{width=25cm}}\n')
+A(f'![Figure 1. (a) Share of seasons above 250 mg/L at the supply screen with the rule "cut pumping after an alarm" (dot: mean over {nm}; line: 10–90% range). (b) One aquifer in the record drought, open loop: chloride at the screen, the yearly re-anchored prediction and the ROJA-GO prediction; ticks: seasons when the watch fires and an extra sample is taken.](/home/user/swi-goal-oed/experiments/spiranca_go/res/figR1_extremes.png){{width=26cm}}\n')
 A(f'Table 2. Alarm validity in open loop (no curtailment): share of seasons in the stress period in which the alarm under-warns by more than its margin (target ≤ {pc(D["alpha"])}), mean over {nm}; in brackets the aquifers above the target; and chloride samples in 30 years.\n')
 OM = [('spir', 'Static'), ('spir_ra', 'Yearly sample'), ('spir_trig', 'Extra samples only'), ('spir_adK', 'Adaptive window only'), ('spir_roja', 'ROJA-GO'), ('olsA_roja', 'Least squares + ROJA')]
 A('| Storyline | ' + ' | '.join(l for _, l in OM) + ' |')
@@ -232,10 +232,10 @@ for s in doc.sections:
     s.page_width, s.page_height = Cm(29.7), Cm(21.0)
     s.left_margin = s.right_margin = Cm(1.6); s.top_margin = s.bottom_margin = Cm(1.5)
 st = {x.name: x for x in doc.styles}
-for nmst, size in (('Normal', 10), ('Body Text', 10), ('First Paragraph', 10), ('Compact', 8)):
+for nmst, size in (('Normal', 12), ('Body Text', 12), ('First Paragraph', 12), ('Compact', 9.5), ('Image Caption', 10.5)):
     if nmst in st:
         st[nmst].font.size = Pt(size); st[nmst].font.name = 'Calibri'
-for nmst, size, col in (('Title', 20, '1F3864'), ('Subtitle', 12, '2E5597'), ('Heading 2', 14, '1F3864'), ('Heading 3', 12, '2E5597')):
+for nmst, size, col in (('Title', 22, '1F3864'), ('Subtitle', 13, '2E5597'), ('Heading 2', 16, '1F3864'), ('Heading 3', 13.5, '2E5597')):
     if nmst in st:
         st[nmst].font.size = Pt(size); st[nmst].font.color.rgb = RGBColor.from_string(col); st[nmst].font.name = 'Calibri'
 
@@ -264,10 +264,17 @@ for t in doc.tables:
             if w: c.width = Cm(w[j])
             for p in c.paragraphs:
                 for rn in p.runs:
-                    rn.font.size = Pt(8 if nc >= 6 else 8.5)
+                    rn.font.size = Pt(9.5 if nc >= 6 else 10)
                     if i == 0: rn.font.bold = True
             if i == 0:
                 sh = OxmlElement('w:shd'); sh.set(qn('w:val'), 'clear'); sh.set(qn('w:fill'), 'DCE6F2'); c._tc.get_or_add_tcPr().append(sh)
 final = os.path.join(HERE, 'Literature_review_Stakeholder_Decisions_IV_Intense_Rainfall_Drought_Causal_Oxford_Caltech_Harvard_MIT_2020-2026.docx')
+
+# image widths (pandoc caps them at the portrait text width)
+_W = [26.0]
+for _i, _shp in enumerate(doc.inline_shapes):
+    _w = _W[min(_i, len(_W) - 1)]
+    _r = _shp.height / _shp.width
+    _shp.width = Cm(_w); _shp.height = Cm(_w * _r)
 doc.save(final)
 print('aquifers', NA, 'pilot' if PILOT else 'full', '->', final)
