@@ -14,6 +14,8 @@ A('---\ntitle: "Assembly of the equations and the solution algorithm"\n'
   'subtitle: "MONTIMI-GO (physics) with the SPIRANCA-GO / ROJA-GO decision layer: equations, coupling diagram and flowchart"\n'
   'author: "Dulian Zeqiraj"\n---\n')
 
+SUMMARY_TEXT = open(os.path.join(HERE, 'summary250.txt')).read().strip()
+A('**Summary.** ' + SUMMARY_TEXT + '\n')
 A('## 1. The assembled system\n')
 A('A vertical section of the coastal aquifer (unit width along the coast), finite volumes in space, implicit Euler in time. Unknowns per cell: head $h$ and sea fraction $c$; local memory states $h_k$, $c_k$ ($k=1,2$: silt and clay) are eliminated in each step.\n')
 A('$$S_s\\frac{\\partial h}{\\partial t}+\\nabla\\cdot\\mathbf q=W-\\sum_{k=1}^{2}s_k a_k\\,(h-h_k),\\qquad \\frac{\\partial h_k}{\\partial t}=a_k\\,(h-h_k)\\qquad(1)$$\n')
@@ -101,6 +103,13 @@ for t in doc.tables:
                 sh = OxmlElement('w:shd'); sh.set(qn('w:val'), 'clear'); sh.set(qn('w:fill'), 'DCE6F2'); c._tc.get_or_add_tcPr().append(sh)
 out = os.path.join(HERE, 'Assembly_Equations_Solution_Algorithm_Flowchart.docx')
 
+# summary paragraph in Arial 11
+for _p in doc.paragraphs:
+    if _p.text.startswith('Summary.'):
+        for _r in _p.runs:
+            _r.font.name = 'Arial'; _r.font.size = Pt(11)
+            _r._element.rPr.rFonts.set(qn('w:eastAsia'), 'Arial')
+        break
 # image widths (pandoc caps them at the portrait text width)
 _W = [25.5, 24.5]
 for _i, _shp in enumerate(doc.inline_shapes):
