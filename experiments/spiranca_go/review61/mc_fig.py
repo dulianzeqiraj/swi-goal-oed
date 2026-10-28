@@ -57,9 +57,10 @@ def main():
 
     # row 2: science ready but untested + why now (timeline)
     y1, h1 = 2.3, 3.45
-    panel(ax, 0.2, y1, 4.3, h1, 'Science is ready, but untested', 'sci')
+    panel(ax, 0.2, y1, 4.3, h1, 'Ready, but untested and not open', 'sci')
     bullets(ax, 0.42, y1 + h1 - 0.7, ['computable rules for each of the four\ndecisions, proved and checked at\none alluvial aquifer',
-                                        'whether they hold in karst, alluvial\nand deltaic systems is open: no\nsingle site can answer'], dy=1.12, fs=11.2)
+                                        'whether they hold in karst, alluvial\nand deltaic systems is open: no\nsingle site can answer',
+                                        'no open-source tool: the methods\nlive in research code that authorities\nand utilities cannot run'], dy=0.9, fs=11)
     panel(ax, 5.05, y1, 9.35, h1, 'Why now: the legal calendar', 'now')
     X = lambda yr: 5.75 + (yr - 2026) * 1.08
     ya = 3.85
@@ -86,9 +87,10 @@ def main():
     fc, ec = COL['aim']
     ax.add_patch(FancyBboxPatch((0.2, 0.2), W - 0.4, 1.75, boxstyle='round,pad=0.02,rounding_size=0.14', fc=fc, ec=ec, lw=1.8, zorder=1))
     ax.text(W / 2, 1.58, 'Main aim', ha='center', va='center', fontsize=FT, fontweight='bold', color='white')
-    ax.text(W / 2, 0.9, 'a common, mathematically grounded and field-tested basis for the four decisions,\n'
+    ax.text(W / 2, 0.86, 'a common, mathematically grounded and field-tested basis for the four decisions; an open-source\n'
+            'workflow, built from code members already maintain, that institutions without research capacity can run;\n'
             'and a status test for saline intrusion that two authorities applying it independently will agree on',
-            ha='center', va='center', fontsize=12.5, color='white', linespacing=1.35)
+            ha='center', va='center', fontsize=12, color='white', linespacing=1.3)
     arrow(ax, (2.35, 2.27), (2.35, 1.99)); arrow(ax, (9.72, 2.27), (9.72, 1.99))
     arrow(ax, (12.25, 5.98), (12.25, 5.78))
     fig.savefig(os.path.join(OUT, 'figM1_main_challenge.png'), dpi=220)
