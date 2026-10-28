@@ -78,7 +78,7 @@ def main():
             ha='center', va='center', fontsize=11.2, color='white', fontweight='bold', linespacing=1.12)
     rbox(ax, 4.95, 9.58, 9.45, 0.82, '#e6f5ee', GREEN, lw=1.6)
     ax.text(5.1, 10.3, 'Stakeholder Advisory Panel', fontsize=11.8, fontweight='bold', color=GREEN, va='top')
-    ax.text(5.1, 10.03, 'drawn from all seven groups, utilities and private sector included; chaired by a member from a\n'
+    ax.text(5.1, 10.03, 'drawn from these groups, utilities and private-sector members included; chaired by a member from a\n'
             'water authority or utility; reviews every deliverable in draft; meets the Management Committee yearly',
             fontsize=10.5, color=INK, va='top', linespacing=1.15)
 
