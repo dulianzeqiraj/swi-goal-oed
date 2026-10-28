@@ -1,0 +1,7 @@
+Overall aim: give stakeholders a certified, computable rule for pumping, chloride sampling and well siting that keeps coastal supply wells below 250 mg/L chloride in normal and extreme conditions.
+O1. Assemble and solve the coupled system. Build and verify a variable-density flow, salt and ion model of the Fushë-Kuqe aquifer, solved by a coupled Newton method with an exact adjoint, fast enough to test each decision over many storylines.
+O2. Certify the chloride alarm. Predict chloride at the supply screen from heads, rainfall and pumping records with a certified margin, so that the alarm under-warns in at most 10% of seasons, and keep it valid after decisions with yearly chloride samples.
+O3. Prepare for extremes and hidden feedback. Test every rule under ordinary weather, intense rainfall, record-shattering drought, changed farmer behaviour and compound events, and bound the effect of unregistered private pumping.
+O4. Design the monitoring. Decide where piezometers go and when to take extra chloride samples, within a fixed sampling budget.
+O5. Optimise the stakeholder decision. Choose well sites, the pumping rule and drought caps on private abstraction that deliver the most water in the worst storyline while keeping the share of seasons above 250 mg/L below a level agreed with stakeholders, and show who bears the water cost.
+O6. Validate and transfer. Calibrate and validate the model with Fushë-Kuqe field data, extend it to 3-D, publish open code and diagrams, and transfer the method to other coastal and karst aquifers.
