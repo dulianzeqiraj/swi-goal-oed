@@ -55,8 +55,11 @@ OTHER = [
 
 
 def main(out='HALOMAR_References_500words.docx'):
-    lines = SCI + OTHER
+    import re
+    lines = [re.sub(r' doi:\S+$', '', l) for l in SCI] + OTHER
     words = sum(len(l.split()) for l in lines)
+    text = '\n'.join(lines)
+    strict = len(re.findall(r'\w+', text)); ecost = len(re.findall(r'[^\s/–\-:]+', text))
     doc = Document()
     s = doc.sections[0]
     s.page_width, s.page_height = Cm(21.0), Cm(29.7)
@@ -69,7 +72,7 @@ def main(out='HALOMAR_References_500words.docx'):
         r = p.add_run(l); r.font.name = 'Arial'; r.font.size = Pt(11)
     doc.save(out)
     open(out.replace('.docx', '.txt'), 'w').write('\n'.join(lines) + '\n')
-    print('entries', len(lines), 'words', words)
+    print('entries', len(lines), 'words (spaces)', words, '| e-COST-like', ecost, '| strictest', strict)
 
 
 if __name__ == '__main__':
