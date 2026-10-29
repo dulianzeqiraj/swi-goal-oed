@@ -89,6 +89,10 @@ def main(out):
             p = para(doc, 8, 0.5)
             run(p, 'What is new for our coastal system: ', bold=True, size=11, color='1E8A5A'); run(p, it['new'], size=11)
 
+    heading(doc, 'Local context: the 2019 Durrës earthquake (studies not from the four universities)', 13.5)
+    for t in D.LOCAL:
+        url = t.rsplit(' ', 1)[-1]
+        p = para(doc, 3, 0.5); run(p, '• ', bold=True, size=11); run(p, t[:-len(url)], size=10.5); link(p, url, url.replace('https://', ''), 10.5)
     heading(doc, D.SYN_TITLE, 14.5, color='B03A3A', before=14)
     for kind, t in D.SYNTHESIS:
         if kind == 'h':
