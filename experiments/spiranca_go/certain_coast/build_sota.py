@@ -78,6 +78,14 @@ def table(doc, header, rows, widths, size=10):
         for j, v in enumerate(r_):
             cells[j].text = ''
             rich(cells[j].paragraphs[0], v, size=size)
+    t.autofit = False
+    tblPr = t._tbl.tblPr
+    lay = OxmlElement('w:tblLayout'); lay.set(qn('w:type'), 'fixed'); tblPr.append(lay)
+    grid = t._tbl.tblGrid
+    for j, gc in enumerate(grid.findall(qn('w:gridCol'))):
+        gc.set(qn('w:w'), str(int(widths[j] * 567)))
+    for j, w in enumerate(widths):
+        t.columns[j].width = Cm(w)
     for row in t.rows:
         for j, w in enumerate(widths):
             row.cells[j].width = Cm(w)
