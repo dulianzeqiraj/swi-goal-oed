@@ -129,6 +129,9 @@ def main(out):
             p = para(doc, 2, 0.5); run(p, 'Done: ', bold=True, size=10.5); run(p, it['done'], size=10.5)
             p = para(doc, 8, 0.5); run(p, 'Beyond it in CERTAIN-COAST: ', bold=True, size=10.5, color='1E8A5A'); run(p, it['beyond'], size=10.5)
 
+    heading(doc, 'Local study (not from the four universities)', 12.5, color='2E6DB4', before=6)
+    for code, cite, url in D.LOCAL:
+        p = para(doc, 3); run(p, f'[{code}] ', bold=True, size=11, color='1F3864'); run(p, cite + '  ', size=10.5); link(p, url, url.replace('https://', ''), 10)
     if getattr(D, 'NOTE', None):
         p = para(doc, 4, before=8); run(p, D.NOTE, italic=True, size=9.5, color='52606D')
     doc.save(out)
