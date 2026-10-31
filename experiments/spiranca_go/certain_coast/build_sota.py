@@ -89,6 +89,8 @@ def table(doc, header, rows, widths, size=10):
     for row in t.rows:
         for j, w in enumerate(widths):
             row.cells[j].width = Cm(w)
+        trPr = row._tr.get_or_add_trPr()
+        cs = OxmlElement('w:cantSplit'); trPr.append(cs)
     return t
 
 
