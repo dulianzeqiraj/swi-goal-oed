@@ -128,7 +128,7 @@ NEW = [
 SOURCES = [
     ('EU Delegation to Albania: Release of the Post-Disaster Needs Assessment for Albania\'s recovery (February 2020)', 'https://www.eeas.europa.eu/delegations/albania/release-post-disaster-needs-assessment-albania-recovery_en'),
     ('Government of Albania, EU, UN and World Bank: Albania Post-Disaster Needs Assessment, Volume A (2020)', 'https://eeas.europa.eu/sites/eeas/files/albania_post-disaster_recovery_a.pdf.pdf'),
-    ('Geosciences (MDPI), 11(5), article 215 (2021): field reconnaissance and liquefaction susceptibility mapping after the 26 November 2019 Durrës earthquake', 'https://www.mdpi.com/2076-3263/11/5/215'),
+    ('Mavroulis, S., Lekkas, E. and Carydis, P. (2021). Liquefaction phenomena induced by the 26 November 2019, Mw = 6.4 Durrës (Albania) earthquake and liquefaction susceptibility assessment in the affected area. Geosciences 11(5), 215', 'https://doi.org/10.3390/geosciences11050215'),
     ('INSTAT: Maritime Transport Statistics, Q2 2026', 'https://www.instat.gov.al/en/themes/industry-trade-and-services/transport-accidents-and-characteristics-of-road-vehicles/publikimet/2026/maritime-transport-statistics-q2-2026/'),
     ('NATO: Resilience, civil preparedness and Article 3 (baseline requirements)', 'https://www.nato.int/cps/en/natohq/topics_132722.htm'),
     ('NATO Science for Peace and Security Programme (overview and Key Priorities)', 'https://www.nato.int/cps/en/natohq/85291.htm'),
