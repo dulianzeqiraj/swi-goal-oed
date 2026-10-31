@@ -1,6 +1,9 @@
-"""CERTAIN-COAST (NATO SPS proposal): Expected results. What will exist at the end, results by type with measures of
-success, a results table (deliverable, month, indicator, end user), security contribution, impact over time,
-sustainability and dissemination. Consistent with the Objectives (O1-O6) and the Work Plan (WP1-WP7, 36 months)."""
+"""CERTAIN-COAST (NATO SPS proposal): Expected results. What will exist at the end; fourteen results by type; a results
+table (objective proved, deliverable and month, measure of success, main users); a figure of which user uses which
+result; the minimum each key result still delivers if a gate or field condition fails; impact over time; where the
+results go next; what is new. Consistent with the Objectives (O1-O6), the Work Plan and the Impact section (V1 = R14).
+
+usage: python build_results.py OUT.docx"""
 import os
 import sys
 from docx import Document
@@ -33,6 +36,7 @@ GROUPS = [
         ('R9', 'Twelve months of live operation', 'Bulletins issued to the water utility, the port authority, the landfall operator and civil protection, each logged with its outcome, so that the certified miss rates can be checked in practice. (WP5, D5.1)'),
         ('R10', 'A pumping rule that is safe for all three hazards', 'An operating rule for the wellfields, agreed with the utility, that keeps the intrusion, liquefaction and extreme-sea-level alarms within their targets together. (WP5, T5.3)'),
         ('R11', 'A post-event protocol', 'Measurements of heads, conductivity, chloride, ground motion and seismic velocity within days of a strong earthquake or surge, turning each event into data for the system. (WP5, T5.4)'),
+        ('R14', 'A certified value of the warning for each user', 'For the decision each operator takes on a warning, a guaranteed lower bound on its relative economic value, derived from the certified miss rate and the cost-loss ratio agreed with that operator, reported with the value actually observed. (WP5, T3.1, D5.1)'),
     ]),
     ('4. Capacity and policy results', [
         ('R12', 'People who can run and develop the system', 'Early-career researchers trained by doing the work, and staff of the operators and civil protection trained to run the system without the project team. (WP6, T6.1, T6.2)'),
@@ -43,7 +47,7 @@ GROUPS = [
 TABLE = [
     ['R1', 'Relative sea level and land motion at the assets', 'D1.1, M12', 'Vertical-velocity uncertainty of the order of 1–2 mm/yr at asset points', 'All operators; authorities'],
     ['R2', 'Coupled model of the three hazards', 'D2.1, M18', 'Held-out observations reproduced within stated uncertainty', 'Project; utility'],
-    ['R3', 'Certified alarms with proofs', 'D3.1–D3.2, M24–27', 'Miss rate of each alarm ≤ α_k (indicatively 5–10%) in back-testing; joint miss ≤ Σα_k', 'All operators'],
+    ['R3', 'Certified alarms with proofs', 'D3.1–D3.2, M24–27', 'Miss rate of each alarm ≤ αₖ (indicatively 5–10%) in back-testing; joint miss ≤ Σαₖ', 'All operators'],
     ['R4', 'Seismic velocity as pore-pressure sensor', 'T4.4, M24', 'Calibrated relation with stated uncertainty at the port or landfall', 'Port; landfall operator'],
     ['R5', 'Value of each sensor type', 'D4.1, M6', 'Ranked design adopted for the network', 'Project; operators'],
     ['R6', 'Monitoring network', 'D4.2, M12', '≥ 90% data availability; handed over at M36', 'Utility; port; landfall operator'],
@@ -54,6 +58,7 @@ TABLE = [
     ['R11', 'Post-event protocol', 'T5.4, M12–36', 'Executed for every triggering event', 'Civil protection; operators'],
     ['R12', 'Trained people', 'T6.1–T6.2, M36', 'Indicatively ≥ 6 early-career researchers and ≥ 20 operator staff', 'Partner institutions; operators'],
     ['R13', 'Procedures and policy brief', 'D6.2, M36', '≥ 1 procedure adopted per asset; brief delivered', 'Operators; national authorities'],
+    ['R14', 'Certified value for each user', 'D5.1, M34', 'Lower bound reported for each user and compared with the observed value', 'All operators; civil protection'],
 ]
 
 SECURITY = [
@@ -85,39 +90,146 @@ DISSEM = [
 ]
 
 
+OBJ_OF = {'R1': 'O1', 'R2': 'O2', 'R3': 'O3', 'R4': 'O4', 'R5': 'O4', 'R6': 'O4', 'R7': 'O2', 'R8': 'O6', 'R9': 'O5',
+          'R10': 'O5', 'R11': 'O5', 'R12': 'O6', 'R13': 'O6', 'R14': 'O5'}
+SHORT = {'R1': 'Relative sea level, land motion', 'R2': 'Coupled model of three hazards', 'R3': 'Certified alarms, proofs',
+         'R4': 'Seismic velocity as sensor', 'R5': 'Value of each sensor type', 'R6': 'Monitoring network',
+         'R7': 'Certified surrogate', 'R8': 'Warning system, software, data', 'R9': '12 months live operation',
+         'R10': 'Pumping rule, three hazards', 'R11': 'Post-event protocol', 'R12': 'Trained people',
+         'R13': 'Procedures, policy brief', 'R14': 'Certified value per user'}
+USERS = ['Water\nutility', 'Port\nauthority', 'Landfall\noperator', 'Civil\nprotection', 'National\nauthorities', 'Scientists']
+# 2 = main user, 1 = also uses, 0 = not a direct user
+USE = {'R1': [1, 2, 2, 1, 2, 2], 'R2': [2, 1, 1, 0, 0, 2], 'R3': [2, 2, 2, 2, 0, 2], 'R4': [0, 2, 2, 0, 0, 2],
+       'R5': [2, 1, 1, 0, 1, 2], 'R6': [2, 2, 2, 1, 0, 1], 'R7': [1, 1, 1, 0, 0, 2], 'R8': [2, 2, 2, 2, 1, 2],
+       'R9': [2, 2, 2, 2, 1, 1], 'R10': [2, 1, 1, 0, 1, 1], 'R11': [1, 2, 2, 2, 1, 1], 'R12': [2, 2, 2, 2, 0, 2],
+       'R13': [2, 2, 2, 1, 2, 0], 'R14': [2, 2, 2, 2, 0, 1]}
+TYPE_COL = {'1': '#2e6db4', '2': '#6a4fb3', '3': '#c27c12', '4': '#0e7490'}
+
+MINIMUM = [
+    ['R2 Coupled model', 'Gate MS3 not passed (coverage below 80%)', 'Two-dimensional sections through each asset with a larger error bound; the limitation stated in every result'],
+    ['R3 Certified alarms', 'A miss rate above αₖ in back-testing (gate MS5)', 'Alarms with widened margins that meet the miss target; the extra false alarms reported'],
+    ['R4 Seismic velocity sensor', 'No significant relation with the water table', 'Water table from piezometers alone; seismic velocity kept for post-event damage assessment'],
+    ['R6 Monitoring network', 'Prices above the budget lines or site access refused', 'Sensors installed in order of value within the remaining budget, on the nearest accessible ground'],
+    ['R7 Certified surrogate', 'Error bound not met in part of the domain (gate MS4)', 'Full model on a reduced domain for the flagged forecasts; margin widened automatically'],
+    ['R9 Live operation', 'No strong earthquake or surge in twelve months', 'Event-based guarantees verified by back-testing and storylines; bulletin log continued after hand-over'],
+]
+
+AFTER = [
+    '**Security.** The results protect three of NATO\'s seven baseline requirements for civil preparedness: water, energy and civil transport (Security Relevance).',
+    '**Impact.** Who benefits, indicators with baselines and targets three years after the project, and the value of a warning to each user (Impact).',
+    '**Sustainability.** The operators own the network and the software and share a running cost of about €{cost:,.0f} per year (Sustainability).',
+    '**Dissemination.** Open methods, software and aggregated data; asset-level results restricted to the operators and authorities (Dissemination Plan, Data Management Plan).',
+]
+
+NEW = [
+    '**Every result has a user and a test.** Each of the 14 results names who uses it, the objective it proves, and the measure that shows it was reached.',
+    '**Results that check themselves.** The live bulletin log (R9) is both a result and the evidence that the certified miss rates (R3) and the value to each user (R14) hold.',
+    '**A guaranteed minimum.** Each result that depends on an evidence gate or a field condition has a stated minimum version, so a failed test still leaves the users with something they can use.',
+    '**A result in the users\' own terms.** R14 states what each warning is at least worth for each operator\'s own decision, not only how accurate it is.',
+]
+
+
+def fig_users(path):
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    codes = [c for c, *_ in TABLE]
+    group_of = {code: g[0] for g, items in GROUPS for code, *_ in items}
+    n = len(codes)
+    fig, ax = plt.subplots(figsize=(6.7, 5.3), dpi=300)
+    for i, c in enumerate(codes):
+        y = n - 1 - i
+        col = TYPE_COL[group_of[c]]
+        if i % 2 == 0:
+            ax.axhspan(y - 0.5, y + 0.5, color='#F4F6F8', zorder=0)
+        for j, v in enumerate(USE[c]):
+            if v == 2:
+                ax.plot(j, y, 'o', ms=10, color=col, zorder=3)
+            elif v == 1:
+                ax.plot(j, y, 'o', ms=9, mfc='white', mec=col, mew=1.6, zorder=3)
+    ax.set_yticks(range(n)); ax.set_yticklabels([f'{c}  {SHORT[c]}' for c in reversed(codes)], fontsize=8.8)
+    for t, c in zip(ax.get_yticklabels(), reversed(codes)):
+        t.set_color(TYPE_COL[group_of[c]])
+    ax.set_xticks(range(len(USERS))); ax.set_xticklabels(USERS, fontsize=8.8)
+    ax.xaxis.tick_top()
+    ax.set_xlim(-0.5, len(USERS) - 0.5); ax.set_ylim(-0.6, n - 0.4)
+    for sp in ax.spines.values():
+        sp.set_visible(False)
+    ax.tick_params(length=0)
+    h = [plt.Line2D([], [], marker='o', ls='', ms=9, color='#52606D', label='main user'),
+         plt.Line2D([], [], marker='o', ls='', ms=9, mfc='white', mec='#52606D', mew=1.6, label='also uses')]
+    names = {'1': 'scientific', '2': 'technological', '3': 'operational', '4': 'capacity and policy'}
+    h += [plt.Line2D([], [], marker='s', ls='', ms=8, color=TYPE_COL[k], label=v) for k, v in names.items()]
+    ax.legend(handles=h, loc='upper center', bbox_to_anchor=(0.38, -0.01), ncol=3, frameon=False, fontsize=8.8)
+    fig.tight_layout(); fig.savefig(path, dpi=300); plt.close(fig)
+
+
 def main(out):
+    import tempfile
+    from docx.oxml import OxmlElement
+    from build_sota import shade
+    import build_sustainability as BS
+    cost = sum(float(c[1].replace(' ', '')) for c in BS.COSTS)
+    work = tempfile.mkdtemp(); f1 = os.path.join(work, 'fig_users.png'); fig_users(f1)
     doc = Document()
     s = doc.sections[0]
     s.page_width, s.page_height = Cm(21.0), Cm(29.7)
-    s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(1.8)
+    s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(1.7)
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(11)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, 'CERTAIN-COAST — Expected Results', bold=True, size=18, color='1F3864')
-    p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run(p, 'Certified early warning for seawater intrusion, liquefaction and extreme sea levels at the wellfields, port and energy landfall of a subsiding Adriatic coast', bold=True, size=12, color='1F3864')
-    p = para(doc, 8); rich(p, LEAD, size=11.5)
+    p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; rich(p, LEAD, size=10.5)
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    rich(p, f'The project delivers **{len(TABLE)} results** of four kinds: scientific, technological, operational and capacity '
+            'and policy. Each names who uses it, the objective it proves and the measure of success (Section 5).', size=10.5)
     for gtitle, items in GROUPS:
-        heading(doc, gtitle, 13.5, before=6)
+        heading(doc, gtitle, 13, before=6)
         for code, title, text in items:
-            p = para(doc, 2); p.paragraph_format.keep_with_next = True
-            run(p, f'{code}. ', bold=True, color='1F3864'); run(p, title, bold=True)
-            p = para(doc, 5, 0.5); rich(p, text)
-    heading(doc, '5. Results at a glance', 13.5, before=8)
-    table(doc, ['', 'Result', 'Where and when', 'Measure of success', 'End user'], TABLE, [1.1, 4.0, 2.7, 5.2, 4.0], size=9.5)
-    para(doc, 4)
-    heading(doc, '6. Contribution to security', 13.5)
-    for t in SECURITY:
-        p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, t)
-    heading(doc, '7. Impact over time', 13.5, before=8)
-    table(doc, ['Horizon', 'Expected impact'], IMPACT, [4.0, 13.0], size=10)
-    para(doc, 4)
-    heading(doc, '8. Sustainability after the project', 13.5)
-    for t in SUSTAIN:
-        p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, t)
-    heading(doc, '9. Dissemination of the results', 13.5, before=8)
-    for t in DISSEM:
-        p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, t)
+            p = para(doc, 1); p.paragraph_format.keep_with_next = True
+            run(p, f'{code}. ', bold=True, color=TYPE_COL[gtitle[0]].lstrip('#').upper(), size=10.5); run(p, title, bold=True, size=10.5)
+            p = para(doc, 4, 0.5); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; rich(p, text.replace('α_k', 'αₖ'), size=10)
+
+    h = heading(doc, '5. Results at a glance', 13.5, before=10); h.paragraph_format.keep_with_next = True
+    rows = [[c, n, OBJ_OF[c], w, m, u] for c, n, w, m, u in TABLE]
+    t = table(doc, ['', 'Result', 'Proves', 'Where and when', 'Measure of success', 'Main users'], rows,
+              [1.1, 3.6, 1.55, 2.5, 4.75, 3.5], size=8.8)
+    t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
+    group_of = {code: g[0] for g, items in GROUPS for code, *_ in items}
+    tint = {'1': 'E8EDF5', '2': 'EFEAF8', '3': 'FBF0DF', '4': 'E3F4F5'}
+    for i, (c, *_r) in enumerate(TABLE, start=1):
+        shade(t.rows[i].cells[0], tint[group_of[c]])
+
+    heading(doc, '6. Who uses which result', 13.5, before=10)
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
+    p.add_run().add_picture(f1, width=Cm(15.5))
+    p = para(doc, 4)
+    run(p, 'Figure 1. Results and their users. Filled: main user; open: also uses. Every operator and civil protection receive '
+           'operational results, not only reports.', italic=True, size=9.5, color='52606D')
+
+    heading(doc, '7. The minimum each key result still delivers', 13.5, before=8)
+    p = para(doc, 4); p.paragraph_format.keep_with_next = True
+    rich(p, 'Where a result depends on an evidence gate or a field condition, a minimum version is stated in advance (Risk '
+            'Assessment and Milestones).', size=10.5)
+    t = table(doc, ['Result', 'If this happens', 'The users still receive'], MINIMUM, [3.6, 5.0, 8.4], size=9)
+    t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
+    for r_ in t.rows[1:]:
+        shade(r_.cells[0], 'EEF2F8')
+        for c in r_.cells:
+            for pp in c.paragraphs:
+                pp.paragraph_format.keep_with_next = True
+
+    heading(doc, '8. Impact over time', 13.5, before=10)
+    table(doc, ['Horizon', 'Expected impact'], IMPACT, [4.0, 13.0], size=9.5)
+
+    heading(doc, '9. Where the results go next', 13.5, before=10)
+    for x in AFTER:
+        q = para(doc, 3, 0.5); run(q, '• ', bold=True); rich(q, x.format(cost=cost), size=10.5)
+    heading(doc, '10. What is new in these results', 13.5, before=8)
+    for x in NEW:
+        q = para(doc, 3, 0.5); run(q, '• ', bold=True); rich(q, x, size=10.5)
     doc.save(out)
-    print('saved', out)
+    print('saved', out, '| results', len(TABLE))
 
 
 if __name__ == '__main__':
