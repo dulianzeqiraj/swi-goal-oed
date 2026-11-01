@@ -120,7 +120,8 @@ def main(out):
             'and sea-level data give the relative sea level at each asset. One calibrated physical model couples '
             'variable-density groundwater flow, aquifer compaction, the liquefaction factor of safety under a moving water table '
             'and extreme water levels; a fast surrogate with a certified error bound runs it in real time. Each alarm carries a '
-            'margin that guarantees its miss rate stays below an agreed target, even beyond the observed record. A monitoring '
+            'margin that guarantees its miss rate stays below an agreed target, extended beyond the observed record by extreme-value '
+            'statistics. A monitoring '
             'network designed for these warnings feeds the system, which the operators run live for twelve months and then own.')
 
     heading(doc, 'What is new', 13, before=6)

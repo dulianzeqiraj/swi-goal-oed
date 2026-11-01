@@ -23,8 +23,8 @@ MAIN = [
     'CERTAIN-COAST will build, demonstrate and hand over one early-warning system for all three. InSAR, GNSS and sea-level data '
     'give the relative sea level at each asset. One calibrated physical model couples variable-density groundwater flow, aquifer '
     'compaction, the water-table-dependent liquefaction factor of safety and extreme water levels; a fast surrogate with a '
-    'certified error bound runs it in real time. Each alarm adds online conformal risk control and an extreme-aware margin, so '
-    'its miss rate stays below a set target even beyond the observed record. In preparatory synthetic tests this kept the share '
+    'certified error bound runs it in real time. Each alarm adds online conformal risk control and an extreme-value margin for '
+    'events rarer than the observed record, so its miss rate stays below a set target. In preparatory synthetic tests this kept the share '
     'of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%. The monitoring network is designed to '
     'reduce these miss rates at least cost.',
     'The system will run live for twelve months with the water utility, port, landfall operator and civil protection, and will '
@@ -36,7 +36,7 @@ SHORT = ('The Durrës coast of Albania hosts, within a few kilometres, the drink
          'liquefaction and extreme sea levels threaten them through shared variables, yet are monitored separately, and no '
          'warning states how often it misses. CERTAIN-COAST couples the three hazards in one physical model driven by satellite, '
          'GNSS and sea-level data, runs it in real time through a surrogate with a certified error bound, and issues alarms whose '
-         'miss rate is guaranteed below a set target, even beyond the observed record. A sensor network designed for these '
+         'miss rate is guaranteed below a set target, with margins extended beyond the observed record. A sensor network designed for these '
          'warnings, twelve months of live operation with the operators and civil protection, and open software make the '
          'capability lasting and transferable.')
 
@@ -51,7 +51,7 @@ NEW = [
     'their shared variables, the relative sea level R(t) = η(t) − u_z(t) and the water table. A pumping decision is judged '
     'against all three at once: more pumping raises intrusion and subsidence but lowers liquefaction susceptibility.',
     '**Warnings with a guarantee.** The first coastal early warning whose miss rate is certified for each hazard (≤ α_k) and '
-    'jointly (≤ Σα_k), with a margin built to hold when droughts, storms or earthquakes push conditions beyond the record.',
+    'jointly (≤ Σα_k), with a margin extended by extreme-value statistics and stress-tested on droughts, storms and earthquakes beyond the record.',
     '**Sensors chosen for the warnings.** The first multi-hazard, goal-oriented design of a coastal monitoring network: each '
     'sensor, from piezometers and chloride samples to InSAR, seismic noise and fibre, is ranked by how much it reduces the miss '
     'probability per unit cost.',
