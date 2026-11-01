@@ -45,8 +45,8 @@ OBJ = [
      'D2.1 Calibrated coupled model (Month 18); D2.2 Certified surrogate (Month 22)', 'Gaps: hazards modelled separately; no per-forecast certificate. Innovations P2, P3, M4'),
     ('O3', 'Certify the warnings',
      'Design an alarm for each hazard k that fires when the forecast indicator exceeds its threshold minus a margin m_k made of '
-     'three parts: the surrogate error bound, an online conformal risk-control term for nonstationary data, and an extreme-aware '
-     'term that widens the margin when the forcing leaves the observed record. Control the probability that any of the three '
+     'three parts: the surrogate error bound, an online conformal risk-control term for nonstationary data, and an extreme-value '
+     'term for events rarer than the observed record. Control the probability that any of the three '
      'alarms is missed, and allocate the tolerances α_k by consequence.',
      ['Miss rate of each alarm at or below its target α_k (indicatively 5–10%) in back-testing over the historical record and in the live demonstration, reported with confidence intervals',
       'Joint miss probability of the three alarms at or below Σα_k, with the false-alarm rate reported alongside',

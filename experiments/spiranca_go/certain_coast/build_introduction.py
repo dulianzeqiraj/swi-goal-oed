@@ -166,7 +166,7 @@ def main(out):
     rich(p, 'The State of the Art, built on 30 key papers of 2020–2026, finds three gaps:', size=10.5)
     bullets(doc, [
         '**No early warning treats the three hazards as one system,** although they share relative sea level and pore pressure and are moved by the same pumping lever.',
-        '**No warning for any of them carries a guarantee.** Certified methods assume exchangeable data or hold only on time average; none covers a slow physics model of a coastal hazard or states beyond the observed record.',
+        '**No warning for any of them carries a guarantee.** Certified methods assume exchangeable data or hold only on time average; none covers a slow physics model of a coastal hazard, and the first method for levels beyond the observed record (2026) is not yet used for them.',
         '**The new sensors are measured but not designed.** InSAR time series, seismic noise and fibre are not chosen jointly with wells and samples to reduce missed warnings.',
     ])
     p = para(doc, 4, before=2); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY

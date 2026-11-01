@@ -34,14 +34,15 @@ KIND = {'M': ('Mathematical', '#1F3864', '#E8EDF5'), 'P': ('Physical', '#1E8A5A'
 # code -> today (with refs), what is new, why it matters, tested by, glance: beyond today, glance: tested in
 CARD = {
     'M1': ('Distribution-free risk control and online conformal prediction give long-run guarantees [19–21], and conformal '
-           'coverage exists for neural-operator surrogates [23]. They assume exchangeable data or hold only on time average, have '
-           'not been applied to slow physics models of coastal hazards, and say nothing beyond the observed record.',
-           'Alarm k fires when the forecast indicator exceeds its threshold minus a margin mₖ made of three certified parts: the '
-           'surrogate error bound, an online conformal risk-control term and an extreme-aware term. The long-run miss rate stays '
-           'at or below αₖ under nonstationarity and when the forcing leaves the record.',
+           'coverage exists for neural-operator surrogates [23]. They assume exchangeable data or hold only on time average and have '
+           'not been applied to slow physics models of coastal hazards; extreme conformal prediction (2026) reaches levels beyond '
+           'the record [d], but has not been used for coastal hazards.',
+           'Alarm k fires when the forecast indicator exceeds its threshold minus a margin mₖ made of three parts: the surrogate '
+           'error bound, an online conformal term and an extreme-value extension for events rarer than the record [d], stress-tested '
+           'on storylines. The long-run miss rate stays at or below αₖ under nonstationarity, also within each regime.',
            'The operator knows in advance how often a warning will be missed, and therefore what silence means.',
            'D3.1 proofs (M24); D3.2 back-testing (M27, gate MS5): miss rate ≤ αₖ with Clopper–Pearson interval; D5.1 live verification (M34).',
-           'Guarantees exist for exchangeable data [19–23]; here they hold for a slow physics model, under nonstationarity and beyond the record',
+           'Guarantees exist for exchangeable data [19–23] and, since 2026, at extreme levels [d]; here they are assembled for a slow physics model of three coupled hazards',
            'D3.1–D3.2 (M24–27); D5.1'),
     'M2': ('Guarantees are stated one alarm at a time. Our search found no warning that controls the probability that any of '
            'several dependent alarms is missed.',
@@ -56,10 +57,13 @@ CARD = {
            '[16, 17]. No study chooses InSAR, wells, chemical samples, seismic noise and fibre together to minimise the miss '
            'probability of warnings.',
            'Seven sensor types are chosen jointly to maximise the expected reduction in the miss probability of the three alarms '
-           'per unit cost.',
-           'Every euro of equipment is spent where it most reduces missed warnings at the three assets.',
-           'D4.1 design report (M6, MS1); after installation, forecast spread reduced as the design predicted (T4.3).',
-           'Design for one quantity and one sensor type [30]; here three warnings and seven sensor types',
+           'per unit cost, and each is also valued by the years of safe operation it adds before the certified safe window (P3) '
+           'closes. In a synthetic test the second criterion valued a GNSS station and corner reflectors at 5–6 years, where the '
+           'first gives zero.',
+           'Every euro of equipment is spent where it most reduces missed warnings now, and where it most delays the day no safe '
+           'pumping plan remains.',
+           'D4.1 design report (M6, MS1); after installation, forecast spread and closing year moved as the design predicted (T4.3).',
+           'Design for one quantity and one sensor type [30]; data worth in money [e]; here three warnings, seven sensor types, and value in years',
            'D4.1 (M6)'),
     'M4': ('Neural operators approximate PDE solution maps [25], kernel methods solve nonlinear PDEs [26], and conformal '
            'prediction calibrates operator learning [23]. These give approximation guarantees, not a certificate on each forecast '
@@ -96,13 +100,17 @@ CARD = {
            'D2.1 (M18, gate MS3): held-out heads and seismic velocity inside the 90% predictive intervals at close to the nominal rate.',
            'Static susceptibility, fixed water table [10, 12]',
            'D2.1 (M18)'),
-    'P3': ('Pumping limits are set for one effect at a time, for example subsidence from InSAR [1]. Our search found no pumping '
-           'rule evaluated against intrusion, subsidence and liquefaction together.',
-           'Every pumping rule is evaluated against the three hazards at once: more pumping raises intrusion and subsidence but '
-           'lowers the water table and liquefaction susceptibility.',
-           'The warning recommends actions that do not shift the risk from one asset to another.',
-           'T5.3 (M24–33): the rule keeps the three alarms within their targets together and is agreed with the water utility.',
-           'One effect at a time [1]',
+    'P3': ('Pumping limits are set for one effect at a time, for example subsidence from InSAR [1]; tipping points for seawater '
+           'intrusion under rising sea level [f] and ensemble-based pumping optimisation under sea-level rise [g] treat intrusion '
+           'alone. Our search found no joint intrusion, liquefaction and subsidence operating window with certified margins.',
+           'The set of pumping and dewatering decisions that keeps all hazards within certified limits at once, and the sea level '
+           'and year at which it closes: a multi-hazard adaptation tipping point. Its multiplier converts any margin into years. '
+           'In a synthetic test the certified window closed after 38 years, while single-hazard plans believed they had 43–97 years.',
+           'The warning recommends actions that do not shift the risk from one asset to another, and the operators know how long '
+           'a safe plan will exist.',
+           'T5.3 (M24–33): the window computed with the surrogate is confirmed by the full model at the closing point, and the rule '
+           'is agreed with the water utility.',
+           'One hazard at a time [1, f, g]',
            'T5.3 (M33)'),
     'P4': ('An abrupt switch to irreversible compaction has been detected with InSAR, GNSS and wells and proposed as an early '
            'warning [2]; elastic and inelastic compaction can be separated geodetically [3]. The switch is not yet a formal alarm.',
@@ -142,7 +150,7 @@ STAGES = [('Observe', ['P1', 'M3', 'P5']), ('Model', ['M4', 'P2', 'M5']), ('Warn
 SHORT = {'P1': 'One relative sea\nlevel R(t)', 'M3': 'Sensors designed\nfor the warnings', 'P5': 'Seismic velocity as\nwater-table gauge',
          'M4': 'Surrogate with\ncertified error', 'P2': 'Liquefaction safety\nfactor in time', 'M5': 'Extremes with\nland motion',
          'M1': 'Certified miss rate\nfor each alarm', 'M2': 'Joint guarantee\nfor three alarms', 'P4': 'Compaction tipping\npoint as alarm',
-         'P3': 'Pumping rule safe\nfor all three', 'V1': 'Certified value\nfor each user',
+         'P3': 'Safe window and\nits closing year', 'V1': 'Certified value\nfor each user',
          'O1': 'Verification\nfixed in advance', 'O2': 'Evidence gates,\nfixed thresholds', 'O3': 'Transfer tested\nby an outsider'}
 
 TRL = [
@@ -152,7 +160,7 @@ TRL = [
     ['Coupled model with R(t), FS(x,t) and compaction', 'P1, P2, P4', '3', '7', 'Preparatory coupled model → calibrated at the site and run live'],
     ['Multi-hazard sensor design', 'M3', '3', '7', 'Theory and preparatory design → network installed and streaming'],
     ['Seismic velocity as coastal water-table sensor', 'P5', '3', '6', 'Shown in inland basins → calibrated at the port or landfall'],
-    ['Pumping rule safe for three hazards', 'P3', '2', '6', 'Concept formulated → evaluated and agreed with the utility'],
+    ['Certified safe window and pumping rule', 'P3', '3', '6', 'Derived and tested on a synthetic transect → evaluated and agreed with the utility'],
     ['Certified value for each user', 'V1', '2', '6', 'Bound derived → reported for each user from live data'],
 ]
 
@@ -173,6 +181,10 @@ EXTRA = [
     ('a', 'Richardson, D. S. (2000). Skill and relative economic value of the ECMWF Ensemble Prediction System. Quarterly Journal of the Royal Meteorological Society 126, 649–667.', 'https://www.ecmwf.int/en/elibrary/76153-skill-and-relative-economic-value-ecmwf-ensemble-prediction-system'),
     ('b', 'Murphy, A. H. (1977). The value of climatological, categorical and probabilistic forecasts in the cost-loss ratio situation. Monthly Weather Review 105(7), 803.', None),
     ('c', 'European Commission. Horizon 2020 Work Programme 2014–2015, General Annexes, Annex G: Technology readiness levels (TRL).', 'https://ec.europa.eu/research/participants/data/ref/h2020/wp/2014_2015/annexes/h2020-wp1415-annex-g-trl_en.pdf'),
+    ('d', 'Pasche, O. C., Lam, H. and Engelke, S. (2026). Extreme conformal prediction: reliable intervals for high-impact events. Extremes 29(2), 129–155.', 'https://doi.org/10.1007/s10687-026-00536-9'),
+    ('e', 'Wagner, B. J. (1999). Evaluating data worth for ground-water management under uncertainty. Journal of Water Resources Planning and Management 125(5), 281–288.', 'https://doi.org/10.1061/(ASCE)0733-9496(1999)125:5(281)'),
+    ('f', 'Mazi, K., Koussis, A. D. and Destouni, G. (2013). Tipping points for seawater intrusion in coastal aquifers under rising sea level. Environmental Research Letters 8(1), 014001.', 'https://doi.org/10.1088/1748-9326/8/1/014001'),
+    ('g', 'Coulon, C., White, J. T., Pryet, A., Gatel, L. and Lemieux, J.-M. (2024). An ensemble-based approach for pumping optimization in an island aquifer considering parameter, observation and climate uncertainty. Hydrology and Earth System Sciences 28(1), 303–319.', 'https://doi.org/10.5194/hess-28-303-2024'),
 ]
 
 
@@ -277,7 +289,7 @@ def main(out):
             'the energy landfall, and extreme sea levels at all three, driven by one physical model of a subsiding coast. It closes '
             'three gaps that the State of the Art identifies in the 2020–2026 literature:', size=10.5)
     bullets(doc, ['**No early warning treats the three hazards as one system,** although they share relative sea level and pore pressure and are moved by the same pumping lever (closed by P1, P2, P3, M2).',
-                  '**No warning for any of them carries a guarantee:** certified methods assume exchangeable data or hold on time average, and none covers a slow physics model or states beyond the record (closed by M1, M4, M5).',
+                  '**No warning for any of them carries a guarantee:** certified methods assume exchangeable data or hold on time average, none covers a slow physics model, and the first method for levels beyond the record (2026) is not yet used for coastal hazards (closed by M1, M4, M5).',
                   '**The new sensors are measured but not designed:** no study chooses InSAR, seismic noise and fibre jointly with wells and samples to reduce missed warnings (closed by M3, P5).'])
     p = para(doc, 4, before=2); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, 'Numbers in brackets refer to the 30 key papers of the State of the Art; [L1] is the local Durrës study and letters to '
@@ -324,8 +336,10 @@ def main(out):
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
     rich(p, 'In preparatory synthetic tests on a coupled variable-density model, an extreme-aware margin (the third part of M1) '
             'kept the share of seasons above the chloride limit at **4–9%** across drought, human-feedback and compound storylines, '
-            'where a static alarm allowed **13–21%** (Figure 2). The value bound of V1 was checked against a direct calculation '
-            'of the cost-loss model (Impact, Section 5).', size=10.5)
+            'where a static alarm allowed **13–21%** (Figure 2). On a synthetic coastal transect, the certified safe window of P3 '
+            'closed after **38 years**, while plans that watch one hazard believed they had 43–97 years, and the years criterion of '
+            'M3 valued a GNSS station and corner reflectors at 5–6 years each (Methodology, Sections 7.3–7.4). The value bound of V1 '
+            'was checked against a direct calculation of the cost-loss model (Impact, Section 5).', size=10.5)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(f2, width=Cm(15.5))
     p = para(doc, 4)

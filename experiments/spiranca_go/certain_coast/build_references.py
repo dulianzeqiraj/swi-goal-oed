@@ -89,6 +89,22 @@ def innovations():
     return out
 
 
+def _title(cite):
+    m = re.match(r'^.*? \((\d{4})\)\. (.+?)\. ', cite)
+    return (m.group(2).lower()[:45] if m else cite.lower()[:45])
+
+
+def dup_numbers(papers):
+    sota = {_title(it['cite']): n for n, it in papers.items()}
+    return [sota[_title(r_)] for r_ in BM.FRONTIER if _title(r_) in sota]
+
+
+def method_frontier(papers):
+    """Frontier references of the Methodology that are not already among the 30 State of the Art papers."""
+    sota = {_title(it['cite']) for it in papers.values()}
+    return [r_ for r_ in BM.FRONTIER if _title(r_) not in sota]
+
+
 def compact(cite):
     """First author et al. (year). Title. Venue — no DOI, for space-limited fields."""
     m = re.match(r'^(.*?) \((\d{4})\)\. (.*)$', cite)
@@ -129,11 +145,12 @@ def main(out):
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(11)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, 'CERTAIN-COAST — References', bold=True, size=18, color='1F3864')
     p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, FULL, bold=True, size=12, color='1F3864')
-    n_total = len(papers) + len(D.LOCAL) + len(BM.REFS) + len(NATO) + len(FRAME) + len(DATA)
+    frontier = method_frontier(papers)
+    n_total = len(papers) + len(D.LOCAL) + len(BM.REFS) + len(frontier) + len(NATO) + len(FRAME) + len(DATA)
     p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, f'This list brings together the **{n_total} sources** cited in the CERTAIN-COAST documents, in six groups with their own '
-            'codes: the 30 papers of the State of the Art [1]–[30] and the local study [L1]; the classic method references of '
-            'the Methodology [C]; NATO and SPS documents [N]; policy, legal and ethics frameworks [F]; and data standards and '
+            'codes: the 30 papers of the State of the Art [1]–[30] and the local study [L1]; the method references of the '
+            'Methodology [C], classic and from the 2018–2026 frontier; NATO and SPS documents [N]; policy, legal and ethics frameworks [F]; and data standards and '
             'repositories [D]. Each entry says where it is used. A map links each innovation of the project to the references '
             'it builds on, and a compact key list is given for form fields with a word limit.', size=11)
     p = para(doc, 8); run(p, 'Verification. ', bold=True, size=9.5, color='52606D')
@@ -162,9 +179,16 @@ def main(out):
     for code, cite, url in D.LOCAL:
         entry(doc, code, cite, url, None, 'State of the Art; Security Relevance (2019 liquefaction at Durrës)')
 
-    heading(doc, '3. Classic method references (Methodology)', 13.5, before=8)
+    heading(doc, '3. Method references (Methodology)', 13.5, before=8)
+    p = para(doc, 3, before=2); run(p, 'Classic methods', bold=True, size=11, color='2E6DB4'); p.paragraph_format.keep_with_next = True
     for i, r_ in enumerate(BM.REFS, start=1):
         entry(doc, f'C{i}', r_, None, None, 'Methodology')
+    p = para(doc, 3, before=4); run(p, 'Frontier methods, 2018–2026', bold=True, size=11, color='2E6DB4'); p.paragraph_format.keep_with_next = True
+    for i, r_ in enumerate(frontier, start=len(BM.REFS) + 1):
+        entry(doc, f'C{i}', r_, None, None, 'Methodology')
+    p = para(doc, 4, before=2)
+    run(p, 'Frontier papers that are also among the 30 papers of the State of the Art are listed there only: '
+           + ', '.join(f'[{n}]' for n in sorted(set(dup_numbers(papers)))) + '.', italic=True, size=9.5, color='52606D')
 
     heading(doc, '4. NATO and SPS documents', 13.5, before=8)
     for i, (t_, u, used) in enumerate(NATO, start=1):
@@ -184,7 +208,8 @@ def main(out):
           'products carry the attribution "contains modified Copernicus Sentinel data").', None, None, 'Methodology; Data Management Plan')
 
     heading(doc, '7. Compact key list for a form field with a word limit', 13.5, before=8)
-    key_lines = [compact(papers[k]['cite']) for k in KEY] + [compact(BM.REFS[2]), 'United Nations (2015). Sendai Framework for Disaster Risk Reduction 2015–2030.']
+    bi = next(r_ for r_ in BM.REFS if r_.startswith('Boulanger'))
+    key_lines = [compact(papers[k]['cite']) for k in KEY] + [compact(bi), 'United Nations (2015). Sendai Framework for Disaster Risk Reduction 2015–2030.']
     words = sum(len(x.split()) for x in key_lines)
     p = para(doc, 4); rich(p, f'{len(key_lines)} references, **{words} words**; first author and "et al." for more than two authors, no DOIs.', size=10)
     for i, x in enumerate(key_lines, start=1):

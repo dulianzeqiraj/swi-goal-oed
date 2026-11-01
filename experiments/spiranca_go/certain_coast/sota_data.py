@@ -22,7 +22,7 @@ GAP_ROWS = [
     ['Groundwater sensing', 'Groundwater levels mapped from ambient seismic noise [16]; soil moisture from telecom fibre [17]; droughts, floods and earthquakes separated in 20 years of dv/v [18]',
      'Never used to warn of intrusion or liquefaction; not part of any sensor-design problem', '**dv/v and fibre as observation types** in a goal-oriented design and as liquefaction-susceptibility sensors'],
     ['Certified uncertainty and alarms', 'Distribution-free risk control [19]; online and adaptive conformal prediction with long-run guarantees [20–22]; conformal coverage for neural-operator surrogates [23]; conformal Bayes [24]',
-     'Guarantees assume exchangeable data or hold only on time average; never applied to slow physics models of coastal hazards; nothing for states beyond the record', '**Certified multi-hazard alarm**: surrogate error bound + online conformal margin + extreme-aware margin'],
+     'Guarantees assume exchangeable data or hold only on time average; never applied to slow physics models of coastal hazards; the first method for levels beyond the record (extreme conformal prediction, 2026) not yet used for them', '**Certified multi-hazard alarm**: surrogate error bound + online conformal margin + extreme-value extension beyond the record'],
     ['Fast models and assimilation', 'Neural operators with universal approximation [25]; kernel/GP solvers for nonlinear PDEs [26]; optimal UQ by minimum enclosing ball [27]; ensemble Kalman theory [28]; certified dimension reduction [29]; experimental design review [30]',
      'Approximation guarantees, not per-forecast certificates, for coupled variable-density and poroelastic models', '**Error-certified surrogate of the coupled model**, with sensors chosen jointly for the three warnings'],
 ]
@@ -106,8 +106,9 @@ SECTIONS = [
         ('table', (['Component', 'Done (papers)', 'Not done', 'CERTAIN-COAST'], GAP_ROWS, [2.6, 5.4, 4.6, 4.4])),
         ('p', 'Three gaps cut across the table. First, **no early warning treats the three hazards as one system**, although they '
               'share relative sea level and pore pressure and are moved by the same pumping lever. Second, **no warning for any of '
-              'them carries a guarantee**: the certified methods of [19–24] assume exchangeable data or hold on time average, and none '
-              'has been applied to a slow physics model of a coastal hazard or to states outside the observed record. Third, '
+              'them carries a guarantee**: the certified methods of [19–24] assume exchangeable data or hold on time average, none '
+              'has been applied to a slow physics model of a coastal hazard, and the first method that reaches levels beyond the '
+              'observed record (extreme conformal prediction, 2026; Methodology, Section 5.3) has not been used for them. Third, '
               '**the new sensors (InSAR time series, seismic noise, fibre) are measured but not designed**: no study chooses them '
               'jointly with wells and chemical samples to minimise the miss probability of the warnings.'),
     ]),
@@ -115,9 +116,9 @@ SECTIONS = [
         ('h', 'Mathematical innovations'),
         ('b', '**M1. Certified multi-hazard alarm.** For each hazard k (intrusion at a wellfield, liquefaction at the port or landfall, '
               'extreme water level) the alarm fires when the forecast indicator exceeds its threshold minus a margin m_k. The margin '
-              'adds three certified parts: the a-posteriori error bound of the fast surrogate [23, 27], an online conformal risk-control '
-              'term that keeps the long-run miss rate below α_k under nonstationarity [19–21], and an extreme-aware term that widens the '
-              'margin when the forcing leaves the observed record. In our preparatory synthetic tests on a coupled variable-density model, '
+              'adds three parts: the a-posteriori error bound of the fast surrogate [23, 27], an online conformal term that keeps the '
+              'long-run miss rate at α_k under nonstationarity [19–21], and an extreme-value extension for events rarer than the observed '
+              'record, stress-tested on storylines (Methodology, Section 5.3). In our preparatory synthetic tests on a coupled variable-density model, '
               'an extreme-aware margin kept the share of seasons above the chloride limit at 4–9% across drought, human-feedback and '
               'compound storylines, where a static alarm allowed 13–21%.'),
         ('b', '**M2. A joint guarantee across hazards.** Because the three alarms share inputs, their miss events are dependent; '
@@ -126,7 +127,10 @@ SECTIONS = [
               'same tolerance by accident.'),
         ('b', '**M3. Multi-hazard goal-oriented sensor design.** InSAR, GNSS, piezometers, chloride samples, seismic noise, fibre and '
               'temporary nodes are chosen together to maximise the expected reduction in the miss probability of the three alarms, '
-              'extending goal-oriented design [30] from one quantity and one sensor type to several hazards and sensor types.'),
+              'extending goal-oriented design [30] from one quantity and one sensor type to several hazards and sensor types. Each sensor '
+              'is also valued by the years of safe operation it adds before the certified safe window of P3 closes: in a synthetic '
+              'test, a GNSS station and corner reflectors added 5–6 years although they narrow none of today\'s forecasts '
+              '(Methodology, Section 7.4).'),
         ('b', '**M4. An error-certified surrogate of the coupled model.** A neural or kernel operator of the coupled variable-density, '
               'poroelastic model [25, 26], whose error is bounded a posteriori and calibrated conformally [23], makes thousands of '
               'storylines and real-time updates affordable without losing the guarantee.'),
@@ -137,9 +141,12 @@ SECTIONS = [
               'of loading signals [1–5].'),
         ('b', '**P2. A time-varying liquefaction factor of safety**, FS(x, t) = CRR / CSR(z_w(x, t)), with the water table z_w taken '
               'from the calibrated groundwater model and checked by seismic velocity [12, 16–18], instead of a fixed design water table.'),
-        ('b', '**P3. The pumping lever made explicit**: every pumping rule is evaluated against all three hazards at once '
-              '(intrusion and subsidence rise, liquefaction susceptibility falls), so the warning recommends actions that do not shift '
-              'the risk from one asset to another.'),
+        ('b', '**P3. A certified safe operating window and the year it closes.** Pumping raises intrusion and subsidence but '
+              'lowers liquefaction susceptibility, so CERTAIN-COAST computes the set of pumping and dewatering decisions that keeps all '
+              'hazards within certified limits at once, and the sea level and year at which this set closes, a multi-hazard adaptation '
+              'tipping point. Warnings then recommend actions that do not shift the risk from one asset to another. In a synthetic '
+              'test the certified window closed after 38 years, while plans that watch one hazard believed they had 43–97 years '
+              '(Methodology, Section 7).'),
         ('b', '**P4. The compaction tipping point as a warning in itself**: the switch from elastic to inelastic compaction [2, 3] '
               'is irreversible and permanently raises R(t); detecting it early is a warning for all three hazards.'),
         ('b', '**P5. Seismic velocity as a pore-pressure sensor in saturated coastal sediments** at the port and the landfall, '
@@ -244,7 +251,7 @@ GROUPS = [
         dict(n=19, inst='MIT (Bates, Fisch)', cite='Angelopoulos, A.N., Bates, S., Fisch, A., Lei, L. and Schuster, T. (2024). Conformal risk control. International Conference on Learning Representations (ICLR 2024).',
              doi='https://proceedings.iclr.cc/paper_files/paper/2024/hash/f3549ef9b5ff520a7e41ff3cc306ab2b-Abstract-Conference.html', free='https://arxiv.org/abs/2208.02814', free_label='arXiv',
              done='Extends split conformal prediction to any monotone bounded loss: the calibrated threshold guarantees E[L(λ̂)] ≤ α under exchangeability, tight to O(B/n); a false-negative (miss) rate is a special case.',
-             beyond='The miss rate of each alarm is the controlled loss; CERTAIN-COAST removes the exchangeability assumption by the online and extreme-aware terms of M1.'),
+             beyond='The miss rate of each alarm is the controlled loss; CERTAIN-COAST removes the exchangeability assumption by the online and extreme-value terms of M1.'),
         dict(n=20, inst='MIT (Bates)', cite='Angelopoulos, A.N., Barber, R.F. and Bates, S. (2024). Online conformal prediction with decaying step sizes. Proceedings of the 41st International Conference on Machine Learning, PMLR 235, 1616–1630.',
              doi='https://proceedings.mlr.press/v235/angelopoulos24a.html', free='https://arxiv.org/abs/2402.01139', free_label='arXiv',
              done='Online quantile tracking with decaying steps keeps long-run coverage for arbitrary sequences and converges to the true quantile when the data are i.i.d.',
@@ -276,7 +283,7 @@ GROUPS = [
         dict(n=27, inst='Caltech (Owhadi, Scovel)', cite='Hamze Bajgiran, H., Batlle, P., Owhadi, H., Samir, M., Scovel, C., Shirdel, M., Stanley, M. and Tavallali, P. (2022). Uncertainty quantification of the 4th kind; optimal posterior accuracy-uncertainty tradeoff with the minimum enclosing ball. Journal of Computational Physics 471, 111608. (DOI not confirmed.)',
              doi='https://arxiv.org/abs/2108.10517', free='https://authors.library.caltech.edu/records/v0cp5-ykc35/preview/2108.10517.pdf', free_label='CaltechAUTHORS PDF',
              done='Combines robust optimisation, Bayesian inference and hypothesis testing: the optimal estimate and its worst-case risk are the centre and radius of the minimum enclosing ball of a likelihood region mapped to the quantity of interest.',
-             beyond='The worst-case radius gives the extreme-aware margin a rigorous form: the alarm margin for states beyond the record is the enclosing-ball radius over the plausible forcing set.'),
+             beyond='The worst-case radius gives the storyline test of M1 a rigorous form: beyond the record, the extrapolated margin is checked against the enclosing-ball radius over the plausible forcing set.'),
         dict(n=28, inst='Caltech (Stuart)', cite='Calvello, E., Reich, S. and Stuart, A.M. (2025). Ensemble Kalman methods: a mean-field perspective. Acta Numerica 34, 123–291.',
              doi='https://doi.org/10.1017/S0962492924000060', free='https://arxiv.org/abs/2209.11371', free_label='arXiv',
              done='A unifying analysis of ensemble Kalman methods for filtering, inversion and sampling as particle approximations of mean-field models, exact in the linear-Gaussian case.',
@@ -314,4 +321,5 @@ WHAT_NEW = [
     '**Every paper has a role.** Each of the 30 papers states what it did and the step CERTAIN-COAST takes beyond it; no paper is cited for decoration.',
     '**Absence is reported.** The review states that no 2020–2026 intrusion paper from the four universities was found, and that the intrusion component rests on the preparatory work.',
     '**Open where possible.** Each entry gives a DOI and, where one exists, a free copy, so evaluators can check every claim.',
+    '**Claims updated as the frontier moves.** Where a 2026 method now does what was a gap (extreme conformal prediction beyond the record), the review says so and states the remaining step.',
 ]
