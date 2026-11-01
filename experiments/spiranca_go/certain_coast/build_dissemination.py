@@ -42,7 +42,7 @@ AIMS = [
 ]
 
 AUDIENCES = [
-    ['Water utility, port authority, energy landfall operator', 'Warnings they can act on, with known reliability', 'Bulletins with certified miss rates; joint pumping rule; operating procedures; training (restricted tier)', 'Bulletin interface; workshops; on-site training'],
+    ['Water utility, port authority, energy landfall operator', 'Warnings they can act on, with known reliability', 'Bulletins with certified miss rates; the guaranteed minimum value of the warning for their own decision; joint pumping rule; operating procedures; training (restricted tier)', 'Bulletin interface; workshops; on-site training'],
     ['Civil protection and national authorities', 'One consistent picture after events; numbers for planning', 'Post-event reports; relative sea level at each asset; policy brief', 'Briefings; workshops; policy brief'],
     ['NATO SPS Programme, Allies and partners', 'Evidence of security value and a capability others can adopt', 'Progress and final reports; project summary for SPS communication; transfer workshop', 'Reports; final event; SPS channels'],
     ['Scientific community', 'Methods, data and code to test and reuse', 'Open-access papers; open software; synthetic test coast; verification statistics', 'Journals; conferences; open repository'],
@@ -55,7 +55,8 @@ TIERS = [
     ['Methods and software', 'All algorithms, code, documentation and a synthetic test coast', '—'],
     ['Coastal motion', 'Regional land-motion maps; the relative-sea-level method', 'Values at named asset points'],
     ['Model and hazards', 'Model structure, calibration method, results aggregated or anonymised', 'Asset-level intrusion, liquefaction and flooding maps'],
-    ['Alarms', 'Verification statistics: observed miss and false-alarm rates with intervals', 'Thresholds, bulletin contents, sensor locations inside sites'],
+    ['Alarms', 'Verification ledger: for each alarm type, events, misses, false alarms and the 95% upper bound on the miss rate; back-testing protocol with a DOI', 'Thresholds, bulletin contents, sensor locations inside sites'],
+    ['Value of the warning', 'Method and the bound for illustrative cost-loss ratios', 'Each operator\'s cost-loss ratio and its guaranteed value'],
     ['Procedures and policy', 'Generic procedure template; public version of the policy brief', 'Operator-specific procedures; annex with asset details'],
 ]
 
@@ -73,7 +74,9 @@ PRODUCTS = [
     ['Conference presentations', 'For example EGU General Assembly, AGU Fall Meeting, Salt Water Intrusion Meeting, SIAM Conference on Uncertainty Quantification', 'Science', 'Each year', 'WP6'],
     ['Training school', 'Hands-on work with the coast kit', 'Early-career researchers; students', '14', 'T6.1'],
     ['Mid-term workshop', 'Model and network results; dry run of the bulletins', 'Operators; civil protection', '18', 'WP2, WP4'],
+    ['Back-testing protocol (DOI)', 'Data, events, statistics and pass levels of D3.2, published before the results are computed', 'Science; NATO SPS', '22', 'T3.4'],
     ['Live bulletins', 'Twelve months of certified warnings, logged with outcomes', 'Operators; civil protection', '23–34', 'T5.2'],
+    ['Verification ledger', 'Quarterly open table per alarm type: events, misses, false alarms, 95% upper bound on the miss rate; no locations', 'All; public', '24, 27, 30, 33, 36', 'T5.2, D5.1'],
     ['Operator training', 'Running the system; what a miss rate means', 'Operator and civil-protection staff', '24–36', 'T6.2'],
     ['Open software and data (D6.1)', 'Code, documentation, synthetic test coast, open data, verification statistics', 'Science; other coasts', '33', 'T6.3'],
     ['Transfer workshop', 'Coast kit for other Adriatic and Mediterranean coasts', 'Other coasts; Allies and partners', '35', 'T6.3'],
@@ -93,6 +96,8 @@ KPIS = [
     ['Operating procedures adopted', 'At least 1 per asset', 'D6.2'],
     ['Stakeholder workshops', '3, plus 1 transfer workshop', 'Agendas and participant lists'],
     ['Policy brief delivered to national authorities', 'Delivered (D6.2)', 'Delivery record'],
+    ['Back-testing protocol registered before results', 'Published with a DOI by Month 22, before D3.2 (Month 27)', 'DOI record'],
+    ['Verification ledger updates', '5 (quarterly, Months 24–36)', 'Public page and archive'],
     ['Outputs screened before release', '100%; no sensitive disclosure', 'Release log'],
 ]
 
@@ -108,6 +113,8 @@ NEW = [
     '**Open verification of a restricted service.** The observed miss and false-alarm rates of the live warnings are published with their confidence intervals, so anyone can check the certified guarantee without seeing a single vulnerable location.',
     '**Security-screened open science.** A two-tier plan and a release gate make the methods fully open and keep asset-level vulnerability closed, so openness and protection of critical infrastructure do not conflict.',
     '**Uncertainty as a number each audience can act on.** Operators receive a miss rate with every bulletin; planners receive relative sea level at each asset instead of a regional trend; the public receives plain-language summaries.',
+    '**A verification ledger anyone can read.** Each quarter of live operation, the number of exceedance events, misses and false alarms of each alarm type is published with the 95% upper bound on its miss rate, so readers can see when a certified rate becomes verified (at least 29 events with no miss for 10%; Methodology, Section 5.7).',
+    '**The test is published before the result.** The back-testing protocol of D3.2 receives a DOI in Month 22, before any back-testing result exists, so the verification of the guarantees cannot be tuned after the fact.',
     '**A coast kit, not only papers.** Software, a synthetic test coast and training material let another coast repeat the analysis without the project team.',
     '**Products timed to decisions.** Workshops, training and live bulletins follow the project\'s decision points: thresholds before design, a dry run before operation, procedures before hand-over.',
 ]
@@ -125,9 +132,9 @@ LANES = [
      []),
     ('Public', '#0e7490',
      [(2, 'Press: kick-off'), (12, 'Press: network'), (23, 'Press: live start'), (36, 'Final event')],
-     [(3, 36, 'Website and news in Albanian and English')]),
+     [(3, 36, 'Website and news in Albanian and English'), (23, 36, 'Verification ledger (quarterly)')]),
     ('Transfer and\nopen release', '#1e8a5a',
-     [(12, 'Open regional land motion'), (33, 'Software + data (D6.1)'), (35, 'Transfer workshop')],
+     [(12, 'Open regional land motion'), (22, 'Protocol (DOI)'), (33, 'Software + data (D6.1)'), (35, 'Transfer workshop')],
      []),
 ]
 
@@ -244,12 +251,28 @@ def main(out):
     para(doc, 4)
     p = para(doc, 3); run(p, 'Release gate for every output', bold=True, size=11, color='1F3864')
     bullets(doc, GATE)
+    import build_deliverables as BD
+    its = BD.items(); merged = {}
+    for d in its:
+        merged.setdefault(d['code'], dict(d, months=[]))['months'].append(f'M{d["month"]}')
+    cnt = {c: sum(1 for d in its if d['cls'] == c) for c in ('Public', 'Restricted', 'Public + restricted annex')}
+    p = para(doc, 3, before=6); p.paragraph_format.keep_with_next = True
+    run(p, 'Access level of each deliverable', bold=True, size=11, color='1F3864')
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
+    rich(p, f'Of the {len(its)} deliverables, {cnt["Public"]} are public, {cnt["Restricted"]} restricted and '
+            f'{cnt["Public + restricted annex"]} public with a restricted annex (Deliverables section).', size=10.5)
+    rows = [[d['code'], d['name'], ', '.join(d['months']), d['cls'], d['access']] for d in merged.values()]
+    t = tidy(table(doc, ['', 'Deliverable', 'Month', 'Level', 'What is open and what is restricted'], rows,
+                   [1.1, 4.6, 1.9, 3.0, 6.4], size=9))
+    tint = {'Public': 'E6F4EC', 'Restricted': 'FBEAEA', 'Public + restricted annex': 'F1ECFA'}
+    for i, d in enumerate(merged.values(), start=1):
+        shade(t.rows[i].cells[3], tint[d['cls']])
 
     heading(doc, '4. Products and events', 13.5, before=8)
     tidy(table(doc, ['Product or event', 'Content', 'Audience', 'Month', 'Task'], PRODUCTS, [3.7, 6.3, 3.3, 1.9, 1.8], size=9.5))
     para(doc, 4)
 
-    heading(doc, '5. Timeline', 13.5, before=8)
+    h = heading(doc, '5. Timeline', 13.5, before=0); h.paragraph_format.page_break_before = True
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.add_run().add_picture(fig, width=Cm(17.0))
     p = para(doc, 6)
     run(p, 'Figure 1. Dissemination over the 36 months by audience. Diamonds: events and deliverables; bars: continuous '
