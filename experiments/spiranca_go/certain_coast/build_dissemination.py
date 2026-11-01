@@ -83,7 +83,7 @@ PRODUCTS = [
     ['Policy brief and procedures (D6.2)', 'Subsidence, water supply, critical-infrastructure protection; operator procedures', 'National authorities; operators', '36', 'T6.4'],
     ['Final workshop and live demonstration', 'The system in operation; results; hand-over', 'All', '36', 'WP5, WP6'],
     ['Press releases', 'Kick-off, network installed, start of live bulletins, final event', 'Public; media', '2, 12, 23, 36', 'WP6'],
-    ['Reports to NATO SPS', 'Progress and final reports with the risk register and indicators', 'NATO SPS', '12, 24, 36', 'T7.1'],
+    ['Reports to NATO SPS', 'Progress and final reports with the risk register and indicators', 'NATO SPS', '6, 18, 30, 36', 'T7.1'],
 ]
 
 KPIS = [

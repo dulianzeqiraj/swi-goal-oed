@@ -51,7 +51,7 @@ CARD = {
             'Steering committee (Month 12 meeting); operators confirm the data streams',
             ['R4', 'R9', 'R10', 'R11'],
             'Sensors installed in order of value and partner equipment borrowed for the first months; GNSS and levelling where InSAR loses coherence; calibration starts on the sensors already streaming.',
-            'Calibration of the coupled model (T2.3); post-event protocol on standby; first progress report to SPS (D7.2).'),
+            'Calibration of the coupled model (T2.3); post-event protocol on standby.'),
     'MS3': ('WP2',
             'One coupled model reproduces the water, salt, ground and sea-level data it has not seen, with honest uncertainty.',
             'D2.1: held-out heads, chloride, InSAR and seismic velocity fall inside the 90% predictive intervals at close to the nominal rate (gate rule in Section 3).',
@@ -114,9 +114,10 @@ MONITOR = [
 ]
 
 REPORTS = [
-    ['D7.2, first progress report', 'Month 12', 'MS1, MS2', 'Status of each milestone and deliverable; revised Gantt chart; milestones of the next period'],
-    ['D7.2, second progress report', 'Month 24', 'MS3, MS4', 'As above; gate decisions and any fallback applied'],
-    ['D7.3, final report', 'Month 36', 'MS5, MS6, MS7 (and all earlier)', 'Status of every milestone; for any not met, why and the effect on the results'],
+    ['D7.2, first report (SPS Milestone 1)', 'Month 6', 'MS1', 'Status of each milestone and deliverable; revised Gantt chart; milestones of the next period'],
+    ['D7.2, second report (SPS Milestone 2)', 'Month 18', 'MS2, MS3', 'As above; the decision at gate MS3 and any fallback applied'],
+    ['D7.2, third report (SPS Milestone 3)', 'Month 30', 'MS4, MS5', 'As above; the decisions at gates MS4 and MS5; first seven months of live operation'],
+    ['D7.3, final report', 'Month 36', 'MS6, MS7 (and all earlier)', 'Status of every milestone; for any not met, why and the effect on the results'],
 ]
 
 NEW = [
@@ -159,7 +160,7 @@ def fig_ladder(path):
                 fontweight='bold', color='#92400E' if g else '#1F3864', zorder=6,
                 bbox=dict(boxstyle='square,pad=0.1', fc='white', ec='none'))
         ax.text(m + 0.5, i - 0.30, f'M{m}', ha='left', va='center', fontsize=8.6, color='#52606D', zorder=6)
-    for m, lab in ((12, 'D7.2'), (24, 'D7.2'), (36, 'D7.3')):
+    for m, lab in ((6, 'D7.2'), (18, 'D7.2'), (30, 'D7.2'), (36, 'D7.3')):
         ax.plot(m, -0.42, marker='v', ms=7, color='#52606D', zorder=5)
         ax.text(m - 0.6, -0.42, lab, ha='right', va='center', fontsize=8.6, color='#52606D', zorder=6)
     ax.set_yticks(range(len(ms) + 1))
@@ -284,8 +285,8 @@ def main(out):
     p = para(doc, 4, before=4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
     rich(p, 'The SPS report templates ask, for each milestone and deliverable, its status, plans to complete any that are '
             'late, the milestones of the next period and a revised Gantt chart; the final report asks why any milestone was '
-            'not met and how this affects the results [1–3]. The milestones are reported as follows; the reporting schedule '
-            'itself is fixed in the Project Plan agreed with the SPS Programme.', size=10.5)
+            'not met and how this affects the results [1–3]. The reports fall on the SPS reporting milestones of the application '
+            '(Months 6, 18, 30 and 36), which match the Info tab of the budget workbook:', size=10.5)
     head_repeat(table(doc, ['Report', 'Month', 'Milestones reported', 'Content'], REPORTS, [3.9, 1.9, 3.6, 7.6], size=9.5))
 
     h = heading(doc, '5. What is new in these milestones', 13.5, before=0); h.paragraph_format.page_break_before = True

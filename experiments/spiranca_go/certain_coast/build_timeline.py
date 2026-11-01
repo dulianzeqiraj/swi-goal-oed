@@ -48,7 +48,7 @@ BEFORE = [
 
 YEARS = [
     ('Year 1 (Months 1–12): measure and build', [
-        'Access agreements and data management plan by Month 3 (D7.1); kick-off workshop with the operators in Month 2.',
+        'Access agreements and data management plan by Month 3 (D7.1); kick-off workshop with the operators in Month 2; first report to the SPS Programme in Month 6 (D7.2).',
         'Network designed for the warnings by Month 6 (D4.1, MS1); equipment ordered in Month 4; installed and streaming by Month 12 (D4.2).',
         'InSAR from 2014 onward, GNSS and corner reflectors; elastic and inelastic compaction separated; relative sea level at each asset by Month 12 (D1.1, MS2).',
         'Coupled model set up from Month 4; post-event protocol on standby from Month 12.',
@@ -57,10 +57,10 @@ YEARS = [
         'Thresholds and acceptable false-alarm rates agreed with the operators (Months 13–15); training school in Month 14.',
         'Coupled model calibrated by Month 18 (D2.1, gate MS3); mid-term workshop in Month 18.',
         'Certified surrogate by Month 22 (D2.2); go/no-go for live operation in Month 22 (gate MS4); live bulletins from Month 23.',
-        'Certified alarm algorithms and proofs by Month 24 (D3.1); first progress report in Month 12, second in Month 24.',
+        'Certified alarm algorithms and proofs by Month 24 (D3.1); second report to the SPS Programme in Month 18, at the calibration gate (D7.2).',
     ]),
     ('Year 3 (Months 25–36): operate, verify, hand over', [
-        'Back-testing report and miss-rate targets confirmed by Month 27 (D3.2, gate MS5); joint pumping rule agreed with the utility by Month 33.',
+        'Back-testing report and miss-rate targets confirmed by Month 27 (D3.2, gate MS5); third report to the SPS Programme in Month 30 (D7.2); joint pumping rule agreed with the utility by Month 33.',
         'Maintenance agreement signed by the operators by Month 33; open software and data released in Month 33 (D6.1).',
         'Twelve months of live operation completed in Month 34 (D5.1, MS6); operators issue every bulletin in Months 34–36.',
         'Transfer workshop in Month 35; procedures and policy brief, final workshop and hand-over in Month 36 (D6.2, MS7, D7.3).',
@@ -82,7 +82,7 @@ SLIP = ('A slip of up to two months at the go/no-go gate (MS4) is absorbed: live
 GOVERN = [
     ['Steering committee', 'Months 2 (kick-off), 6, 12, 18, 24, 30, 36, and at each gate', 'Partnership; T7.1'],
     ['Risk review', 'Every month; escalation within two weeks when a trigger is crossed', 'Risk Assessment; T7.3'],
-    ['Progress reports to NATO SPS', 'Months 12 and 24 (D7.2); final report Month 36 (D7.3)', 'Work Plan'],
+    ['Reports to NATO SPS', 'At the SPS reporting milestones: Months 6, 18 and 30 (D7.2); final report Month 36 (D7.3)', 'Work Plan; Milestones'],
     ['Data management plan', 'Version 1 Month 3 (D7.1); version 2 Month 18; final Month 36', 'Data Management Plan'],
     ['Gender and ethics review', 'Yearly: Months 12, 24, 36; ethics at every steering committee', 'Gender Balance; Ethics'],
     ['Maintenance and hand-over agreements', 'Month 33 and Month 36', 'Sustainability'],

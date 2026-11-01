@@ -459,9 +459,9 @@ def main(out):
     chk = [['SPS MYP Acceptance of Funds (NATO template)', 'PDF', 'NATO-country Project Director + a representative of the NPD\'s institution', '[to do]'],
            ['SPS MYP Agreement for Joint Research (NATO template)', 'PDF', 'All Co-Directors + a representative of each institution', '[to do]'],
            ['SPS MYP Detailed Budget workbook (NATO Excel template, tabs "Info" and "Detail")', 'Excel', 'Fill by hand: the form warns that using AI on this file may corrupt it and lead to automatic rejection', '[to do]'],
-           ['Project schedule with a Gantt chart', 'PDF', 'Export the Gantt chart of the Timeline document', '[to do]'],
+           ['Project schedule with a Gantt chart', 'PDF', 'Ready: CERTAIN-COAST_Project_Schedule.pdf', 'ready'],
            ['End-user commitments, all letters merged into one file', 'PDF', 'Each end-user on its own letterhead (drafts in the Letters of Commitment document)', '[to do]'],
-           ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Each institution', '[to do]'],
+           ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Draft: CERTAIN-COAST_Institutions_Overview.docx; fill the yellow fields, save as PDF', '[to do]'],
            ['Financial rules of the NPD\'s institution', 'PDF or link', 'NPD\'s institution', '[to do]'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Can be submitted later, once the project is approved', 'later'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', '—', 'optional']]
@@ -594,7 +594,7 @@ def main(out):
     field(doc, 'Project duration in months')
     answer(doc, '36')
     field(doc, 'Project schedule (upload)', 'PDF with a Gantt chart: duration and interdependence of each step, critical milestones, deliverables.')
-    answer(doc, 'Upload the Gantt chart of the Timeline document as a PDF. Project milestones: MS1 network design (Month 6), MS2 '
+    answer(doc, 'Upload CERTAIN-COAST_Project_Schedule.pdf (ready): Gantt chart with the duration of every task, the dependencies, the critical path, the milestones and the deliverables by SPS milestone. Project milestones: MS1 network design (Month 6), MS2 '
                 'network streaming (Month 12), MS3 calibrated model (Month 18), MS4 go/no-go for live operation (Month 22), MS5 '
                 'miss rates confirmed (Month 27), MS6 twelve months live (Month 34), MS7 hand-over (Month 36).')
     field(doc, 'Milestones overview', 'SPS reporting milestones; must match the "Info" tab of the budget workbook (at least one milestone every 12 months).')
@@ -665,7 +665,7 @@ def main(out):
 
     # 10 Attachments
     heading(doc, '10. Project attachments', 14, before=10)
-    for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. [Prepare for each institution.]'),
+    for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
                   ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', 'No. It can be submitted after approval; the software is released under an open licence.'),
                   ('Additional files (optional)', 'Not needed.'),
