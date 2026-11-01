@@ -58,8 +58,10 @@ PRIORITIES = [
     'sea-level rise, subsidence and salinisation turned into operational warnings), **Energy Security** (the stability of an '
     'energy landfall) and **Emerging and Disruptive Technologies** (machine-learned surrogates and conformal guarantees used in '
     'a security decision chain).',
-    '**The 2027-1 call [S5].** Among its areas of particular interest the call names **critical infrastructure protection**, '
-    '**energy resilience** and **artificial intelligence**; CERTAIN-COAST combines the three at one Allied site.',
+    '**The 2027-1 call [S5]** lists among its topics of particular interest the **"protection of critical infrastructure, '
+    'supplies and personnel; maritime and undersea infrastructure resilience"**. CERTAIN-COAST falls squarely under this '
+    'topic: it protects a drinking-water supply, the country\'s main port and an energy landfall where undersea '
+    'infrastructure comes ashore, at one Allied site.',
     '**The 2022 Strategic Concept [S6]:** "Climate change is a defining challenge of our time, with a profound impact on Allied '
     'security. It is a crisis and threat multiplier." On this coast the multiplication is physical: sea-level rise and '
     'subsidence raise the water table, which weakens the ground in an earthquake and brings seawater closer to the wells.',
