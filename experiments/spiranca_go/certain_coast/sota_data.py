@@ -144,6 +144,11 @@ SECTIONS = [
               'is irreversible and permanently raises R(t); detecting it early is a warning for all three hazards.'),
         ('b', '**P5. Seismic velocity as a pore-pressure sensor in saturated coastal sediments** at the port and the landfall, '
               'transferring [11, 16–18] from dry or inland basins to the coastal setting where it matters for liquefaction.'),
+        ('h', 'Decision innovation'),
+        ('b', '**V1. A certified value of the warning for each user.** The cost-loss model gives the relative economic value of a '
+              'forecast for a user who can protect at cost C against a loss L [X1, X2], but only after the fact, from verification '
+              'data. Because CERTAIN-COAST certifies the miss rate of each alarm, the relative value has a guaranteed lower bound, '
+              'known before live operation for every cost-loss ratio; it is reported for each operator\'s own decision (Impact).'),
         ('p', 'Together these give what no study has delivered: warnings for the wellfields, the port and the energy landfall that '
               'come from one physical model, are issued fast enough to act on, and carry a stated, verifiable bound on how often '
               'they miss.'),
@@ -296,3 +301,17 @@ NOTE = ('Verification: each entry was checked against publisher, proceedings or 
         'publisher sites could not be opened directly from this environment. Gaps are stated in the entry (the DOI of [27]). '
         'Some free links are repository records whose full text was not checked. No 2020–2026 paper on seawater intrusion with an author '
         'at the four universities was found; the intrusion state of the art rests on the preparatory work and is itself a gap.')
+
+OTHER = [
+    ('X1', 'Richardson, D. S. (2000). Skill and relative economic value of the ECMWF Ensemble Prediction System. Quarterly Journal of the Royal Meteorological Society 126, 649–667.',
+     'https://www.ecmwf.int/en/elibrary/76153-skill-and-relative-economic-value-ecmwf-ensemble-prediction-system'),
+    ('X2', 'Murphy, A. H. (1977). The value of climatological, categorical and probabilistic forecasts in the cost-loss ratio situation. Monthly Weather Review 105(7), 803.', None),
+]
+
+WHAT_NEW = [
+    '**Organised by the shared variables, not by hazard.** The review follows relative sea level and the water table through the three hazards (Figure 1), which is where the gaps appear.',
+    '**Every gap is closed by a named innovation.** The gap matrix (Figure 2) marks what the literature has done and, in each empty cell, the CERTAIN-COAST innovation that fills it.',
+    '**Every paper has a role.** Each of the 30 papers states what it did and the step CERTAIN-COAST takes beyond it; no paper is cited for decoration.',
+    '**Absence is reported.** The review states that no 2020–2026 intrusion paper from the four universities was found, and that the intrusion component rests on the preparatory work.',
+    '**Open where possible.** Each entry gives a DOI and, where one exists, a free copy, so evaluators can check every claim.',
+]

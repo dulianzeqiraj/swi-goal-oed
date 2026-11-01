@@ -94,7 +94,107 @@ def table(doc, header, rows, widths, size=10):
     return t
 
 
+INST_COL = {'Caltech': '#B45309', 'MIT': '#B03A3A', 'Harvard': '#6a4fb3', 'Oxford': '#1F3864'}
+CAPS = ['Measured', 'Modelled', 'Coupled to\nthe other\nhazards', 'Sensors\ndesigned for\nthe warning', 'Warning with\na stated\nmiss rate']
+# component -> literature state per capability (2 done, 1 partial, 0 not done) and the innovation that closes it
+GAPS = [
+    ('Seawater intrusion', [2, 2, 0, 1, 0], ['', '', 'P1, P3', 'M3', 'M1']),
+    ('Subsidence, land motion', [2, 2, 0, 0, 1], ['', '', 'P1', 'M3', 'P4']),
+    ('Extreme sea levels', [2, 2, 1, 0, 0], ['', '', 'P1, M5', 'M3', 'M1']),
+    ('Liquefaction', [2, 2, 0, 0, 0], ['', '', 'P2', 'M3, P5', 'M1']),
+    ('Port and landfall\nfoundations', [1, 2, 0, 0, 0], ['P5', '', 'P2', 'M3', 'M1']),
+    ('Groundwater sensing\n(noise, fibre)', [2, 1, 0, 0, 0], ['', 'P5', 'P5', 'M3', 'P5']),
+]
+
+
+def inst_of(it):
+    return next(k for k in INST_COL if it['inst'].startswith(k))
+
+
+def fig_evidence(path):
+    import re
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    groups = D.GROUPS
+    fig, ax = plt.subplots(figsize=(6.7, 4.1), dpi=300)
+    counts = {}
+    for gi, (g, items) in enumerate(groups):
+        y = len(groups) - 1 - gi
+        by_year = {}
+        for it in items:
+            yr = int(re.search(r'\((\d{4})\)', it['cite']).group(1))
+            by_year.setdefault(yr, []).append(it)
+        for yr, its in by_year.items():
+            k = len(its); nrow = (k + 2) // 3
+            for j, it in enumerate(its):
+                r, c = divmod(j, 3)
+                in_row = min(3, k - 3 * r)
+                x = yr + (c - (in_row - 1) / 2) * 0.34
+                yy = y + (r - (nrow - 1) / 2) * 0.40
+                inst = inst_of(it); counts[inst] = counts.get(inst, 0) + 1
+                ax.scatter(x, yy, s=200, color=INST_COL[inst], zorder=3, edgecolor='white', linewidth=0.8)
+                ax.text(x, yy, str(it['n']), ha='center', va='center', fontsize=7.2, color='white', fontweight='bold', zorder=4)
+        if gi % 2 == 0:
+            ax.axhspan(y - 0.5, y + 0.5, color='#F4F6F8', zorder=0)
+    ax.set_yticks(range(len(groups)))
+    ax.set_yticklabels([g.split('. ', 1)[1].replace(', compound flooding and ports', ', ports').replace(' and the foundations of port and landfall', ', foundations')
+                        for g, _ in reversed(groups)], fontsize=8.8)
+    ax.set_xticks(range(2020, 2027)); ax.set_xticklabels([str(y) for y in range(2020, 2027)], fontsize=9)
+    ax.set_xlim(2019.4, 2026.6); ax.set_ylim(-0.6, len(groups) - 0.4)
+    for sp in ('top', 'right', 'left'):
+        ax.spines[sp].set_visible(False)
+    ax.tick_params(axis='y', length=0)
+    h = [plt.Line2D([], [], marker='o', ls='', ms=9, color=c, label=f'{k} ({counts.get(k, 0)})') for k, c in INST_COL.items()]
+    ax.legend(handles=h, loc='upper center', bbox_to_anchor=(0.42, -0.1), ncol=4, frameon=False, fontsize=8.8)
+    fig.tight_layout(); fig.savefig(path, dpi=300); plt.close(fig)
+
+
+def fig_gaps(path):
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import Rectangle
+    fill = {2: '#2E6DB4', 1: '#A9C4E8', 0: '#FFFFFF'}
+    fig, ax = plt.subplots(figsize=(6.7, 3.9), dpi=300)
+    n = len(GAPS)
+    for i, (name, st, code) in enumerate(GAPS):
+        y = n - 1 - i
+        for j, v in enumerate(st):
+            ax.add_patch(Rectangle((j + 0.04, y - 0.44), 0.92, 0.88, fc=fill[v], ec='#B03A3A' if v == 0 else '#9aa3ad',
+                                   lw=1.3 if v == 0 else 0.8))
+            if code[j]:
+                ax.text(j + 0.5, y, code[j], ha='center', va='center', fontsize=8.8, fontweight='bold',
+                        color='#1E6B47', bbox=dict(boxstyle='round,pad=0.15', fc='#E6F4EC', ec='#1E8A5A', lw=0.8))
+    ax.set_xlim(0, len(CAPS)); ax.set_ylim(-0.6, n - 0.4)
+    ax.set_xticks([j + 0.5 for j in range(len(CAPS))]); ax.set_xticklabels(CAPS, fontsize=8.6)
+    ax.xaxis.tick_top()
+    ax.set_yticks(range(n)); ax.set_yticklabels([g[0] for g in reversed(GAPS)], fontsize=8.8)
+    for sp in ax.spines.values():
+        sp.set_visible(False)
+    ax.tick_params(length=0)
+    h = [Rectangle((0, 0), 1, 1, fc=fill[2], ec='#9aa3ad', label='done in the literature'),
+         Rectangle((0, 0), 1, 1, fc=fill[1], ec='#9aa3ad', label='partly done'),
+         Rectangle((0, 0), 1, 1, fc=fill[0], ec='#B03A3A', label='not done'),
+         Rectangle((0, 0), 1, 1, fc='#E6F4EC', ec='#1E8A5A', label='closed by (innovation)')]
+    ax.legend(handles=h, loc='upper center', bbox_to_anchor=(0.4, -0.02), ncol=4, frameon=False, fontsize=8.6,
+              handlelength=1.2, columnspacing=1.2)
+    fig.tight_layout(); fig.savefig(path, dpi=300); plt.close(fig)
+
+
+def figure(doc, path, width, caption):
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
+    p.add_run().add_picture(path, width=Cm(width))
+    p = para(doc, 6); run(p, caption, italic=True, size=9.5, color='52606D')
+
+
 def main(out):
+    import tempfile
+    import build_introduction as BI
+    work = tempfile.mkdtemp()
+    f_sys = os.path.join(work, 'fig_system.png'); BI.fig_system(f_sys)
+    f_gap = os.path.join(work, 'fig_gaps.png'); fig_gaps(f_gap)
+    f_ev = os.path.join(work, 'fig_evidence.png'); fig_evidence(f_ev)
     doc = Document()
     s = doc.sections[0]
     s.page_width, s.page_height = Cm(21.0), Cm(29.7)
@@ -108,42 +208,63 @@ def main(out):
     p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run(p, D.SUBTITLE, italic=True, size=11, color='52606D')
 
-    for sec_title, blocks in D.SECTIONS:
+    for si, (sec_title, blocks) in enumerate(D.SECTIONS):
         heading(doc, sec_title, 14)
         for kind, content in blocks:
             if kind == 'p':
-                p = para(doc, 6); rich(p, content)
+                p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; rich(p, content)
             elif kind == 'h':
-                heading(doc, content, 12, color='2E6DB4', before=6)
+                h = heading(doc, content, 12, color='2E6DB4', before=6); h.paragraph_format.keep_with_next = True
             elif kind == 'b':
                 p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, content)
             elif kind == 'table':
                 header, rows, widths = content
-                table(doc, header, rows, widths)
+                t = table(doc, header, rows, widths)
+                t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
                 para(doc, 6)
+        if si == 0:
+            figure(doc, f_sys, 15.5, 'Figure 1. The coast as one system: four drivers act through two shared variables, relative sea '
+                                     'level and the water table, on the three hazards at the three assets.')
+        if si == 2:
+            figure(doc, f_gap, 16.0, 'Figure 2. Gap matrix: what the 2020–2026 literature has done for each component, and the '
+                                     'CERTAIN-COAST innovation that closes each gap (codes as in Section 4). Assessment from the '
+                                     'papers in Section 5 and the table above.')
 
-    heading(doc, D.PAPERS_TITLE, 14)
+    h = heading(doc, D.PAPERS_TITLE, 14); h.paragraph_format.page_break_before = True
     p = para(doc, 6); rich(p, D.PAPERS_INTRO)
+    figure(doc, f_ev, 16.0, 'Figure 3. The 30 key papers by topic and year; colour: university (number of papers). Numbers '
+                            'are the reference numbers used throughout the proposal.')
     for grp, items in D.GROUPS:
         heading(doc, grp, 12.5, color='2E6DB4', before=6)
         for it in items:
             p = para(doc, 2); p.paragraph_format.keep_with_next = True
             run(p, f"[{it['n']}] ", bold=True, size=11, color='1F3864'); run(p, it['cite'], bold=True, size=10.5)
-            p = para(doc, 2, 0.5)
+            p = para(doc, 2, 0.5); p.paragraph_format.keep_with_next = True
             run(p, it['inst'] + '   ', size=10, color='52606D', italic=True)
             link(p, it['doi'], it['doi'].replace('https://', ''), 10)
             if it.get('free'):
                 run(p, '   |   free: ', size=10); link(p, it['free'], it['free_label'], 10)
             else:
                 run(p, '   |   ' + it.get('free_note', 'paywalled'), italic=True, size=10, color='52606D')
-            p = para(doc, 2, 0.5); run(p, 'Done: ', bold=True, size=10.5); run(p, it['done'], size=10.5)
+            p = para(doc, 2, 0.5); p.paragraph_format.keep_with_next = True
+            run(p, 'Done: ', bold=True, size=10.5); run(p, it['done'], size=10.5)
             p = para(doc, 8, 0.5); run(p, 'Beyond it in CERTAIN-COAST: ', bold=True, size=10.5, color='1E8A5A'); run(p, it['beyond'], size=10.5)
 
     heading(doc, 'Local study (not from the four universities)', 12.5, color='2E6DB4', before=6)
     for code, cite, url in D.LOCAL:
         p = para(doc, 3); run(p, f'[{code}] ', bold=True, size=11, color='1F3864'); run(p, cite + '  ', size=10.5); link(p, url, url.replace('https://', ''), 10)
+    heading(doc, 'Other references cited (decision value, V1)', 12.5, color='2E6DB4', before=6)
+    for code, cite, url in D.OTHER:
+        p = para(doc, 3); run(p, f'[{code}] ', bold=True, size=11, color='1F3864'); run(p, cite + ('  ' if url else ''), size=10.5)
+        if url:
+            link(p, url, url.replace('https://', ''), 10)
     if getattr(D, 'NOTE', None):
         p = para(doc, 4, before=8); run(p, D.NOTE, italic=True, size=9.5, color='52606D')
+    h = heading(doc, '6. What is new in this review', 14, before=10); h.paragraph_format.keep_with_next = True
+    for i, x in enumerate(D.WHAT_NEW):
+        p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, x)
+        if i < len(D.WHAT_NEW) - 1:
+            p.paragraph_format.keep_with_next = True
     doc.save(out)
     print('saved', out, sum(len(i) for _, i in D.GROUPS), 'papers')
 
