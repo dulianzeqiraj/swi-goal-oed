@@ -99,7 +99,7 @@ CATS = [
     ('D. The warning service in operation', [
         ('R14', 'No strong earthquake or surge occurs during the demonstration, so the guarantees are not tested on such events',
          4, 3, 'No triggering event by Month 30',
-         'Back-testing over the historical record, including the 2019 earthquake, and on storylines beyond it (T3.4)',
+         'Back-testing over the historical record, including the 2019 earthquake, and on storylines beyond it (T3.4); exceedance events per alarm counted first, since a 10% miss rate needs at least 29 events to verify (Methodology 5.7)',
          'Report event-based verification as back-testing only; continue the bulletin log after hand-over', 'WP3', 4, 2),
         ('R15', 'A missed alarm coincides with damage; trust and responsibilities are questioned',
          2, 5, 'Any missed exceedance during live operation',
@@ -165,7 +165,7 @@ MONITOR = [
     '**Owner and indicator.** Each risk has an owner (the leader of the work package named in the register) and an early-warning indicator with a numeric trigger.',
     '**Monthly review.** The coordinator and the work-package leaders review the indicators every month and update the scores (T7.3).',
     '**Escalation.** A risk is escalated to the steering committee when its indicator crosses its trigger or its score reaches 10 or more; the committee decides on the contingency within two weeks.',
-    '**Milestone gates.** MS3 (Month 18, model calibrated) and MS4 (Month 22, go or no-go for live operation) are formal checkpoints: live operation starts only if the surrogate meets its error bound and the alarm prototype passes a dry run.',
+    '**Evidence gates.** MS3 (Month 18, model calibrated), MS4 (Month 22, go or no-go for live operation) and MS5 (Month 27, miss rates confirmed in back-testing) are formal checkpoints with go, go-with-conditions and no-go rules fixed in advance; the risks reviewed at each are listed in Section 5.',
     '**Reporting.** The register, with changes since the last report, is part of every progress report to the SPS Programme.',
 ]
 
@@ -174,12 +174,74 @@ NEW = [
     '**Risks the service itself creates are in the register.** False-alarm fatigue, over-reliance, disclosure and new seawater pathways are treated as project risks, with owners and triggers, not left to after the project.',
     '**Numeric triggers, watched like the hazards.** Each risk has an indicator and a threshold, reviewed monthly, so escalation is a rule rather than a judgement call.',
     '**The miss–false-alarm trade-off is agreed in advance.** The operators set the acceptable false-alarm rate before the alarms are built, so the largest scientific risk (R7) becomes a negotiated parameter.',
+    '**A risk calendar.** Each risk is watched in the months when it can strike, and the total exposure is tracked month by month, so attention follows the risk rather than the reporting cycle (Figure 2).',
+    '**Risks tied to evidence gates.** The risks that decide each milestone are reviewed at that milestone, so a gate cannot be passed while one of its risks is open (Section 5).',
     '**Security by design.** The data plan separates open methods from sensitive asset-level results from the start, so openness and protection of critical infrastructure do not conflict.',
 ]
 
 
 def all_risks():
     return [r for _, rs in CATS for r in rs]
+
+# months in which each risk can strike (inclusive), from the task and milestone dates of the Work Plan
+WINDOW = {'R1': (1, 6), 'R2': (1, 12), 'R3': (4, 18), 'R4': (1, 12), 'R5': (12, 18), 'R6': (15, 34), 'R7': (22, 34),
+          'R8': (23, 36), 'R9': (1, 24), 'R10': (4, 12), 'R11': (12, 36), 'R12': (4, 12), 'R13': (1, 36), 'R14': (23, 34),
+          'R15': (23, 36), 'R16': (23, 36), 'R17': (23, 36), 'R18': (1, 36), 'R19': (4, 12), 'R20': (1, 36), 'R21': (12, 36)}
+
+
+def exposure(li, ii):
+    """Sum of the scores of the risks that can strike in each month 1..36."""
+    import numpy as np
+    e = np.zeros(36)
+    for r in all_risks():
+        a, b = WINDOW[r[0]]
+        e[a - 1:b] += r[li] * r[ii]
+    return e
+
+
+def fig_calendar(path):
+    import numpy as np
+    risks = all_risks()
+    fig = plt.figure(figsize=(6.7, 7.4), dpi=300)
+    gs = fig.add_gridspec(2, 1, height_ratios=[1.0, 3.3], hspace=0.08)
+    ax0 = fig.add_subplot(gs[0]); ax1 = fig.add_subplot(gs[1], sharex=ax0)
+    m = np.arange(1, 37)
+    eb, ea = exposure(2, 3), exposure(8, 9)
+    ax0.step(m, eb, where='mid', color='#B03A3A', lw=2.0, label='before mitigation')
+    ax0.step(m, ea, where='mid', color='#1E8A5A', lw=2.0, label='after mitigation')
+    ax0.fill_between(m, ea, eb, step='mid', color='#F9D3B4', alpha=0.6)
+    ax0.set_ylabel('Total score\nof open risks', fontsize=9)
+    ax0.set_yticks([0, 50, 100])
+    ax0.set_ylim(0, max(eb) * 1.62)
+    ax0.legend(loc='upper left', ncol=1, frameon=False, fontsize=8.6, bbox_to_anchor=(0.0, 1.04))
+    k = int(np.argmax(eb))
+    ax0.annotate(f'peak {eb[k]:.0f} (M{m[k]})', xy=(m[k], eb[k]), xytext=(29.0, eb[k] * 1.22), fontsize=8.6,
+                 color='#92400E', arrowprops=dict(arrowstyle='-', color='#92400E', lw=0.8))
+    n = len(risks)
+    for i, r in enumerate(risks):
+        y = n - 1 - i
+        a, b = WINDOW[r[0]]
+        col = band(r[2] * r[3])[2]
+        ax1.barh(y, b - a + 1, left=a - 0.5, height=0.62, color=col, edgecolor='#52606D', lw=0.6)
+        ax1.text(b + 0.9, y, f'{r[2] * r[3]}→{r[8] * r[9]}', va='center', fontsize=8.0, color='#1f2328')
+    ax1.set_yticks(range(n)); ax1.set_yticklabels([f'{r[0]} ({r[7]})' for r in reversed(risks)], fontsize=8.4)
+    for ax in (ax0, ax1):
+        for g, lab in ((18, 'MS3'), (22, 'MS4'), (27, 'MS5')):
+            ax.axvline(g + 0.5, color='#D97706', lw=1.1, ls=(0, (4, 3)), zorder=0)
+        ax.grid(axis='x', color='#e3e6ea', lw=0.7); ax.set_axisbelow(True)
+        for sp in ('top', 'right'):
+            ax.spines[sp].set_visible(False)
+    for g, lab in ((18, 'MS3'), (22, 'MS4'), (27, 'MS5')):
+        ax0.text(g + 0.5, max(eb) * 1.6, lab, ha='center', va='top', fontsize=8.6, color='#92400E', fontweight='bold',
+                 bbox=dict(boxstyle='square,pad=0.1', fc='white', ec='none'))
+    ax1.set_xlim(0.5, 40.5); ax1.set_ylim(-0.7, n - 0.3)
+    ax1.set_xticks([1, 6, 12, 18, 24, 30, 36]); ax1.set_xticklabels([f'M{x}' for x in (1, 6, 12, 18, 24, 30, 36)], fontsize=9)
+    plt.setp(ax0.get_xticklabels(), visible=False); ax0.tick_params(axis='y', labelsize=8.6)
+    from matplotlib.patches import Patch
+    h = [Patch(fc=hx, ec='#52606D', label=name.lower()) for top, name, _, hx in BANDS]
+    ax1.legend(handles=h, title='Level before mitigation', title_fontsize=8.6, loc='upper center',
+               bbox_to_anchor=(0.45, -0.05), ncol=4, frameon=False, fontsize=8.6)
+    fig.savefig(path, dpi=300, bbox_inches='tight'); plt.close(fig)
 
 
 def fig_matrix(path):
@@ -265,6 +327,9 @@ def main(out):
     risks = all_risks()
     before, after = counts(2, 3), counts(8, 9)
     work = tempfile.mkdtemp(); fig = os.path.join(work, 'fig_risk_matrix.png'); fig_matrix(fig)
+    figc = os.path.join(work, 'fig_risk_calendar.png'); fig_calendar(figc)
+    import build_milestones as BM
+    import build_workplan as BW
 
     doc = Document()
     s = doc.sections[0]
@@ -278,8 +343,8 @@ def main(out):
             f'{len(risks)} risks in seven categories, each scored before and after mitigation, with an owner, an early-warning '
             f'indicator with a numeric trigger, a mitigation that acts in advance and a contingency if the risk occurs. Before '
             f'mitigation, {before["Very high"]} risk is very high, {before["High"]} are high and {before["Medium"]} medium; after '
-            f'mitigation none is high or very high, {after["Medium"]} remain medium and {after["Low"]} are low. The seven '
-            f'risks of the Work Plan are included with the same ratings.')
+            f'mitigation none is high or very high, {after["Medium"]} remain medium and {after["Low"]} are low. The Work '
+            f'Plan shows the risks that score high or very high before mitigation, taken from this register.')
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; rich(p, lead, size=11.5)
 
     heading(doc, '1. How risks are assessed', 13.5, before=6)
@@ -324,10 +389,42 @@ def main(out):
     rich(p, 'A warning system for critical infrastructure changes how people decide, and it produces information that has '
             'value beyond its users. These risks are part of the register, not an afterthought:')
     bullets(doc, SELF)
-    heading(doc, '5. Monitoring, escalation and reporting (T7.3)', 13.5, before=8)
+    h = heading(doc, '5. When each risk can strike, and the gates that decide them', 13.5, before=0)
+    h.paragraph_format.page_break_before = True
+    eb, ea = exposure(2, 3), exposure(8, 9)
+    k = int(eb.argmax())
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    k1 = int(eb[:18].argmax())
+    rich(p, f'Each risk can strike only in some months: access in the first half-year, calibration before Month 18, false alarms '
+            f'and missed events during live operation. Adding the scores of the risks open in each month gives the exposure of the '
+            f'project over time (Figure 2). It is highest, {eb[k]:.0f}, in Month {k + 1}, when live operation starts while the model, '
+            f'alarm and service risks are all open, and almost as high, {eb[k1]:.0f}, in Month {k1 + 1}, when installation, '
+            f'calibration and the data-quality risks overlap. Mitigation lowers the peak to {ea.max():.0f}. The monthly review '
+            '(T7.3) concentrates on the risks open at the time.', size=10.5)
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
+    p.add_run().add_picture(figc, width=Cm(15.5))
+    p = para(doc, 6)
+    run(p, 'Figure 2. Risk calendar. Top: total score of the risks open in each month, before and after mitigation. Bottom: the '
+           'months in which each risk can strike (owner in brackets), coloured by its level before mitigation, with its score '
+           'before → after. Dashed lines: evidence gates.', italic=True, size=9.5, color='52606D')
+    rows = []
+    for code, mth, name, _ in BW.MILESTONES:
+        rids = BM.CARD[code][4]
+        rows.append([code + (' (gate)' if code in BM.GATES else ''), f'M{mth}', name, ', '.join(rids),
+                     BM.CARD[code][5]])
+    hh = heading(doc, 'Risks reviewed at each milestone', 11.5, color='2E6DB4', before=6); hh.paragraph_format.keep_with_next = True
+    t = table(doc, ['Milestone', 'Month', 'What is decided', 'Risks', 'If the risk has occurred'], rows,
+              [2.3, 1.3, 3.8, 2.0, 7.6], size=8.8)
+    keep_together(t)
+    for i, (code, *_r) in enumerate(BW.MILESTONES, start=1):
+        shade(t.rows[i].cells[0], 'FDE7C2' if code in BM.GATES else 'E8EDF5')
+    heading(doc, '6. Monitoring, escalation and reporting (T7.3)', 13.5, before=8)
     bullets(doc, MONITOR)
-    heading(doc, '6. What is new in this risk assessment', 13.5, before=8)
-    bullets(doc, NEW)
+    h = heading(doc, '7. What is new in this risk assessment', 13.5, before=8); h.paragraph_format.keep_with_next = True
+    for i, x in enumerate(NEW):
+        q = para(doc, 3, 0.5); run(q, '• ', bold=True); rich(q, x, size=10.5)
+        if i < len(NEW) - 1:
+            q.paragraph_format.keep_with_next = True
     doc.save(out)
     print('saved', out, '| risks', len(risks), '| before', before, '| after', after)
 
