@@ -31,7 +31,14 @@ NATO = [
     ('NATO SPS (2023). Multi-Year Project Handbook.', 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023/SPS_MYP_Handbook.pdf', 'Budget; Partnership'),
     ('NATO SPS (2020). Multi-Year Project Handbook.', 'https://nato.int/content/dam/nato/webready/documents/sps/grants/2020/2020-sps-myp-handbook.pdf', 'Budget'),
     ('NATO SPS (2017). Multi-Year Project Handbook.', 'https://nato.int/content/dam/nato/webready/documents/sps/grants/2017/1705_SPS_MYP_Handbook.pdf', 'Budget'),
-    ('NATO SPS. Call for proposals 2027-1.', 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/SPS-Call4proposals-2027-1.pdf', 'Partnership; Letters; CVs; Timeline'),
+    ('NATO SPS. Call for proposals 2027-1.', 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/SPS-Call4proposals-2027-1.pdf', 'Partnership; Letters; CVs; Timeline; Security Relevance'),
+    ('NATO (2009). Ceremony marks the accession of Albania and Croatia to NATO.', 'https://www.nato.int/cps/en/natohq/news_52902.htm', 'Security Relevance'),
+    ('NATO (2022). NATO 2022 Strategic Concept, adopted at the Madrid Summit, 29 June 2022.', 'https://www.act.nato.int/wp-content/uploads/2023/05/290622-strategic-concept.pdf', 'Security Relevance'),
+    ('NATO (2021). NATO Climate Change and Security Action Plan.', 'https://www.nato.int/cps/en/natohq/official_texts_185174.htm', 'Security Relevance'),
+    ('NATO Allied Command Transformation (2024). NATO Climate Change and Security Centre of Excellence.', 'https://www.act.nato.int/article/ccascoe-2024/', 'Security Relevance'),
+    ('NATO (2021). Strengthened Resilience Commitment.', 'https://www.nato.int/cps/en/natohq/official_texts_185340.htm', 'Security Relevance'),
+    ('NATO (2023). Vilnius Summit Communiqué, 11 July 2023 (Alliance Resilience Objectives).', None, 'Security Relevance'),
+    ('NATO (2024). Summary of NATO\'s revised Artificial Intelligence (AI) Strategy, 10 July 2024.', 'https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2024/07/10/summary-of-natos-revised-artificial-intelligence-ai-strategy', 'Security Relevance'),
     ('NATO SPS (2023). Sample application form, Multi-Year Project.', 'https://nato.int/content/dam/nato/webready/documents/sps/grants/2023/sps-myp-sample-application-form.pdf', 'Abstract; Sustainability'),
     ('NATO SPS (2023). Sample application form, Multi-Year Project, Phase 1.', 'https://nato.int/content/dam/nato/webready/documents/sps/grants/2023/Sample-Application-Form-for-MYP-Phase-1.pdf', 'Abstract; Partnership'),
     ('NATO SPS. Grant mechanisms.', 'https://www.nato.int/en/about-us/organization/nato-structure/science-for-peace-and-security-hub/grant-mechanisms', 'Budget'),
@@ -55,6 +62,7 @@ DATA = [
     ('International Federation of Digital Seismograph Networks (FDSN): miniSEED and StationXML standards.', 'https://www.fdsn.org', 'Data Management Plan'),
     ('CF (Climate and Forecast) metadata conventions for NetCDF.', 'https://cfconventions.org', 'Data Management Plan'),
     ('EPSG:25834, ETRS89 / UTM zone 34N.', 'https://epsg.io/25834', 'Data Management Plan'),
+    ('INSTAT, Institute of Statistics of Albania (2025). Maritime Transport Statistics, Q2 2025.', 'https://www.instat.gov.al/en/themes/industry-trade-and-services/transport-accidents-and-characteristics-of-road-vehicles/publikimet/2025/maritime-transport-statistics-q2-2025/', 'Security Relevance'),
 ]
 
 SHORT_NAMES = {}
