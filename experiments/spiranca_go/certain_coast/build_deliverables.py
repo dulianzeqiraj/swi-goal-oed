@@ -209,7 +209,7 @@ def main(out):
             continue
         seen.append(d['code'])
         months = [x['month'] for x in its if x['code'] == d['code']]
-        mtxt = ('Month ' if len(months) == 1 else 'Months ') + ' and '.join(str(m) for m in months)
+        mtxt = ('Month ' if len(months) == 1 else 'Months ') + (', '.join(str(m) for m in months[:-1]) + ' and ' + str(months[-1]) if len(months) > 1 else str(months[0]))
         c, a, f, r, dep, feeds = DESC[d['code']]
         p = para(doc, 2, before=6); p.paragraph_format.keep_with_next = True
         run(p, f'{d["code"]}  {d["name"]}', bold=True, size=11.5, color=W.COL[d['wp']].lstrip('#').upper())

@@ -58,7 +58,7 @@ NEWWP = {
     'WP6': 'A coast kit and a transfer test on a second coast within the project; verification statistics published openly.',
     'WP7': 'Risk indicators with numeric triggers watched like the hazards, and a data plan with a security gate.',
 }
-WP7_CRITERIA = ['Access agreements and data management plan delivered by Month 3', 'Progress reports delivered in Months 12 and 24, final report in Month 36',
+WP7_CRITERIA = ['Access agreements and data management plan delivered by Month 3', 'Reports delivered at the SPS milestones (Months 6, 18 and 30), final report in Month 36',
                 'Every risk trigger acted on within two weeks of being crossed']
 DTYPE = {  # deliverable: (type, access level)
     'D1.1': ('Data, report', 'Public (regional); restricted (asset points)'),
@@ -193,7 +193,8 @@ def main(out):
     for wp, title, obj, span, desc, tasks, dels in W.WPS:
         dl = sorted({f'{c} (M{m})' for c, n, m in dels}, key=lambda x: (x.split()[0], int(x.split('M')[-1][:-1])))
         rows.append([wp, title, LEAD[wp], f'M{span[0]}–M{span[1]}', OBJMAP[wp], ', '.join(dl), '[PM]'])
-    rows.append(['', 'Total', '', 'M1–M36', '', '14 deliverables, 7 milestones', '[PM]'])
+    n_del = len({(c, m) for w in W.WPS for c, n, m in w[6]})
+    rows.append(['', 'Total', '', 'M1–M36', '', f'{n_del} deliverables, {len(W.MILESTONES)} milestones', '[PM]'])
     hl_table(doc, ['', 'Work package', 'Lead', 'Months', 'Objective', 'Deliverables', 'Effort'], rows,
              [1.3, 3.6, 3.1, 1.8, 1.9, 3.8, 1.5], size=9)
     p = para(doc, 4, before=2)

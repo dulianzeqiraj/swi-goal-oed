@@ -85,7 +85,7 @@ WPS = [
      [('T7.1', 'Coordination, steering committee, reporting', (1, 36)),
       ('T7.2', 'Data management and access agreements with the water utility, port and landfall operators', (1, 3)),
       ('T7.3', 'Risk and quality management', (1, 36))],
-     [('D7.1', 'Data management plan and access agreements', 3), ('D7.2', 'Progress reports', 12), ('D7.2', 'Progress reports', 24), ('D7.3', 'Final report', 36)]),
+     [('D7.1', 'Data management plan and access agreements', 3), ('D7.2', 'Progress reports', 6), ('D7.2', 'Progress reports', 18), ('D7.2', 'Progress reports', 30), ('D7.3', 'Final report', 36)]),
 ]
 
 MILESTONES = [
@@ -195,7 +195,7 @@ def main(out, fig_path):
     heading(doc, '1. Structure and logic', 13.5, before=2)
     p = para(doc, 5); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, f'The project runs for 36 months in {len(WPS)} work packages with {sum(len(w[5]) for w in WPS)} tasks, '
-            f'{len({d[0] for w in WPS for d in w[6]})} deliverables and {len(MILESTONES)} milestones. WP1 to WP6 deliver objectives '
+            f'{len({(d[0], d[2]) for w in WPS for d in w[6]})} deliverables (each progress report counted) and {len(MILESTONES)} milestones. WP1 to WP6 deliver objectives '
             'O1 to O6 one to one, so the deliverable codes of the objectives are kept; WP7 manages the whole. The logic runs in '
             'three phases:', size=10.5)
     for t in ['**Measure and design (Months 1–12).** WP1 measures the coastal motion and WP4 designs and installs the monitoring network; both start at once because the network design needs only existing and remote-sensing data.',
