@@ -55,8 +55,8 @@ GLANCE = [
      'Numerical modelling, applied mathematics, uncertainty quantification and machine learning; a subsiding coast for the transfer test', 'WP2, WP3, WP6'],
     ['Additional NATO co-director (optional)', '[NATO member]', '[Institute with InSAR and seismology]',
      'InSAR time-series processing; ambient-noise seismic interferometry', 'WP1; T4.4'],
-    ['Albanian research partner (candidate)', 'Albania', '[e.g. a national geoscience or seismological institute]',
-     'Seismic network, hydrometeorological and tide-gauge data', 'WP1, WP4; T5.4'],
+    ['Albanian research partner (candidate)', 'Albania', '[e.g. the Institute of Geosciences, Polytechnic University of Tirana]',
+     'Seismic, strong-motion, GNSS and hydrometeorological networks and data', 'WP1, WP4; T5.4'],
     ['End-users (commitment letters)', 'Albania', '[Durrës water utility]; [Durrës Port Authority]; [energy landfall operator]; [National Civil Protection Agency]',
      'Thresholds, site access, data, operation of the system after hand-over', 'T3.1; WP5; T6.2, T6.4'],
 ]

@@ -110,7 +110,7 @@ LETTERS = [
     dict(key='arp', title='Optional: Albanian research partner (data and stations)',
          org='[Albanian geoscience or seismological institute]', role='research partner',
          intro='[Albanian geoscience or seismological institute] supports the application of CERTAIN-COAST to the NATO SPS Programme and commits to take part as a research partner.',
-         provide=['access to data from our [seismic stations / tide gauge / hydrometeorological stations] on the Durrës coast under a data agreement to be signed by Month 3;',
+         provide=['access to data from our [seismic, strong-motion and GNSS stations / hydrological and meteorological stations] on the Durrës coast under a data agreement to be signed by Month 3;',
                   'technical support for the installation and upkeep of the project\'s seismic and GNSS stations;',
                   'participation in the post-event protocol after strong earthquakes or storms.'],
          use='We intend to continue supporting the geodetic and seismic stations after the project, as foreseen in the sustainability plan, and will follow the project\'s data management plan and dissemination rules.',
