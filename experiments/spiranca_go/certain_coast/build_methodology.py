@@ -56,7 +56,7 @@ CHECKS = [
     ['Alarms (WP3)', 'Aₖ with αₖ', 'Back-tested miss rate ≤ αₖ (Clopper–Pearson interval); false-alarm rate reported', 'Margin widened: the miss target is kept and the extra false alarms are reported'],
     ['Network (WP4)', 'Installed sensor set', '≥ 90% data availability; forecast spread reduced as the design predicted', 'Design re-run with the remaining budget; seismic nodes if fibre is not available'],
     ['Seismic velocity (T4.4)', 'Calibrated δv/v–water-table relation', 'Relation significant against piezometers at the port or landfall', 'Piezometers alone for the water table; velocity kept for post-event damage'],
-    ['Live operation (WP5)', 'Bulletin log; pumping rule', 'Observed miss rates within targets over 12 months', 'If no strong event occurs, guarantees rest on back-testing and storylines (T3.4)'],
+    ['Live operation (WP5)', 'Bulletin log; pumping rule', '12 months of logged bulletins; live misses consistent with the certified rate (Eq. [[live]] not rejected)', 'If no strong event occurs, guarantees rest on back-testing and storylines (T3.4)'],
 ]
 
 NEW = [
@@ -66,16 +66,21 @@ NEW = [
     '**Tolerances allocated by consequence.** The joint miss probability is bounded by Σαₖ, and the αₖ are set where tightening costs least in false alarms (Eq. [[alloc]]).',
     '**Sensors chosen for the warnings.** Every sensor type, from a piezometer to a fibre, is ranked by how much it shrinks the alarm margins per unit cost (Eq. [[design]]).',
     '**Seismic noise as a water-table gauge with a physical prior.** Grain-contact theory links seismic velocity to effective stress and so to the water table that controls liquefaction (Eq. [[dvv]]).',
+    '**Verification planned by counting events.** The number of exceedance events needed to verify each miss rate is fixed in advance (Eq. [[cp]]): 29 events with no miss for 10%. The record and storylines carry the verification, and the live year is a consistency test (Eq. [[live]]).',
+    '**Value for each user from the certified rate.** The certified miss rate gives each operator a guaranteed lower bound on what the warning is worth for its own decision (Eq. [[vmin]]).',
 ]
 
 REFS = [
     'Angelopoulos, A.N., Candès, E.J., Tibshirani, R.J. (2023). Conformal PID control for time series prediction. NeurIPS 36.',
     'Becker, R., Rannacher, R. (2001). An optimal control approach to a posteriori error estimation in finite element methods. Acta Numerica 10, 1–102.',
     'Boulanger, R.W., Idriss, I.M. (2014). CPT and SPT based liquefaction triggering procedures. Report UCD/CGM-14/01, University of California, Davis.',
+    'Clopper, C.J., Pearson, E.S. (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. Biometrika 26(4), 404–413.',
     'Coles, S. (2001). An Introduction to Statistical Modeling of Extreme Values. Springer.',
     'Emerick, A.A., Reynolds, A.C. (2013). Ensemble smoother with multiple data assimilation. Computers & Geosciences 55, 3–15.',
     'Gibbs, I., Candès, E. (2021). Adaptive conformal inference under distribution shift. NeurIPS 34.',
     'Iwasaki, T., Tatsuoka, F., Tokida, K., Yasuda, S. (1978). A practical method for assessing soil liquefaction potential based on case studies at various sites in Japan. Proc. 2nd Int. Conf. on Microzonation, San Francisco.',
+    'Murphy, A.H. (1977). The value of climatological, categorical and probabilistic forecasts in the cost-loss ratio situation. Monthly Weather Review 105(7), 803.',
+    'Richardson, D.S. (2000). Skill and relative economic value of the ECMWF Ensemble Prediction System. Quarterly Journal of the Royal Meteorological Society 126, 649–667.',
     'Riley, F.S. (1969). Analysis of borehole extensometer data from central California. IASH Publication 89, 423–431.',
     'Seed, H.B., Idriss, I.M. (1971). Simplified procedure for evaluating soil liquefaction potential. Journal of the Soil Mechanics and Foundations Division, ASCE 97(SM9), 1249–1273.',
     'Sens-Schönfelder, C., Wegler, U. (2006). Passive image interferometry and seasonal variations of seismic velocities at Merapi Volcano, Indonesia. Geophysical Research Letters 33, L21302.',
@@ -213,6 +218,24 @@ BLOCKS = [
           'margin kept the share of seasons above the chloride limit at 4–9% across drought, human-feedback and compound '
           'storylines, where a static alarm allowed 13–21%.'),
 
+    ('h2', '5.7 How many events are needed to verify a miss rate'),
+    ('p', 'A certified rate must also be checked. If $x$ of $n$ independent exceedance events were missed, the one-sided '
+          'Clopper–Pearson upper bound on the miss rate at confidence $1-\\beta$ is the Beta quantile below; with no miss it has '
+          'a closed form. The rate $\\alpha_k$ is verified when the bound falls to $\\alpha_k$ or below:'),
+    ('eq', 'cp', '\\overline{p}_k(x, n) = \\text{Beta}^{-1}\\left(1-\\beta;\\; x+1,\\; n-x\\right), \\qquad \\overline{p}_k(0, n) = 1 - \\beta^{1/n}'),
+    ('p', 'At 95% confidence, verifying $\\alpha_k = 10\\%$ needs 29 events with no miss, 46 with one or 61 with two; verifying '
+          '$\\alpha_k = 5\\%$ needs 59, 93 or 124 (Figure 2). Twelve months of live operation will rarely bring that many '
+          'independent exceedances of one alarm: twelve events with no miss only show a rate below 22%. The rate is therefore '
+          'verified mainly by back-testing over the record since 2014 and on storylines (T3.4), where the number of events per '
+          'alarm is counted first, and the live year is used as a consistency test. The certified rate is contradicted if the '
+          'live misses are improbable under it:'),
+    ('eq', 'live', '\\Pr\\left(X \\ge x_{obs} \\mid n, \\alpha_k\\right) = \\sum_{j \\ge x_{obs}} \\binom{n}{j}\\,\\alpha_k^{\\,j}\\,(1-\\alpha_k)^{n-j} < 0.05'),
+    ('p', 'For example, with six live events and $\\alpha_k = 10\\%$, two misses are consistent with the rate (probability 11%) '
+          'but three are not (1.6%); a contradiction triggers the review of R15 and a recalibration of the margin.'),
+    ('figv',),
+    ('cap', 'Figure 2. Upper 95% Clopper–Pearson bound on the miss rate against the number of exceedance events, for zero, one '
+            'and two misses; dots: the number of events at which a 5% or 10% rate is verified.'),
+
     ('h', '6. A monitoring network designed for the warnings (WP4; T4.1, T4.4)'),
     ('p', '**Goal-oriented design.** Candidate sensors $\\mathcal{C}$ (piezometers with conductivity loggers, chloride sampling '
           'points, GNSS, corner reflectors, seismic stations and nodes, fibre-optic sensing) are ranked by how much they narrow '
@@ -249,6 +272,12 @@ BLOCKS = [
           'civil protection, heads, conductivity, chloride, GNSS and seismic velocity are measured within days, the next '
           'Sentinel-1 acquisitions are processed with priority, the model is updated, the alarms are recomputed, and the event '
           'joins the back-testing record.'),
+
+    ('p', '**Value of the warning for each user (V1; T3.1, D5.1).** In the cost-loss model of forecast value (Richardson, 2000), '
+          'a user who can act at cost $C$ to avoid a loss $L$ gains relative value $V$ from a warning with hit rate $H$ and '
+          'false-alarm rate $F$ for an event of base rate $s$. Because $1-H \\le \\alpha_k$ is certified, the value has a '
+          'guaranteed lower bound for every cost-loss ratio $r = C/L$, agreed with each operator in T3.1 and reported in D5.1:'),
+    ('eq', 'vmin', 'V_k \\;\\ge\\; 1 - \\frac{r\\,F_k\\,(1-s_k) + \\alpha_k\\,s_k\\,(1-r)}{\\text{min}(r,\\,s_k) - r\\,s_k}'),
 
     ('h', '8. Software, data and reproducibility (T6.3, T7.2)'),
     ('b', '**Open software.** The model, surrogate, alarms and network design are released under an open licence, in containers, with tests and documentation.'),
@@ -371,6 +400,36 @@ def fixed_widths(t, widths):
             row.cells[j].width = Cm(w)
 
 
+def fig_verify(path):
+    """Upper 95% Clopper-Pearson bound on the miss rate against the number of events, for 0, 1, 2 misses."""
+    import numpy as np
+    from scipy.stats import beta as B
+    fig, ax = plt.subplots(figsize=(6.7, 3.3), dpi=300)
+    n = np.arange(3, 151)
+    cols = {0: '#1F3864', 1: '#2E6DB4', 2: '#7FA6D8'}
+    for x in (0, 1, 2):
+        ub = np.array([B.ppf(0.95, x + 1, k - x) for k in n])
+        ax.plot(n, ub * 100, color=cols[x], lw=2.0, label=f'{x} miss' + ('' if x == 1 else 'es'))
+        for a in (0.10, 0.05):
+            k = next(int(k) for k, u in zip(n, ub) if u <= a)
+            ax.plot(k, a * 100, 'o', ms=6, color=cols[x], mec='white', zorder=5)
+            ax.text(k + 1.5, a * 100 + (1.0 if a == 0.10 else -1.2), str(k), fontsize=8.8, color=cols[x], fontweight='bold',
+                    va='bottom' if a == 0.10 else 'top', ha='left', zorder=6,
+                    bbox=dict(boxstyle='round,pad=0.12', fc='white', ec='none'))
+    for a, lab in ((10, 'αₖ = 10%'), (5, 'αₖ = 5%')):
+        ax.axhline(a, color='#B45309', lw=1.0, ls='--')
+        ax.text(149, a + 0.5, lab, ha='right', va='bottom', fontsize=8.8, color='#92400E')
+    ax.set_xlim(0, 150); ax.set_ylim(0, 40)
+    ax.set_xlabel('Number of exceedance events n', fontsize=9.5)
+    ax.set_ylabel('Upper 95% bound on miss rate (%)', fontsize=9.5)
+    ax.tick_params(labelsize=9)
+    ax.grid(color='#e3e6ea', lw=0.8); ax.set_axisbelow(True)
+    for sp in ('top', 'right'):
+        ax.spines[sp].set_visible(False)
+    ax.legend(loc='upper right', frameon=False, fontsize=8.8)
+    fig.tight_layout(); fig.savefig(path, dpi=300); plt.close(fig)
+
+
 def mrich(p, text, E, size=11, numbers=None):
     """Text with $inline math$, **bold** and [[key]] equation numbers."""
     if numbers:
@@ -407,6 +466,8 @@ def main(out):
     work = tempfile.mkdtemp()
     fig = os.path.join(work, 'fig_method_chain.png')
     fig_chain(fig)
+    figv = os.path.join(work, 'fig_verify.png')
+    fig_verify(figv)
 
     doc = Document()
     s = doc.sections[0]
@@ -415,23 +476,31 @@ def main(out):
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(11)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, 'CERTAIN-COAST — Methodology', bold=True, size=18, color='1F3864')
     p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, FULL, bold=True, size=12, color='1F3864')
-    for b in BLOCKS:
+    for bi, b in enumerate(BLOCKS):
         kind = b[0]
+        nxt = BLOCKS[bi + 1][0] if bi + 1 < len(BLOCKS) else None
         if kind == 'h':
             heading(doc, b[1], 13.5, before=10)
         elif kind == 'h2':
             heading(doc, b[1], 12, color='2E6DB4', before=6)
         elif kind == 'p':
             p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; mrich(p, b[1], E, numbers=numbers)
+            if nxt == 'eq':
+                p.paragraph_format.keep_with_next = True
         elif kind == 'b':
             p = para(doc, 3, 0.5); run(p, '• ', bold=True); mrich(p, b[1], E, numbers=numbers)
         elif kind == 'eq':
             display_eq(doc, E, b[2], numbers[b[1]])
         elif kind == 'table':
-            table(doc, b[1], b[2], b[3], size=b[4]); para(doc, 4)
+            rows = [[re.sub(r'\[\[(\w+)\]\]', lambda m: f'({numbers[m.group(1)]})', c) for c in r_] for r_ in b[2]]
+            t = table(doc, b[1], rows, b[3], size=b[4]); para(doc, 4)
+            t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
         elif kind == 'fig':
             p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.add_run().add_picture(fig, width=Cm(17.0))
+        elif kind == 'figv':
+            p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
+            p.add_run().add_picture(figv, width=Cm(15.5))
         elif kind == 'cap':
             p = para(doc, 6); p.paragraph_format.keep_with_next = (b[1].startswith('Table'))
             run(p, b[1], italic=True, size=10, color='52606D')
