@@ -1,7 +1,11 @@
-"""CERTAIN-COAST (NATO SPS proposal): Work plan. Seven work packages aligned with objectives O1-O6 (WP1-WP6) plus
-management (WP7), tasks with months, deliverables, milestones with means of verification, a Gantt chart (landscape page)
-and a risk table. 36 months assumed. Reuses the Word helpers of build_sota.py."""
+"""CERTAIN-COAST (NATO SPS proposal): Work plan. Structure and phases with the work-package links figure; seven work
+packages (WP1-WP6 = objectives O1-O6, WP7 management) with leads, tasks, months and deliverables; milestones with the
+evidence gates; critical path and buffers; the highest risks (from build_risk.py); management and monitoring; what is
+new; Gantt chart on two landscape pages. WPS, MILESTONES, COL, SHORT and RISKS are imported by other builders.
+
+usage: python build_workplan.py OUT.docx GANTT.png"""
 import os
+import re
 import sys
 import matplotlib
 matplotlib.use('Agg')
@@ -9,7 +13,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Rectangle
 from docx import Document
 from docx.shared import Pt, Cm
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_COLOR_INDEX
 from docx.enum.section import WD_ORIENT, WD_SECTION
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -153,48 +157,115 @@ def gantt(path, wp_codes, part):
     fig.savefig(path, dpi=220); plt.close(fig)
 
 
+GATES = {'MS3', 'MS4', 'MS5'}
+NEW = [
+    '**Phases start on evidence, not on dates.** Calibration (MS3), the go/no-go for live operation (MS4) and the confirmation of the miss rates (MS5) are gates with go, go-with-conditions and no-go rules fixed in advance (Milestones).',
+    '**Back-testing runs alongside live operation.** Live bulletins start in Month 23 while back-testing continues to Month 27, so twelve full months of operation fit even after a two-month slip at MS4.',
+    '**Buffers where the risks are.** Slack is placed on procurement, calibration and the go/no-go gate, the steps the Risk Assessment scores highest, not spread evenly across the plan.',
+    '**Every task has an owner, a deliverable and a watched risk.** The risks that score high before mitigation are tied to the work package that owns them and watched monthly through numeric triggers.',
+    '**The hand-over is inside the plan.** The operators issue every bulletin themselves in Months 34–36, so the end state is demonstrated before the grant ends.',
+]
+
+
 def main(out, fig_path):
+    import tempfile
+    from docx.oxml import OxmlElement
+    from build_sota import shade
+    import build_wps as BWP
+    import build_risk as BR
+    import build_timeline as BT
     fig_a = fig_path.replace('.png', '_a.png'); fig_b = fig_path.replace('.png', '_b.png')
     gantt(fig_a, ('WP1', 'WP2', 'WP3', 'WP4'), '1 of 2: WP1–WP4')
     gantt(fig_b, ('WP5', 'WP6', 'WP7'), '2 of 2: WP5–WP7')
+    fig_l = os.path.join(tempfile.mkdtemp(), 'fig_links.png'); BWP.fig_links(fig_l)
+
+    def hdr(t):
+        t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
+        return t
+
     doc = Document()
     s = doc.sections[0]
     s.page_width, s.page_height = Cm(21.0), Cm(29.7)
-    s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(1.8)
+    s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(1.7)
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(11)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, 'CERTAIN-COAST — Work Plan', bold=True, size=18, color='1F3864')
-    p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run(p, 'Certified early warning for seawater intrusion, liquefaction and extreme sea levels at the wellfields, port and energy landfall of a subsiding Adriatic coast', bold=True, size=12, color='1F3864')
 
-    heading(doc, '1. Structure and logic', 14, before=4)
-    p = para(doc, 6); rich(p, 'The project runs for 36 months in seven work packages. WP1 to WP6 deliver objectives O1 to O6 one to one, '
-                             'so the deliverable codes of the objectives are kept; WP7 manages the whole. The logic runs in three phases:')
+    heading(doc, '1. Structure and logic', 13.5, before=2)
+    p = para(doc, 5); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    rich(p, f'The project runs for 36 months in {len(WPS)} work packages with {sum(len(w[5]) for w in WPS)} tasks, '
+            f'{len({d[0] for w in WPS for d in w[6]})} deliverables and {len(MILESTONES)} milestones. WP1 to WP6 deliver objectives '
+            'O1 to O6 one to one, so the deliverable codes of the objectives are kept; WP7 manages the whole. The logic runs in '
+            'three phases:', size=10.5)
     for t in ['**Measure and design (Months 1–12).** WP1 measures the coastal motion and WP4 designs and installs the monitoring network; both start at once because the network design needs only existing and remote-sensing data.',
               '**Model and certify (Months 4–30).** WP2 builds and calibrates the coupled model and its fast surrogate on the data of WP1 and WP4; WP3 turns the forecasts into certified alarms and tests them on the historical record and on storylines beyond it.',
-              '**Operate and hand over (Months 22–36).** After the go/no-go milestone MS4, WP5 runs the system live for twelve months with the operators; WP6 trains the people who will run it after the project and releases the software and procedures.']:
-        p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, t)
-    p = para(doc, 6, before=4); rich(p, 'Data flow between the work packages: **WP1 → WP2** (relative sea level R(t), compaction parameters); '
-                                     '**WP4 → WP2, WP3** (heads, chloride, seismic velocity in real time); **WP2 → WP3** (forecasts and their error bounds); '
-                                     '**WP3 → WP5** (alarms with margins); **WP5 → WP3, WP6** (verified outcomes, operating experience). '
-                                     'WP4 also receives from WP3 the value of each sensor for the warnings, so the network can be refined in Year 2.')
+              '**Operate and hand over (Months 22–36).** After the go/no-go gate MS4, WP5 runs the system live for twelve months with the operators; WP6 trains the people who will run it after the project and releases the software and procedures.']:
+        q = para(doc, 3, 0.5); run(q, '• ', bold=True); rich(q, t, size=10.5)
+    p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
+    p.add_run().add_picture(fig_l, width=Cm(15.0))
+    p = para(doc, 4)
+    run(p, 'Figure 1. How the work packages feed each other. Live operation (WP5) feeds outcomes back to the alarms (WP3), and '
+           'the alarms tell the network (WP4) which sensors are worth most. The Gantt chart is on the last two pages.',
+        italic=True, size=9.5, color='52606D')
 
-    heading(doc, '2. Work packages', 14)
+    h = heading(doc, '2. Work packages and tasks', 13.5, before=0); h.paragraph_format.page_break_before = True
     for wp, title, obj, (a, b), goal, tasks, dels in WPS:
-        heading(doc, f'{wp}. {title}   (Months {a}–{b}; objective {obj})', 12.5, color=COL[wp].lstrip('#').upper(), before=8)
-        p = para(doc, 4); run(p, 'Objective: ', bold=True); rich(p, goal)
-        rows = [[c, t, f'M{x}–M{y}'] for c, t, (x, y) in tasks]
-        table(doc, ['Task', 'Description', 'Months'], rows, [1.4, 12.6, 3.0], size=10)
-        p = para(doc, 6, before=4); run(p, 'Deliverables: ', bold=True, size=10.5)
-        seen = []
+        hh = heading(doc, f'{wp}. {title}', 12, color=COL[wp].lstrip('#').upper(), before=8); hh.paragraph_format.keep_with_next = True
+        p = para(doc, 2); p.paragraph_format.keep_with_next = True
+        run(p, f'Months {a}–{b} · objective {obj} · lead ', size=9.5, color='52606D')
+        for part in re.split(r'(\[[^\]]+\])', BWP.LEAD[wp]):
+            if part:
+                r_ = run(p, part, size=9.5, color='52606D')
+                if part.startswith('['):
+                    r_.font.highlight_color = WD_COLOR_INDEX.YELLOW
+        p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
+        run(p, 'Objective: ', bold=True, size=10.5); rich(p, goal, size=10.5)
+        rows = [[c, t.replace('α_k', 'αₖ'), f'M{x}–M{y}'] for c, t, (x, y) in tasks]
+        t = hdr(table(doc, ['Task', 'Description', 'Months'], rows, [1.4, 13.0, 2.6], size=9.5))
+        for r_ in t.rows[1:-1]:
+            for c in r_.cells:
+                for pp in c.paragraphs:
+                    pp.paragraph_format.keep_with_next = True
+        p = para(doc, 5, before=3); run(p, 'Deliverables: ', bold=True, size=10)
+        grouped = {}
         for c, t, m in dels:
-            seen.append(f'{c} {t} (Month {m})')
-        run(p, '; '.join(dict.fromkeys(seen)), size=10.5)
+            grouped.setdefault((c, t), []).append(f'M{m}')
+        run(p, '; '.join(f'{c} {t} ({", ".join(ms)})' for (c, t), ms in grouped.items()), size=10)
 
-    heading(doc, '3. Milestones', 14)
-    table(doc, ['', 'Month', 'Milestone', 'Means of verification'], [[c, str(m), t, v] for c, m, t, v in MILESTONES], [1.3, 1.5, 5.4, 8.8], size=10)
-    para(doc, 4)
-    heading(doc, '4. Risks and mitigation', 14)
-    table(doc, ['Risk', 'Likelihood', 'Impact', 'Mitigation'], RISKS, [4.6, 2.4, 1.9, 8.1], size=10)
+    heading(doc, '3. Milestones and evidence gates', 13.5, before=10)
+    rows = [[c + ('\n(gate)' if c in GATES else ''), f'M{m}', t, v.replace('α_k', 'αₖ')] for c, m, t, v in MILESTONES]
+    t = hdr(table(doc, ['', 'Month', 'Milestone', 'Means of verification'], rows, [1.5, 1.4, 4.8, 9.3], size=9.5))
+    for i, (c, *_r) in enumerate(MILESTONES, start=1):
+        shade(t.rows[i].cells[0], 'FDE7C2' if c in GATES else 'E8EDF5')
+    p = para(doc, 4, before=3)
+    run(p, 'Each gate has go, go-with-conditions and no-go rules fixed in advance; see the Milestones section.', italic=True, size=9.5, color='52606D')
+
+    heading(doc, '4. Critical path and buffers', 13.5, before=8)
+    t = hdr(table(doc, ['Step on the critical path', 'Months', 'Milestone', 'Buffer'], BT.CRITICAL, [4.6, 1.8, 2.2, 8.4], size=9.5))
+    p = para(doc, 4, before=3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; rich(p, BT.SLIP, size=10)
+
+    heading(doc, '5. The highest risks to the plan', 13.5, before=8)
+    top = [r for r in BR.all_risks() if BR.band(r[2] * r[3])[0] in ('High', 'Very high')]
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
+    rich(p, f'The Risk Assessment lists {len(BR.all_risks())} risks with owners and numeric triggers. The {len(top)} that score high '
+            'or very high before mitigation are shown here with the work package that owns them; after mitigation none is high.',
+         size=10.5)
+    rows = [[r[0], r[1], r[7], r[4], r[6]] for r in top]
+    t = hdr(table(doc, ['', 'Risk', 'Owner', 'Trigger', 'Contingency'], rows, [1.1, 4.8, 1.4, 4.2, 5.5], size=8.8))
+    for r_ in t.rows[1:]:
+        shade(r_.cells[0], 'FBE9E7')
+
+    h = heading(doc, '6. Management and monitoring', 13.5, before=8); h.paragraph_format.keep_with_next = True
+    t = hdr(table(doc, ['Body or process', 'When', 'Where described'], BT.GOVERN, [4.6, 8.0, 4.4], size=9.5))
+    for r_ in t.rows[:-1]:
+        for c in r_.cells:
+            for pp in c.paragraphs:
+                pp.paragraph_format.keep_with_next = True
+
+    heading(doc, '7. What is new in this work plan', 13.5, before=10)
+    for x in NEW:
+        q = para(doc, 3, 0.5); run(q, '• ', bold=True); rich(q, x, size=10.5)
 
     sec = doc.add_section(WD_SECTION.NEW_PAGE)
     sec.orientation = WD_ORIENT.LANDSCAPE
