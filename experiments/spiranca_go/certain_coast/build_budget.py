@@ -83,7 +83,7 @@ LINES = [
     ('Dissemination', 'Open-access publication fees', 6, 2000, ['WP6'], (0, 1 / 3, 2 / 3), 'Both',
      'At least six open-access papers (Expected Results, Dissemination Plan)'),
     ('Dissemination', 'Website, translation and printing in Albanian and English', 1, 5000, ['WP6'], (0.4, 0.2, 0.4), 'NPD',
-     'Public summaries, policy brief and procedures'),
+     'Public summaries, policy brief and procedures; quarterly verification ledger page (protocol DOI on Zenodo at no cost)'),
     ('Dissemination', 'Public and press events', 1, 1000, ['WP6'], (0.25, 0.25, 0.5), 'NPD', 'Kick-off, live start and final event'),
     ('Other direct costs', 'Shipping and customs for equipment', 1, 4000, ['WP4'], (1, 0, 0), 'NPD', 'Delivery of sensors to the site'),
     ('Other direct costs', 'Insurance of field equipment', 3, 1000, ['WP4'], T3, 'NPD', 'One year of cover per year of operation'),
@@ -134,6 +134,7 @@ NEW = [
     '**The budget is a design variable.** Each sensor line is funded in the order of its value for the warnings per euro, computed by the goal-oriented network design (Methodology, Section 6), so the budget buys the largest reduction of alarm margins it can.',
     '**A budget cut has a known effect.** Because sensors are ranked, removing the last lines removes the least valuable sensors, and the effect on the miss and false-alarm rates can be stated before the cut.',
     '**Money is released on evidence.** The costly fibre campaign is conditional on access by Month 9, and live operation starts only after the go/no-go milestone (MS4), so funds are not committed to work that cannot happen.',
+    '**Money at stake at each gate is known in advance.** About two-thirds of the budget is spent by the calibration gate (MS3) and about three-quarters by the go/no-go gate (MS4); the rest pays for live operation, training and transfer, so a slip or fallback at a gate changes how the remaining funds are used, not what has already been bought (Section 2).',
     '**What is bought stays.** The network, servers and software are handed over to the operators, so the equipment budget becomes a lasting national capability rather than project hardware.',
 ]
 
@@ -177,7 +178,7 @@ def fig_categories(path, rows, total):
 
 def tidy(t, total_row=False):
     t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
-    keep = t.rows[:-1] if len(t.rows) <= 8 else (t.rows[0], t.rows[-2])   # short tables stay on one page
+    keep = t.rows[:-1] if len(t.rows) <= 10 else (t.rows[0], t.rows[-2])   # short tables stay on one page
     for row in keep:
         for c in row.cells:
             for p in c.paragraphs:
@@ -196,6 +197,46 @@ def bullets(doc, items):
         p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, t)
 
 
+GATES_M = [(18, 'MS3'), (22, 'MS4'), (27, 'MS5')]
+
+
+def cumulative(rows):
+    """Indicative monthly cumulative spending: the amount of each year spread evenly over its twelve months."""
+    import numpy as np
+    out = {}
+    for key, sel in (('Equipment', lambda r: r['cat'] == 'Equipment'), ('Other', lambda r: r['cat'] != 'Equipment')):
+        y = [sum(r['y'][k] for r in rows if sel(r)) for k in range(3)]
+        monthly = np.concatenate([np.full(12, v / 12.0) for v in y])
+        out[key] = np.concatenate([[0.0], np.cumsum(monthly)])
+    return out
+
+
+def fig_gates(path, rows, total):
+    import numpy as np
+    c = cumulative(rows)
+    m = np.arange(0, 37)
+    fig, ax = plt.subplots(figsize=(6.7, 3.4), dpi=300)
+    ax.fill_between(m, 0, c['Equipment'] / 1000, color='#2E6DB4', alpha=0.85, label='Equipment')
+    ax.fill_between(m, c['Equipment'] / 1000, (c['Equipment'] + c['Other']) / 1000, color='#A9C4E8', alpha=0.9,
+                    label='All other categories')
+    tot = (c['Equipment'] + c['Other'])
+    for g, lab in GATES_M:
+        ax.axvline(g, color='#D97706', lw=1.2, ls=(0, (4, 3)))
+        v = tot[g]
+        ax.plot(g, v / 1000, 'o', ms=6, color='#92400E', zorder=5)
+        ax.text(g - 0.4, v / 1000 + 14, f'{lab}: {100 * v / total:.0f}% spent', ha='right', va='bottom', fontsize=8.8,
+                color='#92400E', fontweight='bold', bbox=dict(boxstyle='round,pad=0.15', fc='white', ec='none'))
+    ax.set_xlim(0, 36); ax.set_ylim(0, total / 1000 * 1.12)
+    ax.set_xticks([0, 6, 12, 18, 24, 30, 36]); ax.set_xticklabels([f'M{x}' for x in (0, 6, 12, 18, 24, 30, 36)], fontsize=9)
+    ax.tick_params(axis='y', labelsize=9)
+    ax.set_ylabel('Cumulative spending (€ thousand)', fontsize=9.5)
+    ax.grid(axis='y', color='#e3e6ea', lw=0.8); ax.set_axisbelow(True)
+    for sp in ('top', 'right'):
+        ax.spines[sp].set_visible(False)
+    ax.legend(loc='lower right', frameon=False, fontsize=8.8)
+    fig.tight_layout(); fig.savefig(path, dpi=300); plt.close(fig)
+
+
 def main(out):
     rows = compute()
     total = sum(r['tot'] for r in rows)
@@ -203,6 +244,7 @@ def main(out):
     npd = sum(r['npd'] for r in rows); ppd = sum(r['ppd'] for r in rows)
     assert abs(sum(ytot) - total) < 1 and abs(npd + ppd - total) < 1
     work = tempfile.mkdtemp(); fig = os.path.join(work, 'fig_budget_categories.png'); fig_categories(fig, rows, total)
+    figg = os.path.join(work, 'fig_budget_gates.png'); fig_gates(figg, rows, total)
 
     doc = Document()
     s = doc.sections[0]
@@ -241,7 +283,28 @@ def main(out):
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.add_run().add_picture(fig, width=Cm(17.0))
     p = para(doc, 6); run(p, 'Figure 1. Budget by category.', italic=True, size=10, color='52606D')
 
-    heading(doc, '2. Budget by work package', 13.5, before=8)
+    heading(doc, '2. Spending against the evidence gates', 13.5, before=8)
+    cum = cumulative(rows); tot_c = cum['Equipment'] + cum['Other']
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    rich(p, 'The project moves from one phase to the next only after its evidence gates (Milestones). Equipment is bought in '
+            f'Year 1, so most of the budget is spent before the gates are decided, but what remains pays for the work that '
+            f'depends on them: live operation, training, transfer and dissemination. The profile below is indicative: the amount '
+            f'of each year is spread evenly over its months.', size=10.5)
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
+    p.add_run().add_picture(figg, width=Cm(15.5))
+    p = para(doc, 4)
+    run(p, 'Figure 2. Indicative cumulative spending and the share spent at each evidence gate.', italic=True, size=10, color='52606D')
+    after = {'MS3': 'Surrogate, alarms, live operation, training, transfer, dissemination',
+             'MS4': 'Live operation, operator training, transfer workshop, open-access fees, final workshop',
+             'MS5': 'Last months of live operation, hand-over, transfer, final reporting'}
+    grows = [[f'{lab} (gate)', f'M{g}', f'€{eur(round(tot_c[g], -2))} ({100 * tot_c[g] / total:.0f}%)',
+              f'€{eur(round(total - tot_c[g], -2))} ({100 * (total - tot_c[g]) / total:.0f}%)', after[lab]] for g, lab in GATES_M]
+    t = tidy(table(doc, ['Gate', 'Month', 'Spent by then', 'Still to spend', 'What the remaining funds pay for'], grows,
+                   [2.2, 1.4, 3.4, 3.4, 6.6], size=9.5))
+    for r_ in t.rows[1:]:
+        shade(r_.cells[0], 'FDE7C2')
+
+    h = heading(doc, '3. Budget by work package', 13.5, before=8); h.paragraph_format.keep_with_next = True
     wrows = []
     for w in WPS:
         v = sum(r['tot'] / len(r['wps']) for r in rows if w in r['wps'])
@@ -252,7 +315,7 @@ def main(out):
     run(p, 'Stipends are shared equally across WP1–WP5, where the young researchers work. WP2 and WP3 are mostly researcher '
            'time, which the institutions pay in kind, so their SPS share is small.', italic=True, size=9.5, color='52606D')
 
-    heading(doc, '3. Budget by recipient', 13.5, before=8)
+    heading(doc, '4. Budget by recipient', 13.5, before=8)
     rrows = []
     for c in CATS:
         cr = [r for r in rows if r['cat'] == c]
@@ -264,10 +327,10 @@ def main(out):
     run(p, 'The partner country is to be named; lines marked "Both" are split equally. See the points to confirm below.',
         italic=True, size=9.5, color='52606D')
 
-    heading(doc, '4. Points to confirm with the SPS Programme before submission', 13.5, before=8)
+    heading(doc, '5. Points to confirm with the SPS Programme before submission', 13.5, before=8)
     bullets(doc, [t.format(ppd_pct=f'{100 * ppd / total:.0f}') for t in CONFIRM])
 
-    heading(doc, '5. Detailed budget and justification', 13.5, before=10)
+    heading(doc, '6. Detailed budget and justification', 13.5, before=10)
     for c in CATS:
         cr = [r for r in rows if r['cat'] == c]
         heading(doc, f'{c}  (€{eur(sum(r["tot"] for r in cr))})', 11.5, color='2E6DB4', before=6)
@@ -277,11 +340,11 @@ def main(out):
         tidy(table(doc, ['Item', 'Qty', 'Unit (€)', 'Total (€)', 'WP', 'To', 'Justification'], drows,
                    [4.0, 1.0, 1.5, 1.8, 1.4, 1.6, 5.7], size=9), True)
 
-    heading(doc, '6. In-kind contributions (not requested from SPS)', 13.5, before=10)
+    heading(doc, '7. In-kind contributions (not requested from SPS)', 13.5, before=10)
     bullets(doc, INKIND)
-    heading(doc, '7. Budget control', 13.5, before=8)
+    heading(doc, '8. Budget control', 13.5, before=8)
     bullets(doc, CONTROL)
-    heading(doc, '8. What is new in this budget', 13.5, before=8)
+    heading(doc, '9. What is new in this budget', 13.5, before=8)
     bullets(doc, NEW)
     doc.save(out)
     print('saved', out, '| total', total, '| years', [round(v) for v in ytot], '| NPD', npd, 'PPD', ppd,
