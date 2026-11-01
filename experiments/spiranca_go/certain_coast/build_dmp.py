@@ -39,7 +39,7 @@ INVENTORY = [
     ['DS1', 'Sentinel-1 radar images', 'External, Copernicus (free)', 'SAFE / SLC', '~5 TB working copy', 'Not redistributed', 'Copernicus'],
     ['DS2', 'InSAR products: line-of-sight series, vertical and east velocities', 'Processed (WP1)', 'GeoTIFF, NetCDF, CSV', '~50 GB', 'Open (regional); restricted (asset points)', 'Project'],
     ['DS3', 'GNSS observations and daily time series', 'New, project stations (WP1)', 'RINEX, CSV', '~10 GB', 'Restricted inside sites; open outside', 'Project, operators'],
-    ['DS4', 'Tide-gauge sea level', 'External, existing gauge', 'CSV', '<1 GB', 'Provider\'s terms', 'Provider'],
+    ['DS4', 'Tide-gauge sea level', 'External: state tide gauge at Durrës', 'CSV', '<1 GB', 'Provider\'s terms', 'State Authority for Geospatial Information (ASIG)'],
     ['DS5', 'Heads, conductivity and temperature from loggers', 'New (WP4)', 'CSV', '~2 GB', 'Restricted; open after consent with generalised locations', 'Operators'],
     ['DS6', 'Chloride and major-ion analyses', 'New (WP4)', 'CSV', '<1 GB', 'Restricted; open after consent', 'Operators'],
     ['DS7', 'Historical heads, chloride and pumping records', 'Existing, operators', 'CSV, scanned records', '~5 GB', 'Restricted', 'Operators'],
@@ -107,7 +107,7 @@ ETHICS = [
 ]
 OTHER = [
     '**Copernicus attribution** ("contains modified Copernicus Sentinel data") on every product derived from Sentinel-1.',
-    '**Third-party data** (tide gauge, national networks) used under their providers\' terms.',
+    '**Third-party data** (the tide gauge of ASIG\'s state network, national networks) used under their providers\' terms.',
     '**National rules on geospatial data** checked with the competent Albanian authority before publishing maps.',
     '**Ownership and access** of all results set out in the consortium agreement.',
 ]

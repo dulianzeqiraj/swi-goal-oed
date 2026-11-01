@@ -58,7 +58,7 @@ def ph(p, text, size=10, bold=False, color=None):
         if not part:
             continue
         if part.startswith('['):
-            run(p, part, size=size, bold=bold, hl=True)
+            run(p, part, size=size, bold=bold, hl=True, color='000000')
         elif part.startswith('<http'):
             link(p, part[1:-1], size=size)
         else:
@@ -114,6 +114,19 @@ def page(doc, k, n, I):
     cell_text(band.rows[0].cells[0], I['role'], size=10, bold=True, color='FFFFFF')
     p = para(doc, 0, before=6); ph(p, I['name'], size=15, bold=True, color=NAVY)
     p = para(doc, 4); ph(p, I['local'], size=9.8, color='374151')
+    if I.get('intro'):
+        p = para(doc, 4, align=WD_ALIGN_PARAGRAPH.JUSTIFY); ph(p, I['intro'], size=9.6)
+    if I.get('units'):
+        u = doc.add_table(rows=1, cols=len(I['units'])); u.style = 'Table Grid'; u.alignment = WD_TABLE_ALIGNMENT.CENTER
+        for c, U in zip(u.rows[0].cells, I['units']):
+            cell_text(c, U['title'], size=9.6, bold=True, color=NAVY)
+            q = c.add_paragraph(); q.paragraph_format.space_after = Pt(2); ph(q, U['sub'], size=8.8, color='374151')
+            for line in U['lines']:
+                q = c.add_paragraph(); q.paragraph_format.space_after = Pt(1.5)
+                q.paragraph_format.left_indent = Cm(0.3); q.paragraph_format.first_line_indent = Cm(-0.3)
+                run(q, '• ', bold=True, size=8.9, color=NAVY); ph(q, line, size=8.9)
+        widths(u, [8.7, 8.7])
+        para(doc, 2)
     g = doc.add_table(rows=0, cols=2); g.style = 'Table Grid'; g.alignment = WD_TABLE_ALIGNMENT.CENTER
     for lab, val in I['glance']:
         cells = g.add_row().cells
@@ -130,7 +143,10 @@ def page(doc, k, n, I):
         p = para(doc, 0, before=5)
         run(p, 'Sources: ', bold=True, size=8.6, color='52606D')
         for j, (lab, url) in enumerate(I['sources']):
-            run(p, ('; ' if j else '') + lab + ' ', size=8.6, color='52606D'); link(p, url, size=8.6)
+            if j:
+                run(p, '; ', size=8.6, color='52606D')
+            link(p, url, lab, size=8.6)
+        run(p, '. Checked on 1 November 2026.', size=8.6, color='52606D')
 
 
 def main(out):

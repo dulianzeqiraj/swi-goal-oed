@@ -234,8 +234,8 @@ TRL_TEXT = (
     'window, which are demonstrated at the site and agreed with the utility but not yet run for a full year.')
 
 DATA = (
-    'Data required and existing sources: Copernicus Sentinel-1 radar images since 2014 (free and open); GNSS and tide-gauge '
-    'records; heads, pumping and chloride records of the water utility; geotechnical records of the port and the landfall '
+    'Data required and existing sources: Copernicus Sentinel-1 radar images since 2014 (free and open); GNSS records; the '
+    'Durrës tide-gauge record of the State Authority for Geospatial Information (ASIG); heads, pumping and chloride records of the water utility; geotechnical records of the port and the landfall '
     'operator; records of existing national seismic stations; meteorological and wave data.\n'
     'New data: continuous heads, conductivity and temperature in new and existing wells; GNSS and corner-reflector time series '
     'at the assets; continuous seismic noise from stations and temporary nodes, and fibre-optic sensing where access is '
@@ -532,16 +532,17 @@ def main(out):
 
     # 5 Co-directors
     heading(doc, '5. Co-Directors (optional)', 14, before=10)
-    answer(doc, 'Not required. If you add a Co-Director, for example [an additional NATO-country co-director] or [the Albanian '
-                'research partner], each must be at a different institution and have their own budget in the Excel workbook. '
-                'Otherwise skip this tab.')
+    answer(doc, 'Not required. If you add a Co-Director, for example [an additional NATO-country co-director], they must be at '
+                'a different institution and have their own budget in the Excel workbook. The Institute of Geosciences belongs '
+                'to UPT, like the NPD\'s faculty, so its staff take part as participants, not as a Co-Director. Otherwise skip '
+                'this tab.')
 
     # 6 Participants
     heading(doc, '6. Project Participants', 14, before=10)
     p = para(doc, 4); put(p, 'Roles of Co-Directors and Participants (add rows as needed; all must be nationals of NATO or eligible partner countries):')
     part = [['[First name]', '[Family name]', '[NPD institution]', 'NATO-country Project Director', '[Albanian]', 'Coordination; WP1 coastal motion; WP4 monitoring network; WP5 live operation; WP7 management', '[30%]'],
             ['[First name]', '[Family name]', '[PPD institution]', 'Partner-country Project Director', '[nationality]', 'WP2 coupled model and certified surrogate; WP3 certified alarms; WP6 training and transfer', '[30%]'],
-            ['[First name]', '[Family name]', '[Albanian research partner]', 'Researcher', '[Albanian]', 'Seismic and sea-level data; WP1, WP4', '[15%]'],
+            ['[First name]', '[Family name]', '[Institute of Geosciences, UPT]', 'Researcher', '[Albanian]', 'Seismic, GNSS and hydrometeorological data; WP1, WP4', '[15%]'],
             ['To be recruited', '(4 people)', 'NPD and PPD institutions', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
             ['[First name]', '[Family name]', '[Durrës water utility]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins, pumping rule', '[5%]'],
             ['[First name]', '[Family name]', '[Durrës Port Authority]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
@@ -647,7 +648,7 @@ def main(out):
     field(doc, 'Non-NATO funding')
     answer(doc, 'Salaries of all researchers and project directors, paid by their institutions [€ estimate]; the operators\' '
                 'access to wells, port and landfall, their records and staff time for workshops and training [€ estimate]; free '
-                'data (Copernicus Sentinel-1 radar images, tide-gauge records, existing seismic stations); offices, laboratories '
+                'data (Copernicus Sentinel-1 radar images) and existing data under agreements (ASIG tide gauge, national seismic stations); offices, laboratories '
                 'and existing field equipment of the partner institutions [€ estimate].')
     field(doc, 'How do you want to share the financial rules of the NPD\'s institution?')
     answer(doc, '[File upload or link to the website of the NPD\'s institution.]')
