@@ -46,7 +46,7 @@ REMAINS = [
     ['Monitoring network (wells, loggers, GNSS, seismic stations, reflectors)', 'Operators, by asset', 'Operators\' technicians; university support for GNSS and seismic stations', 'Hand-over agreement (Month 36); maintenance agreement (Month 33)'],
     ['Warning software, surrogate and alarms', 'Open source; operators run their instance', 'University maintains the repository; users report issues', 'Open licence, tests and containers (D6.1)'],
     ['Calibrated coupled model', 'University and operators', 'University updates it every year with new data', 'Model and data release (D6.1)'],
-    ['Data and bulletin log', 'Operators (restricted); open aggregated statistics', 'Operators; university for analysis', 'Data plan (T7.2); two-tier dissemination'],
+    ['Data, bulletin log and verification ledger', 'Operators (restricted); open aggregated statistics', 'Operators; university for analysis', 'Data plan (T7.2); quarterly open ledger continued after the project'],
     ['Procedures and post-event protocol', 'Operators; civil protection', 'Reviewed every year by operators and civil protection', 'D6.2 adopted by each operator'],
     ['Trained people and training material', 'Operators; university', 'Refresher course every year; manuals in Albanian and English', 'T6.1, T6.2; coast kit'],
 ]
@@ -61,10 +61,18 @@ COSTS = [
     ['Insurance of field equipment', '1 000', 'Operators'],
 ]
 
+READY = [
+    ['M30', 'Procedures drafted', 'A draft procedure per asset, written with operator staff (T6.4)', 'Drafting sessions at each operator; civil protection reviews the post-event protocol first'],
+    ['M33', 'Maintenance agreement', 'Signed by the three operators, with the running cost shared (Section 4)', 'The university hosts the system until the agreement is in place; issue raised at the steering committee'],
+    ['M34', 'Operators issue the bulletins', 'Every bulletin issued by operator staff, the project team only observing', 'Extra training session; tasks reassigned within the consortium (R18)'],
+    ['M36', 'Hand-over accepted (MS7)', 'Procedures adopted; at least two trained people per operator; hand-over agreement signed', 'Procedures restated jointly with the operator; acceptance at the next steering committee'],
+]
+
 FUNDING = [
     '**Operators\' own budgets.** The running cost is shared by three operators, of the order of €3,000–4,000 each per year, and is written into the maintenance agreement.',
     '**National sources.** The policy brief (D6.2) asks the national authorities to include coastal monitoring at critical infrastructure in their programmes.',
     '**Follow-up research funding.** At least one follow-up proposal (for example to Horizon Europe or the Interreg IPA ADRION programme for the Adriatic-Ionian region) is submitted by Month 36 to extend the method to other coasts.',
+    '**A cost the operators can weigh.** Each operator knows in advance the guaranteed minimum value of the warning for its own decision (Impact, Section 5), against its share of the running cost, so continuing is a decision on known terms.',
     '**Free data.** Copernicus Sentinel-1 radar images remain free, so the most expensive observation of land motion costs nothing to continue.',
 ]
 
@@ -77,7 +85,7 @@ CAPACITY = [
 ]
 
 ENV = [
-    '**Groundwater used within reversible limits.** The joint pumping rule keeps heads above the preconsolidation head, so pumping causes no new permanent subsidence and the aquifer is used within the range in which it recovers (Methodology, Eq. 25).',
+    '**Groundwater used within reversible limits.** The joint pumping rule keeps heads above the preconsolidation head, so pumping causes no new permanent subsidence and the aquifer is used within the range in which it recovers (Methodology, Section 7).',
     '**Freshwater protected before it is lost.** The certified intrusion alarm acts before wells turn saline, which takes years to reverse.',
     '**Low-footprint equipment.** Field stations run on solar power; satellite data replace much field surveying.',
 ]
@@ -107,7 +115,8 @@ KPIS = [
     ['Trained people', 'At least 20 operator staff; at least 6 early-career researchers', 'Month 36'],
     ['Follow-up funding application', 'At least 1 submitted', 'Month 36'],
     ['Network data availability after hand-over', 'At least 90%', 'One year after the project'],
-    ['Observed miss rates after hand-over', 'Within targets, from the operators\' bulletin log', 'One year after the project'],
+    ['Observed misses after hand-over', 'Consistent with the certified rates (consistency test, Methodology 5.7)', 'One year after the project'],
+    ['Verification ledger kept by the operators', 'Published every quarter until each alarm type reaches the events needed to verify its rate', 'From Month 36'],
 ]
 
 NEW = [
@@ -115,6 +124,8 @@ NEW = [
     '**A system that warns about itself.** The bulletin log compares observed miss rates with their targets; if a guarantee starts to drift, the operators see it and trigger recalibration before trust is lost.',
     '**Better with use.** Every year of data narrows the forecasts and shrinks the margins, so the service gives fewer false alarms the longer it runs.',
     '**Environmental limits as hard constraints.** The pumping rule never lets heads fall below the preconsolidation head, so the aquifer is used within the range in which it recovers.',
+    '**Verification that outlives the project.** A certified miss rate needs a counted number of events to be verified (29 with no miss for 10%). The operators keep the quarterly verification ledger after Month 36 until every alarm type reaches its count, so the guarantee is completed, not abandoned, when the grant ends.',
+    '**Sustainability with pass tests.** The hand-over has its own checks at Months 30, 33, 34 and 36, each with a fallback, so a weak point is found while the project team can still fix it (Section 3).',
     '**A hand-over that is measured.** Operators issue every bulletin in the last three months, so sustainability is demonstrated before the project ends, not assumed after it.',
 ]
 
@@ -122,7 +133,7 @@ SHORT = ('At the end of CERTAIN-COAST, the operators of the Durrës wellfields, 
          'warning service themselves, and civil protection uses its bulletins after earthquakes and storms. Sustainability '
          'is built in from the start rather than added at the end.\n\n'
          'Ownership. The monitoring network, servers and software are handed over to the operators under a written agreement '
-         'at Month 36. The operators set the alarm thresholds in the first year and adopt operating procedures by the end, so '
+         'at Month 36. The operators set the alarm thresholds before live operation and adopt operating procedures by the end, so '
          'the system is theirs from the start. In the last three months every bulletin is issued by operator staff, with the '
          'project team only observing: the hand-over is demonstrated before the project ends.\n\n'
          'Low and known running cost. The system uses free Copernicus Sentinel-1 data, existing seismic stations, solar-powered '
@@ -230,13 +241,19 @@ def main(out):
     tidy(table(doc, ['What remains', 'Owner', 'Kept up by', 'Secured by'], REMAINS, [4.6, 3.6, 4.6, 4.2], size=9.5))
     para(doc, 4)
 
-    heading(doc, '3. A staged hand-over', 13.5, before=8)
-    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    h = heading(doc, '3. A staged hand-over', 13.5, before=8); h.paragraph_format.keep_with_next = True
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
     rich(p, 'Responsibility moves from the project team to the operators in five stages, so that the operators are already '
             'running the service before the project ends (Figure 1).')
-    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.add_run().add_picture(fig, width=Cm(17.0))
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
+    p.add_run().add_picture(fig, width=Cm(17.0))
     p = para(doc, 6); run(p, 'Figure 1. Staged hand-over from the project team to the operators. The colour shifts as ownership moves.',
                           italic=True, size=10, color='52606D')
+    hh = para(doc, 3, before=4); hh.paragraph_format.keep_with_next = True
+    run(hh, 'Hand-over readiness checks', bold=True, size=11, color='1F3864')
+    t = tidy(table(doc, ['Month', 'Check', 'Pass test', 'If it fails'], READY, [1.4, 3.8, 6.0, 5.8], size=9.5))
+    for r_ in t.rows[1:]:
+        shade(r_.cells[0], 'E3F4F5')
 
     heading(doc, '4. Running cost after the project', 13.5, before=8)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -265,8 +282,11 @@ def main(out):
     tidy(table(doc, ['Indicator', 'Target', 'When'], KPIS, [7.0, 6.2, 3.8], size=10))
     para(doc, 4)
 
-    heading(doc, '9. What is new in this sustainability plan', 13.5, before=8)
-    bullets(doc, NEW)
+    h = heading(doc, '9. What is new in this sustainability plan', 13.5, before=8); h.paragraph_format.keep_with_next = True
+    for i, x in enumerate(NEW):
+        q = para(doc, 3, 0.5); run(q, '• ', bold=True); rich(q, x)
+        if i < len(NEW) - 1:
+            q.paragraph_format.keep_with_next = True
 
     h = heading(doc, f'10. Short version for the application form ({n_short} words)', 13.5, before=0)
     h.paragraph_format.page_break_before = True
