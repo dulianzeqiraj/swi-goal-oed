@@ -125,7 +125,7 @@ LETTER = [
 ]
 
 GOVERN = [
-    '**Steering committee.** The Project Directors and one representative of each end-user; meets every six months and at each milestone, decides on escalated risks within two weeks and approves the go/no-go for live operation (MS4).',
+    '**Steering committee.** The Project Directors and one representative of each end-user; meets every six months and at each milestone, decides on escalated risks within two weeks and decides every milestone, with the end-users holding the rights set out in Section 7.',
     '**Work-package leaders.** Each work package has one lead institution (Table 4); leaders meet monthly with the coordinator to review progress and the risk indicators (T7.3).',
     '**Consortium agreement.** Signed before the start: roles, budget sharing, ownership and open licences of results, access to operator data (T7.2), and the publication review set out in the Dissemination Plan.',
     '**Decisions.** By consensus where possible; otherwise by majority of the Project Directors, with the NATO-country Project Director accountable for the funds.',
@@ -135,7 +135,7 @@ GOVERN = [
 VALUE = [
     '**For the Alliance:** protection of an Ally\'s water supply, port and energy landfall, with a method that can be applied to other coasts of Allies and partners.',
     '**For the partner country:** leadership of the modelling, the certified alarms and the transfer, training of its young researchers, and a tested method for its own coast.',
-    '**For the end-users:** a warning system they help design, run and own, with trained staff and procedures.',
+    '**For the end-users:** a warning system they help design, run and own, with trained staff and procedures, and a guaranteed minimum value of the warning for their own decisions.',
     '**For science:** a joint team that combines field geoscience at critical infrastructure with the mathematics of certified prediction.',
 ]
 
@@ -152,6 +152,7 @@ NEW = [
     '**A partnership built on the decision chain.** Scientists, operators and civil protection are partners from the first month, so the thresholds are agreed before the alarms are designed and the users own the system at the end.',
     '**A twin-coast design.** The partner country brings a second subsiding coast, on which the method is tested for transfer within the project, not only promised after it.',
     '**Leadership, not only participation, for the partner.** The partner-country team leads the mathematics, the certified alarms and the transfer, the parts of the project that are most portable.',
+    '**The users hold decision rights.** The operators co-sign the milestones that change what they receive or run (MS1, MS4, MS6, MS7), and civil protection co-signs the bulletin log (MS6), so no phase that affects them starts without them (Section 7).',
     '**Security built into the partnership.** End-users set the security conditions for access and data in their commitment letters, consistent with the two-tier dissemination plan.',
 ]
 
@@ -221,6 +222,10 @@ def bullets(doc, items, size=11):
 
 
 def main(out):
+    import build_budget as BB
+    import build_milestones as BM
+    import build_workplan as BW
+    brows = BB.compute(); total = sum(r['tot'] for r in brows); ppd = sum(r['ppd'] for r in brows)
     work = tempfile.mkdtemp(); fig = os.path.join(work, 'fig_partnership.png'); fig_structure(fig)
     doc = Document()
     s = doc.sections[0]
@@ -271,7 +276,8 @@ def main(out):
     heading(doc, '4. Roles by work package', 13.5, before=8)
     tidy(table(doc, ['', 'Work package', 'Lead', 'Contributors'], ROLES, [1.3, 5.6, 4.6, 5.5], size=10))
     p = para(doc, 6, before=3)
-    run(p, 'With the partner-country team leading WP2, WP3 and WP6, the Budget split by recipient should be updated to match.',
+    run(p, f'In the Budget the partner-country team receives €{ppd:,.0f} ({100 * ppd / total:.0f}% of €{total:,.0f}) for its computing, '
+           'exchanges, stipends and travel; equipment installed in Albania sits with the NATO-country side (Budget, points to confirm).',
         italic=True, size=10, color='52606D')
 
     heading(doc, '5. End-users and their commitment', 13.5, before=8)
@@ -281,12 +287,32 @@ def main(out):
 
     heading(doc, '6. Governance', 13.5, before=8)
     bullets(doc, GOVERN)
-    heading(doc, '7. Added value of the partnership', 13.5, before=8)
+    h = heading(doc, '7. Decision rights at each milestone', 13.5, before=8); h.paragraph_format.keep_with_next = True
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
+    rich(p, 'The steering committee decides each milestone on the evidence named in the Milestones section. Where a milestone '
+            'changes what the end-users receive or run, they co-sign it; where they confirm or review evidence, the table says so.', size=10.5)
+    D, C, I = 'Decides', 'Co-signs', 'Informed'
+    rights = {'MS1': (D, C, I), 'MS2': (D, 'Confirms', I), 'MS3': (D, I, I), 'MS4': (D, C, I),
+              'MS5': (D, 'Reviews', I), 'MS6': (D, C, C), 'MS7': (D, D, I)}
+    drows = []
+    for code, mth, name, _ in BW.MILESTONES:
+        sc, op, cp = rights[code]
+        drows.append([code + (' (gate)' if code in BM.GATES else ''), f'M{mth}', name, sc, op, cp, BM.CARD[code][3]])
+    t = tidy(table(doc, ['', 'Month', 'Milestone', 'Steering committee', 'Operators', 'Civil protection', 'Who signs what'], drows,
+                   [1.9, 1.35, 2.95, 2.2, 2.0, 2.2, 4.4], size=9))
+    for r_ in t.rows[1:]:
+        for c in r_.cells[3:6]:
+            c.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+            if c.text.strip() != I:
+                shade(c, 'DCE6F2' if c.text.strip() == D else 'EEF3FA')
+        if '(gate)' in r_.cells[0].text:
+            shade(r_.cells[0], 'FDE7C2')
+    heading(doc, '8. Added value of the partnership', 13.5, before=8)
     bullets(doc, VALUE)
-    heading(doc, '8. Checklist before submission', 13.5, before=8)
+    heading(doc, '9. Checklist before submission', 13.5, before=8)
     for i, t in enumerate(CHECK, start=1):
         p = para(doc, 3, 0.5); run(p, f'{i}. ', bold=True); rich(p, t)
-    heading(doc, '9. What is new in this partnership', 13.5, before=8)
+    heading(doc, '10. What is new in this partnership', 13.5, before=8)
     bullets(doc, NEW)
     doc.save(out)
     print('saved', out)
