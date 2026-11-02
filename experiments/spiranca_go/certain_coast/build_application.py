@@ -66,10 +66,12 @@ TECHNICAL = (
     'distribution shift, guarantees that hold within regimes such as droughts, extreme conformal prediction for events rarer '
     'than the record, and anytime-valid verification) can provide such guarantees, but they have not been applied to coupled '
     'coastal hazards driven by slow physics, with dependent alarms and few extreme events.\n'
-    'Two further problems have no published solution. There is no method to compute the set of pumping and dewatering '
+    'Three further problems have no published solution. There is no method to compute the set of pumping and dewatering '
     'decisions that keeps all the hazards within certified limits at once, nor the sea level or year at which this set '
     'disappears; tipping points exist for seawater intrusion alone, not for the coupled system. And monitoring networks are '
-    'designed to reduce today\'s forecast errors; there is no criterion for how many years of safe operation a sensor buys.\n'
+    'designed to reduce today\'s forecast errors; there is no criterion for how many years of safe operation a sensor buys. '
+    'And routine pumping never shows how the aquifer responds near the onset of intrusion, which decides how long safe '
+    'operation lasts; we found no pumping-test design that reveals it safely and values the test in years.\n'
     'All of this must work on a real coast with incomplete records, under security restrictions on data, and in a form that '
     'the operators can run themselves after the project.')
 
@@ -81,22 +83,26 @@ DELIVER = (
     'nodes, and fibre-optic sensing where access allows), installed, streaming and handed over to the operators (D4.2).\n'
     '3. One calibrated physical model of the coast that couples groundwater flow and salt, aquifer compaction, liquefaction '
     'under a moving water table and coastal water levels (D2.1), and a fast neural-operator copy with a certified error bound '
-    'for every forecast (D2.2).\n'
+    'for every forecast (D2.2); a generative copy explores long storylines, whose closing years are certified from full '
+    'runs.\n'
     '4. Certified alarms for seawater intrusion, liquefaction and extreme water levels whose miss rate is bounded in advance '
     '(indicatively 5–10%), with a joint guarantee for the three assets, back-tested on the record since 2014 and on '
     'storylines beyond it under a protocol published before the results (D3.1, D3.2).\n'
     '5. A certified safe operating window: the pumping and dewatering decisions that keep all hazards within their limits at '
-    'once, the year at which this window closes, and a pumping rule agreed with the water utility.\n'
+    'once, the year at which this window closes, safe pumping tests on existing wells that move its certified boundary '
+    'towards the true one, and a pumping rule agreed with the water utility.\n'
     '6. Twelve months of live bulletins with the water utility, the port authority, the landfall operator and civil '
     'protection, with every outcome logged and the miss rates verified (D5.1); operating procedures and a policy brief '
     '(D6.2); open software and data with a DOI (D6.1).\n'
     'How this advances the state of the art. The alarms bring together methods published in 2023–2026 (online conformal '
     'calibration under shift, guarantees within regimes, extreme conformal prediction, joint calibration of several risks, '
-    'anytime-valid verification) and apply them to coupled coastal hazards. Two contributions are new and were tested before '
+    'anytime-valid verification) and apply them to coupled coastal hazards. Three contributions are new and were tested before '
     'the project: the certified safe operating window with its closing year (in a synthetic test it closed after 38 years, '
-    'while plans that watch one hazard believed they had 43 to 97 years), and the value of a sensor in years of safe '
+    'while plans that watch one hazard believed they had 43 to 97 years); the value of a sensor in years of safe '
     'operation, which valued a GNSS station and corner reflectors at about five years each where the usual criterion gives '
-    'zero. The integrated system moves from technology readiness level 3 to 7.')
+    'zero; and safe pumping tests chosen for the years they add, which in a second synthetic test raised the certified '
+    'closing year from 10.8 to 31.9 years with chloride below 123 mg/L in 95% of runs. The integrated system moves from '
+    'technology readiness level 3 to 7.')
 
 HOW = (
     'The work is organised in seven work packages over 36 months, in three phases separated by evidence gates whose '
@@ -115,7 +121,8 @@ HOW = (
     'miss rates.\n'
     'Operate, verify and hand over (Months 22–36). WP5 runs the system live for twelve months with the operators and civil '
     'protection, logs every bulletin with its outcome, verifies the miss rates with anytime-valid tests, computes the '
-    'certified safe operating window, agrees a pumping rule with the utility and runs the post-event protocol after any '
+    'certified safe operating window, sharpens it with safe pumping tests approved by the utility, agrees a pumping rule '
+    'with the utility and runs the post-event protocol after any '
     'earthquake or storm. WP6 trains early-career researchers and operator staff, releases the open software and transfers '
     'the method to a second coast in the partner country. WP7 manages data access, security classification, risks and '
     'reporting.\n'
@@ -138,10 +145,14 @@ SOTA = (
     '• Statistical guarantees for forecasts: online conformal prediction under distribution shift (Gibbs and Candès, 2024, '
     'Journal of Machine Learning Research), extreme conformal prediction (Pasche, Lam and Engelke, 2026, Extremes) and '
     'anytime-valid inference (Ramdas et al., 2023, Statistical Science).\n'
+    '• Active identification of nonlinear dynamical systems with guarantees (Mania, Jordan and Recht, 2022, Journal of '
+    'Machine Learning Research) and generative forecasting of the statistics of complex systems (Gao, Kaltenbach and '
+    'Koumoutsakos, 2024, Nature Communications).\n'
     '• The 2019 earthquake at Durrës and its liquefaction (Mavroulis, Lekkas and Carydis, 2021, Geosciences).\n'
     'None of these combines the three hazards in one model, issues warnings with a certified miss rate, or computes when a '
     'safe way of operating the assets ends. In our literature search we found no study that derives a joint intrusion, '
-    'liquefaction and subsidence operating window with certified margins, or values a sensor in years of safe operation; a '
+    'liquefaction and subsidence operating window with certified margins, values a sensor in years of safe operation, or '
+    'chooses pumping tests for the years they add; a '
     'final check in bibliographic databases will be made before submission.\n'
     'Related activities of the project participants: [list proposed, ongoing or recently completed projects of the '
     'Co-Directors on related topics, with dates and budgets, or write "none"].\n'
@@ -160,7 +171,8 @@ ABSTRACT = (
     'coast, copied by a fast artificial-intelligence model whose error is stated for every forecast. Each warning will state '
     'in advance how often it may miss a dangerous event, and this will be checked in twelve months of live operation with the '
     'water utility, the port, the energy operator and civil protection. The project will also show how many years a safe '
-    'way of operating the three assets together remains. Local operators will run the system afterwards.')
+    'way of operating the three assets together remains, and sharpen that estimate with short, safe pumping tests. Local '
+    'operators will run the system afterwards.')
 
 RELEVANCE = (
     'Link to security. The project protects three essential services of a NATO Ally (drinking water, a port that handles '
@@ -189,6 +201,9 @@ STATUS = (
     '• On a synthetic coastal transect, the certified safe operating window closed after 38 years, while plans that watch '
     'one hazard believed they had 43–97 years; a closed-form test for seawater reaching the wellfield agreed with a '
     'brute-force check in 200 of 200 cases.\n'
+    '• On a second synthetic test system, safe pumping tests chosen for the years they add raised the certified closing '
+    'year from 10.8 to 31.9 years (true value 45) with chloride below 123 mg/L in 95% of runs; unconstrained tests chosen '
+    'for parameter accuracy passed 250 mg/L in 42% of runs.\n'
     '• In a simulation of live verification, re-checking a 95% bound after every event wrongly flagged at least one of six '
     'correctly calibrated alarms in 68% of runs; the anytime-valid test used by the project did so in 2.2%.\n'
     'These are tests on synthetic coasts with illustrative values, not results at Durrës; the project calibrates and '
@@ -210,7 +225,8 @@ IMPACT = (
     'bounded by the sum of the rates.\n'
     '• Each operator knows in advance the minimum value of the warning for its own decisions, computed from the certified '
     'miss rate and the cost-loss ratio agreed with it.\n'
-    '• The water utility operates its wells within a certified safe window, which lowers the risk of salinising wells that '
+    '• The water utility operates its wells within a certified safe window, sharpened by safe pumping tests on its own '
+    'wells, which lowers the risk of salinising wells that '
     'take years to recover and avoids new permanent subsidence; planners know the year from which the window closes and '
     'which measures extend it.\n'
     '• At least 20 operator and civil-protection staff (at least two per operator) trained and running the system; at least '
@@ -232,7 +248,7 @@ TRL_TEXT = (
     'demonstrated in its operational environment through twelve months of live operation with the water utility, the port '
     'authority, the landfall operator and civil protection.\n'
     'Two components end at TRL 6: seismic velocity as a coastal water-table sensor, and the pumping rule within the safe '
-    'window, which are demonstrated at the site and agreed with the utility but not yet run for a full year.')
+    'window with its safe pumping tests, which are demonstrated at the site and agreed with the utility but not yet run for a full year.')
 
 DATA = (
     'Data required and existing sources: Copernicus Sentinel-1 radar images since 2014 (free and open); GNSS records; the '
@@ -320,7 +336,8 @@ KPIS = (
     '• D3.2 back-testing: each alarm\'s miss rate at or below its target with a 95% confidence bound, under a protocol '
     'published with a DOI before the results (Month 27, MS5).\n'
     '• D5.1 twelve months of live bulletins with every outcome logged, the miss rates consistent with their certificates, and '
-    'the certified safe operating window reported for each asset (Month 34, MS6).\n'
+    'the certified safe operating window reported for each asset, with every safe pumping test below its chloride test '
+    'limit (Month 34, MS6).\n'
     '• D6.1 open software and data with a DOI, reproduced by someone outside the team (Month 33); D6.2 operating procedures '
     'adopted and policy brief delivered (Month 36, MS7).\n'
     '• Capacity: at least 20 trained operator and civil-protection staff, at least six early-career researchers, at least six '
@@ -334,7 +351,7 @@ CRITERIA = [
     ['Held-out heads, chloride, InSAR and seismic velocity fall inside the model\'s 90% predictive intervals at a rate of at least 85% (D2.1, Month 18)', 15],
     ['The operators issue all bulletins in Months 34–36 with at least two trained staff each, and the maintenance agreement is signed (MS7)', 15],
     ['The monitoring network reaches at least 90% data availability over twelve months of operation (D4.2, T4.3)', 10],
-    ['The certified safe operating window and its closing year are reported for each asset and confirmed by the full model at the closing point (T5.3)', 10],
+    ['The certified safe operating window and its closing year are reported for each asset and confirmed by the full model at the closing point, and every pumping test stays below its chloride test limit (T5.3)', 10],
     ['The open release is installed and reproduces the synthetic test coast for a group outside the consortium (D6.1, Month 33)', 5],
 ]
 
@@ -578,7 +595,7 @@ def main(out):
     rk = {r[0]: r for r in BR.all_risks()}
     rrows = [[rk[c][1], lvl(rk[c][2]), lvl(rk[c][3]), rk[c][5]] for c in pick]
     head_repeat(table(doc, ['Risk description', 'Likelihood', 'Impact', 'Mitigating action'], rrows, [6.0, 1.9, 1.7, 7.4], size=9))
-    q = para(doc, 3, before=3); put(q, 'All 21 risks, with owners and triggers, are in the Risk Assessment document.', size=9, color=GREY, italic=True)
+    q = para(doc, 3, before=3); put(q, f'All {len(BR.all_risks())} risks, with owners and triggers, are in the Risk Assessment document.', size=9, color=GREY, italic=True)
     field(doc, 'Communication Plan')
     answer(doc, COMMS)
     field(doc, 'Key Performance Indicators (KPIs)', '500 words.')

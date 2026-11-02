@@ -645,7 +645,8 @@ def blocks(W, V, A, ST, ST5):
               'dewatering bound by <<adB>> m³/d, worth <<amu>> years per 1,000 m³/d by Eq. [[mult]]; with the certified '
               '5 cm error of the head forecast, no test could certify more than <<atbest>> years.'),
         ('p', 'In the project the tests use the existing wells and the port dewatering (T5.3): the utility approves each '
-              'test, conductivity is logged and chloride sampled during the test and the recovery, and pumping returns to '
+              'test, heads stay above the head limit $h_{pc}$, conductivity is logged and chloride sampled during the test '
+              'and the recovery, and pumping returns to '
               'routine as soon as measured chloride reaches the test limit. The test system is replaced by the calibrated '
               'coupled model, and the years a campaign adds are reported with the safe window.'),
         ('img', 'active', 17.0),

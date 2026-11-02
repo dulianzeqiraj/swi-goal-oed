@@ -109,7 +109,7 @@ ROLES = [
 ]
 
 ENDUSERS = [
-    ['Water utility of the Durrës wellfields', 'Agrees the chloride threshold and the joint pumping rule; receives intrusion bulletins',
+    ['Water utility of the Durrës wellfields', 'Agrees the chloride threshold, approves the safe pumping tests and agrees the joint pumping rule; receives intrusion bulletins',
      'Access to wells and records; staff time', 'Certified intrusion warnings; pumping rule; trained staff'],
     ['Durrës Port Authority', 'Agrees liquefaction and water-level thresholds; receives bulletins for the port',
      'Site access for sensors; geotechnical records', 'Liquefaction and water-level warnings; post-event reports'],

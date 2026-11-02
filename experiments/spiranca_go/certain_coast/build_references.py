@@ -1,7 +1,7 @@
 """CERTAIN-COAST (NATO SPS proposal): consolidated references. Collects every source cited in the CERTAIN-COAST documents:
 the 30 papers of the State of the Art [1]-[30] (sota_data.py) and the local study [L1]; the classic method references of
 the Methodology [C1]-[C10] (build_methodology.py); NATO and SPS documents [N]; policy, legal and ethics frameworks [F];
-data standards and repositories [D]. Adds where each source is used, a map from each innovation (M1-M5, P1-P5) to the
+data standards and repositories [D]. Adds where each source is used, a map from each innovation (M1-M6, P1-P5) to the
 references it builds on (parsed from the State of the Art), and a compact key list with its word count for
 space-limited form fields. Nothing is added that was not cited and checked in the earlier documents.
 
@@ -87,10 +87,11 @@ def innovations():
                         a, b = re.split(r'[–-]', part); refs.update(range(int(a), int(b) + 1))
                     elif part.isdigit():
                         refs.add(int(part))
+            refs.update(re.findall(r'\[(X\d+)\]', content))   # other references of the State of the Art
             out.append([code, name, refs])
     for _, items in D.GROUPS:
         for it in items:
-            for code in set(re.findall(r'\b([MP][1-5])\b', it['beyond'])):
+            for code in set(re.findall(r'\b([MP][1-6])\b', it['beyond'])):
                 for row in out:
                     if row[0] == code:
                         row[2].add(it['n'])
@@ -166,7 +167,14 @@ def main(out):
            'is a third-party page and is marked as such.', italic=True, size=9.5, color='52606D')
 
     heading(doc, '1. Innovations and the references they build on', 13.5, before=4)
-    rows = [[c, n, ', '.join(f'[{r}]' for r in sorted(refs)) or 'No direct precedent found: new in CERTAIN-COAST'] for c, n, refs in inv]
+    ccode = {_title(r_): f'C{i}' for i, r_ in enumerate(BM.REFS + frontier, start=1)}
+    xmap = {code: ccode.get(_title(cite)) for code, cite, _ in D.OTHER}
+
+    def builds_on(refs):
+        nums = [f'[{r}]' for r in sorted(r for r in refs if isinstance(r, int))]
+        lets = sorted({xmap[r] for r in refs if isinstance(r, str) and xmap.get(r)}, key=lambda c: int(c[1:]))
+        return ', '.join(nums + [f'[{c}]' for c in lets])
+    rows = [[c, n, builds_on(refs) or 'No direct precedent found: new in CERTAIN-COAST'] for c, n, refs in inv]
     t = table(doc, ['', 'Innovation', 'Builds on'], rows, [1.2, 10.0, 5.8], size=9.5)
     t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
     p = para(doc, 6, before=3)
@@ -177,7 +185,7 @@ def main(out):
     for grp, items in D.GROUPS:
         p = para(doc, 3, before=4); run(p, grp, bold=True, size=11, color='2E6DB4'); p.paragraph_format.keep_with_next = True
         for it in items:
-            codes = sorted(set(re.findall(r'\b([MP][1-5])\b', it['beyond'])))
+            codes = sorted(set(re.findall(r'\b([MP][1-6])\b', it['beyond'])))
             free = it.get('free')
             extra = f'{it["inst"]}' + (f'; free copy: {free.replace("https://", "")}' if free and free != it['doi'] else
                                        ('' if free else f'; {it.get("free_note", "paywalled")}'))
@@ -226,7 +234,7 @@ def main(out):
     doc.save(out)
     print('saved', out, '| sources', n_total, '| innovations', len(inv), '| key list', len(key_lines), 'refs', words, 'words')
     for c, n, refs in inv:
-        print(c, n[:50], sorted(refs))
+        print(c, n[:50], sorted(refs, key=str))
 
 
 if __name__ == '__main__':

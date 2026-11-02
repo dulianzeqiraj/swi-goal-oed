@@ -85,7 +85,7 @@ CAPACITY = [
 ]
 
 ENV = [
-    '**Groundwater used within reversible limits.** The joint pumping rule keeps heads above the preconsolidation head, so pumping causes no new permanent subsidence and the aquifer is used within the range in which it recovers (Methodology, Section 7).',
+    '**Groundwater used within reversible limits.** The joint pumping rule keeps heads above the preconsolidation head, so pumping causes no new permanent subsidence and the aquifer is used within the range in which it recovers (Methodology, Section 7). The safe pumping tests stay within the same limit and below a chloride test limit, and stop as soon as measured chloride reaches it (Methodology, Section 7.6).',
     '**Freshwater protected before it is lost.** The certified intrusion alarm acts before wells turn saline, which takes years to reverse.',
     '**Low-footprint equipment.** Field stations run on solar power; satellite data replace much field surveying.',
 ]
@@ -123,7 +123,7 @@ NEW = [
     '**A guarantee that maintains itself.** The online conformal term updates the margins from every logged outcome, without the developers and without assuming that conditions stay the same, so the certified miss rate keeps holding after the project.',
     '**A system that warns about itself.** The bulletin log compares observed miss rates with their targets; if a guarantee starts to drift, the operators see it and trigger recalibration before trust is lost.',
     '**Better with use.** Every year of data narrows the forecasts and shrinks the margins, so the service gives fewer false alarms the longer it runs.',
-    '**Environmental limits as hard constraints.** The pumping rule never lets heads fall below the preconsolidation head, so the aquifer is used within the range in which it recovers.',
+    '**Environmental limits as hard constraints.** The pumping rule and the pumping tests never let heads fall below the preconsolidation head, so the aquifer is used within the range in which it recovers.',
     '**Verification that outlives the project.** A certified miss rate needs a counted number of events to be verified (29 with no miss for 10%). The operators keep the quarterly verification ledger after Month 36 until every alarm type reaches its count, so the guarantee is completed, not abandoned, when the grant ends.',
     '**Sustainability with pass tests.** The hand-over has its own checks at Months 30, 33, 34 and 36, each with a fallback, so a weak point is found while the project team can still fix it (Section 3).',
     '**A hand-over that is measured.** Operators issue every bulletin in the last three months, so sustainability is demonstrated before the project ends, not assumed after it.',

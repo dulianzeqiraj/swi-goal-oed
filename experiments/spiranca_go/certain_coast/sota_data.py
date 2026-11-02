@@ -10,7 +10,7 @@ SUBTITLE = ('What has been done (30 key papers, 2020–2026, Caltech, MIT, Harva
 
 GAP_ROWS = [
     ['Seawater intrusion at the wellfields', 'Variable-density models, management optimisation and monitoring design exist, but our searches found no 2020–2026 intrusion paper from the four universities; the preparatory work of this proposal (coupled model, goal-oriented design, extreme-aware alarm) covers it',
-     'No intrusion warning with a guaranteed miss rate; subsidence and earthquakes absent from the seaward boundary', '**Certified intrusion alarm** on the coupled model, with the relative-sea-level boundary R(t)'],
+     'No intrusion warning with a guaranteed miss rate; subsidence and earthquakes absent from the seaward boundary; no pumping test designed for the decision it informs', '**Certified intrusion alarm** on the coupled model, with the relative-sea-level boundary R(t); **safe pumping tests** chosen for the years they add (M6)'],
     ['Land subsidence and vertical land motion', 'Measured from InSAR/GNSS; sustainable pumping set from 30 years of InSAR; abrupt switch to irreversible compaction detected [1–3]; land motion at tide gauges shown to vary in time with fluid withdrawal and earthquakes [4]',
      'Measured subsidence is not used as a time-varying boundary condition in intrusion, flooding and liquefaction models at the same site', '**One relative sea level R(t) = η(t) − u_z(t)** from InSAR/GNSS drives all three hazard models'],
     ['Extreme sea levels', 'Probabilistic sea-level reconstructions with causes and land motion [5]; extremes attributed to relative sea-level rise [6]; physics-based compound flooding [7]; compound and multi-hazard risk to ports [8, 9]',
@@ -110,7 +110,8 @@ SECTIONS = [
               'has been applied to a slow physics model of a coastal hazard, and the first method that reaches levels beyond the '
               'observed record (extreme conformal prediction, 2026; Methodology, Section 5.3) has not been used for them. Third, '
               '**the new sensors (InSAR time series, seismic noise, fibre) are measured but not designed**: no study chooses them '
-              'jointly with wells and chemical samples to minimise the miss probability of the warnings.'),
+              'jointly with wells and chemical samples to minimise the miss probability of the warnings, and our search found '
+              'no pumping-test design chosen for the decision it informs.'),
     ]),
     ('4. What CERTAIN-COAST brings', [
         ('h', 'Mathematical innovations'),
@@ -133,9 +134,19 @@ SECTIONS = [
               '(Methodology, Section 7.4).'),
         ('b', '**M4. An error-certified surrogate of the coupled model.** A neural or kernel operator of the coupled variable-density, '
               'poroelastic model [25, 26], whose error is bounded a posteriori and calibrated conformally [23], makes thousands of '
-              'storylines and real-time updates affordable without losing the guarantee.'),
+              'storylines and real-time updates affordable without losing the guarantee. For long storylines a generative copy '
+              'of the model [X4] is used to explore and to choose the full runs; in a synthetic test its statistics alone put the '
+              'closing year 2–8 years after the true one, so closing years are certified from full runs (Methodology, Section 4.2).'),
         ('b', '**M5. Nonstationary extremes with measured land motion.** Extreme water levels are modelled with InSAR/GNSS land motion as '
               'a time-varying covariate of the location parameter, instead of a linear trend [4, 5].'),
+        ('b', '**M6. Safe pumping tests chosen for the years they add.** Routine operation keeps the water table in a narrow '
+              'band, so the records never show how chloride responds near the onset of intrusion, and that response sets the '
+              'certified boundary of the safe window of P3. Short pumping and dewatering tests approach the onset under a chloride '
+              'safety filter and are chosen for the years they add to the certified closing year, extending active identification '
+              'of nonlinear systems with guarantees [X3] from the accuracy of all parameters to one decision. In a second synthetic '
+              'test they raised the certified closing year from 10.8 to 31.9 years (true value 45) with chloride below 123 mg/L in '
+              '95% of runs, while unconstrained tests chosen for parameter accuracy passed 250 mg/L in 42% of runs (Methodology, '
+              'Sections 6 and 7.6).'),
         ('h', 'Physical innovations'),
         ('b', '**P1. One relative-sea-level boundary for all three hazards**, R(t) = η(t) − u_z(t), with u_z from InSAR/GNSS after removal '
               'of loading signals [1–5].'),
@@ -313,6 +324,10 @@ OTHER = [
     ('X1', 'Richardson, D. S. (2000). Skill and relative economic value of the ECMWF Ensemble Prediction System. Quarterly Journal of the Royal Meteorological Society 126, 649–667.',
      'https://www.ecmwf.int/en/elibrary/76153-skill-and-relative-economic-value-ecmwf-ensemble-prediction-system'),
     ('X2', 'Murphy, A. H. (1977). The value of climatological, categorical and probabilistic forecasts in the cost-loss ratio situation. Monthly Weather Review 105(7), 803.', None),
+    ('X3', 'Mania, H., Jordan, M. I. and Recht, B. (2022). Active learning for nonlinear system identification with guarantees. Journal of Machine Learning Research 23, 1–30.',
+     'http://jmlr.org/papers/v23/20-807.html'),
+    ('X4', 'Gao, H., Kaltenbach, S. and Koumoutsakos, P. (2024). Generative learning for forecasting the dynamics of high-dimensional complex systems. Nature Communications 15, 8904.',
+     'https://doi.org/10.1038/s41467-024-53165-w'),
 ]
 
 WHAT_NEW = [

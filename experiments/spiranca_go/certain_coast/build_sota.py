@@ -98,7 +98,7 @@ INST_COL = {'Caltech': '#B45309', 'MIT': '#B03A3A', 'Harvard': '#6a4fb3', 'Oxfor
 CAPS = ['Measured', 'Modelled', 'Coupled to\nthe other\nhazards', 'Sensors\ndesigned for\nthe warning', 'Warning with\na stated\nmiss rate']
 # component -> literature state per capability (2 done, 1 partial, 0 not done) and the innovation that closes it
 GAPS = [
-    ('Seawater intrusion', [2, 2, 0, 1, 0], ['', '', 'P1, P3', 'M3', 'M1']),
+    ('Seawater intrusion', [2, 2, 0, 1, 0], ['', '', 'P1, P3', 'M3, M6', 'M1']),
     ('Subsidence, land motion', [2, 2, 0, 0, 1], ['', '', 'P1', 'M3', 'P4']),
     ('Extreme sea levels', [2, 2, 1, 0, 0], ['', '', 'P1, M5', 'M3', 'M1']),
     ('Liquefaction', [2, 2, 0, 0, 0], ['', '', 'P2', 'M3, P5', 'M1']),
@@ -253,7 +253,7 @@ def main(out):
     heading(doc, 'Local study (not from the four universities)', 12.5, color='2E6DB4', before=6)
     for code, cite, url in D.LOCAL:
         p = para(doc, 3); run(p, f'[{code}] ', bold=True, size=11, color='1F3864'); run(p, cite + '  ', size=10.5); link(p, url, url.replace('https://', ''), 10)
-    heading(doc, 'Other references cited (decision value, V1)', 12.5, color='2E6DB4', before=6)
+    heading(doc, 'Other references cited (V1, M4, M6)', 12.5, color='2E6DB4', before=6)
     for code, cite, url in D.OTHER:
         p = para(doc, 3); run(p, f'[{code}] ', bold=True, size=11, color='1F3864'); run(p, cite + ('  ' if url else ''), size=10.5)
         if url:

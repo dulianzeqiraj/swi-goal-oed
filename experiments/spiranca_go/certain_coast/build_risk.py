@@ -1,5 +1,5 @@
 """CERTAIN-COAST (NATO SPS proposal): Risk assessment. Scoring method (likelihood x impact, 1-5), a risk matrix before and
-after mitigation (figure), a register of 21 risks in seven categories with early-warning indicators and numeric
+after mitigation (figure), a register of 22 risks in seven categories with early-warning indicators and numeric
 triggers, mitigation, contingency, owner and residual score, the risks the warning service itself could create,
 monitoring and escalation (T7.3), and what is new. The seven risks of the Work Plan are included with the same ratings
 (Low = 2, Medium = 3, High = 4).
@@ -113,6 +113,10 @@ CATS = [
          3, 3, 'Data latency above the cadence of a hazard; failed backup',
          'Redundant server and storage; offline copy of the surrogate at each operator; access control and updates',
          'Manual bulletin from the last valid forecast with a wider margin; restore from backup', 'WP5', 2, 2),
+        ('R22', 'A pumping test drives chloride at a production well towards the test limit, or the utility does not approve the tests',
+         2, 4, 'Measured chloride within 10% of the test limit during a test; no approval by Month 24',
+         'Tests chosen with a safety filter on the upper confidence bound of chloride; small tests first; conductivity logged continuously; heads kept above the head limit; each test approved by the utility',
+         'Stop the test and return to routine pumping; smaller and shorter tests; window from routine records only', 'WP5', 1, 2),
     ]),
     ('E. People, partners and budget', [
         ('R18', 'Loss of key researchers or of trained operator staff',
@@ -186,7 +190,7 @@ def all_risks():
 # months in which each risk can strike (inclusive), from the task and milestone dates of the Work Plan
 WINDOW = {'R1': (1, 6), 'R2': (1, 12), 'R3': (4, 18), 'R4': (1, 12), 'R5': (12, 18), 'R6': (15, 34), 'R7': (22, 34),
           'R8': (23, 36), 'R9': (1, 24), 'R10': (4, 12), 'R11': (12, 36), 'R12': (4, 12), 'R13': (1, 36), 'R14': (23, 34),
-          'R15': (23, 36), 'R16': (23, 36), 'R17': (23, 36), 'R18': (1, 36), 'R19': (4, 12), 'R20': (1, 36), 'R21': (12, 36)}
+          'R15': (23, 36), 'R16': (23, 36), 'R17': (23, 36), 'R18': (1, 36), 'R19': (4, 12), 'R20': (1, 36), 'R21': (12, 36), 'R22': (24, 33)}
 
 
 def exposure(li, ii):
@@ -395,9 +399,11 @@ def main(out):
     k = int(eb.argmax())
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     k1 = int(eb[:18].argmax())
+    when = {23: 'when live operation starts', 24: 'when the pumping tests begin, just after live operation starts,'}.get(
+        k + 1, 'during live operation,')
     rich(p, f'Each risk can strike only in some months: access in the first half-year, calibration before Month 18, false alarms '
             f'and missed events during live operation. Adding the scores of the risks open in each month gives the exposure of the '
-            f'project over time (Figure 2). It is highest, {eb[k]:.0f}, in Month {k + 1}, when live operation starts while the model, '
+            f'project over time (Figure 2). It is highest, {eb[k]:.0f}, in Month {k + 1}, {when} while the model, '
             f'alarm and service risks are all open, and almost as high, {eb[k1]:.0f}, in Month {k1 + 1}, when installation, '
             f'calibration and the data-quality risks overlap. Mitigation lowers the peak to {ea.max():.0f}. The monthly review '
             '(T7.3) concentrates on the risks open at the time.', size=10.5)

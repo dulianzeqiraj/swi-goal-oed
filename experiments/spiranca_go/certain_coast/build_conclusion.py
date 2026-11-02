@@ -107,7 +107,7 @@ def main(out):
 
     heading(doc, '3. Why it can be done', 13.5, before=8)
     bullets(doc, [
-        '**Evidence before the project.** In preparatory synthetic tests, the extreme-aware alarm kept the share of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%.',
+        '**Evidence before the project.** In preparatory synthetic tests, the extreme-aware alarm kept the share of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%, and safe pumping tests raised the certified closing year of the safe window from 10.8 to 31.9 years with chloride below 123 mg/L in 95% of runs.',
         '**Users on board from the start.** The water utility, the port authority, the landfall operator and civil protection confirm their roles in commitment letters, agree the thresholds before live operation (T3.1, Months 13–15) and co-sign the operational milestones.',
         '**Decisions by evidence.** Three gates (Months 18, 22 and 27) with thresholds fixed in advance decide whether each phase starts; each has a named fallback.',
         f'**Risks under control.** {F["nrisk"]} risks with owners and numeric triggers; before mitigation {b["Very high"]} very high and {b["High"]} high, after mitigation none high or very high.',

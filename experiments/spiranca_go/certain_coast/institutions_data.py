@@ -156,7 +156,7 @@ EU = dict(
          'Durrës, licensed by the water regulator ERRU (Decision No. 6 of 22 February 2023); it took over the former '
          'Ujësjellës Kanalizime Durrës on 1 January 2023 and pumps from the Fushë Kuqe and Fushë Milot wellfields. '
          '<https://www.shuk.al/durres>\n'
-         '**In CERTAIN-COAST:** agrees the chloride threshold and the joint pumping rule; gives access to wells, records '
+         '**In CERTAIN-COAST:** agrees the chloride threshold and the joint pumping rule and approves the safe pumping tests; gives access to wells, records '
          'and staff time; gains certified intrusion warnings, a pumping rule and trained staff.'),
         ('Port',
          '**Autoriteti Portual Durrës** (Durrës Port Authority), a public legal person under Law No. 9130 of 8 September '

@@ -55,7 +55,7 @@ SELF = [
     ['Artificial intelligence in safety decisions', 'Yes',
      'Six NATO principles applied (Section 2); human oversight; full logs', 'WP2, WP3, WP5'],
     ['Environment, health and safety', 'Yes',
-     'Permits for drilling and installation; boreholes sealed and logged; field safety plan; removal or hand-over of all equipment at the end', 'WP4; R12, R13'],
+     'Permits for drilling and installation; boreholes sealed and logged; field safety plan; pumping tests approved by the utility, with a chloride test limit and a stop rule; removal or hand-over of all equipment at the end', 'WP4, WP5; R12, R13, R22'],
     ['Partner outside NATO', 'Yes',
      'Equal partnership; data transfer agreements; local ethics approval and data law respected in each country', 'Partnership'],
     ['Animals, human tissue, clinical research', 'No', '—', '—'],
@@ -92,6 +92,7 @@ EHS = [
     '**Permits and consent of owners** for drilling, installation and access, obtained before any field work.',
     '**Protection of the aquifer:** boreholes designed and sealed so that they do not connect fresh and saline layers, with conductivity logged before and after (R12).',
     '**Safety of people:** field safety plan, inductions at each site, two-person rule and no field work during active warnings (R13).',
+    '**Safe pumping tests:** each test on existing wells is approved by the water utility, keeps heads above the head limit and chloride below an agreed test limit, and stops as soon as measured chloride reaches it (T5.3, R22).',
     '**Clean exit:** equipment not handed over is removed at the end; batteries and electronic waste are disposed of through licensed channels.',
 ]
 

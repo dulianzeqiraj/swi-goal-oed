@@ -45,7 +45,7 @@ IO = {
     'WP4': ('Preliminary sensitivities (WP2); value of each sensor (WP3); site access (WP7)',
             'Data streams → WP1, WP2, WP5; seismic velocity as a water-table gauge → WP2'),
     'WP5': ('Certified alarms (WP3); data streams (WP4); surrogate (WP2)',
-            'Bulletin log and outcomes → WP3 (margin update), WP6 (procedures, verification); joint pumping rule'),
+            'Bulletin log and outcomes → WP3 (margin update), WP6 (procedures, verification); safe pumping tests and joint pumping rule'),
     'WP6': ('Results of all work packages', 'Trained people; open software and data; operating procedures; policy brief'),
     'WP7': ('All work packages', 'Access agreements and data management plan; risk register; progress and final reports'),
 }
@@ -54,7 +54,7 @@ NEWWP = {
     'WP2': 'One model in which the same water table drives intrusion, compaction and the liquefaction factor of safety, with a certified fast copy (P2, P3, M4).',
     'WP3': 'Alarms whose miss rates are certified, each and jointly, with margins extended beyond the observed record (M1, M2).',
     'WP4': 'A network designed for the warnings across seven sensor types, and seismic noise used as a water-table gauge (M3, P5).',
-    'WP5': 'A pumping rule checked against all three hazards at once, and certified miss rates verified against a live bulletin log (P3).',
+    'WP5': 'A pumping rule checked against all three hazards at once, safe pumping tests valued in years, and certified miss rates verified against a live bulletin log (P3, M6).',
     'WP6': 'A coast kit and a transfer test on a second coast within the project; verification statistics published openly.',
     'WP7': 'Risk indicators with numeric triggers watched like the hazards, and a data plan with a security gate.',
 }

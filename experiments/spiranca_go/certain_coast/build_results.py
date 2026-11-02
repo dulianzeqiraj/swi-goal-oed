@@ -1,4 +1,4 @@
-"""CERTAIN-COAST (NATO SPS proposal): Expected results. What will exist at the end; fourteen results by type; a results
+"""CERTAIN-COAST (NATO SPS proposal): Expected results. What will exist at the end; fifteen results by type; a results
 table (objective proved, deliverable and month, measure of success, main users); a figure of which user uses which
 result; the minimum each key result still delivers if a gate or field condition fails; impact over time; where the
 results go next; what is new. Consistent with the Objectives (O1-O6), the Work Plan and the Impact section (V1 = R14).
@@ -34,7 +34,8 @@ GROUPS = [
     ]),
     ('3. Operational results for the end users', [
         ('R9', 'Twelve months of live operation', 'Bulletins issued to the water utility, the port authority, the landfall operator and civil protection, each logged with its outcome, so that the certified miss rates can be checked in practice. (WP5, D5.1)'),
-        ('R10', 'A pumping rule that is safe for all three hazards', 'An operating rule for the wellfields, agreed with the utility, that keeps the intrusion, liquefaction and extreme-sea-level alarms within their targets together. (WP5, T5.3)'),
+        ('R10', 'A pumping rule that is safe for all three hazards', 'An operating rule for the wellfields, agreed with the utility, inside the certified safe operating window and its closing year, that keeps the intrusion, liquefaction and extreme-sea-level alarms within their targets together. (WP5, T5.3)'),
+        ('R15', 'Safe pumping tests that certify more years', 'Short pumping and dewatering tests on existing wells, approved by the utility and kept below a chloride test limit, chosen for the years they add to the certified closing year of the window; in a second synthetic test they raised it from 10.8 to 31.9 years. (WP5, T5.3)'),
         ('R11', 'A post-event protocol', 'Measurements of heads, conductivity, chloride, ground motion and seismic velocity within days of a strong earthquake or surge, turning each event into data for the system. (WP5, T5.4)'),
         ('R14', 'A certified value of the warning for each user', 'For the decision each operator takes on a warning, a guaranteed lower bound on its relative economic value, derived from the certified miss rate and the cost-loss ratio agreed with that operator, reported with the value actually observed. (WP5, T3.1, D5.1)'),
     ]),
@@ -59,6 +60,7 @@ TABLE = [
     ['R12', 'Trained people', 'T6.1–T6.2, M36', 'Indicatively ≥ 6 early-career researchers and ≥ 20 operator staff', 'Partner institutions; operators'],
     ['R13', 'Procedures and policy brief', 'D6.2, M36', '≥ 1 procedure adopted per asset; brief delivered', 'Operators; national authorities'],
     ['R14', 'Certified value for each user', 'D5.1, M34', 'Lower bound reported for each user and compared with the observed value', 'All operators; civil protection'],
+    ['R15', 'Safe pumping tests valued in years', 'T5.3, M24–33', 'Every test below its chloride test limit; years added reported with the window', 'Water utility; national authorities'],
 ]
 
 SECURITY = [
@@ -91,18 +93,18 @@ DISSEM = [
 
 
 OBJ_OF = {'R1': 'O1', 'R2': 'O2', 'R3': 'O3', 'R4': 'O4', 'R5': 'O4', 'R6': 'O4', 'R7': 'O2', 'R8': 'O6', 'R9': 'O5',
-          'R10': 'O5', 'R11': 'O5', 'R12': 'O6', 'R13': 'O6', 'R14': 'O5'}
+          'R10': 'O5', 'R11': 'O5', 'R12': 'O6', 'R13': 'O6', 'R14': 'O5', 'R15': 'O5'}
 SHORT = {'R1': 'Relative sea level, land motion', 'R2': 'Coupled model of three hazards', 'R3': 'Certified alarms, proofs',
          'R4': 'Seismic velocity as sensor', 'R5': 'Value of each sensor type', 'R6': 'Monitoring network',
          'R7': 'Certified surrogate', 'R8': 'Warning system, software, data', 'R9': '12 months live operation',
          'R10': 'Pumping rule, three hazards', 'R11': 'Post-event protocol', 'R12': 'Trained people',
-         'R13': 'Procedures, policy brief', 'R14': 'Certified value per user'}
+         'R13': 'Procedures, policy brief', 'R14': 'Certified value per user', 'R15': 'Safe pumping tests'}
 USERS = ['Water\nutility', 'Port\nauthority', 'Landfall\noperator', 'Civil\nprotection', 'National\nauthorities', 'Scientists']
 # 2 = main user, 1 = also uses, 0 = not a direct user
 USE = {'R1': [1, 2, 2, 1, 2, 2], 'R2': [2, 1, 1, 0, 0, 2], 'R3': [2, 2, 2, 2, 0, 2], 'R4': [0, 2, 2, 0, 0, 2],
        'R5': [2, 1, 1, 0, 1, 2], 'R6': [2, 2, 2, 1, 0, 1], 'R7': [1, 1, 1, 0, 0, 2], 'R8': [2, 2, 2, 2, 1, 2],
        'R9': [2, 2, 2, 2, 1, 1], 'R10': [2, 1, 1, 0, 1, 1], 'R11': [1, 2, 2, 2, 1, 1], 'R12': [2, 2, 2, 2, 0, 2],
-       'R13': [2, 2, 2, 1, 2, 0], 'R14': [2, 2, 2, 2, 0, 1]}
+       'R13': [2, 2, 2, 1, 2, 0], 'R14': [2, 2, 2, 2, 0, 1], 'R15': [2, 0, 0, 0, 1, 2]}
 TYPE_COL = {'1': '#2e6db4', '2': '#6a4fb3', '3': '#c27c12', '4': '#0e7490'}
 
 MINIMUM = [
@@ -112,6 +114,7 @@ MINIMUM = [
     ['R6 Monitoring network', 'Prices above the budget lines or site access refused', 'Sensors installed in order of value within the remaining budget, on the nearest accessible ground'],
     ['R7 Certified surrogate', 'Error bound not met in part of the domain (gate MS4)', 'Full model on a reduced domain for the flagged forecasts; margin widened automatically'],
     ['R9 Live operation', 'No strong earthquake or surge in twelve months', 'Event-based guarantees verified by back-testing and storylines; bulletin log continued after hand-over'],
+    ['R15 Safe pumping tests', 'The utility approves fewer tests, or chloride nears the test limit', 'Smaller and shorter tests; the window from routine records only, with fewer certified years'],
 ]
 
 AFTER = [
@@ -122,7 +125,7 @@ AFTER = [
 ]
 
 NEW = [
-    '**Every result has a user and a test.** Each of the 14 results names who uses it, the objective it proves, and the measure that shows it was reached.',
+    '**Every result has a user and a test.** Each of the 15 results names who uses it, the objective it proves, and the measure that shows it was reached.',
     '**Results that check themselves.** The live bulletin log (R9) is both a result and the evidence that the certified miss rates (R3) and the value to each user (R14) hold.',
     '**A guaranteed minimum.** Each result that depends on an evidence gate or a field condition has a stated minimum version, so a failed test still leaves the users with something they can use.',
     '**A result in the users\' own terms.** R14 states what each warning is at least worth for each operator\'s own decision, not only how accurate it is.',

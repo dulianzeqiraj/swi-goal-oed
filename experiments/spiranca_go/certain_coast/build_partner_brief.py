@@ -84,6 +84,8 @@ def build_docx(path):
         'limits at once, and the sea level or year at which this window closes. In our literature search we found no '
         'published method for this.',
         '**The value of a sensor in years of safe operation**, used to choose the monitoring network.',
+        '**Safe pumping tests chosen for the years they add** to the certified window, kept below a chloride test limit; in '
+        'a synthetic test they raised the certified horizon from 10.8 to 31.9 years.',
     ])
 
     head(doc, 'The role we propose for the partner-country team: clear tasks, no algorithm work')

@@ -58,7 +58,7 @@ LINES = [
     ('Equipment', 'Software licences', 1, 3000, ['WP2'], (1, 0, 0), 'NPD',
      'Processing tools without an open-source equivalent; the project itself releases open software'),
     ('Consumables', 'Laboratory analyses: chloride and major ions', 300, 40, ['WP4'], (0.3, 0.4, 0.3), 'NPD',
-     'Calibrates conductivity loggers against chloride and constrains the model (T2.3)'),
+     'Calibrates conductivity loggers against chloride, constrains the model (T2.3) and checks the safe pumping tests (T5.3)'),
     ('Consumables', 'Sampling consumables: bottles, filters, standards', 1, 4000, ['WP4'], (0.4, 0.3, 0.3), 'NPD',
      'Quality-controlled sampling over three years'),
     ('Consumables', 'Field consumables: batteries, cables, fixings', 1, 4000, ['WP4'], (0.4, 0.3, 0.3), 'NPD',
