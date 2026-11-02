@@ -29,11 +29,11 @@ import build_risk as BR  # noqa: E402
 FULL = ('Certified early warning for seawater intrusion, liquefaction and extreme sea levels at the wellfields, port and '
         'energy landfall of a subsiding Adriatic coast')
 
-LEAD = {'WP1': '[NPD team] or [additional NATO co-director]', 'WP2': '[PPD team]', 'WP3': '[PPD team]', 'WP4': '[NPD team]',
+LEAD = {'WP1': '[NPD team] or [additional NATO co-director]', 'WP2': '[NPD team]', 'WP3': '[NPD team]', 'WP4': '[NPD team]',
         'WP5': '[NPD team]', 'WP6': '[PPD team]', 'WP7': '[NPD team] (coordinator)'}
-PARTS = {'WP1': 'PPD team; Albanian research partner', 'WP2': 'NPD team', 'WP3': 'NPD team; end-users (thresholds, T3.1)',
-         'WP4': 'Albanian research partner; additional NATO co-director (T4.4)', 'WP5': 'End-users; civil protection; PPD team',
-         'WP6': 'All partners; end-users (T6.2, T6.4)', 'WP7': 'Steering committee; all partners'}
+PARTS = {'WP1': 'Albanian research partner', 'WP2': 'Early-career researchers of both countries', 'WP3': 'End-users (thresholds, T3.1)',
+         'WP4': 'Albanian research partner; additional NATO co-director (T4.4)', 'WP5': 'End-users; civil protection; PPD team (user-side review)',
+         'WP6': 'NPD team (training school, open software T6.3); end-users (T6.2, T6.4)', 'WP7': 'Steering committee; all partners'}
 OBJMAP = {'WP1': 'O1', 'WP2': 'O2', 'WP3': 'O3', 'WP4': 'O4', 'WP5': 'O5', 'WP6': 'O6', 'WP7': '—'}
 IO = {
     'WP1': ('Sentinel-1 archive; GNSS and corner reflectors (WP4); tide-gauge record',

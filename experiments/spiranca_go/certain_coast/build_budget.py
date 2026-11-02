@@ -51,11 +51,11 @@ LINES = [
      'Conductivity and temperature in the field; sampling for chloride'),
     ('Equipment', 'Spare loggers and sensors', 1, 6000, ['WP4'], (0.5, 0.5, 0), 'NPD',
      'Replacement within two weeks after damage or theft (R11, R21)'),
-    ('Equipment', 'Computing server with GPU', 1, 12000, ['WP2'], (1, 0, 0), 'PPD',
+    ('Equipment', 'Computing server with GPU', 1, 12000, ['WP2'], (1, 0, 0), 'NPD',
      'Thousands of coupled-model runs and training of the certified surrogate (T2.4)'),
     ('Equipment', 'Redundant data server and backup storage', 1, 5000, ['WP5'], (0, 1, 0), 'NPD',
      'Operational redundancy for the live bulletins (R17)'),
-    ('Equipment', 'Software licences', 1, 3000, ['WP2'], (1, 0, 0), 'PPD',
+    ('Equipment', 'Software licences', 1, 3000, ['WP2'], (1, 0, 0), 'NPD',
      'Processing tools without an open-source equivalent; the project itself releases open software'),
     ('Consumables', 'Laboratory analyses: chloride and major ions', 300, 40, ['WP4'], (0.3, 0.4, 0.3), 'NPD',
      'Calibrates conductivity loggers against chloride and constrains the model (T2.3)'),
@@ -113,7 +113,7 @@ SOURCES = [
 ]
 CONFIRM = [
     '**Equipment on the NATO-country side.** All field equipment is installed in Albania, a NATO member, because the critical infrastructure is there. An older SPS page says funds to NATO countries are mainly for travel and consumables and that equipment needs justification. Confirm with the SPS Programme (sps.info@hq.nato.int) before submission; the justification is that the network is site-specific, protects Allied critical infrastructure and is handed over to Albanian operators.',
-    '**Partner-country share.** The partner country receives about {ppd_pct}% of the budget in this version. If the Programme expects more, the options are to place the surrogate and alarm work (WP2, WP3) and more stipends at the partner institution, or to add a transfer study on a partner-country coast.',
+    '**Partner-country share.** The partner country receives about {ppd_pct}% of the budget in this version. The partner leads training, transfer and dissemination (WP6), while the model and the algorithm stay with the NATO-country team. If the Programme expects more, the options are to place more stipends and exchanges at the partner institution or to widen the transfer study on a partner-country coast.',
     '**Eligibility of drilling.** Borehole drilling is a service needed to install the piezometers; confirm that it can be charged under equipment.',
     '**Current rates and ceilings.** Check the stipend rate, the management allowance ceiling and any travel rules in the current handbook.',
     '**Unit costs.** All unit costs are planning estimates; replace them with quotes before submission (Risk Assessment, R19).',

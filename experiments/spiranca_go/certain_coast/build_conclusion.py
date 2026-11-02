@@ -102,7 +102,7 @@ def main(out):
         '**Resilience of an Ally.** It protects water, transport and energy, three of NATO\'s seven baseline requirements for civil preparedness, at assets an Ally depends on in a crisis.',
         '**SPS Key Priorities.** Environment, Climate Change and Security; Energy Security; and Innovation and Emerging and Disruptive Technologies.',
         '**Responsible use of AI.** Machine learning enters a security decision chain only with a certified error bound and a verified miss rate, so it is accountable rather than a black box.',
-        f'**Partner capacity.** The partner-country team manages {100 * F["ppd"]:.0f}% of the budget, leads the coupled model and the certified alarms, and takes the methods and open software home.',
+        f'**Partner capacity.** The partner-country team manages {100 * F["ppd"]:.0f}% of the budget, leads training, transfer and dissemination, tests the method on a coast of its own country, and takes the methods and open software home.',
     ])
 
     heading(doc, '3. Why it can be done', 13.5, before=8)

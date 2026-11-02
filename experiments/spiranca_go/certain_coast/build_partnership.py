@@ -27,9 +27,9 @@ FULL = ('Certified early warning for seawater intrusion, liquefaction and extrem
 
 LEAD = ('The CERTAIN-COAST partnership is built around the decision chain it serves: scientists who measure and model the '
         'coast, the operators who run the wellfields, the port and the energy landfall, and the civil-protection authority '
-        'that acts after an earthquake or a storm. The NATO-country team works where the critical infrastructure is; the '
-        'partner-country team leads the modelling, the certified alarms and the transfer, and brings a second subsiding '
-        'coast on which the method is tested for transfer within the project; the end-users co-design the thresholds and '
+        'that acts after an earthquake or a storm. The NATO-country team works where the critical infrastructure is and leads '
+        'the measurements, the model and the certified alarms; the partner-country team leads training, transfer and '
+        'dissemination, and brings a second coast on which the method is tested for transfer within the project; the end-users co-design the thresholds and '
         'run the system after hand-over. Names in square brackets are placeholders for the applicants to fill.')
 
 RULES = [
@@ -50,9 +50,9 @@ SOURCES = [
 
 GLANCE = [
     ['NATO-country Project Director (NPD)', 'Albania', '[Faculty of Geology and Mining, Polytechnic University of Tirana: to confirm]',
-     'Hydrogeology, geodesy, geotechnics; knowledge of the Durrës coast and access to the operators', 'Coordination; WP1, WP4, WP5, WP7'],
+     'Hydrogeology and groundwater modelling, geodesy, geotechnics, certified prediction; knowledge of the Durrës coast and access to the operators', 'Coordination; WP1–WP5, WP7'],
     ['Partner-country Project Director (PPD)', '[Eligible partner country]', '[University or research institute]',
-     'Numerical modelling, applied mathematics, uncertainty quantification and machine learning; a subsiding coast for the transfer test', 'WP2, WP3, WP6'],
+     'Coastal geoscience or water management; training and regional outreach; a coast for the transfer study', 'WP6'],
     ['Additional NATO co-director (optional)', '[NATO member]', '[Institute with InSAR and seismology]',
      'InSAR time-series processing; ambient-noise seismic interferometry', 'WP1; T4.4'],
     ['Albanian research partner (candidate)', 'Albania', '[e.g. the Institute of Geosciences, Polytechnic University of Tirana]',
@@ -62,7 +62,7 @@ GLANCE = [
 ]
 
 EXPERTISE = ['Hydrogeology and seawater intrusion', 'Geodesy and InSAR', 'Geotechnics and liquefaction',
-             'Seismology and ambient noise', 'Applied mathematics, uncertainty and machine learning',
+             'Seismology and ambient noise', 'Applied mathematics, uncertainty and machine learning', 'Training, transfer and regional outreach',
              'Sea level and extremes', 'Operation of the assets', 'Civil protection and emergency response']
 #                NPD  PPD  NCD  ARP  EU
 MATRIX = [
@@ -70,8 +70,9 @@ MATRIX = [
     ['●', '', '●', '○', ''],
     ['●', '○', '', '', ''],
     ['', '', '●', '●', ''],
-    ['○', '●', '', '', ''],
-    ['○', '●', '', '○', ''],
+    ['●', '', '', '', ''],
+    ['○', '●', '', '', '○'],
+    ['●', '○', '', '○', ''],
     ['', '', '', '', '●'],
     ['', '', '', '○', '●'],
 ]
@@ -84,7 +85,7 @@ OPTIONS = [
      'Port and energy infrastructure on a delta coast; strong security relevance in the Black Sea region',
      'Size of subsidence and availability of groundwater data to check'],
     ['Bosnia and Herzegovina', 'A short Adriatic coast at Neum; Western Balkan neighbour of Albania',
-     'Regional cooperation in the Western Balkans; a partner team can lead modelling and the certified alarms',
+     'Regional cooperation in the Western Balkans; a partner team can lead the transfer and regional dissemination',
      'Few coastal assets of the same type; the transfer test would be desk-based'],
     ['Algeria', 'Mediterranean coast with coastal aquifers affected by seawater intrusion and large ports',
      'Seawater intrusion and port infrastructure on the same sea',
@@ -93,17 +94,17 @@ OPTIONS = [
 CRITERIA = [
     '**An existing working relationship** with the Albanian team matters more than anything else: a partnership that has already published or worked together is credible to reviewers.',
     '**A coast that shares the problem** (subsidence, intrusion, ports or energy at the coast), so the transfer test in WP6 is real.',
-    '**Strength in the methods the partner leads** (modelling, applied mathematics, machine learning), so the partner has a substantive scientific role.',
+    '**A team that can lead training, transfer and outreach**, with access to data on its own coast, so the partner has a real role without carrying the core model and algorithm.',
     '**Eligibility in the current call**, checked on the official list, and a Project Director employed in that country.',
 ]
 
 ROLES = [
-    ['WP1', 'Coastal motion and relative sea level', '[NPD] or [additional NATO co-director]', 'PPD; Albanian research partner'],
-    ['WP2', 'Coupled model and certified surrogate', '[PPD]', 'NPD'],
-    ['WP3', 'Certified multi-hazard alarm', '[PPD]', 'NPD; end-users (thresholds, T3.1)'],
+    ['WP1', 'Coastal motion and relative sea level', '[NPD] or [additional NATO co-director]', 'Albanian research partner'],
+    ['WP2', 'Coupled model and certified surrogate', '[NPD]', 'Early-career researchers of both countries'],
+    ['WP3', 'Certified multi-hazard alarm', '[NPD]', 'End-users (thresholds, T3.1)'],
     ['WP4', 'Monitoring network', '[NPD]', 'Albanian research partner; additional NATO co-director (T4.4)'],
-    ['WP5', 'Live demonstration', '[NPD]', 'End-users; civil protection; PPD'],
-    ['WP6', 'Training, transfer and dissemination', '[PPD]', 'All partners; end-users (T6.2, T6.4)'],
+    ['WP5', 'Live demonstration', '[NPD]', 'End-users; civil protection; PPD (user-side review)'],
+    ['WP6', 'Training, transfer and dissemination', '[PPD]', 'NPD (training school, open software); end-users (T6.2, T6.4)'],
     ['WP7', 'Management, data and risk', '[NPD]', 'Steering committee'],
 ]
 
@@ -134,7 +135,7 @@ GOVERN = [
 
 VALUE = [
     '**For the Alliance:** protection of an Ally\'s water supply, port and energy landfall, with a method that can be applied to other coasts of Allies and partners.',
-    '**For the partner country:** leadership of the modelling, the certified alarms and the transfer, training of its young researchers, and a tested method for its own coast.',
+    '**For the partner country:** leadership of training, transfer and dissemination, on-site training of its young researchers, and a tested method for its own coast.',
     '**For the end-users:** a warning system they help design, run and own, with trained staff and procedures, and a guaranteed minimum value of the warning for their own decisions.',
     '**For science:** a joint team that combines field geoscience at critical infrastructure with the mathematics of certified prediction.',
 ]
@@ -151,7 +152,7 @@ CHECK = [
 NEW = [
     '**A partnership built on the decision chain.** Scientists, operators and civil protection are partners from the first month, so the thresholds are agreed before the alarms are designed and the users own the system at the end.',
     '**A twin-coast design.** The partner country brings a second subsiding coast, on which the method is tested for transfer within the project, not only promised after it.',
-    '**Leadership, not only participation, for the partner.** The partner-country team leads the mathematics, the certified alarms and the transfer, the parts of the project that are most portable.',
+    '**A role matched to the partner.** The partner-country team leads training, transfer and dissemination and tests the method on its own coast with the project\'s tools; the model and the algorithm stay with the team that builds them, which lowers the risk of the project.',
     '**The users hold decision rights.** The operators co-sign the milestones that change what they receive or run (MS1, MS4, MS6, MS7), and civil protection co-signs the bulletin log (MS6), so no phase that affects them starts without them (Section 7).',
     '**Security built into the partnership.** End-users set the security conditions for access and data in their commitment letters, consistent with the two-tier dissemination plan.',
 ]
@@ -180,8 +181,8 @@ def fig_structure(path):
 
     bw, bh, by = 1.96, 1.12, 2.02
     xs = (0.08, 2.37, 4.66)
-    box(xs[0], by, bw, bh, '#c27c12', '#c27c12', 'NATO-country PD', ['Albania', 'coordination', 'WP1, WP4, WP5, WP7'])
-    box(xs[1], by, bw, bh, '#6a4fb3', '#6a4fb3', 'Partner-country PD', ['[eligible partner country]', 'models, alarms, transfer', 'WP2, WP3, WP6'])
+    box(xs[0], by, bw, bh, '#c27c12', '#c27c12', 'NATO-country PD', ['Albania', 'coordination, models, alarms', 'WP1–WP5, WP7'])
+    box(xs[1], by, bw, bh, '#6a4fb3', '#6a4fb3', 'Partner-country PD', ['[eligible partner country]', 'training, transfer', 'WP6'])
     box(xs[2], by, bw, bh, '#2e6db4', '#2e6db4', 'NATO co-director', ['[NATO member], optional', 'InSAR, seismic noise', 'WP1, T4.4'])
     for x in xs:
         arrow(x + bw / 2, 3.52, x + bw / 2, by + bh + 0.02)

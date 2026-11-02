@@ -157,9 +157,9 @@ def main(out):
 
     heading(doc, 'Team and end-users', 13, before=6)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    rich(p, 'The NATO-country team in Albania coordinates the project and leads the network and the live demonstration; the '
-            'partner-country team leads the coupled model, the certified alarms and the transfer, including a test of the method '
-            'on a subsiding coast of its own country. The four end-users co-design the thresholds from the first year, receive the '
+    rich(p, 'The NATO-country team in Albania coordinates the project and leads the measurements, the coupled model, the certified '
+            'alarms and the live demonstration; the partner-country team leads training, transfer and dissemination, including a '
+            'test of the method on a coast of its own country. The four end-users co-design the thresholds from the first year, receive the '
             'bulletins and run the system after the project; each confirms its role in a commitment letter.')
 
     heading(doc, 'Budget, risks and sustainability', 13, before=6)

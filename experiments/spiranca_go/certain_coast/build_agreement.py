@@ -24,7 +24,10 @@ import build_workplan as W  # noqa: E402
 
 NAVY = '1F3864'
 TITLE = 'Certified early warning to protect water, port and energy infrastructure on a sinking Adriatic coast'
-NPD_WP, PPD_WP = ['WP1', 'WP4', 'WP5', 'WP7'], ['WP2', 'WP3', 'WP6']
+# what the partner-country team does in each work package (the NATO-country team leads all but WP6)
+PARTNER = {'WP1': '—', 'WP2': 'Its early-career researchers join on exchange', 'WP3': '—', 'WP4': '—',
+           'WP5': 'User-side review of the bulletins', 'WP6': 'Leads: transfer study on its own coast, exchanges, '
+           'regional workshop, review of the procedures', 'WP7': 'Steering committee; input to the SPS reports'}
 
 
 def split():
@@ -115,13 +118,12 @@ def main(out):
     ], [5.2, 11.8])
 
     p = para(doc, 3, before=8); run(p, 'Division of work', bold=True, size=10.5, color=NAVY)
-    rows = [[wp, wpname[wp], 'NPD team', 'PPD team'] for wp in NPD_WP] + \
-           [[wp, wpname[wp], 'PPD team', 'NPD team'] for wp in PPD_WP]
-    rows.sort(key=lambda r: r[0])
-    grid(doc, rows, [1.4, 9.0, 3.2, 3.4], size=9.3, header=['WP', 'Work package', 'Leads', 'Contributes'])
+    rows = [[wp, wpname[wp], 'PPD team' if wp == 'WP6' else 'NPD team', PARTNER[wp]] for wp in sorted(PARTNER)]
+    grid(doc, rows, [1.3, 6.6, 2.4, 6.7], size=9.3, header=['WP', 'Work package', 'Lead', 'Partner-country team'])
     p = para(doc, 3, before=4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     ph(p, 'The NPD coordinates the project, is accountable to the SPS Programme for the funds and submits the reports. '
-          'The PPD leads the partner-country team and manages the partner-country share of the budget. The end-users '
+          'The model, the surrogate and the certified-alarm algorithm are built and run by the NATO-country team. The PPD '
+          'leads the partner-country team and manages the partner-country share of the budget. The end-users '
           '(water utility, port, energy landfall operator, civil protection) contribute in kind and are not parties to '
           'this agreement.', size=10)
 

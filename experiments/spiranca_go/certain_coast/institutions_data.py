@@ -116,33 +116,32 @@ PPD = dict(
     glance=[
         ('Type', '[public university / research institute / other non-profit]'),
         ('Research team page', '[web page of the research group]'),
-        ('Project Director', '[Name, position]; employed and resident in [country]; [30%] of working time on the project'),
+        ('Project Director', '[Name, position]; employed and resident in [country]; [20%] of working time on the project'),
         ('Team', '[names and positions]; early-career researchers recruited by the project'),
-        ('Role', 'Coupled model and certified surrogate (WP2); certified alarms (WP3); training and transfer (WP6)'),
+        ('Role', 'Training, transfer and dissemination (WP6), including a transfer study on [the partner coast]'),
     ],
     capabilities=[
-        '[Numerical modelling of coastal groundwater: variable-density flow and transport; the codes the team uses; 1–2 examples]',
-        '[Uncertainty quantification and statistics with guarantees (for example conformal prediction); 1–2 results]',
-        '[Machine learning for physical systems: neural-operator or kernel surrogates]',
-        '[The partner coast: subsidence, seawater intrusion, ports or energy at the coast, and the data available for the transfer test]',
+        '[Coastal geoscience, hydrogeology or water management in your country: 1–2 examples]',
+        '[Teaching and training: courses, schools, supervision of early-career researchers]',
+        '[Links with operators or authorities in your country, for the regional workshop]',
     ],
     resources=[
-        '[Computing: cluster or cloud allocation (cores, GPUs) available to the project]',
-        '[Laboratories or field equipment, if any]',
-        '[Coastal, groundwater or satellite data the team holds or can access]',
+        '[Data on a coast of your country that the team holds or can access: maps, wells, sea level, satellite]',
+        '[Teaching rooms, GIS and computers for the transfer study]',
     ],
     projects=[
         '[2–3 relevant projects: title, funder, years, role]',
         '[3–5 key publications of the team, with DOI]',
     ],
     role_text=[
-        'Leads the coupled model of the three hazards and its certified fast surrogate (WP2) and the certified multi-hazard '
-        'alarm with its proofs and back-testing (WP3).',
-        'Leads training, transfer and dissemination (WP6), including the test of the method on a second subsiding coast.',
+        'Leads training, transfer and dissemination (WP6): two-month exchanges of its early-career researchers in Durrës, a '
+        'transfer study on [the partner coast] carried out with the project\'s tools and the Albanian team, a regional '
+        'workshop, and a user-side review of the bulletins and operating procedures.',
+        'The coupled model, its surrogate and the certified-alarm algorithm are built and run by the NATO-country team.',
     ],
     new=[
-        'Brings the mathematics of certified prediction to a field site with critical infrastructure, and tests within the '
-        'project whether the method transfers to [the partner coast].',
+        'Tests within the project whether certified warnings transfer to [the partner coast], and brings the method home '
+        'through trained young researchers and open software.',
     ],
     sources=[],
 )
