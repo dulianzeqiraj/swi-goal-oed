@@ -482,7 +482,7 @@ def blocks(W, V, A, ST, ST5, PR):
               'from their penalised-complexity priors $\\pi$, and each sensor is valued by its worst mean over all distributions '
               'within a Kullback–Leibler distance $\\varepsilon$ of $\\pi$. The worst case has a one-dimensional dual form; '
               '$\\varepsilon = 0$ gives the Bayesian average and a large $\\varepsilon$ the worst case over the class (Berger, 1994):'),
-        ('eq', 'robust', '\\Delta t^{rob}_s = \\inf_{P:\\; \\text{KL}(P \\,\\|\\, \\pi) \\le \\varepsilon} \\text{E}_{\\psi \\sim P}\\left[\\Delta t_s(\\psi)\\right] = \\sup_{\\tau > 0}\\left\\{-\\tau \\ln \\text{E}_{\\psi \\sim \\pi}\\left[e^{-\\Delta t_s(\\psi)/\\tau}\\right] - \\tau\\,\\varepsilon\\right\\}'),
+        ('eq', 'robust', '\\Delta t^{rob}_s = \\text{inf}_{P:\\; \\text{KL}(P \\,\\|\\, \\pi) \\le \\varepsilon} \\text{E}_{\\psi \\sim P}\\left[\\Delta t_s(\\psi)\\right] = \\text{sup}_{\\tau > 0}\\left\\{-\\tau \\ln \\text{E}_{\\psi \\sim \\pi}\\left[e^{-\\Delta t_s(\\psi)/\\tau}\\right] - \\tau\\,\\varepsilon\\right\\}'),
         ('p', 'This step is applied in T4.1 with the calibrated model; it was not part of the preparatory tests.'),
         ('p', '**A third criterion: tests that move the certified boundary (new, C3).** Sensors observe; pumping tests excite. '
               'Routine operation keeps the water table in a narrow band, so the records say little about how chloride '
@@ -734,8 +734,8 @@ def blocks(W, V, A, ST, ST5, PR):
               'data (Gelman, Simpson and Betancourt, 2017).'),
         ('b', '**Widening the radius protects, at a price in years.** With $2S$ or $4S$ the certified boundary never fell '
               'below the true one for any prior, but with $2S$ the prior of Section 7.6 lost <<qloss>> of its <<q0n>> '
-              'years. The optimistic priors kept <<q12>>, <<q22>> and <<q32>> years with $2S$ (with the prior '
-              '<<qe3>>$\\sigma$ away the confidence set still missed the truth in <<q32m>>): at the same radius an '
+              'years. The optimistic priors kept <<q12>>, <<q22>> and <<q32>> years with $2S$ (with the priors <<qe2>>$\\sigma$ and '
+              '<<qe3>>$\\sigma$ away the confidence set still missed the truth <<q2x>>): at the same radius an '
               'optimistic centre keeps more years than a correct one, so a wide radius does not make the years '
               'independent of the prior.'),
         ('p', '**Consequence for the project.** The years that the tests certify are mostly a property of the prior, so the '
@@ -929,7 +929,9 @@ def blocks(W, V, A, ST, ST5, PR):
         'q1n': yrs('wrong1_nominal'), 'q2n': yrs('wrong2_nominal'), 'q3n': yrs('wrong3_nominal'),
         'q12': yrs('wrong1_wide2'), 'q22': yrs('wrong2_wide2'), 'q32': yrs('wrong3_wide2'),
         'qc0': n(q['right_nominal']['c95']), 'qc3': n(q['wrong3_nominal']['c95']),
-        'q2m': ph(q['wrong2_nominal']['miss']), 'q32m': ph(q['wrong3_wide2']['miss']),
+        'q2m': ph(q['wrong2_nominal']['miss']),
+        'q2x': ('in some week of every run' if q['wrong2_wide2']['miss'] == 1 and q['wrong3_wide2']['miss'] == 1 else
+                f"in some week of {pc(q['wrong2_wide2']['miss'])} and {pc(q['wrong3_wide2']['miss'])} of the runs"),
         'q3u': pc(q['wrong3_nominal']['unsafe']), 'q3l': pc(q['wrong3_nominal']['late'], 1),
         'q3d': n(q['wrong3_checked']['ddat'], 1), 'q3b': n(q['wrong3_checked']['bbox'], 1),
         'qdmax': n(max(q[k]['dmax'] for k in q if k.endswith('_checked')), 1),
@@ -947,7 +949,7 @@ def blocks(W, V, A, ST, ST5, PR):
             max(q[k]['dmax'] for k in q if k.endswith('_checked')) < PR['S_nominal_sigma'],
             all(q[k]['unsafe'] == 0 for k in q if k.endswith('_wide2') or k.endswith('_wide4')),
             all(q[w + '_wide2']['med'] > q['right_wide2']['med'] for w in wrong),
-            q['wrong3_wide2']['miss'] > 0,
+            q['wrong2_wide2']['miss'] > 0 and q['wrong3_wide2']['miss'] > 0,
             abs(q['wrong3_checked']['bbox'] - q['wrong3_checked']['ddat']) < 0.25 * q['wrong3_checked']['bbox'],
             all(pe[w] > PR['S_nominal_sigma'] > pe['right'] for w in wrong)]
     if not all(qchk):
