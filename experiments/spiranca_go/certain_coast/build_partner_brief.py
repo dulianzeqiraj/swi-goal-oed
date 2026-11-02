@@ -122,17 +122,18 @@ def build_docx(path):
         'representative of the institution.',
     ])
 
-    head(doc, 'What we need, and by when')
-    t = table(doc, ['By', 'What'], [
-        ['Thursday 5 November', 'A reply: interest in principle, the name of the proposed Project Director and institution'],
-        ['Monday 9 November', 'Details for the application form: nationality, position and institution address, employment '
-                              'history and education, recent publications, research focus (up to 500 words), other '
-                              'grants; a one-page overview of the institution (capabilities, resources, facilities, websites)'],
-        ['Thursday 12 November', 'The signed SPS MYP Agreement for Joint Research (NATO template, which we send)'],
-        ['Sunday 15 November', 'Submission by the NATO-country Project Director'],
-    ], [4.1, 13.1], size=9.2)
+    head(doc, 'What we need: everything by Thursday 5 November 2026')
+    t = table(doc, ['What', 'Details'], [
+        ['Reply', 'Interest in principle, the name of the proposed Project Director and the institution'],
+        ['Partner form (attached, Word)', 'Details of the Project Director for the NATO application form, the partner team, '
+                                          'the coast for the transfer study, and a one-page overview of the institution'],
+        ['Agreement for Joint Research (attached, NATO template)', 'Signed by the Project Director and by the Head of '
+                                                                   'Institution and/or Financial Authority, scanned to PDF'],
+    ], [5.4, 11.8], size=9.2)
     for r_ in t.rows[1:]:
         shade(r_.cells[0], 'EEF2F8')
+    p = para(doc, 2, before=3)
+    rich(p, 'The NATO-country Project Director then submits the application by 15 November 2026, 23:59 CET.', size=9.5)
     p = para(doc, 2, before=4)
     rich(p, 'The full proposal text is shared as soon as you confirm interest. Contact: Dulian Zeqiraj, Faculty of '
             'Geology and Mining, Polytechnic University of Tirana (please reply to the e-mail that brought this brief).', size=9.3)
