@@ -10,13 +10,18 @@ Version 2 also adds a generative copy of the model for long storylines (G-LED; G
 and a test of what its statistics can and cannot certify (Section 4.2). Figure and table numbers are assigned in order
 of appearance ({{key}} in the text); equation numbers as before ([[key]]).
 
+Version 3 adds, from a review of 20 papers on priors (Oxford, Harvard, 2020-2026): priors that can be read and checked
+in the calibration (Section 3), the prior assumption of the pumping tests with a prior-data conflict test (Section 6),
+a ranking of sensors that does not hinge on one prior (Section 6, applied in T4.1), and a test of what a wrong prior
+costs the pumping tests and what protection against it costs, in years (Section 7.7, method_prior.py).
+
 Contents: the method chain (figure); the three hazards as one system; measuring the moving coast; the coupled model;
 the certified surrogate; the certified alarms (online conformal calibration under shift, guarantees by regime, extreme
 conformal prediction beyond the record, joint calibration by Learn then Test, extremes, back-testing, anytime-valid
 verification with its simulation); goal-oriented network design with the years criterion; live operation with the
 safe window, its multiplier and the preparatory test; software; pass tests and fallbacks; a ledger of standard,
 adopted and new methods; Annex A with the standard working equations. Numbers in the text come from method_window.py,
-method_verify.py, method_active.py and method_story.py (JSON files next to this script). Section numbers 5, 5.4, 5.7, 6 and 7 are cited by other
+method_verify.py, method_active.py, method_story.py and method_prior.py (JSON files next to this script). Section numbers 5, 5.4, 5.7, 6 and 7 are cited by other
 CERTAIN-COAST documents and are kept.
 
 usage: python build_methodology.py OUT.docx"""
@@ -54,10 +59,13 @@ COL = {'WP1': '#2e6db4', 'WP2': '#6a4fb3', 'WP3': '#b03a3a', 'WP4': '#1e8a5a', '
 REFS = [
     'Abbasi-Yadkori, Y., Pál, D., Szepesvári, C. (2011). Improved algorithms for linear stochastic bandits. Advances in Neural Information Processing Systems 24, 2312–2320.',
     'Becker, R., Rannacher, R. (2001). An optimal control approach to a posteriori error estimation in finite element methods. Acta Numerica 10, 1–102.',
+    'Berger, J.O. (1994). An overview of robust Bayesian analysis. Test 3(1), 5–124. https://doi.org/10.1007/BF02562676',
     'Boulanger, R.W., Idriss, I.M. (2014). CPT and SPT based liquefaction triggering procedures. Report UCD/CGM-14/01, University of California, Davis.',
     'Clopper, C.J., Pearson, E.S. (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. Biometrika 26(4), 404–413.',
     'Coles, S. (2001). An Introduction to Statistical Modeling of Extreme Values. Springer.',
     'Emerick, A.A., Reynolds, A.C. (2013). Ensemble smoother with multiple data assimilation. Computers & Geosciences 55, 3–15.',
+    'Evans, M., Moshonov, H. (2006). Checking for prior-data conflict. Bayesian Analysis 1(4), 893–914. https://doi.org/10.1214/06-BA129',
+    'Gelman, A., Simpson, D., Betancourt, M. (2017). The prior can often only be understood in the context of the likelihood. Entropy 19(10), 555. https://doi.org/10.3390/e19100555',
     'Gibbs, I., Candès, E. (2021). Adaptive conformal inference under distribution shift. NeurIPS 34.',
     'Haasnoot, M., Kwakkel, J.H., Walker, W.E., ter Maat, J. (2013). Dynamic adaptive policy pathways: a method for crafting robust decisions for a deeply uncertain world. Global Environmental Change 23(2), 485–498. https://doi.org/10.1016/j.gloenvcha.2012.12.006',
     'Iwasaki, T., Tatsuoka, F., Tokida, K., Yasuda, S. (1978). A practical method for assessing soil liquefaction potential based on case studies at various sites in Japan. Proc. 2nd Int. Conf. on Microzonation, San Francisco.',
@@ -69,6 +77,7 @@ REFS = [
     'Riley, F.S. (1969). Analysis of borehole extensometer data from central California. IASH Publication 89, 423–431.',
     'Seed, H.B., Idriss, I.M. (1971). Simplified procedure for evaluating soil liquefaction potential. Journal of the Soil Mechanics and Foundations Division, ASCE 97(SM9), 1249–1273.',
     'Sens-Schönfelder, C., Wegler, U. (2006). Passive image interferometry and seasonal variations of seismic velocities at Merapi Volcano, Indonesia. Geophysical Research Letters 33, L21302.',
+    'Simpson, D., Rue, H., Riebler, A., Martins, T.G., Sørbye, S.H. (2017). Penalising model component complexity: a principled, practical approach to constructing priors. Statistical Science 32(1), 1–28. https://doi.org/10.1214/16-STS576',
     'Strack, O.D.L. (1976). A single-potential solution for regional interface problems in coastal aquifers. Water Resources Research 12(6), 1165–1174. https://doi.org/10.1029/WR012i006p01165',
     'Ville, J. (1939). Étude critique de la notion de collectif. Gauthier-Villars, Paris.',
     'Wagner, B.J. (1999). Evaluating data worth for ground-water management under uncertainty. Journal of Water Resources Planning and Management 125(5), 281–288. https://doi.org/10.1061/(ASCE)0733-9496(1999)125:5(281)',
@@ -76,6 +85,7 @@ REFS = [
 ]
 # Frontier references 2018-2026 on which the methodology builds (each checked against publisher or index records).
 FRONTIER = [
+    'Andrews, I., Shapiro, J.M. (2021). A model of scientific communication. Econometrica 89(5), 2117–2142. https://doi.org/10.3982/ECTA18155',
     'Angelopoulos, A.N., Barber, R.F., Bates, S. (2024). Online conformal prediction with decaying step sizes. Proc. 41st International Conference on Machine Learning, PMLR 235, 1616–1630.',
     'Angelopoulos, A.N., Bates, S., Candès, E.J., Jordan, M.I., Lei, L. (2025). Learn then test: calibrating predictive algorithms to achieve risk control. Annals of Applied Statistics 19(2), 1641–1662. https://doi.org/10.1214/24-AOAS1998',
     'Angelopoulos, A.N., Bates, S., Fannjiang, C., Jordan, M.I., Zrnic, T. (2023). Prediction-powered inference. Science 382(6671), 669–674. https://doi.org/10.1126/science.adi6000',
@@ -83,14 +93,19 @@ FRONTIER = [
     'Arnold, S., Henzi, A., Ziegel, J.F. (2023). Sequentially valid tests for forecast calibration. Annals of Applied Statistics 17(3), 1909–1935. https://doi.org/10.1214/22-AOAS1697',
     'Attia, A., Alexanderian, A., Saibaba, A.K. (2018). Goal-oriented optimal design of experiments for large-scale Bayesian linear inverse problems. Inverse Problems 34(9), 095009. https://doi.org/10.1088/1361-6420/aad210',
     'Befus, K.M., Barnard, P.L., Hoover, D.J., Finzi Hart, J.A., Voss, C.I. (2020). Increasing threat of coastal groundwater hazards from sea-level rise in California. Nature Climate Change 10(10), 946–952. https://doi.org/10.1038/s41558-020-0874-1',
+    'Carmona, C.U., Nicholls, G.K. (2020). Semi-modular inference: enhanced learning in multi-modular models by tempering the influence of components. Proc. 23rd International Conference on Artificial Intelligence and Statistics, PMLR 108, 4226–4235.',
     'Clements, T., Denolle, M.A. (2018). Tracking groundwater levels using the ambient seismic field. Geophysical Research Letters 45(13), 6459–6465. https://doi.org/10.1029/2018GL077706',
     'Coulon, C., White, J.T., Pryet, A., Gatel, L., Lemieux, J.-M. (2024). An ensemble-based approach for pumping optimization in an island aquifer considering parameter, observation and climate uncertainty. Hydrology and Earth System Sciences 28(1), 303–319. https://doi.org/10.5194/hess-28-303-2024',
+    'Fuglstad, G.-A., Simpson, D., Lindgren, F., Rue, H. (2019). Constructing priors that penalize the complexity of Gaussian random fields. Journal of the American Statistical Association 114(525), 445–452. https://doi.org/10.1080/01621459.2017.1415907',
     'Gao, H., Kaltenbach, S., Koumoutsakos, P. (2024). Generative learning for forecasting the dynamics of high-dimensional complex systems. Nature Communications 15, 8904. https://doi.org/10.1038/s41467-024-53165-w',
     'Gibbs, I., Candès, E.J. (2024). Conformal inference for online prediction with arbitrary distribution shifts. Journal of Machine Learning Research 25(162), 1–36.',
     'Gibbs, I., Cherian, J.J., Candès, E.J. (2025). Conformal prediction with conditional guarantees. Journal of the Royal Statistical Society Series B 87(4), 1100–1126. https://doi.org/10.1093/jrsssb/qkaf008',
+    'Gong, R., Meng, X.-L. (2021). Judicious judgment meets unsettling updating: dilation, sure loss and Simpson\'s paradox. Statistical Science 36(2), 169–190. https://doi.org/10.1214/19-STS765',
     'Gopakumar, V., Gray, A., Zanisi, L., et al. (2025). Calibrated physics-informed uncertainty quantification. Proc. 42nd International Conference on Machine Learning, PMLR 267, 20103–20141.',
     'Grant, A.R.R., Wein, A., Befus, K.M., et al. (2021). Changes in liquefaction severity in the San Francisco Bay Area with sea-level rise. Geo-Extreme 2021, Geotechnical Special Publication 329, 308–317. ASCE. https://doi.org/10.1061/9780784483695.030',
     'Haasnoot, M., van \'t Klooster, S., van Alphen, J. (2018). Designing a monitoring system to detect signals to adapt to uncertain climate change. Global Environmental Change 52, 273–285. https://doi.org/10.1016/j.gloenvcha.2018.08.003',
+    'Huang, D., Stein, N., Rubin, D.B., Kou, S.C. (2020). Catalytic prior distributions with application to generalized linear models. Proceedings of the National Academy of Sciences 117(22), 12004–12010. https://doi.org/10.1073/pnas.1920913117',
+    'Kallioinen, N., Paananen, T., Bürkner, P.-C., Vehtari, A. (2024). Detecting and diagnosing prior and likelihood sensitivity with power-scaling perturbations. Statistics and Computing 34, 57. https://doi.org/10.1007/s11222-023-10366-5',
     'Kičić, I., Vlachas, P.R., Arampatzis, G., Chatzimanolakis, M., Guibas, L., Koumoutsakos, P. (2023). Adaptive learning of effective dynamics for online modeling of complex systems. Computer Methods in Applied Mechanics and Engineering 415, 116204. https://doi.org/10.1016/j.cma.2023.116204',
     'Koller, T., Berkenkamp, F., Turchetta, M., Krause, A. (2018). Learning-based model predictive control for safe exploration. 2018 IEEE Conference on Decision and Control (CDC), 6059–6066. https://doi.org/10.1109/CDC.2018.8619572',
     'Lees, M., Knight, R., Smith, R. (2022). Development and application of a 1D compaction model to understand 65 years of subsidence in the San Joaquin Valley. Water Resources Research 58(6), e2021WR031390. https://doi.org/10.1029/2021WR031390',
@@ -121,22 +136,22 @@ INDICATORS = [
 
 CHECKS = [
     ['Coastal motion (WP1)', 'Relative sea level and land motion at each asset; compaction parameters; preconsolidation head', 'Vertical-velocity uncertainty of the order of 1–2 mm/yr at asset points; InSAR and GNSS agree within uncertainty', 'Corner reflectors and GNSS at the assets; persistent scatterers on structures'],
-    ['Coupled model (WP2)', 'I₁, I₂, I₃ from one forcing', 'Held-out heads, chloride, InSAR and seismic velocity fall inside the 90% predictive intervals at close to the nominal rate', 'Two-dimensional sections through each asset; wider error bound Δₖ'],
+    ['Coupled model (WP2)', 'I₁, I₂, I₃ from one forcing', 'Held-out heads, chloride, InSAR and seismic velocity fall inside the 90% predictive intervals at close to the nominal rate; no prior-data conflict; the closing year moves by less than an agreed amount when the prior is power-scaled', 'Two-dimensional sections through each asset; wider error bound Δₖ; wider prior and tempered modules'],
     ['Surrogate (WP2)', 'Îₖ with Δₖ', 'Coverage of Δₖ ≥ 1 − δ on test runs; thousands of storylines per day', 'Full model on a reduced domain for flagged forecasts'],
     ['Generative copy (T2.4)', 'Storyline statistics (yearly exceedance probabilities); choice of the storylines run with the full model', 'Generated fields keep the seawater fraction within 0–1 and close the water and salt balances within tolerance; on paired storylines the prediction-powered estimate lies inside the exact bound from full runs. Closing years are always certified from full runs (Eq. [[cp]])', 'Full model on fewer storylines, chosen without the copy'],
     ['Alarms (WP3)', 'Aₖ with αₖ', 'Back-tested miss rate ≤ αₖ overall and in each regime (Clopper–Pearson); no storyline exceeds the extrapolated margin', 'Margin widened: the miss target is kept and the extra false alarms are reported'],
     ['Network (WP4)', 'Installed sensor set', '≥ 90% data availability; forecast spread and closing year move as the design predicted', 'Design re-run with the remaining budget; seismic nodes if fibre is not available'],
     ['Seismic velocity (T4.4)', 'Calibrated δv/v–water-table relation', 'Relation significant against piezometers at the port or landfall', 'Piezometers alone for the water table; velocity kept for post-event damage'],
     ['Safe window (WP5)', 'Certified window and closing year for each asset', 'Window computed with the surrogate confirmed by the full model at the closing point', 'Window computed with the full model at monthly cadence'],
-    ['Pumping tests (WP5, T5.3)', 'Certified boundary of the window; years added', 'Measured chloride stays below the test limit in every test; held-out weeks fall inside the confidence set (Eq. [[conf]]); the utility approves each test', 'Smaller and shorter tests; window from routine records only'],
+    ['Pumping tests (WP5, T5.3)', 'Certified boundary of the window; years added', 'Measured chloride stays below the test limit in every test; held-out weeks fall inside the confidence set (Eq. [[conf]]); no conflict between the prior and the physics-only confidence set (Eq. [[conflict]]); the certified closing year is reported for radius S and 2S; the utility approves each test', 'Radius S widened or the physics-only prior used (Section 7.7); smaller and shorter tests; window from routine records only'],
     ['Live operation (WP5)', 'Bulletin log; pumping rule', '12 months of logged bulletins; no e-process reaches 1/β (Eq. [[eproc]])', 'If no strong event occurs, guarantees rest on back-testing and storylines (T3.4)'],
 ]
 
 LEDGER = [
     ['Coastal motion (WP1)', 'Line-of-sight decomposition, trajectory model, elastic and inelastic compaction (A1–A4)',
      'Relative sea level at each asset from InSAR land motion (Ohenhen et al., 2023); compaction models calibrated on long InSAR records (Lees et al., 2022)', '—'],
-    ['Coupled model (WP2)', 'Variable-density flow, dual-domain salt, sea boundary, water level, liquefaction triggering, ES-MDA (A5–A12)',
-     'Differentiable model with adjoint gradients (Shen et al., 2023); groundwater rise as a driver of liquefaction (Grant et al., 2021) and flooding (Befus et al., 2020)',
+    ['Coupled model (WP2)', 'Variable-density flow, dual-domain salt, sea boundary, water level, liquefaction triggering, ES-MDA (A5–A12); prior-data conflict check (Evans and Moshonov, 2006)',
+     'Differentiable model with adjoint gradients (Shen et al., 2023); groundwater rise as a driver of liquefaction (Grant et al., 2021) and flooding (Befus et al., 2020); penalised-complexity priors for the fields (Fuglstad et al., 2019); semi-modular inference (Carmona and Nicholls, 2020); power-scaling sensitivity (Kallioinen et al., 2024)',
      '— (one water table driving three hazards is an integration, not claimed as a new method)'],
     ['Surrogate (T2.4)', 'Dual-weighted residual (Becker and Rannacher, 2001)',
      'Neural operators (Li et al., 2021; Lu et al., 2021); conformal calibration of operators (Ma et al., 2024); residual-based conformal scores (Gopakumar et al., 2025); generative effective dynamics for storylines (Gao, Kaltenbach and Koumoutsakos, 2024) with switching to the full model (Kičić et al., 2023); prediction-powered inference (Angelopoulos et al., 2023)',
@@ -146,24 +161,24 @@ LEDGER = [
      '—'],
     ['Verification (WP3, WP5)', 'Clopper–Pearson bound (Eq. [[cp]])',
      'Anytime-valid e-processes (Ramdas et al., 2023; Vovk and Wang, 2021; Arnold, Henzi and Ziegel, 2023)', '— (simulated for this project, Figure {{verify}})'],
-    ['Network (WP4)', 'Bayesian linear design (Eq. [[sigma]])',
+    ['Network (WP4)', 'Bayesian linear design (Eq. [[sigma]]); worst case over a class of priors (Berger, 1994; Eq. [[robust]])',
      'Goal-oriented optimal design (Attia, Alexanderian and Saibaba, 2018); seismic velocity and fibre for groundwater (Clements and Denolle, 2018; Rodríguez Tribaldos and Ajo-Franklin, 2021)',
      '**C2: value of a sensor in years of certified safe operation** (Eqs. [[years]], [[mult]]; Figure {{sensors}})'],
     ['Operation (WP5)', 'Cost-loss value (Richardson, 2000); sharp-interface pumping limits (Strack, 1976; Mantoglou, 2003)',
      'Conformal decision theory (Lekeufack et al., 2024); adaptation tipping points and pathways (Kwadijk et al., 2010; Haasnoot et al., 2013)',
      '**C1: certified multi-hazard safe window, its closing sea level and closing year** (Eqs. [[window]]–[[mult]]; Figures {{window}}–{{closing}})'],
     ['Pumping tests (WP5)', 'Least squares; optimal design of experiments (Pukelsheim, 1993); self-normalised confidence sets (Abbasi-Yadkori, Pál and Szepesvári, 2011)',
-     'Active identification of nonlinear dynamics with guarantees (Mania, Jordan and Recht, 2022) and of linear dynamics (Wagenmaker and Jamieson, 2020); safe exploration with learned models (Koller et al., 2018; Zimmer, Meister and Nguyen-Tuong, 2018)',
-     '**C3: safe, goal-oriented pumping tests valued in years** (Eqs. [[ident]]–[[select]]; Figure {{active}})'],
+     'Active identification of nonlinear dynamics with guarantees (Mania, Jordan and Recht, 2022) and of linear dynamics (Wagenmaker and Jamieson, 2020); safe exploration with learned models (Koller et al., 2018; Zimmer, Meister and Nguyen-Tuong, 2018); priors as classes (Gong and Meng, 2021) and as imaginary data from a model (Huang et al., 2020); reporting to readers with different priors (Andrews and Shapiro, 2021)',
+     '**C3: safe, goal-oriented pumping tests valued in years, with the price of a wrong prior** (Eqs. [[ident]]–[[conflict]]; Figures {{active}}, {{prior}})'],
 ]
 
 
 # ---------------------------------------------------------------------------------------------------- content
-def blocks(W, V, A, ST, ST5):
+def blocks(W, V, A, ST, ST5, PR):
     """Blocks: ('h', t) ('h2', t) ('p', text) ('b', text) ('eq', key, tex) ('eqa', key, tex) ('table', hdr, rows, widths,
     size) ('img', key, width_cm) ('cap', text) ('pb',). Text: $inline math$, **bold**, [[key]] -> equation number,
     {{key}} -> figure or table number (in order of appearance), <<name>> -> value. A: method_active.json; ST, ST5:
-    method_story.json with 100 and 500 paired storylines."""
+    method_story.json with 100 and 500 paired storylines; PR: method_prior.json."""
     S = {s['sensor']: s for s in W['sensors']}
     sp, pp, gn, cr = S['Sentinel piezometer'], S['Port piezometer'], S['GNSS station at the port'], S['Two corner reflectors']
     pl = W['plans']
@@ -182,7 +197,7 @@ def blocks(W, V, A, ST, ST5):
             'a **certified safe operating window** for pumping and dewatering, with the sea level and the year at which it '
             'closes (C1, Section 7); the **value of a sensor in years of safe operation** (C2, Sections 6 and 7.4); and **safe, '
             'goal-oriented pumping tests** that move the certified boundary of the window towards the true one, valued in years '
-            'in the same way (C3, Sections 6 and 7.6). The chain has six steps (Figure {{chain}}): observe what the warnings need '
+            'in the same way, together with what a wrong prior costs them (C3, Sections 6, 7.6 and 7.7). The chain has six steps (Figure {{chain}}): observe what the warnings need '
             '(WP4), measure the moving coast (WP1), model the coast as one coupled system (WP2), copy the model fast with a '
             'certified error, for forecasts and for long storylines (WP2), certify each alarm (WP3), and operate, test, verify '
             'and hand over (WP5, WP6). Each step has a quantitative pass test and a fallback (Section 9). Section 10 states, '
@@ -248,6 +263,17 @@ def blocks(W, V, A, ST, ST5):
               'gradients of every indicator are available (Shen et al., 2023): they are used for calibration, for the error bound of '
               'Section 4, for network design (Section 6) and for the multiplier of the safe window (Section 7). The model passes when '
               'observations held out from calibration fall inside its 90% predictive intervals at close to the nominal rate.'),
+        ('p', '**Priors that can be read and checked (T2.3).** Every calibration starts from a prior, and where data are few the '
+              'prior decides part of the answer. The log-conductivity field gets a Matérn prior whose correlation length and '
+              'standard deviation follow penalised-complexity priors, set from statements that an expert can read and dispute, '
+              'for example the probability that the correlation length is shorter than a given distance (Simpson et al., 2017; '
+              'Fuglstad et al., 2019). The modules of the model (flow and salt, compaction, liquefaction, seismic velocity) are '
+              'joined by semi-modular inference, which tempers the influence of one module on the parameters it shares with the '
+              'others, so that an empirical liquefaction relation or a mis-specified velocity–stress law cannot distort the '
+              'hydraulic parameters (Carmona and Nicholls, 2020). After calibration the prior is checked against the data, by a '
+              'prior-data conflict test (Evans and Moshonov, 2006) and by power-scaling the prior to see how far each hazard '
+              'indicator and the closing year move (Kallioinen et al., 2024). The same check decides how far the prior of the '
+              'pumping tests can be trusted (Section 7.7).'),
 
         ('h', '4. A fast copy of the model, with a certified error (T2.4)'),
         ('h2', '4.1 Forecasts: a neural operator with a certified error'),
@@ -450,6 +476,14 @@ def blocks(W, V, A, ST, ST5):
               'point. In the test case the two criteria disagree where it matters (Section 7.4), so both are used: the first for '
               'the alarms, the second for the adaptation horizon. The selection is greedy by benefit per cost, checked against '
               'exhaustive search on small candidate sets, and repeated in Year 2 with the calibrated model.'),
+        ('p', '**A ranking that does not hinge on one prior (T4.1).** The years a sensor adds come from a preposterior analysis, '
+              'so they depend on the prior. Before the network is fixed, the ranking is recomputed over a class of priors: the '
+              'hyperparameters $\\psi$ (correlation length, standard deviation, rates of subsidence and sea-level rise) are drawn '
+              'from their penalised-complexity priors $\\pi$, and each sensor is valued by its worst mean over all distributions '
+              'within a Kullback–Leibler distance $\\varepsilon$ of $\\pi$. The worst case has a one-dimensional dual form; '
+              '$\\varepsilon = 0$ gives the Bayesian average and a large $\\varepsilon$ the worst case over the class (Berger, 1994):'),
+        ('eq', 'robust', '\\Delta t^{rob}_s = \\inf_{P:\\; \\text{KL}(P \\,\\|\\, \\pi) \\le \\varepsilon} \\text{E}_{\\psi \\sim P}\\left[\\Delta t_s(\\psi)\\right] = \\sup_{\\tau > 0}\\left\\{-\\tau \\ln \\text{E}_{\\psi \\sim \\pi}\\left[e^{-\\Delta t_s(\\psi)/\\tau}\\right] - \\tau\\,\\varepsilon\\right\\}'),
+        ('p', 'This step is applied in T4.1 with the calibrated model; it was not part of the preparatory tests.'),
         ('p', '**A third criterion: tests that move the certified boundary (new, C3).** Sensors observe; pumping tests excite. '
               'Routine operation keeps the water table in a narrow band, so the records say little about how chloride '
               'responds near the onset of intrusion, and that response sets the certified boundary of the window, the most '
@@ -495,6 +529,16 @@ def blocks(W, V, A, ST, ST5):
               'that accumulates during a test. As in Mania et al. (2022), the guarantee assumes that the true response lies '
               'in the model class, which T5.3 checks on weeks held out from the fit. A test is valued in years through '
               'Eq. [[mult]], as a sensor is; the preparatory test is in Section 7.6.'),
+        ('p', '**The prior of the tests.** The guarantee also assumes that the prior from the calibrated model is wrong by at '
+              'most $S$ in the $\\boldsymbol{\\Lambda}$-norm. That prior can be read as imaginary data from the calibrated model '
+              'with a set weight, as in catalytic priors (Huang et al., 2020), and, like any prior, it is better treated as a '
+              'class than as a point (Berger, 1994; Gong and Meng, 2021). CERTAIN-COAST sets $S$ from the spread of the calibrated ensemble, states it as a readable bound and checks '
+              'it during the campaign against the confidence set $\\mathcal{C}^{phys}_t$ of Eq. [[conf]] built with a wide prior '
+              'that only encodes a physical box of admissible coefficients. The prior is in conflict with the data when its '
+              'ball no longer meets that set; with a right prior this happens with probability at most $\\delta$:'),
+        ('eq', 'conflict', '\\min_{\\boldsymbol{\\theta} \\in \\mathcal{C}^{phys}_t}\\left\\|\\boldsymbol{\\theta} - \\boldsymbol{\\theta}_0\\right\\|_{\\boldsymbol{\\Lambda}} > S'),
+        ('p', 'Section 7.7 values in years both the prior and the protection against it being wrong, and shows what '
+              'the test of Eq. [[conflict]] can and cannot detect.'),
         ('p', '**Seismic velocity as a water-table gauge (T4.4).** Ambient seismic noise tracks groundwater levels (Clements and '
               'Denolle, 2018), also on unused telecommunication fibre with distributed acoustic sensing (Rodríguez Tribaldos and '
               'Ajo-Franklin, 2021). A uniform relative change in velocity stretches the noise correlations in time (Sens-Schönfelder '
@@ -656,10 +700,62 @@ def blocks(W, V, A, ST, ST5):
                 'certify with the certified error of the head forecast. (b) Highest chloride reached during the campaign '
                 '(box: quartiles; whiskers: 5–95% of runs).'),
 
+        ('h2', '7.7 When the prior of the tests is wrong (new, C3)'),
+        ('p', 'The certificate of Section 7.6 assumes that the prior from the calibrated model is wrong by at most $S$ in the '
+              '$\\boldsymbol{\\Lambda}$-norm (Section 6). In Section 7.6 the prior was <<qe0>>$\\sigma$ from the true '
+              'coefficients, inside $S$ = <<qS>>$\\sigma$, where $\\sigma$ is the noise of weekly chloride. Three optimistic '
+              'priors were added, with the onset of intrusion <<qo1>>%, <<qo2>>% and <<qo3>>% weaker and flushing <<qf1>>%, '
+              '<<qf2>>% and <<qf3>>% faster than in the truth; they lie <<qe1>>$\\sigma$, <<qe2>>$\\sigma$ and '
+              '<<qe3>>$\\sigma$ from the truth, all outside $S$. Each prior was used in up to five ways: with the radius $S$ '
+              'of Section 7.6; with $2S$ or $4S$; with $S$ and the conflict test of Eq. [[conflict]], which switches to the '
+              'physics-only prior when it fires; and, for the prior of Section 7.6, with the physics-only prior alone. That '
+              'prior allows any coefficients in a box of physically admissible values (flushing in 20 to 200 weeks; '
+              'chloride that does not fall as the head falls). The goal-oriented, safe planner of Section 7.6 ran on the '
+              'same <<qnr>> histories in every case (Figure {{prior}}). Two years serve as yardsticks: the true closing '
+              'year, <<qtt>> years, and the most a correct certificate can give with the certified 5 cm error of the head '
+              'forecast, <<qtb>> years. A certified year beyond <<qtb>> places the certified boundary below the true one.'),
+        ('b', '**The prior is worth all of the certified years.** With the prior of Section 7.6 the campaign certified '
+              '<<q0n>> years; with $2S$, <<q02>> years; with $4S$ or with the physics-only prior, none. The <<ahy>> years '
+              'of records and <<acw>> weeks of tests cannot certify the boundary on their own at $\\delta$ = 5%.'),
+        ('b', '**An optimistic prior inflates the certificate, and the tests go deeper.** With the radius $S$, the three '
+              'optimistic priors certified <<q1n>>, <<q2n>> and <<q3n>> years, and the tests let chloride rise further: '
+              'below <<qc3>> mg/L in 95% of runs, against <<qc0>> mg/L with the prior of Section 7.6, still under the test '
+              'limit of <<act>> mg/L. With the prior <<qe2>>$\\sigma$ away, '
+              'the confidence set missed the true coefficients in <<q2m>>, yet the certified boundary stayed above the true '
+              'one. With the prior <<qe3>>$\\sigma$ away, the certified boundary fell below the true one in <<q3u>> of the '
+              'runs, and the certified year passed even the true closing year in <<q3l>> of the runs.'),
+        ('b', '**The conflict test raised no false alarm, and no alarm.** It never fired with the prior of Section 7.6, as '
+              'it should not, nor with any optimistic prior. The data did see the error of the most optimistic prior, at '
+              '<<q3d>>$\\sigma$ in the norm of the data (median of the runs), but the physics-only confidence set was about '
+              'as wide, <<q3b>>$\\sigma$, because it must hold in every week and for every coefficient vector in the box. '
+              'No prior came further than <<qdmax>>$\\sigma$ from that set in any week of any run, against the '
+              '$S$ = <<qS>>$\\sigma$ the test needs. In a campaign of this length the test guards only against gross '
+              'errors, and its silence is no evidence that the prior is right: a check sees the prior only through the '
+              'data (Gelman, Simpson and Betancourt, 2017).'),
+        ('b', '**Widening the radius protects, at a price in years.** With $2S$ or $4S$ the certified boundary never fell '
+              'below the true one for any prior, but with $2S$ the prior of Section 7.6 lost <<qloss>> of its <<q0n>> '
+              'years. The optimistic priors kept <<q12>>, <<q22>> and <<q32>> years with $2S$ (with the prior '
+              '<<qe3>>$\\sigma$ away the confidence set still missed the truth in <<q32m>>): at the same radius an '
+              'optimistic centre keeps more years than a correct one, so a wide radius does not make the years '
+              'independent of the prior.'),
+        ('p', '**Consequence for the project.** The years that the tests certify are mostly a property of the prior, so the '
+              'prior has to be justified before the campaign and its effect reported; it cannot be checked on the '
+              'campaign data alone. CERTAIN-COAST sets $S$ from the spread of the calibrated ensemble and the prior checks '
+              'of Section 3, which use every data type and not only chloride at one wellfield. It reports the certified '
+              'closing year and the years each test adds for $S$ and for $2S$, so that a reader who trusts the model less '
+              'can read the years they would accept (Andrews and Shapiro, 2021). It runs the conflict test during the '
+              'campaign as a guard against gross errors only.'),
+        ('img', 'prior', 17.0),
+        ('cap', 'Figure {{prior}}. Pumping tests with a wrong prior, synthetic test (<<qnr>> runs for each case). (a) Certified '
+                'closing year after the campaign, by prior and by use of the prior; dashed: the true closing year; dotted: '
+                'the most a correct certificate can give with the certified 5 cm error of the head forecast. (b) Runs in '
+                'which the confidence set missed the true coefficients in some week, and runs in which the certified '
+                'boundary fell below the true one in some week.'),
+
         ('h', '8. Software, data and reproducibility (T6.3, T7.2)'),
         ('b', '**Open software.** The model, surrogate, generative copy, alarms, safe window, test planner and network design are released under an open licence, in containers, with tests and documentation.'),
         ('b', '**Data.** Operator data are used under the access agreements of T7.2; derived products, the bulletin log, the verification ledger and the project data are released openly following FAIR principles.'),
-        ('b', '**Reproducibility.** Every bulletin and figure can be regenerated from the logged inputs and the code version; the preparatory tests of Sections 4.2, 5.7, 7.3–7.4 and 7.6 are scripted and released with the software.'),
+        ('b', '**Reproducibility.** Every bulletin and figure can be regenerated from the logged inputs and the code version; the preparatory tests of Sections 4.2, 5.7, 7.3–7.4, 7.6 and 7.7 are scripted and released with the software.'),
 
         ('h', '9. Pass tests and fallbacks for each step'),
         ('cap', 'Table {{tab_checks}}. What each step must achieve, and what happens if it does not.'),
@@ -681,15 +777,20 @@ def blocks(W, V, A, ST, ST5):
               'years it adds before the certified window closes, from preposterior analysis with a first-order shortcut through the '
               'multiplier. In the test it valued GNSS and corner reflectors at <<gn>> and <<cr>> years, where the classical criterion '
               'gives zero, and the sentinel piezometer at <<sp>> years.'),
-        ('b', '**C3. Safe, goal-oriented pumping tests valued in years** (Sections 6 and 7.6). Short pumping and dewatering '
+        ('b', '**C3. Safe, goal-oriented pumping tests valued in years** (Sections 6, 7.6 and 7.7). Short pumping and dewatering '
               'tests are chosen for the years they add to the certified closing of the window, with a confidence set that '
               'holds in every week and a safety filter on chloride. In the preparatory test they raised the certified closing '
               'year from <<atb>> to <<atg>> years with chloride below <<atgc>> mg/L in 95% of runs, where unconstrained '
-              'E-optimal tests passed 250 mg/L in <<atel>> of the runs.'),
+              'E-optimal tests passed 250 mg/L in <<atel>> of the runs. The same test values the prior: the prior from the '
+              'calibrated model was worth all <<q0n>> certified years, doubling its error bound cost <<qloss>> of them, '
+              'and an optimistic prior <<qe3>>$\\sigma$ away inflated the certificate to <<q3n>> years while the conflict '
+              'test stayed silent.'),
         ('b', '**Not claimed as new.** The alarms assemble published frontier methods: online conformal calibration under shift, '
               'guarantees by regime, extreme conformal prediction, Learn then Test and anytime-valid verification. Their joint use '
               'for coupled coastal hazards is an application of these methods. The generative copy and prediction-powered '
-              'inference are adopted; the test of Section 4.2 shows what they can and cannot certify. The novelty checks for '
+              'inference are adopted; the test of Section 4.2 shows what they can and cannot certify. So are the priors, the '
+              'prior checks and the conflict test of Sections 3 and 6; Section 7.7 shows what the conflict test can and '
+              'cannot detect. The novelty checks for '
               'C1, C2 and C3 rest on our literature search, to be repeated in bibliographic databases before submission.'),
 
         ('pb',),
@@ -801,6 +902,57 @@ def blocks(W, V, A, ST, ST5):
     if not all(story):
         raise SystemExit(f'C3 findings changed ({story}): revise the text of Section 7.6')
 
+    # Section 7.7: the prior of the tests (method_prior.json)
+    PRr, PPa = PR['runs'], PR['params']
+    t_close, t_best = PR['truth']['t_close'], PR['truth']['t_best']
+
+    def pstat(key):
+        rs = PRr[key]
+        ta = np.array([r['t_after'] for r in rs], float)
+        top = [max([r['t_before'], r['t_after']] + r['weekly']) for r in rs]
+        return dict(med=float(np.median(ta)), miss=float(np.mean([not r['covered_all'] for r in rs])),
+                    unsafe=float(np.mean([x > t_best + 1e-9 for x in top])), late=float(np.mean([x > t_close for x in top])),
+                    sw=float(np.mean([r['switched'] is not None for r in rs])), dmax=max((r['dist_max'] or 0.0) for r in rs),
+                    ddat=float(np.median([r['err_data_end'] for r in rs])), bbox=float(np.median([r['beta_box_end'] for r in rs])),
+                    c95=float(np.percentile(250 * np.array([r['c_max'] for r in rs]), 95)),
+                    over=float(np.mean([r['c_max'] > PPa['C_TEST'] for r in rs])))
+    q = {k: pstat(k) for k in PRr}
+    pe, WR = {k: v['nominal'] for k, v in PR['prior_error'].items()}, PPa['WRONG']
+    yrs = lambda k: n(q[k]['med'], 1)
+    ph = lambda x: 'every run' if x == 1 else pc(x) + ' of the runs'
+    vals.update({
+        'qe0': n(pe['right'], 1), 'qe1': n(pe['wrong1'], 1), 'qe2': n(pe['wrong2'], 1), 'qe3': n(pe['wrong3'], 1),
+        'qS': n(PR['S_nominal_sigma']), 'qnr': str(PPa['NRUN']), 'qtt': n(t_close), 'qtb': n(t_best, 1),
+        'qo1': n(100 * WR['wrong1'][0]), 'qo2': n(100 * WR['wrong2'][0]), 'qo3': n(100 * WR['wrong3'][0]),
+        'qf1': n(100 * WR['wrong1'][1]), 'qf2': n(100 * WR['wrong2'][1]), 'qf3': n(100 * WR['wrong3'][1]),
+        'q0n': yrs('right_nominal'), 'q02': yrs('right_wide2'),
+        'q1n': yrs('wrong1_nominal'), 'q2n': yrs('wrong2_nominal'), 'q3n': yrs('wrong3_nominal'),
+        'q12': yrs('wrong1_wide2'), 'q22': yrs('wrong2_wide2'), 'q32': yrs('wrong3_wide2'),
+        'qc0': n(q['right_nominal']['c95']), 'qc3': n(q['wrong3_nominal']['c95']),
+        'q2m': ph(q['wrong2_nominal']['miss']), 'q32m': ph(q['wrong3_wide2']['miss']),
+        'q3u': pc(q['wrong3_nominal']['unsafe']), 'q3l': pc(q['wrong3_nominal']['late'], 1),
+        'q3d': n(q['wrong3_checked']['ddat'], 1), 'q3b': n(q['wrong3_checked']['bbox'], 1),
+        'qdmax': n(max(q[k]['dmax'] for k in q if k.endswith('_checked')), 1),
+        'qloss': n(q['right_nominal']['med'] - q['right_wide2']['med'], 1),
+    })
+    wrong = ('wrong1', 'wrong2', 'wrong3')
+    qchk = [q['right_nominal']['miss'] == 0 and q['right_nominal']['unsafe'] == 0,
+            q['right_wide4']['med'] == 0 and q['right_box']['med'] == 0,
+            q['right_wide2']['med'] < q['right_nominal']['med'],
+            q['right_nominal']['med'] < q['wrong1_nominal']['med'] < q['wrong2_nominal']['med'] < q['wrong3_nominal']['med'],
+            q['right_nominal']['c95'] < q['wrong3_nominal']['c95'], all(q[k]['over'] == 0 for k in q),
+            q['wrong2_nominal']['miss'] > 0.5 and q['wrong2_nominal']['unsafe'] == 0,
+            q['wrong3_nominal']['unsafe'] > 0 and q['wrong3_nominal']['late'] > 0,
+            all(q[k]['sw'] == 0 for k in q if k.endswith('_checked')),
+            max(q[k]['dmax'] for k in q if k.endswith('_checked')) < PR['S_nominal_sigma'],
+            all(q[k]['unsafe'] == 0 for k in q if k.endswith('_wide2') or k.endswith('_wide4')),
+            all(q[w + '_wide2']['med'] > q['right_wide2']['med'] for w in wrong),
+            q['wrong3_wide2']['miss'] > 0,
+            abs(q['wrong3_checked']['bbox'] - q['wrong3_checked']['ddat']) < 0.25 * q['wrong3_checked']['bbox'],
+            all(pe[w] > PR['S_nominal_sigma'] > pe['right'] for w in wrong)]
+    if not all(qchk):
+        raise SystemExit(f'Section 7.7 findings changed ({qchk}): revise the text')
+
     # Section 4.2: generative copy (method_story.json, method_story_n500.json)
     g, p_, g5, p5 = ST['copies']['good'], ST['copies']['poor'], ST5['copies']['good'], ST5['copies']['poor']
     tt = g['t_true']; sp_ = ST['params']
@@ -900,7 +1052,7 @@ def fig_chain(path):
 
 # ---------------------------------------------------------------------------------------------------- Word
 SUBWORDS = ('asc', 'dsc', 'LOS', 'eq', 'yr', 'TG', 'pc', 'ke', 'kv', 'skv', 'sea', 'tide', 'surge', 'wave', 'max',
-            'c1Ncs', 'sat', 'im', 'obs', 'pr', 'toe', 'test', 'cert')
+            'c1Ncs', 'sat', 'im', 'obs', 'pr', 'toe', 'test', 'cert', 'phys', 'rob')
 WORDS = ('CSR', 'FS', 'CRR', 'MSF', 'LPI', 'TWL', 'FAR', 'miss', 'cost')
 
 
@@ -997,7 +1149,9 @@ def main(out):
         Sj = json.load(fh)
     with open(os.path.join(HERE, 'method_story_n500.json')) as fh:
         S5j = json.load(fh)
-    BL, vals = blocks(Wj, Vj, Aj, Sj, S5j)
+    with open(os.path.join(HERE, 'method_prior.json')) as fh:
+        Pj = json.load(fh)
+    BL, vals = blocks(Wj, Vj, Aj, Sj, S5j, Pj)
     numbers, n_main, n_ann, n_fig, n_tab = {}, 0, 0, 0, 0
     for b in BL:
         if b[0] == 'eq':
@@ -1010,10 +1164,11 @@ def main(out):
             n_tab += 1; numbers['#' + re.match(r'Table \{\{(\w+)\}\}', b[1]).group(1)] = str(n_tab)
     E = Eqs()
     work = tempfile.mkdtemp()
-    figs = {k: os.path.join(work, f'fig_{k}.png') for k in ('chain', 'story', 'verify', 'window', 'closing', 'sensors', 'active')}
+    figs = {k: os.path.join(work, f'fig_{k}.png') for k in ('chain', 'story', 'verify', 'window', 'closing', 'sensors', 'active', 'prior')}
     fig_chain(figs['chain'])
     MF.fig_story(figs['story'], Sj)
     MF.fig_active(figs['active'], Aj)
+    MF.fig_prior(figs['prior'], Pj)
     MF.fig_verify(figs['verify'], Vj)
     MF.fig_window(figs['window'], (0.0, 0.25, 0.45),
                   ('Today (R = 0)', 'R = 0.25 m', f'R = 0.45 m'))
@@ -1095,4 +1250,4 @@ def main(out):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Methodology_v2.docx')
+    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Methodology_v3.docx')
