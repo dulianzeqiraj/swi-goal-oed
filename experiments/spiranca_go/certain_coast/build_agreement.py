@@ -81,10 +81,9 @@ def main(out):
 
     head(doc, 'How to use this file', before=0)
     for t in [
-        '**Download the official template** ("SPS MYP Agreement for Joint Research", Word) through the link in the '
-        'application form on the SPS grant platform, or from the "Managing SPS grants" page of the SPS Programme. This '
-        'file is not the NATO template and is not uploaded in its place. [Check whether the call asks for the '
-        '"Preliminary Agreement for Joint Research" at this stage; the 2026-1 call did.]',
+        '**The official NATO template is already filled in:** CERTAIN-COAST_SPS_MYP_Agreement_for_Joint_Research.docx '
+        '(project line, names, institutions and signature lines; the template has no other fields). That file is the one '
+        'signed and uploaded; this file is not uploaded.',
         '**Part A** gives what to type into the template. **Part B** is optional: principles the two institutions can sign '
         'between themselves now, so that the consortium agreement foreseen before the start is already agreed. If the '
         'template has a free-text field on the division of work, copy the table of Part A there.',

@@ -458,7 +458,7 @@ def main(out):
 
     heading(doc, 'Checklist: uploads and signatures', 13, before=8)
     chk = [['SPS MYP Acceptance of Funds (NATO template)', 'PDF', 'NATO-country Project Director + a representative of the NPD\'s institution', '[to do]'],
-           ['SPS MYP Agreement for Joint Research (NATO template)', 'PDF', 'All Co-Directors + a representative of each institution; what to enter: CERTAIN-COAST_Agreement_for_Joint_Research_Content.docx', '[to do]'],
+           ['SPS MYP Agreement for Joint Research (NATO template)', 'PDF', 'Filled in: CERTAIN-COAST_SPS_MYP_Agreement_for_Joint_Research.docx; all Co-Directors and a representative of each institution sign', '[to do]'],
            ['SPS MYP Detailed Budget workbook (NATO Excel template, tabs "Info" and "Detail")', 'Excel', 'Fill by hand: the form warns that using AI on this file may corrupt it and lead to automatic rejection', '[to do]'],
            ['Project schedule with a Gantt chart', 'PDF', 'Ready: CERTAIN-COAST_Project_Schedule.pdf', 'ready'],
            ['End-user commitments, all letters merged into one file', 'PDF', 'Each end-user on its own letterhead (drafts in the Letters of Commitment document)', '[to do]'],
