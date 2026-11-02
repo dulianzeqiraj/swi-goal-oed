@@ -788,9 +788,9 @@ def blocks(W, V, A, ST, ST5, PR):
         ('b', '**Not claimed as new.** The alarms assemble published frontier methods: online conformal calibration under shift, '
               'guarantees by regime, extreme conformal prediction, Learn then Test and anytime-valid verification. Their joint use '
               'for coupled coastal hazards is an application of these methods. The generative copy and prediction-powered '
-              'inference are adopted; the test of Section 4.2 shows what they can and cannot certify. So are the priors, the '
-              'prior checks and the conflict test of Sections 3 and 6; Section 7.7 shows what the conflict test can and '
-              'cannot detect. The novelty checks for '
+              'inference are adopted; the test of Section 4.2 shows what they can and cannot certify. The priors, the prior '
+              'checks and the conflict test of Sections 3 and 6 are adopted as well; Section 7.7 shows what the conflict '
+              'test can and cannot detect. The novelty checks for '
               'C1, C2 and C3 rest on our literature search, to be repeated in bibliographic databases before submission.'),
 
         ('pb',),
