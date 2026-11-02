@@ -280,3 +280,82 @@ def fig_story(path, S):
     _style(bx); bx.grid(axis='y', visible=False)
     fig.tight_layout()
     fig.savefig(path, dpi=300); plt.close(fig)
+
+
+P_ORDER = [('right', 'nominal'), ('right', 'wide2'), ('right', 'wide4'), ('right', 'box'), ('right', 'checked'),
+           ('wrong1', 'nominal'), ('wrong1', 'wide2'), ('wrong1', 'checked'),
+           ('wrong2', 'nominal'), ('wrong2', 'wide2'), ('wrong2', 'wide4'), ('wrong2', 'checked'),
+           ('wrong3', 'nominal'), ('wrong3', 'wide2'), ('wrong3', 'wide4'), ('wrong3', 'checked')]
+P_LAB = {'nominal': 'radius S', 'wide2': 'radius 2S', 'wide4': 'radius 4S', 'box': 'physics-only prior',
+         'checked': 'S and conflict test'}
+P_COL = {'nominal': '#2E8B57', 'wide2': '#2E6DB4', 'wide4': '#6a4fb3', 'box': '#8796a5', 'checked': '#C27C12'}
+P_MISS, P_UNSAFE = '#9fb1c4', '#B45309'
+
+
+def prior_rates(P, key):
+    """Share of runs whose confidence set missed the true coefficients in some week, and share whose certified
+    boundary was below the true one in some week (closing year beyond the most a correct certificate gives)."""
+    rs, t_best = P['runs'][key], P['truth']['t_best']
+    miss = float(np.mean([not r['covered_all'] for r in rs]))
+    unsafe = float(np.mean([max([r['t_before'], r['t_after']] + r['weekly']) > t_best + 1e-9 for r in rs]))
+    return miss, unsafe
+
+
+def fig_prior(path, P):
+    """(a) Certified closing year after the campaign, by prior and use of the prior; (b) how often the confidence
+    set missed the truth and how often the certified boundary crossed the true one."""
+    t_true, t_best = P['truth']['t_close'], P['truth']['t_best']
+    rows = [(pk, m) for pk, m in P_ORDER if f'{pk}_{m}' in P['runs']]
+    err = {pk: P['prior_error'][pk]['nominal'] for pk in P['prior_error']}
+    # y positions, top to bottom, with a gap before each prior
+    y, cur, prev, heads = [], 0.0, None, {}
+    for pk, m in rows:
+        if pk != prev:
+            cur -= 1.05 if prev is not None else 0.0
+            heads[pk] = cur + 0.62
+            prev = pk
+        y.append(cur); cur -= 1.0
+    y = np.array(y)
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.9, 6.3), dpi=300, gridspec_kw=dict(width_ratios=[1.5, 1]), sharey=True)
+    for yi, (pk, m) in zip(y, rows):
+        rs = P['runs'][f'{pk}_{m}']
+        ta = np.array([r['t_after'] for r in rs])
+        lo, md, hi = np.percentile(ta, 10), np.median(ta), np.percentile(ta, 90)
+        ax.plot([lo, hi], [yi, yi], color=P_COL[m], lw=2.4, solid_capstyle='round')
+        ax.plot(md, yi, 'o', color=P_COL[m], ms=6, mec='white', zorder=4)
+        ax.text(max(hi, md) + 0.9, yi, f'{md:.1f}', fontsize=8.6, color=INK, va='center',
+                bbox=dict(fc='white', ec='none', pad=0.4), zorder=5)
+        miss, unsafe = prior_rates(P, f'{pk}_{m}')
+        if miss == 0 and unsafe == 0:
+            bx.text(1.5, yi, 'none', fontsize=8.6, color=MUTED, va='center')
+            continue
+        for off, v, colr in ((0.19, miss, P_MISS), (-0.19, unsafe, P_UNSAFE)):
+            bx.barh(yi + off, 100 * v, height=0.34, color=colr)
+            bx.text(100 * v + 1.5, yi + off, f'{100 * v:.0f}%', fontsize=8.6, color=(INK if v > 0 else MUTED), va='center')
+    for pk, yh in heads.items():
+        name = (f'Prior of Section 7.6: {err[pk]:.1f}σ from the truth (S = {P["S_nominal_sigma"]:.0f}σ)'
+                if pk == 'right' else f'Optimistic prior: {err[pk]:.1f}σ from the truth')
+        ax.text(0.0, yh, name, fontsize=8.6, color=INK, va='center', ha='left', fontweight='bold',
+                bbox=dict(fc='white', ec='none', pad=0.3), zorder=5)
+        for a in (ax, bx):
+            a.axhline(yh + 0.42, color='#c9d1d9', lw=0.8)
+    ax.axvline(t_true, color=INK, lw=0.9, ls=(0, (4, 2)))
+    ax.axvline(t_best, color=MUTED, lw=1.0, ls=':')
+    ax.set_yticks(y); ax.set_yticklabels([P_LAB[m] for pk, m in rows], fontsize=8.6)
+    ax.set_xlim(-1, 50); ax.set_ylim(y.min() - 0.7, max(heads.values()) + 0.55)
+    ax.set_xlabel('Certified closing year after the campaign\n(dot: median; bar: 10–90% of runs)', fontsize=8.8)
+    ax.set_title('(a) Certified closing year', fontsize=9.4, color=INK, loc='left')
+    _style(ax); ax.grid(axis='y', visible=False)
+    bx.set_xlim(0, 118); bx.set_xticks([0, 25, 50, 75, 100])
+    bx.set_xlabel('Runs (%)', fontsize=8.8)
+    bx.set_title('(b) Failures of the guarantee', fontsize=9.4, color=INK, loc='left')
+    _style(bx); bx.grid(axis='y', visible=False); bx.tick_params(axis='y', length=0)
+    hs = [Line2D([], [], color=INK, lw=0.9, ls=(0, (4, 2))), Line2D([], [], color=MUTED, lw=1.0, ls=':'),
+          Patch(color=P_MISS), Patch(color=P_UNSAFE)]
+    ls = [f'True closing year ({t_true:.0f})', f'Most a correct certificate can give ({t_best:.1f})',
+          'Confidence set missed the true coefficients in some week',
+          'Certified boundary below the true one in some week']
+    fig.legend(hs, ls, loc='lower center', ncol=2, fontsize=8.6, frameon=False, handlelength=2.2,
+               columnspacing=1.6, bbox_to_anchor=(0.5, 0.0))
+    fig.tight_layout(rect=(0, 0.075, 1, 1))
+    fig.savefig(path, dpi=300); plt.close(fig)
