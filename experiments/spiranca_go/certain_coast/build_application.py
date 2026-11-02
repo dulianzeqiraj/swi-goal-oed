@@ -119,8 +119,9 @@ HOW = (
     'earthquake or storm. WP6 trains early-career researchers and operator staff, releases the open software and transfers '
     'the method to a second coast in the partner country. WP7 manages data access, security classification, risks and '
     'reporting.\n'
-    'Collaboration. The NATO-country team in Albania leads coastal motion, the network and live operation (WP1, WP4, WP5, '
-    'WP7); the partner-country team leads the coupled model, the certified alarms and the transfer (WP2, WP3, WP6). '
+    'Collaboration. The NATO-country team in Albania leads coastal motion, the coupled model, the certified alarms, the '
+    'network and live operation (WP1–WP5, WP7); the partner-country team leads training, transfer and dissemination (WP6), '
+    'including a transfer study on a coast of its own country and a user-side review of the bulletins. '
     'Early-career researchers from both countries work across the work packages and spend two-month exchanges on site. The '
     'end-users set thresholds, take part in a dry run and co-sign the operational milestones. A steering committee with the '
     'end-users meets every six months, and each gate has a named fallback.')
@@ -260,11 +261,11 @@ WORKPLAN = (
     'relative sea level at each asset (T1.3); elastic and inelastic compaction and the head limit for pumping (T1.4). '
     'Risk: loss of radar coherence on soft ground; mitigation: corner reflectors and scatterers on structures. Milestone: '
     'MS2 (Month 12).\n'
-    'WP2, One coupled model and its certified fast copy (Months 4–24; partner-country team). Steps: model set-up (T2.1); '
+    'WP2, One coupled model and its certified fast copy (Months 4–24; NATO-country team). Steps: model set-up (T2.1); '
     'coupling of flow, salt, compaction and liquefaction (T2.2); calibration with an ensemble smoother (T2.3); '
     'neural-operator surrogate with a certified error bound (T2.4). Risk: the model fails validation; mitigation: build in '
     'stages and fall back to two-dimensional sections with a wider error bound. Milestones: MS3 (Month 18), MS4 (Month 22).\n'
-    'WP3, Certified multi-hazard alarm (Months 13–34; partner-country team). Steps: thresholds and tolerable miss rates with '
+    'WP3, Certified multi-hazard alarm (Months 13–34; NATO-country team). Steps: thresholds and tolerable miss rates with '
     'the operators (T3.1); alarm margins and proofs (T3.2); joint guarantee and allocation of tolerances (T3.3); '
     'back-testing (T3.4); verification in operation (T3.5). Risk: too many false alarms; mitigation: acceptable rates agreed '
     'in advance and tolerances allocated by consequence. Milestone: MS5 (Month 27).\n'
@@ -541,7 +542,7 @@ def main(out):
     heading(doc, '6. Project Participants', 14, before=10)
     p = para(doc, 4); put(p, 'Roles of Co-Directors and Participants (add rows as needed; all must be nationals of NATO or eligible partner countries):')
     part = [['[First name]', '[Family name]', '[NPD institution]', 'NATO-country Project Director', '[Albanian]', 'Coordination; WP1 coastal motion; WP4 monitoring network; WP5 live operation; WP7 management', '[30%]'],
-            ['[First name]', '[Family name]', '[PPD institution]', 'Partner-country Project Director', '[nationality]', 'WP2 coupled model and certified surrogate; WP3 certified alarms; WP6 training and transfer', '[30%]'],
+            ['[First name]', '[Family name]', '[PPD institution]', 'Partner-country Project Director', '[nationality]', 'WP6 training, transfer and dissemination; transfer study on a partner-country coast; user-side review of the bulletins', '[20%]'],
             ['[First name]', '[Family name]', '[Institute of Geosciences, UPT]', 'Researcher', '[Albanian]', 'Seismic, GNSS and hydrometeorological data; WP1, WP4', '[15%]'],
             ['To be recruited', '(4 people)', 'NPD and PPD institutions', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
             ['[First name]', '[Family name]', '[Durrës water utility]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins, pumping rule', '[5%]'],

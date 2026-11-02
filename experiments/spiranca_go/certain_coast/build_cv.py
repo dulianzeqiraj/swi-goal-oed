@@ -33,8 +33,8 @@ SOURCES = [
 ]
 
 TEAM = [
-    ['Dulian Zeqiraj', 'NATO-country Project Director', '[Albania; institution to confirm]', '[expertise]', 'Coordination; WP4, WP5, WP7; WP1'],
-    ['[Name]', 'Partner-country Project Director', '[eligible partner country; institution]', '[expertise]', 'WP2, WP3, WP6'],
+    ['Dulian Zeqiraj', 'NATO-country Project Director', '[Albania; institution to confirm]', '[expertise]', 'Coordination; WP1–WP5, WP7'],
+    ['[Name]', 'Partner-country Project Director', '[eligible partner country; institution]', '[expertise]', 'WP6; transfer study'],
     ['[Name]', 'Additional NATO co-director (optional)', '[NATO member; institution]', '[expertise]', 'WP1; T4.4'],
     ['[Names]', 'Early-career researchers (at least 6)', '[institutions]', '[fields]', 'WP1–WP5'],
 ]
@@ -151,18 +151,18 @@ NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is 
             'the landfall operator and civil protection (WP5); contributes to the measurement of coastal motion and relative sea '
             'level (WP1). Chairs the steering committee, signs the access agreements with the operators (T7.2, Month 3) and '
             'oversees the hand-over at Month 36.')
-PPD_ROLE = ('As partner-country Project Director, leads the coupled model of the coast and its certified surrogate (WP2), the '
-            'certified multi-hazard alarm with its proofs and back-testing (WP3), and training, transfer and dissemination (WP6), '
-            'including the transfer test on a subsiding coast of [eligible partner country]; supervises the partner-country '
-            'early-career researchers and their exchanges to the Durrës coast.')
+PPD_ROLE = ('As partner-country Project Director, leads training, transfer and dissemination (WP6): the transfer study on a '
+            'coast of [eligible partner country], carried out with the project\'s tools and the Albanian team, the two-month '
+            'exchanges of the partner-country early-career researchers to the Durrës coast, a regional workshop, and a '
+            'user-side review of the bulletins and operating procedures.')
 NCD_ROLE = ('As additional NATO co-director, supervises InSAR time-series processing and the separation of elastic and inelastic '
             'compaction (WP1) and the use of ambient seismic noise as a water-table gauge (T4.4); hosts early-career researchers '
             'for training visits.')
 
 NPD_GUIDE = ('3 to 5 lines linking your work to the hazard chain, for example coastal hydrogeology and seawater intrusion, field '
              'monitoring, groundwater chemistry, work on a coastal aquifer such as Fushë-Kuqe. Keep only what is true.')
-PPD_GUIDE = ('3 to 5 lines on modelling, applied mathematics, uncertainty quantification or machine learning, and on any work on '
-             'a subsiding or intruded coast in your country.')
+PPD_GUIDE = ('3 to 5 lines on coastal geoscience, hydrogeology or water management in your country, on teaching and '
+             'training, and on any work on a subsiding or intruded coast.')
 NCD_GUIDE = '3 to 5 lines on InSAR, geodesy or seismic interferometry, with the coasts or basins you have worked on.'
 
 

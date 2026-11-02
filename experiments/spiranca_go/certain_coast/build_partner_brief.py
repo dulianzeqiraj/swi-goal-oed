@@ -86,31 +86,39 @@ def build_docx(path):
         '**The value of a sensor in years of safe operation**, used to choose the monitoring network.',
     ])
 
-    head(doc, 'The role we propose for the partner-country team')
-    t = table(doc, ['Work package', 'What the partner team leads'], [
-        ['WP2 Coupled model and certified surrogate', 'Coupled model of intrusion, compaction, liquefaction and sea level; calibration; a neural-operator or kernel surrogate with an error bound on every forecast'],
-        ['WP3 Certified multi-hazard alarm', 'Alarm margins and their proofs; a joint guarantee over the three alarms; back-testing on the record and on storylines beyond it'],
-        ['WP6 Training, transfer and dissemination', 'Training of early-career researchers; test of the method on a subsiding coast of the partner country; open software and data'],
-    ], [5.2, 12.0], size=9.2)
+    head(doc, 'The role we propose for the partner-country team: clear tasks, no algorithm work')
+    p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    rich(p, 'The coupled model, the machine-learning surrogate and the certified-alarm algorithm are built and run by the '
+            'Albanian team (WP1–WP5, WP7). The partner team needs no specialist modelling staff. It leads **WP6, Training, '
+            'transfer and dissemination**, with four concrete tasks:', size=9.8)
+    t = table(doc, ['Task', 'What the partner team does', 'When'], [
+        ['Exchanges', 'Sends its early-career researchers to Durrës for two-month stays (six stays in total), where they '
+                      'work with the data, the operators and the Albanian team', 'Years 1–3'],
+        ['Transfer study', 'Collects public maps and data and local knowledge on a coast of its own country; the Albanian '
+                           'team runs the model and the algorithm with them; joint report and paper', 'Months 24–36'],
+        ['Regional workshop and outreach', 'Organises one workshop in its country, presents the results at conferences, '
+                                           'and translates the public summary and the policy brief', 'Year 3'],
+        ['User-side review', 'Reads the bulletins and the operating procedures as an outside user and sends comments',
+         'Months 23–36'],
+    ], [3.4, 11.4, 2.4], size=9.2)
     for r_ in t.rows[1:]:
         shade(r_.cells[0], 'EEF2F8')
     p = para(doc, 2, before=3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    rich(p, 'The NATO-country team (Albania) leads coastal motion, the monitoring network, live operation and management '
-            '(WP1, WP4, WP5, WP7). Joint papers, co-supervision of early-career researchers and shared open software are '
-            'planned throughout.', size=9.8)
+    rich(p, 'The Project Director also sits on the steering committee (online meetings are fine) and sends a short input to '
+            'the four reports to NATO. The partner team co-authors the joint papers and keeps the open software.', size=9.8)
 
     head(doc, f'Budget for the partner institution in the current plan: €{ppd:,.0f} ({100 * ppd / tot:.0f}% of the total)')
     t = table(doc, ['Item', 'Partner share', 'Basis'], lines, [11.0, 2.8, 3.4], size=9.0)
     p = para(doc, 2, before=3)
-    rich(p, 'The share can be raised, for example by placing more stipends or the transfer study at the partner '
-            'institution; we will agree the final figures together before submission.', size=9.3)
+    rich(p, 'The share can be raised, for example with more exchanges or stipends at the partner institution; we will agree '
+            'the final figures together before submission.', size=9.3)
 
     head(doc, 'Who can be the partner-country Project Director')
     bullets(doc, [
         'Employed and resident in an eligible partner country of the SPS Programme, at a university, public research '
         'institute or other non-profit institution (companies cannot be co-directors).',
         'Holds no other SPS grant at the time (one SPS grant per person).',
-        'Gives about 30% of working time to the project; co-signs the SPS Agreement for Joint Research with a '
+        'Gives about 20% of working time to the project; co-signs the SPS Agreement for Joint Research with a '
         'representative of the institution.',
     ])
 
