@@ -65,6 +65,7 @@ LETTERS = [
          provide=['access to our production and monitoring wells for the installation and maintenance of loggers, from Month [4] (installation by Month 12);',
                   'our records of groundwater heads, chloride and pumping rates under a data access agreement to be signed by Month 3;',
                   'staff time to agree the chloride threshold and the acceptable false-alarm rate (Months 13–15) and to develop a joint pumping rule (Months 24–33);',
+                  'approval and operational support for a short campaign of safe pumping tests on existing wells, each stopped at an agreed chloride test limit (within Months 24–33);',
                   'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
          use='We intend to receive and use the certified intrusion bulletins during the twelve months of live operation (Months 23–34), to issue them ourselves in the final months, and to consider adopting an operating procedure for the system. We are willing to discuss an arrangement for its maintenance after the project.'),
     dict(key='port', title='End-user: Durrës Port Authority',

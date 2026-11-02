@@ -60,7 +60,7 @@ YEARS = [
         'Certified alarm algorithms and proofs by Month 24 (D3.1); second report to the SPS Programme in Month 18, at the calibration gate (D7.2).',
     ]),
     ('Year 3 (Months 25–36): operate, verify, hand over', [
-        'Back-testing report and miss-rate targets confirmed by Month 27 (D3.2, gate MS5); third report to the SPS Programme in Month 30 (D7.2); joint pumping rule agreed with the utility by Month 33.',
+        'Back-testing report and miss-rate targets confirmed by Month 27 (D3.2, gate MS5); third report to the SPS Programme in Month 30 (D7.2); safe pumping tests in Months 24–33 and the joint pumping rule agreed with the utility by Month 33.',
         'Maintenance agreement signed by the operators by Month 33; open software and data released in Month 33 (D6.1).',
         'Twelve months of live operation completed in Month 34 (D5.1, MS6); operators issue every bulletin in Months 34–36.',
         'Transfer workshop in Month 35; procedures and policy brief, final workshop and hand-over in Month 36 (D6.2, MS7, D7.3).',

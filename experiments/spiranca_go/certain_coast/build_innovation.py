@@ -1,5 +1,5 @@
-"""CERTAIN-COAST (NATO SPS proposal): Innovation. The core innovation and the three gaps it closes; the eleven technical
-innovations at a glance (M1-M5, P1-P5 from the State of the Art, and V1 from the Impact section) with the novelty check
+"""CERTAIN-COAST (NATO SPS proposal): Innovation. The core innovation and the three gaps it closes; the twelve technical
+innovations at a glance (M1-M6, P1-P5 from the State of the Art, and V1 from the Impact section) with the novelty check
 and the test of each; a figure placing them in the warning chain; one card per innovation (today, what is new, why it
 matters, how it is tested, novelty check); preliminary evidence; readiness now and at the end (TRL, EU definitions);
 innovations in delivery; protection and sharing; what is new in this section.
@@ -67,9 +67,12 @@ CARD = {
            'D4.1 (M6)'),
     'M4': ('Neural operators approximate PDE solution maps [25], kernel methods solve nonlinear PDEs [26], and conformal '
            'prediction calibrates operator learning [23]. These give approximation guarantees, not a certificate on each forecast '
-           'of a coupled variable-density and poroelastic model.',
+           'of a coupled variable-density and poroelastic model. Generative models now reproduce the statistics of complex '
+           'flows at a fraction of the cost of the full solver, without a guarantee [k].',
            'A neural or kernel operator of the coupled model whose error Δₖ is bounded a posteriori for every forecast and '
-           'calibrated conformally, fast enough for thousands of storylines per day.',
+           'calibrated conformally, fast enough for thousands of storylines per day. A generative copy explores long storylines '
+           'and chooses the full runs; in a synthetic test its statistics alone put the closing year 2–8 years late, so closing '
+           'years are certified from full runs.',
            'Real-time warnings and storylines become affordable without losing the guarantee.',
            'D2.2 (M22, gate MS4): coverage of Δₖ ≥ 1 − δ on held-out full-model runs; fallback: full model on a reduced domain.',
            'Approximation guarantees [25, 26]; here a certificate on each forecast of a coupled model',
@@ -83,6 +86,19 @@ CARD = {
            'linear trend on held-out years.',
            'Linear land-motion trend [4–6]; here measured, time-varying land motion',
            'D1.1 (M12); D3.2 (M27)'),
+    'M6': ('Active identification steers a nonlinear system so that all its parameters are learned at a parametric rate [h], '
+           'and safe exploration keeps a learning system within limits [i, j]. Our search found no pumping-test design chosen '
+           'for the years it adds to a safe operating window, with a finite-sample guarantee.',
+           'Short pumping and dewatering tests that approach the onset of intrusion are chosen for the years they add to the '
+           'certified closing year of the window (P3), with a confidence set that holds in every week and a chloride safety '
+           'filter. In a second synthetic test they raised the certified closing year from 10.8 to 31.9 years (true value 45) '
+           'with chloride below 123 mg/L in 95% of runs; unconstrained tests chosen for parameter accuracy passed 250 mg/L in '
+           '42% of runs.',
+           'The utility learns how much safe operating time its aquifer has, without putting its wells at risk to find out.',
+           'T5.3 (M24–33): measured chloride stays below the test limit in every test; held-out weeks fall inside the confidence '
+           'set; the utility approves each test.',
+           'Active identification for all parameters [h]; here safe tests chosen for years of safe operation',
+           'T5.3 (M33)'),
     'P1': ('Subsidence is measured with InSAR and GNSS and used to set sustainable pumping [1–3], but it is not used as a '
            'time-varying boundary condition of intrusion, flooding and liquefaction models at the same site.',
            'One relative sea level, R(t) = η(t) − u_z(t), with u_z from InSAR/GNSS, drives all three hazard models.',
@@ -146,21 +162,22 @@ DELIVERY = [
 ]
 
 STAGES = [('Observe', ['P1', 'M3', 'P5']), ('Model', ['M4', 'P2', 'M5']), ('Warn', ['M1', 'M2', 'P4']),
-          ('Decide', ['P3', 'V1']), ('Verify', ['O1', 'O2', 'O3'])]
+          ('Decide', ['P3', 'M6', 'V1']), ('Verify', ['O1', 'O2', 'O3'])]
 SHORT = {'P1': 'One relative sea\nlevel R(t)', 'M3': 'Sensors designed\nfor the warnings', 'P5': 'Seismic velocity as\nwater-table gauge',
          'M4': 'Surrogate with\ncertified error', 'P2': 'Liquefaction safety\nfactor in time', 'M5': 'Extremes with\nland motion',
          'M1': 'Certified miss rate\nfor each alarm', 'M2': 'Joint guarantee\nfor three alarms', 'P4': 'Compaction tipping\npoint as alarm',
-         'P3': 'Safe window and\nits closing year', 'V1': 'Certified value\nfor each user',
+         'P3': 'Safe window and\nits closing year', 'M6': 'Safe pumping tests\nvalued in years', 'V1': 'Certified value\nfor each user',
          'O1': 'Verification\nfixed in advance', 'O2': 'Evidence gates,\nfixed thresholds', 'O3': 'Transfer tested\nby an outsider'}
 
 TRL = [
-    ['Certified multi-hazard warning system as a whole', 'M1–M5, P1–P5', '3', '7', 'Proof of concept on a synthetic coast → twelve months of live operation with the operators'],
+    ['Certified multi-hazard warning system as a whole', 'M1–M6, P1–P5', '3', '7', 'Proof of concept on a synthetic coast → twelve months of live operation with the operators'],
     ['Certified alarm margin and joint guarantee', 'M1, M2', '3', '7', 'Synthetic tests (4–9% vs 13–21%) → back-tested and verified live'],
     ['Error-certified surrogate of the coupled model', 'M4', '3', '7', 'Method components published → used for every live forecast'],
     ['Coupled model with R(t), FS(x,t) and compaction', 'P1, P2, P4', '3', '7', 'Preparatory coupled model → calibrated at the site and run live'],
     ['Multi-hazard sensor design', 'M3', '3', '7', 'Theory and preparatory design → network installed and streaming'],
     ['Seismic velocity as coastal water-table sensor', 'P5', '3', '6', 'Shown in inland basins → calibrated at the port or landfall'],
     ['Certified safe window and pumping rule', 'P3', '3', '6', 'Derived and tested on a synthetic transect → evaluated and agreed with the utility'],
+    ['Safe pumping tests valued in years', 'M6', '3', '6', 'Simulated on a synthetic test system → run on existing wells with the utility'],
     ['Certified value for each user', 'V1', '2', '6', 'Bound derived → reported for each user from live data'],
 ]
 
@@ -185,6 +202,10 @@ EXTRA = [
     ('e', 'Wagner, B. J. (1999). Evaluating data worth for ground-water management under uncertainty. Journal of Water Resources Planning and Management 125(5), 281–288.', 'https://doi.org/10.1061/(ASCE)0733-9496(1999)125:5(281)'),
     ('f', 'Mazi, K., Koussis, A. D. and Destouni, G. (2013). Tipping points for seawater intrusion in coastal aquifers under rising sea level. Environmental Research Letters 8(1), 014001.', 'https://doi.org/10.1088/1748-9326/8/1/014001'),
     ('g', 'Coulon, C., White, J. T., Pryet, A., Gatel, L. and Lemieux, J.-M. (2024). An ensemble-based approach for pumping optimization in an island aquifer considering parameter, observation and climate uncertainty. Hydrology and Earth System Sciences 28(1), 303–319.', 'https://doi.org/10.5194/hess-28-303-2024'),
+    ('h', 'Mania, H., Jordan, M. I. and Recht, B. (2022). Active learning for nonlinear system identification with guarantees. Journal of Machine Learning Research 23, 1–30.', 'http://jmlr.org/papers/v23/20-807.html'),
+    ('i', 'Koller, T., Berkenkamp, F., Turchetta, M. and Krause, A. (2018). Learning-based model predictive control for safe exploration. 2018 IEEE Conference on Decision and Control (CDC), 6059–6066.', 'https://doi.org/10.1109/CDC.2018.8619572'),
+    ('j', 'Zimmer, C., Meister, M. and Nguyen-Tuong, D. (2018). Safe active learning for time-series modeling with Gaussian processes. Advances in Neural Information Processing Systems 31, 2730–2739.', None),
+    ('k', 'Gao, H., Kaltenbach, S. and Koumoutsakos, P. (2024). Generative learning for forecasting the dynamics of high-dimensional complex systems. Nature Communications 15, 8904.', 'https://doi.org/10.1038/s41467-024-53165-w'),
 ]
 
 
@@ -269,7 +290,7 @@ def bullets(doc, items, size=10.5):
 
 def main(out):
     nm = names()
-    order = ['M1', 'M2', 'M3', 'M4', 'M5', 'P1', 'P2', 'P3', 'P4', 'P5', 'V1']
+    order = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'P1', 'P2', 'P3', 'P4', 'P5', 'V1']
     work = tempfile.mkdtemp()
     f1 = os.path.join(work, 'fig_chain.png'); fig_chain(f1)
     f2 = os.path.join(work, 'fig_evidence.png'); fig_evidence(f2)
@@ -290,7 +311,7 @@ def main(out):
             'three gaps that the State of the Art identifies in the 2020–2026 literature:', size=10.5)
     bullets(doc, ['**No early warning treats the three hazards as one system,** although they share relative sea level and pore pressure and are moved by the same pumping lever (closed by P1, P2, P3, M2).',
                   '**No warning for any of them carries a guarantee:** certified methods assume exchangeable data or hold on time average, none covers a slow physics model, and the first method for levels beyond the record (2026) is not yet used for coastal hazards (closed by M1, M4, M5).',
-                  '**The new sensors are measured but not designed:** no study chooses InSAR, seismic noise and fibre jointly with wells and samples to reduce missed warnings (closed by M3, P5).'])
+                  '**The new sensors are measured but not designed:** no study chooses InSAR, seismic noise and fibre jointly with wells and samples to reduce missed warnings, and pumping tests are not designed for the decision they inform (closed by M3, P5, M6).'])
     p = para(doc, 4, before=2); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, 'Numbers in brackets refer to the 30 key papers of the State of the Art; [L1] is the local Durrës study and letters to '
             'the additional sources listed at the end.', size=9.5)
@@ -338,7 +359,9 @@ def main(out):
             'kept the share of seasons above the chloride limit at **4–9%** across drought, human-feedback and compound storylines, '
             'where a static alarm allowed **13–21%** (Figure 2). On a synthetic coastal transect, the certified safe window of P3 '
             'closed after **38 years**, while plans that watch one hazard believed they had 43–97 years, and the years criterion of '
-            'M3 valued a GNSS station and corner reflectors at 5–6 years each (Methodology, Sections 7.3–7.4). The value bound of V1 '
+            'M3 valued a GNSS station and corner reflectors at 5–6 years each (Methodology, Sections 7.3–7.4). On a second synthetic '
+            'test system, the safe pumping tests of M6 raised the certified closing year from 10.8 to 31.9 years with chloride '
+            'below 123 mg/L in 95% of runs (Methodology, Section 7.6). The value bound of V1 '
             'was checked against a direct calculation of the cost-loss model (Impact, Section 5).', size=10.5)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(f2, width=Cm(15.5))

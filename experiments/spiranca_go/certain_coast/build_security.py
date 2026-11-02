@@ -92,7 +92,7 @@ DECISIONS = [
     ['Energy landfall operator', 'Inspect, protect or isolate the landfall', 'Hours to days', 'Landfall stability check; water-level warning', 'Miss rates ≤ α₂, α₃'],
     ['Civil protection', 'Set priorities across water, port and energy after an event', 'Hours to days', 'One bulletin for the three assets from one model', 'Joint miss ≤ Σαₖ'],
     ['National authorities; resilience and defence planners', 'Plan adaptation and investment; set the planning horizon', 'Years to decades',
-     'Certified closing year of the safe window; years added by each sensor', 'Certified at the stated level; recomputed yearly'],
+     'Certified closing year of the safe window; years added by each sensor and each pumping test', 'Certified at the stated level; recomputed yearly'],
 ]
 
 TEVV = [
@@ -126,7 +126,7 @@ COOP = [
 NEW = [
     '**A planning horizon that can be certified.** Beyond warnings, the project gives resilience planners the year at which no pumping and dewatering plan is any longer safe for water, port and energy together, at a stated confidence (Methodology, Section 7).',
     '**Single-hazard planning shown to overestimate the horizon.** In the preparatory synthetic test, plans that watch one hazard believed they had 43 to 97 years; the certified joint horizon was 38 years.',
-    '**Monitoring priced in years of resilience.** Each sensor is valued by the years of safe operation it adds before the window closes (for example a sentinel piezometer about 22 years in the test), so equipment buys security time, not only data.',
+    '**Monitoring and testing priced in years of resilience.** Each sensor and each safe pumping test is valued by the years of safe operation it adds before the window closes (a sentinel piezometer about 22 years in the test), so equipment buys security time, not only data.',
     '**A worked example of AI testing, evaluation, verification and validation** for a civil-security warning, in the direction set by NATO\'s revised AI Strategy (2024) [S11], with each step tied to a deliverable.',
     '**Decisions, not only hazards.** For each decision-maker the section states the decision, its time scale, the input and the reliability attached to it.',
 ]
@@ -320,7 +320,8 @@ def main(out):
             f'{Wj["plans"]["swi_only"]["believed"]:.0f} to {Wj["plans"]["liq_only"]["believed"]:.0f} years (Figure 2): a '
             'flood-only plan misses the groundwater hazards, and managing one groundwater hazard alone pushes risk onto the other. '
             'The same analysis values each sensor by the years it adds before the window closes, so monitoring can be bought '
-            'as security time.', size=10.5)
+            'as security time. Short pumping tests that stay below a chloride test limit are chosen the same way, by the years '
+            'they add to the certified horizon: from 10.8 to 31.9 years in a second synthetic test (Methodology, Section 7.6).', size=10.5)
     p = para(doc, 2, before=2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(f2, width=Cm(15.4))
     caption(doc, 'Figure 2. Years of safe operation believed by plans that watch one hazard, against the certified joint '

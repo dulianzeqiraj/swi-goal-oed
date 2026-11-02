@@ -63,13 +63,15 @@ OBJ = [
     ('O5', 'Demonstrate the system in operation at the three assets',
      'Run the system live for at least 12 months, issuing bulletins to the water utility, the port authority, the landfall '
      'operator and civil protection. Evaluate every pumping rule and operating decision against all three hazards at once, so '
-     'that no action moves the risk from one asset to another. Execute a post-event protocol after any strong earthquake or '
+     'that no action moves the risk from one asset to another. Sharpen the certified safe window with short pumping tests '
+     'that stay below a chloride test limit. Execute a post-event protocol after any strong earthquake or '
      'storm surge.',
      ['At least 12 months of continuous operation with bulletins logged and their outcomes verified',
       'A pumping rule for the wellfields that keeps the three alarms within target together, documented and agreed with the operator',
+      'Safe pumping tests approved by the utility, each below its chloride test limit, with the years they add to the certified window reported',
       'Post-event protocol executed for every event above the agreed magnitude or water level during the demonstration',
       'A guaranteed lower bound on the value of the warning reported for each user\'s own decision (innovation V1, Impact section)'],
-     'D5.1 Live demonstration report (Month 34)', 'Gap: no early warning treats the hazards as one system. Innovations P3, M1, M2'),
+     'D5.1 Live demonstration report (Month 34)', 'Gap: no early warning treats the hazards as one system. Innovations P3, M1, M2, M6'),
     ('O6', 'Transfer the system and build lasting capacity',
      'Train early-career researchers and the staff of the operators and authorities; release the software and the protocols '
      'openly; and write the operating procedures and a policy brief in the form the operators and the national authorities '
@@ -106,7 +108,7 @@ GLANCE = {
     'O4': ('Every sensor ranked by value per unit cost; ≥ 90% data availability',
            'M6 (MS1); M12 (MS2)', 'Equipment budget of about half the grant; orders placed in Month 4',
            'Design re-run with the remaining budget; piezometers alone if seismic velocity fails (R9, R19)'),
-    'O5': ('12 months of logged bulletins with outcomes; observed miss rates within targets; pumping rule agreed',
+    'O5': ('12 months of logged bulletins with outcomes; observed miss rates within targets; pumping tests below the test limit; pumping rule agreed',
            'M34 (MS6)', 'End-users committed by letter; live operation starts only after gate MS4',
            'Verification by back-testing and storylines if no strong event occurs (R14)'),
     'O6': ('≥ 6 early-career researchers; ≥ 20 operator staff; ≥ 1 procedure adopted per asset; open release',

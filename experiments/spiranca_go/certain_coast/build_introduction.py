@@ -34,7 +34,7 @@ GUIDE = [
     ['What is known, and what is new?', 'State of the Art; Innovation; References'],
     ['What exactly will be done?', 'Objectives; Methodology; Work Packages'],
     ['When, and how is progress judged?', 'Work Plan; Timeline; Milestones (evidence gates); Deliverables'],
-    ['What can go wrong?', 'Risk Assessment (21 risks with triggers and fallbacks)'],
+    ['What can go wrong?', 'Risk Assessment (22 risks with triggers and fallbacks)'],
     ['Who does it, and are the users committed?', 'Partnership; CVs of the Project Directors; Letters of Commitment'],
     ['What will exist at the end, and for whom?', 'Expected Results; Impact; Dissemination Plan'],
     ['Is it value for money, and will it last?', 'Budget; Sustainability'],
@@ -167,7 +167,7 @@ def main(out):
     bullets(doc, [
         '**No early warning treats the three hazards as one system,** although they share relative sea level and pore pressure and are moved by the same pumping lever.',
         '**No warning for any of them carries a guarantee.** Certified methods assume exchangeable data or hold only on time average; none covers a slow physics model of a coastal hazard, and the first method for levels beyond the observed record (2026) is not yet used for them.',
-        '**The new sensors are measured but not designed.** InSAR time series, seismic noise and fibre are not chosen jointly with wells and samples to reduce missed warnings.',
+        '**The new sensors are measured but not designed.** InSAR time series, seismic noise and fibre are not chosen jointly with wells and samples to reduce missed warnings, and in our search no pumping test is designed for the decision it informs.',
     ])
     p = para(doc, 4, before=2); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, 'As a result, a decision-maker at the wells, the quay or the landfall cannot tell how often a warning will miss, '

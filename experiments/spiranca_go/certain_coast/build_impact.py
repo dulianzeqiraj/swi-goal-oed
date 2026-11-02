@@ -63,7 +63,7 @@ STAKE = [
 ]
 
 BENEFIT = [
-    ['Water utility (wellfields)', 'Certified intrusion warning before wells turn saline; a pumping rule safe for all three hazards; fewer wells lost to salt', 'Warnings from M23; rule by M33'],
+    ['Water utility (wellfields)', 'Certified intrusion warning before wells turn saline; a pumping rule safe for all three hazards; safe pumping tests that show how long safe operation lasts; fewer wells lost to salt', 'Warnings from M23; rule by M33'],
     ['Port authority', 'Liquefaction and extreme-water-level warnings for the quays; assessment within days after an earthquake or surge', 'From M23; post-event protocol from M12'],
     ['Energy landfall operator', 'One stability check combining shaking, liquefaction, water level and subsidence; continuous monitoring', 'From M23'],
     ['National Civil Protection Agency', 'One consistent picture of water, port and energy after an event, with stated reliability', 'From M23'],
