@@ -183,3 +183,100 @@ def fig_verify(path, ver):
     _style(bx); bx.grid(axis='y', visible=False)
     fig.tight_layout()
     fig.savefig(path, dpi=300); plt.close(fig)
+
+
+# ------------------------------------------------------------------------------------------------ C3 and Section 4.2
+K_COL = {'routine': '#9aa3ad', 'random': '#6b7680', 'eopt': '#C27C12', 'eopt_safe': '#6a4fb3', 'goal_safe': C_WIN}
+K_SHORT = {'routine': 'Routine operation', 'random': 'Random perturbations', 'eopt': 'E-optimal, no safety filter',
+           'eopt_safe': 'E-optimal with safety filter', 'goal_safe': 'Goal-oriented and safe (C3)'}
+
+
+def fig_active(path, A):
+    """(a) Certified closing year of the window during the test campaign; (b) highest chloride reached."""
+    import method_active as MA
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.9, 3.35), dpi=300, gridspec_kw=dict(width_ratios=[1.1, 1]))
+    kinds = ['routine', 'random', 'eopt', 'eopt_safe', 'goal_safe']
+    w = np.arange(1, A['params']['CAMP'] + 1)
+    for k in kinds:
+        W = np.array([r['weekly'] for r in A['kinds'][k]['runs']])
+        med, lo, hi = np.median(W, 0), np.percentile(W, 10, 0), np.percentile(W, 90, 0)
+        ls = '--' if k == 'eopt' else '-'
+        lw = 2.2 if k == 'goal_safe' else 1.5
+        if k in ('goal_safe', 'eopt'):
+            ax.fill_between(w, lo, hi, color=K_COL[k], alpha=0.16, lw=0)
+        ax.plot(w, med, color=K_COL[k], lw=lw, ls=ls, label=K_SHORT[k])
+    t_true = A['truth']['t_close']
+    t_best = MA.closing(A['truth']['h_crit'])[0]
+    ax.axhline(t_true, color=INK, lw=0.9, ls=(0, (4, 2)))
+    ax.text(2, t_true + 0.6, f'true closing year: {t_true:.0f}', fontsize=8.6, color=INK, va='bottom')
+    ax.axhline(t_best, color=MUTED, lw=0.9, ls=':')
+    ax.text(2, t_best - 0.6, f'most any test can certify: {t_best:.0f}', fontsize=8.6, color=MUTED, va='top')
+    ax.set_xlim(0, w[-1]); ax.set_ylim(0, 50)
+    ax.set_xlabel('Weeks of the campaign', fontsize=8.8)
+    ax.set_ylabel('Certified closing year (years)', fontsize=8.8)
+    ax.set_title('(a) Certified closing year of the window', fontsize=9.4, color=INK, loc='left')
+    _style(ax)
+    y = np.arange(len(kinds))[::-1]
+    for yi, k in zip(y, kinds):
+        cm = 250 * np.array([r['c_max'] for r in A['kinds'][k]['runs']])
+        bx.boxplot(cm, positions=[yi], vert=False, widths=0.5, whis=(5, 95), showfliers=False, patch_artist=True,
+                   boxprops=dict(fc=K_COL[k] + '55', ec=K_COL[k], lw=1.1), medianprops=dict(color=K_COL[k], lw=1.6),
+                   whiskerprops=dict(color=K_COL[k], lw=1.0), capprops=dict(color=K_COL[k], lw=1.0))
+        over = np.mean(cm > 250)
+        if over > 0:
+            bx.text(272, yi, f'{100 * over:.0f}% of runs\nabove 250', fontsize=8.6, color='#92400E', va='center')
+    ct = 250 * A['params']['C_TEST']
+    bx.axvline(ct, color=C_LIQ, lw=0.9, ls='--'); bx.text(ct - 3, len(kinds) - 0.45, f'test limit {ct:.0f}', fontsize=8.6,
+                                                          color=C_LIQ, ha='right', va='center')
+    bx.axvline(250, color='#B45309', lw=0.9, ls='--'); bx.text(253, len(kinds) - 0.45, 'limit 250', fontsize=8.6,
+                                                               color='#92400E', ha='left', va='center')
+    bx.set_yticks(y); bx.set_yticklabels([K_SHORT[k] for k in kinds], fontsize=8.6)
+    bx.set_xlim(80, 330); bx.set_ylim(-0.6, len(kinds) - 0.1)
+    bx.set_xlabel('Highest chloride during testing (mg/L)', fontsize=8.8)
+    bx.set_title('(b) Chloride reached', fontsize=9.4, color=INK, loc='left')
+    _style(bx); bx.grid(axis='y', visible=False)
+    h, l = ax.get_legend_handles_labels()
+    fig.legend(h, l, loc='lower center', ncol=3, fontsize=8.6, frameon=False, handlelength=1.8, columnspacing=1.2,
+               bbox_to_anchor=(0.5, 0.0))
+    fig.tight_layout(rect=[0, 0.13, 1, 1])
+    fig.savefig(path, dpi=300); plt.close(fig)
+
+
+def fig_story(path, S):
+    """(a) Yearly exceedance probability and upper bounds; (b) certified closing year by method."""
+    g = S['copies']['good']; p = S['copies']['poor']; a = S['params']['ALPHA']; n = S['params']['NFULL']
+    yrs = np.arange(1, S['params']['YEARS'] + 1)
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.9, 3.0), dpi=300, gridspec_kw=dict(width_ratios=[1.05, 1]))
+    ax.plot(yrs, 100 * np.array(g['p_true']), color=INK, lw=2.0, label='Full model (truth)')
+    ax.plot(yrs, 100 * np.array(g['p_copy']), color=C_SWI, lw=1.5, ls='--', label='Copy alone')
+    ax.plot(yrs, 100 * np.array(g['median_upper_bound']['full_only']), color='#8796a5', lw=1.4,
+            label=f'Bound, {n} full runs')
+    ax.plot(yrs, 100 * np.array(g['median_upper_bound']['ppi']), color=C_LIQ, lw=1.6,
+            label='Prediction-powered')
+    ax.axhline(100 * a, color='#B45309', lw=0.9, ls='--')
+    ax.text(11, 100 * a + 0.4, f'α = {100 * a:.0f}%', fontsize=8.6, color='#92400E', va='bottom')
+    ax.axvline(g['t_true'], color=INK, lw=0.8, ls=':')
+    ax.set_xlim(10, yrs[-1]); ax.set_ylim(0, 20)
+    ax.set_xlabel('Year of the storyline', fontsize=8.8)
+    ax.set_ylabel('Chloride above the limit (% of storylines)', fontsize=8.8)
+    ax.set_title('(a) Exceedance, better copy', fontsize=9.4, color=INK, loc='left')
+    ax.legend(loc='upper left', fontsize=8.6, frameon=False, handlelength=1.8)
+    _style(ax)
+    rows = [('Copy alone, poorer', p['copy_only'], C_SWI), ('Copy alone, better', g['copy_only'], C_SWI),
+            (f'{n} full runs alone', g['full_only'], '#8796a5'),
+            ('Pred.-powered, poorer', p['ppi'], C_LIQ), ('Pred.-powered, better', g['ppi'], C_LIQ),
+            ('Exact variant, better', g['ppi_exact'], '#1F3864')]
+    y = np.arange(len(rows))[::-1]
+    for yi, (lab, r, col) in zip(y, rows):
+        bx.plot([r['p5'], r['p95']], [yi, yi], color=col, lw=2.2, solid_capstyle='round')
+        bx.plot(r['median'], yi, 'o', color=col, ms=6, mec='white', zorder=4)
+        bx.text(r['p5'] - 0.7, yi, f'{r["median"]:.0f}', fontsize=8.6, color=INK, va='center', ha='right')
+    bx.axvline(g['t_true'], color=INK, lw=0.9, ls=(0, (4, 2)))
+    bx.text(g['t_true'] + 0.3, len(rows) - 0.35, f'true: {g["t_true"]}', fontsize=8.6, color=INK, va='center')
+    bx.set_yticks(y); bx.set_yticklabels([r[0] for r in rows], fontsize=8.6)
+    bx.set_xlim(18, 55); bx.set_ylim(-0.6, len(rows) - 0.05)
+    bx.set_xlabel('Closing year (median, 5–95%)', fontsize=8.8)
+    bx.set_title('(b) Closing year', fontsize=9.4, color=INK, loc='left')
+    _style(bx); bx.grid(axis='y', visible=False)
+    fig.tight_layout()
+    fig.savefig(path, dpi=300); plt.close(fig)
