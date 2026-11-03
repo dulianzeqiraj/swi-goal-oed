@@ -1,0 +1,17 @@
+12 twins in 653 s
+oracle  loss train 0.00430 test 0.00199 drought 0.00148 | cov90 0.890 | rech corr 0.997 drought err +0.01
+        gap MSE per value [0.000528, 0.000614, 0.00098, 0.001918]
+M0      loss train 0.00833 test 0.00737 drought 0.00430 | cov90 0.948 | rech corr 0.975 drought err +0.06 | excess +2.62 dist 0.00572
+        gap MSE per value [0.000701, 0.001195, 0.003369, 0.017143]
+M1      loss train 0.00416 test 0.00406 drought 0.00285 | cov90 0.925 | rech corr 0.991 drought err -0.04 | excess +0.80 dist 0.00181
+        gap MSE per value [0.000652, 0.000985, 0.001676, 0.0062]
+A       loss train 0.00213 test 0.00234 drought 0.00186 | cov90 0.880 | rech corr 0.996 drought err -0.01 | excess +0.09 dist 0.00012
+        gap MSE per value [0.000564, 0.000635, 0.001105, 0.002716]
+A par {'sfc': (133.43, 120.0, 144.54), 'kL': (15.86, 13.19, 17.17), 'bL': (2.01, 1.01, 3.42), 'tau': (19.56, 18.91, 20.16), 'sig_e': (0.23, 0.2, 0.3), 'tau_e': (72.02, 49.15, 127.14)} | true {'sfc': 130.0, 'kL': 25.0, 'bL': 3.0, 'tau': 20.0, 'sig_e': 0.25, 'tau_e': 90.0}
+B ls       test 0.00424 (+0.92 vs oracle) drought 0.00339 cov 0.960 corr 0.993 drought err -0.04 | freq P5:1.00, P20:1.00, P60:1.00, P180:1.00, E20:1.00, X40:1.00, cos:1.00, sin:1.00, one:1.00
+B bic      test 0.00421 (+0.89 vs oracle) drought 0.00335 cov 0.960 corr 0.994 drought err -0.00 | freq P5:0.42, P20:0.75, P60:0.75, P180:0.67, E20:0.67, X40:0.92, cos:0.67, sin:0.42, one:0.58
+B eills1   test 0.00421 (+0.92 vs oracle) drought 0.00332 cov 0.960 corr 0.993 drought err -0.01 | freq P5:0.42, P20:0.75, P60:0.67, P180:0.75, E20:0.58, X40:0.92, cos:0.50, sin:0.42, one:0.50
+B eills4   test 0.00423 (+0.97 vs oracle) drought 0.00340 cov 0.961 corr 0.993 drought err -0.01 | freq P5:0.25, P20:0.67, P60:0.67, P180:0.75, E20:0.50, X40:0.92, cos:0.42, sin:0.25, one:0.50
+B eills16  test 0.00435 (+0.97 vs oracle) drought 0.00308 cov 0.959 corr 0.994 drought err +0.01 | freq P5:0.17, P20:0.67, P60:0.75, P180:0.67, E20:0.33, X40:0.92, cos:0.25, sin:0.17, one:0.42
+ident {'cos_mult_vs_closure': 0.993, 'cos_const_vs_closure': 1.0, 'cos_mult_vs_closure_cl': 0.991, 'cos_mult_vs_coastal': 0.918, 'cos_P60_vs_closure': 0.997}
+rain law (c0,c1,c2,d0,d1,d2) [-1.67, 0.795, -0.031, 2.562, 0.309, -0.011] | true {'c0': -1.667, 'c1': 0.8, 'd0': 2.526, 'd1': 0.3}
