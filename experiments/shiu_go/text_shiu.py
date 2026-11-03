@@ -11,6 +11,7 @@ REFS = [
     'Bain, A., & Crisan, D. (2009). Fundamentals of Stochastic Filtering. Springer.',
     'Baptista, R., Marzouk, Y., & Zahm, O. (2024). On the representation and learning of monotone triangular transport maps. Foundations of Computational Mathematics 24(6): 2063–2108. https://doi.org/10.1007/s10208-023-09630-x',
     'Carrillo, J. A., Hoffmann, F., Stuart, A. M., & Vaes, U. (2024). The mean-field ensemble Kalman filter: near-Gaussian setting. SIAM Journal on Numerical Analysis 62(6): 2549–2587. https://doi.org/10.1137/24M1628207',
+    'Cenameri, S., & Beqiraj, A. (2016). Assessment of seawater intrusion in Fushë-Kuqe aquifer, Albania. Bulletin of the Geological Society of Greece 50(2): 665–670. https://doi.org/10.12681/bgsg.11772',
     'Christensen, H. M. (2020). Constraining stochastic parametrisation schemes using high-resolution simulations. Quarterly Journal of the Royal Meteorological Society 146(727): 938–962. https://doi.org/10.1002/qj.3717',
     'Cohen, S. N. (2020). Uncertainty and filtering of hidden Markov models in discrete time. Probability, Uncertainty and Quantitative Risk 5: 4. https://doi.org/10.1186/s41546-020-00046-x',
     'Eberhardt, F., Kaynar, N., & Siddiq, A. (2025). Discovering causal models with optimization: confounders, cycles, and instrument validity. Management Science 71(4): 3283–3302. https://doi.org/10.1287/mnsc.2021.02066',
@@ -24,14 +25,16 @@ REFS = [
     'Rodriguez-Iturbe, I., Porporato, A., Ridolfi, L., Isham, V., & Cox, D. R. (1999). Probabilistic modelling of water balance at a point: the role of climate, soil and vegetation. Proceedings of the Royal Society A 455(1990): 3789–3805.',
     'Schneider, T., Stuart, A. M., & Wu, J.-L. (2021). Learning stochastic closures using ensemble Kalman inversion. Transactions of Mathematics and Its Applications 5: 1–31. https://doi.org/10.1093/imatrm/tnab003',
     'Spantini, A., Baptista, R., & Marzouk, Y. (2022). Coupling techniques for nonlinear ensemble filtering. SIAM Review 64(4): 921–953. https://doi.org/10.1137/20M1312204',
+    'Strack, O. D. L. (1976). A single-potential solution for regional interface problems in coastal aquifers. Water Resources Research 12(6): 1165–1174. https://doi.org/10.1029/WR012i006p01165',
     'Taeb, A., Bühlmann, P., & Chandrasekaran, V. (2024). Model selection over partially ordered sets. Proceedings of the National Academy of Sciences 121(8): e2314228121. https://doi.org/10.1073/pnas.2314228121',
-    'Dokumente të brendshme: «Asimilimi i të dhënave për dinamikën që mungon» (8 tetor 2026); «Zbulimi i modeleve shkakësore me optimizim» (20 tetor 2026); shënimi i asimilimit të kushteve kufitare dhe fillestare të Fushë-Kuqes (ASIMILIMI-GO, tetor 2026); GJURMA-GO (rishikimi 42).',
+    'Zeqiraj, D. (2026). Goal-oriented Bayesian experimental design for variable-density seawater intrusion: adjoint expected information gain for joint monitoring and managed-aquifer-recharge placement. Journal of Hydrology 680: 136559. https://doi.org/10.1016/j.jhydrol.2026.136559',
+    'Dokumente të brendshme: «Asimilimi i të dhënave për dinamikën që mungon» (8 tetor 2026); «Zbulimi i modeleve shkakësore me optimizim» (20 tetor 2026); shënimi i asimilimit të kushteve kufitare dhe fillestare të Fushë-Kuqes (ASIMILIMI-GO, tetor 2026; versioni i parë me teoremat u dha për Shtojcën A); GJURMA-GO (rishikimi 42); studimi i klorurit të Fushë-Kuqes (Zeqiraj, në përgatitje; kodi në chloride_fk/); libri i punës Fushe_Kuqe_All_Data.xlsx (Albanian Geological Survey, 2024, dhe A. Beqiraj; përdorur me lejen e tyre).',
 ]
 
 
 def blocks(J, K):
     vals = values(J, K)
-    B = static_blocks() + result_blocks(vals) + closing_blocks()
+    B = static_blocks() + result_blocks(vals) + closing_blocks() + appendix_blocks()
 
     def fill(s):
         return re.sub(r'<<(\w+)>>', lambda m: vals[m.group(1)], s) if isinstance(s, str) else s
@@ -142,6 +145,93 @@ def values(J, K):
            S['M0']['test_cov']['med'] > 0.93, abs(S['oracle']['test_cov']['med'] - 0.9) < 0.03, dry_ok]
     if not all(chk):
         raise SystemExit(f'SHIU-GO findings changed ({chk}): revise the text')
+    v.update(fk_values(pc, n))
+    v['box'] += (' (5) Në Fushë-Kuqe, me të dhënat statike (Shtojca A): ngarkesat dhe kloruri caktojnë vetëm raportin e '
+                 'rimbushjes me transmisivitetin, kështu që regjistri i pompimit është i domosdoshëm; rimbushja në jug të '
+                 f'sektorit bregdetar vlen rreth {v["fk_ratio"]} herë më shumë për brezin e ndërhyrjes se në veri; dhe '
+                 f'regjistruesit e ngarkesës duhen në {v["fk_b3"]}, me një piezometër të ri në veri.')
+    return v
+
+
+def fk_values(pc, n):
+    """numbers of appendix A (res/shiu_fk.json, from shiu_fk.py), with guards on the findings the text states."""
+    import json
+    import os
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'res', 'shiu_fk.json')) as fh:
+        F = json.load(fh)
+    S1, S2, S3, S4 = F['S1'], F['S2'], F['S3'], F['S4']
+    v = {}
+    sup = str.maketrans('0123456789-', '⁰¹²³⁴⁵⁶⁷⁸⁹⁻')
+    e = int(np.floor(np.log10(S1['invariance_max_rel']))); mnt = S1['invariance_max_rel'] / 10 ** e
+    v['fk_inv'] = f"{mnt:.0f}·10{str(e).translate(sup)}"
+    v.update(fk_ess=n(S1['ess']), fk_R=n(S1['R_mmyr_post'][1]), fk_R_lo=n(S1['R_mmyr_post'][0]), fk_R_hi=n(S1['R_mmyr_post'][2]),
+             fk_wR_pr=n(S1['logR']['prior_w90'], 2), fk_wR_po=n(S1['logR']['post_w90'], 2),
+             fk_wQ_pr=n(S1['logReta']['prior_w90'], 2), fk_wQ_po=n(S1['logReta']['post_w90'], 2),
+             fk_wE_pr=n(S1['logeta']['prior_w90'], 2), fk_wE_po=n(S1['logeta']['post_w90'], 2),
+             fk_corr=n(S1['corr_post'], 2), fk_varK=pc(S1['share_var_from_K_scale']))
+    R = S2['regions']
+    sh = lambda k, i=1: pc(R[k]['share'][i])
+    ar = lambda k: pc(R[k]['area_frac'])
+    v.update(fk_area=n(S2['area_km2'], 1), fk_n_band=n(S2['n_band']), fk_n_valid=n(S2['n_valid']),
+             fk_d025=sh('dist_0_2.5'), fk_d025a=ar('dist_0_2.5'), fk_d510=sh('dist_5_10'), fk_d510a=ar('dist_5_10'),
+             fk_ys=sh('y_24_30'), fk_ys_lo=sh('y_24_30', 0), fk_ys_hi=sh('y_24_30', 2), fk_ysa=ar('y_24_30'),
+             fk_ym=sh('y_30_40'), fk_yma=ar('y_30_40'),
+             fk_yn=sh('y_40+'), fk_yn_lo=sh('y_40+', 0), fk_yn_hi=sh('y_40+', 2), fk_yna=ar('y_40+'),
+             fk_c30=sh('cover_ge30'), fk_c30a=ar('cover_ge30'), fk_thin=pc(S2['thin_cover_area_frac'], 1))
+    ds = R['y_24_30']['share'][1] / R['y_24_30']['area_frac']; dn = R['y_40+']['share'][1] / R['y_40+']['area_frac']
+    v.update(fk_dens_s=n(ds, 2), fk_dens_n=n(dn, 2), fk_ratio=n(ds / dn))
+    G = S2['soil_groups']
+    v.update(fk_g2_share=pc(G['G2']['share'][1]), fk_g2_area=pc(G['G2']['area_frac']),
+             fk_g3_share=pc(G['G3']['share'][1]), fk_g3_area=pc(G['G3']['area_frac']))
+    for g in ('G1', 'G2', 'G3'):
+        v[f'fk_{g.lower()}_n'] = str(S3['soil_group_wells'][g]['n'])
+        v[f'fk_{g.lower()}_d'] = n(S3['soil_group_wells'][g]['cover_median'])
+    sa, ss = S3['spearman_all'], S3['sector']
+    v.update(fk_no3_r=n(sa['depth'][0], 2), fk_no3_p=n(sa['depth'][1], 3), fk_no3_ry=n(sa['y_km'][0], 2),
+             fk_no3_py=n(sa['y_km'][1], 3), fk_no3_rs=n(ss['spearman_depth'][0], 2), fk_no3_ps=n(ss['spearman_depth'][1], 2),
+             fk_no3_ns=str(ss['n']), fk_no3_lo=n(ss['no3_range'][0], 1), fk_no3_hi=n(ss['no3_range'][1], 1),
+             fk_no3_pthin=n(S3['thin_vs_rest']['p_perm'], 2),
+             fk_cov_lo=n(S3['cover_field']['min']), fk_cov_med=n(S3['cover_field']['median']), fk_cov_hi=n(S3['cover_field']['max']))
+    vd = S3['vadose_depth_median']
+    v.update(fk_vd_ds=n(vd['Dusty sand']), fk_vd_al=n(vd['Aleurite']), fk_vd_dsa=n(vd['Dusty sand_aleurite']),
+             fk_vd_scl=n(vd['Sandy clay loam']), fk_vd_cl=n(vd['Clay loam']))
+    al = lambda L: ', '.join(L[:-1]) + ' dhe ' + L[-1]
+    ab = lambda d, s: f"{n(d['sd_ab'][s][0], 2)} dhe {n(d['sd_ab'][s][1], 2)}"
+    wells = F['wells']; yc = [wells['y_km'][wells['Well_ID'].index(w)] for w in S4['candidates']]
+    v.update(fk_ncand=str(S4['n_candidates']), fk_cand_y=f"{n(min(yc), 1)}–{n(max(yc), 1)}",
+             fk_b3=al(S4['best3']['wells']), fk_b5=al(S4['best5']['wells']),
+             fk_cos_sn=n(S4['all']['cos'][1], 2), fk_cos_sm=n(S4['all']['cos'][0], 2), fk_cos_mn=n(S4['all']['cos'][2], 2),
+             fk_cos_cov=n(S4['cos_cover_lt30_ge30'][0], 2),
+             fk_cos_d=f"{n(min(S4['cos_dist']), 2)}–{n(max(S4['cos_dist']), 2)}", fk_cos_ew=n(S4['cos_east_west'][0], 2),
+             fk_all1_a=n(S4['all']['sd_ab']['1'][0], 2), fk_all1_b=n(S4['all']['sd_ab']['1'][1], 2),
+             fk_all01=ab(S4['all'], '0.1'), fk_tk01=ab(dict(sd_ab=S4['all']['sd_ab_theta_known']), '0.1'),
+             fk_b301_a=n(S4['best3']['sd_ab']['0.1'][0], 2), fk_b301_b=n(S4['best3']['sd_ab']['0.1'][1], 2),
+             fk_b31_b=n(S4['best3']['sd_ab']['1'][1], 2))
+    for key, tag in (('new_north', 'v1'), ('new_north_plain', 'v2')):
+        s = S4[key]
+        v[f'fk_{tag}_x'] = n(s['x_km'], 2); v[f'fk_{tag}_y'] = n(s['y_km'], 2)
+        v[f'fk_{tag}_gk'] = f"{n(s['x_gk'])}, {n(s['y_gk'])}"
+        v[f'fk_{tag}_ll'] = f"{n(s['lat'], 3)}° V, {n(s['lon'], 3)}° L"
+        v[f'fk_{tag}_ds'] = n(s['dist_shore_km'], 1)
+        v[f'fk_{tag}_1b'] = n(s['sd_ab']['1'][1], 2); v[f'fk_{tag}_01b'] = n(s['sd_ab']['0.1'][1], 2)
+    bs = S4['band_share_of_phi_band']
+    v.update(fk_S_s=n(bs[0], 2), fk_S_m=n(bs[1], 2), fk_S_n=n(bs[2], 2))
+    chk = [S1['invariance_max_rel'] < 1e-9,
+           S1['logReta']['post_w90'] < S1['logR']['post_w90'] < S1['logR']['prior_w90'],
+           S1['logeta']['post_w90'] > 0.9 * S1['logeta']['prior_w90'], 0.3 < S1['share_var_from_K_scale'] < 0.6,
+           S1['corr_post'] > 0.3 > abs(S1['corr_prior']),
+           ds > 1.4, dn < 0.6, R['dist_0_2.5']['share'][2] < R['dist_0_2.5']['area_frac'],
+           R['dist_5_10']['share'][0] > R['dist_5_10']['area_frac'], S2['thin_cover_area_frac'] < 0.01,
+           G['G2']['share'][1] > 0.7,
+           abs(ss['spearman_depth'][0]) < 0.2 and ss['spearman_depth'][1] > 0.5,
+           sa['depth'][0] < -0.3 and sa['depth'][1] < 0.05, sa['y_km'][1] < 0.01, S3['thin_vs_rest']['p_perm'] > 0.05,
+           S4['all']['cos'][1] < 0.7, S4['cos_cover_lt30_ge30'][0] > 0.95, min(S4['cos_dist']) > 0.9,
+           S4['all']['sd_ab']['1'][0] > 0.5, S4['best3']['sd_ab']['0.1'][1] < 0.55,
+           S4['new_north']['sd_ab']['1'][1] < S4['best3']['sd_ab']['1'][1] - 0.2,
+           S4['new_north_plain']['sd_ab']['0.1'][1] < S4['best3']['sd_ab']['0.1'][1] - 0.05,
+           max(yc) < 40.0]
+    if not all(chk):
+        raise SystemExit(f'SHIU-GO appendix findings changed ({chk}): revise the text')
     return v
 
 
@@ -426,7 +516,7 @@ def result_blocks(v):
               'rimbushjen e integruar, jo formën e kullimit; forma kërkon të dhëna nga toka (seksioni 5.4).'),
         ('b', '**Ligji i shiut** nga shimatësi rikthehet pothuajse saktë: $c_0$ = <<rl_c0>> (−1,667), $c_1$ = <<rl_c1>> '
               '(0,8), $d_0$ = <<rl_d0>> (2,526), $d_1$ = <<rl_d1>> (0,3).'),
-        ('img', 'twin', 16.5),
+        ('img', 'twin', 17.0),
         ('cap', 'Figura {{twin}}. Një binjak në dy vitet e para të testit (viti 10 është thatësirë). (a) Shiu ditor. (b) '
                 'Rimbushja mesatare mujore: e vërteta, Rruga A dhe M0, të dyja të filtruara. (c) Ngarkesa në piezometrin në '
                 '1 250 m: e vërteta, vëzhgimet në ditë të rastit, mesatarja e filtrit të Rrugës A me intervalin 90% dhe M0.'),
@@ -502,6 +592,9 @@ def closing_blocks():
         ('b', '**Forma të reja të ekuacioneve të filtrimit dhe të transportit.** Ato marrin gabimin shumëzues të rimbushjes, '
               'kujtesën, mbylljen dhe stuhitë si kërcime, që hyjnë njëherësh si ujë në [[flow]] dhe si kripë në '
               '[[transport]]. Parimi i maksimumit (Pohimi 5) jep kushtin që duhet të plotësojë një mbyllje e mësuar.'),
+        ('b', '**Zbatimi statik në Fushë-Kuqe (Shtojca A).** Pohimi 6 tregon pse ngarkesat nuk e caktojnë sasinë e '
+              'rimbushjes dhe çfarë e cakton; harta e vlerës tregon ku vlen rimbushja për brezin e ndërhyrjes; projektimi '
+              'jep regjistruesit dhe një piezometër të ri, me pasigurinë që mbetet.'),
         ('b', '**Nuk pretendohen si të reja:** PD-NJ-ODE dhe teoremat e saj, filtri Kalman dhe EnKF-ja, hartat e transportit, '
               'EILLS dhe MIQP-ja me ℓ₀, koeficientët Kramers–Moyal, modeli i tokës me shi Poisson, bërthama Erlang dhe '
               'gabimi Ornstein–Uhlenbeck. E re është mbledhja e tyre në një sistem për akuiferin bregdetar dhe testi që i '
@@ -516,7 +609,183 @@ def closing_blocks():
               'forcimi ose transporti bëhen jolinearë (ndërfaqja, kloruri).'),
         ('b', 'Ekuacioni i transportit, çelësi N2 dhe shiriti N3 nuk u testuan numerikisht në këtë shënim. Në test shiu ishte '
               'i plotë; ditët që mungojnë në regjistrin real trajtohen me pritjen e kushtëzuar nga ligji i shiut.'),
-        ('b', 'Për Fushë-Kuqen duhen: shiu ditor nga stacioni më i afërt, evapotranspirimi potencial nga temperatura, '
-              'regjistrat e parregullt të ngarkesave, regjistrat e pompimit dhe niveli i detit nga mareografi. Një sondë '
-              'lagështie orare në një vend përfaqësues do ta identifikonte formën e kullimit (seksioni 5.4).'),
+        ('b', 'Për Fushë-Kuqen duhen ende: shiu ditor nga stacioni më i afërt, evapotranspirimi potencial nga temperatura, '
+              'regjistrat e parregullt të ngarkesave, regjistrat e pompimit dhe niveli i detit nga mareografi. Shtojca A '
+              'tregon çfarë japin tani të dhënat statike dhe ku e në çfarë radhe duhen matjet e reja.'),
+    ]
+
+
+def appendix_blocks():
+    return [
+        ('pb',),
+        ('h', 'Shtojca A. SHIU-GO në Fushë-Kuqe me të dhënat statike'),
+        ('p', 'Dy materialet e dhëna për këtë shtojcë janë libri i punës «Fushe_Kuqe_All_Data.xlsx», i njëjtë qelizë për qelizë '
+              'me kopjen e projektit, dhe shënimi i teoremave të asimilimit të kushteve kufitare dhe fillestare, versioni i parë '
+              'i shënimit ASIMILIMI-GO. Shënimi jep kuadrin: kushtet kufitare si procese stokastike dhe gjendjen e shtuar. '
+              'Libri jep të dhënat, por pa asnjë seri kohore, prandaj Rrugët A dhe B nuk mund të përshtaten ende. Shtojca '
+              'nxjerr atë që mund të nxirret tani, me modelin areal të kalibruar të studimit të klorurit.'),
+
+        ('h2', 'A.1 Çfarë kanë të dhënat'),
+        ('cap', 'Tabela {{tab_fk_data}}. Fletët e librit të punës dhe roli i tyre në SHIU-GO.'),
+        ('table', ['Fleta', 'Çfarë ka', 'Roli në SHIU-GO'],
+         [['2_All_Wells', '180 puse, 131 brenda akuiferit. Për 43: K nga provat e pompimit (50–200 m/d), thellësia DRASTIC '
+                          '(4–65 m), toka dhe zona e pangopur. Për 31: NO₃',
+           'K: ankora e shkallës (Pohimi 6). Thellësia: trashësia e mbulesës, pra gjurma χ dhe vonesa τ. Toka: grupet e '
+           'parametrave të kovës. NO₃: gjurmues i rimbushjes vertikale'],
+          ['3_Boundary_Coords', 'Kufiri i akuiferit, 3 411 kulme, 349 km²',
+           'Gjeometria e modelit dhe sektori bregdetar (y ≥ 24 km, <<fk_area>> km²)'],
+          ['5–7, Cenameri & Beqiraj (2016)', 'Kimia e 4 puseve; Cl në 1984, 1999 dhe 2001 për 2 puse; faktet e ndërhyrjes',
+           'Faktet e kalibrimit: ngarkesa bregdetare rreth 3 m, fraksionet e ujit të detit, sipërfaqja me Cl mbi 250 mg/L. Cl në '
+           'tri data është seria e parë e parregullt në kuadrin e Krach et al. (2026)'],
+          ['Mungojnë', 'Shiu ditor, ET, ngarkesat në kohë, pompimi, niveli i detit',
+           'Pa to nuk përshtaten Rrugët A dhe B; seksioni A.6 tregon çfarë të shtohet dhe ku']],
+         [3.9, 6.1, 7.0], 9.5),
+        ('p', '**Kolona «Piezometric_Level_m» nuk është ngarkesë.** Studimi i klorurit (Zeqiraj, në përgatitje) e lexon si '
+              'parametrin D të DRASTIC, thellësinë deri te tavani i akuiferit të mbyllur, dhe kështu lexohet edhe këtu. Ngarkesat '
+              'e dokumentuara janë vetëm faktet e fletës 7: rreth 3 m mbi nivelin e detit në bregdet, rreth 0 m në grykëderdhje '
+              'dhe rënia nga 8,0 në 1,5 m mbi sipërfaqe në sektorin e Fushë-Kuqes (Tartari, 2001, sipas fletës 7).'),
+
+        ('h2', 'A.2 Shkalla: çfarë caktojnë ngarkesat'),
+        ('p', 'Modeli areal i studimit të klorurit zgjidh potencialin e vetëm të Strack (1976) në <<fk_n_valid>> qeliza me brinjë '
+              '0,25 km. K-ja interpolohet nga 43 puset dhe ka 12 shumëzues zonash $\\theta$; deti lidhet vetëm në 92 qelizat '
+              'perëndimore në veri të y = 29,5 km. Rimbushja $R$ është uniforme:'),
+        ('eq', 'fk_strack', '\\nabla \\cdot (K \\nabla \\phi) + R = 0, \\qquad K = \\eta\\, K_{\\text{IDW}}\\, e^{\\theta(x)}, \\qquad \\phi \\to 0 \\ \\ \\text{në kontaktin me detin}'),
+        ('p', '**Pohimi 6 (shkalla e rimbushjes).** Në ekuacionin e rrjedhjes [[flow]] pa pompim të njohur dhe pa fluks tjetër të '
+              'njohur, zëvendësimi $(R, T, S) \\to (cR, cT, cS)$ me $c > 0$ e lë ngarkesën $h$ të pandryshuar, në gjendje të '
+              'qëndrueshme dhe në kohë. Në modelin [[fk_strack]], zëvendësimi $(R, \\eta) \\to (cR, c\\eta)$ e lë të pandryshuar '
+              'potencialin, ngarkesën, ndërfaqen dhe kloruri. Ngarkesat dhe kloruri caktojnë pra vetëm $R/T$, ose $R/\\eta$. '
+              'Vërtetimi. Ekuacioni është linear në $h$, dhe çdo term i tij përveç fluksit të njohur përmban saktësisht njërin '
+              'prej $R$, $T$ ose $S$; pjesëtimi me $c$ jep të njëjtin problem me të njëjtat kushte kufitare, sepse edhe lidhja me '
+              'detin shkallëzohet me $K$. ∎ Simetrinë e prish vetëm një fluks i njohur: pompimi i regjistruar $Q_w$, prurja e '
+              'matur e një lumi, ose $T$ nga provat e pompimit.'),
+        ('p', 'Kalibrimi me 20 000 vizatime kundrejt katër fakteve (madhësia efektive e mostrës <<fk_ess>>) e tregon këtë '
+              'drejtpërdrejt. Gjerësia 90% e $\\log_{10} R$ bie nga <<fk_wR_pr>> në <<fk_wR_po>> dekada dhe ajo e '
+              '$\\log_{10}(R/\\eta)$ nga <<fk_wQ_pr>> në <<fk_wQ_po>>, ndërsa ajo e $\\log_{10} \\eta$ mbetet <<fk_wE_pr>> → '
+              '<<fk_wE_po>>. Korrelacioni posterior ndërmjet $\\log R$ dhe $\\log \\eta$ është <<fk_corr>>, nga zero në prior. '
+              '<<fk_varK>> e variancës posteriore të $\\log R$ vjen nga shkalla e K-së, që asnjë fakt ngarkese ose kloruri nuk e '
+              'ul. Rimbushja mesatare del <<fk_R>> mm/vit (90%: <<fk_R_lo>>–<<fk_R_hi>>). Kontrolli numerik i Pohimit 6 me '
+              '$c$ = 0,37, 2,7 dhe 10 jep gabim relativ <<fk_inv>>.'),
+        ('p', 'Për SHIU-GO kjo do të thotë që ligji i forcimit zbulohet nga ngarkesat vetëm në raport me $T$. Në testin e '
+              'seksionit 5 transmisiviteti ishte i njohur. Në Fushë-Kuqe ankora janë 43 vlerat e K nga provat e pompimit, por '
+              'shumëzuesi i tyre rajonal $\\eta$ mbetet i pasigurt me rreth një faktor 2,7 (priori 0,3–0,8). Regjistri i '
+              'pompimit të fushës së puseve është fluksi i njohur që e cakton shkallën.'),
+
+        ('h2', 'A.3 Ku vlen rimbushja'),
+        ('p', 'Le të jetë $J$ potenciali mesatar i brezit bregdetar $B$ të kalibrimit: y 30–40 km, 0,5–2,5 km nga bregu, ku '
+              'puset 341 dhe 503 marrin mostra nga akuiferi i dytë (<<fk_n_band>> qeliza). Për një rimbushje $r_k$ në qelizat '
+              '$k$, $J$ është linear në $r$, dhe peshat jepen nga një zgjidhje e vetme e problemit të adjunguar:'),
+        ('eq', 'fk_value', ('J = \\sum_k V_k r_k, \\qquad V = a \\odot A^{-\\top} g, \\qquad s_k = \\frac{V_k}{\\sum_j V_j},',
+                            'R_V(t) = \\sum_g S_g\\, \\chi_g\\, (1 + e_t)\\, R_g(t), \\qquad S_g = \\sum_{k \\in g} s_k')),
+        ('img', 'fk_value', 17.0),
+        ('cap', 'Figura {{fk_value}}. Vlera e rimbushjes në sektorin bregdetar të Fushë-Kuqes. (a) Pjesa e potencialit të brezit '
+                'bregdetar (vija e zezë) që vjen nga rimbushja në çdo qelizë, për njësi sipërfaqeje (mesatarja e sektorit = 1, '
+                'mediana e 300 vizatimeve posteriore); blu: kontakti me detin; trekëndëshat: regjistruesit e propozuar (të '
+                'mbushur: tre më të mirët; bosh: dy të tjerë për pesë); yjet: vendet e reja në veri (V1 në fund të rripit '
+                'verilindor, V2 në fushë). (b) Pjesa e vlerës (jeshile, me brezin 5–95%) kundrejt pjesës së sipërfaqes (gri), '
+                'sipas largësisë nga bregu dhe sipas brezave jug–mes–veri; numrat janë vlera / sipërfaqja.'),
+        ('p', 'Këtu $A$ është matrica e [[fk_strack]], $a$ sipërfaqja e qelizës dhe $g$ treguesi i brezit $B$ pjesëtuar me '
+              'numrin e qelizave të tij. Nga Pohimi 6, pjesët $s_k$ nuk varen nga $R$ as nga $\\eta$: harta e vlerës njihet, '
+              'edhe pse sasia e rimbushjes nuk njihet. Ato varen vetëm nga shumëzuesit $\\theta$, dhe brezat 5–95% më poshtë '
+              'janë mbi 300 vizatime posteriore. Rreshti i dytë i [[fk_value]] është pasoja për SHIU-GO: për brezin bregdetar, '
+              'forcimi hapësinor i [[err]] mblidhet në një seri të vetme me pesha $S_g$, ku secili grup $g$ ka ligjin e vet '
+              'të shiut, të tokës dhe të vonesës (Rruga A).'),
+        ('b', '**Afër detit vlen më pak.** Rripi 0–2,5 km nga bregu jep <<fk_d025>> të $J$ nga <<fk_d025a>> e sipërfaqes; '
+              'rripi 5–10 km jep <<fk_d510>> nga <<fk_d510a>> (Figura {{fk_value}}). Uji që hyn pranë bregut del shpejt në det.'),
+        ('b', '**Jugu i sektorit vlen më shumë se veriu.** Brezi y 24–30 km jep <<fk_ys>> (<<fk_ys_lo>>–<<fk_ys_hi>>) nga '
+              '<<fk_ysa>> e sipërfaqes dhe brezi i mesëm <<fk_ym>> nga <<fk_yma>>. Veriu (y ≥ 40 km) jep vetëm <<fk_yn>> '
+              '(<<fk_yn_lo>>–<<fk_yn_hi>>) nga <<fk_yna>>, sepse uji i tij del në det në veri të brezit. Për njësi sipërfaqeje, '
+              'jugu vlen <<fk_dens_s>> dhe veriu <<fk_dens_n>> herë mesataren e sektorit, pra rimbushja në jug vlen rreth '
+              '<<fk_ratio>> herë më shumë.'),
+        ('b', '**Mati dhe Droja.** Libri i punës i përmend si burime të rimbushjes, Matin në veri dhe Drojën në jug. Nëse secili '
+              'lumë rimbush brezin e vet, një metër kub nga ana e Drojës vlen për brezin bregdetar rreth <<fk_ratio>> herë më '
+              'shumë se një nga ana e Matit. Gjurmët e lumenjve nuk janë në libër: harta DRASTIC me lumenjtë përmendet si burim, '
+              'por nuk është bashkëngjitur. Me to, vlera e rrjedhjes nga një lumë lexohet nga harta si shuma e $s_k$ përgjatë '
+              'shtratit.'),
+        ('b', '**Mbulesa dhe toka.** Mbulesa mbi 30 m mbart <<fk_c30>> të vlerës në <<fk_c30a>> të sipërfaqes, ndërsa mbulesa '
+              'nën 15 m zë vetëm <<fk_thin>> të sektorit. Grupi G2 i tokës (seksioni A.5) mbart <<fk_g2_share>> të vlerës në '
+              '<<fk_g2_area>> të sipërfaqes, G3 pranë bregut <<fk_g3_share>> në <<fk_g3_area>>.'),
+        ('h2', 'A.4 Mbulesa, toka dhe nitrati'),
+        ('p', 'Thellësia DRASTIC është trashësia e materialit mbi akuiferin, pra rruga që përshkon shiu për ta arritur. Në '
+              'sektorin bregdetar ajo është pothuajse uniforme: <<fk_cov_lo>>–<<fk_cov_hi>> m, mediana <<fk_cov_med>> m. Mbulesa '
+              'e hollë është në jug, jashtë sektorit (Figura {{fk_cover}}a). Klasat e zonës së pangopur ndjekin të njëjtën '
+              'renditje sipas medianës së thellësisë: «Dusty sand» <<fk_vd_ds>> m, «Aleurite» <<fk_vd_al>> m, «Dusty '
+              'sand_aleurite» <<fk_vd_dsa>> m, «Sandy clay loam» <<fk_vd_scl>> m dhe «Clay loam» <<fk_vd_cl>> m.'),
+        ('p', 'Nitrati në 31 puse bie me mbulesën (Spearman <<fk_no3_r>>, p = <<fk_no3_p>>), por edhe më fort nga jugu në veri '
+              '(<<fk_no3_ry>>, p = <<fk_no3_py>>), dhe brenda sektorit nuk ka lidhje (<<fk_no3_rs>>, p = <<fk_no3_ps>>; '
+              '<<fk_no3_ns>> puse, <<fk_no3_lo>>–<<fk_no3_hi>> mg/L). Diferenca ndërmjet puseve me mbulesë nën 15 m dhe të '
+              'tjerëve nuk është e rëndësishme (p = <<fk_no3_pthin>>, test permutimi). Nitrati tregon pra se uji nga sipërfaqja '
+              'arrin akuiferin në jug, ku mbulesa është e hollë, por nuk e ndan dot efektin e mbulesës nga ai i përdorimit të '
+              'tokës. Në sektorin bregdetar ai është i ulët kudo, siç pritet kur shkëmbimi vertikal nën rreth 30 m mbulesë është '
+              'i ngadaltë.'),
+        ('p', 'Pasoja për SHIU-GO: gjurma $\\chi(x)$ dhe vonesa $\\tau(x)$ e Rrugës A duhet të ndryshojnë sipas mbulesës. Meqë '
+              'vlera e rimbushjes (A.3) është kryesisht nën mbulesë të trashë, pritet që forcimi që mbron bregun të ketë '
+              'kujtesë të gjatë: thatësirat do të arrinin vonë dhe do të zgjatnin. Kjo është hipotezë për t’u testuar me '
+              'regjistrat e ngarkesave, sepse seksioni 5.2 tregoi se ngarkesat e identifikojnë mirë vonesën.'),
+        ('img', 'fk_cover', 17.0),
+        ('cap', 'Figura {{fk_cover}}. (a) Trashësia e mbulesës mbi akuiferin (parametri D i DRASTIC, interpolim IDW nga 43 puse) '
+                'dhe NO₃ në 31 puse (rrathët, sipas madhësisë); pikat e vogla janë puset pa NO₃; vija me ndërprerje është kufiri '
+                'jugor i sektorit bregdetar. (b) NO₃ kundrejt mbulesës, në sektorin bregdetar dhe në jug.'),
+
+        ('h2', 'A.5 Parametrat e tokës sipas llojit'),
+        ('p', 'Libri i punës nuk jep parametra hidraulikë të tokës, vetëm klasat e saj, që i ndajnë 43 puset në tre grupe. Secili '
+              'grup merr parametrat e vet të kovës [[soil]]. Vlera numerike nga literatura nuk vendosen këtu, sepse asnjë '
+              'tabelë e verifikuar nuk është në materialet e dhëna. Vendosen vetëm renditjet që i imponon tekstura, dhe secili '
+              'parametër merr burimin e të dhënave që e identifikon sipas seksionit 5:'),
+        ('cap', 'Tabela {{tab_fk_soil}}. Grupet e tokës dhe parametrat e SHIU-GO.'),
+        ('table', ['Grupi', 'Klasat e librit (puse)', 'Mbulesa, mediana', 'Renditja që imponohet', 'Kush e identifikon'],
+         [['G1: mbulesë e hollë', '«Absent», «Thin» (<<fk_g1_n>>)', '<<fk_g1_d>> m',
+           'kova pothuajse mungon: $\\bar s$ e vogël, $\\tau$ e shkurtër', 'shimatësi për kërcimet; ngarkesat për $\\tau$'],
+          ['G2: lym ranor dhe pluhuror', '«Sandy silt», «Dusty silt» (<<fk_g2_n>>)', '<<fk_g2_d>> m',
+           '$s_{fc}$ dhe $k_L$ të ndërmjetëm', 'sonda orare për $c_E, s_{fc}, k_L, b_L$; ngarkesat për $\\tau, \\sigma_e$'],
+          ['G3: lym argjilor', '«Clayey silt» (<<fk_g3_n>>)', '<<fk_g3_d>> m',
+           '$s_{fc}^{G3} > s_{fc}^{G2}$, $k_L^{G3} < k_L^{G2}$, $\\tau$ më e gjatë',
+           'ngarkesat për $\\tau$ dhe $s_{fc}$; $k_L, b_L$ vetëm me sondë']],
+         [2.9, 3.7, 2.1, 4.2, 4.1], 9.5),
+        ('p', 'Renditjet $s_{fc}^{G1} < s_{fc}^{G2} < s_{fc}^{G3}$ dhe $k_L^{G1} > k_L^{G2} > k_L^{G3}$ futen si prior i renditur. '
+              'Kjo ul numrin e parametrave të lirë pa vendosur vlera që të dhënat nuk i japin. Seksioni 5.2 tregoi se nga '
+              'ngarkesat dalin $\\tau$, $\\sigma_e$ dhe $s_{fc}$, ndërsa $k_L$ dhe $b_L$ kompensojnë njëri-tjetrin; prandaj sonda e '
+              'lagështisë duhet në G2, që mbart pjesën më të madhe të vlerës.'),
+
+        ('h2', 'A.6 Çfarë t’i shtohet monitorimit'),
+        ('p', 'Rregulli i seksionit 5.4 (shimatësi për kërcimet, sondë për driftin, ngarkesat për vonesën dhe shkallën e '
+              'gabimit) merr në Fushë-Kuqe vendet dhe radhën e mëposhtme. Për regjistruesit u krahasuan të gjitha treshet dhe '
+              'pesëshet e <<fk_ncand>> puseve me K brenda sektorit (y <<fk_cand_y>> km). Shumëzuesit $\\theta$ u trajtuan si '
+              'parametra të bezdisshëm me priorin e kalibrimit, dhe logaritmi i raportit të rimbushjes së brezave mori '
+              'pasiguri priore 1:'),
+        ('b', '**Regjistri ditor i pompimit** të fushës së puseve. Është fluksi i njohur që cakton shkallën e rimbushjes '
+              '(Pohimi 6); pa të, rimbushja njihet vetëm në raport me $T$.'),
+        ('b', '**Shimatës dhe temperaturë ditore** në zonën e rimbushjes, për ligjin e shiut dhe ET-në. Seksioni 5.2 tregoi se '
+              'ligji i shiut rikthehet pothuajse saktë nga një shimatës.'),
+        ('b', '**Regjistrues ngarkese në <<fk_b3>>** (<<fk_b5>> për pesë). Ngarkesat e qëndrueshme ndajnë rimbushjen sipas '
+              'veri–jugut (kosinusi jug–veri <<fk_cos_sn>>), por jo sipas largësisë nga bregu (<<fk_cos_d>>), lindje–perëndimit '
+              '(<<fk_cos_ew>>) ose mbulesës (<<fk_cos_cov>>). Me gabim 1 m, si në kalibrim, edhe të 18 puset e ulin pasigurinë e '
+              'logaritmit të raportit jug/mes vetëm nga 1 në <<fk_all1_a>> dhe të atij veri/mes në <<fk_all1_b>>. Me gabim '
+              '0,1 m, tre regjistruesit e ulin në <<fk_b301_a>> dhe <<fk_b301_b>>, dhe të 18 puset në <<fk_all01>>. '
+              'Heterogjeniteti i K-së kushton: me $\\theta$ të njohur, 18 puse do të jepnin <<fk_tk01>>. Saktësia e ngarkesës, '
+              'pra lartësia e pikës së matjes e matur mirë dhe një model i kalibruar, vlen më shumë se puse të tjerë.'),
+        ('b', '**Një piezometër i ri në veri**, ku sot nuk ka asnjë pus me K brenda sektorit. Vendi më i mirë në fushë është V2 '
+              '(x <<fk_v2_x>>, y <<fk_v2_y>> km; GK <<fk_v2_gk>>; <<fk_v2_ll>>), <<fk_v2_ds>> km nga bregu: me 0,1 m gabim, '
+              'pasiguria e raportit veri/mes bie nga <<fk_b301_b>> në <<fk_v2_01b>>. V1, në fund të rripit verilindor '
+              '(<<fk_v1_ll>>), jep më shumë në model (<<fk_v1_1b>> kundrejt <<fk_v2_1b>> me 1 m gabim, nga <<fk_b31_b>>), por '
+              'aty K dhe mbulesa janë ekstrapoluar larg çdo pusi.'),
+        ('b', '**Sondë lagështie orare** në grupin G2, në brezin e mesëm, ku vlera është më e madhe. Ajo identifikon ligjin e '
+              'kullimit, që ngarkesat nuk e japin (seksioni 5.4).'),
+        ('b', '**NO₃ dhe Cl një herë në vit** në 31 puset e nitratit dhe në 341 e 503: seri të parregullta, në kuadrin e Krach '
+              'et al. (2026), për rimbushjen vertikale dhe për ndërhyrjen. Dhe **gjurmët e Matit dhe të Drojës** nga harta '
+              'DRASTIC me lumenjtë, për vlerën e rrjedhjes lumore (A.3).'),
+        ('b', '**Mareograf** në bregdet për nivelin e detit dhe stuhitë (seksioni 3.1).'),
+
+        ('h2', 'A.7 Çfarë është e re në këtë shtojcë'),
+        ('b', '**Pohimi 6 dhe matja e tij në kalibrimin real.** Ngarkesat dhe kloruri caktojnë vetëm $R/T$. <<fk_varK>> e '
+              'variancës posteriore të $\\log R$ në Fushë-Kuqe vjen nga shkalla e K-së, dhe regjistri i pompimit është matja '
+              'që e heq.'),
+        ('b', '**Harta e vlerës së rimbushjes**, që nuk varet nga sasia e panjohur e rimbushjes, dhe mbledhja e forcimit '
+              'stokastik të SHIU-GO në një seri me pesha (<<fk_S_s>>; <<fk_S_m>>; <<fk_S_n>> për jugun, mesin dhe veriun) për '
+              'brezin e ndërhyrjes.'),
+        ('b', '**Projektimi i regjistruesve me K heterogjene si parametër i bezdisshëm:** tre puse dhe një piezometër i ri në '
+              'veri, me pasigurinë që mbetet të shprehur në numra.'),
+        ('b', '**Nitrati si gjurmues i rimbushjes vertikale** kundrejt mbulesës, me përfundimin e kufizuar që lejojnë të '
+              'dhënat.'),
+        ('b', '**Nuk pretendohen si të reja:** modeli areal, kalibrimi dhe faktet (studimi i klorurit; Zeqiraj, 2026), '
+              'potenciali i Strack (1976), metoda DRASTIC dhe kimia e Cenameri & Beqiraj (2016).'),
     ]

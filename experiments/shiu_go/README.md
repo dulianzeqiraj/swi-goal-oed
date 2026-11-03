@@ -11,7 +11,8 @@ system of equations for the coastal aquifer from three materials:
 - The author's review on assimilating missing dynamics: N1, a learned closure with memory in the flow equation; N2, a
   switch between the EnKF and a transport-map filter; N3, a robust band.
 
-*Shiu* is Albanian for rain.
+*Shiu* is Albanian for rain. Appendix A of the note applies the system to Fushë-Kuqe with the static data of the
+workbook (see the section on appendix A below).
 
 **Two routes for the forcing.**
 - **Route A** treats the forcing as a stochastic system of its own. Rain is a marked Poisson process. Soil water follows
@@ -94,11 +95,61 @@ Monitoring rule: the rain gauge gives the jumps, an hourly probe gives the drift
 function, and heads give the vadose delay and the error scale. The soil run is deterministic: a second run reproduces
 `res/shiu_km.json` exactly.
 
+## Fushë-Kuqe with the static data (appendix A; `shiu_fk.py` → `res/shiu_fk.json`, `res/shiu_fk_log.txt`)
+The two materials given for the appendix were the workbook `Fushe_Kuqe_All_Data.xlsx`, identical cell for cell to
+`data/Fushe_Kuqe_All_Data.xlsx`, and the first version of the assimilation note (ASIMILIMI-GO). The workbook has no
+time series, so routes A and B cannot be fitted yet. The appendix uses the calibrated areal model of the chloride study
+(`chloride_fk/python/fkcl_model.py`, Strack single potential; 20 000-draw calibration in
+`chloride_fk/results/calib_ensemble.npz`). As in that study, the column `Piezometric_Level_m` is read as the DRASTIC
+depth to the top of the confined aquifer, not as a head.
+
+- **S1, scale (Proposition 6 of the note).**
+  - Heads are invariant under (R, T, S) → (cR, cT, cS) unless a flux is known. In the areal model, (R, η) → (cR, cη)
+    leaves φ, heads, interface and chloride unchanged; the check gives a relative difference of 3e-13.
+  - In the calibration, the 90% width of log10 R/η narrows from 1.07 to 0.48 decades and that of log10 R from 1.01 to
+    0.55, while log10 η stays at 0.38 → 0.37.
+  - The posterior correlation of log R and log η is 0.51. 46% of the posterior variance of log R comes from the K
+    scale.
+  - Recharge is 177 mm/yr (90% interval 94–337).
+- **S2, value of recharge.** The adjoint of the mean potential in the coastal band of the calibration (y 30–40 km,
+  0.5–2.5 km from the shore) gives the share contributed by each cell, over 300 posterior draws. The shares do not
+  depend on R or η.
+
+  | Region | Value share | Area share |
+  |---|---|---|
+  | 0–2.5 km from the shore | 16% | 25% |
+  | 5–10 km from the shore | 48% | 39% |
+  | South band, y 24–30 km | 31% (28–34%) | 18% |
+  | Middle band, y 30–40 km | 52% | 39% |
+  | North band, y ≥ 40 km | 17% (14–20%) | 44% |
+  | Cover > 30 m | 63% | 56% |
+  | Soil group G2 | 84% | 89% |
+
+  Per unit area, recharge in the south is worth about 4 times recharge in the north.
+- **S3, cover and nitrate.**
+  - Inside the sector the cover is 14–49 m (median 30 m); thin cover lies in the south.
+  - Across all 31 wells, nitrate falls with cover (Spearman −0.40, p = 0.024) and from south to north (−0.57,
+    p = 0.001).
+  - Inside the sector there is no relation (−0.04, p = 0.89; 16 wells, 1.4–8.2 mg/L). Thin cover against the rest:
+    permutation p = 0.11.
+- **S4, head loggers.**
+  - Steady heads separate north–south recharge (cosine south–north 0.59), not distance from the shore (0.93–0.99),
+    east–west (0.98) or cover (0.97).
+  - The design has the K zone multipliers as nuisance with the calibration prior, and prior sd 1 for the log-ratios of
+    band recharge. The best 3 of the 18 K-wells are P3, A3 and A13; the best 5 add A4 and A10.
+  - With 1 m head error, even 18 wells leave sd 0.61 and 0.84 on the two log-ratios. With 0.1 m error, three loggers
+    give 0.48 and 0.49.
+  - No K-well lies in the north band. A new piezometer at V2 (main plain, x 9.0, y 41.75 km; 41.688 N, 19.686 E) cuts
+    the north ratio to 0.38 at 0.1 m error; V1 (end of the north-east strip) does more in the model, but K and the
+    cover are extrapolated there.
+- Deterministic: a second run reproduces `res/shiu_fk.json` exactly (about 15 seconds).
+
 ## Files
 - `shiu_model.py`: the forcing chain (rain, soil bucket, Erlang delay, OU error, sea level, pumping), the aquifer, the
   twin simulator and the Kalman filter (numba).
 - `shiu_exp.py`: E1–E3 and identifiability over 12 twins (about 11 minutes with 4 worker processes).
 - `shiu_km.py`: E4, the soil SDE from soil-moisture data (under 10 seconds).
+- `shiu_fk.py`: appendix A, Fushë-Kuqe with the static data (S1–S4, about 15 seconds; needs `chloride_fk/` and pyproj).
 - `shiu_figs.py`: the five figures.
 - `text_shiu.py`: the Albanian text. Its numbers are filled in from `res/`, and guards stop the build if a finding stated
   in the text no longer holds.

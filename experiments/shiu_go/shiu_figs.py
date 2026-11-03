@@ -21,6 +21,7 @@ LAB = {'oracle': 'ligji i vërtetë', 'M0': 'M0: Gausian (OU)', 'M1': 'M1: trans
        'A': 'Rruga A: SDE me kërcime', 'B_ls': 'Rruga B: të gjitha termat', 'B_bic': 'Rruga B: BIC',
        'B_eills4': 'Rruga B: invariancë'}
 FS = 8.6
+W17 = 17.0 / 2.54        # every figure is drawn at the 17 cm it is printed at, so 8.6 pt stays 8.6 pt
 plt.rcParams.update({'font.size': FS, 'axes.titlesize': 9.4, 'axes.labelsize': 8.8, 'xtick.labelsize': FS,
                      'ytick.labelsize': FS, 'legend.fontsize': FS, 'font.family': 'DejaVu Sans'})
 
@@ -34,7 +35,7 @@ def style(ax):
 
 # ------------------------------------------------------------------------------------------------ figure 1: the system
 def fig_system(path):
-    fig, ax = plt.subplots(figsize=(6.9, 4.9), dpi=300)
+    fig, ax = plt.subplots(figsize=(W17, 4.9), dpi=300)
     ax.set_xlim(0, 100); ax.set_ylim(0, 70); ax.axis('off')
 
     def box(x, y, w, h, title, body, fc, ec):
@@ -85,7 +86,7 @@ def fig_twin(path, run):
     lo, hi = 9 * SM.YEAR, 11 * SM.YEAR
     d = np.arange(lo, hi)
     yrs = (d - lo) / 365.0 + 9
-    fig, axs = plt.subplots(3, 1, figsize=(6.9, 6.2), dpi=300, sharex=True,
+    fig, axs = plt.subplots(3, 1, figsize=(W17, 6.2), dpi=300, sharex=True,
                             gridspec_kw=dict(height_ratios=[0.8, 1.1, 1.6]))
     ax = axs[0]
     ax.bar(yrs, tw['P'][lo:hi], width=1 / 365.0, color=COL['rain'])
@@ -125,7 +126,7 @@ def fig_results(path, J):
     models = [('M0', lambda r: r['M0']['test']['loss']), ('M1', lambda r: r['M1']['test']['loss']),
               ('B_ls', lambda r: r['B']['ls']['test']), ('B_bic', lambda r: r['B']['bic']['test']),
               ('B_eills4', lambda r: r['B']['eills4']['test']), ('A', lambda r: r['A']['test']['loss'])]
-    fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.9, 3.6), dpi=300, gridspec_kw=dict(width_ratios=[1.25, 1]))
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(W17, 3.6), dpi=300, gridspec_kw=dict(width_ratios=[1.25, 1]))
     for i, (k, f) in enumerate(models):
         v = np.array([100 * (f(r) / r['oracle']['test']['loss'] - 1) for r in runs])
         c = COL['B'] if k.startswith('B') else COL[k]
@@ -146,7 +147,8 @@ def fig_results(path, J):
     gl = ['1–3', '4–7', '8–14', '>14']
     for k in ('M0', 'M1', 'A', 'oracle'):
         g = np.array([[r[k]['gap'][i] for i in range(4)] for r in runs])
-        bx.plot(range(4), 1e4 * np.median(g, 0), marker='o', ms=4, color=COL[k], lw=1.6, label=LAB[k])
+        short = {'M0': 'M0: Gausian (OU)', 'M1': 'M1: shi linear', 'A': 'A: SDE me kërcime', 'oracle': 'ligji i vërtetë'}
+        bx.plot(range(4), 1e4 * np.median(g, 0), marker='o', ms=4, color=COL[k], lw=1.6, label=short[k])
     bx.set_xticks(range(4)); bx.set_xticklabels(gl)
     bx.set_xlabel('ditë nga vëzhgimi i fundit')
     bx.set_ylabel('gabimi katror mesatar (cm²)')
@@ -162,7 +164,7 @@ def fig_routeB(path, J):
     feats = J['params']['FEATS']
     names = {'P5': 'shi 5 d', 'P20': 'shi 20 d', 'P60': 'shi 60 d', 'P180': 'shi 180 d', 'E20': 'ET 20 d',
              'X40': 'tepricë', 'cos': 'cos', 'sin': 'sin', 'one': 'konst.'}
-    fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.9, 3.5), dpi=300, gridspec_kw=dict(width_ratios=[1.35, 1]))
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(W17, 3.5), dpi=300, gridspec_kw=dict(width_ratios=[1.35, 1]))
     x = np.arange(len(feats))
     for off, key, c, lab in ((-0.2, 'bic', '#9aa8b6', 'BIC'), (0.2, 'eills4', COL['B'], 'invariancë (γ = 4)')):
         ax.bar(x + off, [100 * S['B'][key]['freq'][f] for f in feats], width=0.38, color=c, label=lab)
@@ -191,7 +193,7 @@ def fig_routeB(path, J):
 
 # ------------------------------------------------------------------------------------------------ figure 5: route A by Kramers-Moyal
 def fig_km(path, K):
-    fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.9, 3.4), dpi=300)
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(W17, 3.4), dpi=300)
     mth = np.arange(1, 13)
     ax.plot(mth, [a for a, b in K['true_month']], color=INK, lw=1.8, label='e vërteta')
     pj = np.array([a for a, b, c in K['probe_jumps']], float)
@@ -221,6 +223,140 @@ def fig_km(path, K):
     fig.savefig(path, dpi=300); plt.close(fig)
 
 
+# ------------------------------------------------------------------------------------------ appendix A: Fushe-Kuqe
+PLACES = os.path.join(HERE, '..', '..', 'chloride_fk', 'derived', 'places.csv')
+PLACE_SQ = {'Lezhë': 'Lezhë', 'Laç': 'Laç', 'Milot': 'Milot', 'Mamurras': 'Mamurras', 'Fushë-Krujë': 'Fushë-Krujë',
+            'Patok lagoon': 'laguna e\nPatokut'}
+
+
+def grid_image(cx, cy, val, dx):
+    xs = np.round(np.asarray(cx) / dx).astype(int); ys = np.round(np.asarray(cy) / dx).astype(int)
+    x0, y0 = xs.min(), ys.min()
+    img = np.full((ys.max() - y0 + 1, xs.max() - x0 + 1), np.nan)
+    img[ys - y0, xs - x0] = val
+    return img, [(x0 - 0.5) * dx, (xs.max() + 0.5) * dx, (y0 - 0.5) * dx, (ys.max() + 0.5) * dx]
+
+
+def places(ax, ylo, yhi):
+    import csv
+    with open(PLACES, encoding='utf-8') as fh:
+        for r in csv.DictReader(fh):
+            x, y = float(r['x_km']), float(r['y_km'])
+            if r['name'] in PLACE_SQ and ylo <= y <= yhi:
+                ax.plot(x, y, 's', ms=3, color=MUTED, zorder=5)
+                ax.text(x + 0.5, y, PLACE_SQ[r['name']], fontsize=FS, color=MUTED, va='center', zorder=5)
+
+
+def fig_fk_value(path, F):
+    g, S2, S4 = F['grid'], F['S2'], F['S4']
+    fig = plt.figure(figsize=(W17, 5.2), dpi=300)
+    ax = fig.add_axes([0.085, 0.215, 0.34, 0.715]); bx = fig.add_axes([0.655, 0.08, 0.32, 0.85])
+    img, ext = grid_image(g['cx'], g['cy'], g['dens'], g['dx'])
+    im = ax.imshow(img, origin='lower', extent=ext, cmap='Greens', vmin=0, vmax=2.0, interpolation='nearest')
+    band, _ = grid_image(g['cx'], g['cy'], g['band'], g['dx'])
+    xx = np.linspace(ext[0], ext[1], band.shape[1]); yy = np.linspace(ext[2], ext[3], band.shape[0])
+    ax.contour(xx, yy, np.nan_to_num(band), levels=[0.5], colors=INK, linewidths=1.0)
+    sea = np.asarray(g['sea']) == 1
+    ax.plot(np.asarray(g['cx'])[sea] - 0.15, np.asarray(g['cy'])[sea], 's', ms=1.6, color='#2E6DB4', zorder=4)
+    for yb in (30, 40):
+        ax.axhline(yb, color=MUTED, lw=0.8, ls=(0, (4, 3)))
+    W = F['wells']; ids = W['Well_ID']
+    pos = {wid: (W['x_km'][i], W['y_km'][i]) for i, wid in enumerate(ids)}
+    b3, b5 = S4['best3']['wells'], S4['best5']['wells']
+    for wid in b5:
+        x, y = pos[wid]
+        filled = wid in b3
+        ax.plot(x, y, '^', ms=6, mfc=INK if filled else 'white', mec=INK, mew=1.0, zorder=6)
+        left = wid in ('A4',)
+        ax.text(x + (-0.5 if left else 0.5), y + 0.35, wid, fontsize=FS, color=INK, zorder=6, ha='right' if left else 'left')
+    for key, lab, mfc in (('new_north', 'V1', '#C27C12'), ('new_north_plain', 'V2', 'white')):
+        nn = S4[key]
+        ax.plot(nn['x_km'], nn['y_km'], '*', ms=11, mfc=mfc, mec=INK, mew=0.8, zorder=7)
+        ax.text(nn['x_km'] - 0.6, nn['y_km'] + 0.6, lab, fontsize=FS, color=INK, ha='right', zorder=7)
+    import csv
+    with open(PLACES, encoding='utf-8') as fh:
+        for r in csv.DictReader(fh):
+            x, y = float(r['x_km']), float(r['y_km'])
+            if r['name'] in ('Lezhë', 'Laç', 'Milot', 'Mamurras'):
+                ax.plot(x, y, 's', ms=3, color=MUTED, zorder=5)
+                ax.text(x + 0.5, y - 0.1, r['name'], fontsize=FS, color=MUTED, va='center', zorder=5)
+    ax.set_xlim(-1.0, 18.5); ax.set_ylim(23.5, 53.5)
+    ax.set_xlabel('x (km)'); ax.set_ylabel('y (km)')
+    ax.set_title('(a) Vlera e rimbushjes', loc='left', color=INK)
+    ax.text(18.3, 26.5, 'jug', fontsize=FS, color=MUTED, ha='right'); ax.text(18.3, 34.5, 'mes', fontsize=FS, color=MUTED, ha='right')
+    ax.text(18.3, 45.5, 'veri', fontsize=FS, color=MUTED, ha='right')
+    for sp in ('top', 'right'):
+        ax.spines[sp].set_visible(False)
+    cax = fig.add_axes([0.085, 0.1, 0.34, 0.017])
+    cb = fig.colorbar(im, cax=cax, orientation='horizontal')
+    cb.set_label('vlera për njësi sipërfaqeje (sektori = 1)', fontsize=FS)
+    # (b) area share against value share, with the posterior 5-95% band of the value share
+    rows = [('dist_0_2.5', '0–2,5 km nga bregu'), ('dist_2.5_5', '2,5–5 km'), ('dist_5_10', '5–10 km'), ('dist_10+', '> 10 km'),
+            None, ('y_24_30', 'jug (y 24–30 km)'), ('y_30_40', 'mes (y 30–40 km)'), ('y_40+', 'veri (y ≥ 40 km)')]
+    yv, labels = [], []
+    y = 0.0
+    for r in rows:
+        if r is None:
+            y -= 0.7; continue
+        key, lab = r
+        reg = S2['regions'][key]
+        a, (lo, md, hi) = 100 * reg['area_frac'], [100 * v for v in reg['share']]
+        bx.barh(y + 0.19, a, height=0.36, color='#c9d1d9', zorder=3, label='sipërfaqja' if not yv else None)
+        bx.barh(y - 0.19, md, height=0.36, color='#2E8B57', zorder=3, label='vlera' if not yv else None)
+        bx.plot([lo, hi], [y - 0.19, y - 0.19], color=INK, lw=1.0, zorder=4)
+        bx.text(max(a, hi) + 1.2, y, f'{md:.0f}% / {a:.0f}%', va='center', fontsize=FS, color=INK)
+        yv.append(y); labels.append(lab)
+        y -= 1.0
+    bx.set_yticks(yv); bx.set_yticklabels(labels)
+    bx.set_xlim(0, 80); bx.set_xlabel('përqindje e sektorit')
+    bx.set_title('(b) Vlera kundrejt sipërfaqes', loc='left', color=INK, x=-0.62)
+    bx.legend(loc='center right', frameon=False, fontsize=FS, bbox_to_anchor=(1.02, 0.46))
+    style(bx); bx.grid(axis='y', visible=False)
+    fig.savefig(path, dpi=300); plt.close(fig)
+
+
+def fig_fk_cover(path, F):
+    ga, W = F['grid_all'], F['wells']
+    fig = plt.figure(figsize=(W17, 5.0), dpi=300)
+    ax = fig.add_axes([0.075, 0.235, 0.3, 0.7]); bx = fig.add_axes([0.56, 0.13, 0.42, 0.8])
+    img, ext = grid_image(ga['cx'], ga['cy'], ga['cover'], F['grid']['dx'])
+    im = ax.imshow(img, origin='lower', extent=ext, cmap='Oranges', vmin=0, vmax=60, interpolation='nearest')
+    ax.axhline(24, color=INK, lw=0.9, ls=(0, (4, 3)))
+    ax.text(ext[1] + 0.3, 24.6, 'y = 24 km', fontsize=FS, color=INK, ha='right', va='bottom')
+    x, y = np.asarray(W['x_km'], float), np.asarray(W['y_km'], float)
+    no3 = np.array([np.nan if v is None else v for v in W['NO3_mg_per_L']], float)
+    has = np.isfinite(no3)
+    ax.scatter(x[~has], y[~has], s=5, color=INK, zorder=5, lw=0)
+    ax.scatter(x[has], y[has], s=8 + 5 * no3[has], facecolor='none', edgecolor=INK, lw=0.8, zorder=6)
+    for v in (2, 8, 20):
+        ax.scatter([], [], s=8 + 5 * v, facecolor='none', edgecolor=INK, lw=0.8, label=f'NO₃ {v} mg/L')
+    ax.legend(loc='upper left', bbox_to_anchor=(0.86, 0.86), frameon=False, fontsize=FS, borderaxespad=0.1,
+              handletextpad=0.3, labelspacing=0.9)
+    ax.set_xlabel('x (km)'); ax.set_ylabel('y (km)')
+    ax.set_title('(a) Mbulesa mbi akuiferin dhe NO₃', loc='left', color=INK)
+    for sp in ('top', 'right'):
+        ax.spines[sp].set_visible(False)
+    cax = fig.add_axes([0.075, 0.115, 0.3, 0.017])
+    cb = fig.colorbar(im, cax=cax, orientation='horizontal')
+    cb.set_label('mbulesa (m): parametri D i DRASTIC', fontsize=FS)
+    d = np.array([np.nan if v is None else v for v in W['depth']], float)
+    sec = y >= 24
+    S3 = F['S3']
+    ra, pa = S3['spearman_all']['depth']; rs, ps = S3['sector']['spearman_depth']
+    bx.scatter(d[has & sec], no3[has & sec], s=26, color='#2E6DB4', zorder=4,
+               label=f'sektori bregdetar (n = {int((has & sec).sum())})')
+    bx.scatter(d[has & ~sec], no3[has & ~sec], s=26, color='#B45309', marker='D', zorder=4,
+               label=f'jugu (n = {int((has & ~sec).sum())})')
+    fmt = lambda v, k=2: f'{v:.{k}f}'.replace('.', ',').replace('-', '−')
+    bx.text(0.98, 0.84, f'Spearman, të gjitha: {fmt(ra)} (p = {fmt(pa, 3)})\nsektori: {fmt(rs)} (p = {fmt(ps)})',
+            transform=bx.transAxes, ha='right', va='top', fontsize=FS, color=INK)
+    bx.set_xlabel('trashësia e mbulesës mbi akuiferin (m)'); bx.set_ylabel('NO₃ (mg/L)')
+    bx.set_title('(b) Nitrati sipas mbulesës', loc='left', color=INK)
+    bx.legend(loc='center right', frameon=False, fontsize=FS)
+    style(bx)
+    fig.savefig(path, dpi=300); plt.close(fig)
+
+
 def main(od):
     os.makedirs(od, exist_ok=True)
     with open(os.path.join(HERE, 'res', 'shiu_exp.json')) as fh:
@@ -232,6 +368,10 @@ def main(od):
     fig_results(os.path.join(od, 'fig_results.png'), J)
     fig_routeB(os.path.join(od, 'fig_routeB.png'), J)
     fig_km(os.path.join(od, 'fig_km.png'), K)
+    with open(os.path.join(HERE, 'res', 'shiu_fk.json')) as fh:
+        F = json.load(fh)
+    fig_fk_value(os.path.join(od, 'fig_fk_value.png'), F)
+    fig_fk_cover(os.path.join(od, 'fig_fk_cover.png'), F)
     print('figures in', od)
 
 

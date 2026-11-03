@@ -130,7 +130,7 @@ def main(out):
     E = Eqs()
     work = tempfile.mkdtemp()
     SF.main(work)
-    figs = {k: os.path.join(work, f'fig_{k}.png') for k in ('system', 'twin', 'results', 'routeB', 'km')}
+    figs = {k: os.path.join(work, f'fig_{k}.png') for k in ('system', 'twin', 'results', 'routeB', 'km', 'fk_value', 'fk_cover')}
 
     doc = Document()
     s = doc.sections[0]
@@ -189,9 +189,10 @@ def main(out):
     for r_ in REFS:
         p = para(doc, 2, 0.5); run(p, r_, size=9.5, color='3d4652')
     p = para(doc, 2, before=4)
-    run(p, 'Të gjitha referencat janë marrë nga tri materialet e dhëna (PDF-ja e ETH dhe dy rishikimet tuaja, me të '
-           'dhënat e kontrolluara atje), përveç Rodriguez-Iturbe et al. (1999) dhe Anvari et al. (2016), të kontrolluara '
-           'më 3 nëntor 2026 në indekse bibliografike.', italic=True, size=9.5, color='52606D')
+    run(p, 'Referencat janë marrë nga tri materialet e dhëna (PDF-ja e ETH dhe dy rishikimet tuaja, me të dhënat e '
+           'kontrolluara atje). Rodriguez-Iturbe et al. (1999) dhe Anvari et al. (2016) u kontrolluan më 3 nëntor 2026 '
+           'në indekse bibliografike; Strack (1976), Cenameri & Beqiraj (2016) dhe Zeqiraj (2026) vijnë nga listat e '
+           'verifikuara të projektit dhe nga libri i punës.', italic=True, size=9.5, color='52606D')
     draft = os.path.join(work, 'draft.docx'); doc.save(draft)
     eq_json = os.path.join(work, 'eqs.json')
     with open(eq_json, 'w', encoding='utf-8') as fh:
