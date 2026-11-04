@@ -148,11 +148,13 @@ def blocks(AJ, GE):
        SOTA_ROWS(AJ), [2.6, 3.9, 3.2, 3.8, 3.5], 9, False))
     # ------------------------------------------------------------------------------------------- 3 the papers
     A(('h', '3. The twenty papers'))
-    A(('p', 'Five papers per institution, all published in 2020–2026 (Figure {{map}}). The rules of the earlier reviews '
+    A(('p', 'Five papers per institution, all from 2020–2026 (Figure {{map}}). The rules of the earlier reviews '
             'apply: direct use, a link to the institution at the time of publication (JPL for Caltech, Lawrence Berkeley '
             'National Laboratory for Berkeley), a state-of-the-art contribution, and no paper that was a card before. This '
             'batch gives priority to transferring knowledge between sites and to inference under shift, then to mixing '
-            'and coastal boundaries.'))
+            'and coastal boundaries. Five of the twenty are preprints, a working paper or a workshop paper (O1, O3, B1, '
+            'M1, M2); the venue line of each card says so. No new 2020–2026 paper on field dispersivity was found at the '
+            'four institutions, so dispersion is served indirectly (M3, O4, O5, M5).'))
     A(('p', '**Verification.** The hosts doi.org, arxiv.org, openreview.net and most publisher pages were blocked in this '
             'environment, so every landing page was reached through search results that quote it, and every card is '
             'marked partly verified; where an author list or a volume could not be confirmed, the card says so.'))
