@@ -1,0 +1,5 @@
+N  32: predicted spread x0.100 error x4.510 | qL: spread x0.100 error x4.527 ES x0.306 MATJA x2.173 | r: spread x0.100 error x5.197 ES x0.305 MATJA x2.281 | kappa: spread x0.098 error x5.324 ES x0.303 MATJA x2.321  [5s]
+N  64: predicted spread x0.462 error x2.008 | qL: spread x0.460 error x1.870 ES x0.675 MATJA x1.378 | r: spread x0.459 error x2.008 ES x0.675 MATJA x1.459 | kappa: spread x0.461 error x2.137 ES x0.676 MATJA x1.595  [9s]
+N 128: predicted spread x0.721 error x1.367 | qL: spread x0.723 error x1.423 ES x0.849 MATJA x1.216 | r: spread x0.718 error x1.307 ES x0.847 MATJA x1.172 | kappa: spread x0.719 error x1.297 ES x0.847 MATJA x1.208  [14s]
+N 256: predicted spread x0.859 error x1.161 | qL: spread x0.859 error x1.160 ES x0.927 MATJA x1.082 | r: spread x0.861 error x1.206 ES x0.928 MATJA x1.097 | kappa: spread x0.861 error x1.250 ES x0.928 MATJA x1.087  [23s]
+N 512: predicted spread x0.929 error x1.075 | qL: spread x0.928 error x1.138 ES x0.963 MATJA x1.078 | r: spread x0.929 error x1.091 ES x0.963 MATJA x1.060 | kappa: spread x0.928 error x1.107 ES x0.963 MATJA x1.086  [41s]

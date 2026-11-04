@@ -1,0 +1,26 @@
+rain only: eta ES 0.183 oracle 0.184 MATJA 0.188 | qL ES 0.923 oracle 0.931 MATJA 0.881 | r ES 0.556 oracle 0.561 MATJA 0.565 | h0 ES 2.904 oracle 2.930 MATJA 2.895 | kappa ES 0.151 oracle 0.151 MATJA 0.149
+goal r     criterion es    : L3 (0.147) -> L3+L7 (0.068) -> L3+L7+L5 (0.046)  [25 designs, 180s]
+goal r     criterion oracle: L3 (0.158) -> L3+L7 (0.076) -> L3+L7+L5 (0.049)  [25 designs, 180s]
+goal r     criterion matja : L3 (0.168) -> L3+L6 (0.085) -> L3+L6+L5 (0.061)  [31 designs, 258s]
+goal qL    criterion es    : L7 (0.443) -> L7+L5 (0.055) -> L7+L5+L4 (0.045)  [44 designs, 383s]
+goal qL    criterion oracle: L7 (0.477) -> L7+L5 (0.059) -> L7+L5+L4 (0.047)  [44 designs, 383s]
+goal qL    criterion matja : L7 (0.517) -> L7+L5 (0.065) -> L7+L5+L4 (0.053)  [44 designs, 383s]
+goal kappa criterion es    : L2 (0.026) -> L2+L7 (0.009) -> L2+L7+L4 (0.002)  [55 designs, 495s]
+goal kappa criterion oracle: L3 (0.031) -> L3+L7 (0.019) -> L3+L7+L5 (0.018)  [55 designs, 495s]
+goal kappa criterion matja : L3 (0.033) -> L3+L5 (0.024) -> L3+L5+L2 (0.024)  [60 designs, 573s]
+fresh rain only        r hw 0.581 (ES 0.564, exact 0.567) risk 0.095 cover 0.90 | qL hw 0.942 (ES 0.926, exact 0.931) risk 0.094 cover 0.90 | kappa hw 0.156 (ES 0.152, exact 0.151) risk 0.099 cover 0.90
+fresh L2               r hw 0.190 (ES 0.157, exact 0.169) risk 0.094 cover 0.90 | qL hw 0.793 (ES 0.653, exact 0.706) risk 0.093 cover 0.90 | kappa hw 0.035 (ES 0.025, exact 0.031) risk 0.095 cover 0.90
+fresh L3               r hw 0.174 (ES 0.147, exact 0.158) risk 0.096 cover 0.90 | qL hw 0.751 (ES 0.624, exact 0.672) risk 0.094 cover 0.90 | kappa hw 0.034 (ES 0.026, exact 0.031) risk 0.098 cover 0.90
+fresh L7               r hw 0.266 (ES 0.225, exact 0.241) risk 0.093 cover 0.90 | qL hw 0.531 (ES 0.444, exact 0.476) risk 0.093 cover 0.90 | kappa hw 0.047 (ES 0.041, exact 0.043) risk 0.097 cover 0.90
+fresh L2+L7            r hw 0.117 (ES 0.090, exact 0.102) risk 0.093 cover 0.90 | qL hw 0.158 (ES 0.118, exact 0.136) risk 0.094 cover 0.90 | kappa hw 0.025 (ES 0.009, exact 0.020) risk 0.101 cover 0.90
+fresh L3+L5            r hw 0.091 (ES 0.072, exact 0.080) risk 0.094 cover 0.90 | qL hw 0.202 (ES 0.160, exact 0.178) risk 0.093 cover 0.90 | kappa hw 0.024 (ES 0.008, exact 0.020) risk 0.101 cover 0.90
+fresh L3+L6            r hw 0.085 (ES 0.069, exact 0.076) risk 0.093 cover 0.90 | qL hw 0.128 (ES 0.102, exact 0.114) risk 0.093 cover 0.90 | kappa hw 0.024 (ES 0.007, exact 0.019) risk 0.099 cover 0.90
+fresh L3+L7            r hw 0.084 (ES 0.068, exact 0.076) risk 0.093 cover 0.90 | qL hw 0.104 (ES 0.082, exact 0.092) risk 0.094 cover 0.90 | kappa hw 0.024 (ES 0.007, exact 0.019) risk 0.101 cover 0.90
+fresh L5+L7            r hw 0.073 (ES 0.061, exact 0.066) risk 0.092 cover 0.90 | qL hw 0.063 (ES 0.055, exact 0.059) risk 0.094 cover 0.90 | kappa hw 0.026 (ES 0.005, exact 0.018) risk 0.099 cover 0.90
+fresh L2+L3+L5         r hw 0.070 (ES 0.057, exact 0.062) risk 0.093 cover 0.90 | qL hw 0.159 (ES 0.130, exact 0.142) risk 0.093 cover 0.90 | kappa hw 0.023 (ES 0.004, exact 0.018) risk 0.100 cover 0.90
+fresh L2+L4+L7         r hw 0.058 (ES 0.047, exact 0.051) risk 0.093 cover 0.90 | qL hw 0.052 (ES 0.045, exact 0.048) risk 0.094 cover 0.90 | kappa hw 0.026 (ES 0.002, exact 0.018) risk 0.097 cover 0.90
+fresh L3+L5+L6         r hw 0.060 (ES 0.050, exact 0.054) risk 0.093 cover 0.90 | qL hw 0.083 (ES 0.072, exact 0.077) risk 0.093 cover 0.90 | kappa hw 0.023 (ES 0.003, exact 0.018) risk 0.100 cover 0.90
+fresh L3+L5+L7         r hw 0.055 (ES 0.046, exact 0.049) risk 0.093 cover 0.90 | qL hw 0.053 (ES 0.046, exact 0.048) risk 0.093 cover 0.90 | kappa hw 0.024 (ES 0.002, exact 0.018) risk 0.099 cover 0.90
+fresh L4+L5+L7         r hw 0.057 (ES 0.048, exact 0.051) risk 0.094 cover 0.90 | qL hw 0.052 (ES 0.044, exact 0.047) risk 0.092 cover 0.90 | kappa hw 0.023 (ES 0.003, exact 0.018) risk 0.100 cover 0.90
+fresh L0+L2+L4+L6      r hw 0.054 (ES 0.040, exact 0.045) risk 0.094 cover 0.90 | qL hw 0.064 (ES 0.053, exact 0.057) risk 0.092 cover 0.90 | kappa hw 0.025 (ES 0.002, exact 0.018) risk 0.099 cover 0.90
+done in 934s
