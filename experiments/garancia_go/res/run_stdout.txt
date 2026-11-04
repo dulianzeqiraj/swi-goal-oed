@@ -1,0 +1,32 @@
+/home/user/swi-goal-oed/experiments/garancia_go/gar_exp.py:431: RuntimeWarning: overflow encountered in exp
+  below=bool(rng.random() < 1 / (1 + np.exp(-(OBS['cl_ne'] - S[j, 4]) / OBS['cl_ne_s']))))
+T4 w    IS 90% coverage 0.910 -> conformal 0.910 (q 1.69, width x1.04); Fushe-Kuqe: prior [ 7.4185 20.0649 53.3128], IS [12.8491 27.6639 47.8341], conformal [13.9484 27.6639 54.8661]
+T4 R    IS 90% coverage 0.887 -> conformal 0.923 (q 1.82, width x1.10); Fushe-Kuqe: prior [0.0002 0.0005 0.0016], IS [0.0003 0.0005 0.0009], conformal [0.0002 0.0005 0.001 ]
+T4 eta  IS 90% coverage 0.900 -> conformal 0.930 (q 1.63, width x1.02); Fushe-Kuqe: prior [0.3241 0.5531 0.7756], IS [0.3315 0.5393 0.7746], conformal [0.3521 0.5393 0.826 ]
+T4 ESS median 2090, real facts ESS 3249
+T4 facts heads    ESS   13082 w [ 7.39576 20.02776 53.75196] R [0.00014 0.00034 0.00078] eta [0.34148 0.56518 0.78152]
+T4 facts chloride ESS    2261 w [16.04106 34.28473 64.61882] R [0.00029 0.00057 0.00117] eta [0.32467 0.52416 0.7693 ]
+T4 facts all      ESS    3249 w [12.84912 27.66395 47.83413] R [0.00026 0.00048 0.00092] eta [0.33148 0.53934 0.77462]
+T4 prior rank correlations w: area +0.62 hlit +0.00 fsw +0.28 cl_ne +0.52 | R: area -0.66 hlit +0.87 fsw -0.80 cl_ne -0.56 | eta: area +0.26 hlit -0.34 fsw +0.31 cl_ne +0.22
+T1 pool of 500 cases simulated in 24s
+T1 eta   exact 0.105/0.02 | raw ES 0.182/0.00 w0.90 | CRC risk 0.095 [0.088, 0.101] w1.13 | sup-CP cover 0.900 [0.867, 0.933] w2.04
+T1 qL    exact 0.102/0.20 | raw ES 0.167/0.08 w0.91 | CRC risk 0.095 [0.085, 0.107] w1.11 | sup-CP cover 0.899 [0.863, 0.930] w1.84
+T1 r     exact 0.106/0.03 | raw ES 0.179/0.01 w0.91 | CRC risk 0.095 [0.087, 0.104] w1.13 | sup-CP cover 0.901 [0.866, 0.933] w2.01
+T1 h0    exact 0.101/0.45 | raw ES 0.198/0.23 w0.88 | CRC risk 0.096 [0.080, 0.112] w1.13 | sup-CP cover 0.900 [0.867, 0.933] w1.71
+T1 kappa exact 0.094/0.91 | raw ES 0.668/0.33 w0.29 | CRC risk 0.100 [0.063, 0.137] w1.36 | sup-CP cover 0.900 [0.863, 0.933] w1.36
+T2 n= 10 qL: CRC risk 0.014 (p90 0.027), sup cover 0.906 (p10 0.790) | r: CRC risk 0.012 (p90 0.022), sup cover 0.911 (p10 0.798) | kappa: CRC risk 0.091 (p90 0.206), sup cover 0.909 (p10 0.794)
+T2 n= 20 qL: CRC risk 0.057 (p90 0.079), sup cover 0.903 (p10 0.810) | r: CRC risk 0.056 (p90 0.070), sup cover 0.906 (p10 0.821) | kappa: CRC risk 0.098 (p90 0.194), sup cover 0.902 (p10 0.806)
+T2 n= 50 qL: CRC risk 0.083 (p90 0.100), sup cover 0.901 (p10 0.844) | r: CRC risk 0.082 (p90 0.094), sup cover 0.901 (p10 0.842) | kappa: CRC risk 0.099 (p90 0.156), sup cover 0.901 (p10 0.844)
+T2 n=100 qL: CRC risk 0.091 (p90 0.103), sup cover 0.901 (p10 0.858) | r: CRC risk 0.090 (p90 0.100), sup cover 0.900 (p10 0.855) | kappa: CRC risk 0.098 (p90 0.142), sup cover 0.902 (p10 0.858)
+T2 n=200 qL: CRC risk 0.095 (p90 0.106), sup cover 0.901 (p10 0.863) | r: CRC risk 0.095 (p90 0.101), sup cover 0.902 (p10 0.867) | kappa: CRC risk 0.099 (p90 0.134), sup cover 0.901 (p10 0.866)
+T3 parameters: alarm 0.19 (null 0.10); eta CRC 0.118 sup 0.81 qL CRC 0.111 sup 0.85 r CRC 0.106 sup 0.83 h0 CRC 0.112 sup 0.86 kappa CRC 0.090 sup 0.91
+T3 delay: alarm 0.67 (null 0.10); eta CRC 0.207 sup 0.45 qL CRC 0.281 sup 0.42 r CRC 0.409 sup 0.02 h0 CRC 0.287 sup 0.49 kappa CRC 0.773 sup 0.23
+T3 delay repaired (delay in the prior): alarm 0.11; eta CRC 0.094 sup 0.86 width x1.03 qL CRC 0.108 sup 0.89 width x0.99 r CRC 0.093 sup 0.91 width x1.16 h0 CRC 0.109 sup 0.86 width x1.05 kappa CRC 0.353 sup 0.64 width x2.36
+T1A pool of 500 rain-only cases simulated in 24s
+T1A eta   exact 0.103 | raw 0.104 | CRC risk 0.095 w1.03 | sup cover 0.902 w1.85 | half-width exact 0.183 CRC 0.187 sup 0.339 m
+T1A qL    exact 0.103 | raw 0.105 | CRC risk 0.096 w1.03 | sup cover 0.901 w1.48 | half-width exact 0.929 CRC 0.945 sup 1.371 m2/d
+T1A r     exact 0.113 | raw 0.108 | CRC risk 0.096 w1.05 | sup cover 0.900 w1.73 | half-width exact 0.552 CRC 0.575 sup 0.943 mm/d
+T1A h0    exact 0.103 | raw 0.097 | CRC risk 0.098 w1.02 | sup cover 0.900 w1.35 | half-width exact 2.870 CRC 2.895 sup 3.890 m
+T1A kappa exact 0.116 | raw 0.112 | CRC risk 0.098 w1.08 | sup cover 0.901 w1.07 | half-width exact 0.147 CRC 0.160 sup 0.160 -
+done in 236s
+ALL-DONE
