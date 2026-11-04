@@ -1,0 +1,9 @@
+/home/user/swi-goal-oed/experiments/rindertimi_go/rgo_fundps.py:290: RuntimeWarning: All-NaN slice encountered
+  out['physics'] = {m: float(np.nanmedian([r['physics'][m] for r in res])) for m in res[0]['physics']}
+/home/user/swi-goal-oed/experiments/rindertimi_go/rgo_fundps.py:291: RuntimeWarning: All-NaN slice encountered
+  out['fit'] = float(np.nanmedian([r['fit'] for r in res]))
+rain l2 100.0 score 1.359 {'eta': (0.98, 0.94), 'qL': (0.86, 1.02), 'r': (0.77, 1.66), 'h0': (0.8, 1.43)} f_rms 1.243
+rain l2 300.0 score 1.023 {'eta': (0.97, 0.95), 'qL': (0.99, 1.03), 'r': (0.76, 1.22), 'h0': (0.58, 1.35)} f_rms 0.206
+rain mse 100.0 score 1.306 {'eta': (0.98, 0.94), 'qL': (0.87, 1.02), 'r': (0.85, 1.55), 'h0': (0.76, 1.37)} f_rms 1.044
+pure l2 300.0 300.0 score 5.312 fit 27.8
+pure mse 100.0 300.0 score 4.109 fit 22.3

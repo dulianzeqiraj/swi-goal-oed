@@ -71,3 +71,6 @@ experiments/ml_paradigms/word/content.json
 experiments/ml_paradigms/*.png
 experiments/ml_paradigms/*.pdf
 experiments/ml_paradigms/word/hero*.png
+# RINDERTIMI-GO: the trained FNO weights (about 6 MB, rebuilt by rgo_net.py in about 25 minutes on four CPU cores)
+experiments/rindertimi_go/res/rgo_params.npz
+experiments/rindertimi_go/res/run1_rain_channel/rgo_params.npz
