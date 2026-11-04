@@ -1,0 +1,37 @@
+L0  eta    rho 0.68 eps 0.224 pred 0.623 meas 0.646     
+L0  qL     rho 0.13 eps 0.224 pred 1.033 meas 1.090 NEG pred NEG
+L0  r      rho 0.75 eps 0.224 pred 0.554 meas 0.565     
+L0  kappa  rho 0.89 eps 0.224 pred 0.366 meas 0.378     
+L1  eta    rho 0.37 eps 0.174 pred 0.857 meas 0.881     
+L1  qL     rho 0.32 eps 0.174 pred 0.891 meas 0.924     
+L1  r      rho 0.86 eps 0.174 pred 0.411 meas 0.420     
+L1  kappa  rho 0.95 eps 0.174 pred 0.246 meas 0.259     
+L2  eta    rho 0.11 eps 0.142 pred 1.009 meas 1.025 NEG pred NEG
+L2  qL     rho 0.42 eps 0.142 pred 0.811 meas 0.842     
+L2  r      rho 0.91 eps 0.142 pred 0.319 meas 0.326     
+L2  kappa  rho 0.96 eps 0.142 pred 0.218 meas 0.225     
+L3  eta    rho 0.03 eps 0.136 pred 1.052 meas 1.051 NEG pred NEG
+L3  qL     rho 0.48 eps 0.136 pred 0.770 meas 0.797     
+L3  r      rho 0.92 eps 0.136 pred 0.297 meas 0.299     
+L3  kappa  rho 0.96 eps 0.136 pred 0.217 meas 0.217     
+L4  eta    rho 0.01 eps 0.134 pred 1.062 meas 1.070 NEG pred NEG
+L4  qL     rho 0.54 eps 0.134 pred 0.720 meas 0.733     
+L4  r      rho 0.91 eps 0.134 pred 0.312 meas 0.316     
+L4  kappa  rho 0.95 eps 0.134 pred 0.227 meas 0.227     
+L5  eta    rho 0.00 eps 0.135 pred 1.064 meas 1.081 NEG pred NEG
+L5  qL     rho 0.62 eps 0.135 pred 0.658 meas 0.680     
+L5  r      rho 0.89 eps 0.135 pred 0.354 meas 0.364     
+L5  kappa  rho 0.95 eps 0.135 pred 0.246 meas 0.254     
+L6  eta    rho 0.00 eps 0.135 pred 1.065 meas 1.076 NEG pred NEG
+L6  qL     rho 0.70 eps 0.135 pred 0.586 meas 0.607     
+L6  r      rho 0.85 eps 0.135 pred 0.415 meas 0.422     
+L6  kappa  rho 0.93 eps 0.135 pred 0.278 meas 0.291     
+L7  eta    rho 0.00 eps 0.136 pred 1.066 meas 1.075 NEG pred NEG
+L7  qL     rho 0.74 eps 0.136 pred 0.545 meas 0.563     
+L7  r      rho 0.82 eps 0.136 pred 0.453 meas 0.456     
+L7  kappa  rho 0.92 eps 0.136 pred 0.301 meas 0.303     
+TG  eta    rho 1.00 eps 0.287 pred 0.076 meas 0.071     
+TG  qL     rho 0.00 eps 0.287 pred 1.135 meas 1.207 NEG pred NEG
+TG  r      rho 0.00 eps 0.287 pred 1.135 meas 1.173 NEG pred NEG
+TG  kappa  rho 0.00 eps 0.287 pred 1.135 meas 1.160 NEG pred NEG
+sign agreement 36 / 36 | negative values 10 | factor error median 0.024 max 0.082

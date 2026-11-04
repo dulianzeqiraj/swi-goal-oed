@@ -1,0 +1,11 @@
+rain only r hw 0.583 ES 0.564 exact 0.567 | qL hw 0.942 ES 0.926 exact 0.931 | kappa hw 0.155 ES 0.152 exact 0.151  [8s]
+L0        r hw 0.329 ES 0.250 exact 0.284 | qL hw 1.027 ES 0.767 exact 0.869 | kappa hw 0.059 ES 0.044 exact 0.050  [15s]
+L1        r hw 0.245 ES 0.195 exact 0.215 | qL hw 0.871 ES 0.696 exact 0.765 | kappa hw 0.040 ES 0.029 exact 0.034  [22s]
+L2        r hw 0.190 ES 0.157 exact 0.169 | qL hw 0.793 ES 0.653 exact 0.706 | kappa hw 0.035 ES 0.025 exact 0.031  [29s]
+L3        r hw 0.174 ES 0.147 exact 0.158 | qL hw 0.751 ES 0.624 exact 0.672 | kappa hw 0.034 ES 0.026 exact 0.031  [36s]
+L4        r hw 0.184 ES 0.155 exact 0.166 | qL hw 0.691 ES 0.585 exact 0.629 | kappa hw 0.035 ES 0.028 exact 0.032  [43s]
+L5        r hw 0.212 ES 0.176 exact 0.189 | qL hw 0.640 ES 0.535 exact 0.575 | kappa hw 0.039 ES 0.031 exact 0.035  [50s]
+L6        r hw 0.246 ES 0.206 exact 0.221 | qL hw 0.572 ES 0.477 exact 0.512 | kappa hw 0.045 ES 0.037 exact 0.039  [57s]
+L7        r hw 0.266 ES 0.225 exact 0.241 | qL hw 0.530 ES 0.444 exact 0.476 | kappa hw 0.047 ES 0.041 exact 0.043  [64s]
+TG        r hw 0.684 ES 0.480 exact 0.567 | qL hw 1.137 ES 0.786 exact 0.931 | kappa hw 0.180 ES 0.129 exact 0.151  [71s]
+signal degrees of freedom: L0 28.5, L1 22.1, L2 18.1, L3 17.2, L4 17.1, L5 17.1, L6 17.2, L7 17.3, TG 36.5
