@@ -1,0 +1,3 @@
+dry: 946 mm in the window (median 1475); eta CRC 0.095 sup 0.901 hw 0.115 | qL CRC 0.096 sup 0.899 hw 0.196 | r CRC 0.095 sup 0.900 hw 0.121 | h0 CRC 0.095 sup 0.901 hw 0.262 | kappa CRC 0.098 sup 0.902 hw 0.029
+wet: 2249 mm in the window (median 1475); eta CRC 0.095 sup 0.901 hw 0.115 | qL CRC 0.095 sup 0.900 hw 0.200 | r CRC 0.095 sup 0.899 hw 0.120 | h0 CRC 0.096 sup 0.899 hw 0.258 | kappa CRC 0.100 sup 0.899 hw 0.016
+done in 69s

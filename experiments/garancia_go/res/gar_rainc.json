@@ -1,0 +1,97 @@
+{
+ "median_window_rain_mm": 1475.1935983478188,
+ "records": {
+  "dry": {
+   "window_rain_mm": 946.438565874142,
+   "mean_f": 2.380997231786562,
+   "targets": {
+    "eta": {
+     "crc_risk": 0.095084765625,
+     "sup_cover": 0.9006200000000001,
+     "crc_width": 1.1323344476274815,
+     "halfwidth_crc": 0.11503843454626386,
+     "halfwidth_sup": 0.21432037086850456,
+     "units": "m"
+    },
+    "qL": {
+     "crc_risk": 0.095661796875,
+     "sup_cover": 0.8989400000000001,
+     "crc_width": 1.1101799542760455,
+     "halfwidth_crc": 0.19552460653639436,
+     "halfwidth_sup": 0.3353348308691188,
+     "units": "m2/d"
+    },
+    "r": {
+     "crc_risk": 0.09506515625,
+     "sup_cover": 0.89967,
+     "crc_width": 1.1250757144719647,
+     "halfwidth_crc": 0.12101071679850653,
+     "halfwidth_sup": 0.22446707269887578,
+     "units": "mm/d"
+    },
+    "h0": {
+     "crc_risk": 0.09466171875000001,
+     "sup_cover": 0.901355,
+     "crc_width": 1.151259273777302,
+     "halfwidth_crc": 0.261935651924448,
+     "halfwidth_sup": 0.41792163038288116,
+     "units": "m"
+    },
+    "kappa": {
+     "crc_risk": 0.09809,
+     "sup_cover": 0.901505,
+     "crc_width": 1.2144389918486853,
+     "halfwidth_crc": 0.028798707912689948,
+     "halfwidth_sup": 0.028742875163205214,
+     "units": "-"
+    }
+   }
+  },
+  "wet": {
+   "window_rain_mm": 2249.3785212050925,
+   "mean_f": 4.6453494103130035,
+   "targets": {
+    "eta": {
+     "crc_risk": 0.09496546875,
+     "sup_cover": 0.900875,
+     "crc_width": 1.1407827220237914,
+     "halfwidth_crc": 0.11541033195412875,
+     "halfwidth_sup": 0.21379285118191826,
+     "units": "m"
+    },
+    "qL": {
+     "crc_risk": 0.09525289062499999,
+     "sup_cover": 0.8999749999999999,
+     "crc_width": 1.1136522801286766,
+     "halfwidth_crc": 0.19973770712238062,
+     "halfwidth_sup": 0.3352118341384117,
+     "units": "m2/d"
+    },
+    "r": {
+     "crc_risk": 0.09466078125,
+     "sup_cover": 0.89916,
+     "crc_width": 1.1275229386218586,
+     "halfwidth_crc": 0.12011920676226105,
+     "halfwidth_sup": 0.2213065078442745,
+     "units": "mm/d"
+    },
+    "h0": {
+     "crc_risk": 0.095825625,
+     "sup_cover": 0.899155,
+     "crc_width": 1.132743181642627,
+     "halfwidth_crc": 0.25804567818259566,
+     "halfwidth_sup": 0.41829459166750665,
+     "units": "m"
+    },
+    "kappa": {
+     "crc_risk": 0.10039000000000001,
+     "sup_cover": 0.899055,
+     "crc_width": 1.2765733061710884,
+     "halfwidth_crc": 0.015755023718370547,
+     "halfwidth_sup": 0.015735766731682182,
+     "units": "-"
+    }
+   }
+  }
+ }
+}
