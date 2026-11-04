@@ -1,0 +1,5 @@
+mse phys=True N=80 wP=10 wH=10 (22s) | eta: 3.00x sd2.28 cov0.59 qL: 2.51x sd7.33 cov0.99 r: 8.27x sd6.89 cov0.80 h0: 4.57x sd3.32 cov0.81 | P_rms 2.8 | cons 180.3 cm fit_d 227.2 fit_p 72.6
+mse phys=True N=80 wP=30 wH=30 (19s) | eta: 6876947583827.30x sd22296055936400.79 cov1.00 qL: 75908913727478.08x sd278420321864825.50 cov1.00 r: 256541915906623.25x sd650554732384716.50 cov1.00 h0: 103504138935325.95x sd240471884131343.09 cov0.98 | P_rms 610555611003898.5 | cons 4645856851047303.0 cm fit_d 5590423609722817.0 fit_p 1696263851469223.8
+mse N=80 wP=100 wH=100 phys=True diverged
+l2 phys=True N=80 wP=10 wH=10 (20s) | eta: 2.99x sd2.21 cov0.57 qL: 2.54x sd7.31 cov0.99 r: 7.10x sd6.59 cov0.79 h0: 7.50x sd6.94 cov0.92 | P_rms 0.7 | cons 157.0 cm fit_d 246.4 fit_p 117.9
+l2 phys=True N=80 wP=30 wH=30 (20s) | eta: 2.96x sd2.33 cov0.58 qL: 2.61x sd6.55 cov0.99 r: 10.53x sd8.07 cov0.90 h0: 5.80x sd4.16 cov0.78 | P_rms 0.0 | cons 245.4 cm fit_d 228.9 fit_p 29.4

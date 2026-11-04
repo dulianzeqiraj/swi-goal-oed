@@ -1,0 +1,81 @@
+{
+ "A": {
+  "eta": {
+   "ratio_of_means": 1.02,
+   "sd_ratio": 0.98,
+   "cov_f": 0.84,
+   "cov_e": 0.88
+  },
+  "qL": {
+   "ratio_of_means": 0.91,
+   "sd_ratio": 0.97,
+   "cov_f": 1.0,
+   "cov_e": 1.0
+  },
+  "r": {
+   "ratio_of_means": 1.68,
+   "sd_ratio": 1.25,
+   "cov_f": 0.56,
+   "cov_e": 0.84
+  },
+  "h0": {
+   "ratio_of_means": 2.01,
+   "sd_ratio": 1.23,
+   "cov_f": 0.52,
+   "cov_e": 1.0
+  }
+ },
+ "B_es": {
+  "eta": {
+   "ratio_of_means": 1.11,
+   "sd_ratio": 0.82,
+   "cov_f": 0.8,
+   "cov_e": 0.94
+  },
+  "qL": {
+   "ratio_of_means": 1.2,
+   "sd_ratio": 1.02,
+   "cov_f": 0.95,
+   "cov_e": 1.0
+  },
+  "r": {
+   "ratio_of_means": 3.67,
+   "sd_ratio": 1.64,
+   "cov_f": 0.76,
+   "cov_e": 0.94
+  },
+  "h0": {
+   "ratio_of_means": 3.39,
+   "sd_ratio": 2.25,
+   "cov_f": 0.92,
+   "cov_e": 0.97
+  }
+ },
+ "C_es": {
+  "eta": {
+   "ratio_of_means": 1.68,
+   "sd_ratio": 0.85,
+   "cov_f": 0.58,
+   "cov_e": 0.86
+  },
+  "qL": {
+   "ratio_of_means": 2.28,
+   "sd_ratio": 1.0,
+   "cov_f": 0.87,
+   "cov_e": 1.0
+  },
+  "r": {
+   "ratio_of_means": 4.46,
+   "sd_ratio": 1.57,
+   "cov_f": 0.73,
+   "cov_e": 0.95
+  },
+  "h0": {
+   "ratio_of_means": 4.58,
+   "sd_ratio": 2.17,
+   "cov_f": 0.78,
+   "cov_e": 0.97
+  }
+ },
+ "note": "first training (fifth channel = weekly rain of the window), FunDPS with L2 rain guidance w = 300, 128 members, then the ensemble update; the two validation cases of seed 77; ratio_of_means = mean RMSE of the posterior mean over the cases divided by that of the exact posterior; from explore_hybrid.py"
+}

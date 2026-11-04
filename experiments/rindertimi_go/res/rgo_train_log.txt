@@ -1,0 +1,18 @@
+data (24000, 32, 64, 5) in 27s
+parameters 1590213
+step 1 loss 1.3458 (4s)
+step 500 loss 0.7497 (113s)
+step 1000 loss 0.6159 (216s)
+step 1500 loss 0.5922 (325s)
+step 2000 loss 0.5819 (429s)
+step 2500 loss 0.5722 (539s)
+step 3000 loss 0.5668 (649s)
+step 3500 loss 0.5594 (750s)
+step 4000 loss 0.5585 (852s)
+step 4500 loss 0.5531 (953s)
+step 5000 loss 0.5497 (1050s)
+step 5500 loss 0.5461 (1145s)
+step 6000 loss 0.5405 (1246s)
+step 6500 loss 0.5418 (1346s)
+step 7000 loss 0.5409 (1448s)
+saved

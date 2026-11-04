@@ -1,0 +1,320 @@
+{
+ "runs": [
+  {
+   "loss": "mse",
+   "phys_operator": false,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 100.0,
+   "wH": 100.0,
+   "diverged": false,
+   "fit_head_channel_cm": 4.4,
+   "fit_resimulated_cm": 86.8,
+   "eta": {
+    "ratio_of_means": 3.0,
+    "sd_ratio": 2.2
+   },
+   "qL": {
+    "ratio_of_means": 1.98,
+    "sd_ratio": 6.99
+   },
+   "r": {
+    "ratio_of_means": 4.74,
+    "sd_ratio": 5.23
+   },
+   "h0": {
+    "ratio_of_means": 8.5,
+    "sd_ratio": 5.58
+   }
+  },
+  {
+   "loss": "mse",
+   "phys_operator": true,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 100.0,
+   "wH": 100.0,
+   "diverged": false,
+   "fit_head_channel_cm": 92.0,
+   "fit_resimulated_cm": 27.6,
+   "eta": {
+    "ratio_of_means": 3.0,
+    "sd_ratio": 2.2
+   },
+   "qL": {
+    "ratio_of_means": 2.0,
+    "sd_ratio": 6.96
+   },
+   "r": {
+    "ratio_of_means": 4.61,
+    "sd_ratio": 5.04
+   },
+   "h0": {
+    "ratio_of_means": 4.25,
+    "sd_ratio": 3.91
+   }
+  },
+  {
+   "loss": "mse",
+   "phys_operator": true,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 100.0,
+   "wH": 300.0,
+   "diverged": false,
+   "fit_head_channel_cm": 57.9,
+   "fit_resimulated_cm": 21.5,
+   "eta": {
+    "ratio_of_means": 3.0,
+    "sd_ratio": 2.2
+   },
+   "qL": {
+    "ratio_of_means": 2.0,
+    "sd_ratio": 6.77
+   },
+   "r": {
+    "ratio_of_means": 4.03,
+    "sd_ratio": 4.72
+   },
+   "h0": {
+    "ratio_of_means": 3.5,
+    "sd_ratio": 3.45
+   }
+  },
+  {
+   "loss": "l2",
+   "phys_operator": true,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 30.0,
+   "wH": 30.0,
+   "diverged": false,
+   "fit_head_channel_cm": 196.5,
+   "fit_resimulated_cm": 39.0,
+   "eta": {
+    "ratio_of_means": 3.0,
+    "sd_ratio": 2.2
+   },
+   "qL": {
+    "ratio_of_means": 2.27,
+    "sd_ratio": 7.16
+   },
+   "r": {
+    "ratio_of_means": 5.73,
+    "sd_ratio": 6.79
+   },
+   "h0": {
+    "ratio_of_means": 5.56,
+    "sd_ratio": 4.86
+   }
+  },
+  {
+   "loss": "l2",
+   "phys_operator": true,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 100.0,
+   "wH": 100.0,
+   "diverged": false,
+   "fit_head_channel_cm": 101.9,
+   "fit_resimulated_cm": 20.2,
+   "eta": {
+    "ratio_of_means": 2.99,
+    "sd_ratio": 2.2
+   },
+   "qL": {
+    "ratio_of_means": 1.96,
+    "sd_ratio": 6.8
+   },
+   "r": {
+    "ratio_of_means": 3.93,
+    "sd_ratio": 4.41
+   },
+   "h0": {
+    "ratio_of_means": 3.8,
+    "sd_ratio": 3.97
+   }
+  },
+  {
+   "loss": "l2",
+   "phys_operator": true,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 300.0,
+   "wH": 300.0,
+   "diverged": false,
+   "fit_head_channel_cm": 70.8,
+   "fit_resimulated_cm": 20.6,
+   "eta": {
+    "ratio_of_means": 2.99,
+    "sd_ratio": 2.19
+   },
+   "qL": {
+    "ratio_of_means": 1.97,
+    "sd_ratio": 6.71
+   },
+   "r": {
+    "ratio_of_means": 4.3,
+    "sd_ratio": 5.19
+   },
+   "h0": {
+    "ratio_of_means": 6.95,
+    "sd_ratio": 10.04
+   }
+  },
+  {
+   "loss": "l2",
+   "phys_operator": false,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 100.0,
+   "wH": 100.0,
+   "diverged": false,
+   "fit_head_channel_cm": 0.3,
+   "fit_resimulated_cm": 104.2,
+   "eta": {
+    "ratio_of_means": 3.0,
+    "sd_ratio": 2.2
+   },
+   "qL": {
+    "ratio_of_means": 2.02,
+    "sd_ratio": 7.01
+   },
+   "r": {
+    "ratio_of_means": 4.52,
+    "sd_ratio": 4.73
+   },
+   "h0": {
+    "ratio_of_means": 10.05,
+    "sd_ratio": 6.65
+   }
+  },
+  {
+   "loss": "mse",
+   "phys_operator": true,
+   "bc_geometry_scaled": false,
+   "nstep": 80,
+   "wP": 300.0,
+   "wH": 30.0,
+   "diverged": false,
+   "fit_head_channel_cm": 149.4,
+   "fit_resimulated_cm": 39.9,
+   "eta": {
+    "ratio_of_means": 3.0,
+    "sd_ratio": 2.2
+   },
+   "qL": {
+    "ratio_of_means": 2.12,
+    "sd_ratio": 7.17
+   },
+   "r": {
+    "ratio_of_means": 4.63,
+    "sd_ratio": 5.0
+   },
+   "h0": {
+    "ratio_of_means": 5.52,
+    "sd_ratio": 4.61
+   }
+  },
+  {
+   "loss": "mse",
+   "phys_operator": true,
+   "bc_geometry_scaled": true,
+   "nstep": 80,
+   "wP": 10.0,
+   "wH": 10.0,
+   "diverged": false,
+   "fit_head_channel_cm": 227.2,
+   "fit_resimulated_cm": 72.6,
+   "eta": {
+    "ratio_of_means": 3.0,
+    "sd_ratio": 2.28
+   },
+   "qL": {
+    "ratio_of_means": 2.51,
+    "sd_ratio": 7.33
+   },
+   "r": {
+    "ratio_of_means": 8.27,
+    "sd_ratio": 6.89
+   },
+   "h0": {
+    "ratio_of_means": 4.57,
+    "sd_ratio": 3.32
+   }
+  },
+  {
+   "loss": "mse",
+   "phys_operator": true,
+   "bc_geometry_scaled": true,
+   "nstep": 80,
+   "wP": 30.0,
+   "wH": 30.0,
+   "diverged": true
+  },
+  {
+   "loss": "mse",
+   "phys_operator": true,
+   "bc_geometry_scaled": true,
+   "nstep": 80,
+   "wP": 100.0,
+   "wH": 100.0,
+   "diverged": true
+  },
+  {
+   "loss": "l2",
+   "phys_operator": true,
+   "bc_geometry_scaled": true,
+   "nstep": 80,
+   "wP": 10.0,
+   "wH": 10.0,
+   "diverged": false,
+   "fit_head_channel_cm": 246.4,
+   "fit_resimulated_cm": 117.9,
+   "eta": {
+    "ratio_of_means": 2.99,
+    "sd_ratio": 2.21
+   },
+   "qL": {
+    "ratio_of_means": 2.54,
+    "sd_ratio": 7.31
+   },
+   "r": {
+    "ratio_of_means": 7.1,
+    "sd_ratio": 6.59
+   },
+   "h0": {
+    "ratio_of_means": 7.5,
+    "sd_ratio": 6.94
+   }
+  },
+  {
+   "loss": "l2",
+   "phys_operator": true,
+   "bc_geometry_scaled": true,
+   "nstep": 80,
+   "wP": 30.0,
+   "wH": 30.0,
+   "diverged": false,
+   "fit_head_channel_cm": 228.9,
+   "fit_resimulated_cm": 29.4,
+   "eta": {
+    "ratio_of_means": 2.96,
+    "sd_ratio": 2.33
+   },
+   "qL": {
+    "ratio_of_means": 2.61,
+    "sd_ratio": 6.55
+   },
+   "r": {
+    "ratio_of_means": 10.53,
+    "sd_ratio": 8.07
+   },
+   "h0": {
+    "ratio_of_means": 5.8,
+    "sd_ratio": 4.16
+   }
+  }
+ ],
+ "note": "first training; plain FunDPS guidance with every observation, scenario B, two validation cases (seed 77), 16 samples; fit = RMS misfit to the head data (cm) of the head channel and of the heads re-simulated from the sampled boundary conditions; from explore_guidance.py"
+}
