@@ -589,7 +589,7 @@ def SOTA_ROWS(AJ):
         ['Mixing simulations and real data',
          'Power-tuned prediction-powered inference (B1); proxy-calibrated parameters validated at field probes (O2)',
          'The mix inherits the simulator\'s bias in proportion to its weight',
-         'Exact bias bound α + ψ·TV (Proposition A3); anchors alone as the safe rule',
+         'Bias bound α + 2ψ·TV (Proposition A3); anchors alone as the safe rule',
          f'T14: ψ = 0.5 gives risk {min(mixs):.2f}–{max(mixs):.2f} under shift'],
         ['Benchmarks with measured truth',
          'Satellite, wells and models across 14 aquifers (C3); withheld-truth validation at flux towers (C4); '
