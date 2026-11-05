@@ -66,7 +66,7 @@ def fig_scheme(out, D):
     cv.box(88, y1, 80, h1, SC['out_f'], SC['out_e'])
     cv.text(128, y1 + h1 - 4.5, 'Or mix them, with share $\\psi$', size=9.4, weight='bold', color=SC['out_e'])
     cv.text(128, y1 + 11.5, 'narrower, but the bias grows with $\\psi$')
-    cv.text(128, y1 + 5.5, 'risk ≤ $\\alpha+\\psi\\,\\mathrm{TV}(P,Q)$ (Prop. A3)')
+    cv.text(128, y1 + 5.5, 'risk ≤ $\\alpha+2\\psi\\,\\mathrm{TV}(P,Q)$ (Prop. A3)')
     cv.arrow(28, y0, 60, y1 + h1, lw=1.0)
     cv.arrow(84, y0, 44, y1 + h1, lw=1.1)
     cv.arrow(84, y0, 120, y1 + h1, lw=1.0)

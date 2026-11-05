@@ -17,7 +17,8 @@ simulations keep their other roles, building the reconstructor and the score and
   continuous scores.
 - **Proposition A2.** Any method needs at least `(1−α)/α` anchors, 9 at α = 0.10, for an average guarantee. A
   certificate at confidence `1−δ` needs `log δ / log(1−α)` anchors, 22 at α = δ = 0.10.
-- **Proposition A3.** Mixing simulations with weight share `ψ` costs at most `ψ · TV(ρ_P, ρ_Q)`.
+- **Proposition A3.** Mixing simulations with weight share `ψ` costs at most `ψ · TV(ρ_P⊗ρ_Q, ρ_Q⊗ρ_P) ≤ 2ψ · TV(ρ_P, ρ_Q)`
+  (corrected 5 November 2026: the first edition omitted the factor 2).
 
 ## Tests (`res/ankora.json`)
 

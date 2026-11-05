@@ -223,17 +223,22 @@ def blocks(AJ, GE):
                 'probability is at most $\\delta$; let $\\epsilon\\to0$.'))
     A(('prop', 'Proposition A3 (what mixing simulations with anchors costs).',
             'With the mixed calibration [[mix]], $\\mathbb{E}_Q[L_{field}(\\hat\\lambda_\\psi)]\\le\\alpha+\\psi\\,'
-            '\\mathrm{TV}(\\rho_P,\\rho_Q)$, where $\\rho_P$, $\\rho_Q$ are the laws of the standardised residual vector '
-            'under the two laws. The bias grows linearly with the share $\\psi$ of the weight on simulations, while the '
-            'slack $1/(wn+m+1)$ of the calibration shrinks.'))
+            'd_{sw}\\le\\alpha+2\\psi\\,\\mathrm{TV}(\\rho_P,\\rho_Q)$, where $\\rho_P$, $\\rho_Q$ are the laws of the '
+            'standardised residual vector under the two laws and $d_{sw}=\\mathrm{TV}(\\rho_P\\otimes\\rho_Q,\\rho_Q\\otimes'
+            '\\rho_P)$ is the distance created by swapping one simulated case with the field case. The bias grows linearly '
+            'with the share $\\psi$ of the weight on simulations, while the slack $1/(wn+m+1)$ of the calibration shrinks.'))
     A(('proof', f'This is the weighted, non-exchangeable form of conformal risk control ({L("S1", "Barber et al. 2023")}; '
-                f'anchor A1): the coverage gap is at most the sum of the normalised weights times the total-variation '
-                f'distance between each calibration case and the field case. It is zero for the anchors and at most '
-                f'$\\mathrm{{TV}}(\\rho_P,\\rho_Q)$ for each simulation, and the simulations carry the share $\\psi$.'))
+                f'anchor A1): the gap is at most the sum of the normalised weights times the total-variation distance '
+                f'between the data and the data with that calibration case swapped with the field case. The swap leaves the '
+                f'law unchanged for an anchor; for a simulation it changes one pair of independent cases from '
+                f'$\\rho_P\\otimes\\rho_Q$ to $\\rho_Q\\otimes\\rho_P$, at distance $d_{{sw}}\\le2\\,\\mathrm{{TV}}'
+                f'(\\rho_P,\\rho_Q)$ by the triangle inequality, and the simulations carry the share $\\psi$. (The first '
+                f'edition of this review stated the bound with $\\mathrm{{TV}}(\\rho_P,\\rho_Q)$ in place of $d_{{sw}}$; the '
+                f'swap distance can exceed it, so the factor 2 is needed in general.)'))
     A(('box', ['**What is new.** (1) Guarantees for boundary conditions that hold whatever the real law, by calibrating on '
                'a few measured cases while the simulator keeps its other roles (Proposition A1). (2) Distribution-free '
                'lower bounds on the number of such cases: 9 for an average guarantee and 22 for a 90% certificate at '
-               '$\\alpha$ = 0.10 (Proposition A2), a planning number for any monitoring programme. (3) The exact cost of '
+               '$\\alpha$ = 0.10 (Proposition A2), a planning number for any monitoring programme. (3) A bound on the cost of '
                'mixing simulations and anchors, and the test that shows the mix inherits the simulator\'s bias (Proposition '
                'A3, T14). To our knowledge none of these appears in the eighty papers of reviews I–IV.']))
     # ------------------------------------------------------------------------------------------- 4.3 tests
