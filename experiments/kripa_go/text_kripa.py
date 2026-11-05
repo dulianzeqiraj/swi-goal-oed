@@ -63,6 +63,13 @@ GN = dict(A='shallow salinized area', T='toe area', F='mid-depth seawater fracti
 GU = dict(A='km²', T='km²', F='points')
 
 
+def sci(x):
+    """1.5e-11 -> 1.5×10⁻¹¹"""
+    m, e = f'{x:.1e}'.split('e')
+    sup = str.maketrans('-0123456789', '⁻⁰¹²³⁴⁵⁶⁷⁸⁹')
+    return f'{m}×10{str(int(e)).translate(sup)}'
+
+
 def fill_numbers(AJ):
     G = AJ['T26']['goals']; D = AJ['T26']['dose']; C = AJ['T27']; T8 = AJ['T28']
     f = {}
@@ -106,8 +113,9 @@ def fill_numbers(AJ):
     s['rheads'] = f'{f["A_r_heads"]:.2f}'; s['rchl'] = f'{f["A_r_chl"]:.2f}'
     s['cov_cp'] = rng_(f['cov_cp'], 3); s['cov_is'] = rng_(f['cov_is'], 3)
     s['map_f'] = f'{f["map_f"]:.0f}'; s['map_cf'] = f'{f["map_cf"]:.0f}'
-    s['zeta_h'] = f'{f["zeta_h"]:.1e}'
+    s['zeta_h'] = sci(f['zeta_h'])
     s['dose15'] = f'{-f["A_dose15"]:.0f}'; s['dose05'] = f'{f["A_dose05"]:.0f}'
+    s['A_cp_hi'] = f'{f["A_cp_hi"]:.0f}'
     s['va'] = f'{(f["A_eff_prior_hi"] - f["A_eff_prior_lo"]) / (f["A_cp_hi"] - f["A_cp_lo"]):.1f}'
     return f, s
 
@@ -228,7 +236,7 @@ def blocks(AJ):
             f'($c$ = 0.6 for a 40% drier regime; $c$ from 0.5 to 1.5 for the dose-response, $c>1$ standing for managed '
             f'recharge) and a transition-zone width $w\'$:'))
     A(('eq', 'twin', ["\\phi'=c\\,\\phi,\\qquad\\zeta'=\\zeta(\\phi'),\\qquad Cl'=Cl(\\zeta',w'),\\qquad w'=w\\ "
-                      "\\text{(shared) or}\\ w'=w\\,c^{-\\beta}."]))
+                      "\\text{shared, or}\\ w'=w\\,c^{-\\beta}."]))
     A(('p', 'The goals are the shallow area with chloride above 250 mg/L, the area of the wedge toe and the median '
             'seawater fraction of the mid-depth screens of the SW band, in the factual and the twin aquifer, and their '
             'differences (the effects). The factual heads also determine the potential, by inverting the state map:'))
@@ -289,9 +297,9 @@ def blocks(AJ):
     # ------------------------------------------------------------------------------------------ 4.3 tests
     A(('h2', '4.3 Tests'))
     A(('p', f'**T25: exactness of state abduction.** Over 200 draws the re-solved twin potential differs from $c\\phi$ by '
-            f'at most {f["phi_rel"]:.1e} of its maximum, and the twin interface computed from the factual heads alone '
-            f'[[heads]] differs from the re-solved one by at most {f["zeta_h"]:.1e} m. Over all {AJ["N"]} draws, every cell '
-            f'and every $c<1$, the shallow chloride never fell (smallest change {AJ["monotone_min_dCl"]:.1e} mg/L), as '
+            f'at most {sci(f["phi_rel"])} of its maximum, and the twin interface computed from the factual heads alone '
+            f'[[heads]] differs from the re-solved one by at most {sci(f["zeta_h"])} m. Over all {AJ["N"]} draws, every cell '
+            f'and every $c<1$, the shallow chloride never fell (smallest change {AJ["monotone_min_dCl"]:.0f} mg/L), as '
             f'Proposition L2 requires.'))
     A(('p', f'**T26: the Fushë-Kuqe counterfactual.** Table {{{{t26}}}} and Figure {{{{dose}}}}. With the documented facts, '
             f'the shallow salinized area is {s["A_fact"]} km² (posterior median; 90% band '
@@ -411,7 +419,7 @@ def novelty_blocks(A, AJ, f, s):
          f'the SW wells {s["dF"]} (T26, T27); no attribution study of Section 3 gives a coverage statement.'),
         ('State abduction',
          f'the drier aquifer is $\\phi\'=c\\phi$ of the factual one, and its interface follows from the factual heads alone '
-         f'(error {f["zeta_h"]:.1e} m): scenario questions no longer need the conductivity field (Proposition L1).'),
+         f'(error {sci(f["zeta_h"])} m): scenario questions no longer need the conductivity field (Proposition L1).'),
         ('Monotone salt and identified probabilities of causation',
          'a drier regime never lowers the chloride of any screen, for any value of the unknowns (Proposition L2; checked '
          'over all draws and cells).'),
@@ -439,7 +447,7 @@ def novelty_blocks(A, AJ, f, s):
             v = v.replace(f'<<{key_}>>', val_)
         filled_rows.append([r[0], r[1], v])
     A(('cap', 'Table {{nov}}. The step beyond each card of Section 3, in one line.'))
-    A(('table', ['Card', 'Paper', 'The step beyond it in this project'], filled_rows, [1.3, 5.2, 10.5], 8.6))
+    A(('table', ['Card', 'Paper', 'The step beyond it in this project'], filled_rows, [1.3, 5.2, 10.5], 8.6, False))
     A(('h2', '7.3 Eight reviews, one chain of innovations'))
     chain = [
         ['I', 'GARANCIA-GO', 'Are bands for the boundaries from rain valid?', 'simulation-calibrated conformal risk control',
@@ -472,3 +480,18 @@ def novelty_blocks(A, AJ, f, s):
             'and the salinity scenarios, anchors for the guarantee in the field.'))
     A(('b', '**Open:** a transient, variable-density counterfactual of the transition zone; a spatially varying and '
             'flow-dependent dispersion; field anchors with measured chloride to make the salinity guarantee model-free.'))
+    A(('h2', '7.5 Innovation statement for the proposal'))
+    A(('p', f'*Ready to paste.* The project delivers, for the first time for a coastal aquifer, guaranteed answers to '
+            f'"what would have happened" questions about its salt. From the rain, a few heads and a handful of chloride '
+            f'facts, it computes how the salinized area, the toe of the seawater wedge and the salinity of the wells would '
+            f'have differed under a drier or a managed-recharge regime, with bands that cover the truth at the stated '
+            f'rate on simulated aquifers ({s["cov_cp"]} for 90% bands). Three results make this possible and are new. '
+            f'First, the counterfactual aquifer follows from the observed state alone — the conductivity field and the '
+            f'recharge are not needed — so a map of heads is enough for the interface. Second, the salt response to a '
+            f'drier regime is monotone, so the direction of the effect is certain and only its size is uncertain. '
+            f'Third, the dispersion coefficient is identified as the quantity that decides the size: it carries '
+            f'{s["share_wA"]} of the uncertainty of the salinized-area effect, heads cannot reduce it and chloride '
+            f'samples can. Applied to Fushë-Kuqe, a 40% drier regime would raise the salinized area from {s["A_fact"]} to '
+            f'{s["A_cf"]} km²; managed recharge of +50% would lower it by {s["dose15"]} km². The one assumption no data '
+            f'can test — whether the mixing zone itself would widen in the drier world — is stated and priced (up to '
+            f'{s["beta05"]} km²), which turns a scientific caveat into a monitoring and design decision.'))
