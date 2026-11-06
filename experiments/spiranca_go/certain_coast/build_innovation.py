@@ -170,11 +170,11 @@ SHORT = {'P1': 'One relative sea\nlevel R(t)', 'M3': 'Sensors designed\nfor the 
          'O1': 'Verification\nfixed in advance', 'O2': 'Evidence gates,\nfixed thresholds', 'O3': 'Transfer tested\nby an outsider'}
 
 TRL = [
-    ['Certified multi-hazard warning system as a whole', 'M1–M6, P1–P5', '3', '7', 'Proof of concept on a synthetic coast → twelve months of live operation with the operators'],
-    ['Certified alarm margin and joint guarantee', 'M1, M2', '3', '7', 'Synthetic tests (4–9% vs 13–21%) → back-tested and verified live'],
-    ['Error-certified surrogate of the coupled model', 'M4', '3', '7', 'Method components published → used for every live forecast'],
-    ['Coupled model with R(t), FS(x,t) and compaction', 'P1, P2, P4', '3', '7', 'Preparatory coupled model → calibrated at the site and run live'],
-    ['Multi-hazard sensor design', 'M3', '3', '7', 'Theory and preparatory design → network installed and streaming'],
+    ['Certified multi-hazard warning system as a whole', 'M1–M6, P1–P5', '3', '6', 'Proof of concept on a synthetic coast → twelve months of live operation at the operators\' sites'],
+    ['Certified alarm margin and joint guarantee', 'M1, M2', '3', '6', 'Synthetic tests (4–9% vs 13–21%) → back-tested and verified live'],
+    ['Error-certified surrogate of the coupled model', 'M4', '3', '6', 'Method components published → used for every live forecast'],
+    ['Coupled model with R(t), FS(x,t) and compaction', 'P1, P2, P4', '3', '6', 'Preparatory coupled model → calibrated at the site and run live'],
+    ['Multi-hazard sensor design', 'M3', '3', '6', 'Theory and preparatory design → network installed and streaming'],
     ['Seismic velocity as coastal water-table sensor', 'P5', '3', '6', 'Shown in inland basins → calibrated at the port or landfall'],
     ['Certified safe window and pumping rule', 'P3', '3', '6', 'Derived and tested on a synthetic transect → evaluated and agreed with the utility'],
     ['Safe pumping tests valued in years', 'M6', '3', '6', 'Simulated on a synthetic test system → run on existing wells with the utility'],
@@ -373,7 +373,9 @@ def main(out):
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
     rich(p, 'Technology readiness levels (TRL) on the EU definitions [c]: TRL 2 technology concept formulated, TRL 3 experimental '
             'proof of concept, TRL 6 technology demonstrated in a relevant environment, TRL 7 system prototype demonstration in an '
-            'operational environment. Levels are the consortium\'s estimates.', size=10.5)
+            'operational environment. Levels are the consortium\'s estimates. Every component ends at TRL 6, as the 2027-1 call asks '
+            '(results at TRL 3–6): the twelve months of live operation demonstrate the system in its relevant environment, '
+            'before the operators take it over.', size=10.5)
     t = head_repeat(table(doc, ['Component', 'Innovations', 'TRL now', 'TRL M36', 'Evidence behind the step'], TRL,
                           [4.6, 2.4, 1.5, 1.6, 6.9], size=9))
     for r_ in t.rows[1:]:
