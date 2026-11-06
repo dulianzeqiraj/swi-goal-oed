@@ -93,7 +93,7 @@ def main(out):
         ('12 months', 'live operation with the operators'),
         (f'{n_del}', f'deliverables; {n_ms} milestones'),
         ('3 gates', 'evidence decides each phase'),
-        ('TRL 3 → 7', 'proof of concept to operation'),
+        ('TRL 3 → 6', 'proof of concept to on-site demonstration'),
         (eur(F['run_cost']) + '/yr', 'running cost after the grant'),
     ])
 
