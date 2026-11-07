@@ -1,5 +1,5 @@
 """CERTAIN-COAST (NATO SPS proposal): Letters of commitment (templates). A cover page (how to use, list of letters,
-what makes them strong) and seven one-page templates: four end-users (water utility, port authority, energy landfall
+what makes them strong) and one-page templates: five end-users (water utility, water resources agency AMBU, port authority, energy landfall
 operator, civil protection), the partner-country Project Director's institution, and two optional letters (additional
 NATO co-director, Albanian research partner). Placeholders are in square brackets and highlighted in yellow; each
 organisation adapts the text to its real commitments, prints it on its letterhead and signs it.
@@ -187,10 +187,9 @@ def main(out):
     run(p, 'Templates for the organisations to adapt, print on their letterhead and sign. Placeholders are ', italic=True, size=10, color='52606D')
     run(p, '[highlighted]', italic=True, size=10, hl=True); run(p, '.', italic=True, size=10, color='52606D')
     p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    ph(p, 'The NATO SPS call requires a commitment letter from each end-user of a Multi-Year Project. CERTAIN-COAST has four '
-          'end-users (the water utility, the port authority, the energy landfall operator and civil protection), a fifth '
-          'proposed end-user (the Water Resources Management Agency, AMBU) and a partner-country co-director; two further '
-          'letters are optional.')
+    ph(p, 'The NATO SPS call requires a commitment letter from each end-user of a Multi-Year Project. CERTAIN-COAST has five '
+          'end-users (the water utility, the port authority, the energy landfall operator, civil protection and the Water '
+          'Resources Management Agency, AMBU) and a partner-country co-director; two further letters are optional.')
 
     heading(doc, 'The letters', 13, before=4)
     rows = [[str(i), L['title'], L['org'].strip('[]'), 'Required' if i <= 6 else 'Optional', '[to send]']

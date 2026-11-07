@@ -84,7 +84,7 @@ def main(out):
         ['Site', 'Durrës coast, Albania: drinking-water wellfields, main port, energy landfall'],
         ['Duration and budget', f'36 months; {eur(F["total"])} requested, no salaries or overheads'],
         ['Project Directors', 'NATO country: Albania ([institution to confirm]); partner country: [eligible partner country, institution]'],
-        ['End-users', 'Water utility, Durrës Port Authority, energy landfall operator, National Civil Protection Agency'],
+        ['End-users', 'Water utility, Water Resources Management Agency (AMBU), Durrës Port Authority, energy landfall operator, National Civil Protection Agency'],
     ]
     t = table(doc, ['', ''], KEY, [4.0, 13.0], size=9.5)
     t._tbl.remove(t.rows[0]._tr)
@@ -160,7 +160,7 @@ def main(out):
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, 'The NATO-country team in Albania coordinates the project and leads the measurements, the coupled model, the certified '
             'alarms and the live demonstration; the partner-country team leads training, transfer and dissemination, including a '
-            'test of the method on a coast of its own country. The four end-users co-design the thresholds from the first year, receive the '
+            'test of the method on a coast of its own country. The five end-users co-design the thresholds from the first year, receive the '
             'bulletins and run the system after the project; each confirms its role in a commitment letter.')
 
     heading(doc, 'Budget, risks and sustainability', 13, before=6)

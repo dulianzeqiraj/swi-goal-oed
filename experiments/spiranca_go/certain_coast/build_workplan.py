@@ -83,7 +83,7 @@ WPS = [
     ('WP7', 'Management, data and risk', 'all', (1, 36),
      'Coordinate the consortium, secure data access from the operators, manage risks and report.',
      [('T7.1', 'Coordination, steering committee, reporting', (1, 36)),
-      ('T7.2', 'Data management and access agreements with the water utility, port and landfall operators', (1, 3)),
+      ('T7.2', 'Data management and access agreements with the water utility, AMBU, port and landfall operators', (1, 3)),
       ('T7.3', 'Risk and quality management', (1, 36))],
      [('D7.1', 'Data management plan and access agreements', 3), ('D7.2', 'Progress reports', 6), ('D7.2', 'Progress reports', 18), ('D7.2', 'Progress reports', 30), ('D7.3', 'Final report', 36)]),
 ]

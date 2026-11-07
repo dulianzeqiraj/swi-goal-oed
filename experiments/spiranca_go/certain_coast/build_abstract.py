@@ -28,7 +28,7 @@ MAIN = [
     'of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%. The monitoring network is designed to '
     'reduce these miss rates at least cost. A certified safe operating window, sharpened by short, safe pumping tests, gives '
     'the year from which no pumping plan keeps the three assets safe.',
-    'The system will run live for twelve months with the water utility, port, landfall operator and civil protection, and will '
+    'The system will run live for twelve months with the water utility, the water agency, port, landfall operator and civil protection, and will '
     'be released as open software, transferable to other subsiding coasts.',
 ]
 
