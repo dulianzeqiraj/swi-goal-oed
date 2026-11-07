@@ -1,5 +1,5 @@
 """CERTAIN-COAST (NATO SPS proposal): Conclusion. What the project will achieve (with headline figures computed from the
-other builders), why it matters for NATO and its partners, why it can be done, five promises that can be checked at
+other builders), why it matters for NATO and its partners, why it can be done, eight promises that can be checked at
 Month 36 (each with how, when and what happens if it is not met), the closing request and what is new.
 
 usage: python build_conclusion.py OUT.docx"""
@@ -42,10 +42,23 @@ PROMISES = [
      'Open software and data with a DOI (D6.1), installed and run on the synthetic coast by someone outside the team',
      'M33',
      'The release is fixed and tested again before it is accepted'],
+    ['The bands for the inputs and boundaries nobody measures hold at their stated level',
+     'Held-out anchor periods from the record since 2014 and from the new loggers (D2.1)',
+     'M18 (gate MS3)',
+     'A wider band calibrated on simulations is reported as such, with the number of anchors that would be needed'],
+    ['The network corrects its own sensors and is certified',
+     'Certified optimality gap of the chosen network at most 25% (D4.1); corrected heads within 3 cm root-mean-square of manual dips (T4.3)',
+     'M6 (MS1); M12',
+     'More reference channels or vented cables; the remaining gap is reported'],
+    ['Pumping decisions rest on effects free of hidden drought demand and on a confirmed safe window',
+     'Calibrated physics check of every substitute on the pumping tests and logs before any effect is reported; safe window confirmed by the full model at its closing point (T5.3)',
+     'M33',
+     'The effect is reported with a stated bias band, or not at all; the window is recomputed with the full model'],
 ]
+NUMBER = {5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
 
 NEW = [
-    '**The conclusion ends with promises, not adjectives.** Five claims are stated so that the SPS Programme can check each one at Month 36, with the deliverable and month that prove it.',
+    f'**The conclusion ends with promises, not adjectives.** {NUMBER[len(PROMISES)]} claims are stated so that the SPS Programme can check each one at Month 36, with the deliverable and month that prove it.',
     '**Each promise has a failure path.** What happens if a promise is not met is written down now, so a shortfall still produces a usable, honest result.',
     '**The figures cannot drift.** Budget, shares, risk counts, deliverables, milestones and running cost are computed from the same data as the Budget, Risk Assessment, Work Plan and Sustainability sections.',
 ]
@@ -107,17 +120,17 @@ def main(out):
 
     heading(doc, '3. Why it can be done', 13.5, before=8)
     bullets(doc, [
-        '**Evidence before the project.** In preparatory synthetic tests, the extreme-aware alarm kept the share of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%, and safe pumping tests raised the certified closing year of the safe window from 10.8 to 31.9 years with chloride below 123 mg/L in 95% of runs.',
+        '**Evidence before the project.** In preparatory synthetic tests, the extreme-aware alarm kept the share of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%, and safe pumping tests raised the certified closing year of the safe window from 10.8 to 31.9 years with chloride below 123 mg/L in 95% of runs. The preparatory reviews of 2026 add three results: bands for the boundaries known only through rain met their 10% target where the raw ensemble missed 17–20% of the weeks; reading the recharge from the heads removed the bias of drought-driven pumping (0.00 against 0.56 for a history substitute); and a network with a barometer and hub reference channels kept 52% more worst-case information than the classical design, certified within 18% of the best one.',
         '**Users on board from the start.** The water utility, the port authority, the landfall operator and civil protection confirm their roles in commitment letters, agree the thresholds before live operation (T3.1, Months 13–15) and co-sign the operational milestones.',
         '**Decisions by evidence.** Three gates (Months 18, 22 and 27) with thresholds fixed in advance decide whether each phase starts; each has a named fallback.',
         f'**Risks under control.** {F["nrisk"]} risks with owners and numeric triggers; before mitigation {b["Very high"]} very high and {b["High"]} high, after mitigation none high or very high.',
         f'**A realistic budget.** {eur(F["total"])} over 36 months, every line quantity × unit cost; equipment {100 * F["eq"]:.0f}% because a monitoring network is installed and handed over to the operators.',
     ])
 
-    heading(doc, '4. Five promises to check at Month 36', 13.5, before=8)
+    heading(doc, f'4. {NUMBER[len(PROMISES)]} promises to check at Month 36', 13.5, before=8)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; p.paragraph_format.keep_with_next = True
-    rich(p, 'The project can be judged on five promises. Each names how and when it will be checked, and what happens if it is '
-            'not met.', size=10.5)
+    rich(p, f'The project can be judged on {NUMBER[len(PROMISES)].lower()} promises. Each names how and when it will be '
+            'checked, and what happens if it is not met.', size=10.5)
     rows = [[f'{i}. {pr[0]}'] + pr[1:] for i, pr in enumerate(PROMISES, start=1)]
     t = head_repeat(table(doc, ['Promise', 'How it is checked', 'When', 'If it is not met'], rows, [4.2, 5.9, 2.2, 4.7], size=9.2))
     for r_ in t.rows[1:]:

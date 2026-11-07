@@ -253,7 +253,7 @@ def main(out):
     heading(doc, 'Local study (not from the four universities)', 12.5, color='2E6DB4', before=6)
     for code, cite, url in D.LOCAL:
         p = para(doc, 3); run(p, f'[{code}] ', bold=True, size=11, color='1F3864'); run(p, cite + '  ', size=10.5); link(p, url, url.replace('https://', ''), 10)
-    heading(doc, 'Other references cited (V1, M4, M6)', 12.5, color='2E6DB4', before=6)
+    heading(doc, 'Other references cited (V1, M4, M6, M8, M9)', 12.5, color='2E6DB4', before=6)
     for code, cite, url in D.OTHER:
         p = para(doc, 3); run(p, f'[{code}] ', bold=True, size=11, color='1F3864'); run(p, cite + ('  ' if url else ''), size=10.5)
         if url:

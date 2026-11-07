@@ -1,5 +1,5 @@
-"""CERTAIN-COAST (NATO SPS proposal): Innovation. The core innovation and the three gaps it closes; the twelve technical
-innovations at a glance (M1-M6, P1-P5 from the State of the Art, and V1 from the Impact section) with the novelty check
+"""CERTAIN-COAST (NATO SPS proposal): Innovation. The core innovation and the four gaps it closes; the fifteen technical
+innovations at a glance (M1-M9, P1-P5 from the State of the Art, and V1 from the Impact section) with the novelty check
 and the test of each; a figure placing them in the warning chain; one card per innovation (today, what is new, why it
 matters, how it is tested, novelty check); preliminary evidence; readiness now and at the end (TRL, EU definitions);
 innovations in delivery; protection and sharing; what is new in this section.
@@ -27,7 +27,7 @@ import build_references as R  # noqa: E402
 
 FULL = ('Certified early warning for seawater intrusion, liquefaction and extreme sea levels at the wellfields, port and '
         'energy landfall of a subsiding Adriatic coast')
-NO_PRECEDENT = {'M2', 'P3'}
+NO_PRECEDENT = {'M2', 'P3', 'M9'}
 KIND = {'M': ('Mathematical', '#1F3864', '#E8EDF5'), 'P': ('Physical', '#1E8A5A', '#E6F4EC'),
         'V': ('Decision value', '#B45309', '#FCEBD9'), 'O': ('Delivery', '#52606D', '#EEF0F2')}
 
@@ -59,11 +59,52 @@ CARD = {
            'Seven sensor types are chosen jointly to maximise the expected reduction in the miss probability of the three alarms '
            'per unit cost, and each is also valued by the years of safe operation it adds before the certified safe window (P3) '
            'closes. In a synthetic test the second criterion valued a GNSS station and corner reflectors at 5–6 years, where the '
-           'first gives zero.',
+           'first gives zero. The value is the guaranteed band a sensor removes, recalibrated with the choice: a tide gauge that '
+           'an ensemble said would narrow the recharge band by 15% widened the guaranteed band by 16–21%.',
            'Every euro of equipment is spent where it most reduces missed warnings now, and where it most delays the day no safe '
            'pumping plan remains.',
            'D4.1 design report (M6, MS1); after installation, forecast spread and closing year moved as the design predicted (T4.3).',
            'Design for one quantity and one sensor type [30]; data worth in money [e]; here three warnings, seven sensor types, and value in years',
+           'D4.1 (M6)'),
+    'M7': ('Conformal and risk-controlling methods calibrate forecasts on observed outcomes [19–21]; ensemble and diffusion '
+           'inversion estimate inputs that are never measured, without a calibrated guarantee for them.',
+           'Bands for the recharge coefficient, the vadose delay, the sea-level and inland boundaries and the dispersion width, '
+           'calibrated on simulated aquifers that carry the errors of the rain product and on measured anchor periods: valid when '
+           'the simulator or the rain product is wrong, matched to the forecast horizon under drift, and set against a computable '
+           'floor below which no valid band can go.',
+           'The boundaries that drive every warning are never measured; without a guarantee on them, no guarantee downstream can '
+           'be trusted.',
+           'Preparatory: the raw ensemble missed 17–20% of the weeks, the calibrated bands 9.5–10% (target 10%); at least 9 anchors '
+           'give an average guarantee and 22 a 90% certificate; risk 0.003–0.082 up to 20 years ahead under drift. In the project: '
+           'held-out anchor periods (D2.1, M18, gate MS3); fallback: a wider simulation-calibrated band reported as such.',
+           'Guarantees on observed outcomes [19–21]; here on inputs never observed, valid with a wrong simulator',
+           'D2.1 (M18)'),
+    'M8': ('The Time Series Deconfounder infers substitutes for hidden confounders from many treatments over time [l]; '
+           'groundwater studies treat pumping as known and exogenous.',
+           'The recharge, the path of every hidden cause, is read from the heads after adding back the measured drawdown; a '
+           'calibrated physics check rejects any substitute that misses a confounder; the salinity under a drier recharge regime '
+           'is computed with guaranteed bands.',
+           'A pumping rule built on a confounded effect moves water from the wrong wells; the utility needs the effect of its own '
+           'lever.',
+           'Preparatory: bias of the summed well effects 0.59 unadjusted, 0.56 with a history substitute, 0.00 with the heads; '
+           'check size 6%, power 99–100%; on the calibrated Fushë-Kuqe model, 40% less recharge: shallow area above 250 mg/L from '
+           '31 to 65 km² (band 15–49 km²). In the project: pumping tests and logs (T5.3); fallback: the effect with a stated bias '
+           'band.',
+           'Substitutes from the treatment history [l]; here a physical measurement of the confounding path, with a check',
+           'T5.3 (M33)'),
+    'M9': ('Robust designs guard against an uncertain error model [m] and correlated errors have their own relaxations, but the '
+           'errors are taken as given; barometric effects are removed record by record with a nearby barometer [n], never in the '
+           'design of the network.',
+           'A barometer and a sealed reference channel on each logger hub are design candidates beside the piezometers; '
+           'air-pressure and logger-drift errors are removed by marginalisation; the network is chosen against the worst '
+           'plausible sensor error and carries a certified distance from the best network.',
+           'Uncorrected interference makes the warnings overconfident: their stated miss rate would no longer hold.',
+           'Preparatory: with 12 sensors the worst-case information was 5.59 nats against 3.67 for the classical design, with a '
+           'certified gap of 18%; 90% forecast intervals covered 88–93% after correction and 49–62% without; corrected heads '
+           '2.9 cm root-mean-square against 7.6 cm raw. In the project: D4.1 with a certified gap of at most 25% (M6); corrected '
+           'heads against manual dips (T4.3).',
+           'Robust design without a bound [m]; record-by-record correction [n]; here reference channels placed by design, with a '
+           'certificate',
            'D4.1 (M6)'),
     'M4': ('Neural operators approximate PDE solution maps [25], kernel methods solve nonlinear PDEs [26], and conformal '
            'prediction calibrates operator learning [23]. These give approximation guarantees, not a certificate on each forecast '
@@ -161,20 +202,28 @@ DELIVERY = [
     ('O3', 'Transfer tested by an outsider', 'The software release D6.1 is accepted only when someone outside the team installs it and reproduces the synthetic test coast.'),
 ]
 
-STAGES = [('Observe', ['P1', 'M3', 'P5']), ('Model', ['M4', 'P2', 'M5']), ('Warn', ['M1', 'M2', 'P4']),
-          ('Decide', ['P3', 'M6', 'V1']), ('Verify', ['O1', 'O2', 'O3'])]
+STAGES = [('Observe', ['P1', 'M3', 'P5', 'M9']), ('Model', ['M4', 'P2', 'M5', 'M7']), ('Warn', ['M1', 'M2', 'P4']),
+          ('Decide', ['P3', 'M6', 'V1', 'M8']), ('Verify', ['O1', 'O2', 'O3'])]
 SHORT = {'P1': 'One relative sea\nlevel R(t)', 'M3': 'Sensors designed\nfor the warnings', 'P5': 'Seismic velocity as\nwater-table gauge',
          'M4': 'Surrogate with\ncertified error', 'P2': 'Liquefaction safety\nfactor in time', 'M5': 'Extremes with\nland motion',
          'M1': 'Certified miss rate\nfor each alarm', 'M2': 'Joint guarantee\nfor three alarms', 'P4': 'Compaction tipping\npoint as alarm',
          'P3': 'Safe window and\nits closing year', 'M6': 'Safe pumping tests\nvalued in years', 'V1': 'Certified value\nfor each user',
+         'M7': 'Guarantees for what\nis never measured', 'M8': 'Pumping effects\nwithout confounding',
+         'M9': 'Network corrects\nits own sensors',
          'O1': 'Verification\nfixed in advance', 'O2': 'Evidence gates,\nfixed thresholds', 'O3': 'Transfer tested\nby an outsider'}
 
 TRL = [
-    ['Certified multi-hazard warning system as a whole', 'M1–M6, P1–P5', '3', '6', 'Proof of concept on a synthetic coast → twelve months of live operation at the operators\' sites'],
+    ['Certified multi-hazard warning system as a whole', 'M1–M9, P1–P5', '3', '6', 'Proof of concept on a synthetic coast → twelve months of live operation at the operators\' sites'],
     ['Certified alarm margin and joint guarantee', 'M1, M2', '3', '6', 'Synthetic tests (4–9% vs 13–21%) → back-tested and verified live'],
     ['Error-certified surrogate of the coupled model', 'M4', '3', '6', 'Method components published → used for every live forecast'],
     ['Coupled model with R(t), FS(x,t) and compaction', 'P1, P2, P4', '3', '6', 'Preparatory coupled model → calibrated at the site and run live'],
     ['Multi-hazard sensor design', 'M3', '3', '6', 'Theory and preparatory design → network installed and streaming'],
+    ['Network that corrects its own sensors', 'M9', '3', '6', 'Synthetic test bed → reference channels installed and every '
+                                                                'reading corrected live'],
+    ['Guarantees for unmeasured inputs and boundaries', 'M7', '3', '6', 'Simulated aquifers and the chloride model → '
+                                                                        'calibrated on measured anchors at the site'],
+    ['Pumping effects without hidden confounding', 'M8', '3', '6', 'Linear test bed and calibrated chloride model → estimated '
+                                                                   'from pumping tests and logs with the utility'],
     ['Seismic velocity as coastal water-table sensor', 'P5', '3', '6', 'Shown in inland basins → calibrated at the port or landfall'],
     ['Certified safe window and pumping rule', 'P3', '3', '6', 'Derived and tested on a synthetic transect → evaluated and agreed with the utility'],
     ['Safe pumping tests valued in years', 'M6', '3', '6', 'Simulated on a synthetic test system → run on existing wells with the utility'],
@@ -191,6 +240,7 @@ NEW = [
     '**Every novelty claim is checked against the literature.** Each innovation names the 2020–2026 work it goes beyond, or states that no direct precedent was found in our search (M2, P3).',
     '**Every innovation is a testable claim.** Each has a pass test, a deliverable and a month, and the tests of M1, M4 and P2 decide the evidence gates.',
     '**Innovations placed in the warning chain.** Figure 1 shows where each acts, from observing the coast to verifying the warnings, so gaps and overlaps are visible.',
+    '**The innovations follow the preparatory evidence of 2026.** M7–M9 add the guarantees for what is never measured, pumping effects free of hidden confounding and a network that corrects its own sensors, each tested before the project, so every contribution named in the application form has its card.',
     '**Readiness measured, not asserted.** The TRL of each component is given now and at the end, on the EU definitions, with the evidence behind each step.',
 ]
 
@@ -205,6 +255,9 @@ EXTRA = [
     ('h', 'Mania, H., Jordan, M. I. and Recht, B. (2022). Active learning for nonlinear system identification with guarantees. Journal of Machine Learning Research 23, 1–30.', 'http://jmlr.org/papers/v23/20-807.html'),
     ('i', 'Koller, T., Berkenkamp, F., Turchetta, M. and Krause, A. (2018). Learning-based model predictive control for safe exploration. 2018 IEEE Conference on Decision and Control (CDC), 6059–6066.', 'https://doi.org/10.1109/CDC.2018.8619572'),
     ('j', 'Zimmer, C., Meister, M. and Nguyen-Tuong, D. (2018). Safe active learning for time-series modeling with Gaussian processes. Advances in Neural Information Processing Systems 31, 2730–2739.', None),
+    ('l', 'Bica, I., Alaa, A. M. and van der Schaar, M. (2020). Time Series Deconfounder: estimating treatment effects over time in the presence of hidden confounders. Proceedings of the 37th International Conference on Machine Learning, PMLR 119.', 'https://proceedings.mlr.press/v119/bica20a.html'),
+    ('m', 'Chowdhary, A., Attia, A. and Alexanderian, A. (2025). Robust optimal experimental design of infinite-dimensional Bayesian nonlinear inverse problems. arXiv:2409.09137.', 'https://arxiv.org/abs/2409.09137'),
+    ('n', 'Rasmussen, T. C. and Crawford, L. A. (1997). Identifying and removing barometric pressure effects in confined and unconfined aquifers. Ground Water 35(3), 502–511.', 'https://doi.org/10.1111/j.1745-6584.1997.tb00111.x'),
     ('k', 'Gao, H., Kaltenbach, S. and Koumoutsakos, P. (2024). Generative learning for forecasting the dynamics of high-dimensional complex systems. Nature Communications 15, 8904.', 'https://doi.org/10.1038/s41467-024-53165-w'),
 ]
 
@@ -231,7 +284,7 @@ def cited_keys():
 
 # ------------------------------------------------------------------------------------------------- figures
 def fig_chain(path):
-    Wd, Ht = 10.0, 5.12
+    Wd, Ht = 10.0, 5.12 + 1.18 * (max(len(c) for _, c in STAGES) - 3)
     fig = plt.figure(figsize=(6.7, 6.7 * Ht / Wd), dpi=300)
     ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, Wd); ax.set_ylim(0, Ht); ax.axis('off')
     cw, gap = 1.84, 0.12
@@ -290,7 +343,7 @@ def bullets(doc, items, size=10.5):
 
 def main(out):
     nm = names()
-    order = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'P1', 'P2', 'P3', 'P4', 'P5', 'V1']
+    order = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'P1', 'P2', 'P3', 'P4', 'P5', 'V1']
     work = tempfile.mkdtemp()
     f1 = os.path.join(work, 'fig_chain.png'); fig_chain(f1)
     f2 = os.path.join(work, 'fig_evidence.png'); fig_evidence(f2)
@@ -308,10 +361,11 @@ def main(out):
     rich(p, 'CERTAIN-COAST builds **the first early warning for critical coastal infrastructure whose miss rate is certified in '
             'advance and verified in operation**: one system for seawater intrusion at the wellfields, liquefaction at the port and '
             'the energy landfall, and extreme sea levels at all three, driven by one physical model of a subsiding coast. It closes '
-            'three gaps that the State of the Art identifies in the 2020–2026 literature:', size=10.5)
+            'four gaps that the State of the Art identifies in the 2020–2026 literature:', size=10.5)
     bullets(doc, ['**No early warning treats the three hazards as one system,** although they share relative sea level and pore pressure and are moved by the same pumping lever (closed by P1, P2, P3, M2).',
                   '**No warning for any of them carries a guarantee:** certified methods assume exchangeable data or hold on time average, none covers a slow physics model, and the first method for levels beyond the record (2026) is not yet used for coastal hazards (closed by M1, M4, M5).',
-                  '**The new sensors are measured but not designed:** no study chooses InSAR, seismic noise and fibre jointly with wells and samples to reduce missed warnings, and pumping tests are not designed for the decision they inform (closed by M3, P5, M6).'])
+                  '**The new sensors are measured but not designed:** no study chooses InSAR, seismic noise and fibre jointly with wells and samples to reduce missed warnings, and pumping tests are not designed for the decision they inform (closed by M3, P5, M6); networks take the errors of their own sensors as given, although air pressure and logger drift can be measured and removed (closed by M9).',
+                  '**No guarantee covers what is never measured or the effect of a decision:** the boundaries known only through rain, and the effect of pumping when a hidden drought demand drives both the pumping and the recharge (closed by M7, M8).'])
     p = para(doc, 4, before=2); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, 'Numbers in brackets refer to the 30 key papers of the State of the Art; [L1] is the local Durrës study and letters to '
             'the additional sources listed at the end.', size=9.5)
@@ -361,7 +415,11 @@ def main(out):
             'closed after **38 years**, while plans that watch one hazard believed they had 43–97 years, and the years criterion of '
             'M3 valued a GNSS station and corner reflectors at 5–6 years each (Methodology, Sections 7.3–7.4). On a second synthetic '
             'test system, the safe pumping tests of M6 raised the certified closing year from 10.8 to 31.9 years with chloride '
-            'below 123 mg/L in 95% of runs (Methodology, Section 7.6). The value bound of V1 '
+            'below 123 mg/L in 95% of runs (Methodology, Section 7.6). In the preparatory reviews of 2026, the calibrated '
+            'bands of M7 met their 10% target where the raw ensemble missed **17–20%** of the weeks; reading the recharge from the '
+            'heads (M8) removed the bias of the summed pumping effects (**0.00** against 0.56 for a history substitute); and a '
+            'network with reference channels (M9) kept **52%** more worst-case information than the classical design, certified '
+            'within 18% of the best network. The value bound of V1 '
             'was checked against a direct calculation of the cost-loss model (Impact, Section 5).', size=10.5)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(f2, width=Cm(15.5))
