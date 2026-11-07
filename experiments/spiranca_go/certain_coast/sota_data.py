@@ -131,7 +131,9 @@ SECTIONS = [
               'extending goal-oriented design [30] from one quantity and one sensor type to several hazards and sensor types. Each sensor '
               'is also valued by the years of safe operation it adds before the certified safe window of P3 closes: in a synthetic '
               'test, a GNSS station and corner reflectors added 5–6 years although they narrow none of today\'s forecasts '
-              '(Methodology, Section 7.4).'),
+              '(Methodology, Section 7.4). A sensor is valued by the guaranteed band it removes, recalibrated with the choice, '
+              'not by the spread an ensemble promises: in a synthetic test a tide gauge that the ensemble said would narrow the '
+              'recharge band by 15% widened the guaranteed band by 16–21%.'),
         ('b', '**M4. An error-certified surrogate of the coupled model.** A neural or kernel operator of the coupled variable-density, '
               'poroelastic model [25, 26], whose error is bounded a posteriori and calibrated conformally [23], makes thousands of '
               'storylines and real-time updates affordable without losing the guarantee. For long storylines a generative copy '
@@ -147,6 +149,30 @@ SECTIONS = [
               'test they raised the certified closing year from 10.8 to 31.9 years (true value 45) with chloride below 123 mg/L in '
               '95% of runs, while unconstrained tests chosen for parameter accuracy passed 250 mg/L in 42% of runs (Methodology, '
               'Sections 6 and 7.6).'),
+        ('b', '**M7. Guarantees for the inputs and boundaries nobody measures.** The recharge coefficient, the vadose delay, '
+              'the sea-level and inland boundaries and the dispersion width are known only through rain and heads. CERTAIN-COAST '
+              'calibrates their bands on simulated aquifers that carry the errors of the rain product and on measured anchor '
+              'periods, so the guarantee holds when the simulator or the rain product is wrong; it matches the calibration to the '
+              'forecast horizon under drift and computes a floor below which no valid band can go, extending conformal risk '
+              'control [19–21] from observed outcomes to quantities never observed. In preparatory tests the raw ensemble missed '
+              '17–20% of the weeks where the calibrated bands met their 10% target; at least 9 anchors gave an average guarantee, '
+              'and the bands held up to 20 years ahead under drift.'),
+        ('b', '**M8. Pumping effects and counterfactual salinity free of hidden drought demand.** Pumping responds to the same '
+              'dryness that lowers the recharge, so its effect on salinity is confounded by a demand nobody records. Substitutes '
+              'built from the history of the treatments [X5] cannot see the weekly news of such a confounder. CERTAIN-COAST reads '
+              'the recharge, the path of every hidden cause, from the heads after adding back the measured drawdown, rejects any '
+              'substitute that fails a calibrated physics check, and computes the salinity under a drier recharge regime with '
+              'guaranteed bands. In preparatory tests the bias of the summed well effects was 0.59 without adjustment, 0.56 with '
+              'a history substitute and 0.00 with the heads; on the calibrated Fushë-Kuqe chloride model, 40% less recharge grew '
+              'the shallow area above 250 mg/L from 31 to 65 km² (band 15–49 km²).'),
+        ('b', '**M9. A monitoring network that corrects its own sensors.** Unvented piezometers read the air pressure through '
+              'their barometric efficiency, and the loggers of one hub drift together. Robust designs guard against such '
+              'correlated errors [X6] but never remove them, while records are corrected one by one with a nearby barometer '
+              '[X7]. CERTAIN-COAST makes a barometer and a sealed reference channel on each logger hub design candidates beside '
+              'the piezometers, removes the correctable interference by marginalisation, chooses the network against the worst '
+              'plausible sensor error and certifies its distance from the best network. In a preparatory test with 12 sensors '
+              'the worst-case information rose by 52% against the classical design, with a certified gap of 18%, and the '
+              'correction restored the coverage of 90% forecast intervals from 49–62% to 88–93%.'),
         ('h', 'Physical innovations'),
         ('b', '**P1. One relative-sea-level boundary for all three hazards**, R(t) = η(t) − u_z(t), with u_z from InSAR/GNSS after removal '
               'of loading signals [1–5].'),
@@ -328,6 +354,12 @@ OTHER = [
      'http://jmlr.org/papers/v23/20-807.html'),
     ('X4', 'Gao, H., Kaltenbach, S. and Koumoutsakos, P. (2024). Generative learning for forecasting the dynamics of high-dimensional complex systems. Nature Communications 15, 8904.',
      'https://doi.org/10.1038/s41467-024-53165-w'),
+    ('X5', 'Bica, I., Alaa, A. M. and van der Schaar, M. (2020). Time Series Deconfounder: estimating treatment effects over time in the presence of hidden confounders. Proceedings of the 37th International Conference on Machine Learning, PMLR 119.',
+     'https://proceedings.mlr.press/v119/bica20a.html'),
+    ('X6', 'Chowdhary, A., Attia, A. and Alexanderian, A. (2025). Robust optimal experimental design of infinite-dimensional Bayesian nonlinear inverse problems. arXiv:2409.09137.',
+     'https://arxiv.org/abs/2409.09137'),
+    ('X7', 'Rasmussen, T. C. and Crawford, L. A. (1997). Identifying and removing barometric pressure effects in confined and unconfined aquifers. Ground Water 35(3), 502–511.',
+     'https://doi.org/10.1111/j.1745-6584.1997.tb00111.x'),
 ]
 
 WHAT_NEW = [
