@@ -696,7 +696,7 @@ def main(out):
         q = para(doc, 3, 0.3); put(q, '• ' + b)
 
     heading(doc, 'Checklist: uploads and signatures', 13, before=8)
-    chk = [['SPS MYP Acceptance of Funds (NATO template)', 'PDF', 'NATO-country Project Director + a representative of the NPD\'s institution', '[to do]'],
+    chk = [['SPS MYP Acceptance of Funds (NATO template)', 'PDF', 'Filled in: CERTAIN-COAST_SPS_MYP_Acceptance_of_Funds.docx; the NPD and a representative of the NPD\'s institution (Head of Institution or Financial Authority) sign; upload in tab 4', '[to do]'],
            ['SPS MYP Agreement for Joint Research (NATO template)', 'PDF', 'Filled in: CERTAIN-COAST_SPS_MYP_Agreement_for_Joint_Research.docx; all Co-Directors and a representative of each institution sign', '[to do]'],
            ['SPS MYP Detailed Budget workbook (NATO Excel template, tabs "Info" and "Detail")', 'Excel', 'Fill by hand: the form warns that using AI on this file may corrupt it and lead to automatic rejection', '[to do]'],
            ['Project schedule with a Gantt chart', 'PDF', 'Ready: CERTAIN-COAST_Project_Schedule.pdf', 'ready'],
@@ -767,7 +767,7 @@ def main(out):
             ['Publications and honours (optional, up to three each)', '[recent and relevant to the project]'],
             ['Research focus and expertise (500 words)', '[how the director\'s research relates to the project: e.g. seawater intrusion and groundwater modelling, coastal geodesy, geotechnics, statistics]'],
             ['Other grants held (optional)', '[dates, donor, grant name, short description, results]'],
-            ['SPS Acceptance of Funds (NPD only)', 'Upload the signed PDF: signature of the NPD and of a representative of the NPD\'s institution']]
+            ['SPS Acceptance of Funds (NPD only)', 'Upload the signed PDF of CERTAIN-COAST_SPS_MYP_Acceptance_of_Funds.docx (official NATO template, filled in): signature of the NPD and of a representative of the NPD\'s institution']]
     t = head_repeat(table(doc, ['Fields', 'What to enter'], pers, [7.2, 9.8], size=9.3)); ph_cells(t)
 
     # 5 Co-directors
