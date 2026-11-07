@@ -281,8 +281,8 @@ def main(out):
         'project advances the state of the art), "State-of-the-art: Related Projects / Duplication" (no stated limit) and '
         '"Current status" (no stated limit). The call requires recent literature references and forbids making the mapping '
         'of the state of the art an objective of the project.',
-        '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–1,000 words with '
-        'references, current status 300–700, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
+        '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–900 words with '
+        'references, current status 300–600, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
         f'**The five texts of Section 5 are now in the form text** (CERTAIN-COAST_NATO_Application_Form_Text.docx), '
         f'built from the eleven reviews: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
         f'art with references, current status and work-plan.']
