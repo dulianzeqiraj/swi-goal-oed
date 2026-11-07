@@ -704,7 +704,7 @@ def main(out):
            ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Draft: CERTAIN-COAST_Institutions_Overview.docx; fill the yellow fields, save as PDF', '[to do]'],
            ['Financial rules of the NPD\'s institution', 'PDF or link', 'NPD\'s institution', '[to do]'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
-           ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', '—', 'optional']]
+           ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
@@ -827,8 +827,10 @@ def main(out):
     field(doc, 'List of abbreviations')
     answer(doc, ABBREV)
     field(doc, 'Optional upload: a file that helps to illustrate the project')
-    answer(doc, 'Optional. One PDF with a table of contents and three figures: the method chain, the security chain of the '
-                'assets, and the certified safe operating window ([ask for it if you want it prepared]).')
+    answer(doc, 'Upload CERTAIN-COAST_Illustrative_Figures.pdf (ready): six pages, a table of contents and twelve figures '
+                '(the coast as one system, the critical assets and NATO resilience, the method, the innovations in the '
+                'warning chain, the gaps closed, the certified safe operating window, single-hazard horizons, the alarm '
+                'margin, warnings between samples, the self-correcting network, milestones and gates, impact pathway).')
 
     # 8 Schedule and budget
     heading(doc, '8. Project Schedule & Budget', 14, before=10)
