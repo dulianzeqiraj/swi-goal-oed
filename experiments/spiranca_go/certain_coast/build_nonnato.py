@@ -33,6 +33,7 @@ PEOPLE = [
     ('Partner-country Project Director', '[PPD institution]', 20),
     ('Researcher (seismic, GNSS, hydrometeorological data)', '[Institute of Geosciences, UPT]', 15),
     ('End-user representative', '[Durrës water utility]', 5),
+    ('End-user representative', '[Water Resources Management Agency (AMBU)]', 5),
     ('End-user representative', '[Durrës Port Authority]', 5),
     ('End-user representative', '[energy landfall operator]', 5),
     ('End-user representative', '[National Civil Protection Agency]', 5),
@@ -58,7 +59,7 @@ NN_CATS = [
      'Personnel cost paid by the institutions: all salaries of the Co-Directors and researchers for their time on the '
      'project (Section 3). SPS co-finances no salary in this version.'),
     ('Other', ['Other'],
-     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the four end-users; '
+     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the five end-users; '
      'data provided under agreements (Durrës tide-gauge record of ASIG, records of the national seismic stations, records '
      'of the water utility).'),
 ]

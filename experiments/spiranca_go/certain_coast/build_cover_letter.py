@@ -75,8 +75,9 @@ def main(out):
         'three of NATO\'s baseline requirements for national resilience, and brings machine learning into a security decision '
         'chain in line with NATO\'s principles of responsible use of artificial intelligence.',
         'The project is directed by me, as NATO-country Project Director, and by [title and name] of [institution], '
-        '[eligible partner country], as partner-country Project Director. The water utility of the Durrës wellfields, the Durrës '
-        'Port Authority, the operator of the energy landfall and the National Civil Protection Agency take part as end-users and '
+        '[eligible partner country], as partner-country Project Director. The water utility of the Durrës wellfields, the Water '
+        'Resources Management Agency (AMBU), the Durrës Port Authority, the operator of the energy landfall and the National '
+        'Civil Protection Agency take part as end-users and '
         'have confirmed their commitment in the enclosed letters.',
         'We confirm that both co-directors are employed by [academic / governmental / non-profit] institutions and that neither '
         'currently holds another SPS grant. We would be glad to provide any further information, and we thank you for '

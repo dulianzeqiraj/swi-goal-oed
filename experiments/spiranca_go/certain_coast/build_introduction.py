@@ -190,7 +190,7 @@ def main(out):
     rich(p, f'CERTAIN-COAST runs for 36 months in {len(W.WPS)} work packages. It **measures** the moving coast with InSAR, '
             'GNSS and a monitoring network designed for the warnings; **models** the three hazards in one coupled model with a '
             'fast, error-certified copy; **certifies** each alarm with a margin that bounds its miss rate; and **operates** the '
-            'system live with the water utility, the port authority, the landfall operator and civil protection for twelve months '
+            'system live with the water utility, the water resources agency (AMBU), the port authority, the landfall operator and civil protection for twelve months '
             f'before handing it over. Three evidence gates, at Months {gates["MS3"]}, {gates["MS4"]} and {gates["MS5"]}, decide '
             f'whether each phase starts. The requested budget is {BE.eur(F["total"])}.', size=10.5)
 

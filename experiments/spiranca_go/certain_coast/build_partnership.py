@@ -57,7 +57,7 @@ GLANCE = [
      'InSAR time-series processing; ambient-noise seismic interferometry', 'WP1; T4.4'],
     ['Albanian research partner (candidate)', 'Albania', '[e.g. the Institute of Geosciences, Polytechnic University of Tirana]',
      'Seismic, strong-motion, GNSS and hydrometeorological networks and data', 'WP1, WP4; T5.4'],
-    ['End-users (commitment letters)', 'Albania', '[Durrës water utility]; [Durrës Port Authority]; [energy landfall operator]; [National Civil Protection Agency]',
+    ['End-users (commitment letters)', 'Albania', '[Durrës water utility]; [Water Resources Management Agency (AMBU)]; [Durrës Port Authority]; [energy landfall operator]; [National Civil Protection Agency]',
      'Thresholds, site access, data, operation of the system after hand-over', 'T3.1; WP5; T6.2, T6.4'],
 ]
 
@@ -111,6 +111,8 @@ ROLES = [
 ENDUSERS = [
     ['Water utility of the Durrës wellfields', 'Agrees the chloride threshold, approves the safe pumping tests and agrees the joint pumping rule; receives intrusion bulletins',
      'Access to wells and records; staff time', 'Certified intrusion warnings; pumping rule; trained staff'],
+    ['Water Resources Management Agency (AMBU)', 'Agrees the chloride warning threshold and the pumping and drought rule; uses the monitoring design',
+     'Access to its monitoring wells (existing wells only) and records; staff time', 'Monitoring design; chloride early warning per supply well; no procurement, ownership or maintenance obligations'],
     ['Durrës Port Authority', 'Agrees liquefaction and water-level thresholds; receives bulletins for the port',
      'Site access for sensors; geotechnical records', 'Liquefaction and water-level warnings; post-event reports'],
     ['Operator of the energy landfall', 'Agrees thresholds for the landfall; receives bulletins',
@@ -143,7 +145,7 @@ VALUE = [
 CHECK = [
     'Name the partner-country institution and Project Director, and check the country on the official eligible list of the call.',
     'Confirm the NATO-country institution and, if wanted, an additional NATO co-director.',
-    'Obtain a commitment letter from each end-user (water utility, port authority, energy landfall operator, civil protection).',
+    'Obtain a commitment letter from each end-user (water utility, water resources agency AMBU, port authority, energy landfall operator, civil protection).',
     'Agree the work-package leadership in Table 4 and update the Budget split by recipient accordingly.',
     'Draft the consortium agreement, including data access and the publication review.',
     'Confirm the call deadline and phase on nato.int: a third-party summary lists 15 November 2026 for the 2027-1 call.',

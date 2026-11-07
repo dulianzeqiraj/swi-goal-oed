@@ -147,8 +147,8 @@ NCD_DETAILS = [
 ]
 
 NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is accountable for the SPS funds (WP7); leads the '
-            'monitoring network designed for the warnings (WP4) and the live demonstration with the water utility, the port, '
-            'the landfall operator and civil protection (WP5); contributes to the measurement of coastal motion and relative sea '
+            'monitoring network designed for the warnings (WP4) and the live demonstration with the water utility, the water '
+            'resources agency (AMBU), the port, the landfall operator and civil protection (WP5); contributes to the measurement of coastal motion and relative sea '
             'level (WP1). Chairs the steering committee, signs the access agreements with the operators (T7.2, Month 3) and '
             'oversees the hand-over at Month 36.')
 PPD_ROLE = ('As partner-country Project Director, leads training, transfer and dissemination (WP6): the transfer study on a '

@@ -159,6 +159,13 @@ EU = dict(
          '<https://www.shuk.al/durres>\n'
          '**In CERTAIN-COAST:** agrees the chloride threshold and the joint pumping rule and approves the safe pumping tests; gives access to wells, records '
          'and staff time; gains certified intrusion warnings, a pumping rule and trained staff.'),
+        ('Water resources agency',
+         '**Agjencia e Menaxhimit të Burimeve Ujore** (AMBU, Water Resources Management Agency), Tirana. '
+         '<https://www.ambu.gov.al>\n'
+         '**In CERTAIN-COAST:** gives access to monitoring wells under its control (existing wells only) and its records of '
+         'levels, chemistry and abstraction; agrees the chloride warning threshold and the pumping and drought rule; gains a '
+         'monitoring design for its decisions and a chloride early warning for each supply well, with no procurement, '
+         'ownership or maintenance obligations.'),
         ('Port',
          '**Autoriteti Portual Durrës** (Durrës Port Authority), a public legal person under Law No. 9130 of 8 September '
          '2003 "On the Port Authority". Durrës handled 94.2% of Albania\'s sea freight in the second quarter of 2026 '
@@ -191,6 +198,7 @@ EU = dict(
         ('wellfields (2026)', 'https://www.bulevardnews.com/2026/03/04/durresi-neser-8-ore-pa-uje-shkaku-stacioni-i-pompave-ne-fushe-kuqe-dhe-fushe-milot-nuk-do-te-kene-energji-elektrike/'),
         ('Port Authority law', 'https://durresport.al/port-authority/legislation/'),
         ('INSTAT Q2 2026', 'https://www.instat.gov.al/media/44eas2r0/statistikat-e-transportiti-detar-tr-ii-2026_a.pdf'),
+        ('AMBU', 'https://www.ambu.gov.al'),
         ('AKMC', 'https://akmc.gov.al/en/about-akmc/'),
         ('Law 45/2019', 'https://akmc.gov.al/en/legislation/'),
         ('Ministry of Defence', 'https://www.mod.gov.al/ministria/strukturat-vartese'),

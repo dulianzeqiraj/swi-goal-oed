@@ -93,7 +93,7 @@ DELIVER = (
     '5. Decisions for the water utility: the effect of each wellfield\'s pumping on salinity with the hidden drought demand '
     'removed; the salinity under drier recharge; the certified safe operating window and the '
     'year it closes; safe pumping tests that sharpen it; and a pumping rule agreed with the utility.\n'
-    '6. Twelve months of live bulletins with the four end-users, every outcome logged and the miss rates verified (D5.1); operating procedures and a policy brief '
+    '6. Twelve months of live bulletins with the five end-users, every outcome logged and the miss rates verified (D5.1); operating procedures and a policy brief '
     '(D6.2); open software and data with a DOI (D6.1).\n'
     'How this advances the state of the art. The alarms apply conformal and anytime-valid methods of 2023–2026 to coupled '
     'coastal hazards. Six contributions are new and were tested before the project. (i) Guarantees for '
@@ -335,8 +335,8 @@ ABSTRACT = (
     'CERTAIN-COAST will watch them together. Satellites, GNSS and new ground sensors will feed one computer model of the '
     'coast, copied by a fast artificial-intelligence model whose error is stated for every forecast. Each warning will state '
     'in advance how often it may miss a dangerous event, and this will be checked in twelve months of live operation with the '
-    'water utility, the port, the energy operator and civil protection. The project will also show how many years a safe '
-    'way of operating the three assets together remains, and sharpen that estimate with short, safe pumping tests. Local '
+    'water utility, the water agency, the port, the energy operator and civil protection. The project will show how many '
+    'years a safe way of operating the three assets remains, and sharpen that estimate with safe pumping tests. Local '
     'operators will run the system afterwards.')
 
 RELEVANCE = (
@@ -348,6 +348,8 @@ RELEVANCE = (
     'landfall is where undersea infrastructure comes ashore.\n'
     'Use cases:\n'
     '• Water utility: cut or shift pumping before chloride reaches drinking-water wells (weeks to months ahead).\n'
+    '• Water Resources Management Agency (AMBU): use the monitoring design, the chloride early warning for each supply well '
+    'and the pumping and drought rule in its monitoring and in support of water-use permits for the aquifer.\n'
     '• Port authority: restrict loads or operations and set inspection priorities after an earthquake; prepare for storm '
     'surges (hours to days ahead).\n'
     '• Energy landfall operator: inspect, protect or isolate the landfall when the ground or the water level threatens it.\n'
@@ -413,6 +415,9 @@ IMPACT = (
     'wells, which lowers the risk of salinising wells that '
     'take years to recover and avoids new permanent subsidence; planners know the year from which the window closes and '
     'which measures extend it.\n'
+    '• The Water Resources Management Agency (AMBU) gains a monitoring design for its decisions and a chloride early warning '
+    'for each supply well, in support of its water-use permits for the aquifer that supplies Durrës, with no procurement, '
+    'ownership or maintenance obligations.\n'
     '• At least 20 operator and civil-protection staff (at least two per operator) trained and running the system; at least '
     'six early-career researchers trained in the NATO and partner countries.\n'
     '• A monitoring network of piezometers, GNSS, seismic stations and corner reflectors handed over to the operators, with '
@@ -433,13 +438,13 @@ TRL_TEXT = (
     'element.\n'
     'End: TRL 6, as the 2027-1 call asks (results at TRL 3–6). The integrated system (network, coupled model, certified '
     'surrogate, alarms, pumping rule and safe operating window) is demonstrated in its relevant environment, the operators\' '
-    'own sites, through twelve months of live operation with the water utility, the port authority, the landfall operator '
-    'and civil protection, before the operators take it over. Seismic velocity as a coastal water-table sensor and the '
+    'own sites, through twelve months of live operation with the water utility, the water resources agency (AMBU), the port '
+    'authority, the landfall operator and civil protection, before the operators take it over. Seismic velocity as a coastal water-table sensor and the '
     'pumping rule with its safe pumping tests are demonstrated at the site but not yet run for a full year.')
 
 DATA = (
     'Data required and existing sources: Copernicus Sentinel-1 radar images since 2014 (free and open); GNSS records; the '
-    'Durrës tide-gauge record of the State Authority for Geospatial Information (ASIG); heads, pumping and chloride records of the water utility; geotechnical records of the port and the landfall '
+    'Durrës tide-gauge record of the State Authority for Geospatial Information (ASIG); heads, pumping and chloride records of the water utility; groundwater level, chemistry and abstraction records of AMBU; geotechnical records of the port and the landfall '
     'operator; records of existing national seismic stations; meteorological and wave data.\n'
     'New data: continuous heads, conductivity and temperature in new and existing wells; GNSS and corner-reflector time series '
     'at the assets; continuous seismic noise from stations and temporary nodes, and fibre-optic sensing where access is '
@@ -489,6 +494,8 @@ WORKPLAN = (
     'WP4, Monitoring network designed for the warnings (Months 1–36; NATO-country team). Steps: design (T4.1), in which each '
     'candidate sensor is valued by the guaranteed band it removes, its floor and the years of safe operation it adds per '
     'euro, with a local rain gauge among the candidates and one logger next to the wellfield most exposed to local demand; '
+    'the monitoring wells of AMBU (existing wells only) are candidate sites and the design also serves AMBU\'s monitoring '
+    'decisions; '
     'a barometer and a sealed reference channel on each logger hub are candidates too, the error model carries the '
     'barometric efficiency of each well, the drift of each logger, cable cross-talk and model error within stated ranges, '
     'and the network is chosen against the worst plausible error and reported with its certified optimality gap; a '
@@ -505,8 +512,8 @@ WORKPLAN = (
     'estimated with the hidden drought demand removed, by reading the recharge from the heads after adding back the '
     'drawdown measured in the pumping tests, and a calibrated check of every substitute is run before any effect is '
     'reported; the salinity under a drier recharge regime is computed from the calibrated state with conformal bands; the '
-    'certified window, its closing year and safe pumping tests that sharpen it follow, and the rule is agreed with the '
-    'utility; post-event protocol (T5.4). Risk: no strong event occurs; mitigation: verification by back-testing and '
+    'certified window, its closing year and safe pumping tests that sharpen it follow, and the pumping and drought rule is '
+    'agreed with the utility and AMBU; post-event protocol (T5.4). Risk: no strong event occurs; mitigation: verification by back-testing and '
     'storylines. Risk: drawdown coefficients from the pumping tests are uncertain; mitigation: their uncertainty is carried '
     'into the effect as a stated bias band. Milestones: MS6 (Month 34), MS7 (Month 36).\n'
     'WP6, Training, transfer and dissemination (Months 1–36; partner-country team): early-career researchers and a training '
@@ -523,10 +530,11 @@ AFTER = (
     'Next steps: extend the warnings to the other wellfields and coastal assets of Albania; offer the open software to '
     'coasts of Allies and partners (tested on a second coast in the partner country during the project); seek national and '
     'European funding to keep the network and the verification ledger running.\n'
-    'Role of the end-users. The water utility, the port authority, the energy landfall operator and the National Civil '
-    'Protection Agency guide the project from the start: they give access to sites and records, agree the thresholds and '
-    'tolerable miss rates (T3.1), take part in the dry run, co-sign the operational milestones, run the bulletins in live '
-    'operation and own the system after the hand-over. End-users receive no SPS funds.')
+    'Role of the end-users. The water utility, the Water Resources Management Agency (AMBU), the port authority, the energy '
+    'landfall operator and the National Civil Protection Agency guide the project from the start: they give access to sites '
+    'and records, agree the thresholds and tolerable miss rates (T3.1), take part in the dry run, co-sign the operational '
+    'milestones and run the bulletins in live operation. The operators own the system after the hand-over; AMBU uses its '
+    'results without procurement, ownership or maintenance obligations. End-users receive no SPS funds.')
 
 COMMS = (
     'Activities: a public kick-off, a public start of live operation and a final event; a project website with public '
@@ -708,7 +716,7 @@ def main(out):
     q = para(doc, 3, before=4)
     put(q, '**Still missing before you can submit:** [a partner-country Project Director, employed and resident in an eligible '
            'partner country] (without one the application is not eligible); [confirmation of the Albanian institution of the '
-           'NPD]; [signed letters from the four end-users].', size=10.5)
+           'NPD]; [signed letters from the five end-users].', size=10.5)
 
     # 1 Start here
     heading(doc, '1. Start here', 14, before=10)
@@ -783,6 +791,7 @@ def main(out):
             ['[First name]', '[Family name]', '[Institute of Geosciences, UPT]', 'Researcher', '[Albanian]', 'Seismic, GNSS and hydrometeorological data; WP1, WP4', '[15%]'],
             ['To be recruited', '(4 people)', 'NPD and PPD institutions', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
             ['[First name]', '[Family name]', '[Durrës water utility]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins, pumping rule', '[5%]'],
+            ['[First name]', '[Family name]', '[Water Resources Management Agency (AMBU)]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), monitoring design (T4.1), pumping and drought rule (T5.3)', '[5%]'],
             ['[First name]', '[Family name]', '[Durrës Port Authority]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
             ['[First name]', '[Family name]', '[energy landfall operator]', 'End-user representative', '[nationality]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
             ['[First name]', '[Family name]', '[National Civil Protection Agency]', 'End-user representative', '[Albanian]', 'Post-event protocol; live bulletins', '[5%]']]
@@ -898,7 +907,8 @@ def main(out):
     heading(doc, '9. End-Users', 14, before=10)
     p = para(doc, 4); put(p, 'At least one end-user; all based in a NATO or eligible partner country; end-users receive no SPS funds.')
     eu = [[f'[First name]', '[Family name]', '[Title]', '[Job title]', inst, '[Postal address]', '[Country]', '[Telephone]', '[E-mail]']
-          for inst in ['[Durrës water utility]', '[Durrës Port Authority]', '[energy landfall operator]', '[National Civil Protection Agency]']]
+          for inst in ['[Durrës water utility]', '[Water Resources Management Agency (AMBU)]', '[Durrës Port Authority]',
+                       '[energy landfall operator]', '[National Civil Protection Agency]']]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Title', 'Job title', 'Institution', 'Postal address', 'Country', 'Telephone', 'E-mail'],
                           eu, [1.7, 1.7, 1.2, 1.8, 2.6, 2.2, 1.6, 1.9, 2.3], size=8.2)); ph_cells(t)
     field(doc, 'End-User(s) commitments (upload)')

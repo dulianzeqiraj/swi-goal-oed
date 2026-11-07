@@ -88,6 +88,7 @@ BASELINE = [
 
 DECISIONS = [
     ['Water utility', 'Reduce or shift pumping; take a well out of service', 'Weeks to months', 'Intrusion alarm; safe pumping window', 'Miss rate ≤ α₁, verified'],
+    ['Water Resources Management Agency (AMBU)', 'Adjust monitoring and water-use permits for the aquifer', 'Months to seasons', 'Chloride early warning per supply well; pumping and drought rule', 'Miss rate ≤ α₁, verified'],
     ['Port authority', 'Restrict operations or loads; inspect quays after an earthquake; prepare for a surge', 'Hours to days', 'Liquefaction state; water-level warning; post-event bulletin', 'Miss rates ≤ α₂, α₃'],
     ['Energy landfall operator', 'Inspect, protect or isolate the landfall', 'Hours to days', 'Landfall stability check; water-level warning', 'Miss rates ≤ α₂, α₃'],
     ['Civil protection', 'Set priorities across water, port and energy after an event', 'Hours to days', 'One bulletin for the three assets from one model', 'Joint miss ≤ Σαₖ'],
