@@ -54,23 +54,25 @@ def ph(p, text, size=11, bold=False):
 
 
 COMMON_END = [
+    'We are ready to co-sign the project\'s Intellectual Property Rights agreement for the clauses that concern the data we provide and restricted information about our site.',
     'We understand that the CERTAIN-COAST bulletins are advisory: operational decisions remain ours, and any warning to the public is issued only by the competent authorities.',
     'We understand that our participation creates no financial obligation; our contribution is in kind. Data we provide will be treated as restricted, used only under a data access agreement for the purposes of the project, and any publication that uses them will be sent to us for review of sensitive content [30] days before submission.',
 ]
 
 LETTERS = [
     dict(key='utility', title='End-user: water utility of the Durrës wellfields',
-         org='[Name of the water utility]', role='end-user (wellfields)',
-         intro='[Name of the water utility] supplies drinking water from the wellfields of the Durrës coast. Seawater intrusion, land subsidence and the effects of earthquakes on groundwater are real risks to this supply. We therefore support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
-         provide=['access to our production and monitoring wells for the installation and maintenance of loggers, from Month [4] (installation by Month 12);',
+         org='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a.', role='end-user (wellfields)',
+         intro='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a. supplies drinking water to Durrës from the Fushë Kuqe and Fushë Milot wellfields. Seawater intrusion, land subsidence and the effects of earthquakes on groundwater are real risks to this supply. We therefore support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
+         provide=['access to our production and monitoring wells for the project\'s head, conductivity, temperature and barometric loggers, including a conductivity logger in at least one production well of each wellfield, from Month [4] (installed by Month 12);',
                   'our records of groundwater heads, chloride and pumping rates under a data access agreement to be signed by Month 3;',
+                  'support for one campaign a year of laboratory chloride samples taken 1, 3 and 7 days apart at agreed wells (analysed at the project\'s cost);',
                   'staff time to agree the chloride threshold and the acceptable false-alarm rate (Months 13–15) and to develop a joint pumping rule (Months 24–33);',
                   'approval and operational support for a short campaign of safe pumping tests on existing wells, each stopped at an agreed chloride test limit (within Months 24–33);',
                   'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
-         use='We intend to receive and use the certified intrusion bulletins during the twelve months of live operation (Months 23–34), to issue them ourselves in the final months, and to consider adopting an operating procedure for the system. We are willing to discuss an arrangement for its maintenance after the project.'),
+         use='We intend to receive and use the certified intrusion bulletins, including the warning that chloride may cross its limit between two laboratory samples, during the twelve months of live operation (Months 23–34), to issue them ourselves in the final months, and to consider adopting an operating procedure for the system. We are willing to discuss an arrangement for its maintenance after the project.'),
     dict(key='port', title='End-user: Durrës Port Authority',
-         org='[Durrës Port Authority]', role='end-user (port)',
-         intro='[Durrës Port Authority] operates the main port of Albania on a subsiding coast exposed to earthquakes, liquefaction and extreme sea levels. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
+         org='Autoriteti Portual Durrës (Durrës Port Authority)', role='end-user (port)',
+         intro='Autoriteti Portual Durrës (Durrës Port Authority) manages the main port of Albania on a subsiding coast exposed to earthquakes, liquefaction and extreme sea levels. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
          provide=['access to agreed locations in the port for sensors (GNSS, corner reflectors, seismic stations, piezometers), under our port-facility security rules, from Month [4];',
                   'available geotechnical records (CPT and borehole logs) and design levels of the quays under a data access agreement to be signed by Month 3;',
                   'staff time to agree the liquefaction and water-level thresholds (Months 13–15) and to take part in the post-event protocol;',
@@ -85,8 +87,8 @@ LETTERS = [
                   'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
          use='We intend to receive and use the stability bulletins for the landfall, combining shaking, liquefaction, water level and subsidence, during the live operation (Months 23–34), and to consider adopting an operating procedure. We are willing to discuss an arrangement for its maintenance after the project.'),
     dict(key='civil', title='End-user: National Civil Protection Agency',
-         org='[National Civil Protection Agency]', role='end-user (civil protection)',
-         intro='[National Civil Protection Agency] is responsible for preparedness and response to disasters in Albania. The Durrës coast, where drinking water, the main port and an energy landfall are close together on soft and subsiding ground, is a priority for us since the earthquake of 26 November 2019. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
+         org='Agjencia Kombëtare e Mbrojtjes Civile (National Civil Protection Agency)', role='end-user (civil protection)',
+         intro='Agjencia Kombëtare e Mbrojtjes Civile (National Civil Protection Agency) is responsible for preparedness and response to disasters in Albania. The Durrës coast, where drinking water, the main port and an energy landfall are close together on soft and subsiding ground, is a priority for us since the earthquake of 26 November 2019. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
          provide=['a representative on the project steering committee, meeting every six months;',
                   'the triggers for the post-event protocol (earthquake, shaking or water level) and participation in its design;',
                   'participation of [number] staff in the workshops, the operator training and the final demonstration.'],
@@ -94,11 +96,12 @@ LETTERS = [
     dict(key='ppd', title='Partner-country Project Director\'s institution',
          org='[Partner-country university or research institute]', role='partner-country co-director',
          intro='[Partner-country university or research institute], in [eligible partner country], commits to take part in CERTAIN-COAST as the institution of the partner-country Project Director, [title and name], who is employed by us in [eligible partner country].',
-         provide=['leadership of the coupled model and certified surrogate (WP2), the certified multi-hazard alarm (WP3) and training, transfer and dissemination (WP6);',
-                  'a transfer test of the method on a subsiding coast of [eligible partner country], using open satellite data and available records;',
+         provide=['leadership of training, transfer and dissemination (WP6): two-month exchanges of our early-career researchers on the Durrës coast, a regional workshop and the open release of the results;',
+                  'a transfer study of the method on a coast of [eligible partner country], carried out with the project\'s tools and the Albanian team, using open satellite data and available records;',
+                  'a user-side review of the bulletins and operating procedures;',
                   'the salaries of our staff and the use of our facilities and computing, as an in-kind contribution;',
-                  'participation of [number] early-career researchers in the project, including exchanges to the Durrës coast.'],
-         use='We accept the terms of the NATO SPS Multi-Year Project Handbook and of the award, will sign the consortium agreement, and will follow the project\'s data management plan, ethics measures and two-tier dissemination rules.',
+                  'participation of [number] early-career researchers in the project.'],
+         use='We accept the terms of the NATO SPS Multi-Year Project Handbook and of the award, will sign the SPS MYP Agreement for Joint Research and the project\'s Intellectual Property Rights agreement, and will follow the project\'s data management plan, ethics measures and two-tier dissemination rules.',
          custom_end=True),
     dict(key='ncd', title='Optional: additional NATO co-director\'s institution',
          org='[Institution in a NATO member country]', role='additional NATO co-director',
@@ -106,7 +109,7 @@ LETTERS = [
          provide=['expertise and supervision for InSAR time-series processing (WP1) and for seismic velocity monitoring with ambient noise (T4.4);',
                   'the salaries of our staff and the use of our facilities, as an in-kind contribution;',
                   'hosting of early-career researchers for training visits.'],
-         use='We accept the terms of the NATO SPS Multi-Year Project Handbook and of the award, will sign the consortium agreement, and will follow the project\'s data management plan, ethics measures and dissemination rules.',
+         use='We accept the terms of the NATO SPS Multi-Year Project Handbook and of the award, will sign the SPS MYP Agreement for Joint Research and the project\'s Intellectual Property Rights agreement, and will follow the project\'s data management plan, ethics measures and dissemination rules.',
          custom_end=True),
     dict(key='arp', title='Optional: Albanian research partner (data and stations)',
          org='[Albanian geoscience or seismological institute]', role='research partner',
@@ -122,8 +125,8 @@ HOWTO = [
     '**Send each template** to the organisation named in it, with the project summary (Abstract) and the relevant section of the Partnership document.',
     '**The organisation adapts the text** to what it can really commit to, replaces every yellow placeholder, prints the letter on its own letterhead, and has it signed (and stamped, where usual) by a person authorised to commit it.',
     '**Do not sign on behalf of an organisation** and do not send unsigned letters as if they were signed; reviewers check that commitments are genuine.',
-    '**Collect the signed letters as PDF** and upload them with the application; keep the originals.',
-    '**Check the call** for any required format, language (English) or deadline for the letters before sending them out.',
+    '**Collect the signed letters as PDF and merge them into one file:** the platform (tab 9, End-Users) takes a single PDF with all end-user commitments; keep the originals.',
+    '**What the call asks (2027-1):** "an end-user commitment letter for each of the project\'s end-users"; for governmental end-users the form accepts a letter of support from the ministry or agency. Letters go to NATO in English; an Albanian reading copy of the four end-user letters is in CERTAIN-COAST_Letters_of_Commitment_SQ.docx.',
 ]
 
 STRONG = [
@@ -141,10 +144,10 @@ def page_break(doc):
 def letter(doc, L):
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run(p, '[LETTERHEAD OF ' + L['org'].strip('[]').upper() + ']', bold=True, size=10, hl=True)
-    p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; ph(p, '[Place], [date]', size=10.5)
+    p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; ph(p, '[Place], [date]', size=10.5)
     for i, line in enumerate(ADDRESS):
-        p = para(doc, 0 if i < len(ADDRESS) - 1 else 10); run(p, line, size=10.5)
-    p = para(doc, 8)
+        p = para(doc, 0 if i < len(ADDRESS) - 1 else 6); run(p, line, size=10.5)
+    p = para(doc, 6)
     run(p, 'Subject: ', bold=True, size=10.5)
     run(p, f'Letter of commitment, {L["role"]}, for the NATO SPS Multi-Year Project application CERTAIN-COAST: {FULL}', bold=True, size=10.5)
     p = para(doc, 6); run(p, 'Dear Sir or Madam,', size=10.5)
@@ -158,7 +161,7 @@ def letter(doc, L):
             p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, t, size=10.5)
     p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     ph(p, 'Our contact person for the project is [name, position, e-mail, telephone].', size=10.5)
-    p = para(doc, 14); run(p, 'Yours faithfully,', size=10.5)
+    p = para(doc, 10); run(p, 'Yours faithfully,', size=10.5)
     for t in ('[Signature and stamp]', '[Name]', '[Position]', L['org']):
         p = para(doc, 0); ph(p, t, size=10.5)
 
@@ -197,12 +200,142 @@ def main(out):
         q = para(doc, 3, 0.5); run(q, '• ', bold=True); ph(q, x)
 
     for i, L in enumerate(LETTERS, start=1):
-        page_break(doc)
-        p = para(doc, 6); run(p, f'[Template {i} of {len(LETTERS)}: {L["title"]}. Delete this line before printing.]', italic=True, size=9, hl=True)
+        p = para(doc, 6); p.paragraph_format.page_break_before = True
+        run(p, f'[Template {i} of {len(LETTERS)}: {L["title"]}. Delete this line before printing.]', italic=True, size=9, hl=True)
         letter(doc, L)
     doc.save(out)
     print('saved', out, '|', len(LETTERS), 'letters')
 
 
+# ------------------------------------------------------------------------------------------------- Albanian copy
+SQ_ROLE = {'utility': 'përdorues fundor (fushat e puseve)', 'port': 'përdorues fundor (porti)',
+           'energy': 'përdorues fundor (pika e daljes në breg të energjisë)', 'civil': 'përdorues fundor (mbrojtja civile)'}
+SQ = {
+    'utility': dict(
+        intro='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a. furnizon Durrësin me ujë të pijshëm nga fushat e puseve '
+              'të Fushë Kuqes dhe të Fushë Milotit. Depërtimi i ujit të detit, ulja e tokës dhe efektet e tërmeteve në '
+              'ujërat nëntokësore janë rreziqe reale për këtë furnizim. Për këtë arsye mbështesim aplikimin e projektit '
+              'CERTAIN-COAST në Programin NATO SPS dhe angazhohemi të marrim pjesë si përdorues fundor (end-user).',
+        provide=['akses në puset tona të prodhimit dhe të monitorimit për regjistruesit (loggers) e projektit për '
+                 'nivelin, përçueshmërinë, temperaturën dhe presionin atmosferik, përfshirë një regjistrues përçueshmërie '
+                 'në të paktën një pus prodhimi të çdo fushe puseve, nga Muaji [4] (të instaluar deri në Muajin 12);',
+                 'të dhënat tona për nivelet e ujërave nëntokësore, kloridin dhe prurjet e pompimit, sipas një marrëveshjeje '
+                 'për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
+                 'mbështetje për një fushatë në vit me kampione laboratorike kloridi të marra me 1, 3 dhe 7 ditë diferencë në '
+                 'puse të rëna dakord (analizat paguhen nga projekti);',
+                 'kohë të stafit për të rënë dakord për pragun e kloridit dhe shkallën e pranueshme të alarmeve të rreme '
+                 '(Muajt 13–15) dhe për të hartuar një rregull të përbashkët pompimi (Muajt 24–33);',
+                 'miratim dhe mbështetje operative për një fushatë të shkurtër provash të sigurta pompimi në puse '
+                 'ekzistuese, ku secila provë ndalet në një kufi kloridi të rënë dakord (brenda Muajve 24–33);',
+                 'pjesëmarrjen e [numri] punonjësve në seminare dhe në trajnimin e operatorëve (Muajt 24–36).'],
+        use='Synojmë të marrim dhe të përdorim buletinet e certifikuara për depërtimin e ujit të detit, përfshirë '
+            'paralajmërimin se kloridi mund të kalojë kufirin midis dy kampionimeve laboratorike, gjatë dymbëdhjetë muajve '
+            'të operimit të drejtpërdrejtë (Muajt 23–34), t\'i lëshojmë vetë në muajt e fundit dhe të shqyrtojmë miratimin e '
+            'një procedure operative për sistemin. Jemi të gatshëm të diskutojmë një marrëveshje për mirëmbajtjen e tij pas '
+            'projektit.'),
+    'port': dict(
+        intro='Autoriteti Portual Durrës menaxhon portin kryesor të Shqipërisë, në një bregdet që po ulet dhe që është i '
+              'ekspozuar ndaj tërmeteve, lëngëzimit të tokës dhe niveleve ekstreme të detit. Mbështesim aplikimin e projektit '
+              'CERTAIN-COAST në Programin NATO SPS dhe angazhohemi të marrim pjesë si përdorues fundor.',
+        provide=['akses në vende të rëna dakord brenda portit për sensorët (GNSS, reflektorë këndorë, stacione sizmike, '
+                 'piezometra), sipas rregullave tona të sigurisë së portit, nga Muaji [4];',
+                 'të dhënat gjeoteknike në dispozicion (prova CPT dhe regjistrime shpimesh) dhe nivelet e projektimit të '
+                 'kalatave, sipas një marrëveshjeje për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
+                 'kohë të stafit për të rënë dakord për pragjet e lëngëzimit dhe të nivelit të ujit (Muajt 13–15) dhe për të '
+                 'marrë pjesë në protokollin pas ngjarjeve;',
+                 'pjesëmarrjen e [numri] punonjësve në seminare dhe në trajnimin e operatorëve (Muajt 24–36).'],
+        use='Synojmë të marrim dhe të përdorim buletinet për lëngëzimin dhe nivelet ekstreme të ujit për portin gjatë '
+            'operimit të drejtpërdrejtë (Muajt 23–34) dhe të shqyrtojmë miratimin e një procedure operative për sistemin. '
+            'Jemi të gatshëm të diskutojmë një marrëveshje për mirëmbajtjen e tij pas projektit.'),
+    'energy': dict(
+        intro='[Emri i operatorit të pikës së daljes në breg të energjisë] operon pikën e daljes në breg të energjisë '
+              '(energy landfall) në [vendndodhja], ku furnizimi nga deti lidhet me sistemin kombëtar. Qëndrueshmëria e saj '
+              'varet nga toka dhe nga niveli i detit në bregdet. Mbështesim aplikimin e projektit CERTAIN-COAST në Programin '
+              'NATO SPS dhe angazhohemi të marrim pjesë si përdorues fundor.',
+        provide=['akses në vende të rëna dakord pranë pikës së daljes në breg për sensorët, sipas rregullave tona të '
+                 'sigurisë dhe me shoqërimin tonë, nga Muaji [4];',
+                 'nivelet e projektimit dhe të dhënat gjeoteknike në dispozicion që nevojiten për kontrollet e '
+                 'qëndrueshmërisë, sipas një marrëveshjeje për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
+                 'kohë të stafit për të rënë dakord për pragjet për pikën e daljes në breg (Muajt 13–15);',
+                 'pjesëmarrjen e [numri] punonjësve në seminare dhe në trajnimin e operatorëve (Muajt 24–36).'],
+        use='Synojmë të marrim dhe të përdorim buletinet e qëndrueshmërisë për pikën e daljes në breg, që bashkojnë '
+            'lëkundjet sizmike, lëngëzimin, nivelin e ujit dhe uljen e tokës, gjatë operimit të drejtpërdrejtë (Muajt '
+            '23–34), dhe të shqyrtojmë miratimin e një procedure operative. Jemi të gatshëm të diskutojmë një marrëveshje '
+            'për mirëmbajtjen e sistemit pas projektit.'),
+    'civil': dict(
+        intro='Agjencia Kombëtare e Mbrojtjes Civile është përgjegjëse për gatishmërinë dhe reagimin ndaj fatkeqësive në '
+              'Shqipëri. Bregdeti i Durrësit, ku uji i pijshëm, porti kryesor dhe një pikë e daljes në breg të energjisë '
+              'janë pranë njëri-tjetrit në tokë të butë që po ulet, është përparësi për ne që nga tërmeti i 26 nëntorit '
+              '2019. Mbështesim aplikimin e projektit CERTAIN-COAST në Programin NATO SPS dhe angazhohemi të marrim pjesë si '
+              'përdorues fundor.',
+        provide=['një përfaqësues në komitetin drejtues të projektit, që mblidhet çdo gjashtë muaj;',
+                 'kushtet që aktivizojnë protokollin pas ngjarjeve (tërmet, lëkundje ose nivel uji) dhe pjesëmarrje në '
+                 'hartimin e tij;',
+                 'pjesëmarrjen e [numri] punonjësve në seminare, në trajnimin e operatorëve dhe në demonstrimin '
+                 'përfundimtar.'],
+        use='Synojmë të marrim buletinet dhe raportet pas ngjarjeve gjatë operimit të drejtpërdrejtë (Muajt 23–34) dhe të '
+            'shqyrtojmë përfshirjen e protokollit pas ngjarjeve në procedurat tona. Çdo paralajmërim për publikun mbetet '
+            'përgjegjësi jona dhe do të lëshohet përmes kanaleve tona.'),
+}
+SQ_END = [
+    'Jemi të gatshëm të bashkënënshkruajmë marrëveshjen e projektit për të drejtat e pronësisë intelektuale për nenet që '
+    'lidhen me të dhënat që japim dhe me informacionin e kufizuar për objektin tonë.',
+    'Kuptojmë se buletinet e CERTAIN-COAST janë këshilluese: vendimet operative mbeten tonat, dhe çdo paralajmërim për '
+    'publikun lëshohet vetëm nga autoritetet kompetente.',
+    'Kuptojmë se pjesëmarrja jonë nuk krijon asnjë detyrim financiar; kontributi ynë është në natyrë. Të dhënat që japim do '
+    'të trajtohen si të kufizuara, do të përdoren vetëm sipas një marrëveshjeje për aksesin në të dhëna dhe vetëm për '
+    'qëllimet e projektit, dhe çdo botim që i përdor do të na dërgohet për shqyrtim të përmbajtjes së ndjeshme [30] ditë '
+    'para dorëzimit.',
+]
+
+
+def letter_sq(doc, L, S):
+    p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.page_break_before = True
+    run(p, 'PËRKTHIM PËR LEXIM. Letra që firmoset dhe i dërgohet NATO-s është versioni në anglisht '
+           '(CERTAIN-COAST_Letters_of_Commitment.docx).', italic=True, size=9, color='52606D')
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run(p, '[LETTERHEAD I ' + L['org'].strip('[]').upper() + ']', bold=True, size=10, hl=True)
+    p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; ph(p, '[Vendi], [data]', size=10)
+    for i, line in enumerate(ADDRESS):
+        p = para(doc, 0 if i < len(ADDRESS) - 1 else 6); run(p, line, size=10)
+    p = para(doc, 6)
+    run(p, 'Lënda: ', bold=True, size=10)
+    run(p, f'Letër angazhimi, {SQ_ROLE[L["key"]]}, për aplikimin e projektit shumëvjeçar NATO SPS CERTAIN-COAST: {FULL}',
+        bold=True, size=10)
+    p = para(doc, 6); run(p, 'Të nderuar zonja dhe zotërinj,', size=10)
+    p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, S['intro'], size=10)
+    p = para(doc, 3); run(p, 'Në veçanti, do të ofrojmë:', size=10)
+    for x in S['provide']:
+        q = para(doc, 2, 0.6); run(q, '• ', size=10); ph(q, x, size=10)
+    p = para(doc, 6, before=4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, S['use'], size=10)
+    for x in SQ_END:
+        p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, x, size=10)
+    p = para(doc, 6); ph(p, 'Personi ynë i kontaktit për projektin është [emri, pozicioni, e-mail, telefoni].', size=10)
+    p = para(doc, 10); run(p, 'Me respekt,', size=10)
+    for x in ('[Firma dhe vula]', '[Emri]', '[Pozicioni]', L['org']):
+        p = para(doc, 0); ph(p, x, size=10)
+
+
+def main_sq(out):
+    assert len(SQ_END) == len(COMMON_END)
+    doc = Document()
+    s = doc.sections[0]
+    s.page_width, s.page_height = Cm(21.0), Cm(29.7)
+    s.left_margin = s.right_margin = Cm(2.2); s.top_margin = s.bottom_margin = Cm(1.8)
+    st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(11)
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run(p, 'CERTAIN-COAST — Letrat e angazhimit të përdoruesve fundorë (kopje në shqip)', bold=True, size=16, color='1F3864')
+    p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run(p, 'Përkthim për lexim i katër letrave të end-users, me të njëjtën përmbajtje si versioni në anglisht. Institucioni '
+           'firmos letrën në anglisht në letrën e vet zyrtare; fushat e verdha plotësohen prej tij.', italic=True, size=10,
+        color='52606D')
+    for L in [x for x in LETTERS if x['key'] in SQ]:
+        letter_sq(doc, L, SQ[L['key']])
+    doc.save(out)
+    print('saved', out, '|', len(SQ), 'letters in Albanian')
+
+
 if __name__ == '__main__':
     main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Letters_of_Commitment.docx')
+    if len(sys.argv) > 2:
+        main_sq(sys.argv[2])
