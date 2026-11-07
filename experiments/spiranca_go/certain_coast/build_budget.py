@@ -87,8 +87,9 @@ LINES = [
     ('Dissemination', 'Public and press events', 1, 1000, ['WP6'], (0.25, 0.25, 0.5), 'NPD', 'Kick-off, live start and final event'),
     ('Other direct costs', 'Shipping and customs for equipment', 1, 4000, ['WP4'], (1, 0, 0), 'NPD', 'Delivery of sensors to the site'),
     ('Other direct costs', 'Insurance of field equipment', 3, 1000, ['WP4'], T3, 'NPD', 'One year of cover per year of operation'),
-    ('Management', 'Management allowance of the NATO-country Project Director', 1, 15000, ['WP7'], T3, 'NPD',
-     'Coordination, reporting and financial records; about 4% of the total'),
+    ('Management', 'Man-hours for the management of the project (NATO-country Project Director only)', 1, 15000, ['WP7'],
+     T3, 'NPD', 'Coordination, reporting and financial records, with time records; SPS category "Other"; about 4% of '
+                'the total'),
 ]
 CATS = ['Equipment', 'Consumables', 'Training and travel', 'Stipends', 'Dissemination', 'Other direct costs', 'Management']
 WPS = ['WP1', 'WP2', 'WP3', 'WP4', 'WP5', 'WP6', 'WP7']
@@ -99,7 +100,7 @@ WPNAMES = {'WP1': 'Coastal motion and relative sea level', 'WP2': 'Coupled model
 RULES = [
     ('There is no hard budget limit; typical three-year Multi-Year Projects are in the range of €250,000–400,000.', 0),
     ('SPS funds project-specific costs (equipment, consumables, project-related training and travel, including conferences and seminars, and limited stipends for young researchers), not salaries or overheads.', 1),
-    ('The NATO-country Project Director may receive a management allowance (up to 10% of the budget in the 2017 handbook).', 2),
+    ('Man-hours solely dedicated to the management of the project are eligible for the NATO-country Project Director only, under the category "Other", whose costs together may not exceed 15% of the budget; payment needs an official statement of the hours with time records (MYP Handbook, version of April 2026).', 0),
     ('Stipends for young researchers without a PhD are given as €400 per month in a 2023 SPS presentation; an older SPS page limited stipends to 15% of the grant.', 3),
     ('Each project has a NATO-country Project Director and a partner-country Project Director; the NATO-country Project Director is accountable for the funds.', 4),
 ]
@@ -115,7 +116,7 @@ CONFIRM = [
     '**Equipment on the NATO-country side.** All field equipment is installed in Albania, a NATO member, because the critical infrastructure is there. An older SPS page says funds to NATO countries are mainly for travel and consumables and that equipment needs justification. Confirm with the SPS Programme (sps.info@hq.nato.int) before submission; the justification is that the network is site-specific, protects Allied critical infrastructure and is handed over to Albanian operators.',
     '**Partner-country share.** The partner country receives about {ppd_pct}% of the budget in this version. The partner leads training, transfer and dissemination (WP6), while the model and the algorithm stay with the NATO-country team. If the Programme expects more, the options are to place more stipends and exchanges at the partner institution or to widen the transfer study on a partner-country coast.',
     '**Eligibility of drilling.** Borehole drilling is a service needed to install the piezometers; confirm that it can be charged under equipment.',
-    '**Current rates and ceilings.** Check the stipend rate, the management allowance ceiling and any travel rules in the current handbook.',
+    '**Current rates and ceilings.** Check the stipend rate, the 15% ceiling of the "Other" category (management hours of the NPD included) and any travel rules in the current handbook.',
     '**Unit costs.** All unit costs are planning estimates; replace them with quotes before submission (Risk Assessment, R19).',
 ]
 INKIND = [

@@ -651,7 +651,7 @@ def sps_cat(r):
         return 'Training' if any(k in it for k in ('exchange', 'Training school', 'training sessions')) else 'Travel'
     return {'Equipment': 'Equipment', 'Consumables': 'Consumables', 'Stipends': 'Stipends',
             'Dissemination': 'Communication and Publications', 'Other direct costs': 'Other',
-            'Management': 'Co-financing of personnel'}[c]
+            'Management': 'Other'}[c]
 
 
 def budget_tables():
@@ -703,7 +703,7 @@ def main(out):
            ['End-user commitments, all letters merged into one file', 'PDF', 'Each end-user on its own letterhead (drafts in the Letters of Commitment document)', '[to do]'],
            ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Draft: CERTAIN-COAST_Institutions_Overview.docx; fill the yellow fields, save as PDF', '[to do]'],
            ['Financial rules of the NPD\'s institution', 'PDF or link', 'NPD\'s institution', '[to do]'],
-           ['Intellectual Property Rights agreement or waiver', 'PDF', 'Can be submitted later, once the project is approved', 'later'],
+           ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', '—', 'optional']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
@@ -875,21 +875,22 @@ def main(out):
     field(doc, 'Travel')
     answer(doc, listing('Travel'))
     field(doc, 'Co-financing of personnel', 'Up to 25% of the personnel cost.')
-    answer(doc, listing('Co-financing of personnel') + '\n[Confirm with the current MYP Handbook: the Budget document lists this '
-                                                        'amount as a management allowance for the NPD; in this form it fits under '
-                                                        'co-financing of personnel, with the remaining personnel cost paid by the '
-                                                        'institution.]')
+    answer(doc, 'None requested: the institutions pay all salaries (see Non-NATO funding). The management hours of the NPD '
+                '(€15,000) are under "Other", as the MYP Handbook (April 2026) requires. [If salary co-financing is wanted '
+                'after all: per person and month at most the share of time on the project, capped at 25%, times the monthly '
+                'gross salary; in total up to about one third of the grant; a CV for each recipient.]')
     field(doc, 'Other major expenses (optional)')
     answer(doc, listing('Other') + '\nCommunication and Publications (€18,000) and Consumables (€22,700) are detailed in the '
                                    'budget workbook and the Communication Plan above.')
     field(doc, 'Budget summary by item: non-NATO funding contribution (in EUR)', 'Estimate what the institutions and nations contribute.')
-    nn = [[c, '[€ amount]'] for c in ['Equipment', 'Training', 'Communication & Publication', 'Travel', 'Consumables', 'Stipends', 'Co-financing', 'Other']]
-    t = head_repeat(table(doc, ['Budget category', 'Amount from other funding sources'], nn, [9.0, 8.0], size=9.3)); ph_cells(t)
+    import build_nonnato as NN
+    nn = [[c, what, '[€ amount]'] for c, _, what in NN.NN_CATS]
+    t = head_repeat(table(doc, ['Budget category', 'What it covers', 'Amount from other funding sources'], nn,
+                          [3.2, 10.4, 3.4], size=9)); ph_cells(t)
+    q = para(doc, 2); put(q, 'Amounts, salaries and the personnel worksheet: CERTAIN-COAST_Non-NATO_Contribution.docx.',
+                          size=9, color=GREY, italic=True)
     field(doc, 'Non-NATO funding')
-    answer(doc, 'Salaries of all researchers and project directors, paid by their institutions [€ estimate]; the operators\' '
-                'access to wells, port and landfall, their records and staff time for workshops and training [€ estimate]; free '
-                'data (Copernicus Sentinel-1 radar images) and existing data under agreements (ASIG tide gauge, national seismic stations); offices, laboratories '
-                'and existing field equipment of the partner institutions [€ estimate].')
+    answer(doc, NN.text())
     field(doc, 'How do you want to share the financial rules of the NPD\'s institution?')
     answer(doc, '[File upload or link to the website of the NPD\'s institution.]')
 
@@ -908,7 +909,7 @@ def main(out):
     heading(doc, '10. Project attachments', 14, before=10)
     for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
-                  ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', 'No. It can be submitted after approval; the software is released under an open licence.'),
+                  ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', '**Yes** (recommended): upload the signed agreement as one PDF. Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx (NATO sample, Option B, open release of software and data, security release check), with a one-page waiver as alternative. The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete proposal.'),
                   ('Additional files (optional)', 'Not needed.'),
                   ('Additional information (optional)', 'The full technical annex (methodology with its preparatory tests, state of the art, work packages, risk assessment, data management plan) is available on request.')]:
         field(doc, nm); answer(doc, a)
