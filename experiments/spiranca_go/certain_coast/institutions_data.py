@@ -53,7 +53,7 @@ UPT = dict(
              ]),
     ],
     glance=[
-        ('Project Director', '[Name, position], FGJM; [30%] of working time on the project'),
+        ('Project Director', 'Assoc. Prof. Dr. Dulian Zeqiraj, [position], FGJM; [30%] of working time on the project'),
         ('Team', '[FGJM members]; [IGEO members, 15%]; early-career researchers recruited by the project'),
         ('Research team page', '[link to the web page of the research team]'),
     ],
@@ -69,7 +69,8 @@ UPT = dict(
         'Key publications: Cenameri and Beqiraj (2016), Bulletin of the Geological Society of Greece 50(2), 665–670; '
         'Raço et al. (2022), Journal of Ecological Engineering 23(8), 327–340, doi:10.12911/22998993/151073; '
         '[3–5 publications of the project team, with DOI].',
-        '[2–3 relevant projects of the team: title, funder, years, role]',
+        'Preparatory work (2026): eleven reviews with tested methods and a calibrated chloride model of the Fushë-Kuqe '
+        'aquifer (technical annex, on request); [2–3 relevant projects of the team: title, funder, years, role].',
     ],
     new=[
         'One university brings both ends of the warning chain: FGJM\'s record of seawater intrusion and coastal hazards '
