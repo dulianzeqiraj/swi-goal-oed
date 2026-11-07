@@ -75,7 +75,7 @@ def innovations():
         for kind, content in blocks:
             if kind != 'b' or not isinstance(content, str):
                 continue
-            m = re.match(r'\*\*([MP]\d)\. (.+?)\*\*', content)
+            m = re.match(r'\*\*([MP]\d+)\. (.+?)\*\*', content)
             if not m:
                 continue
             code, name = m.group(1), m.group(2).rstrip('.').rstrip(',')
@@ -155,10 +155,15 @@ def main(out):
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, 'CERTAIN-COAST — References', bold=True, size=18, color='1F3864')
     p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, FULL, bold=True, size=12, color='1F3864')
     frontier = method_frontier(papers)
-    n_total = len(papers) + len(D.LOCAL) + len(BM.REFS) + len(frontier) + len(NATO) + len(FRAME) + len(DATA)
+    ccode = {_title(r_): f'C{i}' for i, r_ in enumerate(BM.REFS + frontier, start=1)}
+    # sources of the innovations that are neither State of the Art papers nor Methodology references keep their X code
+    xonly = [(code, cite, url) for code, cite, url in D.OTHER if not ccode.get(_title(cite))]
+    n_total = (len(papers) + len(D.LOCAL) + len(xonly) + len(BM.REFS) + len(frontier) + len(NATO) + len(FRAME)
+               + len(DATA))
     p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, f'This list brings together the **{n_total} sources** cited in the CERTAIN-COAST documents, in six groups with their own '
-            'codes: the 30 papers of the State of the Art [1]–[30] and the local study [L1]; the method references of the '
+            'codes: the 30 papers of the State of the Art [1]–[30], the local study [L1] and further sources of the '
+            'innovations [X]; the method references of the '
             'Methodology [C], classic and from the 2018–2026 frontier; NATO and SPS documents [N]; policy, legal and ethics frameworks [F]; and data standards and '
             'repositories [D]. Each entry says where it is used. A map links each innovation of the project to the references '
             'it builds on, and a compact key list is given for form fields with a word limit.', size=11)
@@ -167,12 +172,11 @@ def main(out):
            'is a third-party page and is marked as such.', italic=True, size=9.5, color='52606D')
 
     heading(doc, '1. Innovations and the references they build on', 13.5, before=4)
-    ccode = {_title(r_): f'C{i}' for i, r_ in enumerate(BM.REFS + frontier, start=1)}
-    xmap = {code: ccode.get(_title(cite)) for code, cite, _ in D.OTHER}
+    xmap = {code: ccode.get(_title(cite)) or code for code, cite, _ in D.OTHER}
 
     def builds_on(refs):
         nums = [f'[{r}]' for r in sorted(r for r in refs if isinstance(r, int))]
-        lets = sorted({xmap[r] for r in refs if isinstance(r, str) and xmap.get(r)}, key=lambda c: int(c[1:]))
+        lets = sorted({xmap[r] for r in refs if isinstance(r, str) and xmap.get(r)}, key=lambda c: (c[0], int(c[1:])))
         return ', '.join(nums + [f'[{c}]' for c in lets])
     rows = [[c, n, builds_on(refs) or 'No direct precedent found: new in CERTAIN-COAST'] for c, n, refs in inv]
     t = table(doc, ['', 'Innovation', 'Builds on'], rows, [1.2, 10.0, 5.8], size=9.5)
@@ -194,6 +198,13 @@ def main(out):
     p = para(doc, 3, before=4); run(p, 'Local study', bold=True, size=11, color='2E6DB4'); p.paragraph_format.keep_with_next = True
     for code, cite, url in D.LOCAL:
         entry(doc, code, cite, url, None, 'State of the Art; Security Relevance (2019 liquefaction at Durrës)')
+    if xonly:
+        p = para(doc, 3, before=4); run(p, 'Further sources of the innovations', bold=True, size=11, color='2E6DB4')
+        p.paragraph_format.keep_with_next = True
+        used_by = {c: [code for code, _n, refs in inv if c in refs] for c, _, _ in xonly}
+        for code, cite, url in xonly:
+            entry(doc, code, cite, url, None, 'State of the Art; Innovation' + (f'; innovations {", ".join(used_by[code])}'
+                                                                                 if used_by[code] else ''))
 
     heading(doc, '3. Method references (Methodology)', 13.5, before=8)
     p = para(doc, 3, before=2); run(p, 'Classic methods', bold=True, size=11, color='2E6DB4'); p.paragraph_format.keep_with_next = True
