@@ -93,6 +93,14 @@ LETTERS = [
                   'the triggers for the post-event protocol (earthquake, shaking or water level) and participation in its design;',
                   'participation of [number] staff in the workshops, the operator training and the final demonstration.'],
          use='We intend to receive the bulletins and post-event reports during the live operation (Months 23–34) and to consider including the post-event protocol in our procedures. Any warning to the public will remain our responsibility and will be issued through our own channels.'),
+    dict(key='ambu', title='End-user: Water Resources Management Agency (AMBU)',
+         org='Agjencia e Menaxhimit të Burimeve Ujore (AMBU)', role='end-user (water resources)',
+         intro='Agjencia e Menaxhimit të Burimeve Ujore (AMBU, Water Resources Management Agency) manages the water resources of Albania, including the Tiranë–Fushë Kuqe–Lezhë aquifer that supplies Durrës. Seawater intrusion, record droughts and land subsidence threaten this aquifer. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
+         provide=['access to monitoring wells under our control for the project\'s level and salinity sensors, bought by the project, using existing wells only (no new drilling), from Month [4];',
+                  'our records of groundwater levels, chemistry and abstraction for the aquifer, under a data access agreement to be signed by Month 3;',
+                  'staff time to agree the chloride warning threshold and the acceptable false-alarm rate (Months 13–15) and to review the pumping and drought rule (Months 24–33);',
+                  'participation of [number] staff in the workshops and in the training on the open software (Months 24–36).'],
+         use='We intend to use the monitoring design, the chloride early warning for each supply well and the pumping and drought rule in [our monitoring programme and water-use permits for this aquifer], and to consider applying the method to other aquifers of Albania. As agreed, our participation creates no obligations of procurement, ownership or maintenance for AMBU.'),
     dict(key='ppd', title='Partner-country Project Director\'s institution',
          org='[Partner-country university or research institute]', role='partner-country co-director',
          intro='[Partner-country university or research institute], in [eligible partner country], commits to take part in CERTAIN-COAST as the institution of the partner-country Project Director, [title and name], who is employed by us in [eligible partner country].',
@@ -180,11 +188,12 @@ def main(out):
     run(p, '[highlighted]', italic=True, size=10, hl=True); run(p, '.', italic=True, size=10, color='52606D')
     p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     ph(p, 'The NATO SPS call requires a commitment letter from each end-user of a Multi-Year Project. CERTAIN-COAST has four '
-          'end-users (the water utility, the port authority, the energy landfall operator and civil protection) and a '
-          'partner-country co-director; two further letters are optional.')
+          'end-users (the water utility, the port authority, the energy landfall operator and civil protection), a fifth '
+          'proposed end-user (the Water Resources Management Agency, AMBU) and a partner-country co-director; two further '
+          'letters are optional.')
 
     heading(doc, 'The letters', 13, before=4)
-    rows = [[str(i), L['title'], L['org'].strip('[]'), 'Required' if i <= 5 else 'Optional', '[to send]']
+    rows = [[str(i), L['title'], L['org'].strip('[]'), 'Required' if i <= 6 else 'Optional', '[to send]']
             for i, L in enumerate(LETTERS, start=1)]
     t = table(doc, ['', 'Letter', 'Signed by', 'Status', 'Sent / received'], rows, [0.8, 5.6, 5.0, 2.0, 3.2], size=9.5)
     for r in t.rows[1:]:
@@ -335,8 +344,9 @@ def main_sq(out):
     print('saved', out, '|', len(SQ), 'letters in Albanian')
 
 
-def single(out, key):
-    """One end-user's letter alone (English, to sign) followed by its Albanian reading copy, for sending by e-mail."""
+def single(out, key, albanian=True):
+    """One end-user's letter alone (English, to sign), followed by its Albanian reading copy when there is one, for
+    sending by e-mail."""
     L = next(x for x in LETTERS if x['key'] == key)
     doc = Document()
     s = doc.sections[0]
@@ -344,14 +354,15 @@ def single(out, key):
     s.left_margin = s.right_margin = Cm(2.2); s.top_margin = s.bottom_margin = Cm(1.8)
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(11)
     letter(doc, L)
-    letter_sq(doc, L, SQ[key])
+    if albanian and key in SQ:
+        letter_sq(doc, L, SQ[key])
     doc.save(out)
     print('saved', out)
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 2 and sys.argv[1] == '--single':
-        single(sys.argv[3], sys.argv[2])
+    if len(sys.argv) > 2 and sys.argv[1] in ('--single', '--single-en'):
+        single(sys.argv[3], sys.argv[2], albanian=sys.argv[1] == '--single')
         sys.exit(0)
     main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Letters_of_Commitment.docx')
     if len(sys.argv) > 2:
