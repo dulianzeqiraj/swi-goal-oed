@@ -23,7 +23,7 @@ FULL = ('Certified early warning for seawater intrusion, liquefaction and extrem
 TEMPLATE = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023/SPS_MYP_Sample_IPR_Agreement.docx'
 HANDBOOK = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023/SPS_MYP_Handbook.pdf'
 END_USERS = ['[Durrës water utility]', '[Water Resources Management Agency (AMBU)]', '[Durrës Port Authority]',
-             '[energy landfall operator]', '[National Civil Protection Agency]']
+             '[Trans Adriatic Pipeline AG (TAP), Albania branch]', '[National Civil Protection Agency]']
 
 HOW = [
     '**What it is.** The NATO sample IPR agreement with its articles and numbering kept, filled in for CERTAIN-COAST. '

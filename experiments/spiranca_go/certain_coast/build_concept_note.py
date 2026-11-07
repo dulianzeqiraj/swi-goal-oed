@@ -39,9 +39,9 @@ END_USERS = [
      'Access to agreed locations for sensors under its security rules; geotechnical records and quay design levels '
      'under a data agreement; staff time for the thresholds and the post-event protocol.',
      'Liquefaction and extreme-water-level warnings for the port, post-event reports and trained staff.'),
-    ('Energy landfall operator',
-     'Access to agreed locations near the landfall under its security rules; design levels and geotechnical data; '
-     'staff time for the thresholds.',
+    ('Gas pipeline: Trans Adriatic Pipeline AG (TAP), landfall near Fier',
+     'Access to agreed locations near the landfall for a small set of sensors under its security rules; design levels '
+     'and geotechnical data; staff time for the thresholds.',
      'Stability bulletins combining shaking, liquefaction, water level and subsidence.'),
     ('Civil protection: Agjencia Kombëtare e Mbrojtjes Civile',
      'A seat on the steering committee; the triggers of the post-event protocol and its co-design.',

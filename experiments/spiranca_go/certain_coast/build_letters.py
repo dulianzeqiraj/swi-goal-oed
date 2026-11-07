@@ -1,5 +1,5 @@
 """CERTAIN-COAST (NATO SPS proposal): Letters of commitment (templates). A cover page (how to use, list of letters,
-what makes them strong) and one-page templates: five end-users (water utility, water resources agency AMBU, port authority, energy landfall
+what makes them strong) and one-page templates: five end-users (water utility, water resources agency AMBU, port authority, Trans Adriatic Pipeline (TAP)
 operator, civil protection), the partner-country Project Director's institution, and two optional letters (additional
 NATO co-director, Albanian research partner). Placeholders are in square brackets and highlighted in yellow; each
 organisation adapts the text to its real commitments, prints it on its letterhead and signs it.
@@ -78,17 +78,17 @@ LETTERS = [
                   'staff time to agree the liquefaction and water-level thresholds (Months 13–15) and to take part in the post-event protocol;',
                   'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
          use='We intend to receive and use the liquefaction and extreme-water-level bulletins for the port during the live operation (Months 23–34) and to consider adopting an operating procedure for the system. We are willing to discuss an arrangement for its maintenance after the project.'),
-    dict(key='energy', title='End-user: operator of the energy landfall',
-         org='[Name of the energy landfall operator]', role='end-user (energy landfall)',
-         intro='[Name of the energy landfall operator] operates the energy landfall at [location], where supply from the sea meets the national system. Its stability depends on the ground and on the sea level at the coast. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
-         provide=['access to agreed locations near the landfall for sensors, under our security rules and with our escort, from Month [4];',
+    dict(key='energy', title='End-user: Trans Adriatic Pipeline AG (TAP)',
+         org='Trans Adriatic Pipeline AG (TAP), Albania Branch', role='end-user (TAP landfall near Fier)',
+         intro='Trans Adriatic Pipeline AG (TAP) operates the Trans Adriatic Pipeline. Its landfall near Fier is where the pipeline leaves the Albanian shore for its 105 km offshore section across the Adriatic Sea to Italy. The stability of the landfall depends on the ground and on the sea level at the coast. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
+         provide=['access to agreed locations near the landfall for a small set of sensors (GNSS, corner reflectors, a seismic station and a water-table logger), under our security rules and with our escort, from Month [4];',
                   'the design levels and available geotechnical information needed for the stability checks, under a data access agreement to be signed by Month 3;',
                   'staff time to agree the thresholds for the landfall (Months 13–15);',
                   'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
          use='We intend to receive and use the stability bulletins for the landfall, combining shaking, liquefaction, water level and subsidence, during the live operation (Months 23–34), and to consider adopting an operating procedure. We are willing to discuss an arrangement for its maintenance after the project.'),
     dict(key='civil', title='End-user: National Civil Protection Agency',
          org='Agjencia Kombëtare e Mbrojtjes Civile (National Civil Protection Agency)', role='end-user (civil protection)',
-         intro='Agjencia Kombëtare e Mbrojtjes Civile (National Civil Protection Agency) is responsible for preparedness and response to disasters in Albania. The Durrës coast, where drinking water, the main port and an energy landfall are close together on soft and subsiding ground, is a priority for us since the earthquake of 26 November 2019. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
+         intro='Agjencia Kombëtare e Mbrojtjes Civile (National Civil Protection Agency) is responsible for preparedness and response to disasters in Albania. The Adriatic coast from Durrës to Fier, where the drinking-water wells and the main port of Durrës and the landfall of the Trans Adriatic Pipeline near Fier stand on soft, low and subsiding ground, is a priority for us since the earthquake of 26 November 2019. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
          provide=['a representative on the project steering committee, meeting every six months;',
                   'the triggers for the post-event protocol (earthquake, shaking or water level) and participation in its design;',
                   'participation of [number] staff in the workshops, the operator training and the final demonstration.'],
@@ -188,7 +188,7 @@ def main(out):
     run(p, '[highlighted]', italic=True, size=10, hl=True); run(p, '.', italic=True, size=10, color='52606D')
     p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     ph(p, 'The NATO SPS call requires a commitment letter from each end-user of a Multi-Year Project. CERTAIN-COAST has five '
-          'end-users (the water utility, the port authority, the energy landfall operator, civil protection and the Water '
+          'end-users (the water utility, the port authority, the Trans Adriatic Pipeline (TAP), civil protection and the Water '
           'Resources Management Agency, AMBU) and a partner-country co-director; two further letters are optional.')
 
     heading(doc, 'The letters', 13, before=4)
@@ -217,7 +217,7 @@ def main(out):
 
 # ------------------------------------------------------------------------------------------------- Albanian copy
 SQ_ROLE = {'utility': 'përdorues fundor (fushat e puseve)', 'port': 'përdorues fundor (porti)',
-           'energy': 'përdorues fundor (pika e daljes në breg të energjisë)', 'civil': 'përdorues fundor (mbrojtja civile)'}
+           'energy': 'përdorues fundor (pika e daljes në breg e TAP pranë Fierit)', 'civil': 'përdorues fundor (mbrojtja civile)'}
 SQ = {
     'utility': dict(
         intro='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a. furnizon Durrësin me ujë të pijshëm nga fushat e puseve '
@@ -256,12 +256,14 @@ SQ = {
             'operimit të drejtpërdrejtë (Muajt 23–34) dhe të shqyrtojmë miratimin e një procedure operative për sistemin. '
             'Jemi të gatshëm të diskutojmë një marrëveshje për mirëmbajtjen e tij pas projektit.'),
     'energy': dict(
-        intro='[Emri i operatorit të pikës së daljes në breg të energjisë] operon pikën e daljes në breg të energjisë '
-              '(energy landfall) në [vendndodhja], ku furnizimi nga deti lidhet me sistemin kombëtar. Qëndrueshmëria e saj '
-              'varet nga toka dhe nga niveli i detit në bregdet. Mbështesim aplikimin e projektit CERTAIN-COAST në Programin '
+        intro='Trans Adriatic Pipeline AG (TAP) operon Gazsjellësin Trans-Adriatik. Pika e tij e daljes në breg (landfall) '
+              'pranë Fierit është vendi ku gazsjellësi largohet nga bregu shqiptar për seksionin detar prej 105 km përmes '
+              'Detit Adriatik drejt Italisë. Qëndrueshmëria e pikës së daljes në breg varet nga toka dhe nga niveli i detit '
+              'në bregdet. Mbështesim aplikimin e projektit CERTAIN-COAST në Programin '
               'NATO SPS dhe angazhohemi të marrim pjesë si përdorues fundor.',
-        provide=['akses në vende të rëna dakord pranë pikës së daljes në breg për sensorët, sipas rregullave tona të '
-                 'sigurisë dhe me shoqërimin tonë, nga Muaji [4];',
+        provide=['akses në vende të rëna dakord pranë pikës së daljes në breg për një grup të vogël sensorësh (GNSS, '
+                 'reflektorë këndorë, një stacion sizmik dhe një regjistrues i nivelit të ujit nëntokësor), sipas '
+                 'rregullave tona të sigurisë dhe me shoqërimin tonë, nga Muaji [4];',
                  'nivelet e projektimit dhe të dhënat gjeoteknike në dispozicion që nevojiten për kontrollet e '
                  'qëndrueshmërisë, sipas një marrëveshjeje për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
                  'kohë të stafit për të rënë dakord për pragjet për pikën e daljes në breg (Muajt 13–15);',
@@ -272,8 +274,9 @@ SQ = {
             'për mirëmbajtjen e sistemit pas projektit.'),
     'civil': dict(
         intro='Agjencia Kombëtare e Mbrojtjes Civile është përgjegjëse për gatishmërinë dhe reagimin ndaj fatkeqësive në '
-              'Shqipëri. Bregdeti i Durrësit, ku uji i pijshëm, porti kryesor dhe një pikë e daljes në breg të energjisë '
-              'janë pranë njëri-tjetrit në tokë të butë që po ulet, është përparësi për ne që nga tërmeti i 26 nëntorit '
+              'Shqipëri. Bregdeti nga Durrësi në Fier, ku puset e ujit të pijshëm dhe porti kryesor i Durrësit dhe pika '
+              'e daljes në breg e Gazsjellësit Trans-Adriatik pranë Fierit ndodhen në tokë të butë, të ulët dhe që po '
+              'ulet, është përparësi për ne që nga tërmeti i 26 nëntorit '
               '2019. Mbështesim aplikimin e projektit CERTAIN-COAST në Programin NATO SPS dhe angazhohemi të marrim pjesë si '
               'përdorues fundor.',
         provide=['një përfaqësues në komitetin drejtues të projektit, që mblidhet çdo gjashtë muaj;',

@@ -34,7 +34,7 @@ NOTES = [
     '**Deadline.** Confirm the deadline and phase of the 2027-1 call on nato.int before sending.',
 ]
 STRONG = [
-    '**One page that leads with the security problem,** three critical assets of an Ally on one subsiding coast, before any method.',
+    '**One page that leads with the security problem,** three critical assets of an Ally on one subsiding coastal plain, before any method.',
     '**The innovation stated as a checkable promise:** every warning carries a certified miss rate that is verified against the log of live operation.',
     '**Commitments, not intentions:** the end-users are named and their letters are enclosed; eligibility is confirmed up front.',
 ]
@@ -62,8 +62,9 @@ def main(out):
     body = [
         f'On behalf of the consortium, I am pleased to submit CERTAIN-COAST for consideration under the NATO Science for Peace '
         f'and Security call 2027-1, as a Multi-Year Project of 36 months with a requested budget of €{total:,.0f}.',
-        'The Durrës coast of Albania brings together, within a few kilometres, the wellfields that supply drinking water, the '
-        'country\'s main port and an energy landfall. They stand on soft, subsiding ground near active faults, where the '
+        'The Adriatic coastal plain of Albania carries, at two sites, three kinds of critical infrastructure: at Durrës, the '
+        'wellfields that supply drinking water and the country\'s main port; near Fier, the landfall where the Trans Adriatic '
+        'Pipeline leaves the shore for Italy. They stand on soft, subsiding ground; near Durrës active faults lie close, and the '
         'earthquake of 26 November 2019 caused liquefaction. Seawater intrusion, liquefaction and extreme sea levels threaten '
         'them through the same variables, yet they are monitored separately, and no existing warning states how often it misses.',
         'CERTAIN-COAST will build, demonstrate and hand over one early-warning system for the three hazards, driven by one '
@@ -76,7 +77,7 @@ def main(out):
         'chain in line with NATO\'s principles of responsible use of artificial intelligence.',
         'The project is directed by me, as NATO-country Project Director, and by [title and name] of [institution], '
         '[eligible partner country], as partner-country Project Director. The water utility of the Durrës wellfields, the Water '
-        'Resources Management Agency (AMBU), the Durrës Port Authority, the operator of the energy landfall and the National '
+        'Resources Management Agency (AMBU), the Durrës Port Authority, Trans Adriatic Pipeline AG (TAP) and the National '
         'Civil Protection Agency take part as end-users and '
         'have confirmed their commitment in the enclosed letters.',
         'We confirm that both co-directors are employed by [academic / governmental / non-profit] institutions and that neither '

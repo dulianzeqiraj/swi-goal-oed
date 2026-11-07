@@ -57,7 +57,7 @@ GLANCE = [
      'InSAR time-series processing; ambient-noise seismic interferometry', 'WP1; T4.4'],
     ['Albanian research partner (candidate)', 'Albania', '[e.g. the Institute of Geosciences, Polytechnic University of Tirana]',
      'Seismic, strong-motion, GNSS and hydrometeorological networks and data', 'WP1, WP4; T5.4'],
-    ['End-users (commitment letters)', 'Albania', '[Durrës water utility]; [Water Resources Management Agency (AMBU)]; [Durrës Port Authority]; [energy landfall operator]; [National Civil Protection Agency]',
+    ['End-users (commitment letters)', 'Albania', '[Durrës water utility]; [Water Resources Management Agency (AMBU)]; [Durrës Port Authority]; [Trans Adriatic Pipeline AG (TAP), Albania branch]; [National Civil Protection Agency]',
      'Thresholds, site access, data, operation of the system after hand-over', 'T3.1; WP5; T6.2, T6.4'],
 ]
 
@@ -115,7 +115,7 @@ ENDUSERS = [
      'Access to its monitoring wells (existing wells only) and records; staff time', 'Monitoring design; chloride early warning per supply well; no procurement, ownership or maintenance obligations'],
     ['Durrës Port Authority', 'Agrees liquefaction and water-level thresholds; receives bulletins for the port',
      'Site access for sensors; geotechnical records', 'Liquefaction and water-level warnings; post-event reports'],
-    ['Operator of the energy landfall', 'Agrees thresholds for the landfall; receives bulletins',
+    ['Trans Adriatic Pipeline AG (TAP)', 'Agrees thresholds for its landfall near Fier; receives bulletins',
      'Site access under its security rules; design levels', 'Stability checks combining shaking, liquefaction and water level'],
     ['National Civil Protection Agency', 'Receives one picture of water, port and energy after events; co-designs the post-event protocol',
      'Triggers for the post-event protocol; participation in workshops', 'Post-event reports; procedures; policy brief'],
@@ -145,7 +145,7 @@ VALUE = [
 CHECK = [
     'Name the partner-country institution and Project Director, and check the country on the official eligible list of the call.',
     'Confirm the NATO-country institution and, if wanted, an additional NATO co-director.',
-    'Obtain a commitment letter from each end-user (water utility, water resources agency AMBU, port authority, energy landfall operator, civil protection).',
+    'Obtain a commitment letter from each end-user (water utility, water resources agency AMBU, port authority, Trans Adriatic Pipeline AG (TAP), civil protection).',
     'Agree the work-package leadership in Table 4 and update the Budget split by recipient accordingly.',
     'Draft the consortium agreement, including data access and the publication review.',
     'Confirm the call deadline and phase on nato.int: a third-party summary lists 15 November 2026 for the 2027-1 call.',
@@ -196,8 +196,8 @@ def fig_structure(path):
 
     ax.add_patch(FancyBboxPatch((0.08, 0.08), W - 0.16, 0.90, boxstyle='round,pad=0,rounding_size=0.08', fc='#e6f4ec', ec='#1e8a5a', lw=1.4))
     ax.text(0.22, 0.80, 'End-users (commitment letters)', fontsize=10, fontweight='bold', color='#1e8a5a', ha='left', va='center')
-    names = ['Water utility', 'Port authority', 'Energy landfall\noperator', 'Civil protection']
-    ew = (W - 0.16 - 0.30 - 0.12 * 3) / 4
+    names = ['Water utility', 'Water agency\n(AMBU)', 'Port authority', 'TAP (gas\npipeline)', 'Civil\nprotection']
+    ew = (W - 0.16 - 0.30 - 0.12 * (len(names) - 1)) / len(names)
     for i, n in enumerate(names):
         x = 0.23 + i * (ew + 0.12)
         ax.add_patch(FancyBboxPatch((x, 0.16), ew, 0.50, boxstyle='round,pad=0,rounding_size=0.06', fc='white', ec='#1e8a5a', lw=1.0))

@@ -15,9 +15,9 @@ FULL = ('Certified early warning for seawater intrusion, liquefaction and extrem
         'energy landfall of a subsiding Adriatic coast')
 
 MAIN = [
-    'The Durrës coast of Albania concentrates three kinds of critical infrastructure of a NATO member within a few kilometres: '
-    'drinking-water wellfields, the country\'s main port and an energy landfall. All stand on soft, subsiding sediments near '
-    'active thrust faults, and the 2019 Mw 6.4 earthquake caused liquefaction along this coast. Three hazards threaten them '
+    'In Albania, a NATO member, three critical assets stand on soft, subsiding coastal sediments: the drinking-water '
+    'wellfields and main port of Durrës and, near Fier, the landfall of the Trans Adriatic gas pipeline to Italy. Near '
+    'Durrës, active thrust faults lie close and the 2019 Mw 6.4 earthquake caused liquefaction. Three hazards threaten them '
     'through the same variables, relative sea level and the water table: seawater intrusion, liquefaction and extreme sea '
     'levels. Today they are modelled separately, and no warning states how often it misses.',
     'CERTAIN-COAST will build, demonstrate and hand over one early-warning system for all three. InSAR, GNSS and sea-level data '
@@ -28,12 +28,13 @@ MAIN = [
     'of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%. The monitoring network is designed to '
     'reduce these miss rates at least cost. A certified safe operating window, sharpened by short, safe pumping tests, gives '
     'the year from which no pumping plan keeps the three assets safe.',
-    'The system will run live for twelve months with the water utility, the water agency, port, landfall operator and civil protection, and will '
+    'The system will run live for twelve months with the water utility, the water agency, port, gas pipeline operator (TAP) and civil protection, and will '
     'be released as open software, transferable to other subsiding coasts.',
 ]
 
-SHORT = ('The Durrës coast of Albania hosts, within a few kilometres, the drinking-water wellfields, main port and an energy '
-         'landfall of a NATO member, on subsiding sediments where the 2019 earthquake caused liquefaction. Seawater intrusion, '
+SHORT = ('On the Adriatic coast of Albania, a NATO member, the drinking-water wellfields and main port of Durrës and the '
+         'landfall of the Trans Adriatic gas pipeline near Fier stand on subsiding sediments; near Durrës the 2019 earthquake '
+         'caused liquefaction. Seawater intrusion, '
          'liquefaction and extreme sea levels threaten them through shared variables, yet are monitored separately, and no '
          'warning states how often it misses. CERTAIN-COAST couples the three hazards in one physical model driven by satellite, '
          'GNSS and sea-level data, runs it in real time through a surrogate with a certified error bound, and issues alarms whose '
@@ -41,8 +42,8 @@ SHORT = ('The Durrës coast of Albania hosts, within a few kilometres, the drink
          'warnings, twelve months of live operation with the operators and civil protection, and open software make the '
          'capability lasting and transferable.')
 
-LAY = ('Near Durrës, the drinking-water wells, the main port and an energy connection from the sea stand on low ground that is '
-       'slowly sinking. Three dangers threaten them: sea water entering the wells, ground that turns almost liquid in an '
+LAY = ('At Durrës the drinking-water wells and the main port, and near Fier the place where a gas pipeline to Italy leaves '
+       'the shore, stand on low ground that is slowly sinking. Three dangers threaten them: sea water entering the wells, ground that turns almost liquid in an '
        'earthquake, and the sea flooding the land in storms. The dangers are linked, but today they are watched separately. '
        'CERTAIN-COAST will watch them together, from satellites and sensors on the ground, and send warnings that say in advance '
        'how often they can be wrong, and then check it. Local operators will run the system after the project.')
