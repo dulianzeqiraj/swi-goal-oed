@@ -335,7 +335,24 @@ def main_sq(out):
     print('saved', out, '|', len(SQ), 'letters in Albanian')
 
 
+def single(out, key):
+    """One end-user's letter alone (English, to sign) followed by its Albanian reading copy, for sending by e-mail."""
+    L = next(x for x in LETTERS if x['key'] == key)
+    doc = Document()
+    s = doc.sections[0]
+    s.page_width, s.page_height = Cm(21.0), Cm(29.7)
+    s.left_margin = s.right_margin = Cm(2.2); s.top_margin = s.bottom_margin = Cm(1.8)
+    st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(11)
+    letter(doc, L)
+    letter_sq(doc, L, SQ[key])
+    doc.save(out)
+    print('saved', out)
+
+
 if __name__ == '__main__':
+    if len(sys.argv) > 2 and sys.argv[1] == '--single':
+        single(sys.argv[3], sys.argv[2])
+        sys.exit(0)
     main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Letters_of_Commitment.docx')
     if len(sys.argv) > 2:
         main_sq(sys.argv[2])
