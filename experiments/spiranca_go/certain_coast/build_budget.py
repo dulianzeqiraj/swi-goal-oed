@@ -153,6 +153,31 @@ def compute():
     return rows
 
 
+def periods(y):
+    """Whole-euro amounts for the SPS reporting periods ending at Milestone 1 (month 6), Milestone 2 (18), Milestone 3
+    (30) and the final report (36), from a line's spending in project years 1-3, spread evenly within each year.
+    Cumulative rounding keeps the line total exact."""
+    y1, y2, y3 = y
+    cum = [y1 / 2, y1 + y2 / 2, y1 + y2 + y3 / 2, y1 + y2 + y3]
+    r = [int(c + 0.5) for c in cum]
+    return [r[0], r[1] - r[0], r[2] - r[1], r[3] - r[2]]
+
+
+def director_lines():
+    """Every budget line split by recipient (NPD, PPD), with whole-euro amounts per reporting period. The Detailed
+    Budget workbook guide and the application form both use these, so their numbers agree."""
+    out = []
+    for r in compute():
+        for rec in ('NPD', 'PPD'):
+            amount = r['npd'] if rec == 'NPD' else r['ppd']
+            if amount:
+                share = amount / r['tot']
+                per = periods([v * share for v in r['y']])
+                assert sum(per) == round(amount), (r['item'], per, amount)
+                out.append(dict(rec=rec, cat=r['cat'], item=r['item'], tot=round(amount), per=per))
+    return out
+
+
 def eur(x):
     return f'{x:,.0f}'.replace(',', ' ')
 

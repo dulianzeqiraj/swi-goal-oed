@@ -656,12 +656,10 @@ def sps_cat(r):
 
 def budget_tables():
     rows = BB.compute()
-    by = defaultdict(lambda: [0.0] * 4)
-    for r in rows:
-        y1, y2, y3 = r['y']
-        per = [y1 / 2, y1 / 2 + y2 / 2, y2 / 2 + y3 / 2, y3 / 2]   # periods ending at M1 (6), M2 (18), M3 (30), final (36)
-        for i, v in enumerate(per):
-            by[sps_cat(r)][i] += v
+    by = defaultdict(lambda: [0] * 4)
+    for ln in BB.director_lines():   # whole euros per period ending at M1 (6), M2 (18), M3 (30), final (36)
+        for i, v in enumerate(ln['per']):
+            by[sps_cat(ln)][i] += v
     total = sum(r['tot'] for r in rows)
     return rows, by, total
 
@@ -698,7 +696,7 @@ def main(out):
     heading(doc, 'Checklist: uploads and signatures', 13, before=8)
     chk = [['SPS MYP Acceptance of Funds (NATO template)', 'PDF', 'Filled in: CERTAIN-COAST_SPS_MYP_Acceptance_of_Funds.docx; the NPD and a representative of the NPD\'s institution (Head of Institution or Financial Authority) sign; upload in tab 4', '[to do]'],
            ['SPS MYP Agreement for Joint Research (NATO template)', 'PDF', 'Filled in: CERTAIN-COAST_SPS_MYP_Agreement_for_Joint_Research.docx; all Co-Directors and a representative of each institution sign', '[to do]'],
-           ['SPS MYP Detailed Budget workbook (NATO Excel template, tabs "Info" and "Detail")', 'Excel', 'Fill by hand: the form warns that using AI on this file may corrupt it and lead to automatic rejection', '[to do]'],
+           ['SPS MYP Detailed Budget workbook (NATO Excel template, tabs "Info" and "Detail")', 'Excel', 'Fill by hand (the form warns that using AI on this file may corrupt it and lead to automatic rejection), typing the values of CERTAIN-COAST_Budget_Workbook_Guide.docx cell by cell', '[to do]'],
            ['Project schedule with a Gantt chart', 'PDF', 'Ready: CERTAIN-COAST_Project_Schedule.pdf', 'ready'],
            ['End-user commitments, all letters merged into one file', 'PDF', 'Each end-user on its own letterhead (drafts in the Letters of Commitment document)', '[to do]'],
            ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Draft: CERTAIN-COAST_Institutions_Overview.docx; fill the yellow fields, save as PDF', '[to do]'],
