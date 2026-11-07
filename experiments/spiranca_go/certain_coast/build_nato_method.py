@@ -164,6 +164,12 @@ MAP = [
                                'and logger-drift errors corrected; robust network with a certified optimality gap',
      '12 sensors: worst-case information 5.59 nats against 3.67 (interference ignored); certified gap 18%; 90% intervals '
      'cover 88–93% corrected, 49–62% ignored', 'WP4, T4.1 and T4.3'],
+    ['Review XI, SHTEGU-GO', 'Warnings for crossings between samples: a band over all models that fit the records '
+                             '(robust pricing), certified by a conformal margin; the observation that closes the band; '
+                             'online warning as the conditional probability (neural jump ODE)',
+     'Crossing in the season 0.78, 34 times the exceedance on a sampling date; band 0.18–1 quarterly, 0.76–0.80 daily '
+     'logger; certified coverage 90.3% for skewed chloride (74% without); warning skill 7% to 20% with a head logger',
+     'WP3, T3.2; WP4, T4.1'],
     ['CERTAIN-COAST Methodology v3 (C1–C3)', 'Certified safe operating window; years of safe operation per sensor; safe '
                                             'pumping tests chosen for the years they add', 'Window closed after 38 years '
                                                                                            '(single-hazard plans: 43–97); '
@@ -200,9 +206,10 @@ def fig_chain(path):
         cv.box(2, y - 4, 40, 8, '#eef0f2', '#5b6672', lw=0.9, r=1.6)
         cv.text(22, y, d)
     # the three pillars
-    box(48, 66, 80, 28, '1  Guaranteed reconstruction (WP2, WP3)',
+    box(48, 63, 80, 32, '1  Guaranteed reconstruction (WP2, WP3)',
         ['inputs and boundaries from rain and heads', 'valid with a wrong simulator or rain product',
-         'and under drift; a floor shows the limit'], 'reviews I, III–VI; SHIU-GO, RINDËRTIMI-GO', BLUE, '#e3eefb')
+         'and under drift; a floor shows the limit', 'crossings between samples certified'],
+        'reviews I, III–VI, XI; SHIU-GO, RINDËRTIMI-GO', BLUE, '#e3eefb')
     box(48, 38, 80, 22, '2  Value of a measurement (WP4)',
         ['guaranteed band removed, years added', 'reference channels correct the sensors'], 'reviews II, X; CERTAIN-COAST C2',
         AQUA, '#e2f5ee')
@@ -220,7 +227,7 @@ def fig_chain(path):
     for y, _ in data[:4]:
         arr(42, y, 48, 80 + (y - 71) * 0.35, '#5b6672')
     arr(42, 17, 48, 17, '#5b6672')
-    arr(88, 66, 88, 60, BLUE)
+    arr(88, 63, 88, 60, BLUE)
     arr(88, 38, 88, 32, AQUA)
     arr(128, 84, 134, 84, BLUE)
     arr(128, 72, 134, 62, BLUE)
@@ -256,7 +263,7 @@ def main(out):
     put(p, f'{SHORT} — the state-of-the-art methodology for the NATO SPS form', size=17, color=NAVY); p.runs[0].bold = True
     p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'What the 2027-1 call and the official form require, how long each part may be, and the methodology drawn from '
-           'reviews I–X as texts ready to paste', size=11, color=GREY)
+           'reviews I–XI as texts ready to paste', size=11, color=GREY)
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'Dulian Zeqiraj · 7 November 2026 · Multi-Year Project, call 2027-1 · deadline 15 November 2026, 23:59 CET',
         size=9.5, color=GREY, italic=True)
@@ -274,10 +281,10 @@ def main(out):
         'project advances the state of the art), "State-of-the-art: Related Projects / Duplication" (no stated limit) and '
         '"Current status" (no stated limit). The call requires recent literature references and forbids making the mapping '
         'of the state of the art an objective of the project.',
-        '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–900 words with '
-        'references, current status 300–600, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
+        '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–1,000 words with '
+        'references, current status 300–700, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
         f'**The five texts of Section 5 are now in the form text** (CERTAIN-COAST_NATO_Application_Form_Text.docx), '
-        f'built from the ten reviews: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
+        f'built from the eleven reviews: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
         f'art with references, current status and work-plan.']
     for k, it in enumerate(items):
         q = c.paragraphs[0] if k == 0 else c.add_paragraph()
@@ -318,7 +325,7 @@ def main(out):
     # ---------------------------------------------------------------------------------------------- 4 the method
     heading(doc, '4. The methodology in one picture', 14, before=8)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    put(p, 'The ten reviews and the two notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
+    put(p, 'The eleven reviews and the two notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
            'tasks, deliverables and gates, so the Gantt chart and the deliverable list stay valid: the new methods enter '
            'tasks T2.3, T3.2, T4.1, T4.3 and T5.3.')
     p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
@@ -356,7 +363,7 @@ def main(out):
     heading(doc, '6. References for the state-of-the-art field', 14, before=10)
     p = para(doc, 4)
     put(p, 'In the form text they follow text 5.3 in the same field (the form invites references). Most details come from '
-           'the cards of reviews I–X, which were checked through search results; check each one in a bibliographic database '
+           'the cards of reviews I–XI, which were checked through search results; check each one in a bibliographic database '
            'before submission.', size=10, color=GREY, italic=True)
     for txt, url in REFS:
         q = para(doc, 2, 0.4)

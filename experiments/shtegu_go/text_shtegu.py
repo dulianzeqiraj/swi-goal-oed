@@ -536,7 +536,7 @@ def blocks(R):
         f'daily logger narrowed it to {s["l_lo"]}–{s["l_hi"]}.']))
     A(('h2', '7.3 Indicators and sampling plan'))
     A(('b', '**Indicator 1.** For each wellfield, the certified band of the seasonal crossing probability is at most 0.25 '
-            'wide by Month 12 (test bed: 0.04 with a daily logger, 0.81 with quarterly samples).'))
+            'wide by Month 18, gate MS3 (test bed: 0.04 with a daily logger, 0.81 with quarterly samples).'))
     A(('b', f'**Indicator 2.** The certified band covers the observed crossing frequency in back-testing at the stated '
             f'level, at least 90% (test bed: {s["c_cert"]} with the margin).'))
     A(('b', '**Sampling plan.** A conductivity logger in at least one production well of each wellfield, logging every '
