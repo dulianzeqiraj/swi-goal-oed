@@ -1,0 +1,18 @@
+checks: {"p_bridge": 0.4732, "p_grid": 0.4194, "p_slow": 0.0236, "p_marginal": 0.022750131948179195, "fisher_mc": 14.641733402271099, "fisher_closed": 14.640888285562056, "fisher_short": 0.4999937500485914}
+  T37 quarterly samples : band 0.184-1.000 (true 0.780), upper bound open in 98%, coverage 0.98, samples show 0.031, CRB rel. s.e. 1375.52
+  T37 monthly samples   : band 0.479-1.000 (true 0.780), upper bound open in 96%, coverage 0.98, samples show 0.087, CRB rel. s.e. 1.16
+  T37 weekly samples    : band 0.713-0.840 (true 0.780), upper bound open in 0%, coverage 0.96, samples show 0.278, CRB rel. s.e. 0.10
+  T37 daily logger      : band 0.762-0.797 (true 0.780), upper bound open in 0%, coverage 0.96, samples show 0.571, CRB rel. s.e. 0.03
+T37: exceedance between samples 0.780 against marginal tail 0.0228; curve rises from 0.0727 to 1.000, min increment 0.00e+00
+table (9, 9, 11, 21) in 34 s
+  T38 marginals only: band 0.073-1.000 (true 0.798, 36490 models)
+  T38 quarterly samples : band 0.174-1.000 (31516 consistent models)
+  T38 monthly samples   : band 0.339-1.000 (23672 consistent models)
+  T38 weekly samples    : band 0.617-0.967 (5385 consistent models)
+  T38 daily logger      : band 0.637-0.884 (676 consistent models)
+  T39 monthly samples : raw coverage 0.97 (strong skew 0.97), margin 0.000, certified coverage 0.97 (50 splits: mean 0.970, 10-90% 0.96-0.98), median width 0.895 -> 0.895
+  T39 weekly samples  : raw coverage 0.97 (strong skew 0.96), margin 0.000, certified coverage 0.97 (50 splits: mean 0.967, 10-90% 0.96-0.97), median width 0.568 -> 0.568
+  T39 daily logger    : raw coverage 0.69 (strong skew 0.62), margin 0.052, certified coverage 0.87 (50 splits: mean 0.903, 10-90% 0.86-0.94), median width 0.318 -> 0.422
+  T40 Markov features (last sample)   : Brier 0.2185, skill 6.1% over climatology
+  T40 path features (samples)         : Brier 0.2168, skill 6.9% over climatology
+  T40 path features + head logger     : Brier 0.1854, skill 20.3% over climatology
