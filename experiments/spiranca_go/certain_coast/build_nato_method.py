@@ -160,6 +160,10 @@ MAP = [
     ['Review IX, FSHEHTA-GO', 'Pumping effects with hidden confounders read from the heads; a calibrated physics check',
      'Bias of the summed well effects +0.59 unadjusted, +0.56 history substitute, 0.00 physics; check size 6%, power '
      '99–100%', 'WP5, T5.3; WP4, T4.1'],
+    ['Review X, NDERHYRJA-GO', 'Reference channels (barometer, sealed hub channels) chosen with the piezometers; air-pressure '
+                               'and logger-drift errors corrected; robust network with a certified optimality gap',
+     '12 sensors: worst-case information 5.59 nats against 3.67 (interference ignored); certified gap 18%; 90% intervals '
+     'cover 88–93% corrected, 49–62% ignored', 'WP4, T4.1 and T4.3'],
     ['CERTAIN-COAST Methodology v3 (C1–C3)', 'Certified safe operating window; years of safe operation per sensor; safe '
                                             'pumping tests chosen for the years they add', 'Window closed after 38 years '
                                                                                            '(single-hazard plans: 43–97); '
@@ -200,7 +204,7 @@ def fig_chain(path):
         ['inputs and boundaries from rain and heads', 'valid with a wrong simulator or rain product',
          'and under drift; a floor shows the limit'], 'reviews I, III–VI; SHIU-GO, RINDËRTIMI-GO', BLUE, '#e3eefb')
     box(48, 38, 80, 22, '2  Value of a measurement (WP4)',
-        ['guaranteed band removed, years added', 'network chosen before it is bought'], 'review II; CERTAIN-COAST C2',
+        ['guaranteed band removed, years added', 'reference channels correct the sensors'], 'reviews II, X; CERTAIN-COAST C2',
         AQUA, '#e2f5ee')
     box(48, 2, 80, 30, '3  Causal and counterfactual (WP5)',
         ['pumping effects without hidden confounding', 'salinity under a drier recharge regime',
@@ -252,9 +256,9 @@ def main(out):
     put(p, f'{SHORT} — the state-of-the-art methodology for the NATO SPS form', size=17, color=NAVY); p.runs[0].bold = True
     p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'What the 2027-1 call and the official form require, how long each part may be, and the methodology drawn from '
-           'reviews I–IX as texts ready to paste', size=11, color=GREY)
+           'reviews I–X as texts ready to paste', size=11, color=GREY)
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    put(p, 'Dulian Zeqiraj · 6 November 2026 · Multi-Year Project, call 2027-1 · deadline 15 November 2026, 23:59 CET',
+    put(p, 'Dulian Zeqiraj · 7 November 2026 · Multi-Year Project, call 2027-1 · deadline 15 November 2026, 23:59 CET',
         size=9.5, color=GREY, italic=True)
 
     # ---------------------------------------------------------------------------------------------- 1 short answer
@@ -273,7 +277,7 @@ def main(out):
         '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–900 words with '
         'references, current status 300–600, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
         f'**The five texts of Section 5 are now in the form text** (CERTAIN-COAST_NATO_Application_Form_Text.docx), '
-        f'built from the nine reviews: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
+        f'built from the ten reviews: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
         f'art with references, current status and work-plan.']
     for k, it in enumerate(items):
         q = c.paragraphs[0] if k == 0 else c.add_paragraph()
@@ -314,9 +318,9 @@ def main(out):
     # ---------------------------------------------------------------------------------------------- 4 the method
     heading(doc, '4. The methodology in one picture', 14, before=8)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    put(p, 'The nine reviews and the two notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
+    put(p, 'The ten reviews and the two notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
            'tasks, deliverables and gates, so the Gantt chart and the deliverable list stay valid: the new methods enter '
-           'tasks T2.3, T3.2, T4.1 and T5.3.')
+           'tasks T2.3, T3.2, T4.1, T4.3 and T5.3.')
     p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(fpath, width=Cm(17.0))
     q = para(doc, 6)
@@ -352,7 +356,7 @@ def main(out):
     heading(doc, '6. References for the state-of-the-art field', 14, before=10)
     p = para(doc, 4)
     put(p, 'In the form text they follow text 5.3 in the same field (the form invites references). Most details come from '
-           'the cards of reviews I–IX, which were checked through search results; check each one in a bibliographic database '
+           'the cards of reviews I–X, which were checked through search results; check each one in a bibliographic database '
            'before submission.', size=10, color=GREY, italic=True)
     for txt, url in REFS:
         q = para(doc, 2, 0.4)
