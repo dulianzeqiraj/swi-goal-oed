@@ -173,6 +173,15 @@ SECTIONS = [
               'plausible sensor error and certifies its distance from the best network. In a preparatory test with 12 sensors '
               'the worst-case information rose by 52% against the classical design, with a certified gap of 18%, and the '
               'correction restored the coverage of 90% forecast intervals from 49–62% to 88–93%.'),
+        ('b', '**M10. Warnings for what happens between samples.** Laboratory samples arrive every few weeks or months, so a '
+              'warning issued only at the sampling dates misses the crossings between them. Neural jump ODEs learn the online '
+              'forecast from irregular, incomplete records [X8], and robust finance bounds a path-dependent price over all '
+              'models that fit the observed prices [X9]. CERTAIN-COAST reports the probability that chloride crosses its limit '
+              'at any time in the season as a band over all models consistent with the records, widens it by a conformal margin '
+              'calibrated on simulated aquifers and anchor periods, and adds the observation that closes the band (a logger, or '
+              'samples paired a few days apart). In a preparatory test a crossing within the season was 34 times likelier than '
+              'an exceedance on a sampling date (0.78 against 0.023); quarterly samples left the band at 0.18–1 and a daily '
+              'logger at 0.76–0.80, and for skewed chloride the margin restored a coverage of 90.3% (74% without).'),
         ('h', 'Physical innovations'),
         ('b', '**P1. One relative-sea-level boundary for all three hazards**, R(t) = η(t) − u_z(t), with u_z from InSAR/GNSS after removal '
               'of loading signals [1–5].'),
@@ -360,6 +369,10 @@ OTHER = [
      'https://arxiv.org/abs/2409.09137'),
     ('X7', 'Rasmussen, T. C. and Crawford, L. A. (1997). Identifying and removing barometric pressure effects in confined and unconfined aquifers. Ground Water 35(3), 502–511.',
      'https://doi.org/10.1111/j.1745-6584.1997.tb00111.x'),
+    ('X8', 'Krach, F., Nübel, M. and Teichmann, J. (2026). Optimal estimation of generic dynamics by path-dependent neural jump ODEs. Stochastic Processes and their Applications.',
+     'https://doi.org/10.1016/j.spa.2026.105058'),
+    ('X9', 'Gierjatowicz, P., Sabate-Vidales, M., Šiška, D., Szpruch, L. and Žurič, Ž. (2020). Robust pricing and hedging via neural SDEs. Working paper, SSRN 3646241.',
+     'https://ssrn.com/abstract=3646241'),
 ]
 
 WHAT_NEW = [

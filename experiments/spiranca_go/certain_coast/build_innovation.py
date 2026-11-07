@@ -1,5 +1,5 @@
-"""CERTAIN-COAST (NATO SPS proposal): Innovation. The core innovation and the four gaps it closes; the fifteen technical
-innovations at a glance (M1-M9, P1-P5 from the State of the Art, and V1 from the Impact section) with the novelty check
+"""CERTAIN-COAST (NATO SPS proposal): Innovation. The core innovation and the four gaps it closes; the sixteen technical
+innovations at a glance (M1-M10, P1-P5 from the State of the Art, and V1 from the Impact section) with the novelty check
 and the test of each; a figure placing them in the warning chain; one card per innovation (today, what is new, why it
 matters, how it is tested, novelty check); preliminary evidence; readiness now and at the end (TRL, EU definitions);
 innovations in delivery; protection and sharing; what is new in this section.
@@ -106,6 +106,23 @@ CARD = {
            'Robust design without a bound [m]; record-by-record correction [n]; here reference channels placed by design, with a '
            'certificate',
            'D4.1 (M6)'),
+    'M10': ('Neural jump ODEs learn the online forecast from irregular, incomplete records [o]; robust finance bounds a '
+            'path-dependent price over all models that fit the observed prices [p]. Coastal warnings are issued for the '
+            'sampling dates, and neither line of work certifies a bound outside its model family or names the observation '
+            'that would narrow it.',
+            'The probability that chloride crosses its limit at any time in the season, reported as a band over all models '
+            'consistent with the records, widened by a conformal margin calibrated on simulated aquifers and anchor periods; '
+            'the design adds the observation that closes the band (a logger, or samples paired a few days apart); online, '
+            'the warning is the conditional probability given the irregular samples and the daily heads.',
+            'Sparse samples pin the marginal law of chloride but not its time scale, so they bound a crossing only from '
+            'below: a well can turn salty between two samples that both look safe.',
+            'Preparatory: a crossing within the season 0.78 against 0.023 on a sampling date (34 times); band 0.18–1 with '
+            'quarterly samples, 0.76–0.80 with a daily logger; for skewed chloride the margin restored 90.3% coverage (74% '
+            'without); a head logger raised the warning skill from 7% to 20%. In the project: a certified band at most 0.25 '
+            'wide for each wellfield (D2.1, M18, gate MS3) and back-testing with crossings between samples (D3.2, M27).',
+            'Online forecast without a finite-record guarantee [o]; robust interval without a certificate [p]; here a '
+            'certified band for crossings between samples, with the observation that closes it',
+            'D2.1 (M18)'),
     'M4': ('Neural operators approximate PDE solution maps [25], kernel methods solve nonlinear PDEs [26], and conformal '
            'prediction calibrates operator learning [23]. These give approximation guarantees, not a certificate on each forecast '
            'of a coupled variable-density and poroelastic model. Generative models now reproduce the statistics of complex '
@@ -202,22 +219,24 @@ DELIVERY = [
     ('O3', 'Transfer tested by an outsider', 'The software release D6.1 is accepted only when someone outside the team installs it and reproduces the synthetic test coast.'),
 ]
 
-STAGES = [('Observe', ['P1', 'M3', 'P5', 'M9']), ('Model', ['M4', 'P2', 'M5', 'M7']), ('Warn', ['M1', 'M2', 'P4']),
+STAGES = [('Observe', ['P1', 'M3', 'P5', 'M9']), ('Model', ['M4', 'P2', 'M5', 'M7']), ('Warn', ['M1', 'M2', 'P4', 'M10']),
           ('Decide', ['P3', 'M6', 'V1', 'M8']), ('Verify', ['O1', 'O2', 'O3'])]
 SHORT = {'P1': 'One relative sea\nlevel R(t)', 'M3': 'Sensors designed\nfor the warnings', 'P5': 'Seismic velocity as\nwater-table gauge',
          'M4': 'Surrogate with\ncertified error', 'P2': 'Liquefaction safety\nfactor in time', 'M5': 'Extremes with\nland motion',
          'M1': 'Certified miss rate\nfor each alarm', 'M2': 'Joint guarantee\nfor three alarms', 'P4': 'Compaction tipping\npoint as alarm',
          'P3': 'Safe window and\nits closing year', 'M6': 'Safe pumping tests\nvalued in years', 'V1': 'Certified value\nfor each user',
          'M7': 'Guarantees for what\nis never measured', 'M8': 'Pumping effects\nwithout confounding',
-         'M9': 'Network corrects\nits own sensors',
+         'M9': 'Network corrects\nits own sensors', 'M10': 'Warnings between\nsamples',
          'O1': 'Verification\nfixed in advance', 'O2': 'Evidence gates,\nfixed thresholds', 'O3': 'Transfer tested\nby an outsider'}
 
 TRL = [
-    ['Certified multi-hazard warning system as a whole', 'M1–M9, P1–P5', '3', '6', 'Proof of concept on a synthetic coast → twelve months of live operation at the operators\' sites'],
+    ['Certified multi-hazard warning system as a whole', 'M1–M10, P1–P5', '3', '6', 'Proof of concept on a synthetic coast → twelve months of live operation at the operators\' sites'],
     ['Certified alarm margin and joint guarantee', 'M1, M2', '3', '6', 'Synthetic tests (4–9% vs 13–21%) → back-tested and verified live'],
     ['Error-certified surrogate of the coupled model', 'M4', '3', '6', 'Method components published → used for every live forecast'],
     ['Coupled model with R(t), FS(x,t) and compaction', 'P1, P2, P4', '3', '6', 'Preparatory coupled model → calibrated at the site and run live'],
     ['Multi-hazard sensor design', 'M3', '3', '6', 'Theory and preparatory design → network installed and streaming'],
+    ['Warnings for crossings between samples', 'M10', '3', '6', 'Synthetic test bed → certified band for each wellfield, '
+                                                                   'issued live'],
     ['Network that corrects its own sensors', 'M9', '3', '6', 'Synthetic test bed → reference channels installed and every '
                                                                 'reading corrected live'],
     ['Guarantees for unmeasured inputs and boundaries', 'M7', '3', '6', 'Simulated aquifers and the chloride model → '
@@ -240,7 +259,7 @@ NEW = [
     '**Every novelty claim is checked against the literature.** Each innovation names the 2020–2026 work it goes beyond, or states that no direct precedent was found in our search (M2, P3).',
     '**Every innovation is a testable claim.** Each has a pass test, a deliverable and a month, and the tests of M1, M4 and P2 decide the evidence gates.',
     '**Innovations placed in the warning chain.** Figure 1 shows where each acts, from observing the coast to verifying the warnings, so gaps and overlaps are visible.',
-    '**The innovations follow the preparatory evidence of 2026.** M7–M9 add the guarantees for what is never measured, pumping effects free of hidden confounding and a network that corrects its own sensors, each tested before the project, so every contribution named in the application form has its card.',
+    '**The innovations follow the preparatory evidence of 2026.** M7–M10 add the guarantees for what is never measured, pumping effects free of hidden confounding, a network that corrects its own sensors and warnings for crossings between samples, each tested before the project, so every contribution named in the application form has its card.',
     '**Readiness measured, not asserted.** The TRL of each component is given now and at the end, on the EU definitions, with the evidence behind each step.',
 ]
 
@@ -257,6 +276,8 @@ EXTRA = [
     ('j', 'Zimmer, C., Meister, M. and Nguyen-Tuong, D. (2018). Safe active learning for time-series modeling with Gaussian processes. Advances in Neural Information Processing Systems 31, 2730–2739.', None),
     ('l', 'Bica, I., Alaa, A. M. and van der Schaar, M. (2020). Time Series Deconfounder: estimating treatment effects over time in the presence of hidden confounders. Proceedings of the 37th International Conference on Machine Learning, PMLR 119.', 'https://proceedings.mlr.press/v119/bica20a.html'),
     ('m', 'Chowdhary, A., Attia, A. and Alexanderian, A. (2025). Robust optimal experimental design of infinite-dimensional Bayesian nonlinear inverse problems. arXiv:2409.09137.', 'https://arxiv.org/abs/2409.09137'),
+    ('o', 'Krach, F., Nübel, M. and Teichmann, J. (2026). Optimal estimation of generic dynamics by path-dependent neural jump ODEs. Stochastic Processes and their Applications.', 'https://doi.org/10.1016/j.spa.2026.105058'),
+    ('p', 'Gierjatowicz, P., Sabate-Vidales, M., Šiška, D., Szpruch, L. and Žurič, Ž. (2020). Robust pricing and hedging via neural SDEs. Working paper, SSRN 3646241.', 'https://ssrn.com/abstract=3646241'),
     ('n', 'Rasmussen, T. C. and Crawford, L. A. (1997). Identifying and removing barometric pressure effects in confined and unconfined aquifers. Ground Water 35(3), 502–511.', 'https://doi.org/10.1111/j.1745-6584.1997.tb00111.x'),
     ('k', 'Gao, H., Kaltenbach, S. and Koumoutsakos, P. (2024). Generative learning for forecasting the dynamics of high-dimensional complex systems. Nature Communications 15, 8904.', 'https://doi.org/10.1038/s41467-024-53165-w'),
 ]
@@ -343,7 +364,7 @@ def bullets(doc, items, size=10.5):
 
 def main(out):
     nm = names()
-    order = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'P1', 'P2', 'P3', 'P4', 'P5', 'V1']
+    order = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'P1', 'P2', 'P3', 'P4', 'P5', 'V1']
     work = tempfile.mkdtemp()
     f1 = os.path.join(work, 'fig_chain.png'); fig_chain(f1)
     f2 = os.path.join(work, 'fig_evidence.png'); fig_evidence(f2)
@@ -363,7 +384,7 @@ def main(out):
             'the energy landfall, and extreme sea levels at all three, driven by one physical model of a subsiding coast. It closes '
             'four gaps that the State of the Art identifies in the 2020–2026 literature:', size=10.5)
     bullets(doc, ['**No early warning treats the three hazards as one system,** although they share relative sea level and pore pressure and are moved by the same pumping lever (closed by P1, P2, P3, M2).',
-                  '**No warning for any of them carries a guarantee:** certified methods assume exchangeable data or hold on time average, none covers a slow physics model, and the first method for levels beyond the record (2026) is not yet used for coastal hazards (closed by M1, M4, M5).',
+                  '**No warning for any of them carries a guarantee:** certified methods assume exchangeable data or hold on time average, none covers a slow physics model, and the first method for levels beyond the record (2026) is not yet used for coastal hazards (closed by M1, M4, M5); and warnings are issued for the sampling dates, not for the crossings between them (closed by M10).',
                   '**The new sensors are measured but not designed:** no study chooses InSAR, seismic noise and fibre jointly with wells and samples to reduce missed warnings, and pumping tests are not designed for the decision they inform (closed by M3, P5, M6); networks take the errors of their own sensors as given, although air pressure and logger drift can be measured and removed (closed by M9).',
                   '**No guarantee covers what is never measured or the effect of a decision:** the boundaries known only through rain, and the effect of pumping when a hidden drought demand drives both the pumping and the recharge (closed by M7, M8).'])
     p = para(doc, 4, before=2); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -419,7 +440,9 @@ def main(out):
             'bands of M7 met their 10% target where the raw ensemble missed **17–20%** of the weeks; reading the recharge from the '
             'heads (M8) removed the bias of the summed pumping effects (**0.00** against 0.56 for a history substitute); and a '
             'network with reference channels (M9) kept **52%** more worst-case information than the classical design, certified '
-            'within 18% of the best network. The value bound of V1 '
+            'within 18% of the best network; the warning of M10 found a crossing within the season **34 times** likelier than '
+            'an exceedance on a sampling date, and its certified band restored a coverage of 90.3% for skewed chloride. The '
+            'value bound of V1 '
             'was checked against a direct calculation of the cost-loss model (Impact, Section 5).', size=10.5)
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(f2, width=Cm(15.5))

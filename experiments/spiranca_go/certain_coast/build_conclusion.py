@@ -1,5 +1,5 @@
 """CERTAIN-COAST (NATO SPS proposal): Conclusion. What the project will achieve (with headline figures computed from the
-other builders), why it matters for NATO and its partners, why it can be done, eight promises that can be checked at
+other builders), why it matters for NATO and its partners, why it can be done, nine promises that can be checked at
 Month 36 (each with how, when and what happens if it is not met), the closing request and what is new.
 
 usage: python build_conclusion.py OUT.docx"""
@@ -54,6 +54,10 @@ PROMISES = [
      'Calibrated physics check of every substitute on the pumping tests and logs before any effect is reported; safe window confirmed by the full model at its closing point (T5.3)',
      'M33',
      'The effect is reported with a stated bias band, or not at all; the window is recomputed with the full model'],
+    ['The warnings cover what happens between samples',
+     'For each wellfield, a certified band at most 0.25 wide for the chance that chloride crosses its limit within the season (D2.1); back-testing with crossings between samples included (D3.2)',
+     'M18 (gate MS3); M27 (MS5)',
+     'A logger or samples paired a few days apart are added where the band is too wide; until then the band is issued with its width'],
 ]
 NUMBER = {5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
 
@@ -120,7 +124,7 @@ def main(out):
 
     heading(doc, '3. Why it can be done', 13.5, before=8)
     bullets(doc, [
-        '**Evidence before the project.** In preparatory synthetic tests, the extreme-aware alarm kept the share of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%, and safe pumping tests raised the certified closing year of the safe window from 10.8 to 31.9 years with chloride below 123 mg/L in 95% of runs. The preparatory reviews of 2026 add three results: bands for the boundaries known only through rain met their 10% target where the raw ensemble missed 17–20% of the weeks; reading the recharge from the heads removed the bias of drought-driven pumping (0.00 against 0.56 for a history substitute); and a network with a barometer and hub reference channels kept 52% more worst-case information than the classical design, certified within 18% of the best one.',
+        '**Evidence before the project.** In preparatory synthetic tests, the extreme-aware alarm kept the share of seasons above the chloride limit at 4–9%, where a static alarm allowed 13–21%, and safe pumping tests raised the certified closing year of the safe window from 10.8 to 31.9 years with chloride below 123 mg/L in 95% of runs. The preparatory reviews of 2026 add four results: bands for the boundaries known only through rain met their 10% target where the raw ensemble missed 17–20% of the weeks; reading the recharge from the heads removed the bias of drought-driven pumping (0.00 against 0.56 for a history substitute); a network with a barometer and hub reference channels kept 52% more worst-case information than the classical design, certified within 18% of the best one; and a crossing of the chloride limit within the season was 34 times likelier than an exceedance on a sampling date, with a certified band that restored a coverage of 90.3% for skewed chloride.',
         '**Users on board from the start.** The water utility, the port authority, the landfall operator and civil protection confirm their roles in commitment letters, agree the thresholds before live operation (T3.1, Months 13–15) and co-sign the operational milestones.',
         '**Decisions by evidence.** Three gates (Months 18, 22 and 27) with thresholds fixed in advance decide whether each phase starts; each has a named fallback.',
         f'**Risks under control.** {F["nrisk"]} risks with owners and numeric triggers; before mitigation {b["Very high"]} very high and {b["High"]} high, after mitigation none high or very high.',

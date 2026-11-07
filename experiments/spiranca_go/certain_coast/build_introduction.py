@@ -178,7 +178,7 @@ def main(out):
     rich(p, O.AIM, size=10.5)
     rows = []
     for code, title, _what, _ind, dels, gap in O.OBJ:
-        inn = re.findall(r'\b[MP]\d\b', gap)
+        inn = re.findall(r'\b[MP]\d+\b', gap)
         rows.append([code, title, dels, ', '.join(inn) if inn else '—'])
     t = head_repeat(table(doc, ['', 'Objective', 'Proved by', 'Innovations'], rows, [1.0, 6.4, 7.2, 2.4], size=9.5))
     for r_ in t.rows[1:]:
