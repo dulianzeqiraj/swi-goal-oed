@@ -1,7 +1,7 @@
 """CERTAIN-COAST (NATO SPS proposal): Security relevance. Key facts; the security chain from coastal threats through the
 assets of Durrës to NATO resilience (figure); alignment with NATO priorities (SPS Key Priorities revised 2024, the 2027-1
 call, the 2022 Strategic Concept, the Climate Change and Security Action Plan, resilience commitments 2016-2023); the
-three baseline requirements served, with evidence; critical infrastructure where it comes ashore; the security decisions
+three baseline requirements served, with evidence; critical undersea infrastructure where it meets the shore; the security decisions
 the project supports and their stated reliability; the planning horizon (certified safe window and its closing year,
 from method_window.json; figure); AI testing, evaluation, verification and validation; assets, hazards and consequences;
 protection of sensitive results; cooperation and transfer; what is new; NATO and national sources with links.
@@ -33,10 +33,11 @@ FULL = ('Certified early warning for seawater intrusion, liquefaction and extrem
 INK, MUTED = '#1f2328', '#5b6672'
 C_W, C_P, C_E, C_N = '#2E6DB4', '#1F3864', '#C27C12', '#1E8A5A'   # water, port, energy, NATO resilience
 
-LEAD = ('The Durrës coast concentrates three kinds of critical infrastructure of a NATO Ally within a few kilometres: the '
-        'wellfields that supply drinking water, the country\'s main port, and an energy landfall where supply arrives from the '
-        'sea. All three stand on soft, subsiding coastal sediments near active thrust faults, and the 26 November 2019 Mw 6.4 '
-        'earthquake caused liquefaction along this coast [L1]. They are threatened slowly, by subsidence, rising relative sea '
+LEAD = ('Three kinds of critical infrastructure of a NATO Ally stand on the same low Adriatic coastal plain of Albania, at '
+        'two sites: at Durrës, the wellfields that supply drinking water and the country\'s main port; near Fier, the landfall '
+        'where the Trans Adriatic Pipeline (TAP) leaves the shore for its 105 km crossing to Italy [S13]. The plain is built of '
+        'soft sediments that settle slowly [L2]; at Durrës the ground is sinking near active thrust faults, and the 26 November '
+        '2019 Mw 6.4 earthquake caused liquefaction along this coast [L1]. They are threatened slowly, by subsidence, rising relative sea '
         'level and the advance of seawater into the aquifer, and suddenly, by earthquakes and storm surges, and the slow threats '
         'make the sudden ones worse. CERTAIN-COAST gives the people responsible for these assets warnings whose reliability is '
         'stated in advance and verified in operation, and a second number that security planning lacks: **how long a safe way '
@@ -47,21 +48,21 @@ TILES = [
     ('93.6%', 'of Albania\'s seaborne freight left from Durrës, Q2 2025 [S2]'),
     ('Mw 6.4', '26 Nov 2019 earthquake; liquefaction on this coast [L1]'),
     ('3 of 7', 'NATO baseline requirements served: water, energy, transport [S3]'),
+    ('105 km', 'undersea crossing of the TAP gas pipeline from its landfall near Fier to Italy [S13]'),
     ('≤ αₖ', 'certified miss rate of each warning, verified live'),
-    ('12 months', 'live operation with the operators and civil protection'),
     ('38 vs 43–97', 'years: certified safe window vs single-hazard plans (synthetic test)'),
     ('2 tiers', 'open methods; asset-level vulnerability kept restricted'),
 ]
 
 PRIORITIES = [
     '**SPS Key Priorities (revised 2024) [S4].** The project addresses **Environment, Climate Change and Security** (relative '
-    'sea-level rise, subsidence and salinisation turned into operational warnings), **Energy Security** (the stability of an '
-    'energy landfall) and **Emerging and Disruptive Technologies** (machine-learned surrogates and conformal guarantees used in '
+    'sea-level rise, subsidence and salinisation turned into operational warnings), **Energy Security** (the stability of the '
+    'landfall of the Trans Adriatic Pipeline) and **Emerging and Disruptive Technologies** (machine-learned surrogates and conformal guarantees used in '
     'a security decision chain).',
     '**The 2027-1 call [S5]** lists among its topics of particular interest the **"protection of critical infrastructure, '
     'supplies and personnel; maritime and undersea infrastructure resilience"**. CERTAIN-COAST falls squarely under this '
-    'topic: it protects a drinking-water supply, the country\'s main port and an energy landfall where undersea '
-    'infrastructure comes ashore, at one Allied site.',
+    'topic: it protects a drinking-water supply, the country\'s main port and the landfall where an undersea gas '
+    'pipeline between two Allies, Albania and Italy, leaves the shore, on one Allied coast.',
     '**The 2022 Strategic Concept [S6]:** "Climate change is a defining challenge of our time, with a profound impact on Allied '
     'security. It is a crisis and threat multiplier." On this coast the multiplication is physical: sea-level rise and '
     'subsidence raise the water table, which weakens the ground in an earthquake and brings seawater closer to the wells.',
@@ -80,7 +81,7 @@ BASELINE = [
      'Certified intrusion alarm; pumping kept inside the certified safe window', 'D3.2 back-testing; D5.1 live verification'],
     ['Resilient civil transportation systems', 'Port of Durrës', 'Liquefaction of quay backlands in an earthquake; storm surge; subsidence',
      'Liquefaction state that follows the water table; certified water-level warning; post-event bulletin', 'D5.1; operating procedures D6.2'],
-    ['Resilient energy supplies', 'Energy landfall', 'Liquefaction; extreme water levels; subsidence; shaking',
+    ['Resilient energy supplies', 'TAP landfall near Fier', 'Liquefaction; extreme water levels; subsidence; shaking',
      'Landfall stability check combining the four; continuous monitoring; post-event bulletin', 'D5.1; operating procedures D6.2'],
     ['Civil support to the military (purpose of the requirements)', 'Port and landfall', 'Loss of a logistics or energy node just when it is needed',
      'A stated and verified answer to "will it function after the earthquake or the storm?"', 'D5.1 verification ledger'],
@@ -90,7 +91,7 @@ DECISIONS = [
     ['Water utility', 'Reduce or shift pumping; take a well out of service', 'Weeks to months', 'Intrusion alarm; safe pumping window', 'Miss rate ≤ α₁, verified'],
     ['Water Resources Management Agency (AMBU)', 'Adjust monitoring and water-use permits for the aquifer', 'Months to seasons', 'Chloride early warning per supply well; pumping and drought rule', 'Miss rate ≤ α₁, verified'],
     ['Port authority', 'Restrict operations or loads; inspect quays after an earthquake; prepare for a surge', 'Hours to days', 'Liquefaction state; water-level warning; post-event bulletin', 'Miss rates ≤ α₂, α₃'],
-    ['Energy landfall operator', 'Inspect, protect or isolate the landfall', 'Hours to days', 'Landfall stability check; water-level warning', 'Miss rates ≤ α₂, α₃'],
+    ['Pipeline operator (TAP)', 'Inspect, protect or isolate the landfall', 'Hours to days', 'Landfall stability check; water-level warning', 'Miss rates ≤ α₂, α₃'],
     ['Civil protection', 'Set priorities across water, port and energy after an event', 'Hours to days', 'One bulletin for the three assets from one model', 'Joint miss ≤ Σαₖ'],
     ['National authorities; resilience and defence planners', 'Plan adaptation and investment; set the planning horizon', 'Years to decades',
      'Certified closing year of the safe window; years added by each sensor and each pumping test', 'Certified at the stated level; recomputed yearly'],
@@ -106,7 +107,7 @@ TEVV = [
 ASSETS = [
     ['Wellfields (drinking water)', 'Seawater intrusion; subsidence; earthquake-induced change in heads', 'Loss of water supply for years; salinised wells cannot be quickly restored', 'Certified intrusion alarm; pumping within the safe window; post-event sampling'],
     ['Port (logistics)', 'Liquefaction; extreme sea levels and surges; subsidence', 'Loss of quay operations and of the logistics node; damage to adjacent infrastructure', 'Liquefaction state tracking the water table; certified extreme-water-level warning'],
-    ['Energy landfall', 'Liquefaction; extreme water levels; subsidence; earthquake shaking', 'Interruption of energy supply arriving from the sea', 'Landfall stability check combining shaking, liquefaction, water level and subsidence; continuous monitoring'],
+    ['TAP landfall near Fier', 'Liquefaction; extreme water levels; subsidence; earthquake shaking', 'Interruption of gas transport to Italy and Europe', 'Landfall stability check combining shaking, liquefaction, water level and subsidence; continuous monitoring'],
     ['All three (civil protection)', 'Compound events: earthquake plus storm plus long-term subsidence', 'Simultaneous failure of water, port and energy', 'One model and one bulletin for the three hazards; safe window for the three assets together; post-event protocol'],
 ]
 
@@ -145,13 +146,15 @@ SOURCES = [
     ('S10', 'NATO (2023). Vilnius Summit Communiqué, 11 July 2023 (Alliance Resilience Objectives).', None),
     ('S11', 'NATO (2024). Summary of NATO\'s revised Artificial Intelligence (AI) Strategy, 10 July 2024.', 'https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/2024/07/10/summary-of-natos-revised-artificial-intelligence-ai-strategy'),
     ('S12', 'NATO Allied Maritime Command (2024). NATO officially launches new Maritime Centre for Security of Critical Undersea Infrastructure.', 'https://mc.nato.int/media-centre/news/2024/nato-officially-launches-new-nmcscui'),
+    ('S13', 'Trans Adriatic Pipeline AG (2020). Trans Adriatic Pipeline completes offshore section (105 km across the Adriatic Sea).', 'https://www.tap-ag.com/news/news-stories/trans-adriatic-pipeline-completes-offshore-section'),
     ('L1', 'Mavroulis, S., Lekkas, E. and Carydis, P. (2021). Liquefaction phenomena induced by the 26 November 2019, Mw = 6.4 Durrës (Albania) earthquake and liquefaction susceptibility assessment in the affected area. Geosciences 11(5), 215.', 'https://doi.org/10.3390/geosciences11050215'),
+    ('L2', 'Métois, M., Benjelloun, M., Lasserre, C., Grandin, R., Barrier, L., Dushi, E. and Koçi, R. (2020). Subsidence associated with oil extraction, measured from time series analysis of Sentinel-1 data: case study of the Patos-Marinza oil field, Albania. Solid Earth 11, 363–378.', 'https://doi.org/10.5194/se-11-363-2020'),
 ]
 
 
 # ------------------------------------------------------------------------------------------------- figures
 def fig_chain(path):
-    """The assets of Durrës with the threats to each, the NATO resilience requirements they serve, and what CERTAIN-COAST
+    """The assets of Durrës and Fier with the threats to each, the NATO resilience requirements they serve, and what CERTAIN-COAST
     adds."""
     W, H = 6.9, 4.45
     fig = plt.figure(figsize=(W, H), dpi=300)
@@ -160,7 +163,7 @@ def fig_chain(path):
 
     def box(x, y, w, h, ec, fc):
         ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle='round,pad=0,rounding_size=0.07', fc=fc, ec=ec, lw=1.5))
-    ax.text(xa + aw / 2, H - 0.16, 'Critical assets at Durrës and the threats to each', ha='center', va='center',
+    ax.text(xa + aw / 2, H - 0.16, 'Assets at Durrës and Fier and the threats to each', ha='center', va='center',
             fontsize=10.2, fontweight='bold', color=INK)
     ax.text(xc + cw / 2, H - 0.16, 'NATO resilience', ha='center', va='center', fontsize=10.2, fontweight='bold', color=INK)
     # shared drivers
@@ -169,7 +172,7 @@ def fig_chain(path):
             ha='center', va='center', fontsize=8.9, color=INK, style='italic', linespacing=1.15)
     assets = [('Wellfields: drinking water', 'seawater intrusion  ·  storm surge  ·  subsidence', C_W),
               ('Port of Durrës: 93.6% of seaborne freight', 'liquefaction  ·  storm surge  ·  subsidence', C_P),
-              ('Energy landfall: supply from the sea', 'liquefaction  ·  shaking  ·  storm surge', C_E)]
+              ('TAP landfall near Fier: gas pipeline to Italy', 'liquefaction  ·  shaking  ·  storm surge', C_E)]
     ah, gap, top = 0.70, 0.20, H - 0.98
     assert top - 3 * ah - 2 * gap >= 0.93
     ays = [top - ah - i * (ah + gap) for i in range(3)]
@@ -288,11 +291,11 @@ def main(out):
     for r_ in t.rows[1:]:
         shade(r_.cells[0], 'E6F4EC')
 
-    heading(doc, '4. Critical infrastructure where it comes ashore', 13.5, before=10)
+    heading(doc, '4. Critical undersea infrastructure where it meets the shore', 13.5, before=10)
     p = para(doc, 5); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, 'NATO has given new attention to critical undersea infrastructure, including the NATO Maritime Centre for the Security '
-            'of Critical Undersea Infrastructure launched at Allied Maritime Command in May 2024 [S12]. An energy landfall is where '
-            'that infrastructure comes ashore, and it is exposed to threats that maritime surveillance does not cover: the ground '
+            'of Critical Undersea Infrastructure launched at Allied Maritime Command in May 2024 [S12]. The landfall of the '
+            'Trans Adriatic Pipeline near Fier is where that infrastructure meets the shore of an Ally [S13], and it is exposed to threats that maritime surveillance does not cover: the ground '
             'beneath it can liquefy in an earthquake, subside year by year and be overtopped by extreme water levels. CERTAIN-COAST '
             'covers these natural threats at the landfall, complementing the protection of the subsea section.', size=10.5)
 

@@ -46,8 +46,9 @@ SECTIONS = [
               'Sea-level rise works the other way round: it lifts the coastal water table, which brings liquefiable sand back into '
               'saturation. A warning system that treats one hazard at a time will recommend actions that worsen the others. '
               'This coupled chain is the object of CERTAIN-COAST.'),
-        ('p', 'The setting is concrete. The Durrës coast, the main port area of a NATO member, combines wellfields in layered alluvium, '
-              'a port and an energy landfall on a coast of soft deltaic and lagoonal sediments, active thrust faults (the 26 November 2019 Mw 6.4 '
+        ('p', 'The setting is concrete. The Adriatic coastal plain of Albania, a NATO member, combines wellfields in layered '
+              'alluvium and the main port at Durrës, and the landfall of the Trans Adriatic gas pipeline near Fier, on soft '
+              'deltaic and lagoonal sediments, with active thrust faults near Durrës (the 26 November 2019 Mw 6.4 '
               'earthquake caused liquefaction along this coast [L1]) and the Adriatic exposure to storm surges. Water supply, port '
               'logistics and energy supply are critical infrastructure; their joint exposure is a security question, not only an '
               'environmental one.'),

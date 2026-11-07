@@ -56,8 +56,8 @@ STAKE = [
     '**The port.** The Port of Durrës handled 94.2% of the freight carried by sea in Albania in the second quarter of 2026 [4]; '
     'a disruption of its quays is a disruption of the country\'s maritime trade.',
     '**Water and energy.** The wellfields supply drinking water to the Durrës area [population served, to confirm with the '
-    'utility], and a well that turns saline takes years to recover; the energy landfall connects supply arriving from the '
-    'sea to the national system.',
+    'utility], and a well that turns saline takes years to recover; near Fier, the landfall of the Trans Adriatic '
+    'Pipeline is where gas bound for Italy and Europe leaves the Albanian shore for its undersea crossing.',
     '**The gap.** These assets are watched separately, and no warning at the site states how often it misses. A decision-maker '
     'therefore cannot tell what a warning is worth, or what silence means.',
 ]
@@ -66,7 +66,7 @@ BENEFIT = [
     ['Water utility (wellfields)', 'Certified intrusion warning before wells turn saline; a pumping rule safe for all three hazards; safe pumping tests that show how long safe operation lasts; fewer wells lost to salt', 'Warnings from M23; rule by M33'],
     ['Water Resources Management Agency (AMBU)', 'A monitoring design for its decisions; a chloride early warning for each supply well; a pumping and drought rule in support of water-use permits', 'Design by M6; warnings from M23'],
     ['Port authority', 'Liquefaction and extreme-water-level warnings for the quays; assessment within days after an earthquake or surge', 'From M23; post-event protocol from M12'],
-    ['Energy landfall operator', 'One stability check combining shaking, liquefaction, water level and subsidence; continuous monitoring', 'From M23'],
+    ['Pipeline operator (TAP)', 'One stability check combining shaking, liquefaction, water level and subsidence; continuous monitoring', 'From M23'],
     ['National Civil Protection Agency', 'One consistent picture of water, port and energy after an event, with stated reliability', 'From M23'],
     ['National authorities', 'Relative sea level measured at the assets for planning; a policy brief on coastal subsidence and critical infrastructure', 'M12 (D1.1); M36 (D6.2)'],
     ['People of the Durrës area', 'Safer drinking water and continuity of port and energy services (indirect)', 'During and after the project'],
@@ -93,7 +93,7 @@ KPI = [
 USERS = [
     ['Water utility', 'Reduce or move pumping away from the coastal wells', 'Water bought or pumped elsewhere for the warning period', 'A well turned saline for years', '[r₁]'],
     ['Port authority', 'Restrict heavy loads and berthing on the affected quays', 'Hours of reduced quay operation', 'Damage to quays, cranes and cargo', '[r₂]'],
-    ['Energy landfall operator', 'Inspect and take protective measures at the landfall', 'Inspection and reduced operation', 'Interruption of supply; repair', '[r₃]'],
+    ['Pipeline operator (TAP)', 'Inspect and take protective measures at the landfall', 'Inspection and reduced operation', 'Interruption of gas transport; repair', '[r₃]'],
     ['Civil protection', 'Pre-position teams and advise the public', 'Staff time and public advice', 'Slower response; harm to people', '[r₄]'],
 ]
 
@@ -290,7 +290,8 @@ def main(out):
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; run(p, FULL, bold=True, size=12, color='1F3864')
     p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     rich(p, 'CERTAIN-COAST will change how three critical assets of an Ally are protected: the wellfields that supply drinking '
-            'water, the country\'s main port and an energy landfall, on one subsiding coast. The impact is that the people who '
+            'water and the country\'s main port at Durrës, and the landfall of the Trans Adriatic Pipeline near Fier, on one '
+            'subsiding coastal plain. The impact is that the people who '
             'run them act on **warnings whose reliability is known in advance and checked in operation**, and keep doing so '
             'after the project. This section sets out what is at stake, how the results lead to that change, who benefits, how '
             'the impact is measured, what a certified warning is worth to each user, and how the approach reaches other coasts.',

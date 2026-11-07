@@ -35,7 +35,7 @@ PEOPLE = [
     ('End-user representative', '[Durrës water utility]', 5),
     ('End-user representative', '[Water Resources Management Agency (AMBU)]', 5),
     ('End-user representative', '[Durrës Port Authority]', 5),
-    ('End-user representative', '[energy landfall operator]', 5),
+    ('End-user representative', '[Trans Adriatic Pipeline AG (TAP)]', 5),
     ('End-user representative', '[National Civil Protection Agency]', 5),
 ]
 

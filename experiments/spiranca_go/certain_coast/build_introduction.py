@@ -53,6 +53,7 @@ SOURCES = [
     (D.LOCAL[0][1].rstrip('.'), D.LOCAL[0][2]),
     ('NATO: Resilience, civil preparedness and Article 3 (baseline requirements)', 'https://www.nato.int/cps/en/natohq/topics_132722.htm'),
     ('NATO Science for Peace and Security Programme (overview and Key Priorities)', 'https://www.nato.int/cps/en/natohq/85291.htm'),
+    ('Trans Adriatic Pipeline AG: Trans Adriatic Pipeline completes offshore section (105 km across the Adriatic Sea)', 'https://www.tap-ag.com/news/news-stories/trans-adriatic-pipeline-completes-offshore-section'),
 ]
 
 
@@ -135,10 +136,11 @@ def main(out):
 
     heading(doc, '1. Three critical assets on one subsiding coast', 13.5, before=2)
     p = para(doc, 5); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    rich(p, 'Within a few kilometres of the Durrës coast in Albania, a NATO Ally since 2009, lie the wellfields that supply '
-            'drinking water to the area, the country\'s main port, which handled 94.2% of Albania\'s sea freight in the second '
-            'quarter of 2026 [1], and an energy landfall where supply arriving from the sea meets the national system. They stand '
-            'on soft, compacting sediments near active faults. The Mw 6.4 earthquake of 26 November 2019 near Durrës killed 51 '
+    rich(p, 'On the Adriatic coast of Albania, a NATO Ally since 2009, three critical assets stand at two sites. At Durrës lie '
+            'the wellfields that supply drinking water to the area and the country\'s main port, which handled 94.2% of '
+            'Albania\'s sea freight in the second quarter of 2026 [1]; near Fier lies the landfall where the Trans Adriatic '
+            'Pipeline leaves the shore for its 105 km crossing of the Adriatic to Italy [6]. They stand on soft, compacting '
+            'sediments of the same coastal plain, and near Durrës close to active faults. The Mw 6.4 earthquake of 26 November 2019 near Durrës killed 51 '
             'people, affected 202,291 and caused total effects of about €985 million [2]; field surveys found liquefaction at '
             'coastal, riverine and lagoonal sites [3].', size=10.5)
     p = para(doc, 5); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY

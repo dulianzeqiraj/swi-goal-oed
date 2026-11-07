@@ -81,10 +81,10 @@ def main(out):
     KEY = [
         ['Programme', 'NATO Science for Peace and Security (SPS), Multi-Year Project, call 2027-1'],
         ['SPS Key Priorities', 'Environment, Climate Change and Security; Energy Security; Innovation and Emerging and Disruptive Technologies'],
-        ['Site', 'Durrës coast, Albania: drinking-water wellfields, main port, energy landfall'],
+        ['Sites', 'Adriatic coast of Albania: drinking-water wellfields and main port at Durrës; landfall of the Trans Adriatic Pipeline (TAP) near Fier'],
         ['Duration and budget', f'36 months; {eur(F["total"])} requested, no salaries or overheads'],
         ['Project Directors', 'NATO country: Albania ([institution to confirm]); partner country: [eligible partner country, institution]'],
-        ['End-users', 'Water utility, Water Resources Management Agency (AMBU), Durrës Port Authority, energy landfall operator, National Civil Protection Agency'],
+        ['End-users', 'Water utility, Water Resources Management Agency (AMBU), Durrës Port Authority, Trans Adriatic Pipeline AG (TAP), National Civil Protection Agency'],
     ]
     t = table(doc, ['', ''], KEY, [4.0, 13.0], size=9.5)
     t._tbl.remove(t.rows[0]._tr)
@@ -98,7 +98,7 @@ def main(out):
         ('36 months', 'duration'),
         (eur(F['total']), 'requested from NATO SPS'),
         ('3 hazards', 'intrusion, liquefaction, extreme sea level: one model'),
-        ('3 assets', 'wellfields, port, energy landfall'),
+        ('3 assets', 'wellfields and port at Durrës; TAP landfall near Fier'),
         ('5–10%', 'certified miss rate per alarm (indicative)'),
         ('12 months', 'live operation with the operators'),
         ('20 + 6', 'operator staff and early-career researchers trained'),
@@ -107,10 +107,11 @@ def main(out):
 
     heading(doc, 'The problem', 13, before=8)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    rich(p, 'Within a few kilometres of the Durrës coast stand three kinds of critical infrastructure of a NATO member: the '
-            'wellfields that supply drinking water, the country\'s main port and an energy landfall. The ground beneath them is '
-            'soft and subsiding, next to active faults; the 26 November 2019 Mw 6.4 earthquake caused liquefaction along this '
-            'coast. Seawater intrusion, liquefaction and extreme sea levels are driven by the same variables, the relative sea '
+    rich(p, 'On the Adriatic coastal plain of Albania stand three kinds of critical infrastructure of a NATO member, at two '
+            'sites: at Durrës, the wellfields that supply drinking water and the country\'s main port; near Fier, the landfall '
+            'where the Trans Adriatic Pipeline leaves the shore for its 105 km crossing to Italy. The ground beneath them is '
+            'soft and subsiding; near Durrës active faults lie close, and the 26 November 2019 Mw 6.4 earthquake caused '
+            'liquefaction along this coast. Seawater intrusion, liquefaction and extreme sea levels are driven by the same variables, the relative sea '
             'level and the water table, so pumping, subsidence and storms move all three at once. Yet they are monitored and '
             'modelled separately, and **no warning states how often it misses**, which is what a security decision needs.')
 
@@ -137,7 +138,7 @@ def main(out):
     heading(doc, 'Why it matters for security', 13, before=6)
     bullets(doc, [
         'Protects an Ally\'s **water supply, main port and energy landfall** together, three of NATO\'s baseline requirements for national resilience (water, energy, transport).',
-        'Covers the threats to critical undersea infrastructure **where it comes ashore**, which maritime surveillance does not see.',
+        'Covers the threats to critical undersea infrastructure **where it meets the shore**, at the landfall of the Trans Adriatic Pipeline, which maritime surveillance does not see.',
         'Brings **machine learning into a security decision chain responsibly**: every forecast has an error bound, every bulletin is logged, and people decide, in line with NATO\'s principles of responsible use of AI.',
     ])
 

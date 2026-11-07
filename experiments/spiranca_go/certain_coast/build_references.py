@@ -62,6 +62,8 @@ DATA = [
     ('International Federation of Digital Seismograph Networks (FDSN): miniSEED and StationXML standards.', 'https://www.fdsn.org', 'Data Management Plan'),
     ('CF (Climate and Forecast) metadata conventions for NetCDF.', 'https://cfconventions.org', 'Data Management Plan'),
     ('EPSG:25834, ETRS89 / UTM zone 34N.', 'https://epsg.io/25834', 'Data Management Plan'),
+    ('Trans Adriatic Pipeline AG (2020). Trans Adriatic Pipeline completes offshore section (105 km across the Adriatic Sea).', 'https://www.tap-ag.com/news/news-stories/trans-adriatic-pipeline-completes-offshore-section', 'Security Relevance; Letters'),
+    ('Métois, M., Benjelloun, M., Lasserre, C., Grandin, R., Barrier, L., Dushi, E., Koçi, R. (2020). Subsidence associated with oil extraction, measured from time series analysis of Sentinel-1 data: case study of the Patos-Marinza oil field, Albania. Solid Earth 11, 363–378.', 'https://doi.org/10.5194/se-11-363-2020', 'Security Relevance'),
     ('INSTAT, Institute of Statistics of Albania (2025). Maritime Transport Statistics, Q2 2025.', 'https://www.instat.gov.al/en/themes/industry-trade-and-services/transport-accidents-and-characteristics-of-road-vehicles/publikimet/2025/maritime-transport-statistics-q2-2025/', 'Security Relevance'),
 ]
 

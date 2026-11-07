@@ -27,11 +27,12 @@ SHORT = 'CERTAIN-COAST'
 
 # ------------------------------------------------------------------------------------------------- answers (English)
 SECURITY = (
-    'Durrës, on the Adriatic coast of Albania, concentrates three kinds of critical infrastructure of a NATO Ally within a few '
-    'kilometres: the wellfields that supply drinking water, the Port of Durrës, from which 93.6% of Albania\'s seaborne freight '
-    'left in the second quarter of 2025 (INSTAT), and an energy landfall where supply arrives from the sea. All three stand on '
-    'soft coastal sediments that are sinking, close to active thrust faults, and the Mw 6.4 earthquake of 26 November 2019 '
-    'caused liquefaction along this coast.\n'
+    'Three kinds of critical infrastructure of a NATO Ally stand on the same low Adriatic coastal plain of Albania, at two '
+    'sites. At Durrës lie the wellfields that supply drinking water and the Port of Durrës, from which 93.6% of Albania\'s '
+    'seaborne freight left in the second quarter of 2025 (INSTAT). Further south, near Fier, the Trans Adriatic Pipeline '
+    '(TAP) leaves the shore for its 105 km crossing to Italy, carrying gas from Azerbaijan to Europe. The plain is built of '
+    'soft sediments that settle slowly (Métois et al., 2020); at Durrës the ground is sinking close to active thrust faults, '
+    'and the Mw 6.4 earthquake of 26 November 2019 caused liquefaction along the coast.\n'
     'The assets face three linked hazards. Seawater intrudes into the aquifer and can make wells unusable for years. In an '
     'earthquake, saturated sand can liquefy under quays, foundations and the landfall. Storm surges and extreme sea levels '
     'flood low ground. Land subsidence and sea-level rise worsen all three at once, because they raise the sea and the water '
@@ -77,8 +78,8 @@ TECHNICAL = (
 
 DELIVER = (
     'By Month 36 the project delivers:\n'
-    '1. A coastal motion atlas and the relative sea level at each asset, from Sentinel-1 InSAR since 2014, corner reflectors '
-    'and GNSS (D1.1).\n'
+    '1. A coastal motion atlas from Durrës to Fier and relative sea level at each asset, from Sentinel-1 InSAR since '
+    '2014, reflectors and GNSS (D1.1).\n'
     '2. A monitoring network chosen for the warnings and handed over to the operators (D4.2): piezometers with conductivity '
     'loggers, a barometer and sealed hub channels that correct them, a local rain gauge, GNSS, seismic nodes and, where access allows, fibre-optic sensing. Each sensor is bought only if its guaranteed '
     'value (band removed, years of safe operation added) is positive.\n'
@@ -96,7 +97,7 @@ DELIVER = (
     '6. Twelve months of live bulletins with the five end-users, every outcome logged and the miss rates verified (D5.1); operating procedures and a policy brief '
     '(D6.2); open software and data with a DOI (D6.1).\n'
     'How this advances the state of the art. The alarms apply conformal and anytime-valid methods of 2023–2026 to coupled '
-    'coastal hazards. Six contributions are new and were tested before the project. (i) Guarantees for '
+    'coastal hazards. Six new contributions were tested before the project. (i) Guarantees for '
     'quantities nobody measures: inputs and boundaries known only through rain, calibrated on simulated aquifers and '
     'measured anchor periods, with a computable floor on how narrow each band can be. (ii) The '
     'value of a sensor as the guaranteed band it removes and the years of safe operation it adds (in tests, a tide gauge '
@@ -192,6 +193,9 @@ SOTA_REFS = [
     ('Mavroulis, S., Lekkas, E., Carydis, P. (2021). Liquefaction phenomena induced by the 26 November 2019, Mw = 6.4 Durrës '
      '(Albania) earthquake and liquefaction susceptibility assessment in the affected area. Geosciences 11(5), 215.',
      'https://doi.org/10.3390/geosciences11050215'),
+    ('Métois, M., Benjelloun, M., Lasserre, C., Grandin, R., Barrier, L., Dushi, E., Koçi, R. (2020). Subsidence associated '
+     'with oil extraction, measured from time series analysis of Sentinel-1 data: case study of the Patos-Marinza oil field, '
+     'Albania. Solid Earth 11, 363–378.', 'https://doi.org/10.5194/se-11-363-2020'),
     ('McKay, A., Wolf, C. K. (2023). What can time-series regressions tell us about policy counterfactuals? Econometrica '
      '91(5), 1695–1725.', 'https://doi.org/10.3982/ECTA21045'),
     ('Meray, A. O., Sturla, S., Siddiquee, M. R., Serata, R., Uhlemann, S., et al. (2022). PyLEnM: a machine learning '
@@ -300,8 +304,9 @@ SOTA_TEXT = (
     'ocean (Fukumori, Wang and Fenty, 2021) complete the picture. Substitutes built from the treatments cannot see the fresh '
     'news of a confounder such as a heat wave that makes every farmer pump, and none uses a physical measurement of the '
     'confounding path.\n'
-    '• Vertical land motion and coastal exposure from InSAR and GNSS (Ohenhen et al., 2023); the 2019 Durrës earthquake and '
-    'its liquefaction (Mavroulis, Lekkas and Carydis, 2021).\n'
+    '• Vertical land motion and coastal exposure from InSAR and GNSS (Ohenhen et al., 2023), and slow settling of the '
+    'Albanian coastal plain near Fier (Métois et al., 2020); the 2019 Durrës earthquake and its liquefaction (Mavroulis, '
+    'Lekkas and Carydis, 2021).\n'
     'What none of these does. No study combines intrusion, liquefaction and extreme water levels in one model with warnings '
     'whose miss rate is stated in advance; guarantees the inputs known only through rain when the simulator is wrong; values '
     'a sensor by the guaranteed band it removes and the years it adds; places the reference channels that correct the '
@@ -327,32 +332,33 @@ SOTA = SOTA_TEXT + '\nReferences:\n' + '\n'.join(_ref_line(t, u) for t, u in SOT
 
 
 ABSTRACT = (
-    'Near Durrës, Albania\'s main port, the wells that supply drinking water, the port itself and an energy connection from '
-    'the sea stand on low ground that is slowly sinking, close to active faults. Three dangers threaten them: seawater '
+    'On Albania\'s Adriatic coast, the drinking-water wells and port of Durrës and the landfall of a gas pipeline to Italy '
+    'near Fier stand on low ground, which at Durrës is sinking, close to active faults. Three dangers threaten them: seawater '
     'entering the wells, ground that turns almost liquid in an earthquake, and the sea flooding the land in storms. The '
     'dangers are linked, because sinking land and rising seas worsen all three and pumping that protects against one can '
     'increase another, but today they are watched separately and no warning says how often it can be wrong.\n'
     'CERTAIN-COAST will watch them together. Satellites, GNSS and new ground sensors will feed one computer model of the '
     'coast, copied by a fast artificial-intelligence model whose error is stated for every forecast. Each warning will state '
     'in advance how often it may miss a dangerous event, and this will be checked in twelve months of live operation with the '
-    'water utility, the water agency, the port, the energy operator and civil protection. The project will show how many '
+    'water utility, the water agency, the port, the pipeline operator and civil protection. The project will show how many '
     'years a safe way of operating the three assets remains, and sharpen that estimate with safe pumping tests. Local '
     'operators will run the system afterwards.')
 
 RELEVANCE = (
     'Link to security. The project protects three essential services of a NATO Ally (drinking water, a port that handles '
-    'most of the country\'s seaborne freight, and an energy landfall) and serves three of NATO\'s seven baseline requirements '
+    'most of the country\'s seaborne freight, and the landfall of the Trans Adriatic Pipeline near Fier) and serves three of NATO\'s seven baseline requirements '
     'for national resilience: resilient food and water resources, resilient civil transportation systems and resilient '
     'energy supplies, which also underpin civil support to the military. It falls under the 2027-1 topic "protection of '
-    'critical infrastructure, supplies and personnel; maritime and undersea infrastructure resilience", and the energy '
-    'landfall is where undersea infrastructure comes ashore.\n'
+    'critical infrastructure, supplies and personnel; maritime and undersea infrastructure resilience": the TAP landfall '
+    'is where an undersea gas pipeline between two Allies, Albania and Italy, leaves the shore.\n'
     'Use cases:\n'
     '• Water utility: cut or shift pumping before chloride reaches drinking-water wells (weeks to months ahead).\n'
     '• Water Resources Management Agency (AMBU): use the monitoring design, the chloride early warning for each supply well '
     'and the pumping and drought rule in its monitoring and in support of water-use permits for the aquifer.\n'
     '• Port authority: restrict loads or operations and set inspection priorities after an earthquake; prepare for storm '
     'surges (hours to days ahead).\n'
-    '• Energy landfall operator: inspect, protect or isolate the landfall when the ground or the water level threatens it.\n'
+    '• Pipeline operator (TAP): inspect, protect or isolate the landfall near Fier when the ground or the water level '
+    'threatens it.\n'
     '• Civil protection: one consistent bulletin for water, port and energy after an earthquake or a storm.\n'
     '• National authorities and resilience planners: the certified year from which no operating plan keeps the three assets '
     'safe together, and the sensors and measures that delay it most.\n'
@@ -403,7 +409,7 @@ STATUS = (
 
 
 IMPACT = (
-    'If the project succeeds, the following will change at Durrës and beyond:\n'
+    'If the project succeeds, the following will change at Durrës, at the TAP landfall near Fier and beyond:\n'
     '• Three hazards covered by one warning with a stated miss rate, where today there is none: seawater intrusion at the '
     'wellfields, liquefaction at the port and the landfall, and extreme water levels at all three.\n'
     '• Each alarm misses dangerous events no more often than its certified rate (indicatively 5–10%), shown by back-testing '
@@ -439,13 +445,13 @@ TRL_TEXT = (
     'End: TRL 6, as the 2027-1 call asks (results at TRL 3–6). The integrated system (network, coupled model, certified '
     'surrogate, alarms, pumping rule and safe operating window) is demonstrated in its relevant environment, the operators\' '
     'own sites, through twelve months of live operation with the water utility, the water resources agency (AMBU), the port '
-    'authority, the landfall operator and civil protection, before the operators take it over. Seismic velocity as a coastal water-table sensor and the '
+    'authority, the pipeline operator (TAP) and civil protection, before the operators take it over. Seismic velocity as a coastal water-table sensor and the '
     'pumping rule with its safe pumping tests are demonstrated at the site but not yet run for a full year.')
 
 DATA = (
     'Data required and existing sources: Copernicus Sentinel-1 radar images since 2014 (free and open); GNSS records; the '
-    'Durrës tide-gauge record of the State Authority for Geospatial Information (ASIG); heads, pumping and chloride records of the water utility; groundwater level, chemistry and abstraction records of AMBU; geotechnical records of the port and the landfall '
-    'operator; records of existing national seismic stations; meteorological and wave data.\n'
+    'Durrës tide-gauge record of the State Authority for Geospatial Information (ASIG); heads, pumping and chloride records of the water utility; groundwater level, chemistry and abstraction records of AMBU; geotechnical records of the port and of '
+    'TAP at its landfall; records of existing national seismic stations; meteorological and wave data.\n'
     'New data: continuous heads, conductivity and temperature in new and existing wells; GNSS and corner-reflector time series '
     'at the assets; continuous seismic noise from stations and temporary nodes, and fibre-optic sensing where access is '
     'agreed; laboratory chloride and major ions; the bulletin log with outcomes.\n'
@@ -469,7 +475,8 @@ WORKPLAN = (
     'relative sea level at each asset (T1.3); elastic and inelastic compaction and the head limit for pumping (T1.4). '
     'Risk: loss of radar coherence on soft ground; mitigation: corner reflectors and scatterers on structures. Milestone: '
     'MS2 (Month 12).\n'
-    'WP2, One coupled model and its certified fast copy (Months 4–24; NATO-country team). Steps: model set-up (T2.1); '
+    'WP2, One coupled model and its certified fast copy (Months 4–24; NATO-country team). Steps: model set-up for the two '
+    'sites, the Durrës wellfields and port and the TAP landfall near Fier, on one coastal motion field (T2.1); '
     'coupling of flow, salt, compaction and liquefaction (T2.2); calibration (T2.3): the rain reaches the aquifer through a '
     'stochastic soil-water and vadose-delay model learned from irregular head records; the inputs and boundaries nobody '
     'measures (recharge coefficient, vadose delay, storage, sea level, inland inflow, initial head, dispersion width) are '
@@ -501,7 +508,8 @@ WORKPLAN = (
     'and the network is chosen against the worst plausible error and reported with its certified optimality gap; a '
     'conductivity logger in at least one production well of each wellfield and a yearly campaign of laboratory samples '
     'paired 1, 3 and 7 days apart measure the time scale that decides crossings between samples; '
-    'procurement and installation (T4.2); operation and maintenance (T4.3), in which every reading is corrected for air '
+    'procurement and installation (T4.2), with one GNSS station, two corner reflectors, a seismic station and a '
+    'water-table logger at the TAP landfall, under TAP\'s security rules; operation and maintenance (T4.3), in which every reading is corrected for air '
     'pressure and logger drift before use and the corrected residuals are checked for remaining correlation; seismic '
     'velocity as a water-table gauge (T4.4). Risk: procurement delays and limited site access; mitigation: early orders, '
     'inductions with security officers. Risk: lagged or uncertain barometric responses; mitigation: response functions '
@@ -530,8 +538,8 @@ AFTER = (
     'Next steps: extend the warnings to the other wellfields and coastal assets of Albania; offer the open software to '
     'coasts of Allies and partners (tested on a second coast in the partner country during the project); seek national and '
     'European funding to keep the network and the verification ledger running.\n'
-    'Role of the end-users. The water utility, the Water Resources Management Agency (AMBU), the port authority, the energy '
-    'landfall operator and the National Civil Protection Agency guide the project from the start: they give access to sites '
+    'Role of the end-users. The water utility, the Water Resources Management Agency (AMBU), the port authority, the '
+    'operator of the Trans Adriatic Pipeline (TAP) and the National Civil Protection Agency guide the project from the start: they give access to sites '
     'and records, agree the thresholds and tolerable miss rates (T3.1), take part in the dry run, co-sign the operational '
     'milestones and run the bulletins in live operation. The operators own the system after the hand-over; AMBU uses its '
     'results without procurement, ownership or maintenance obligations. End-users receive no SPS funds.')
@@ -793,7 +801,7 @@ def main(out):
             ['[First name]', '[Family name]', '[Durrës water utility]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins, pumping rule', '[5%]'],
             ['[First name]', '[Family name]', '[Water Resources Management Agency (AMBU)]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), monitoring design (T4.1), pumping and drought rule (T5.3)', '[5%]'],
             ['[First name]', '[Family name]', '[Durrës Port Authority]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
-            ['[First name]', '[Family name]', '[energy landfall operator]', 'End-user representative', '[nationality]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
+            ['[First name]', '[Family name]', '[Trans Adriatic Pipeline AG (TAP), Albania branch]', 'End-user representative', '[nationality]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
             ['[First name]', '[Family name]', '[National Civil Protection Agency]', 'End-user representative', '[Albanian]', 'Post-event protocol; live bulletins', '[5%]']]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Affiliation', 'Position', 'Nationality', 'Task(s)', '% time'], part,
                           [1.9, 1.9, 2.6, 2.4, 2.1, 4.6, 1.5], size=8.8)); ph_cells(t)
@@ -908,7 +916,7 @@ def main(out):
     p = para(doc, 4); put(p, 'At least one end-user; all based in a NATO or eligible partner country; end-users receive no SPS funds.')
     eu = [[f'[First name]', '[Family name]', '[Title]', '[Job title]', inst, '[Postal address]', '[Country]', '[Telephone]', '[E-mail]']
           for inst in ['[Durrës water utility]', '[Water Resources Management Agency (AMBU)]', '[Durrës Port Authority]',
-                       '[energy landfall operator]', '[National Civil Protection Agency]']]
+                       '[Trans Adriatic Pipeline AG (TAP), Albania branch]', '[National Civil Protection Agency]']]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Title', 'Job title', 'Institution', 'Postal address', 'Country', 'Telephone', 'E-mail'],
                           eu, [1.7, 1.7, 1.2, 1.8, 2.6, 2.2, 1.6, 1.9, 2.3], size=8.2)); ph_cells(t)
     field(doc, 'End-User(s) commitments (upload)')

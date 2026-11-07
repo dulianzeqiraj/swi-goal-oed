@@ -60,13 +60,13 @@ def build_docx(path):
 
     head(doc, 'The project in brief', before=0)
     p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    rich(p, 'Near Durrës, the main port of Albania, the wellfields that supply drinking water, the port and an energy '
-            'landfall stand on soft ground that is slowly sinking, close to active faults (the Mw 6.4 earthquake of 26 '
-            'November 2019 struck there). Three hazards threaten them together: seawater entering the wells, liquefaction '
+    rich(p, 'At Durrës, the main port of Albania, the wellfields that supply drinking water and the port, and near Fier the '
+            'landfall where the Trans Adriatic gas pipeline leaves the shore for Italy, stand on soft ground that is slowly '
+            'sinking; near Durrës active faults lie close (the Mw 6.4 earthquake of 26 November 2019 struck there). Three hazards threaten them together: seawater entering the wells, liquefaction '
             'in an earthquake, and coastal flooding in storms. Sinking land and rising seas worsen all three. CERTAIN-COAST '
             'builds one model of the three hazards, a fast machine-learned copy of it whose error is bounded for every '
             'forecast, and warnings that state in advance how often they may miss a dangerous event. The warnings run live '
-            'for twelve months with the water utility, the port, the energy operator and civil protection, and are then '
+            'for twelve months with the water utility, the water agency (AMBU), the port, the pipeline operator (TAP) and civil protection, and are then '
             'handed over to them. **36 months; about €382,500 requested from NATO.**', size=9.8)
 
     head(doc, 'Why it fits the call')

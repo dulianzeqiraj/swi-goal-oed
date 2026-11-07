@@ -66,7 +66,7 @@ TABLE = [
 SECURITY = [
     '**Water security.** The wellfields supply drinking water; an intrusion warning with a guaranteed miss rate protects supply before the wells turn saline, which takes years to reverse.',
     '**Port and logistics security.** The port is a national logistics node; a liquefaction and extreme-sea-level warning protects operations and the infrastructure behind them.',
-    '**Energy security.** The energy landfall connects supply to the national system; its stability under shaking, liquefaction, extreme water levels and subsidence is assessed in one framework.',
+    '**Energy security.** The landfall of the Trans Adriatic Pipeline near Fier is where gas for Italy and Europe leaves the Albanian shore; its stability under shaking, liquefaction, extreme water levels and subsidence is assessed in one framework.',
     '**Civil protection and resilience.** One system for three hazards, with a post-event protocol, gives civil protection a consistent picture after an earthquake or a storm, instead of three separate ones.',
     '**Transferability.** The methods need only free satellite data, existing fibre and seismic stations, and a calibrated model; they transfer to other subsiding coasts with wellfields, ports and energy landfalls, in the Adriatic and beyond.',
 ]

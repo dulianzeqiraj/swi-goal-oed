@@ -172,10 +172,12 @@ EU = dict(
          '(INSTAT). <https://www.durresport.al>\n'
          '**In CERTAIN-COAST:** agrees liquefaction and water-level thresholds; gives site access and geotechnical '
          'records; gains liquefaction and water-level warnings and post-event reports.'),
-        ('Energy landfall',
-         '[Name of the energy landfall operator] at [location]. [website]\n'
-         '**In CERTAIN-COAST:** agrees thresholds for the landfall; gives site access under its security rules and its '
-         'design levels; gains stability checks combining shaking, liquefaction and water level.'),
+        ('Gas pipeline landfall',
+         '**Trans Adriatic Pipeline AG** (TAP), Baar, Switzerland, with a country office in Albania. The pipeline carries '
+         'gas from Azerbaijan through Greece and Albania and leaves the Albanian shore near Fier for a 105 km crossing of '
+         'the Adriatic Sea to Italy. <https://www.tap-ag.com>\n'
+         '**In CERTAIN-COAST:** agrees thresholds for the landfall; gives access to agreed locations under its security '
+         'rules and its design levels; gains stability checks combining shaking, liquefaction, water level and subsidence.'),
         ('Civil protection',
          '**Agjencia Kombëtare e Mbrojtjes Civile** (National Civil Protection Agency), set up under Law No. 45/2019 '
          '"On Civil Protection" and listed among the structures under the Ministry of Defence; it already receives the '
@@ -199,6 +201,8 @@ EU = dict(
         ('Port Authority law', 'https://durresport.al/port-authority/legislation/'),
         ('INSTAT Q2 2026', 'https://www.instat.gov.al/media/44eas2r0/statistikat-e-transportiti-detar-tr-ii-2026_a.pdf'),
         ('AMBU', 'https://www.ambu.gov.al'),
+        ('TAP offshore section', 'https://www.tap-ag.com/news/news-stories/trans-adriatic-pipeline-completes-offshore-section'),
+        ('TAP country offices', 'https://www.tap-ag.com/news/news-stories/tap-establishes-country-offices-in-greece-albania-and-italy'),
         ('AKMC', 'https://akmc.gov.al/en/about-akmc/'),
         ('Law 45/2019', 'https://akmc.gov.al/en/legislation/'),
         ('Ministry of Defence', 'https://www.mod.gov.al/ministria/strukturat-vartese'),
