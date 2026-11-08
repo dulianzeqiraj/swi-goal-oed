@@ -273,8 +273,11 @@ BL = [
       ['Live operation (WP5; MS6, Month 34)', 'Twelve months of logged bulletins; no e-process reaches 1/β; safe window '
        'reported for each asset; every pumping test below its chloride test limit', 'If no strong event occurs, '
        'verification rests on back-testing and storylines; smaller and shorter tests, or the window from routine records'],
-      ['Hand-over (WP6, WP7; MS7, Month 36)', 'Open software and data with a DOI reproduced outside the team (D6.1, '
-       'Month 33); operating procedures adopted (D6.2)', '—']],
+      ['Hand-over (WP6, WP7; MS7, Month 36)', 'An operating procedure adopted for each asset; the operators issue every '
+       'bulletin of Months 34–36 without the project team; at least two trained people per operator; maintenance agreement '
+       'signed by Month 33 (D6.2); open software and data with a DOI reproduced outside the team (D6.1, Month 33)',
+       'Extra training and tasks reassigned within the consortium; procedures restated jointly with the operator; the '
+       'university hosts the system until the maintenance agreement is in place']],
      [4.4, 7.0, 6.0], 8.5),
 
     ('h', '8. What is new beyond the state of the art'),
