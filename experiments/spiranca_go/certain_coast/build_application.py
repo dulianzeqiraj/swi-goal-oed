@@ -716,7 +716,9 @@ def main(out):
            ['Project schedule with a Gantt chart', 'PDF', 'Ready: CERTAIN-COAST_Project_Schedule.pdf', 'ready'],
            ['End-user commitments, all letters merged into one file', 'PDF', 'Each end-user on its own letterhead (drafts in the Letters of Commitment document)', '[to do]'],
            ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Draft: CERTAIN-COAST_Institutions_Overview.docx; fill the yellow fields, save as PDF', '[to do]'],
-           ['Financial rules of the NPD\'s institution', 'PDF or link', 'NPD\'s institution', '[to do]'],
+           ['Financial rules of the NPD\'s institution', 'Link', 'Ready: the UPT Statute in English (Chapter IV, Articles 24–25), '
+            'https://upt.edu.al/wp-content/uploads/2023/02/Statuti-PDF-English.pdf. If the UPT finance office provides its '
+            'internal regulation on administration, finance and accounting, upload that PDF instead', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
@@ -909,7 +911,11 @@ def main(out):
     field(doc, 'Non-NATO funding')
     answer(doc, NN.text())
     field(doc, 'How do you want to share the financial rules of the NPD\'s institution?')
-    answer(doc, '[File upload or link to the website of the NPD\'s institution.]')
+    answer(doc, 'Choose "Link to a website": https://upt.edu.al/wp-content/uploads/2023/02/Statuti-PDF-English.pdf '
+                '(Statute of the Polytechnic University of Tirana, English version published by UPT: Chapter IV "Properties, '
+                'financing and services", Articles 24–25; Article 10, the Board of Administration approves the financial '
+                'regulation). [If the UPT finance office provides its internal regulation on administration, finance and '
+                'accounting, choose "File upload" and upload that PDF instead.]')
 
     # 9 End-users
     heading(doc, '9. End-Users', 14, before=10)
