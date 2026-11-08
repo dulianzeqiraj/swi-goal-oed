@@ -720,7 +720,8 @@ def main(out):
             'https://upt.edu.al/wp-content/uploads/2023/02/Statuti-PDF-English.pdf. If the UPT finance office provides its '
             'internal regulation on administration, finance and accounting, upload that PDF instead', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
-           ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready']]
+           ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready'],
+           ['Additional files (optional): technical annex, later with the CVs', 'PDF', 'Ready: CERTAIN-COAST_Technical_Annex.pdf (7 pages: methods, preparatory tests, gates and fallbacks, the six new contributions). When the CVs are filled in, they are merged with it into one PDF with a table of contents', 'ready']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
@@ -934,8 +935,8 @@ def main(out):
     for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
                   ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', '**Yes** (recommended): upload the signed agreement as one PDF. Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx (NATO sample, Option B, open release of software and data, security release check), with a one-page waiver as alternative. The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete proposal.'),
-                  ('Additional files (optional)', 'Not needed.'),
-                  ('Additional information (optional)', 'The full technical annex (methodology with its preparatory tests, state of the art, work packages, risk assessment, data management plan) is available on request.')]:
+                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Technical_Annex.pdf (7 pages): how the methods work, the preparatory tests, the gates with their fallbacks and the six new contributions, consistent with this form. [When the CVs of the Co-Directors are filled in, upload instead one PDF that merges the annex and the CVs, with a table of contents at the start, as the form asks.]'),
+                  ('Additional information (optional)', 'The technical annex under Additional files summarises the methods and their preparatory tests; the full methodology, state of the art, work packages, risk assessment and data management plan are available on request.')]:
         field(doc, nm); answer(doc, a)
 
     doc.save(out)
