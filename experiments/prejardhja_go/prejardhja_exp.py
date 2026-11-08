@@ -1,5 +1,5 @@
 """PREJARDHJA-GO ("prejardhja" = provenance): how to meet the water demand when nobody knows where the chloride comes
-from. Tests P0-P6 of State of the art V (stakeholder decisions, unknown chloride source).
+from. Tests P0-P6 of Stakeholder decisions V, a state-of-the-art review (unknown chloride source).
 
 usage: python prejardhja_exp.py            -> res/prejardhja.json (about 2 minutes)
 

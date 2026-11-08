@@ -170,6 +170,13 @@ MAP = [
      'Crossing in the season 0.78, 34 times the exceedance on a sampling date; band 0.18–1 quarterly, 0.76–0.80 daily '
      'logger; certified coverage 90.3% for skewed chloride (74% without); warning skill 7% to 20% with a head logger',
      'WP3, T3.2; WP4, T4.1'],
+    ['Stakeholder review V, PREJARDHJA-GO', 'Decisions before the source of the chloride is known: the sources that '
+                                            'tracer e-values cannot exclude (coverage at least 1 − β, no prior), pumping '
+                                            'safe for every one of them, tests bought for their decision value, '
+                                            'anytime-valid monthly updates, a ledger of who pays',
+     'Exceedance at most 6.9% for every source against a 10% budget at €3.31 M (safe for all four without tests '
+     '€4.16 M; assuming seawater intrusion up to 98%); true source dropped in 1.2–1.5% of cases over 12 monthly looks, '
+     'about 22% with an ordinary test repeated', 'WP4, T4.1; WP5, T5.3'],
     ['CERTAIN-COAST Methodology v3 (C1–C3)', 'Certified safe operating window; years of safe operation per sensor; safe '
                                             'pumping tests chosen for the years they add', 'Window closed after 38 years '
                                                                                            '(single-hazard plans: 43–97); '
@@ -263,7 +270,7 @@ def main(out):
     put(p, f'{SHORT} — the state-of-the-art methodology for the NATO SPS form', size=17, color=NAVY); p.runs[0].bold = True
     p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'What the 2027-1 call and the official form require, how long each part may be, and the methodology drawn from '
-           'reviews I–XI as texts ready to paste', size=11, color=GREY)
+           'reviews I–XI and stakeholder review V as texts ready to paste', size=11, color=GREY)
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'Dulian Zeqiraj · 7 November 2026 · Multi-Year Project, call 2027-1 · deadline 15 November 2026, 23:59 CET',
         size=9.5, color=GREY, italic=True)
@@ -284,7 +291,7 @@ def main(out):
         '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–900 words with '
         'references, current status 300–600, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
         f'**The five texts of Section 5 are now in the form text** (CERTAIN-COAST_NATO_Application_Form_Text.docx), '
-        f'built from the eleven reviews: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
+        f'built from the eleven reviews and stakeholder review V: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
         f'art with references, current status and work-plan.']
     for k, it in enumerate(items):
         q = c.paragraphs[0] if k == 0 else c.add_paragraph()
@@ -325,7 +332,7 @@ def main(out):
     # ---------------------------------------------------------------------------------------------- 4 the method
     heading(doc, '4. The methodology in one picture', 14, before=8)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    put(p, 'The eleven reviews and the two notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
+    put(p, 'The eleven reviews, stakeholder review V and the two notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
            'tasks, deliverables and gates, so the Gantt chart and the deliverable list stay valid: the new methods enter '
            'tasks T2.3, T3.2, T4.1, T4.3 and T5.3.')
     p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
@@ -334,7 +341,8 @@ def main(out):
     put(q, 'Figure 1. The method chain. (1) The inputs and boundaries that nobody measures are reconstructed from the rain '
            'and the heads with guarantees that survive a wrong simulator, a wrong rain product and drift. (2) Each sensor is '
            'valued by what it is guaranteed to buy before it is bought. (3) The decisions — what pumping does to the salt, '
-           'what a drier climate would do, how long a safe operation lasts — are computed with the hidden confounding '
+           'what a drier climate would do, how long a safe operation lasts, how to pump before the source of the salt is '
+           'known — are computed with the hidden confounding '
            'removed and with stated error.', size=9.5, italic=True)
     heading(doc, 'Where each innovation enters, and what was tested', 12, color='2E6DB4', before=6)
     head_repeat(table(doc, ['Innovation (source)', 'Step beyond the state of the art', 'Tested evidence (2026)', 'Task'],
@@ -363,7 +371,8 @@ def main(out):
     heading(doc, '6. References for the state-of-the-art field', 14, before=10)
     p = para(doc, 4)
     put(p, 'In the form text they follow text 5.3 in the same field (the form invites references). Most details come from '
-           'the cards of reviews I–XI, which were checked through search results; check each one in a bibliographic database '
+           'the cards of reviews I–XI, which were checked through search results, and of stakeholder review V, checked in '
+           'Crossref; check each one in a bibliographic database '
            'before submission.', size=10, color=GREY, italic=True)
     for txt, url in REFS:
         q = para(doc, 2, 0.4)
