@@ -83,3 +83,16 @@ The note was corrected in place: only text nodes changed, and no equation was to
   m = ⌊α(N+1)⌋ the risk is at most α.
 - **References.** The eleven references marked "not verified" are completed and checked against Crossref, the Official
   Journal or library catalogues. The author's unpublished notes are marked as such.
+- **Section 7 (`fix_note_sec7.py`).** The limits paragraph now explains why the sea-level rise was cut and when the
+  cut would not hold:
+  - why: in the test, the inland boundary fixes the inflow;
+  - when it would fail: drains or a low land surface cap the water table, as on the plain of Durrës; subsidence adds to
+    the rise; pumping holds heads below sea level ([49], [50]);
+  - what follows: relative sea level stays in the 3-D assembly until it is re-weighed there.
+
+  The same paragraph adds that chloride is read as seawater only where all chloride is seawater. Otherwise the ions
+  carry the evidence about the source [51].
+- **References [49]–[51].** Werner & Simmons (2009), Michael et al. (2013) and stakeholder review V are added; the first
+  two were checked in Crossref.
+- **Formatting.** The references completed in the first pass get back their formatting: italic journal and DOI
+  hyperlink.
