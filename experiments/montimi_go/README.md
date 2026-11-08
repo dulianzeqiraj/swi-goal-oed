@@ -71,3 +71,15 @@ every claim against these files. In short:
   - Removing the immobile zones is safe (risk 8%) but conservative.
 - **Certified safe yield:** a Learn-then-Test certificate of the safe yield with 25 draws would cost 11.6% of the
   value (experiments/spiranca_go, sg_ltt.py).
+
+## Corrections of 8 November 2026 (`fix_note.py`)
+The note was corrected in place: only text nodes changed, and no equation was touched.
+- **Table 4.** The draws row now matches the runs: 25 design and 25 evaluation draws, and 40 calibration cases (10, 10
+  and 16 for the two counter-examples).
+- **What 25 draws can show.** The abstract, the innovation box, Table 7 and Section 6.4 now give the binomial 95%
+  intervals of the risks: 1 of 25 is 0.1–20%, 2 of 25 is 1–26%. They also state the guarantee of Proposition M4,
+  α + β = 20%.
+- **Remark G2 (new).** The order-statistic rule (51) has risk m/(N+1) on a new draw: 3/26 = 11.5% for N = 25. With
+  m = ⌊α(N+1)⌋ the risk is at most α.
+- **References.** The eleven references marked "not verified" are completed and checked against Crossref, the Official
+  Journal or library catalogues. The author's unpublished notes are marked as such.
