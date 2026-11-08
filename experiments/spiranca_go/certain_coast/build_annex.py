@@ -253,6 +253,36 @@ BL = [
           'of a warning to each user in the cost-loss model (Murphy, 1977; Richardson, 2000) has a guaranteed lower bound '
           'for every cost-loss ratio agreed in T3.1, reported in D5.1.'),
 
+    ('h2', '6.5 Pumping before the source of the chloride is known (T4.1, T5.3)'),
+    ('p', 'Rising chloride at a wellfield need not be seawater. Deep brine drawn up under the wells, a drought that '
+          'concentrates the recharge, or irrigation return flow and wastewater fit the same chloride record, and each calls '
+          'for a different change of pumping. On a synthetic test bed with three wellfields and an alternative supply, '
+          'acting on the wrong source let the blend exceed 250 mg/L with probability up to 100%, and the usual assumption '
+          'of seawater intrusion up to 98%. CERTAIN-COAST therefore decides before the source is known. Tracer data $y$ '
+          '(Br/Cl ratios, water isotopes, depth profiles from multilevel wells, nitrate and boron; Davis, Whittemore and '
+          'Fabryka-Martin, 1998) give each candidate source $k$ an e-value. The sources that the data cannot exclude form '
+          'a set that contains the true source with probability at least $1-\\beta$, for any sample size and without a '
+          'prior (Vovk and Wang, 2021):'),
+    ('eq', 'evset', 'E_k(y) = \\frac{1}{K-1}\\sum_{j \\neq k}\\frac{p_j(y)}{p_k(y)}, \\qquad S(y) = \\{\\,k :\\; '
+                    'E_k(y) < 1/\\beta\\,\\}, \\qquad \\Pr_k\\left[\\,k \\notin S(y)\\,\\right] \\le \\beta'),
+    ('p', 'The set keeps every source whose posterior under a flat prior exceeds $\\beta/(K-1+\\beta)$, and it is never '
+          'empty. Where the end-member signatures are uncertain, the denominator is replaced by its supremum over them '
+          '(universal inference; Wasserman, Ramdas and Balakrishnan, 2020). The pumping of the wellfields and the use of '
+          'the alternative supply are then chosen at least social cost, safe for every source left in the set:'),
+    ('eq', 'srcalloc', '\\min_{u}\\; c(u) \\quad \\text{s.t.} \\quad \\Pr_k\\left[\\,\\text{Cl}_{\\text{blend}}(u) > '
+                       '250\\ \\text{mg/L}\\,\\right] \\le \\alpha \\;\\text{ for every } k \\in S(y) \\quad '
+                       '\\Rightarrow \\quad \\Pr\\left[\\,\\text{exceed}\\,\\right] \\le \\alpha + \\beta'),
+    ('p', 'The bound holds whatever the true source is. The prior of experts and users is used only to choose which '
+          'tracers to buy, by the cost of the decision they change (T4.1). Monthly samples multiply the e-values, so the set '
+          'can be read at every steering meeting and acted on at any time without losing the guarantee (Ville, 1939). A '
+          'ledger shows what not knowing the source costs the utility, the farmers and the wetland. In the preparatory test '
+          'the rule kept every source at or below 6.9% against a 10% budget, at €3.31 million. Pumping safe for all '
+          'sources without tests cost €4.16 million, and €2.87 million if the source were known. Bayesian rules after the '
+          'same tests reached 12.3% for the sources the prior did not favour. Monthly updates dropped the true source in '
+          '1.2–1.5% of cases, against 22% for an ordinary test repeated every month. A truth that mixes seawater and '
+          'upconing breaks a list of pure sources (16.8%); admitting mixtures as hypotheses restores safety at a higher '
+          'cost.'),
+
     ('h', '7. Gates, pass tests and fallbacks'),
     ('cap', 'Table 2. What each step must achieve before the next starts, and what happens if it does not.'),
     ('table', ['Step and gate', 'Pass test', 'Fallback'],
@@ -271,7 +301,8 @@ BL = [
        'between samples included, under the pre-registered protocol', 'Margin widened: the miss target is kept and the '
        'extra false alarms are reported'],
       ['Live operation (WP5; MS6, Month 34)', 'Twelve months of logged bulletins; no e-process reaches 1/β; safe window '
-       'reported for each asset; every pumping test below its chloride test limit', 'If no strong event occurs, '
+       'reported for each asset; every pumping test below its chloride test limit; the plausible chloride sources and the '
+       'pumping in force published every month', 'If no strong event occurs, '
        'verification rests on back-testing and storylines; smaller and shorter tests, or the window from routine records'],
       ['Hand-over (WP6, WP7; MS7, Month 36)', 'An operating procedure adopted for each asset; the operators issue every '
        'bulletin of Months 34–36 without the project team; at least two trained people per operator; maintenance agreement '
@@ -283,9 +314,9 @@ BL = [
     ('h', '8. What is new beyond the state of the art'),
     ('p', 'The alarms assemble published methods of 2021–2026 (online and conditional conformal prediction, extreme '
           'conformal prediction, Learn then Test and anytime-valid verification); their joint use for coupled coastal '
-          'hazards is an application and is not claimed as new. Six contributions were derived and tested before the '
+          'hazards is an application and is not claimed as new. Seven contributions were derived and tested before the '
           'project (Table 3); the novelty statements rest on our literature search to date.'),
-    ('cap', 'Table 3. The six new contributions, the result of their preparatory test and where they are used.'),
+    ('cap', 'Table 3. The seven new contributions, the result of their preparatory test and where they are used.'),
     ('table', ['Contribution', 'What is new', 'Preparatory test', 'Where'],
      [['(i) Guarantees for quantities nobody measures', 'Bands for recharge, vadose delay, boundaries and dispersion that '
        'stay valid when the simulator or the rain product is wrong, with a computable floor', 'Raw ensemble missed 17–20% '
@@ -304,11 +335,17 @@ BL = [
        '49–62%', 'T4.1–T4.3; D4.1'],
       ['(vi) Warnings for what happens between samples', 'A certified band for a crossing at any time in the season, and '
        'the observation that closes it', 'Crossing 0.78 against 0.023 on a sampling date (34 times); band 0.18–1, '
-       'narrowed to 0.76–0.80 by a logger', 'T3.2; D2.1, D3.2']],
+       'narrowed to 0.76–0.80 by a logger', 'T3.2; D2.1, D3.2'],
+      ['(vii) Pumping before the source of the chloride is known', 'The sources that tracer e-values cannot exclude, '
+       'kept without a prior; pumping safe for all of them; tracers bought for the decision they change; monthly '
+       'updates valid at any time', 'Every source at or below 6.9% against a 10% budget (assuming seawater: up to 98%); '
+       '€3.31 million against €4.16 million without tests; true source dropped in 1.2–1.5% of cases against 22%',
+       'T4.1, T5.3; MS6']],
      [3.6, 5.4, 5.6, 2.8], 8.5),
     ('p', 'Together they answer questions that no current coastal warning answers for its operators: how often a warning '
           'will be missed and so what silence means; how many years of safe pumping and dewatering remain as the sea rises '
-          'and the land sinks; and which sensor or pumping test buys more of them. The system starts at TRL 3, each '
+          'and the land sinks; which sensor or pumping test buys more of them; and how to pump safely before anyone knows '
+          'where the salt comes from. The system starts at TRL 3, each '
           'component shown in preparatory tests, and ends at TRL 6, demonstrated on the operators\' own sites through twelve '
           'months of live operation with the water utility, AMBU, the port authority, TAP and civil protection.'),
     ('p', '**Software and data.** The model, fast copies, alarms, safe window, test planner and network design are released '
@@ -333,6 +370,7 @@ REFERENCES = [
     'Clements, T., Denolle, M.A. (2018). Tracking groundwater levels using the ambient seismic field. Geophysical Research Letters 45(13), 6459–6465. https://doi.org/10.1029/2018GL077706',
     'Clopper, C.J., Pearson, E.S. (1934). The use of confidence or fiducial limits illustrated in the case of the binomial. Biometrika 26(4), 404–413.',
     'Coles, S. (2001). An Introduction to Statistical Modeling of Extreme Values. Springer.',
+    'Davis, S. N., Whittemore, D. O., Fabryka-Martin, J. (1998). Uses of chloride/bromide ratios in studies of potable water. Groundwater 36(2), 338–350. https://doi.org/10.1111/j.1745-6584.1998.tb01099.x',
     'Emerick, A.A., Reynolds, A.C. (2013). Ensemble smoother with multiple data assimilation. Computers & Geosciences 55, 3–15.',
     'Evans, M., Moshonov, H. (2006). Checking for prior-data conflict. Bayesian Analysis 1(4), 893–914. https://doi.org/10.1214/06-BA129',
     'Fuglstad, G.-A., Simpson, D., Lindgren, F., Rue, H. (2019). Constructing priors that penalize the complexity of Gaussian random fields. Journal of the American Statistical Association 114(525), 445–452. https://doi.org/10.1080/01621459.2017.1415907',
@@ -365,6 +403,7 @@ REFERENCES = [
     'Simpson, D., Rue, H., Riebler, A., Martins, T.G., Sørbye, S.H. (2017). Penalising model component complexity: a principled, practical approach to constructing priors. Statistical Science 32(1), 1–28. https://doi.org/10.1214/16-STS576',
     'Ville, J. (1939). Étude critique de la notion de collectif. Gauthier-Villars, Paris.',
     'Vovk, V., Wang, R. (2021). E-values: calibration, combination and applications. Annals of Statistics 49(3), 1736–1754. https://doi.org/10.1214/20-AOS2020',
+    'Wasserman, L., Ramdas, A., Balakrishnan, S. (2020). Universal inference. Proceedings of the National Academy of Sciences 117(29), 16880–16890. https://doi.org/10.1073/pnas.1922664117',
 ]
 
 
