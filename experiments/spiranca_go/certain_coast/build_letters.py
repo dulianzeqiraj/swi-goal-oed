@@ -134,7 +134,7 @@ HOWTO = [
     '**The organisation adapts the text** to what it can really commit to, replaces every yellow placeholder, prints the letter on its own letterhead, and has it signed (and stamped, where usual) by a person authorised to commit it.',
     '**Do not sign on behalf of an organisation** and do not send unsigned letters as if they were signed; reviewers check that commitments are genuine.',
     '**Collect the signed letters as PDF and merge them into one file:** the platform (tab 9, End-Users) takes a single PDF with all end-user commitments; keep the originals.',
-    '**What the call asks (2027-1):** "an end-user commitment letter for each of the project\'s end-users"; for governmental end-users the form accepts a letter of support from the ministry or agency. Letters go to NATO in English; an Albanian reading copy of the four end-user letters is in CERTAIN-COAST_Letters_of_Commitment_SQ.docx.',
+    '**What the call asks (2027-1):** "an end-user commitment letter for each of the project\'s end-users"; for governmental end-users the form accepts a letter of support from the ministry or agency. Letters go to NATO in English; an Albanian reading copy of the five end-user letters is in CERTAIN-COAST_Letters_of_Commitment_SQ.docx.',
 ]
 
 STRONG = [
@@ -217,7 +217,8 @@ def main(out):
 
 # ------------------------------------------------------------------------------------------------- Albanian copy
 SQ_ROLE = {'utility': 'përdorues fundor (fushat e puseve)', 'port': 'përdorues fundor (porti)',
-           'energy': 'përdorues fundor (pika e daljes në breg e TAP pranë Fierit)', 'civil': 'përdorues fundor (mbrojtja civile)'}
+           'energy': 'përdorues fundor (pika e daljes në breg e TAP pranë Fierit)', 'civil': 'përdorues fundor (mbrojtja civile)',
+           'ambu': 'përdorues fundor (burimet ujore)'}
 SQ = {
     'utility': dict(
         intro='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a. furnizon Durrësin me ujë të pijshëm nga fushat e puseve '
@@ -287,6 +288,23 @@ SQ = {
         use='Synojmë të marrim buletinet dhe raportet pas ngjarjeve gjatë operimit të drejtpërdrejtë (Muajt 23–34) dhe të '
             'shqyrtojmë përfshirjen e protokollit pas ngjarjeve në procedurat tona. Çdo paralajmërim për publikun mbetet '
             'përgjegjësi jona dhe do të lëshohet përmes kanaleve tona.'),
+    'ambu': dict(
+        intro='Agjencia e Menaxhimit të Burimeve Ujore (AMBU) menaxhon burimet ujore të Shqipërisë, përfshirë akuiferin '
+              'Tiranë–Fushë Kuqe–Lezhë që furnizon Durrësin. Depërtimi i ujit të detit, thatësirat rekord dhe ulja e tokës e '
+              'kërcënojnë këtë akuifer. Mbështesim aplikimin e projektit CERTAIN-COAST në Programin NATO SPS dhe '
+              'angazhohemi të marrim pjesë si përdorues fundor.',
+        provide=['akses në puset e monitorimit nën administrimin tonë për sensorët e projektit për nivelin dhe kripësinë e '
+                 'ujit, të blerë nga projekti, duke përdorur vetëm puse ekzistuese (pa shpime të reja), nga Muaji [4];',
+                 'të dhënat tona për nivelet e ujërave nëntokësore, kiminë e ujit dhe sasitë e ujit të nxjerrë nga '
+                 'akuiferi, sipas një marrëveshjeje për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
+                 'kohë të stafit për të rënë dakord për pragun e paralajmërimit për kloridin dhe shkallën e pranueshme të '
+                 'alarmeve të rreme (Muajt 13–15) dhe për të shqyrtuar rregullin e pompimit dhe të thatësirës (Muajt 24–33);',
+                 'pjesëmarrjen e [numri] punonjësve në seminare dhe në trajnimin për softuerin e hapur (Muajt 24–36).'],
+        use='Synojmë të përdorim projektimin e rrjetit të monitorimit, paralajmërimin e hershëm për kloridin për çdo pus '
+            'furnizimi dhe rregullin e pompimit dhe të thatësirës në [programin tonë të monitorimit dhe në lejet e '
+            'përdorimit të ujit për këtë akuifer], si dhe të shqyrtojmë zbatimin e metodës edhe në akuiferë të tjerë të '
+            'Shqipërisë. Siç është rënë dakord, pjesëmarrja jonë nuk krijon për AMBU-në asnjë detyrim prokurimi, pronësie '
+            'apo mirëmbajtjeje.'),
 }
 SQ_END = [
     'Jemi të gatshëm të bashkënënshkruajmë marrëveshjen e projektit për të drejtat e pronësisë intelektuale për nenet që '
@@ -337,7 +355,7 @@ def main_sq(out):
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run(p, 'CERTAIN-COAST — Letrat e angazhimit të përdoruesve fundorë (kopje në shqip)', bold=True, size=16, color='1F3864')
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run(p, 'Përkthim për lexim i katër letrave të end-users, me të njëjtën përmbajtje si versioni në anglisht. Institucioni '
+    run(p, 'Përkthim për lexim i pesë letrave të end-users, me të njëjtën përmbajtje si versioni në anglisht. Institucioni '
            'firmos letrën në anglisht në letrën e vet zyrtare; fushat e verdha plotësohen prej tij.', italic=True, size=10,
         color='52606D')
     for L in [x for x in LETTERS if x['key'] in SQ]:
