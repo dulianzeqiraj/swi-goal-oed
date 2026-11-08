@@ -523,11 +523,21 @@ WORKPLAN = (
     'certified window, its closing year and safe pumping tests that sharpen it follow, and the pumping and drought rule is '
     'agreed with the utility and AMBU; post-event protocol (T5.4). Risk: no strong event occurs; mitigation: verification by back-testing and '
     'storylines. Risk: drawdown coefficients from the pumping tests are uncertain; mitigation: their uncertainty is carried '
-    'into the effect as a stated bias band. Milestones: MS6 (Month 34), MS7 (Month 36).\n'
+    'into the effect as a stated bias band. Milestone: MS6 (Month 34).\n'
     'WP6, Training, transfer and dissemination (Months 1–36; partner-country team): early-career researchers and a training '
-    'school (T6.1), operator training (T6.2), open release (T6.3), transfer to a second coast (T6.4).\n'
+    'school (T6.1), operator training (T6.2), open release (T6.3), transfer to a second coast (T6.4). Risk: the operators rely '
+    'on the bulletins alone, or trained operator staff leave; mitigation: the system stays advisory beside the operators\' own '
+    'procedures, the training explains what a certified miss rate means, and at least two people are trained per operator. '
+    'Milestone: MS7 (Month 36), the operators own and run the system: an operating procedure adopted for each asset, every '
+    'bulletin of Months 34–36 issued by the operators without the project team, and a maintenance agreement signed by '
+    'Month 33 (D6.2).\n'
     'WP7, Management, data and risk (Months 1–36; coordinator): management and reporting (T7.1), data plan and access '
-    'agreements (T7.2), risk register (T7.3).')
+    'agreements (T7.2), risk register (T7.3). Risk: the operators delay access to well, port or landfall data; mitigation: '
+    'access agreements by Month 3, with WP1 and the design of WP4 started on public and satellite data meanwhile. Risk: a '
+    'release discloses sensitive information on critical infrastructure; mitigation: data classified in the data plan, '
+    'asset-level results shared only with the operators and authorities, and publications reviewed by the operators before '
+    'submission. Milestones: access agreements and data management plan (D7.1, Month 3); progress reports at the SPS '
+    'milestones (D7.2, Months 6, 18 and 30); final report (D7.3, Month 36); the risk register reviewed at every gate.')
 
 
 AFTER = (
