@@ -1,6 +1,6 @@
 # PREJARDHJA-GO: deciding how to meet the demand when nobody knows where the chloride comes from
 
-Code and results of **State of the art V** (November 2026, English):
+Code and results of **Stakeholder decisions V**, a state-of-the-art review (November 2026, English):
 `docs/literature/Literature_review_Stakeholder_Decisions_V_Unknown_Chloride_Source_PREJARDHJA-GO_Oxford_Caltech_Harvard_MIT_2020-2026.docx`.
 It is the fifth review of stakeholder decisions, after reviews I–IV. *Prejardhja* is Albanian for provenance.
 

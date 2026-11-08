@@ -1,4 +1,4 @@
-"""Text of State of the art V (English): stakeholder decisions when the source of chloride is unknown, thirty papers
+"""Text of Stakeholder decisions V, a state-of-the-art review (English): stakeholder decisions when the source of chloride is unknown, thirty papers
 and PREJARDHJA-GO. blocks(R) returns the block list; every number comes from res/prejardhja.json.
 Conventions: $inline math$, **bold**, *italic*, [text](url) hyperlink, [[key]] equation number, {{key}} figure or table
 number."""
@@ -98,7 +98,7 @@ def blocks(R):
     B = []
     A = B.append
 
-    A(('title', 'State of the art V: deciding when nobody knows where the chloride comes from'))
+    A(('title', 'Stakeholder decisions V: deciding when nobody knows where the chloride comes from'))
     A(('subtitle', 'Stakeholder decisions that meet the water demand and the other demands when the salt may come from the '
                    'sea, from deep brine, from drought or from people — thirty papers from Oxford, Caltech (with JPL), '
                    'Harvard and MIT, 2020–2026, each with an innovation step, and PREJARDHJA-GO, a decision rule with a '

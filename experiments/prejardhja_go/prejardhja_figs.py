@@ -1,4 +1,4 @@
-"""Figures of State of the art V (PREJARDHJA-GO); English labels, every text at least 8.6 pt at the printed size.
+"""Figures of Stakeholder decisions V (PREJARDHJA-GO); English labels, every text at least 8.6 pt at the printed size.
 usage: python prejardhja_figs.py OUT_DIR
 
 fig_method    the method in one picture: four stories, tracer tests, plausible-source set, robust allocation, stakeholders

@@ -1,4 +1,4 @@
-"""The thirty paper cards of State of the art V (stakeholder decisions when the source of chloride is unknown):
+"""The thirty paper cards of Stakeholder decisions V (a state-of-the-art review; source of chloride unknown):
 twelve from Oxford, six from Caltech (with JPL), five from Harvard (one joint with MIT) and seven from MIT, 2020-2026.
 Bibliographic data, affiliation strings and abstracts come from the Crossref records of each DOI (November 2026); the
 'does' and 'sota' fields keep to the abstract, the other fields are our reading. None of the thirty is a card or a

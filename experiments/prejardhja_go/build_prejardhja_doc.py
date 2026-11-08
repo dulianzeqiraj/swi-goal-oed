@@ -1,4 +1,4 @@
-"""Builds State of the art V (English, Word, OMML equations, clickable links): stakeholder decisions when the source of
+"""Builds Stakeholder decisions V, a state-of-the-art review (English, Word, OMML equations, clickable links): stakeholder decisions when the source of
 chloride is unknown, thirty papers from Oxford, Caltech, Harvard and MIT (2020-2026), and PREJARDHJA-GO.
 
 usage: python build_prejardhja_doc.py OUT.docx
