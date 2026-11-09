@@ -20,7 +20,7 @@ from pypdf import PdfReader, PdfWriter
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 PARTS = [
-    ('Technical annex: how the methods work, the preparatory tests, the gates with their fallbacks and the eight new '
+    ('Technical annex: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new '
      'contributions', 'Technical annex', os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Technical_Annex.pdf')),
     ('Technical note: assembling the equations of a coastal aquifer, with the placement of recharge and pumping wells '
      'as the final goal (preparatory work of the NPD\'s team, October 2026; corrected 8 November 2026)',

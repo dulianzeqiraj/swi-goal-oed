@@ -67,6 +67,9 @@ REFS = [
                         'të çiftuara për bregdetin Durrës–Fushë Kuqe (the TERMETET note). Working note, 31 October '
                         '2026; revised version docs/research_notes/TERMETET_CERTAIN-COAST_Termeti_Akuiferi_Permbytjet_'
                         'Sistemi_i_Ekuacioneve_rishikuar.docx in this repository.', url=None),
+    dict(key='D2', text='CERTAIN-COAST (2026). Certified early warning to protect water, port and energy infrastructure on '
+                        'a sinking Adriatic coast. Technical annex of the NATO SPS application (draft), '
+                        'docs/certain_coast/CERTAIN-COAST_Technical_Annex.docx in this repository.', url=None),
 ]
 
 
@@ -242,20 +245,25 @@ def blocks(R, C):
         r'November 2019 can.',
     ]))
     A(('box', [
-        r'**Innovation: TRONDITJA-GO** (*tronditja*: the jolt). Two hazards pull the same managed head in opposite '
-        r'directions: liquefaction needs the water table deep, seawater intrusion needs the fresh head high. '
-        r'TRONDITJA-GO computes the window between them, $\eta + m_{int} \le h \le z_s - z^*(a)$, and the relative '
-        r'sea level $\eta_{close}(a)$ at which it closes for the design acceleration $a$. At the synthetic port of E4 '
-        r'the window closes at $\eta$ = <<ec020>> m for 0.20 g (<<yr020>> at an illustrative 9 mm/yr) and is already '
-        r'closed at 0.22 g. Neither a liquefaction map nor an intrusion model gives this number alone.',
-        r'The same machinery gives a **daily bulletin**: the probability that the LPI exceeds 5 if the design '
-        r'earthquake struck on a given day, from the water table of that day. At the port it moves between <<p_min>> '
-        r'(late July) and <<p_max>> (early February), a factor of <<p_ratio>> that a static hazard map hides.',
-        r'Two further results are new in this chain: the step coefficient $\kappa$ for a layer under the free surface, '
-        r'which decides which aquifer feels the earthquake, and the use of the coseismic step as a free pumping test '
-        r'for the leakage time. The building blocks are published [1, 9–11, 13, 16]; sea-level rise and liquefaction '
-        r'have been studied together [17, 18]. In the sources read for this note we did not find the joint window, '
-        r'its closing sea level or the daily bulletin.',
+        r'**Innovation: TRONDITJA-GO** (*tronditja*: the jolt). Three results are new. (i) **Which aquifer feels the '
+        r'earthquake.** The static step of a layer under the free surface follows its own shear modulus, $\kappa = '
+        r'\tfrac{2}{3} G B (1+\nu_u)/(1-\nu_u)$: centimetres in soft surface sand, up to a metre in a confined '
+        r'aquifer, and <<r_soft>> times less in the soft sand than (2.2) as written. The step therefore leaves the '
+        r'liquefaction of the surface sands and stays in the confined aquifer and its wells. (ii) **The earthquake as a '
+        r'free pumping test.** The relaxation of that step identifies the leakage time <<ci_r>> times more sharply than a '
+        r'year of seasonal heads. (iii) **A design result.** The 2019 liquefaction map cannot test the step, and tests '
+        r'the water table of the day only with several hundred CPTs.',
+        r'The certified safe window and the liquefaction state "if the design earthquake struck now" are concepts of the '
+        r'CERTAIN-COAST proposal [D2]: its multi-hazard window and its indicator $I_2$. TRONDITJA-GO computes them with '
+        r'the liquefaction module. For one managed head the window between liquefaction and intrusion closes at '
+        r'$\eta_{close}(a) = z_s - z^*(a) - m_{int} - A$: at the synthetic port of E4, at <<ec020>> m of relative '
+        r'sea-level rise for 0.20 g (<<yr020>> at an illustrative 9 mm/yr), and it is already closed at 0.22 g. The '
+        r'probability that the LPI exceeds 5 if the earthquake struck that day moves between <<p_min>> (late July) and '
+        r'<<p_max>> (early February), a factor of <<p_ratio>> that a static hazard map hides.',
+        r'The building blocks are published [1, 9–11, 13, 16]; sea-level rise and liquefaction have been studied '
+        r'together [17, 18]. In the sources read for this note we did not find the step coefficient of a layer under '
+        r'the free surface used to decide which aquifer feels an earthquake, nor the coseismic step used as a pumping '
+        r'test of the leakage time.',
     ]))
     A(('img', 'chain', 17.0))
     A(('cap', r'Figure {{chain}}. TRONDITJA-GO in six steps, each with its computed field: (1) the four source models '
@@ -487,14 +495,15 @@ def blocks(R, C):
               r'as written (orange) and soft surface sand (blue).'))
 
     # ------------------------------------------------------------------------------------------ 6
-    A(('h', '6. E4, the innovation: the joint safe window and the daily bulletin'))
+    A(('h', '6. E4: the joint safe window and the daily bulletin, computed'))
     A(('h2', '6.1 Two limits on one head'))
     A(('p', r'Let $h$ be the managed head at a low coastal site above mean sea level, $z_s$ the ground elevation and '
             r'$z^*(a)$ the depth that the water table must keep for the LPI to stay below 5 under the design '
             r'acceleration $a$, certified as the 90% quantile over the profiles of the site. Liquefaction asks for '
             r'$h \le z_s - z^*(a)$. The Ghyben–Herzberg relation (3.7) of [D1] keeps the interface at least 20 m deep '
             r'if $h \ge \eta + m_{int}$ with $m_{int}$ = 20/40 = <<mint>> m, $\eta$ being the relative sea-level rise '
-            r'[16]. The window and its width are'))
+            r'[16]. This is the certified multi-hazard window of the proposal [D2], written for one managed head. The '
+            r'window and its width are'))
     A(('eq', 'window', r'\eta + m_{int} \;\le\; h \;\le\; z_s - z^*(a), \qquad W(\eta, a) = z_s - z^*(a) - \eta - m_{int}'))
     A(('p', r'A head that swings by $A$ over the year stays inside all year only if $W \ge A$. The window closes for '
             r'good at'))

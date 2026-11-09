@@ -59,7 +59,9 @@ BL = [
      [4.0, 5.4, 4.6, 3.4], 8.5),
     ('p', 'An alarm is missed when the indicator exceeds its threshold within the lead time and no alarm was issued; the '
           'long-run miss rate is the quantity the project certifies. Earthquakes are not forecast: the liquefaction alarm '
-          'states how the ground would respond if the design earthquake struck now, a state that changes with the water table.'),
+          'states how the ground would respond if the design earthquake struck now, a state that changes with the water table. '
+          'In a preparatory test at a synthetic port, the chance that the liquefaction potential index exceeded 5 if the '
+          'design earthquake struck on a given day moved between 0.16 in late July and 0.26 in early February.'),
 
     ('h', '2. The method chain'),
     ('p', 'Six steps turn data into bulletins (Figure 1). Each step has a pass test and a fallback (Section 7). Three loops '
@@ -153,7 +155,31 @@ BL = [
           'the pumping varied, the boundary predicted an unseen drought with doubled pumping to 6 mm (372 mm), and the '
           'fresh water lost to the sea-level rise within 4%. The proofs and the six checks are in the PËRTEJ-GO theory '
           'note, the third document of these files.'),
-    ('h2', '4.4 A fast copy with a certified error (T2.4)'),
+    ('h2', '4.4 The earthquake in the aquifer (T2.2, T4.4, T5.4)'),
+    ('p', 'An earthquake changes the pore pressure at once, so the liquefaction indicator uses the pore pressure of that '
+          'moment: below the water table of the day, $u = \\gamma_w (z - z_w)_+ + f\\,\\Delta p_0$, where $f$ is the share '
+          'of the step left at the end of the shaking (close to zero in sand within a few metres of the water table, one '
+          'in sand below clay). The static step follows from the published fault models of the 2019 earthquake (Ganas et '
+          'al., 2020; Govorčin et al., 2020; Matraku et al., 2023; van der Heiden et al., 2026) through the horizontal '
+          'strain at the surface (Okada, 1985). A soft layer under the free surface takes that strain and adjusts '
+          'vertically, so for an undrained layer with shear modulus $G$, Skempton coefficient $B$ and undrained Poisson '
+          'ratio $\\nu_u$'),
+    ('eq', 'kappa', '\\Delta p_0 = -\\kappa\\,\\left(\\Delta\\varepsilon_{xx} + \\Delta\\varepsilon_{yy}\\right), \\qquad '
+                    '\\kappa = \\frac{2GB}{3}\\,\\frac{1+\\nu_u}{1-\\nu_u}'),
+    ('p', 'A soft saturated sand ($\\nu_u$ near 1/2) deforms at almost constant volume, so its step scales with $G$, which '
+          'the seismic nodes measure as shear-wave velocity (T4.4). With the four source models the step was 7–12 cm of '
+          'head in soft surface sand ($G$ = 50 MPa) and 0.6–1.0 m in a stiffer confined aquifer ($G$ = 0.5 GPa); the usual '
+          'estimate, $B K_u$ times the volumetric strain of the half-space, gave 35 times the soft-sand value. For '
+          'liquefaction the water table of the day dominates: in an example profile the index fell from 20.2 to 9.3 as '
+          'the water table deepened from 0.8 to 2.6 m. The cone-penetration resistance keeps the value it had when it was '
+          'measured; re-normalising it with the stress of the day understated that slope by 33%. The step matters in the '
+          'confined aquifer, and its '
+          'relaxation is a free pumping test: 20 days of logger data after a 0.3 m step pinned the leakage time 5.8 times '
+          'more sharply than a year of seasonal heads. The post-event protocol (T5.4) therefore reads the leakage of the '
+          'confined aquifer from the loggers, and well records of November 2019 are sought where they exist. The mapped '
+          'liquefaction of 2019 (Mavroulis, Lekkas and Carydis, 2021) cannot test the step: on a synthetic plain even 480 '
+          'sites gave a power below 50%.'),
+    ('h2', '4.5 A fast copy with a certified error (T2.4)'),
     ('p', 'Warnings need thousands of model runs a day. A neural operator (Li et al., 2021; Lu et al., 2021) is trained on '
           'runs of the coupled model, and its error on each forecast is bounded conformally (Ma et al., 2024), with the '
           'score normalised by the goal-oriented dual-weighted residual $\\eta_k$ (Becker and Rannacher, 2001), so the bound '
@@ -256,7 +282,12 @@ BL = [
           'the margins cost 84 years against the window without them. Valued in years by preposterior analysis, with Eq. '
           '(mult) as a first-order shortcut, a sentinel piezometer between the wellfield and the sea added 21.6 years, and a '
           'GNSS station and two corner reflectors 5.6 and 5.0 years, where the classical criterion values them at zero '
-          'because they narrow none of today\'s forecasts.'),
+          'because they narrow none of today\'s forecasts. For one managed head the window between liquefaction and '
+          'intrusion has a closed form, $\\eta + m_{int} \\le h \\le z_s - z^{*}(a)$, with $z^{*}(a)$ the water-table depth '
+          'that keeps the index below 5 for 90% of the profiles under the design acceleration $a$ and $m_{int}$ the fresh '
+          'head that keeps the interface 20 m deep. At a synthetic port it closed at 0.29 m of relative sea-level rise for '
+          '0.20 g and was already closed at 0.22 g, so the design acceleration agreed with the port authority decides the '
+          'closing year.'),
     ('h2', '6.3 Safe pumping tests chosen for the years they add (T5.3)'),
     ('p', 'Routine pumping keeps the water table in a narrow band, so the records say little about how chloride responds '
           'near the onset of intrusion, which decides when the window closes. Short pumping and dewatering tests, each '
@@ -339,9 +370,9 @@ BL = [
     ('h', '8. What is new beyond the state of the art'),
     ('p', 'The alarms assemble published methods of 2021–2026 (online and conditional conformal prediction, extreme '
           'conformal prediction, Learn then Test and anytime-valid verification); their joint use for coupled coastal '
-          'hazards is an application and is not claimed as new. Eight contributions were derived and tested before the '
+          'hazards is an application and is not claimed as new. Nine contributions were derived and tested before the '
           'project (Table 3); the novelty statements rest on our literature search to date.'),
-    ('cap', 'Table 3. The eight new contributions, the result of their preparatory test and where they are used.'),
+    ('cap', 'Table 3. The nine new contributions, the result of their preparatory test and where they are used.'),
     ('table', ['Contribution', 'What is new', 'Preparatory test', 'Where'],
      [['(i) Guarantees for quantities nobody measures', 'Bands for recharge, vadose delay, boundaries and dispersion that '
        'stay valid when the simulator or the rain product is wrong, with a computable floor', 'Raw ensemble missed 17–20% '
@@ -370,12 +401,18 @@ BL = [
        'exact for any linear aquifer beyond the cut, passive whatever the rest of the model, learned from two '
        'piezometers while the pumping varies', 'Six compartments 7.8 mm against 148 mm for the best general-head '
        'boundary; unseen drought with doubled pumping 6 mm against 372 mm; fresh water lost to sea-level rise within '
-       '4% (prescribed inflow: 3.1 times too little)', 'T2.3, T4.1; D2.1, MS3']],
+       '4% (prescribed inflow: 3.1 times too little)', 'T2.3, T4.1; D2.1, MS3'],
+      ['(ix) Which aquifer feels an earthquake', 'The pore-pressure step of each layer from its own stiffness, in the '
+       'liquefaction indicator with the pore pressure of the day; the step of the confined aquifer used as a free '
+       'pumping test', 'Step 7–12 cm in soft sand and 0.6–1.0 m in a confined aquifer, where the usual estimate is 35 '
+       'times the soft-sand value; leakage time 5.8 times sharper than from a year of seasons', 'T2.2, T4.4, T5.4; '
+       'D2.1']],
      [3.6, 5.4, 5.6, 2.8], 8.5),
     ('p', 'Together they answer questions that no current coastal warning answers for its operators: how often a warning '
           'will be missed and so what silence means; how many years of safe pumping and dewatering remain as the sea rises '
           'and the land sinks; which sensor or pumping test buys more of them; how the aquifer beyond the model answers '
-          'new pumping and a rising sea; and how to pump safely before anyone knows where the salt comes from. The system starts at TRL 3, each '
+          'new pumping and a rising sea; which layer an earthquake loads and what its relaxation reveals; and how to pump '
+          'safely before anyone knows where the salt comes from. The system starts at TRL 3, each '
           'component shown in preparatory tests, and ends at TRL 6, demonstrated on the operators\' own sites through twelve '
           'months of live operation with the water utility, AMBU, the port authority, TAP and civil protection.'),
     ('p', '**Software and data.** The model, fast copies, alarms, safe window, test planner and network design are released '
@@ -407,9 +444,11 @@ REFERENCES = [
     'Gao, H., Kaltenbach, S., Koumoutsakos, P. (2024). Generative learning for forecasting the dynamics of high-dimensional complex systems. Nature Communications 15, 8904. https://doi.org/10.1038/s41467-024-53165-w',
     'Gibbs, I., Candès, E. (2021). Adaptive conformal inference under distribution shift. Advances in Neural Information Processing Systems 34.',
     'Gibbs, I., Candès, E.J. (2024). Conformal inference for online prediction with arbitrary distribution shifts. Journal of Machine Learning Research 25(162), 1–36.',
+    'Ganas, A., Elias, P., Briole, P., et al. (2020). Ground deformation and seismic fault model of the M6.4 Durres (Albania) Nov. 26, 2019 earthquake, based on GNSS/InSAR observations. Geosciences 10(6), 210. https://doi.org/10.3390/geosciences10060210',
     'Gibbs, I., Cherian, J.J., Candès, E.J. (2025). Conformal prediction with conditional guarantees. Journal of the Royal Statistical Society Series B 87(4), 1100–1126. https://doi.org/10.1093/jrsssb/qkaf008',
     'Gierjatowicz, P., Sabate-Vidales, M., Šiška, D., Szpruch, L., Žurič, Ž. (2020). Robust pricing and hedging via neural SDEs. Working paper, SSRN 3646241.',
     'Grant, A.R.R., Wein, A., Befus, K.M., et al. (2021). Changes in liquefaction severity in the San Francisco Bay Area with sea-level rise. Geo-Extreme 2021, Geotechnical Special Publication 329, 308–317. https://doi.org/10.1061/9780784483695.030',
+    'Govorčin, M., Wdowinski, S., Matoš, B., Funning, G.J. (2020). Geodetic source modeling of the 2019 Mw 6.3 Durrës, Albania, earthquake: partial rupture of a blind reverse fault. Geophysical Research Letters 47(22), e2020GL088990. https://doi.org/10.1029/2020GL088990',
     'Gustavsen, B., Semlyen, A. (2001). Enforcing passivity for admittance matrices approximated by rational functions. IEEE Transactions on Power Systems 16(1), 97–104. https://doi.org/10.1109/59.910786',
     'Haasnoot, M., Kwakkel, J.H., Walker, W.E., ter Maat, J. (2013). Dynamic adaptive policy pathways: a method for crafting robust decisions for a deeply uncertain world. Global Environmental Change 23(2), 485–498. https://doi.org/10.1016/j.gloenvcha.2012.12.006',
     'Haggerty, R., Gorelick, S. M. (1995). Multiple-rate mass transfer for modeling diffusion and surface reactions in media with pore-scale heterogeneity. Water Resources Research 31(10), 2383–2400. https://doi.org/10.1029/95WR10583',
@@ -421,10 +460,12 @@ REFERENCES = [
     'Lu, L., Jin, P., Pang, G., Zhang, Z., Karniadakis, G.E. (2021). Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators. Nature Machine Intelligence 3, 218–229. https://doi.org/10.1038/s42256-021-00302-5',
     'Ma, Z., Pitt, D., Azizzadenesheli, K., Anandkumar, A. (2024). Calibrated uncertainty quantification for operator learning via conformal prediction. Transactions on Machine Learning Research.',
     'Mania, H., Jordan, M.I., Recht, B. (2022). Active learning for nonlinear system identification with guarantees. Journal of Machine Learning Research 23, 1–30.',
+    'Matraku, K., Jouanne, F., Dushi, E., et al. (2023). The 26 November 2019 Durrës earthquake, Albania: coseismic displacements and occurrence of slow slip events in the year following the earthquake. Geophysical Journal International 234(2), 807–838. https://doi.org/10.1093/gji/ggad101',
     'Mavroulis, S., Lekkas, E., Carydis, P. (2021). Liquefaction phenomena induced by the 26 November 2019, Mw = 6.4 Durrës (Albania) earthquake and liquefaction susceptibility assessment in the affected area. Geosciences 11(5), 215. https://doi.org/10.3390/geosciences11050215',
     'Mazi, K., Koussis, A.D., Destouni, G. (2013). Tipping points for seawater intrusion in coastal aquifers under rising sea level. Environmental Research Letters 8(1), 014001. https://doi.org/10.1088/1748-9326/8/1/014001',
     'Murphy, A.H. (1977). The value of climatological, categorical and probabilistic forecasts in the cost-loss ratio situation. Monthly Weather Review 105(7), 803.',
     'Ohenhen, L.O., Shirzaei, M., Ojha, C., Kirwan, M.L. (2023). Hidden vulnerability of US Atlantic coast to sea-level rise due to vertical land motion. Nature Communications 14, 2038. https://doi.org/10.1038/s41467-023-37853-7',
+    'Okada, Y. (1985). Surface deformation due to shear and tensile faults in a half-space. Bulletin of the Seismological Society of America 75(4), 1135–1154. https://doi.org/10.1785/BSSA0750041135',
     'Pasche, O.C., Lam, H., Engelke, S. (2026). Extreme conformal prediction: reliable intervals for high-impact events. Extremes 29(2), 129–155. https://doi.org/10.1007/s10687-026-00536-9',
     'Ramdas, A., Grünwald, P., Vovk, V., Shafer, G. (2023). Game-theoretic statistics and safe anytime-valid inference. Statistical Science 38(4), 576–601. https://doi.org/10.1214/23-STS894',
     'Rasmussen, T.C., Crawford, L.A. (1997). Identifying and removing barometric pressure effects in confined and unconfined aquifers. Ground Water 35(3), 502–511. https://doi.org/10.1111/j.1745-6584.1997.tb00111.x',
@@ -433,8 +474,10 @@ REFERENCES = [
     'Seed, H.B., Idriss, I.M. (1971). Simplified procedure for evaluating soil liquefaction potential. Journal of the Soil Mechanics and Foundations Division, ASCE 97(SM9), 1249–1273.',
     'Shen, C., Appling, A.P., Gentine, P., et al. (2023). Differentiable modelling to unify machine learning and physical models for geosciences. Nature Reviews Earth & Environment 4(8), 552–567. https://doi.org/10.1038/s43017-023-00450-9',
     'Simpson, D., Rue, H., Riebler, A., Martins, T.G., Sørbye, S.H. (2017). Penalising model component complexity: a principled, practical approach to constructing priors. Statistical Science 32(1), 1–28. https://doi.org/10.1214/16-STS576',
+    'van der Heiden, V., Schurr, B., Woollam, J., et al. (2026). Analysis of the 2019 Mw 6.4 Durrës, Albania, aftershock sequence: basement involved thrusting at the eastern Adriatic plate margin. Geophysical Journal International 246(2), ggag155. https://doi.org/10.1093/gji/ggag155',
     'Ville, J. (1939). Étude critique de la notion de collectif. Gauthier-Villars, Paris.',
     'Vovk, V., Wang, R. (2021). E-values: calibration, combination and applications. Annals of Statistics 49(3), 1736–1754. https://doi.org/10.1214/20-AOS2020',
+    'Wang, C.-Y., Chia, Y. (2008). Mechanism of water level changes during earthquakes: near field versus intermediate field. Geophysical Research Letters 35(12). https://doi.org/10.1029/2008GL034227',
     'Wasserman, L., Ramdas, A., Balakrishnan, S. (2020). Universal inference. Proceedings of the National Academy of Sciences 117(29), 16880–16890. https://doi.org/10.1073/pnas.1922664117',
     'Werner, A. D., Simmons, C. T. (2009). Impact of sea-level rise on sea water intrusion in coastal aquifers. Ground Water 47(2), 197–204. https://doi.org/10.1111/j.1745-6584.2008.00535.x',
 ]
