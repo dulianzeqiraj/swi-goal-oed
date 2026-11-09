@@ -181,7 +181,7 @@ NPD = dict(
         ['2008–[year]', 'Lecturer, Department of Reservoir Engineering (now Energy Resources)',
          'Faculty of Geology and Mining, Polytechnic University of Tirana'],
         ['2006–2008', '[position]', 'Albanian Geological Survey (Shërbimi Gjeologjik Shqiptar), Tirana'],
-        ['1996–2006', '[position]', 'Alpetrol, oil production company, Albania'],
+        ['1996–2006', '[position]', 'Albpetrol, the national oil company, Albania'],
     ],
     expertise=[
         '**Seawater intrusion and monitoring design:** goal-oriented Bayesian design of monitoring networks and of '
@@ -191,7 +191,7 @@ NPD = dict(
         '**Stochastic modelling of flow and transport:** coupled geomechanical, geochemical and flow models of fractured '
         'and karst media; fracture initiation and propagation under fluid injection (2021–2022).',
         '**Optimisation under uncertainty:** placement and rates of wells; scheduling of field projects.',
-        '**Modelling software and field background:** C++, Python and MATLAB; ten years in oil production (Alpetrol) and '
+        '**Modelling software and field background:** C++, Python and MATLAB; ten years in oil production (Albpetrol) and '
         'two years at the Albanian Geological Survey.',
     ],
     pubs=[
@@ -223,11 +223,12 @@ NPD = dict(
          'Bayesian calibration of DRASTIC against monitoring data, and the value of new stations. SSRN preprint.',
          'https://doi.org/10.2139/ssrn.7511860'),
     ],
-    projects=[['[from–to]', '[title]', '[funder]', '[role]']],
+    projects=[['2025–', 'Modelling, simulation and optimisation of formation treatment methods to maximise the net profit of the massive carbonate reservoir of the Amonicë oil field (with Albpetrol Sh.A.)', 'National Agency for Scientific Research and Innovation (AKKSHI), Albania', 'Project leader']],
     sps='[none]',
     users=[
         'Albanian Geological Survey (SHGJSH), the end-user of CERTAIN-COAST: staff member, 2006–2008.',
-        'Alpetrol, oil production company: production wells and reservoirs, 1996–2006.',
+        'Albpetrol, the national oil company: production wells and reservoirs, 1996–2006; since 2025 partner of his AKKSHI '
+        'project, with field data, well records and the validation of a 3D reservoir model (MATLAB-MRST).',
         'Preparatory work for CERTAIN-COAST (2026): reviews with numerical tests and a calibrated chloride model of the '
         'Fushë-Kuqe aquifer, which supplies Durrës.',
     ],
