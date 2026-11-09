@@ -1,8 +1,9 @@
 """CERTAIN-COAST (NATO SPS proposal): the single PDF for the "Additional files (optional)" upload of the application
 form. It holds a contents page, the technical annex, the technical note on the assembled system of equations and the
-placement of recharge and supply wells, the PERTEJ-GO theory note on the inland boundary and the TRONDITJA-GO
-implementation report on the earthquake in the aquifer (the CVs of the
-Co-Directors are added here when they are filled in), with PDF bookmarks. The form asks for one PDF with a table of contents at the start when several documents are uploaded.
+placement of recharge and supply wells, the PERTEJ-GO theory note on the inland boundary, the TRONDITJA-GO
+implementation report on the earthquake in the aquifer and the CV of the NATO-country Project Director (build_cv.py
+--npd; the CV of the partner-country Project Director is added when there is one), with PDF bookmarks. New parts go
+at the end, because the annex refers to the notes by their position. The form asks for one PDF with a table of contents at the start when several documents are uploaded.
 
 usage: python build_additional_files.py OUT.pdf
 Needs LibreOffice (soffice), python-docx and pypdf."""
@@ -37,6 +38,10 @@ PARTS = [
      'with numerical checks (preparatory work of the NPD\'s team, November 2026)',
      'Implementation report: TRONDITJA-GO, the earthquake in the aquifer',
      os.path.join(ROOT, 'docs', 'research_notes', 'TRONDITJA-GO_Earthquake_Aquifer_Liquefaction_Implementation.docx')),
+    ('Curriculum vitae of the NATO-country Project Director, Assoc. Prof. Dr. Dulian Zeqiraj (Faculty of Geology and '
+     'Mining, Polytechnic University of Tirana)',
+     'CV of the NATO-country Project Director',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_CV_NPD_Zeqiraj.docx')),
 ]
 
 
@@ -89,7 +94,8 @@ def contents_pdf(rows, outdir):
          'is background on the coupled model of work package 2 and on the placement of recharge and supply wells. The '
          'theory note gives the proofs and the checks behind the inland boundary of that model (Section 4.3 of the '
          'annex), and the implementation report the code and the checks behind the earthquake in the aquifer (Section '
-         '4.4). The tests are synthetic and their numbers illustrative, not results at Durrës.', 10,
+         '4.4). The tests are synthetic and their numbers illustrative, not results at Durrës. The CV of the '
+         'NATO-country Project Director closes the files.', 10,
          False, '5B6672', 6, italic=True)
     path = os.path.join(outdir, 'contents.docx')
     doc.save(path)

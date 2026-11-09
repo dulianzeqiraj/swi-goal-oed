@@ -1,10 +1,13 @@
 """CERTAIN-COAST (NATO SPS proposal): CV templates for the project team. Cover page (what SPS requires, team at a glance,
 how to fill, what makes the CVs strong) and templates for the NATO-country Project Director, the partner-country
 Project Director, an optional additional NATO co-director, and short profiles of early-career researchers.
-Only facts known for certain are filled in (the applicant's name and e-mail); every other entry is a highlighted
-placeholder, with grey guidance lines to delete before submission. Roles follow the Partnership document.
+The CV of the NATO-country Project Director is filled in from his CV of 2021 and from his publications as registered in
+Crossref (each with its DOI); facts that could not be checked stay as highlighted placeholders. The other CVs are
+templates with grey guidance lines to delete before submission. Roles follow the application form.
 
-usage: python build_cv.py OUT.docx"""
+usage: python build_cv.py OUT.docx             (all CVs and templates, with the cover page)
+       python build_cv.py --npd OUT.docx       (the CV of the NATO-country Project Director alone, two pages, for the
+                                                Additional files PDF)"""
 import os
 import sys
 
@@ -33,7 +36,7 @@ SOURCES = [
 ]
 
 TEAM = [
-    ['Dulian Zeqiraj', 'NATO-country Project Director', '[Albania; institution to confirm]', '[expertise]', 'Coordination; WP1–WP5, WP7'],
+    ['Dulian Zeqiraj', 'NATO-country Project Director', 'Albania; Faculty of Geology and Mining, Polytechnic University of Tirana', 'Seawater intrusion, monitoring design, stochastic flow and transport modelling', 'Coordination; WP1–WP5, WP7'],
     ['[Name]', 'Partner-country Project Director', '[eligible partner country; institution]', '[expertise]', 'WP6; transfer study'],
     ['[Name]', 'Additional NATO co-director (optional)', '[NATO member; institution]', '[expertise]', 'WP1; T4.4'],
     ['[Names]', 'Early-career researchers (at least 6)', '[institutions]', '[fields]', 'WP1–WP5'],
@@ -147,10 +150,134 @@ NCD_DETAILS = [
 ]
 
 NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is accountable for the SPS funds (WP7); leads the '
-            'monitoring network designed for the warnings (WP4) and the live demonstration with the water utility, the water '
-            'resources agency (AMBU), the port, the landfall operator and civil protection (WP5); contributes to the measurement of coastal motion and relative sea '
-            'level (WP1). Chairs the steering committee, signs the access agreements with the operators (T7.2, Month 3) and '
-            'oversees the hand-over at Month 36.')
+            'monitoring network designed for the warnings on the wells of the Albanian Geological Survey (WP4) and the live '
+            'demonstration with the Survey and the Water Resources Management Agency (AMBU) (WP5); contributes to the coupled '
+            'model (WP2) and to the measurement of coastal motion and relative sea level (WP1). Chairs the steering committee, '
+            'signs the access agreements with the Survey and AMBU (T7.2, Month 3) and oversees the hand-over to the Survey at '
+            'Month 36.')
+
+# ---------------------------------------------------------------------- the CV of the NATO-country Project Director
+# Sources: his CV of February 2021 (education, career, courses, programming) and Crossref records of his publications.
+NPD = dict(
+    name='Dulian Zeqiraj',
+    details=[
+        ['Name', 'Dulian Zeqiraj'],
+        ['Title and position', 'Assoc. Prof. Dr., Faculty of Geology and Mining (FGJM), Polytechnic University of Tirana'],
+        ['Department', '[Department of Energy Resources: confirm]'],
+        ['Country', 'Albania (NATO member)'],
+        ['E-mail', 'dulian.zeqiraj@fgjm.edu.al'],
+        ['ORCID and researcher IDs', '[ORCID, Scopus ID]'],
+    ],
+    education=[
+        ['[year]', 'Doctor of Sciences (Dr.)', '[institution, country]', '[field]'],
+        ['1991–1996', 'University diploma (five years)', 'Faculty of Geology and Mining, University of Tirana, Albania',
+         'Drilling and production wells'],
+    ],
+    career=[
+        ['[year]–', 'Associate Professor', 'Faculty of Geology and Mining, Polytechnic University of Tirana'],
+        ['2008–[year]', 'Lecturer, Department of Reservoir Engineering (now Energy Resources)',
+         'Faculty of Geology and Mining, Polytechnic University of Tirana'],
+        ['2006–2008', '[position]', 'Albanian Geological Survey (Shërbimi Gjeologjik Shqiptar), Tirana'],
+        ['1996–2006', '[position]', 'Alpetrol, oil production company, Albania'],
+    ],
+    expertise=[
+        '**Seawater intrusion and monitoring design:** goal-oriented Bayesian design of monitoring networks and of '
+        'managed-aquifer-recharge wells for variable-density seawater intrusion (Journal of Hydrology, 2026).',
+        '**Inference and uncertainty in alluvial aquifers:** Bayesian porosity inference with dependent errors; '
+        'groundwater vulnerability (DRASTIC) coupled with numerical transport models (2026).',
+        '**Stochastic modelling of flow and transport:** coupled geomechanical, geochemical and flow models of fractured '
+        'and karst media; fracture initiation and propagation under fluid injection (2021–2022).',
+        '**Optimisation under uncertainty:** placement and rates of wells; scheduling of field projects.',
+        '**Modelling software and field background:** C++, Python and MATLAB; ten years in oil production (Alpetrol) and '
+        'two years at the Albanian Geological Survey.',
+    ],
+    pubs=[
+        ('**Zeqiraj, D.** (2026). Goal-oriented Bayesian experimental design for variable-density seawater intrusion: '
+         'Adjoint expected information gain for joint monitoring and managed-aquifer-recharge placement. Journal of '
+         'Hydrology 680, 136559.', 'https://doi.org/10.1016/j.jhydrol.2026.136559'),
+        ('**Zeqiraj, D.**, Beqiraj, A. (2026). Adaptive stacked ensemble fusion: Bayesian porosity inference in alluvial '
+         'aquifers when the errors are not independent. Journal of Contaminant Hydrology 283, 105086.',
+         'https://doi.org/10.1016/j.jconhyd.2026.105086'),
+        ('**Zeqiraj, D.**, Beqiraj, A., Jahja, A., Seitaj, B., Progni, F., Zeqo, E. (2026). Physical, biophysical, and '
+         'chemical mechanisms of bidirectional coupling between DRASTIC vulnerability assessment and numerical transport '
+         'modeling in heterogeneous aquifer systems. Journal of Hazardous Materials Advances 23, 101261.',
+         'https://doi.org/10.1016/j.hazadv.2026.101261'),
+        ('**Zeqiraj, D.** (2022). 3D stochastic modeling of flow and solute transport in karst vadose zone. Case Studies '
+         'in Chemical and Environmental Engineering 6, 100217.', 'https://doi.org/10.1016/j.cscee.2022.100217'),
+        ('**Zeqiraj, D.** (2022). Stochastic modeling of fracture initiation and propagation during fluid flow in '
+         'carbonate reservoir. Results in Applied Mathematics 13, 100244.', 'https://doi.org/10.1016/j.rinam.2022.100244'),
+        ('**Zeqiraj, D.** (2022). Stochastic modeling of fluid flow in the simulation and quantification of fracture '
+         'initiation and propagation in the oil carbonate reservoirs during water injection. Results in Control and '
+         'Optimization 7, 100131.', 'https://doi.org/10.1016/j.rico.2022.100131'),
+        ('**Zeqiraj, D.** (2021). Fully coupled stochastic geomechanical - geochemical - reservoir modeling for fracture '
+         'reservoirs. Results in Engineering 11, 100242.', 'https://doi.org/10.1016/j.rineng.2021.100242'),
+    ],
+    preprints=[
+        ('**Zeqiraj, D.** (2026). Physics-informed deep learning for joint hydraulic conductivity–porosity mapping with '
+         'Wasserstein optimal experimental design in alluvial aquifers. SSRN preprint.',
+         'https://doi.org/10.2139/ssrn.7528503'),
+        ('**Zeqiraj, D.**, Beqiraj, A. (2026). Class probabilities for groundwater nitrate vulnerability maps: hierarchical '
+         'Bayesian calibration of DRASTIC against monitoring data, and the value of new stations. SSRN preprint.',
+         'https://doi.org/10.2139/ssrn.7511860'),
+    ],
+    projects=[['[from–to]', '[title]', '[funder]', '[role]']],
+    sps='[none]',
+    users=[
+        'Albanian Geological Survey (SHGJSH), the end-user of CERTAIN-COAST: staff member, 2006–2008.',
+        'Alpetrol, oil production company: production wells and reservoirs, 1996–2006.',
+        'Preparatory work for CERTAIN-COAST (2026): reviews with numerical tests and a calibrated chloride model of the '
+        'Fushë-Kuqe aquifer, which supplies Durrës.',
+    ],
+    teaching=[
+        'Master courses: Reservoir Engineering (well stimulation and enhanced oil recovery); Energy Resources (fossil and '
+        'renewable); Physics of Energy Resources.',
+        '[number] doctoral and [number] master students supervised.',
+    ],
+    other=['Languages: Albanian (native); English [level]; [other languages]', 'Programming: C++, Python, MATLAB'],
+)
+
+
+def cv_filled(doc, d, role, role_text):
+    # a CV with known facts filled in and no guidance lines; unknown facts stay highlighted
+    p = para(doc, 0); ph(p, d['name'], size=15, bold=True)
+    p = para(doc, 5); run(p, role + ', CERTAIN-COAST', bold=True, size=10.5, color='2E6DB4')
+    sz = 9.2
+    sec(doc, '1. Personal details')
+    ph_table(doc, ['Item', 'Details'], d['details'], [4.2, 12.4], size=sz)
+    sec(doc, '2. Education')
+    ph_table(doc, ['Year', 'Degree', 'Institution', 'Field'], d['education'], [2.2, 3.8, 6.4, 4.2], size=sz)
+    sec(doc, '3. Career')
+    ph_table(doc, ['Years', 'Position', 'Institution'], d['career'], [2.2, 6.4, 8.0], size=sz)
+    sec(doc, '4. Expertise relevant to CERTAIN-COAST')
+    bullets_ph(doc, d['expertise'], size=sz + 0.3)
+    sec(doc, '5. Selected publications (peer-reviewed, with DOI)')
+    for i, (t, u) in enumerate(d['pubs'], start=1):
+        p = para(doc, 1.5, 0.5); run(p, f'{i}. ', size=sz); ph(p, t + ' ', size=sz); link(p, u, u, sz)
+    p = para(doc, 1.5, before=2); run(p, 'Preprints (2026):', bold=True, size=sz)
+    for t, u in d['preprints']:
+        p = para(doc, 1.5, 0.5); run(p, '• ', size=sz); ph(p, t + ' ', size=sz); link(p, u, u, sz)
+    sec(doc, '6. Projects and grants')
+    ph_table(doc, ['Years', 'Project', 'Funder', 'Role'], d['projects'], [2.4, 6.6, 3.8, 3.8], size=sz)
+    p = para(doc, 2, before=2); run(p, 'Other NATO SPS grants currently held: ', bold=True, size=sz); ph(p, d['sps'], size=sz)
+    sec(doc, '7. Work with end-users and in the field')
+    bullets_ph(doc, d['users'], size=sz + 0.3)
+    sec(doc, '8. Teaching and supervision')
+    bullets_ph(doc, d['teaching'], size=sz + 0.3)
+    sec(doc, '9. Role in CERTAIN-COAST')
+    p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, role_text, size=sz + 0.3)
+    sec(doc, '10. Other')
+    bullets_ph(doc, d['other'], size=sz + 0.3)
+
+
+def main_npd(out):
+    doc = Document()
+    s = doc.sections[0]
+    s.page_width, s.page_height = Cm(21.0), Cm(29.7)
+    s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(1.5)
+    st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(10)
+    cv_filled(doc, NPD, 'NATO-country Project Director', NPD_ROLE)
+    doc.save(out)
+    print('saved', out)
 PPD_ROLE = ('As partner-country Project Director, leads training, transfer and dissemination (WP6): the transfer study on a '
             'coast of [eligible partner country], carried out with the project\'s tools and the Albanian team, the two-month '
             'exchanges of the partner-country early-career researchers to the Durrës coast, a regional workshop, and a '
@@ -214,7 +341,7 @@ def main(out):
         q = para(doc, 3, 0.5); run(q, '• ', bold=True); ph(q, t, size=10.5)
 
     page_break(doc)
-    cv(doc, 'Dulian Zeqiraj', 'NATO-country Project Director', NPD_DETAILS, NPD_GUIDE, NPD_ROLE)
+    cv_filled(doc, NPD, 'NATO-country Project Director', NPD_ROLE)
     page_break(doc)
     cv(doc, '[Name of the partner-country Project Director]', 'Partner-country Project Director', PPD_DETAILS, PPD_GUIDE, PPD_ROLE)
     page_break(doc)
@@ -226,4 +353,7 @@ def main(out):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_CVs.docx')
+    if len(sys.argv) > 2 and sys.argv[1] == '--npd':
+        main_npd(sys.argv[2])
+    else:
+        main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_CVs.docx')
