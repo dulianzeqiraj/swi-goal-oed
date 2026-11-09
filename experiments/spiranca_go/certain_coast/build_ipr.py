@@ -57,7 +57,7 @@ ARTICLES = [
     ('p', 'The "IPR Committee" is a group comprising a representative from each of the Parties.'),
     ('p', '(added) "End-User Data" means the records, measurements and documents that an end-user named in Annex 1 provides '
           'to the project. "Restricted Information" means asset-level vulnerability information, alarm thresholds, sensor '
-          'locations inside the sites of end-users or asset owners and any information an end-user or a national authority marks as '
+          'locations and any information an end-user or a national authority marks as '
           'restricted.'),
     ('h2', '1.2 Ownership and Access Rights'),
     ('p', '1.2.1 Foreground Intellectual Property shall be owned (Option B of the NATO sample): (a) solely by the Party who '
@@ -127,7 +127,7 @@ ARTICLES = [
           'Parties wishing to divulge may proceed.'),
     ('p', '5.4 (added) Before any publication or open release, the IPR Committee, with the end-user concerned, checks that '
           'it contains no Restricted Information and no End-User Data beyond what the end-user has approved. Restricted '
-          'Information is never published; it stays with the end-users, the asset owners and the competent national authorities, and open '
+          'Information is never published; it stays with the end-users and the competent national authorities, and open '
           'products are aggregated or anonymised.'),
     ('h', '6. BREACH OF AGREEMENT'),
     ('p', '6.1 If one Party breaches this Agreement and the breach is not cured within 30 days of notice of the breach from '

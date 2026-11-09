@@ -1,8 +1,7 @@
 """CERTAIN-COAST (NATO SPS proposal): Letters of commitment (templates). A cover page (how to use, list of letters,
 what makes them strong) and one-page templates: the end-user, the Albanian Geological Survey (SHGJSH), which administers the groundwater monitoring
-network; the Water Resources Management Agency (AMBU), in a narrower in-kind role; three intended beneficiaries that
-have been contacted (water utility, port authority, Trans Adriatic Pipeline (TAP)), whose letters are used only if
-they reply; the partner-country Project Director's institution, and two optional letters (additional
+network; the Water Resources Management Agency (AMBU), in a narrower in-kind role; the partner-country Project
+Director's institution, and two optional letters (additional
 NATO co-director, Albanian research partner). Placeholders are in square brackets and highlighted in yellow; each
 organisation adapts the text to its real commitments, prints it on its letterhead and signs it.
 Consistent with the Work Plan months, the Partnership (contents of a commitment letter), the Ethics and Data Management
@@ -78,32 +77,6 @@ LETTERS = [
                   'staff time of [2] experts, about [5] working days a year, as an in-kind contribution: to agree the chloride warning threshold and the acceptable false-alarm rate (Months 13–15) and to review the pumping and drought rule against the water-use permits (Months 24–33);',
                   'participation of [2] staff in the workshops and in the training on the open software (Months 24–36).'],
          use='We intend to use the chloride early warning for each supply well and the pumping and drought rule in [our monitoring programme and water-use permits for this aquifer], and to consider applying the method to other aquifers of Albania. Our contribution is staff time in kind; it creates no financial obligation and no obligations of procurement, ownership or maintenance for AMBU.'),
-    dict(key='utility', title='Intended beneficiary, contacted (use only if it replies): water utility of the Durrës wellfields', status='Only if it replies',
-         org='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a.', role='end-user (wellfields)',
-         intro='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a. supplies drinking water to Durrës from the Fushë Kuqe and Fushë Milot wellfields. Seawater intrusion, land subsidence and the effects of earthquakes on groundwater are real risks to this supply. We therefore support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
-         provide=['access to our production and monitoring wells for the project\'s head, conductivity, temperature and barometric loggers, including a conductivity logger in at least one production well of each wellfield, from Month [4] (installed by Month 12);',
-                  'our records of groundwater heads, chloride and pumping rates under a data access agreement to be signed by Month 3;',
-                  'support for one campaign a year of laboratory chloride samples taken 1, 3 and 7 days apart at agreed wells (analysed at the project\'s cost);',
-                  'staff time to agree the chloride threshold and the acceptable false-alarm rate (Months 13–15) and to develop a joint pumping rule (Months 24–33);',
-                  'approval and operational support for a short campaign of safe pumping tests on existing wells, each stopped at an agreed chloride test limit (within Months 24–33);',
-                  'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
-         use='We intend to receive and use the certified intrusion bulletins, including the warning that chloride may cross its limit between two laboratory samples, during the twelve months of live operation (Months 23–34), to issue them ourselves in the final months, and to consider adopting an operating procedure for the system. We are willing to discuss an arrangement for its maintenance after the project.'),
-    dict(key='port', title='Intended beneficiary, contacted (use only if it replies): Durrës Port Authority', status='Only if it replies',
-         org='Autoriteti Portual Durrës (Durrës Port Authority)', role='end-user (port)',
-         intro='Autoriteti Portual Durrës (Durrës Port Authority) manages the main port of Albania on a subsiding coast exposed to earthquakes, liquefaction and extreme sea levels. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
-         provide=['access to agreed locations in the port for sensors (GNSS, corner reflectors, seismic stations, piezometers), under our port-facility security rules, from Month [4];',
-                  'available geotechnical records (CPT and borehole logs) and design levels of the quays under a data access agreement to be signed by Month 3;',
-                  'staff time to agree the liquefaction and water-level thresholds (Months 13–15) and to take part in the post-event protocol;',
-                  'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
-         use='We intend to receive and use the liquefaction and extreme-water-level bulletins for the port during the live operation (Months 23–34) and to consider adopting an operating procedure for the system. We are willing to discuss an arrangement for its maintenance after the project.'),
-    dict(key='energy', title='Intended beneficiary, contacted (use only if it replies): Trans Adriatic Pipeline AG (TAP)', status='Only if it replies',
-         org='Trans Adriatic Pipeline AG (TAP), Albania Branch', role='end-user (TAP landfall near Fier)',
-         intro='Trans Adriatic Pipeline AG (TAP) operates the Trans Adriatic Pipeline. Its landfall near Fier is where the pipeline leaves the Albanian shore for its 105 km offshore section across the Adriatic Sea to Italy. The stability of the landfall depends on the ground and on the sea level at the coast. We support the application of CERTAIN-COAST to the NATO SPS Programme and commit to take part as an end-user.',
-         provide=['access to agreed locations near the landfall for a small set of sensors (GNSS, corner reflectors, a seismic station and a water-table logger), under our security rules and with our escort, from Month [4];',
-                  'the design levels and available geotechnical information needed for the stability checks, under a data access agreement to be signed by Month 3;',
-                  'staff time to agree the thresholds for the landfall (Months 13–15);',
-                  'participation of [number] staff in the workshops and in the operator training (Months 24–36).'],
-         use='We intend to receive and use the stability bulletins for the landfall, combining shaking, liquefaction, water level and subsidence, during the live operation (Months 23–34), and to consider adopting an operating procedure. We are willing to discuss an arrangement for its maintenance after the project.'),
     dict(key='ppd', title='Partner-country Project Director\'s institution', status='Required',
          org='[Partner-country university or research institute]', role='partner-country co-director',
          intro='[Partner-country university or research institute], in [eligible partner country], commits to take part in CERTAIN-COAST as the institution of the partner-country Project Director, [title and name], who is employed by us in [eligible partner country].',
@@ -193,9 +166,8 @@ def main(out):
     ph(p, 'The NATO SPS call requires a commitment letter from each end-user of a Multi-Year Project. The end-user of '
           'CERTAIN-COAST is the Albanian Geological Survey (SHGJSH), which administers the groundwater monitoring network on '
           'which the warnings are demonstrated; the Water Resources Management Agency (AMBU) has been asked for a narrower '
-          'letter (data on water-use permits and staff time in kind, no access to wells). The water utility, the Port of '
-          'Durrës and TAP have been contacted and are described in the form as intended beneficiaries; their templates are '
-          'kept here and used only if they reply. A letter from the institution of the partner-country co-director is '
+          'letter (data on water-use permits and staff time in kind, no access to wells). The port and the pipeline '
+          'landfall are assessed from satellite and public data only, so no letter is needed from their owners. A letter from the institution of the partner-country co-director is '
           'required; two further letters are optional.')
 
     heading(doc, 'The letters', 13, before=4)
@@ -223,64 +195,9 @@ def main(out):
 
 
 # ------------------------------------------------------------------------------------------------- Albanian copy
-SQ_ROLE = {'utility': 'përdorues fundor (fushat e puseve)', 'port': 'përdorues fundor (porti)',
-           'energy': 'përdorues fundor (pika e daljes në breg e TAP pranë Fierit)',
-           'ambu': 'përdorues fundor (burimet ujore)',
+SQ_ROLE = {'ambu': 'përdorues fundor (burimet ujore)',
            'shgjsh': 'përdorues fundor (rrjeti i monitorimit të ujërave nëntokësore dhe rreziqet gjeologjike)'}
 SQ = {
-    'utility': dict(
-        intro='Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a. furnizon Durrësin me ujë të pijshëm nga fushat e puseve '
-              'të Fushë Kuqes dhe të Fushë Milotit. Depërtimi i ujit të detit, ulja e tokës dhe efektet e tërmeteve në '
-              'ujërat nëntokësore janë rreziqe reale për këtë furnizim. Për këtë arsye mbështesim aplikimin e projektit '
-              'CERTAIN-COAST në Programin NATO SPS dhe angazhohemi të marrim pjesë si përdorues fundor (end-user).',
-        provide=['akses në puset tona të prodhimit dhe të monitorimit për regjistruesit (loggers) e projektit për '
-                 'nivelin, përçueshmërinë, temperaturën dhe presionin atmosferik, përfshirë një regjistrues përçueshmërie '
-                 'në të paktën një pus prodhimi të çdo fushe puseve, nga Muaji [4] (të instaluar deri në Muajin 12);',
-                 'të dhënat tona për nivelet e ujërave nëntokësore, kloridin dhe prurjet e pompimit, sipas një marrëveshjeje '
-                 'për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
-                 'mbështetje për një fushatë në vit me kampione laboratorike kloridi të marra me 1, 3 dhe 7 ditë diferencë në '
-                 'puse të rëna dakord (analizat paguhen nga projekti);',
-                 'kohë të stafit për të rënë dakord për pragun e kloridit dhe shkallën e pranueshme të alarmeve të rreme '
-                 '(Muajt 13–15) dhe për të hartuar një rregull të përbashkët pompimi (Muajt 24–33);',
-                 'miratim dhe mbështetje operative për një fushatë të shkurtër provash të sigurta pompimi në puse '
-                 'ekzistuese, ku secila provë ndalet në një kufi kloridi të rënë dakord (brenda Muajve 24–33);',
-                 'pjesëmarrjen e [numri] punonjësve në seminare dhe në trajnimin e operatorëve (Muajt 24–36).'],
-        use='Synojmë të marrim dhe të përdorim buletinet e certifikuara për depërtimin e ujit të detit, përfshirë '
-            'paralajmërimin se kloridi mund të kalojë kufirin midis dy kampionimeve laboratorike, gjatë dymbëdhjetë muajve '
-            'të operimit të drejtpërdrejtë (Muajt 23–34), t\'i lëshojmë vetë në muajt e fundit dhe të shqyrtojmë miratimin e '
-            'një procedure operative për sistemin. Jemi të gatshëm të diskutojmë një marrëveshje për mirëmbajtjen e tij pas '
-            'projektit.'),
-    'port': dict(
-        intro='Autoriteti Portual Durrës menaxhon portin kryesor të Shqipërisë, në një bregdet që po ulet dhe që është i '
-              'ekspozuar ndaj tërmeteve, lëngëzimit të tokës dhe niveleve ekstreme të detit. Mbështesim aplikimin e projektit '
-              'CERTAIN-COAST në Programin NATO SPS dhe angazhohemi të marrim pjesë si përdorues fundor.',
-        provide=['akses në vende të rëna dakord brenda portit për sensorët (GNSS, reflektorë këndorë, stacione sizmike, '
-                 'piezometra), sipas rregullave tona të sigurisë së portit, nga Muaji [4];',
-                 'të dhënat gjeoteknike në dispozicion (prova CPT dhe regjistrime shpimesh) dhe nivelet e projektimit të '
-                 'kalatave, sipas një marrëveshjeje për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
-                 'kohë të stafit për të rënë dakord për pragjet e lëngëzimit dhe të nivelit të ujit (Muajt 13–15) dhe për të '
-                 'marrë pjesë në protokollin pas ngjarjeve;',
-                 'pjesëmarrjen e [numri] punonjësve në seminare dhe në trajnimin e operatorëve (Muajt 24–36).'],
-        use='Synojmë të marrim dhe të përdorim buletinet për lëngëzimin dhe nivelet ekstreme të ujit për portin gjatë '
-            'operimit të drejtpërdrejtë (Muajt 23–34) dhe të shqyrtojmë miratimin e një procedure operative për sistemin. '
-            'Jemi të gatshëm të diskutojmë një marrëveshje për mirëmbajtjen e tij pas projektit.'),
-    'energy': dict(
-        intro='Trans Adriatic Pipeline AG (TAP) operon Gazsjellësin Trans-Adriatik. Pika e tij e daljes në breg (landfall) '
-              'pranë Fierit është vendi ku gazsjellësi largohet nga bregu shqiptar për seksionin detar prej 105 km përmes '
-              'Detit Adriatik drejt Italisë. Qëndrueshmëria e pikës së daljes në breg varet nga toka dhe nga niveli i detit '
-              'në bregdet. Mbështesim aplikimin e projektit CERTAIN-COAST në Programin '
-              'NATO SPS dhe angazhohemi të marrim pjesë si përdorues fundor.',
-        provide=['akses në vende të rëna dakord pranë pikës së daljes në breg për një grup të vogël sensorësh (GNSS, '
-                 'reflektorë këndorë, një stacion sizmik dhe një regjistrues i nivelit të ujit nëntokësor), sipas '
-                 'rregullave tona të sigurisë dhe me shoqërimin tonë, nga Muaji [4];',
-                 'nivelet e projektimit dhe të dhënat gjeoteknike në dispozicion që nevojiten për kontrollet e '
-                 'qëndrueshmërisë, sipas një marrëveshjeje për aksesin në të dhëna që nënshkruhet deri në Muajin 3;',
-                 'kohë të stafit për të rënë dakord për pragjet për pikën e daljes në breg (Muajt 13–15);',
-                 'pjesëmarrjen e [numri] punonjësve në seminare dhe në trajnimin e operatorëve (Muajt 24–36).'],
-        use='Synojmë të marrim dhe të përdorim buletinet e qëndrueshmërisë për pikën e daljes në breg, që bashkojnë '
-            'lëkundjet sizmike, lëngëzimin, nivelin e ujit dhe uljen e tokës, gjatë operimit të drejtpërdrejtë (Muajt '
-            '23–34), dhe të shqyrtojmë miratimin e një procedure operative. Jemi të gatshëm të diskutojmë një marrëveshje '
-            'për mirëmbajtjen e sistemit pas projektit.'),
     'ambu': dict(
         intro='Agjencia e Menaxhimit të Burimeve Ujore (AMBU) menaxhon burimet ujore të Shqipërisë, përfshirë akuiferin '
               'Tiranë–Fushë Kuqe–Lezhë që furnizon Durrësin. Depërtimi i ujit të detit, thatësirat rekord dhe ulja e tokës e '

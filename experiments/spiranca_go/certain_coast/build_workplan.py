@@ -70,7 +70,7 @@ WPS = [
      'Run the system live for twelve months with the operators and civil protection, evaluate every operating decision against all three hazards, sharpen the certified safe window with safe pumping tests, and execute the post-event protocol whenever it is triggered.',
      [('T5.1', 'Bulletin protocol and decision interfaces with the operators and civil protection', (22, 23)),
       ('T5.2', 'Twelve months of live operation, bulletins logged and outcomes verified', (23, 34)),
-      ('T5.3', 'Safe pumping tests on existing wells sharpen the certified window; pumping rule evaluated against the three hazards together and agreed with the water utility', (24, 33)),
+      ('T5.3', 'Safe pumping tests planned to sharpen the certified window; pumping rule evaluated against the three hazards together and prepared with the Survey and AMBU for the water-use permits', (24, 33)),
       ('T5.4', 'Post-event protocol after strong earthquakes or surges (on trigger)', (12, 36))],
      [('D5.1', 'Live demonstration report', 34)]),
     ('WP6', 'Training, transfer and dissemination', 'O6', (1, 36),
@@ -83,7 +83,7 @@ WPS = [
     ('WP7', 'Management, data and risk', 'all', (1, 36),
      'Coordinate the consortium, secure data access from the operators, manage risks and report.',
      [('T7.1', 'Coordination, steering committee, reporting', (1, 36)),
-      ('T7.2', 'Data management and access agreements with the water utility, AMBU, port and landfall operators', (1, 3)),
+      ('T7.2', 'Data management and access agreements with the Survey and AMBU', (1, 3)),
       ('T7.3', 'Risk and quality management', (1, 36))],
      [('D7.1', 'Data management plan and access agreements', 3), ('D7.2', 'Progress reports', 6), ('D7.2', 'Progress reports', 18), ('D7.2', 'Progress reports', 30), ('D7.3', 'Final report', 36)]),
 ]

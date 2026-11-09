@@ -72,7 +72,7 @@ CARD = {
             'Steering committee at the gate meeting (Month 27); operators review the false-alarm rates',
             ['R7', 'R8'],
             'The margin is widened until the miss target is met: the target is kept and the extra false alarms are reported; if false alarms are too many, staged alerts (watch, then warning) and longer lead-time windows.',
-            'The certified rates are stated in the live bulletins; the safe pumping tests are completed and the joint pumping rule is agreed with the utility (by Month 33).'),
+            'The certified rates are stated in the live bulletins; the plan of safe pumping tests is delivered and the pumping and drought rule is prepared with the Survey and AMBU (by Month 33).'),
     'MS6': ('WP5',
             'Twelve months of live warnings, every season included, with every bulletin logged and checked against what happened.',
             'D5.1: bulletin log complete; observed miss rates within their targets, with confidence intervals; post-event protocol executed for every event above its trigger.',

@@ -39,14 +39,14 @@ def band(score):
 # id, risk and consequence, L, I, indicator (trigger), mitigation, contingency, owner, residual L, residual I
 CATS = [
     ('A. Data and access', [
-        ('R1', 'The Survey delays access to its wells or records, or the port and pipeline operator do not share data; calibration and design start late',
-         3, 4, 'Access agreement with the Survey not signed by Month 3',
-         "The Survey's letter of commitment at proposal stage; access agreement by Month 3 (T7.2, D7.1); satellite and public data as the baseline for the port and the landfall",
+        ('R1', 'The Survey or AMBU delays access to wells or records; calibration and design start late',
+         3, 4, 'Access agreements not signed by Month 3',
+         'Letters of commitment of the Survey and AMBU at proposal stage; access agreements by Month 3 (T7.2, D7.1); the port and the landfall rely only on satellite and public data',
          'Start WP1 and the design in WP4 on public and satellite data; escalate to the steering committee', 'WP7', 2, 3),
-        ('R2', 'No access to the port or the landfall (no agreement, port-facility security, energy operator rules)',
-         3, 3, 'Site access not granted by Month 6',
-         'Remote sensing as the baseline: InSAR, corner reflectors, GNSS and seismic stations on public land nearby; access requested with named staff, escorts and inductions',
-         'No sensors inside these sites; rely on InSAR, corner reflectors and seismic noise from nearby ground', 'WP4', 2, 2),
+        ('R2', 'Public land near the port or the landfall is not suitable or not available for stations',
+         3, 3, 'No suitable public site found by Month 6',
+         'Several candidate sites on public land; InSAR and persistent scatterers on structures need no site at all',
+         'Rely on InSAR, persistent scatterers and the nearest GNSS and seismic stations', 'WP4', 2, 2),
         ('R3', 'Historical head and chloride records are incomplete or of uneven quality',
          4, 3, 'More than 30% of records fail quality control',
          'Data rescue from paper archives; quality flags; record errors carried as uncertainty in the assimilation',
@@ -67,7 +67,7 @@ CATS = [
          'Full model on a reduced domain for flagged forecasts; margin widens automatically', 'WP2', 1, 2),
         ('R7', 'Certified alarms are too cautious: the false-alarm rate is unacceptable to the users',
          3, 4, 'Back-tested false-alarm rate above the level agreed in T3.1',
-         'Acceptable false-alarm rate agreed with the Survey and each other user at T3.1; tolerances allocated by consequence; network designed to shrink margins',
+         'Acceptable false-alarm rate agreed with the Survey and AMBU at T3.1; tolerances allocated by consequence; network designed to shrink margins',
          'Longer lead-time windows; staged alerts (watch, then warning); report the trade-off to the users', 'WP3', 2, 3),
         ('R8', 'Conditions move beyond the observed record (drought, compound storm, post-seismic change) and weaken the guarantees',
          3, 4, 'Growing share of issue times outside the observed record',
@@ -113,10 +113,10 @@ CATS = [
          3, 3, 'Data latency above the cadence of a hazard; failed backup',
          'Redundant server and storage; offline copy of the surrogate at the Survey; access control and updates',
          'Manual bulletin from the last valid forecast with a wider margin; restore from backup', 'WP5', 2, 2),
-        ('R22', 'A pumping test drives chloride at a production well towards the test limit, or the utility does not approve the tests',
-         2, 4, 'Measured chloride within 10% of the test limit during a test; no approval by Month 24',
-         'Tests chosen with a safety filter on the upper confidence bound of chloride; small tests first; conductivity logged continuously; heads kept above the head limit; each test approved by the utility',
-         'Stop the test and return to routine pumping; smaller and shorter tests; window from routine records only', 'WP5', 1, 2),
+        ('R22', 'No operator of the production wells agrees to run the safe pumping tests, or a test drives chloride towards the test limit',
+         3, 2, 'No agreement by Month 24; measured chloride within 10% of the test limit during a test',
+         'Tests chosen with a safety filter on the upper confidence bound of chloride; small tests first; conductivity logged continuously; heads kept above the head limit; each test approved by the well operator and AMBU; the tests are planned and checked on the model in any case',
+         'Window from routine records and the post-earthquake relaxation only; the test plan is delivered as a recommendation', 'WP5', 2, 2),
     ]),
     ('E. People, partners and budget', [
         ('R18', 'Loss of key researchers or of trained Survey staff',
@@ -131,8 +131,8 @@ CATS = [
     ('F. Security of information', [
         ('R20', 'Sensitive information on critical-infrastructure vulnerability is disclosed through open data or publications',
          3, 5, 'A planned release contains asset-level vulnerability results',
-         'Data classification in the data plan (T7.2); asset-level results shared only with asset owners and authorities; open release of methods, code and non-sensitive aggregated data; the Survey, and any asset owner whose data are used, review publications before submission',
-         'Withdraw or redact the release; notify the Survey and the asset owners; review the data plan', 'WP7', 1, 4),
+         'Data classification in the data plan (T7.2); asset-level results shared only with the end-users and the competent national authorities; open release of methods, code and non-sensitive aggregated data; the Survey and AMBU review publications before submission',
+         'Withdraw or redact the release; notify the Survey, AMBU and the competent authorities; review the data plan', 'WP7', 1, 4),
     ]),
     ('G. External events', [
         ('R21', 'A strong earthquake or storm damages the network or disrupts the project',
@@ -158,10 +158,10 @@ IMPACT = [
 ]
 
 SELF = [
-    '**False alarms that wear out trust.** Every guarantee on misses is paid for in false alarms. The acceptable false-alarm rate is agreed with the Survey and each other user before the alarms are designed (T3.1), so the cost of caution is a decision, not a surprise (R7).',
+    '**False alarms that wear out trust.** Every guarantee on misses is paid for in false alarms. The acceptable false-alarm rate is agreed with the Survey and AMBU before the alarms are designed (T3.1), so the cost of caution is a decision, not a surprise (R7).',
     '**A miss that matters.** A certified miss rate of 5–10% means misses will happen. Each bulletin says so, responsibilities are written down, and every miss is reviewed and used to recalibrate (R15).',
     '**Over-reliance.** A trusted system can replace the checks it was meant to support. The bulletins are advisory, and training explains what a miss rate means in practice (R16).',
-    '**Disclosure.** A map of where the port or the landfall would liquefy is useful to an asset owner and to an adversary. Methods and code are open; asset-level vulnerability results are not (R20).',
+    '**Disclosure.** A map of where the port or the landfall would liquefy is useful to its owner and to an adversary. Methods and code are open; asset-level vulnerability results are not (R20).',
     '**New pathways for seawater.** A badly sealed monitoring borehole can let seawater move between layers. Drilling and sealing follow a written design and are checked by logging conductivity before and after (R12).',
 ]
 
