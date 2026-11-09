@@ -30,7 +30,7 @@ SHORT = {'T1.1': 'InSAR time series 2014 onwards', 'T1.2': 'GNSS, corner reflect
          'T4.3': 'Operation, QC, streaming, assimilation', 'T4.4': 'Seismic velocity vs water table',
          'T5.1': 'Bulletin protocol and interfaces', 'T5.2': 'Twelve months of live operation',
          'T5.3': 'Safe tests and joint pumping rule', 'T5.4': 'Post-event protocol (on trigger)',
-         'T6.1': 'Early-career researchers', 'T6.2': 'Operator and civil-protection training',
+         'T6.1': 'Early-career researchers', 'T6.2': 'Training of Survey staff and users',
          'T6.3': 'Open software and data', 'T6.4': 'Operating procedures and policy brief',
          'T7.1': 'Coordination and reporting', 'T7.2': 'Data plan and access agreements', 'T7.3': 'Risk and quality management'}
 

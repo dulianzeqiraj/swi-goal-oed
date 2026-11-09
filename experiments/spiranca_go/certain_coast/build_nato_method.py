@@ -241,9 +241,9 @@ def fig_chain(path):
         ['pumping effects without hidden confounding', 'salinity under a drier recharge regime',
          'safe operating window, safe pumping tests'], 'reviews VII–IX; CERTAIN-COAST C1, C3', VIOLET, '#efecfb')
     # outputs
-    cv.text(134, 97, 'For the operators', ha='left', size=9.4, weight='bold', color=MUTED)
+    cv.text(134, 97, 'For the end-user', ha='left', size=9.4, weight='bold', color=MUTED)
     outs = [(84, 'certified alarms', 'miss rate stated'), (60, '12 months of', 'live bulletins'),
-            (36, 'pumping rule', 'with the utility'), (12, 'open software', 'and hand-over')]
+            (36, 'pumping rule', 'with the Survey'), (12, 'open software', 'and hand-over')]
     for y, a, b in outs:
         cv.box(134, y - 7, 34, 14, '#fde9df', ORANGE, lw=1.0, r=1.6)
         cv.text(151, y + 2.4, a); cv.text(151, y - 2.6, b, color=MUTED)

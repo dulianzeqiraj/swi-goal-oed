@@ -46,10 +46,10 @@ SELF = [
      'Voluntary participation with informed consent and the right to withdraw; approval of the institutional ethics committee before any interview or survey; no vulnerable groups are targeted', 'T3.1, T5.1, T6.2'],
     ['Personal data', 'Yes',
      'Only what is needed (names, contacts, role, participation by sex); pseudonymised for analysis; stored on partner servers with access control; deleted at the end of the retention period', 'T7.2'],
-    ['Confidential operator data', 'Yes',
-     'Access agreements; restricted tier; encrypted storage; no transfer outside the consortium without the operator\'s consent', 'T7.2; R20'],
+    ['Confidential data of the end-users and asset owners', 'Yes',
+     'Access agreements; restricted tier; encrypted storage; no transfer outside the consortium without the owner\'s consent', 'T7.2; R20'],
     ['Security-sensitive results and misuse', 'Yes',
-     'Two-tier dissemination and release gate; asset-level vulnerability shared only with operators and authorities', 'Dissemination Plan'],
+     'Two-tier dissemination and release gate; asset-level vulnerability shared only with asset owners and authorities', 'Dissemination Plan'],
     ['Dual use and export control', 'To check',
      'Civilian aims only; export classification of GNSS, seismic and fibre-sensing equipment and of software checked with suppliers and national authorities before purchase and shipment', 'T4.2'],
     ['Artificial intelligence in safety decisions', 'Yes',
@@ -64,19 +64,19 @@ SELF = [
 ]
 
 AI = [
-    ['Lawfulness', 'Used only within the operators\' legal mandates and in line with data protection law.'],
-    ['Responsibility and accountability', 'Every decision stays with named operator staff; each bulletin is logged with its inputs, model version, margin and outcome; roles are written into the bulletin protocol (T5.1).'],
+    ['Lawfulness', 'Used only within the users\' legal mandates and in line with data protection law.'],
+    ['Responsibility and accountability', 'Every decision stays with named staff of the users; each bulletin is logged with its inputs, model version, margin and outcome; roles are written into the bulletin protocol (T5.1).'],
     ['Explainability and traceability', 'Each bulletin shows the forecast, the margin and its three parts, and the certified miss rate; any bulletin can be reproduced from the log and the open code.'],
     ['Reliability', 'An error bound for every forecast of the surrogate; miss rates certified, back-tested and checked in operation; data integrity checks against tampering.'],
-    ['Governability', 'Operators can override, pause or return to manual procedures at any time; if the error bound fails, the system falls back to the full model or a wider margin; live use only after the go/no-go milestone (MS4).'],
+    ['Governability', 'Users can override, pause or return to manual procedures at any time; if the error bound fails, the system falls back to the full model or a wider margin; live use only after the go/no-go milestone (MS4).'],
     ['Bias mitigation', 'Miss and false-alarm rates are checked separately for each asset, season and type of event, so that no area or condition is served worse; gaps in the data are quantified, not hidden.'],
 ]
 
 WARN = [
     '**Honesty about uncertainty.** No bulletin claims more certainty than it has: each states how often such warnings miss, and that rate is checked against the log.',
-    '**Who bears the error is decided openly.** The trade-off between misses and false alarms is agreed with the operators before the alarms are designed, and tolerances are allocated by consequence, not by convenience (Methodology, Section 5.4).',
-    '**Official warnings stay with the authorities.** CERTAIN-COAST bulletins go to the operators and civil protection; any warning to the public is issued only by the competent authorities through their own channels.',
-    '**Misses are reviewed, not hidden.** Every missed exceedance is reviewed within a week, and the findings are shared with the operators and civil protection.',
+    '**Who bears the error is decided openly.** The trade-off between misses and false alarms is agreed with the Survey and the other users before the alarms are designed, and tolerances are allocated by consequence, not by convenience (Methodology, Section 5.4).',
+    '**Official warnings stay with the authorities.** CERTAIN-COAST bulletins go to the Albanian Geological Survey and the other users who take part; any warning to the public is issued only by the competent authorities through their own channels.',
+    '**Misses are reviewed, not hidden.** Every missed exceedance is reviewed within a week, and the findings are shared with the users and the authorities.',
     '**No false reassurance.** When conditions leave the observed record, the bulletin says so and the margin widens, rather than presenting a forecast as reliable where it is not.',
 ]
 
@@ -100,7 +100,7 @@ INTEGRITY = [
     '**A fixed test before the results.** The back-testing protocol (data, issue times, metrics) is written down and frozen before the results are seen, so the reported miss rates cannot be tuned after the fact.',
     '**Negative results reported.** Misses, failed tests and limitations are reported in the papers and progress reports, not only successes.',
     '**Authorship and credit** agreed in the publication plan, with contributions stated for each paper; early-career researchers credited for their work.',
-    '**Conflicts of interest declared:** the operators are both partners and users of the system; their role in thresholds and publication review is limited to their own assets and to sensitive content.',
+    '**Conflicts of interest declared:** the end-users are both partners and users of the system; their role in thresholds and publication review is limited to their own assets and to sensitive content.',
     '**Open methods and data** in line with the two-tier dissemination plan.',
 ]
 
@@ -114,7 +114,7 @@ GOVERN = [
 NEW = [
     '**The ethics of a warning made measurable.** Honesty about uncertainty is not a promise but a number: every bulletin carries its certified miss rate, and the log shows whether it held.',
     '**Responsible AI by construction.** The machine-learned surrogate never acts alone: each forecast carries its own error bound, the system falls back automatically when the bound fails, and a person decides.',
-    '**The burden of error shared openly.** Who bears the cost of a miss and who bears the cost of a false alarm is agreed with the operators in advance, rather than hidden in a threshold.',
+    '**The burden of error shared openly.** Who bears the cost of a miss and who bears the cost of a false alarm is agreed with the users in advance, rather than hidden in a threshold.',
     '**Integrity protected by a frozen test.** The back-testing protocol is fixed before the results are seen, so the central claim of the project cannot be tuned after the fact.',
     '**Openness without harm.** The release gate lets the project publish its methods and its verification openly while keeping asset-level vulnerability away from those who could misuse it.',
 ]
@@ -124,10 +124,10 @@ SHORT = ('CERTAIN-COAST involves no animals, human tissue or clinical research. 
          'the responsibility of issuing warnings. Participants in workshops, interviews and tests of the bulletins take part '
          'voluntarily with informed consent, after institutional ethics approval; personal data are minimised, pseudonymised '
          'and protected under Albania\'s Law No. 124/2024, aligned with the GDPR. Asset-level vulnerability results are shared '
-         'only with operators and authorities through a release gate. The machine-learned surrogate follows NATO\'s six '
+         'only with asset owners and authorities through a release gate. The machine-learned surrogate follows NATO\'s six '
          'principles of responsible AI: every forecast carries an error bound, every bulletin is logged and reproducible, and '
-         'operators keep the decision. Each bulletin states its certified miss rate, the miss-false-alarm trade-off is agreed '
-         'with the operators in advance, public warnings remain with the authorities, and the back-testing protocol is frozen '
+         'the users keep the decision. Each bulletin states its certified miss rate, the miss-false-alarm trade-off is agreed '
+         'with the users in advance, public warnings remain with the authorities, and the back-testing protocol is frozen '
          'before results are seen. An independent ethics advisor and a yearly review oversee these measures.')
 
 

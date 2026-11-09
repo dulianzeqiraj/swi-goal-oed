@@ -22,8 +22,7 @@ FULL = ('Certified early warning for seawater intrusion, liquefaction and extrem
         'energy landfall of a subsiding Adriatic coast')
 TEMPLATE = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023/SPS_MYP_Sample_IPR_Agreement.docx'
 HANDBOOK = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023/SPS_MYP_Handbook.pdf'
-END_USERS = ['[Durrës water utility]', '[Water Resources Management Agency (AMBU)]', '[Durrës Port Authority]',
-             '[Trans Adriatic Pipeline AG (TAP), Albania branch]', '[National Civil Protection Agency]']
+END_USERS = ['[Albanian Geological Survey (SHGJSH)]', '[Water Resources Management Agency (AMBU)] [only if its letter is signed]']
 
 HOW = [
     '**What it is.** The NATO sample IPR agreement with its articles and numbering kept, filled in for CERTAIN-COAST. '
@@ -38,7 +37,7 @@ HOW = [
     'The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete '
     'proposal, so uploading it now (signed PDF) removes that doubt.',
     '**Alternative.** If all institutions agree that nothing needs protecting, the one-page statement at the end replaces '
-    'the agreement. Because operator data and security-sensitive information are involved, the agreement is recommended.',
+    'the agreement. Because end-user data and security-sensitive information are involved, the agreement is recommended.',
 ]
 
 ARTICLES = [
@@ -58,7 +57,7 @@ ARTICLES = [
     ('p', 'The "IPR Committee" is a group comprising a representative from each of the Parties.'),
     ('p', '(added) "End-User Data" means the records, measurements and documents that an end-user named in Annex 1 provides '
           'to the project. "Restricted Information" means asset-level vulnerability information, alarm thresholds, sensor '
-          'locations inside the operators\' sites and any information an end-user or a national authority marks as '
+          'locations inside the sites of end-users or asset owners and any information an end-user or a national authority marks as '
           'restricted.'),
     ('h2', '1.2 Ownership and Access Rights'),
     ('p', '1.2.1 Foreground Intellectual Property shall be owned (Option B of the NATO sample): (a) solely by the Party who '
@@ -128,7 +127,7 @@ ARTICLES = [
           'Parties wishing to divulge may proceed.'),
     ('p', '5.4 (added) Before any publication or open release, the IPR Committee, with the end-user concerned, checks that '
           'it contains no Restricted Information and no End-User Data beyond what the end-user has approved. Restricted '
-          'Information is never published; it stays with the operators and the competent national authorities, and open '
+          'Information is never published; it stays with the end-users, the asset owners and the competent national authorities, and open '
           'products are aggregated or anonymised.'),
     ('h', '6. BREACH OF AGREEMENT'),
     ('p', '6.1 If one Party breaches this Agreement and the breach is not cured within 30 days of notice of the breach from '

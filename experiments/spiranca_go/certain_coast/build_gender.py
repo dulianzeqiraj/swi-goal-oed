@@ -51,7 +51,7 @@ TARGETS = [
     ['Leadership', 'At least 3 of 7 work packages led or co-led by women', 'Work-package list', 'Month 3'],
     ['Steering committee', 'At least 40% women; each end-user invited to nominate with balance in mind', 'Membership list', 'Month 3, then yearly'],
     ['Training school', 'At least 40% women among trainers and among trainees', 'School records', 'Month 14'],
-    ['Operator and civil-protection staff trained', 'At least one woman per operator; numbers reported by sex', 'Training records', 'Month 36'],
+    ['Professionals trained (Survey staff and intended users)', 'At least one woman per institution; numbers reported by sex', 'Training records', 'Month 36'],
     ['Publications', 'At least 40% of papers with a woman as first or corresponding author', 'Publication list', 'Month 36'],
     ['Conferences and workshops', 'At least 40% women among presenters; no all-male panels', 'Programmes', 'Each event'],
     ['Field work', 'Women and men in every field campaign', 'Campaign logs', 'Each campaign'],
