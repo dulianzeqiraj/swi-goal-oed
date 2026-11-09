@@ -77,7 +77,7 @@ LETTERS = [
                   'staff time of [2] experts, about [5] working days a year, as an in-kind contribution: to agree the chloride warning threshold and the acceptable false-alarm rate (Months 13–15) and to review the pumping and drought rule against the water-use permits (Months 24–33);',
                   'participation of [2] staff in the workshops and in the training on the open software (Months 24–36).'],
          use='We intend to use the chloride early warning for each supply well and the pumping and drought rule in [our monitoring programme and water-use permits for this aquifer], and to consider applying the method to other aquifers of Albania. Our contribution is staff time in kind; it creates no financial obligation and no obligations of procurement, ownership or maintenance for AMBU.'),
-    dict(key='ppd', title='Partner-country Project Director\'s institution', status='Required',
+    dict(key='ppd', title='Partner-country Project Director\'s institution (optional: Qatar University signed the Agreement for Joint Research on 5 November)', status='Optional',
          org='[Partner-country university or research institute]', role='partner-country co-director',
          intro='[Partner-country university or research institute], in [eligible partner country], commits to take part in CERTAIN-COAST as the institution of the partner-country Project Director, [title and name], who is employed by us in [eligible partner country].',
          provide=['leadership of training, transfer and dissemination (WP6): two-month exchanges of our early-career researchers on the Durrës coast, a regional workshop and the open release of the results;',

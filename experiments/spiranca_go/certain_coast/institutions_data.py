@@ -111,103 +111,89 @@ UPT = dict(
 )
 
 PPD = dict(
-    role='Institution of the partner-country Project Director (PPD) · [eligible partner country]',
-    name='[Name of the university or research institute]',
-    local='[Name in the national language, if different] · [postal address, city, country] · [website]',
+    role='Institution of the partner-country Project Director (PPD) · Qatar (NATO partner country, Istanbul Cooperation Initiative)',
+    name='Environmental Science Center (ESC), Qatar University',
+    local='مركز العلوم البيئية – جامعة قطر · P.O. Box 2713, Doha, Qatar · <https://esc.qu.edu.qa>',
     glance=[
-        ('Type', '[public university / research institute / other non-profit]'),
-        ('Research team page', '[web page of the research group]'),
-        ('Project Director', '[Name, position]; employed and resident in [country]; [20%] of working time on the project'),
-        ('Team', '[names and positions]; early-career researchers recruited by the project'),
-        ('Role', 'Training, transfer and dissemination (WP6), including a transfer study on [the partner coast]'),
+        ('Type', 'University: a research center of Qatar University'),
+        ('Research team page', '<https://esc.qu.edu.qa>'),
+        ('Project Director', 'Prof. Jassim Al-Khayat, Research Professor and Manager of the research vessel Janan; employed '
+                             'and resident in Qatar; 20% of working time on the project'),
+        ('Team', 'Prof. Fares AlMomani (Acting Director of the Center), Dr. Oguz Yigiterhan and Dr. Bruno Welter Giraldes '
+                 '(Research Associate Professors), 5% each; early-career researchers recruited by the project'),
+        ('Role', 'Training, transfer and dissemination (WP6), including a transfer study on the east coast of Qatar'),
     ],
     capabilities=[
-        '[Coastal geoscience, hydrogeology or water management in your country: 1–2 examples]',
-        '[Teaching and training: courses, schools, supervision of early-career researchers]',
-        '[Links with operators or authorities in your country, for the regional workshop]',
+        'Research groups in physical and chemical oceanography, earth sciences, and marine and terrestrial ecology: '
+        'sea-level rise, waves, currents, sediment transport, groundwater resources, GIS, coastal pollution and hazard '
+        'risks, remote sensing and coastal monitoring.',
+        'Water quality, water resource management, groundwater protection and salinity impacts (Prof. AlMomani); '
+        'oceanography and biogeochemistry of the central Arabian Gulf (Dr. Yigiterhan); coastal ecology, mangroves and '
+        'ecosystem restoration (Prof. Al-Khayat, Dr. Welter Giraldes).',
+        'UNESCO Chair in Marine Sciences at Qatar University: oceanography of the Arabian Gulf, including sea-level rise, '
+        'with capacity building (2021–2024, renewed to 2028).',
     ],
     resources=[
-        '[Data on a coast of your country that the team holds or can access: maps, wells, sea level, satellite]',
-        '[Teaching rooms, GIS and computers for the transfer study]',
+        'Chemical and sediment analysis laboratories; a Remote Sensing and GIS Laboratory; the research vessel RV Janan with '
+        'oceanographic instruments.',
+        'For the transfer site on the east coast of Qatar: maps, hydrography, sea level, satellite data and reports.',
     ],
     projects=[
-        '[2–3 relevant projects: title, funder, years, role]',
-        '[3–5 key publications of the team, with DOI]',
+        'Monitoring shoreline changes and assessment of coastal resources between Al Arish and Al Ghariyah, Qatar, with '
+        'remote sensing and GIS (QUCG-ESC-25/26-659, 2025–2027); high-resolution wind and wave modelling for the EEZ of '
+        'Qatar (QUCG-ESC-25/26-650, 2025–2027).',
+        'Backer, S. A., et al. (2026). The shoreline shifts: a comprehensive review of change analysis focusing Arabian Gulf '
+        'within global context. Regional Studies in Marine Science 102, 105433. <https://doi.org/10.1016/j.rsma.2026.105433>',
+        'Al-Ansari, E. S., et al. (2022). Seasonal variability of hydrography of the east coast of Qatar, central Arabian '
+        'Gulf. Arabian Journal of Geosciences 15, 1659. <https://doi.org/10.1007/s12517-022-10927-4>',
     ],
     role_text=[
         'Leads training, transfer and dissemination (WP6): two-month exchanges of its early-career researchers in Durrës, a '
-        'transfer study on [the partner coast] carried out with the project\'s tools and the Albanian team, a regional '
+        'transfer study on the east coast of Qatar carried out with the project\'s tools and the Albanian team, a regional '
         'workshop, and a user-side review of the bulletins and operating procedures.',
         'The coupled model, its surrogate and the certified-alarm algorithm are built and run by the NATO-country team.',
     ],
     new=[
-        'Tests within the project whether certified warnings transfer to [the partner coast], and brings the method home '
+        'Tests within the project whether certified warnings transfer to the east coast of Qatar, a low coast whose ports, '
+        'industries and energy facilities face seawater intrusion, coastal flooding and erosion, and brings the method home '
         'through trained young researchers and open software.',
     ],
-    sources=[],
+    sources=[],   # facts from the partner form of 9 November 2026, written by the Qatar team
 )
 
 EU = dict(
     role='End-users · Albania · in-kind contribution; commitment letters attached separately',
     name='End-user organisations',
-    local='They set the thresholds, give site access and data, receive the bulletins and run the system after the project.',
+    local='They agree the thresholds, give access to wells and data, review the bulletins and receive the system at the '
+          'end of the project.',
     glance=[
-        ('Water utility',
-         '**Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a.**, the regional water supply and sewerage company of '
-         'Durrës, licensed by the water regulator ERRU (Decision No. 6 of 22 February 2023); it took over the former '
-         'Ujësjellës Kanalizime Durrës on 1 January 2023 and pumps from the Fushë Kuqe and Fushë Milot wellfields. '
-         '<https://www.shuk.al/durres>\n'
-         '**In CERTAIN-COAST:** agrees the chloride threshold and the joint pumping rule and approves the safe pumping tests; gives access to wells, records '
-         'and staff time; gains certified intrusion warnings, a pumping rule and trained staff.'),
+        ('Geological survey',
+         '**Shërbimi Gjeologjik Shqiptar** (SHGJSH, Albanian Geological Survey), Tirana. It administers the groundwater '
+         'monitoring network of Albania and produces its data, and works on the geological hazards of the country.\n'
+         '**In CERTAIN-COAST:** the end-user. It gives access to existing wells of its network on the Durrës–Fushë Kuqe '
+         'coast for the project\'s loggers and to its records, helps site and install the sensors, agrees the warning '
+         'thresholds and reviews the live bulletins; it gains a monitoring design for its network, open software and '
+         'trained staff, and receives the network at the hand-over.'),
         ('Water resources agency',
          '**Agjencia e Menaxhimit të Burimeve Ujore** (AMBU, Water Resources Management Agency), Tirana. '
          '<https://www.ambu.gov.al>\n'
-         '**In CERTAIN-COAST:** gives access to monitoring wells under its control (existing wells only) and its records of '
-         'levels, chemistry and abstraction; agrees the chloride warning threshold and the pumping and drought rule; gains a '
-         'monitoring design for its decisions and a chloride early warning for each supply well, with no procurement, '
-         'ownership or maintenance obligations.'),
-        ('Port',
-         '**Autoriteti Portual Durrës** (Durrës Port Authority), a public legal person under Law No. 9130 of 8 September '
-         '2003 "On the Port Authority". Durrës handled 94.2% of Albania\'s sea freight in the second quarter of 2026 '
-         '(INSTAT). <https://www.durresport.al>\n'
-         '**In CERTAIN-COAST:** agrees liquefaction and water-level thresholds; gives site access and geotechnical '
-         'records; gains liquefaction and water-level warnings and post-event reports.'),
-        ('Gas pipeline landfall',
-         '**Trans Adriatic Pipeline AG** (TAP), Baar, Switzerland, with a country office in Albania. The pipeline carries '
-         'gas from Azerbaijan through Greece and Albania and leaves the Albanian shore near Fier for a 105 km crossing of '
-         'the Adriatic Sea to Italy. <https://www.tap-ag.com>\n'
-         '**In CERTAIN-COAST:** agrees thresholds for the landfall; gives access to agreed locations under its security '
-         'rules and its design levels; gains stability checks combining shaking, liquefaction, water level and subsidence.'),
-        ('Civil protection',
-         '**Agjencia Kombëtare e Mbrojtjes Civile** (National Civil Protection Agency), set up under Law No. 45/2019 '
-         '"On Civil Protection" and listed among the structures under the Ministry of Defence; it already receives the '
-         'daily hydrological hazard bulletin of the Institute of Geosciences. <https://akmc.gov.al>\n'
-         '**In CERTAIN-COAST:** co-designs the post-event protocol; receives one picture of water, port and energy after '
-         'events; gains post-event reports, procedures and a policy brief.'),
+         '**In CERTAIN-COAST:** shares its data on water-use permits and abstraction for the aquifer that supplies Durrës, '
+         'agrees the chloride warning threshold and reviews the pumping and drought rule, with staff time in kind; it '
+         'gains a chloride early warning in support of its permits, with no procurement, ownership or maintenance '
+         'obligations.'),
+        ('Port and energy landfall',
+         'The Port of Durrës and the landfall of the Trans Adriatic Pipeline near Fier are assessed from satellite radar, '
+         'GNSS and public data only; no access or data from their owners is needed.'),
     ],
     role_text=[
-        'Each end-user names a contact person, takes part in setting the thresholds (T3.1), in the dry run before live '
-        'operation (MS4) and in the twelve months of live bulletins (WP5), and co-signs the operational milestones.',
+        'Each end-user names a contact person and takes part in setting the thresholds (T3.1); the Survey also reviews the '
+        'live bulletins (WP5) and receives the network, the software and the procedures at the hand-over (MS7).',
     ],
     new=[
-        'The users decide when the system is ready: they co-sign the network plan (MS1), the start of live bulletins (MS4), '
-        'the bulletin log (MS6) and the hand-over (MS7).',
+        'The monitoring network is built on the wells of the national groundwater network, so it stays with the '
+        'institution that already runs that network.',
     ],
-    sources=[
-        ('ERRU licence', 'https://erru.al/2023/03/01/vendim-nr-6-per-licencimin-e-shoqerise-rajonale-ujesjelles-kanalizime-durres-sh-a/'),
-        ('company register', 'https://opencorporates.al/sq/nipt/m22031502m'),
-        ('take-over', 'https://durreslajm.al/krijohet-shoqeria-e-re-e-ujesjelles-kanalizime-durres/'),
-        ('wellfields (2026)', 'https://www.bulevardnews.com/2026/03/04/durresi-neser-8-ore-pa-uje-shkaku-stacioni-i-pompave-ne-fushe-kuqe-dhe-fushe-milot-nuk-do-te-kene-energji-elektrike/'),
-        ('Port Authority law', 'https://durresport.al/port-authority/legislation/'),
-        ('INSTAT Q2 2026', 'https://www.instat.gov.al/media/44eas2r0/statistikat-e-transportiti-detar-tr-ii-2026_a.pdf'),
-        ('AMBU', 'https://www.ambu.gov.al'),
-        ('TAP offshore section', 'https://www.tap-ag.com/news/news-stories/trans-adriatic-pipeline-completes-offshore-section'),
-        ('TAP country offices', 'https://www.tap-ag.com/news/news-stories/tap-establishes-country-offices-in-greece-albania-and-italy'),
-        ('AKMC', 'https://akmc.gov.al/en/about-akmc/'),
-        ('Law 45/2019', 'https://akmc.gov.al/en/legislation/'),
-        ('Ministry of Defence', 'https://www.mod.gov.al/ministria/strukturat-vartese'),
-        ('IGEO hydrology bulletin', 'https://www.geo.edu.al/Services/Departament_of_Hydrology/'),
-    ],
+    sources=[('AMBU', 'https://www.ambu.gov.al')],
 )
 
 INST = [UPT, PPD, EU]
