@@ -178,7 +178,8 @@ BL = [
           'more sharply than a year of seasonal heads. The post-event protocol (T5.4) therefore reads the leakage of the '
           'confined aquifer from the loggers, and well records of November 2019 are sought where they exist. The mapped '
           'liquefaction of 2019 (Mavroulis, Lekkas and Carydis, 2021) cannot test the step: on a synthetic plain even 480 '
-          'sites gave a power below 50%.'),
+          'sites gave a power below 50%. The code and the checks are in the TRONDITJA-GO report, the fourth document of '
+          'these files.'),
     ('h2', '4.5 A fast copy with a certified error (T2.4)'),
     ('p', 'Warnings need thousands of model runs a day. A neural operator (Li et al., 2021; Lu et al., 2021) is trained on '
           'runs of the coupled model, and its error on each forecast is bounded conformally (Ma et al., 2024), with the '
