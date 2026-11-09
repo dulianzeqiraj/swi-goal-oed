@@ -129,7 +129,30 @@ BL = [
           'the calibration is matched to the forecast horizon, and a computable floor shows how far each band is from the '
           'narrowest valid one. In the preparatory test the raw ensemble missed 17–20% of the weeks and the calibrated bands '
           '9.5–10% (target 10%); the risk stayed at 0.003–0.082 up to 20 years ahead under drift.'),
-    ('h2', '4.3 A fast copy with a certified error (T2.4)'),
+    ('h2', '4.3 The boundary where the model is cut (T2.3, T4.1)'),
+    ('p', 'Every model of the aquifer ends somewhere inland, at a cut that geology does not mark. A fixed head, a '
+          'prescribed inflow or a general-head boundary does not respond to pumping or to the sea as the aquifer beyond '
+          'does, and the choice decides the answers. In the preparatory test, the fresh water lost to a 0.5 m rise of the '
+          'sea over 20 years was 49 m³ per metre of coast with a prescribed inflow, 462 with a fixed head and 154 in the '
+          'full aquifer (Werner and Simmons, 2009). For any linear aquifer beyond the cut, heterogeneous, leaky or '
+          'closed, the exact boundary is a conductance plus positive storage compartments. With $u = h - \\bar{h}$ the '
+          'head at the cut above its reference and $q_{in}$ the inflow from rain, the outward flux is'),
+    ('eq', 'pertej', 'q_n = -q_{in}(t) + C\\,u + \\sum_{m=1}^{M} w_m \\left(u - y_m\\right), \\qquad \\dot{y}_m = '
+                     '\\mu_m \\left(u - y_m\\right), \\qquad C,\\ w_m \\ge 0'),
+    ('p', 'Conversely, every such network is the exact boundary of some physical aquifer, so a learned boundary cannot '
+          'be unphysical; the same positive memory describes diffusion into the silt and clay lenses inside the model '
+          '(Haggerty and Gorelick, 1995). With $C, w_m \\ge 0$ the boundary is passive: the model loses energy whatever '
+          'its other parameters, as passive models of an external electrical network do (Gustavsen and Semlyen, 2001). '
+          'A negative conductance that was stable in a 2 km test grew without bound in a 6 km model. The rates $\\mu_m$ '
+          'sit on a fixed logarithmic grid, three to four per decade of period. The weights are learned from two '
+          'piezometers between the wellfields and the cut (T4.1), which separate the boundary from everything else in '
+          'the model, on the band of periods that changes of pumping excite. A neural network may supply $q_{in}$ from '
+          'rain and monotone conductances, never the storages, and a prior learned from simulated geology fills the '
+          'periods the data do not reach. In the test, six compartments reproduced the full aquifer to 7.8 mm '
+          'root-mean-square over 20 years (best general-head boundary: 148 mm). Learned from the two piezometers while '
+          'the pumping varied, the boundary predicted an unseen drought with doubled pumping to 6 mm (372 mm), and the '
+          'fresh water lost to the sea-level rise within 4%.'),
+    ('h2', '4.4 A fast copy with a certified error (T2.4)'),
     ('p', 'Warnings need thousands of model runs a day. A neural operator (Li et al., 2021; Lu et al., 2021) is trained on '
           'runs of the coupled model, and its error on each forecast is bounded conformally (Ma et al., 2024), with the '
           'score normalised by the goal-oriented dual-weighted residual $\\eta_k$ (Becker and Rannacher, 2001), so the bound '
@@ -293,8 +316,9 @@ BL = [
        'Corner reflectors and scatterers on structures where radar coherence is lost'],
       ['Coupled model and unmeasured inputs (WP2; MS3, Month 18)', 'Held-out heads, chloride, InSAR and seismic velocity '
        'inside the 90% predictive intervals at close to the nominal rate; band for crossings at most 0.25 wide for each '
-       'wellfield', 'Model built in stages; two-dimensional sections through each asset with a wider error bound; a wider '
-       'simulation-calibrated band, reported as such, if anchors are too few'],
+       'wellfield; the learned inland boundary passive', 'Model built in stages; two-dimensional sections through each '
+       'asset with a wider error bound; a wider simulation-calibrated band, reported as such, if anchors are too few; a '
+       'general-head boundary with a widened band if the inland boundary is not identified'],
       ['Certified copy and alarm prototype (WP2, WP3; MS4, Month 22, go/no-go)', 'Error bound met on test runs; the '
        'prototype passes a dry run with the operators', 'Full model on a reduced domain for flagged forecasts'],
       ['Back-testing (WP3; MS5, Month 27)', 'Each miss rate at or below its target with a 95% confidence bound, crossings '
@@ -314,9 +338,9 @@ BL = [
     ('h', '8. What is new beyond the state of the art'),
     ('p', 'The alarms assemble published methods of 2021–2026 (online and conditional conformal prediction, extreme '
           'conformal prediction, Learn then Test and anytime-valid verification); their joint use for coupled coastal '
-          'hazards is an application and is not claimed as new. Seven contributions were derived and tested before the '
+          'hazards is an application and is not claimed as new. Eight contributions were derived and tested before the '
           'project (Table 3); the novelty statements rest on our literature search to date.'),
-    ('cap', 'Table 3. The seven new contributions, the result of their preparatory test and where they are used.'),
+    ('cap', 'Table 3. The eight new contributions, the result of their preparatory test and where they are used.'),
     ('table', ['Contribution', 'What is new', 'Preparatory test', 'Where'],
      [['(i) Guarantees for quantities nobody measures', 'Bands for recharge, vadose delay, boundaries and dispersion that '
        'stay valid when the simulator or the rain product is wrong, with a computable floor', 'Raw ensemble missed 17–20% '
@@ -340,12 +364,17 @@ BL = [
        'kept without a prior; pumping safe for all of them; tracers bought for the decision they change; monthly '
        'updates valid at any time', 'Every source at or below 6.9% against a 10% budget (assuming seawater: up to 98%); '
        '€3.31 million against €4.16 million without tests; true source dropped in 1.2–1.5% of cases against 22%',
-       'T4.1, T5.3; MS6']],
+       'T4.1, T5.3; MS6'],
+      ['(viii) A boundary that learns the aquifer beyond the model', 'A conductance plus positive storage compartments: '
+       'exact for any linear aquifer beyond the cut, passive whatever the rest of the model, learned from two '
+       'piezometers while the pumping varies', 'Six compartments 7.8 mm against 148 mm for the best general-head '
+       'boundary; unseen drought with doubled pumping 6 mm against 372 mm; fresh water lost to sea-level rise within '
+       '4% (prescribed inflow: 3.1 times too little)', 'T2.3, T4.1; D2.1, MS3']],
      [3.6, 5.4, 5.6, 2.8], 8.5),
     ('p', 'Together they answer questions that no current coastal warning answers for its operators: how often a warning '
           'will be missed and so what silence means; how many years of safe pumping and dewatering remain as the sea rises '
-          'and the land sinks; which sensor or pumping test buys more of them; and how to pump safely before anyone knows '
-          'where the salt comes from. The system starts at TRL 3, each '
+          'and the land sinks; which sensor or pumping test buys more of them; how the aquifer beyond the model answers '
+          'new pumping and a rising sea; and how to pump safely before anyone knows where the salt comes from. The system starts at TRL 3, each '
           'component shown in preparatory tests, and ends at TRL 6, demonstrated on the operators\' own sites through twelve '
           'months of live operation with the water utility, AMBU, the port authority, TAP and civil protection.'),
     ('p', '**Software and data.** The model, fast copies, alarms, safe window, test planner and network design are released '
@@ -380,7 +409,9 @@ REFERENCES = [
     'Gibbs, I., Cherian, J.J., Candès, E.J. (2025). Conformal prediction with conditional guarantees. Journal of the Royal Statistical Society Series B 87(4), 1100–1126. https://doi.org/10.1093/jrsssb/qkaf008',
     'Gierjatowicz, P., Sabate-Vidales, M., Šiška, D., Szpruch, L., Žurič, Ž. (2020). Robust pricing and hedging via neural SDEs. Working paper, SSRN 3646241.',
     'Grant, A.R.R., Wein, A., Befus, K.M., et al. (2021). Changes in liquefaction severity in the San Francisco Bay Area with sea-level rise. Geo-Extreme 2021, Geotechnical Special Publication 329, 308–317. https://doi.org/10.1061/9780784483695.030',
+    'Gustavsen, B., Semlyen, A. (2001). Enforcing passivity for admittance matrices approximated by rational functions. IEEE Transactions on Power Systems 16(1), 97–104. https://doi.org/10.1109/59.910786',
     'Haasnoot, M., Kwakkel, J.H., Walker, W.E., ter Maat, J. (2013). Dynamic adaptive policy pathways: a method for crafting robust decisions for a deeply uncertain world. Global Environmental Change 23(2), 485–498. https://doi.org/10.1016/j.gloenvcha.2012.12.006',
+    'Haggerty, R., Gorelick, S. M. (1995). Multiple-rate mass transfer for modeling diffusion and surface reactions in media with pore-scale heterogeneity. Water Resources Research 31(10), 2383–2400. https://doi.org/10.1029/95WR10583',
     'Koller, T., Berkenkamp, F., Turchetta, M., Krause, A. (2018). Learning-based model predictive control for safe exploration. 2018 IEEE Conference on Decision and Control, 6059–6066. https://doi.org/10.1109/CDC.2018.8619572',
     'Krach, F., Nübel, M., Teichmann, J. (2026). Optimal estimation of generic dynamics by path-dependent neural jump ODEs. Stochastic Processes and their Applications. https://doi.org/10.1016/j.spa.2026.105058',
     'Kwadijk, J.C.J., Haasnoot, M., Mulder, J.P.M., et al. (2010). Using adaptation tipping points to prepare for climate change and sea level rise: a case study in the Netherlands. WIREs Climate Change 1(5), 729–740. https://doi.org/10.1002/wcc.64',
@@ -404,6 +435,7 @@ REFERENCES = [
     'Ville, J. (1939). Étude critique de la notion de collectif. Gauthier-Villars, Paris.',
     'Vovk, V., Wang, R. (2021). E-values: calibration, combination and applications. Annals of Statistics 49(3), 1736–1754. https://doi.org/10.1214/20-AOS2020',
     'Wasserman, L., Ramdas, A., Balakrishnan, S. (2020). Universal inference. Proceedings of the National Academy of Sciences 117(29), 16880–16890. https://doi.org/10.1073/pnas.1922664117',
+    'Werner, A. D., Simmons, C. T. (2009). Impact of sea-level rise on sea water intrusion in coastal aquifers. Ground Water 47(2), 197–204. https://doi.org/10.1111/j.1745-6584.2008.00535.x',
 ]
 
 

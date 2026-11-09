@@ -67,7 +67,7 @@ TECHNICAL = (
     'under distribution shift, guarantees that hold within regimes such as droughts, extreme conformal prediction for '
     'events rarer than the record, and anytime-valid verification) can provide such guarantees, but they have not been '
     'applied to coupled coastal hazards driven by slow physics, with dependent alarms and few extreme events.\n'
-    'Four further problems have no published solution. There is no method to compute the set of pumping and dewatering '
+    'Five further problems have no published solution. There is no method to compute the set of pumping and dewatering '
     'decisions that keeps all the hazards within certified limits at once, nor the sea level or year at which this set '
     'disappears; tipping points exist for seawater intrusion alone, not for the coupled system. And monitoring '
     "networks are designed to reduce today's forecast errors; there is no criterion for how many years of safe "
@@ -76,7 +76,10 @@ TECHNICAL = (
     'the test in years. And the source of rising chloride is often unknown: seawater, deep brine drawn up under the '
     'wells, a drought that concentrates the recharge, or irrigation return flow and wastewater. Each calls for a '
     'different action, and acting on the wrong one can make the salinity worse, yet no method lets the utility and its '
-    'stakeholders decide before the source is known, with a risk that holds whatever it is.\n'
+    'stakeholders decide before the source is known, with a risk that holds whatever it is. And every model of the '
+    'aquifer is cut somewhere inland: a fixed head, a prescribed inflow or a general-head boundary does not respond to pumping or to the sea as the aquifer beyond does, and in tests this '
+    'choice changed the fresh water lost to sea-level rise ninefold; no method learns the true boundary from data while '
+    'keeping the model stable.\n'
     'All of this must work on a real coast with incomplete records, under security restrictions on data, and in a form '
     'that the operators can run themselves after the project.')
 
@@ -88,31 +91,33 @@ DELIVER = (
     'conductivity loggers, a barometer and sealed hub channels that correct them, a local rain gauge, GNSS, seismic '
     'nodes and, where access allows, fibre-optic sensing.\n'
     '3. One calibrated model that couples groundwater flow and salt, aquifer compaction, liquefaction under a moving '
-    'water table and coastal water levels (D2.1), and a fast neural-operator copy with a certified error bound (D2.2); '
+    'water table and coastal water levels, its inland boundary learned from the heads (D2.1), and a fast '
+    'neural-operator copy with a certified error bound (D2.2); '
     'a generative copy explores long storylines.\n'
     '4. Certified alarms for seawater intrusion, liquefaction and extreme water levels whose miss rate is bounded in '
     'advance (indicatively 5–10%), with a joint guarantee for the three assets, back-tested since 2014 under a '
     'pre-registered protocol (D3.1, D3.2).\n'
     "5. Decisions for the water utility: the effect of each wellfield's pumping on salinity with the hidden drought "
     'demand removed; the salinity under drier recharge; the certified safe operating window and the year it closes; '
-    'safe pumping tests that sharpen it; a pumping rule agreed with the utility; and pumping that stays safe while the '
+    'safe pumping tests that sharpen it; a pumping rule agreed with the utility; and pumping safe while the '
     'source of the chloride is unknown.\n'
     '6. Twelve months of live bulletins with the five end-users, every outcome logged and the miss rates verified '
     '(D5.1); operating procedures and a policy brief (D6.2); open software and data with a DOI (D6.1).\n'
     'How this advances the state of the art. The alarms apply conformal and anytime-valid methods of 2023–2026 to '
-    'coupled coastal hazards. Seven new contributions were tested before the project. (i) Guarantees for quantities '
-    'nobody measures: inputs and boundaries known only through rain, calibrated on simulated aquifers and measured '
-    'anchor periods, valid when the simulator or rain product is wrong, with a computable floor on how narrow each '
-    'band can be. (ii) The value of a sensor as the guaranteed band it removes and the years of safe operation it adds '
-    '(in tests, a tide gauge rated useful by a standard ensemble widened the band by 16–21%). (iii) Pumping effects '
+    'coupled coastal hazards. Eight new contributions were tested before the project. (i) Guarantees for quantities '
+    'nobody measures: inputs and boundaries known only through rain, with bands valid when the simulator or rain '
+    'product is wrong. (ii) The value of a sensor as the guaranteed band it removes and the years of safe operation it '
+    'adds (in tests, a tide gauge rated useful by an ensemble widened the band by 16–21%). (iii) Pumping effects '
     'free of hidden confounding, read from the heads (history-based substitutes kept the bias). (iv) The certified '
     'safe operating window and safe pumping tests chosen for the years they add. (v) A network that corrects its own '
-    'sensors for air pressure and logger drift, with a certified distance from the best network (+52% worst-case '
-    'information in tests). (vi) Warnings between samples: the chance that chloride crosses its limit at any time in '
-    'the season, as a certified band over all models that fit the records (34 times the exceedance on a sampling date '
-    'in tests). (vii) Decisions before the source of the salt is known: only the sources the tracers cannot exclude '
-    'are kept, and the pumping is safe for all of them (in tests ≤6.9% risk for a 10% budget; assuming seawater '
-    'intrusion: 98%). The integrated system reaches TRL 6 on site, with the operators.')
+    'sensors for air pressure and logger drift (+52% worst-case information in tests). (vi) Warnings between samples: a '
+    'certified band for the chance that chloride crosses its limit at any time in the season (34 times the exceedance '
+    'on sampling dates in tests). (vii) Decisions before the source of the salt is known: pumping safe for every source '
+    'the tracers cannot exclude (in tests ≤6.9% risk for a 10% budget; assuming seawater intrusion: 98%). (viii) A '
+    'boundary that learns the aquifer beyond the model: exact for any linear aquifer, stable by construction, learned '
+    'from two piezometers (in tests 6 mm error on an unseen drought with doubled pumping; calibrated general-head '
+    'boundary: 372 mm). The integrated system reaches TRL 6 on site, with the '
+    'operators.')
 
 
 HOW = (
@@ -127,9 +132,9 @@ HOW = (
     'the head limit for pumping from aquifer compaction.\n'
     'Model and certify (Months 4–30). WP2 builds one coupled model in stages (flow and salt, then compaction and '
     'liquefaction). The inputs and boundaries nobody measures are reconstructed from rain and heads by a generative '
-    'prior with an ensemble update. Their bands are calibrated on simulated aquifers and measured anchor periods, so '
-    'they stay valid if the simulator is wrong; under drift the calibration is matched to the forecast horizon. Gate '
-    'MS3 (Month 18) requires held-out heads, chloride, InSAR and seismic velocity inside the 90% intervals. A '
+    'prior with an ensemble update. Their bands, calibrated on simulated aquifers and measured anchor periods, stay '
+    'valid if the simulator is wrong or the climate drifts. The inland boundary is learned from two piezometers as '
+    'passive storage compartments. Gate MS3 (Month 18) requires held-out heads, chloride, InSAR and seismic velocity inside the 90% intervals. A '
     'neural-operator copy with a certified error bound then serves the warnings. WP3 agrees thresholds and tolerable '
     'miss rates with the operators, builds the alarms (crossings between samples included), back-tests them since 2014 '
     'under a protocol registered before the results; gates MS4 (Month 22) and MS5 (Month 27) decide live operation and '
@@ -286,7 +291,25 @@ SOTA_REFS += [  # decisions when the source of the chloride is unknown (State of
     ('Wasserman, L., Ramdas, A., Balakrishnan, S. (2020). Universal inference. Proceedings of the National Academy of Sciences 117(29), 16880–16890.',
      'https://doi.org/10.1073/pnas.1922664117'),
 ]
-SOTA_REFS.sort(key=lambda r: r[0])
+SOTA_REFS += [  # the boundary where a model is cut (PERTEJ-GO theory note); all checked in Crossref, 9 November 2026
+    ('Alpert, B., Greengard, L., Hagstrom, T. (2000). Rapid evaluation of nonreflecting boundary kernels for time-domain wave propagation. SIAM Journal on Numerical Analysis 37(4), 1138–1164.',
+     'https://doi.org/10.1137/S0036142998336916'),
+    ('Bakker, M., Schaars, F. (2019). Solving groundwater flow problems with time series analysis: you may not even need another model. Groundwater 57(6), 826–833.',
+     'https://doi.org/10.1111/gwat.12927'),
+    ('Engquist, B., Majda, A. (1977). Absorbing boundary conditions for the numerical simulation of waves. Mathematics of Computation 31(139), 629–651.',
+     'https://doi.org/10.1090/S0025-5718-1977-0436612-4'),
+    ('Gustavsen, B., Semlyen, A. (2001). Enforcing passivity for admittance matrices approximated by rational functions. IEEE Transactions on Power Systems 16(1), 97–104.',
+     'https://doi.org/10.1109/59.910786'),
+    ('Langevin, C. D., Hughes, J. D., Banta, E. R., Niswonger, R. G., Panday, S., Provost, A. M. (2017). Documentation for the MODFLOW 6 Groundwater Flow Model. U.S. Geological Survey Techniques and Methods 6-A55.',
+     'https://doi.org/10.3133/tm6A55'),
+    ('Michael, H. A., Russoniello, C. J., Byron, L. A. (2013). Global assessment of vulnerability to sea-level rise in topography-limited and recharge-limited coastal groundwater systems. Water Resources Research 49(4), 2228–2240.',
+     'https://doi.org/10.1002/wrcr.20213'),
+    ('von Asmuth, J. R., Bierkens, M. F. P., Maas, K. (2002). Transfer function-noise modeling in continuous time using predefined impulse response functions. Water Resources Research 38(12), 1287.',
+     'https://doi.org/10.1029/2001WR001136'),
+    ('Werner, A. D., Simmons, C. T. (2009). Impact of sea-level rise on sea water intrusion in coastal aquifers. Ground Water 47(2), 197–204.',
+     'https://doi.org/10.1111/j.1745-6584.2008.00535.x'),
+]
+SOTA_REFS.sort(key=lambda r: r[0].lower())
 
 SOTA_TEXT = (
     'Related research outside the project team (2020–2026):\n'
@@ -338,6 +361,13 @@ SOTA_TEXT = (
     'legitimacy decides whether groundwater users accept limits (Jedd et al., 2024). None decides before the source of '
     'rising chloride is known with a risk stated for every source, although e-values (Vovk and Wang, 2021) and '
     'universal inference (Wasserman, Ramdas and Balakrishnan, 2020) give the tools.\n'
+    '• The boundary where a model is cut. Groundwater models end inland at a fixed head, a prescribed flux or a '
+    'general-head boundary (Langevin et al., 2017), and this choice decides how intrusion responds to sea-level rise '
+    '(Werner and Simmons, 2009; Michael, Russoniello and Byron, 2013). Exact boundaries built from sums of exponentials '
+    'are classical for waves (Engquist and Majda, 1977; Alpert, Greengard and Hagstrom, 2000); passive rational models '
+    'of an external network are standard in power systems (Gustavsen and Semlyen, 2001); head time series are modelled '
+    'with positive impulse responses (von Asmuth, Bierkens and Maas, 2002; Bakker and Schaars, 2019). None learns the '
+    'boundary of a groundwater model from data with its stability and identifiability guaranteed.\n'
     '• Vertical land motion and coastal exposure from InSAR and GNSS (Ohenhen et al., 2023), and slow settling of the '
     'Albanian coastal plain near Fier (Métois et al., 2020); the 2019 Durrës earthquake and its liquefaction '
     '(Mavroulis, Lekkas and Carydis, 2021).\n'
@@ -345,8 +375,8 @@ SOTA_TEXT = (
     'warnings whose miss rate is stated in advance; guarantees the inputs known only through rain when the simulator '
     'is wrong; values a sensor by the guaranteed band it removes and the years it adds; places the reference channels '
     'that correct the sensors; certifies crossings between samples; reads the hidden drought demand from the heads; '
-    'decides how to pump before the source of the salt is known; or computes when a safe way of operating the assets '
-    'ends. A final check in bibliographic databases will be made before submission.\n'
+    'decides how to pump before the source of the salt is known; learns the inland boundary of the model from data '
+    'without putting its stability at risk; or computes when a safe way of operating the assets ends. A final check in bibliographic databases will be made before submission.\n'
     'Related activities of the project participants: [list proposed, ongoing or recently completed projects of the '
     'Co-Directors on related topics, with dates and budgets, or write "none"]. The preparatory technical work of the '
     "NPD's team in 2026 (eleven reviews with tests, a calibrated chloride model of the Fushë-Kuqe aquifer) is the "
@@ -442,6 +472,12 @@ STATUS = (
     'against all of them, held every source at or below 6.9% against a 10% budget, at €3.31 million against €4.16 '
     'million for protecting against all four; monthly updates dropped the true source in 1.2–1.5% of cases, against '
     'about 22% for an ordinary test repeated every month.\n'
+    '• Boundary of the model: on a 10 km test aquifer cut at 2 km, a boundary of six positive storage compartments '
+    'reproduced the head at the cut to 7.8 mm over 20 years, against 148 mm for the best calibrated general-head '
+    'boundary; learned from two piezometers while the pumping varied, it predicted an unseen drought with doubled '
+    'pumping to 6 mm (general-head boundary: 372 mm); under a 0.5 m sea-level rise it lost 160 m³ of fresh water per '
+    'metre of coast against 154 in the full aquifer, where a prescribed inflow gave 49 and a fixed head 462; a '
+    'negative conductance that was stable at 2 km grew without bound at 6 km.\n'
     'These are tests on synthetic coasts and on the existing chloride model with illustrative values, not results at '
     'Durrës; the project calibrates and verifies them on site.\n'
     'Starting data: Sentinel-1 radar images since 2014, tide-gauge records, the wells and chemical records of the '
@@ -468,6 +504,9 @@ IMPACT = (
     '• The water utility, AMBU, the farmers and the regulator can act before the source of rising chloride is known: '
     'tracers are bought for the decision they change, the plausible sources and the pumping in force are published '
     'every month with a risk that holds whatever the source, and a ledger shows who bears the cost.\n'
+    '• Models whose inland edge responds as the real aquifer does, learned from piezometers: sea-level rise and new '
+    'pumping are then neither underestimated by a prescribed inflow nor overstated by a fixed head (in tests, by a '
+    'factor of three either way).\n'
     '• At least 20 operator and civil-protection staff (at least two per operator) trained and running the system; at '
     'least six early-career researchers trained in the NATO and partner countries.\n'
     '• A monitoring network of piezometers, GNSS, seismic stations and corner reflectors handed over to the operators, '
@@ -484,7 +523,8 @@ TRL_TEXT = (
     'Start: TRL 3. Each component has been shown in preparatory synthetic tests (alarm margins, safe operating window, '
     'verification, guaranteed reconstruction from rain, value of a sensor, pumping effects with the hidden confounding '
     'removed, counterfactual salinity on the calibrated chloride model of Fushë-Kuqe, a network that corrects its own '
-    'sensors, warnings for crossings between samples, decisions before the source of the chloride is known), and '
+    'sensors, warnings for crossings between samples, decisions before the source of the chloride is known, an inland '
+    'boundary learned from piezometers), and '
     'published methods exist for each element.\n'
     'End: TRL 6, as the 2027-1 call asks (results at TRL 3–6). The integrated system (network, coupled model, '
     'certified surrogate, alarms, pumping rule and safe operating window) is demonstrated in its relevant environment, '
@@ -528,11 +568,17 @@ WORKPLAN = (
     'boundaries nobody measures (recharge coefficient, vadose delay, storage, sea level, inland inflow, initial head, '
     'dispersion width) are reconstructed by a function-space diffusion prior with an ensemble update through the exact '
     'solver; the errors of the rain product are simulated in the prior; bands are calibrated by conformal risk control '
-    'on simulated aquifers and checked on measured anchor periods; neural-operator surrogate with a certified error '
+    'on simulated aquifers and checked on measured anchor periods; the inland boundary, where the model is cut, is a '
+    'conductance plus positive storage compartments on a fixed grid of time scales, passive by construction, learned '
+    'from two piezometers between the wellfields and the cut, with a prior learned from simulated geology; '
+    'neural-operator surrogate with a certified error '
     'bound (T2.4). Risk: the model fails validation; mitigation: build in stages and fall back to two-dimensional '
     'sections with a wider error bound. Risk: the anchors are too few (at least 9 are needed for an average guarantee, '
     '22 for a 90% certificate); mitigation: anchors from the record since 2014 and from the new loggers, and a wider '
-    'simulation-calibrated band reported as such. Milestones: MS3 (Month 18), MS4 (Month 22).\n'
+    'simulation-calibrated band reported as such. Risk: the inland boundary is not identified (pumping too steady, or an '
+    'unknown source near the cut); mitigation: changes of pumping rate over months to years agreed with the utility, '
+    'the prior from simulated geology, and a general-head boundary with a widened band as fallback. Milestones: MS3 '
+    '(Month 18), MS4 (Month 22).\n'
     'WP3, Certified multi-hazard alarm (Months 13–34; NATO-country team). Steps: thresholds and tolerable miss rates '
     'with the operators (T3.1); alarm margins and proofs (T3.2), with anchor calibration so that the guarantee does '
     'not depend on the simulator, horizon matching under drift, and the floor that shows how far each band is from the '
@@ -554,7 +600,9 @@ WORKPLAN = (
     'reported with its certified optimality gap; a conductivity logger in at least one production well of each '
     'wellfield and a yearly campaign of laboratory samples paired 1, 3 and 7 days apart measure the time scale that '
     'decides crossings between samples; a tracer campaign (Br/Cl, water isotopes, depth profiles from multilevel '
-    'wells, nitrate and boron) is chosen by the value of the pumping decisions it changes; procurement and '
+    'wells, nitrate and boron) is chosen by the value of the pumping decisions it changes; two piezometers between the '
+    'wellfields and the inland cut, about one diffusion length apart, learn the boundary of the model (T2.3); '
+    'procurement and '
     'installation (T4.2), with one GNSS station, two corner reflectors, a seismic station and a water-table logger at '
     "the TAP landfall, under TAP's security rules; operation and maintenance (T4.3), in which every reading is "
     'corrected for air pressure and logger drift before use and the corrected residuals are checked for remaining '
@@ -641,6 +689,8 @@ KPIS = (
     '• Source of the chloride (T5.3): the tracer campaign chosen by decision value completed by Month 24, and the set '
     'of plausible sources with the pumping allocation published monthly from then on, keeping the true source in at '
     'least 95% of back-tested simulated cases.\n'
+    '• Inland boundary (T2.3): learned from the two boundary piezometers and passive (all weights nonnegative), with '
+    'held-out heads at both piezometers inside the 90% predictive intervals (Month 18, MS3).\n'
     '• D6.1 open software and data with a DOI, reproduced by someone outside the team (Month 33); D6.2 operating '
     'procedures adopted and policy brief delivered (Month 36, MS7).\n'
     '• Capacity: at least 20 trained operator and civil-protection staff, at least six early-career researchers, at '
@@ -786,7 +836,7 @@ def main(out):
             'internal regulation on administration, finance and accounting, upload that PDF instead', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready'],
-           ['Additional files (optional): technical annex and technical note, later with the CVs', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (31 pages, contents and bookmarks: the technical annex, 8 pages, with methods, preparatory tests, gates and fallbacks and the seven new contributions; the technical note on the assembled system and the placement of the wells, 22 pages). When the CVs are filled in, they are added to the same PDF (build_additional_files.py)', 'ready']]
+           ['Additional files (optional): technical annex and technical note, later with the CVs', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (32 pages, contents and bookmarks: the technical annex, 9 pages, with methods, preparatory tests, gates and fallbacks and the eight new contributions; the technical note on the assembled system and the placement of the wells, 22 pages). When the CVs are filled in, they are added to the same PDF (build_additional_files.py)', 'ready']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
@@ -1000,7 +1050,7 @@ def main(out):
     for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
                   ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', '**Yes** (recommended): upload the signed agreement as one PDF. Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx (NATO sample, Option B, open release of software and data, security release check), with a one-page waiver as alternative. The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete proposal.'),
-                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (31 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (8 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the seven new contributions, consistent with this form) and the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values). [When the CVs of the Co-Directors are filled in, they are added to the same PDF and the contents page is rebuilt.]'),
+                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (32 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (9 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the eight new contributions, consistent with this form) and the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values). [When the CVs of the Co-Directors are filled in, they are added to the same PDF and the contents page is rebuilt.]'),
                   ('Additional information (optional)', 'The additional files open with the technical annex, which summarises the methods and their preparatory tests, followed by a technical note on the coupled model and the placement of recharge and supply wells; the full methodology, state of the art, work packages, risk assessment and data management plan are available on request.')]:
         field(doc, nm); answer(doc, a)
 
