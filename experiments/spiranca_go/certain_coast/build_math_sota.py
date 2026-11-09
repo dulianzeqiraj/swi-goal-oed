@@ -75,18 +75,22 @@ BL = [
     ('h', '2. Random forcing'),
     ('h2', '2.1 Existence, uniqueness and stability'),
     ('p', 'For noise that is additive or linear in $u$, the substitution $u = e^{\\mu W_t} v$ turns the stochastic '
-          'equation into a porous-medium equation with random coefficients, which can be solved path by path; '
-          'existence and uniqueness then hold for every realisation of the forcing, including long-memory and rough '
-          'signals ' + '{@A1path}' + '. For general nonlinear noise, entropy or kinetic solutions give well-posedness '
-          '{@A1entropy}. The solutions contract in $L^1$,'),
+          'equation into a porous-medium equation with random coefficients, which can be solved path by path. '
+          'Pathwise well-posedness is proved for stochastic porous-medium and fast-diffusion equations with conservative '
+          'noise {@A1path}, and on bounded domains with Dirichlet data, where the solution depends continuously on the '
+          'driving noise {@A1clini}. For nonlinear noise that is correlated in space, stochastic kinetic solutions give '
+          'well-posedness {@A1entropy}. For a given path of the forcing, the porous-medium operator is accretive in $L^1$, '
+          'so two solutions driven by the same forcing contract {@A1stab}:'),
     ('eq', 'l1', r'\left\| u_1(t)-u_2(t)\right\|_{L^1} \le \left\| u_1(0)-u_2(0)\right\|_{L^1},'),
-    ('p', 'and the distance between two solutions is bounded by the distance between their noise coefficients, so an '
-          'error in the noise model has a controlled effect on the heads {@A1stab}. For forcing rougher than Brownian '
-          'motion, rough-path theory gives solutions and convergent numerical schemes {@A3}.'),
+    ('p', 'Together with the continuity in the driving noise, this means that an error in the forcing has a controlled '
+          'effect on the heads. For forcing rougher than Brownian motion, Wong–Zakai regularisation and splitting give '
+          'fully discrete schemes with error bounds {@A3}.'),
     ('h2', '2.2 Heads that stay nonnegative'),
     ('p', 'A finite-volume discretisation with two-point fluxes and implicit time steps gives an M-matrix, and the '
           'discrete maximum principle then keeps $h \\ge 0$ in cells that dry out. For multiplicative noise, splitting '
-          'the noise step from the diffusion step and solving the noise step exactly preserves the sign {@A2}.'),
+          'the noise step from the diffusion step and solving the noise step exactly preserves positivity {@A2split}; '
+          'finite-element schemes that keep the stochastic porous-medium equation nonnegative converge {@A2fem}, and '
+          'convergent schemes now cover singular-degenerate stochastic equations that include it {@A2deg}.'),
     ('h2', '2.3 The law of the forcing'),
     ('p', 'What the theory does not decide is the law of the forcing. Rain falls as storms: at the scale of an aquifer, '
           'recharge is a marked Poisson process with storm rate $\\lambda$ and storm sizes $Y_i$ of mean $\\mu$, written '
@@ -120,7 +124,10 @@ BL = [
     ('p', 'with transmissivity $T$, boundary conductance $C$, mean stage $\\bar H$, an unknown datum correction '
           '$\\delta$ and a fluctuation $\\xi$. The problem is well posed for $C \\ge 0$, because the bilinear form is '
           'coercive (Lax–Milgram), and the number $\\Gamma = CL/T$ decides how the boundary acts: for $\\Gamma \\to '
-          '\\infty$ it is a fixed head, for $\\Gamma \\to 0$ a no-flow boundary {@A6robin}. For a strip of length $L$ '
+          '\\infty$ it is a fixed head, for $\\Gamma \\to 0$ a no-flow boundary. A stochastic porous-medium equation '
+          'with Robin boundary conditions, gravity-driven infiltration and multiplicative noise is treated in {@A6robin}, '
+          'and a rule for when boundary uncertainty must enter the estimation of aquifer properties is given in '
+          '{@A6when}. For a strip of length $L$ '
           'with a conductance boundary at the coast and a divide inland, the slowest decay rate solves '
           '$k_1 L \\tan(k_1 L) = \\Gamma$, and the aquifer memory is $\\tau_1 = S/(T k_1^2)$. Table 3 shows that a sea '
           'or river boundary behaves as a fixed head within 2% only for $\\Gamma \\ge 100$.'),
@@ -137,15 +144,17 @@ BL = [
     ('p', 'In the sharp-interface approximation, the depth of the interface below sea level is '
           '$\\zeta = \\rho_f h/(\\rho_s - \\rho_f) \\approx 40\\,h$ (Ghyben–Herzberg), and a single potential turns the '
           'regional interface problem into one equation over the whole aquifer (Strack, 1976). With random fluxes the '
-          'interface is a stochastic free boundary of Stefan type; such problems are well posed under conditions on '
-          'the noise near the interface {@A5}.'),
+          'interface is a stochastic free boundary of Stefan type. Such problems have local solutions after a '
+          'transformation to a fixed domain {@A5local}, and maximal solutions up to stopping times {@A5max}; none of '
+          'them yet covers a variable-density aquifer.'),
     ('h2', '3.3 A wrong boundary is read as wrong recharge'),
     ('p', 'Write the heads as $y = G_R r + G_B b + e$, with $r$ the recharge and $b$ the boundary data. If $b$ is fixed '
           'with an error $\\delta b$, the least-squares estimate of the recharge is shifted by'),
     ('eq', 'bias', r'\mathbb{E}[\hat r] - r = \left(G_R^{\top} G_R\right)^{-1} G_R^{\top} G_B\, \delta b,'),
-    ('p', 'so a boundary error is read as a recharge error {@A6bias}. The remedy is to put the datum and stage '
+    ('p', 'so a boundary error is read as a recharge error; a related non-uniqueness lets a wrong recharge field fit the heads {@A6bias}. The remedy is to put the datum and stage '
           'corrections into the state vector, $z = (h, r, \\delta_{sea}, \\delta_{river})$, and estimate them with the '
-          'heads {@A6da}. The boundary and recharge uncertainty that remains then sets the floor of the predictive '
+          'heads, as ensemble history matching already does for sea-level and recharge ensembles of an island aquifer '
+          '{@A6da}. The boundary and recharge uncertainty that remains then sets the floor of the predictive '
           'uncertainty, which more head data alone do not remove.'),
 
     ('h', '4. Initial state'),
