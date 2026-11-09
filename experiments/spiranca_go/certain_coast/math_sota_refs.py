@@ -22,6 +22,24 @@ CITE = defaultdict(str, {
     'A5max': '(Antonopoulou et al., 2025)',
     'A6bias': '(Erdal and Cirpka, 2016)',
     'A6da': '(Coulon et al., 2024)',
+    # 4. initial state
+    'B1': '(Carrillo et al., 2024; Calvello et al., 2026)',
+    'B1frame': '(Calvello et al., 2025)',
+    'B1small': '(Al-Ghattas and Sanz-Alonso, 2024)',
+    'B2': '(Cartis et al., 2024)',
+    'B2lm': '(Bergou et al., 2016)',
+    'B3': '(Hartland et al., 2023; Kim et al., 2023)',
+    'B3warn': '(Henneking et al., 2026)',
+    # 5. propagation
+    'B4': '(for groundwater flow with random coefficients, Istratuca and Teckentrup, 2025)',
+    'B4smooth': '(Haji-Ali et al., 2022; Bayer et al., 2024)',
+    'B5': '(Peherstorfer et al., 2016; Gruber et al., 2023)',
+    'B6': '(Trémolet, 2007)',
+    'B6cov': '(Babyale et al., 2025)',
+    'B6limit': '(Laloyaux et al., 2020)',
+    'B6hydro': '(Renard et al., 2010)',
+    'B7': '(Hoyos, 2025)',
+    'B7hydro': '(Jachens et al., 2020)',
 })
 
 REFS_A = [
@@ -47,8 +65,31 @@ REFS_A = [
 ]
 
 REFS_B = [
+    'Al-Ghattas, O., & Sanz-Alonso, D. (2024). Non-asymptotic analysis of ensemble Kalman updates: effective dimension and localization. Information and Inference: A Journal of the IMA 13(1), iaad043. https://doi.org/10.1093/imaiai/iaad043',
+    'Babyale, S. R., Mead, J., Calhoun, D., & Azike, P. O. (2025). Model error covariance estimation for weak constraint variational data assimilation. SIAM/ASA Journal on Uncertainty Quantification 13(4), 1828–1861. https://doi.org/10.1137/24M1695889',
+    'Bayer, C., Ben Hammouda, C., & Tempone, R. (2024). Multilevel Monte Carlo with numerical smoothing for robust and efficient computation of probabilities and densities. SIAM Journal on Scientific Computing 46(3), A1514–A1548. https://doi.org/10.1137/22M1495718',
+    'Bergou, E., Gratton, S., & Vicente, L. N. (2016). Levenberg–Marquardt methods based on probabilistic gradient models and inexact subproblem solution, with application to data assimilation. SIAM/ASA Journal on Uncertainty Quantification 4(1), 924–951. https://doi.org/10.1137/140974687',
+    'Calvello, E., Monmarché, P., Stuart, A. M., & Vaes, U. (2026). Accuracy of the ensemble Kalman filter in the near-linear setting. SIAM Journal on Numerical Analysis 64(2), 391–429. https://doi.org/10.1137/25M1732544',
+    'Calvello, E., Reich, S., & Stuart, A. M. (2025). Ensemble Kalman methods: a mean-field perspective. Acta Numerica 34, 123–291. https://doi.org/10.1017/S0962492924000060',
     'Carrillo, J. A., Hoffmann, F., Stuart, A. M., & Vaes, U. (2024). The mean-field ensemble Kalman filter: near-Gaussian setting. SIAM Journal on Numerical Analysis 62(6), 2549–2587. https://doi.org/10.1137/24M1628207',
+    'Cartis, C., Kaouri, M. H., Lawless, A. S., & Nichols, N. K. (2024). Convergent least-squares optimization methods for variational data assimilation. Optimization 73(11), 3451–3485. https://doi.org/10.1080/02331934.2024.2390119',
+    'Evensen, G. (1994). Sequential data assimilation with a nonlinear quasi-geostrophic model using Monte Carlo methods to forecast error statistics. Journal of Geophysical Research: Oceans 99(C5), 10143–10162. https://doi.org/10.1029/94JC00572',
+    'Giles, M. B. (2008). Multilevel Monte Carlo path simulation. Operations Research 56(3), 607–617. https://doi.org/10.1287/opre.1070.0496',
+    'Giles, M. B. (2015). Multilevel Monte Carlo methods. Acta Numerica 24, 259–328. https://doi.org/10.1017/S096249291500001X',
+    'Gruber, A., Gunzburger, M., Ju, L., Lan, R., & Wang, Z. (2023). Multifidelity Monte Carlo estimation for efficient uncertainty quantification in climate-related modeling. Geoscientific Model Development 16(4), 1213–1229. https://doi.org/10.5194/gmd-16-1213-2023',
+    'Haji-Ali, A.-L., Spence, J., & Teckentrup, A. L. (2022). Adaptive multilevel Monte Carlo for probabilities. SIAM Journal on Numerical Analysis 60(4), 2125–2149. https://doi.org/10.1137/21M1447064',
+    'Hartland, T., Stadler, G., Perego, M., Liegeois, K., & Petra, N. (2023). Hierarchical off-diagonal low-rank approximation of Hessians in inverse problems, with application to ice sheet model initialization. Inverse Problems 39(8), 085006. https://doi.org/10.1088/1361-6420/acd719',
+    'Henneking, S., Venkat, S., & Ghattas, O. (2026). Goal-oriented real-time Bayesian inference for linear autonomous dynamical systems with application to digital twins for tsunami early warning. Journal of Computational Physics 552, 114682. https://doi.org/10.1016/j.jcp.2026.114682',
+    'Hoyos, M. (2025). Estimation bias in the Ornstein–Uhlenbeck process with flow data. Econometric Reviews 44(9), 1411–1435. https://doi.org/10.1080/07474938.2025.2515518',
+    'Istratuca, A., & Teckentrup, A. L. (2025). Smoothed circulant embedding with applications to multilevel Monte Carlo methods for PDEs with random coefficients. IMA Journal of Numerical Analysis 45(5), 3138–3178. https://doi.org/10.1093/imanum/drae102',
+    'Jachens, E. R., Rupp, D. E., Roques, C., & Selker, J. S. (2020). Recession analysis revisited: impacts of climate on parameter estimation. Hydrology and Earth System Sciences 24(3), 1159–1170. https://doi.org/10.5194/hess-24-1159-2020',
+    'Kim, K.-T., Villa, U., Parno, M., Marzouk, Y., Ghattas, O., & Petra, N. (2023). hIPPYlib-MUQ: a Bayesian inference software framework for integration of data with complex predictive models under uncertainty. ACM Transactions on Mathematical Software 49(2), 1–31. https://doi.org/10.1145/3580278',
+    'Laloyaux, P., Bonavita, M., Chrust, M., & Gürol, S. (2020). Exploring the potential and limitations of weak-constraint 4D-Var. Quarterly Journal of the Royal Meteorological Society 146(733), 4067–4082. https://doi.org/10.1002/qj.3891',
+    'Peherstorfer, B., Willcox, K., & Gunzburger, M. (2016). Optimal model management for multifidelity Monte Carlo estimation. SIAM Journal on Scientific Computing 38(5), A3163–A3194. https://doi.org/10.1137/15M1046472',
+    'Renard, B., Kavetski, D., Kuczera, G., Thyer, M., & Franks, S. W. (2010). Understanding predictive uncertainty in hydrologic modeling: the challenge of identifying input and structural errors. Water Resources Research 46(5). https://doi.org/10.1029/2009WR008328',
     'Spantini, A., Baptista, R., & Marzouk, Y. (2022). Coupling techniques for nonlinear ensemble filtering. SIAM Review 64(4), 921–953. https://doi.org/10.1137/20M1312204',
+    'Stuart, A. M. (2010). Inverse problems: a Bayesian perspective. Acta Numerica 19, 451–559. https://doi.org/10.1017/S0962492910000061',
+    'Trémolet, Y. (2007). Model-error estimation in 4D-Var. Quarterly Journal of the Royal Meteorological Society 133(626), 1267–1280. https://doi.org/10.1002/qj.94',
 ]
 
 REFERENCES = sorted(REFS_A + REFS_B, key=lambda r: r.lower())

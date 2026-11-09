@@ -107,7 +107,8 @@ BL = [
           'from the exact law in the tails that warnings use. The Gaussian underestimates high levels by an order of '
           'magnitude when few storms fall within one aquifer memory, and still by a factor of two at $\\Pi = 100$; it '
           'overstates low levels, which matter for pumping limits. Means and variances are right at any $\\Pi$; tails '
-          'are not.'),
+          'are not. A search of the 2023–2026 literature for this note found no study that compares the two laws in '
+          'the tails of groundwater levels.'),
     ('cap', 'Table 2. Tail probabilities of the head under the exact Gamma law and under a Gaussian with the same mean '
             'and variance (sd: standard deviation).'),
     ('table', ['Π = λτ', 'P[h > mean + 3 sd], exact', 'Gaussian', 'Ratio', 'P[h < mean − 2 sd], exact', 'Gaussian'],
@@ -175,7 +176,9 @@ BL = [
     ('p', 'The ensemble Kalman filter (Evensen, 1994) updates each member of the ensemble with'),
     ('eq', 'enkf', r'x^{a} = x^{f} + K\left(y - H x^{f}\right), \quad K = P^{f} H^{\top}\left(H P^{f} H^{\top} + R\right)^{-1}.'),
     ('p', 'It is exact in the linear-Gaussian case as the ensemble grows, and recent mean-field analysis bounds its '
-          'error when the forecast is close to Gaussian (Carrillo et al., 2024{@B1}). In practice its accuracy is '
+          'error when the forecast is close to Gaussian or the dynamics close to linear {@B1}, within a mean-field '
+          'framework for ensemble Kalman methods {@B1frame}; non-asymptotic analysis explains when a small ensemble '
+          'suffices {@B1small}. In practice its accuracy is '
           'monitored through the skewness and kurtosis of the forecast ensemble; transport-map filters extend it when '
           'the forecast is far from Gaussian (Spantini et al., 2022).'),
     ('h2', '4.3 Variational estimation'),
@@ -183,12 +186,14 @@ BL = [
     ('eq', 'var', r'J(x_0) = \tfrac{1}{2}\left\| x_0 - x_b\right\|^2_{B^{-1}} + \tfrac{1}{2}\sum_k \left\| y_k - H\, '
                   r'\mathcal{M}_k(x_0)\right\|^2_{R^{-1}},'),
     ('p', 'with the gradient from the adjoint model. For a nonlinear aquifer model, the Gauss–Newton iteration needs '
-          'safeguards that make it converge from any starting point, such as trust regions or Levenberg–Marquardt '
-          'damping {@B2}.'),
+          'safeguards: plain Gauss–Newton may fail to converge from a poor starting point, line-search and '
+          'regularised variants restore convergence {@B2}, and Levenberg–Marquardt methods with inexact steps converge '
+          'globally {@B2lm}.'),
     ('h2', '4.4 Bayesian inversion in function space'),
     ('p', 'Bayesian inversion in function space (Stuart, 2010) gives posteriors for initial heads and parameters that '
-          'do not degrade as the mesh is refined; Laplace approximations with low-rank Hessians make them scalable '
-          '{@B3}.'),
+          'do not degrade as the mesh is refined; Laplace approximations with low-rank or hierarchical Hessians make '
+          'them scalable {@B3}, and goal-oriented real-time Bayesian inference now serves early warning, for tsunamis '
+          '{@B3warn}.'),
 
     ('h', '5. Propagation of uncertainty'),
     ('h2', '5.1 Multilevel Monte Carlo'),
@@ -211,8 +216,11 @@ BL = [
           '{@B5}.'),
     ('h2', '5.3 Model error apart from forcing'),
     ('p', 'Model error is kept apart from the forcing by writing $x_{k+1} = \\mathcal{M}(x_k, r_k) + \\eta_k$, with '
-          '$\\eta_k$ estimated apart from the recharge $r_k$; otherwise the filter attributes model bias to the rain '
-          '{@B6}.'),
+          '$\\eta_k$ estimated apart from the recharge $r_k$; otherwise the filter attributes model bias to the rain. '
+          'Weak-constraint 4D-Var estimates $\\eta_k$ as part of the control variable {@B6}, and its covariance can be '
+          'chosen as a regularisation parameter {@B6cov}; but model error and initial state separate only under '
+          'specific conditions {@B6limit}, and in hydrology rainfall and structural errors can be poorly identifiable '
+          '{@B6hydro}.'),
     ('h2', '5.4 Sampling and averaging'),
     ('p', 'Averaging a process with correlation time $\\tau$ over intervals of length $\\Delta$ changes its '
           'correlation. For an Ornstein–Uhlenbeck process with variance $\\sigma^2$, the block means satisfy'),
@@ -220,7 +228,10 @@ BL = [
                   r'\right)\right], \quad \text{Cov}(\bar A_k,\bar A_{k+1}) = \sigma^2 \frac{\tau^2}{\Delta^2}\left(1-'
                   r'e^{-\Delta/\tau}\right)^2,'),
     ('p', 'so the lag-one correlation of monthly means is not $e^{-\\Delta/\\tau}$, and a response time read from monthly '
-          'means is biased upwards (Table 4{@B7}). Daily logger data avoid the bias.'),
+          'means is biased upwards (Table 4). The bias of estimators for a time-integrated Ornstein–Uhlenbeck process '
+          'is derived in econometrics {@B7}, and averaging recessions is known to bias recession parameters in '
+          'hydrology {@B7hydro}, but we found no study that quantifies the effect on groundwater response times. '
+          'Daily logger data avoid the bias.'),
     ('cap', 'Table 4. Response time of the aquifer estimated from monthly means (Δ = 30 days) against the true value.'),
     ('table', ['True response time τ (days)', 'Estimated from monthly means (days)', 'Overestimate'],
      [['2', '9.0', '4.5 ×'], ['5', '13.0', '2.6 ×'], ['10', '19.8', '2.0 ×'], ['30', '49.1', '1.6 ×'],
