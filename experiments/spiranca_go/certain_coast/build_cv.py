@@ -37,6 +37,7 @@ SOURCES = [
 
 TEAM = [
     ['Dulian Zeqiraj', 'NATO-country Project Director', 'Albania; Faculty of Geology and Mining, Polytechnic University of Tirana', 'Seawater intrusion, monitoring design, stochastic flow and transport modelling', 'Coordination; WP1–WP5, WP7'],
+    ['Arjan Beqiraj', 'Senior researcher (Prof. Dr.)', 'Albania; Faculty of Geology and Mining, Polytechnic University of Tirana', 'Hydrogeology, groundwater chemistry', 'T2.3, T4.1, T5.3'],
     ['[Name]', 'Partner-country Project Director', '[eligible partner country; institution]', '[expertise]', 'WP6; transfer study'],
     ['[Name]', 'Additional NATO co-director (optional)', '[NATO member; institution]', '[expertise]', 'WP1; T4.4'],
     ['[Names]', 'Early-career researchers (at least 6)', '[institutions]', '[fields]', 'WP1–WP5'],

@@ -32,9 +32,12 @@ PEOPLE = [
     ('NATO-country Project Director', '[NPD institution]', 30),
     ('Partner-country Project Director', '[PPD institution]', 20),
     ('Researcher (seismic, GNSS, hydrometeorological data)', '[Institute of Geosciences, UPT]', 15),
+    ('Senior researcher (hydrogeology and groundwater chemistry), Prof. Dr. Arjan Beqiraj', 'Faculty of Geology and Mining, UPT', 10),
     ('End-user representative', '[Albanian Geological Survey (SHGJSH)]', 5),
     ('End-user representative', '[Water Resources Management Agency (AMBU)]', 2),
 ]
+
+N_STAFF = 4   # the first rows of PEOPLE are staff of the institutions; the rest are end-users
 
 # platform categories of the non-NATO table -> SPS categories of the budget
 NN_CATS = [
@@ -65,7 +68,8 @@ TEXT = (
     'The SPS grant pays only project-specific costs. The participating institutions and the end-users contribute the '
     'rest:\n'
     '• Salaries of the Co-Directors and researchers, paid by their institutions for about {pm_staff:.1f} person-months '
-    'over {months} months (NPD {pm_npd:.1f}, PPD {pm_ppd:.1f}, researcher of the Institute of Geosciences {pm_res:.1f}): '
+    'over {months} months (NPD {pm_npd:.1f}, PPD {pm_ppd:.1f}, researcher of the Institute of Geosciences {pm_res:.1f}, hydrogeologist of the Faculty of Geology and Mining '
+    '{pm_hyd:.1f}): '
     '[€ amount]. No salary co-financing is requested from SPS.\n'
     '• Overheads of the institutions (offices, laboratories, IT, administration) at their own rates: [€ amount].\n'
     '• Existing equipment and facilities used by the project: [field and laboratory instruments, servers] of the '
@@ -94,8 +98,9 @@ def sps_by_cat():
 
 def numbers():
     pm = [MONTHS * s / 100 for _, _, s in PEOPLE]
-    staff = pm[:3]
-    return dict(months=MONTHS, pm_npd=pm[0], pm_ppd=pm[1], pm_res=pm[2], pm_staff=sum(staff), pm_eu=sum(pm[3:]),
+    staff = pm[:N_STAFF]
+    return dict(months=MONTHS, pm_npd=pm[0], pm_ppd=pm[1], pm_res=pm[2], pm_hyd=pm[3], pm_staff=sum(staff),
+                pm_eu=sum(pm[N_STAFF:]),
                 sps_total=sum(sps_by_cat().values()))
 
 

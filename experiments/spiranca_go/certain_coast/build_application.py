@@ -970,9 +970,10 @@ def main(out):
     # 6 Participants
     heading(doc, '6. Project Participants', 14, before=10)
     p = para(doc, 4); put(p, 'Roles of Co-Directors and Participants (add rows as needed; all must be nationals of NATO or eligible partner countries):')
-    part = [['[First name]', '[Family name]', '[NPD institution]', 'NATO-country Project Director', '[Albanian]', 'Coordination; WP1 coastal motion; WP4 monitoring network; WP5 live operation; WP7 management', '[30%]'],
+    part = [['Dulian', 'Zeqiraj', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'NATO-country Project Director', '[Albanian]', 'Coordination; WP1 coastal motion; WP4 monitoring network; WP5 live operation; WP7 management', '[30%]'],
             ['[First name]', '[Family name]', '[PPD institution]', 'Partner-country Project Director', '[nationality]', 'WP6 training, transfer and dissemination; transfer study on a partner-country coast; user-side review of the bulletins', '[20%]'],
             ['[First name]', '[Family name]', '[Institute of Geosciences, UPT]', 'Researcher', '[Albanian]', 'Seismic, GNSS and hydrometeorological data; WP1, WP4', '[15%]'],
+            ['Arjan', 'Beqiraj', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Senior researcher (Prof. Dr.)', '[Albanian]', 'Hydrogeology and groundwater chemistry: tracer campaign and sources of the chloride (T4.1, T5.3); aquifer properties for the coupled model (T2.3)', '[10%]'],
             ['To be recruited', '(4 people)', 'NPD and PPD institutions', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
             ['[First name]', '[Family name]', '[Albanian Geological Survey (SHGJSH)]', 'End-user representative', '[Albanian]', 'Siting and installation (T4.1, T4.2), thresholds (T3.1), review of the live bulletins (T5.2), hand-over (MS7)', '[5%]'],
             ['[First name]', '[Family name]', '[Water Resources Management Agency (AMBU)] [only if its letter is signed]', 'End-user representative', '[Albanian]', 'Chloride threshold (T3.1); pumping and drought rule (T5.3) for water-use permits', '[2%]']]
