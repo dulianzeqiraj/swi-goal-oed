@@ -186,6 +186,14 @@ MAP = [
      'drought with doubled pumping 6 mm against 372 mm; fresh water lost to a 0.5 m sea rise 160 m³/m against 154 '
      '(truth), 49 (prescribed inflow), 462 (fixed head); a negative conductance stable at 2 km grew at 6 km',
      'WP2, T2.3; WP4, T4.1'],
+    ['TRONDITJA-GO report: the earthquake in the aquifer', 'The pore-pressure step of each layer from its own stiffness, '
+                                                          'in the liquefaction indicator with the pore pressure of the '
+                                                          'day; the step of the confined aquifer used as a free pumping '
+                                                          'test; the 2019 hindcast designed before data are collected',
+     'Step 7–12 cm in soft sand and 0.6–1.0 m in a confined aquifer over four published source models (usual estimate: '
+     '35 times the soft-sand value); leakage time 5.8 times sharper than from a year of seasons; hindcast power below '
+     '50% with 480 sites; port window closed at 0.29 m of sea-level rise for 0.20 g',
+     'WP2, T2.2; WP4, T4.4; WP5, T5.4'],
     ['CERTAIN-COAST Methodology v3 (C1–C3)', 'Certified safe operating window; years of safe operation per sensor; safe '
                                             'pumping tests chosen for the years they add', 'Window closed after 38 years '
                                                                                            '(single-hazard plans: 43–97); '
@@ -279,7 +287,8 @@ def main(out):
     put(p, f'{SHORT} — the state-of-the-art methodology for the NATO SPS form', size=17, color=NAVY); p.runs[0].bold = True
     p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'What the 2027-1 call and the official form require, how long each part may be, and the methodology drawn from '
-           'reviews I–XI, stakeholder review V and the PËRTEJ-GO note as texts ready to paste', size=11, color=GREY)
+           'reviews I–XI, stakeholder review V and the PËRTEJ-GO and TRONDITJA-GO notes as texts ready to paste', size=11,
+        color=GREY)
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'Dulian Zeqiraj · 7 November 2026 · Multi-Year Project, call 2027-1 · deadline 15 November 2026, 23:59 CET',
         size=9.5, color=GREY, italic=True)
@@ -300,7 +309,7 @@ def main(out):
         '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–900 words with '
         'references, current status 300–600, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
         f'**The five texts of Section 5 are now in the form text** (CERTAIN-COAST_NATO_Application_Form_Text.docx), '
-        f'built from the eleven reviews, stakeholder review V and the PËRTEJ-GO note: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
+        f'built from the eleven reviews, stakeholder review V and the PËRTEJ-GO and TRONDITJA-GO notes: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
         f'art with references, current status and work-plan.']
     for k, it in enumerate(items):
         q = c.paragraphs[0] if k == 0 else c.add_paragraph()
@@ -341,9 +350,9 @@ def main(out):
     # ---------------------------------------------------------------------------------------------- 4 the method
     heading(doc, '4. The methodology in one picture', 14, before=8)
     p = para(doc, 4); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    put(p, 'The eleven reviews, stakeholder review V and the three notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
+    put(p, 'The eleven reviews, stakeholder review V and the four notes add three pillars to the CERTAIN-COAST method. They keep its work packages, '
            'tasks, deliverables and gates, so the Gantt chart and the deliverable list stay valid: the new methods enter '
-           'tasks T2.3, T3.2, T4.1, T4.3 and T5.3.')
+           'tasks T2.2, T2.3, T3.2, T4.1, T4.3, T4.4, T5.3 and T5.4.')
     p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(fpath, width=Cm(17.0))
     q = para(doc, 6)
@@ -382,7 +391,7 @@ def main(out):
     p = para(doc, 4)
     put(p, 'In the form text they follow text 5.3 in the same field (the form invites references). Most details come from '
            'the cards of reviews I–XI, which were checked through search results, and of stakeholder review V and the '
-           'PËRTEJ-GO note, checked in Crossref; check each one in a bibliographic database '
+           'PËRTEJ-GO and TRONDITJA-GO notes, checked in Crossref; check each one in a bibliographic database '
            'before submission.', size=10, color=GREY, italic=True)
     for txt, url in REFS:
         q = para(doc, 2, 0.4)

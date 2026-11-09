@@ -60,14 +60,13 @@ TECHNICAL = (
     '2. Relative sea level must be known at each asset, not only at the tide gauge. The land at Durrës moves '
     'vertically by different amounts from place to place, including the 2019 coseismic step; this motion must be '
     'measured with satellite radar (InSAR) and GNSS and carried into every hazard model with its uncertainty.\n'
-    '3. Physical models are too slow for warnings, and machine-learned copies come without a guarantee. Warnings need '
-    'thousands of model runs a day. Neural-operator surrogates make this possible, but a surrogate used for safety '
+    '3. Physical models are too slow for warnings, and machine-learned copies come without a guarantee. '
+    'Neural-operator surrogates make the thousands of daily runs possible, but a surrogate used for safety '
     'must state its error for each forecast.\n'
-    '4. No warning in this field states how often it misses. Recent statistical methods (online conformal prediction '
-    'under distribution shift, guarantees that hold within regimes such as droughts, extreme conformal prediction for '
-    'events rarer than the record, and anytime-valid verification) can provide such guarantees, but they have not been '
+    '4. No warning in this field states how often it misses. Recent statistical methods (online, regime-wise and '
+    'extreme conformal prediction, and anytime-valid verification) can provide such guarantees, but they have not been '
     'applied to coupled coastal hazards driven by slow physics, with dependent alarms and few extreme events.\n'
-    'Five further problems have no published solution. There is no method to compute the set of pumping and dewatering '
+    'Six further problems have no published solution. There is no method to compute the set of pumping and dewatering '
     'decisions that keeps all the hazards within certified limits at once, nor the sea level or year at which this set '
     'disappears; tipping points exist for seawater intrusion alone, not for the coupled system. And monitoring '
     "networks are designed to reduce today's forecast errors; there is no criterion for how many years of safe "
@@ -79,21 +78,21 @@ TECHNICAL = (
     'stakeholders decide before the source is known, with a risk that holds whatever it is. And every model of the '
     'aquifer is cut somewhere inland: a fixed head, a prescribed inflow or a general-head boundary does not respond to pumping or to the sea as the aquifer beyond does, and in tests this '
     'choice changed the fresh water lost to sea-level rise ninefold; no method learns the true boundary from data while '
-    'keeping the model stable.\n'
+    'keeping the model stable. And after an earthquake the pore-pressure step depends on each layer\'s stiffness; in '
+    'tests the usual estimate overstated it 35 times in soft sand.\n'
     'All of this must work on a real coast with incomplete records, under security restrictions on data, and in a form '
     'that the operators can run themselves after the project.')
 
 DELIVER = (
     'By Month 36 the project delivers:\n'
-    '1. A coastal motion atlas from Durrës to Fier and relative sea level at each asset, from Sentinel-1 InSAR since '
-    '2014, reflectors and GNSS (D1.1).\n'
+    '1. A coastal motion atlas from Durrës to Fier and relative sea level at each asset, from Sentinel-1 InSAR, '
+    'reflectors and GNSS (D1.1).\n'
     '2. A monitoring network chosen for the warnings and handed over to the operators (D4.2): piezometers with '
     'conductivity loggers, a barometer and sealed hub channels that correct them, a local rain gauge, GNSS, seismic '
     'nodes and, where access allows, fibre-optic sensing.\n'
     '3. One calibrated model that couples groundwater flow and salt, aquifer compaction, liquefaction under a moving '
     'water table and coastal water levels, its inland boundary learned from the heads (D2.1), and a fast '
-    'neural-operator copy with a certified error bound (D2.2); '
-    'a generative copy explores long storylines.\n'
+    'neural-operator copy with a certified error bound (D2.2).\n'
     '4. Certified alarms for seawater intrusion, liquefaction and extreme water levels whose miss rate is bounded in '
     'advance (indicatively 5–10%), with a joint guarantee for the three assets, back-tested since 2014 under a '
     'pre-registered protocol (D3.1, D3.2).\n'
@@ -104,20 +103,20 @@ DELIVER = (
     '6. Twelve months of live bulletins with the five end-users, every outcome logged and the miss rates verified '
     '(D5.1); operating procedures and a policy brief (D6.2); open software and data with a DOI (D6.1).\n'
     'How this advances the state of the art. The alarms apply conformal and anytime-valid methods of 2023–2026 to '
-    'coupled coastal hazards. Eight new contributions were tested before the project. (i) Guarantees for quantities '
+    'coupled coastal hazards. Nine new contributions were tested before the project. (i) Guarantees for quantities '
     'nobody measures: inputs and boundaries known only through rain, with bands valid when the simulator or rain '
     'product is wrong. (ii) The value of a sensor as the guaranteed band it removes and the years of safe operation it '
     'adds (in tests, a tide gauge rated useful by an ensemble widened the band by 16–21%). (iii) Pumping effects '
-    'free of hidden confounding, read from the heads (history-based substitutes kept the bias). (iv) The certified '
+    'free of hidden confounding, read from the heads. (iv) The certified '
     'safe operating window and safe pumping tests chosen for the years they add. (v) A network that corrects its own '
-    'sensors for air pressure and logger drift (+52% worst-case information in tests). (vi) Warnings between samples: a '
+    'sensors for air pressure and logger drift. (vi) Warnings between samples: a '
     'certified band for the chance that chloride crosses its limit at any time in the season (34 times the exceedance '
     'on sampling dates in tests). (vii) Decisions before the source of the salt is known: pumping safe for every source '
     'the tracers cannot exclude (in tests ≤6.9% risk for a 10% budget; assuming seawater intrusion: 98%). (viii) A '
     'boundary that learns the aquifer beyond the model: exact for any linear aquifer, stable by construction, learned '
-    'from two piezometers (in tests 6 mm error on an unseen drought with doubled pumping; calibrated general-head '
-    'boundary: 372 mm). The integrated system reaches TRL 6 on site, with the '
-    'operators.')
+    'from two piezometers (6 mm against 372 mm on an unseen drought in tests). (ix) Which layer feels an earthquake, '
+    'and its step as a free pumping test (in tests the usual estimate overstated the soft-sand step 35 times). The '
+    'integrated system reaches TRL 6 on site, with the operators.')
 
 
 HOW = (
@@ -309,6 +308,24 @@ SOTA_REFS += [  # the boundary where a model is cut (PERTEJ-GO theory note); all
     ('Werner, A. D., Simmons, C. T. (2009). Impact of sea-level rise on sea water intrusion in coastal aquifers. Ground Water 47(2), 197–204.',
      'https://doi.org/10.1111/j.1745-6584.2008.00535.x'),
 ]
+SOTA_REFS += [  # earthquakes in coastal aquifers (TRONDITJA-GO report); all checked in Crossref, 9 November 2026
+    ('Boulanger, R. W., Idriss, I. M. (2016). CPT-based liquefaction triggering procedure. Journal of Geotechnical and Geoenvironmental Engineering 142(2), 04015065.',
+     'https://doi.org/10.1061/(asce)gt.1943-5606.0001388'),
+    ('Ganas, A., Elias, P., Briole, P., et al. (2020). Ground deformation and seismic fault model of the M6.4 Durres (Albania) Nov. 26, 2019 earthquake, based on GNSS/InSAR observations. Geosciences 10(6), 210.',
+     'https://doi.org/10.3390/geosciences10060210'),
+    ('Govorčin, M., Wdowinski, S., Matoš, B., Funning, G. J. (2020). Geodetic source modeling of the 2019 Mw 6.3 Durrës, Albania, earthquake: partial rupture of a blind reverse fault. Geophysical Research Letters 47(22), e2020GL088990.',
+     'https://doi.org/10.1029/2020GL088990'),
+    ('Matraku, K., Jouanne, F., Dushi, E., et al. (2023). The 26 November 2019 Durrës earthquake, Albania: coseismic displacements and occurrence of slow slip events in the year following the earthquake. Geophysical Journal International 234(2), 807–838.',
+     'https://doi.org/10.1093/gji/ggad101'),
+    ('Maurer, B. W., Green, R. A., Cubrinovski, M., et al. (2014). Evaluation of the liquefaction potential index for assessing liquefaction hazard in Christchurch, New Zealand. Journal of Geotechnical and Geoenvironmental Engineering 140(7), 04014032.',
+     'https://doi.org/10.1061/(asce)gt.1943-5606.0001117'),
+    ('Okada, Y. (1985). Surface deformation due to shear and tensile faults in a half-space. Bulletin of the Seismological Society of America 75(4), 1135–1154.',
+     'https://doi.org/10.1785/BSSA0750041135'),
+    ('van der Heiden, V., Schurr, B., Woollam, J., et al. (2026). Analysis of the 2019 Mw 6.4 Durrës, Albania, aftershock sequence: basement involved thrusting at the eastern Adriatic plate margin. Geophysical Journal International 246(2), ggag155.',
+     'https://doi.org/10.1093/gji/ggag155'),
+    ('Wang, C.-Y., Chia, Y. (2008). Mechanism of water level changes during earthquakes: near field versus intermediate field. Geophysical Research Letters 35(12).',
+     'https://doi.org/10.1029/2008GL034227'),
+]
 SOTA_REFS.sort(key=lambda r: r[0].lower())
 
 SOTA_TEXT = (
@@ -368,6 +385,13 @@ SOTA_TEXT = (
     'of an external network are standard in power systems (Gustavsen and Semlyen, 2001); head time series are modelled '
     'with positive impulse responses (von Asmuth, Bierkens and Maas, 2002; Bakker and Schaars, 2019). None learns the '
     'boundary of a groundwater model from data with its stability and identifiability guaranteed.\n'
+    '• Earthquakes in coastal aquifers. Fault models give the static strain near the source (Okada, 1985); undrained '
+    'volumetric change explains abrupt water-level changes near the source, and earthquake-enhanced permeability the '
+    'sustained ones farther away (Wang and Chia, 2008). The 2019 Durrës earthquake has four published source models '
+    '(Ganas et al., 2020; Govorčin et al., 2020; Matraku et al., 2023; van der Heiden et al., 2026). CPT-based '
+    'triggering (Boulanger and Idriss, 2016) and the liquefaction potential index (Maurer et al., 2014) take the water '
+    'table as given. None decides which layer of a soft coastal plain feels the static step, or reads the leakage of a '
+    'confined aquifer from the relaxation of that step.\n'
     '• Vertical land motion and coastal exposure from InSAR and GNSS (Ohenhen et al., 2023), and slow settling of the '
     'Albanian coastal plain near Fier (Métois et al., 2020); the 2019 Durrës earthquake and its liquefaction '
     '(Mavroulis, Lekkas and Carydis, 2021).\n'
@@ -376,7 +400,8 @@ SOTA_TEXT = (
     'is wrong; values a sensor by the guaranteed band it removes and the years it adds; places the reference channels '
     'that correct the sensors; certifies crossings between samples; reads the hidden drought demand from the heads; '
     'decides how to pump before the source of the salt is known; learns the inland boundary of the model from data '
-    'without putting its stability at risk; or computes when a safe way of operating the assets ends. A final check in bibliographic databases will be made before submission.\n'
+    'without putting its stability at risk; tells which layer an earthquake loads; or computes when a safe way of '
+    'operating the assets ends. A final check in bibliographic databases will be made before submission.\n'
     'Related activities of the project participants: [list proposed, ongoing or recently completed projects of the '
     'Co-Directors on related topics, with dates and budgets, or write "none"]. The preparatory technical work of the '
     "NPD's team in 2026 (eleven reviews with tests, a calibrated chloride model of the Fushë-Kuqe aquifer) is the "
@@ -478,6 +503,15 @@ STATUS = (
     'pumping to 6 mm (general-head boundary: 372 mm); under a 0.5 m sea-level rise it lost 160 m³ of fresh water per '
     'metre of coast against 154 in the full aquifer, where a prescribed inflow gave 49 and a fixed head 462; a '
     'negative conductance that was stable at 2 km grew without bound at 6 km.\n'
+    '• Earthquake in the aquifer: with four published source models of the 2019 earthquake, the static pore-pressure '
+    'step was 7–12 cm of head in soft surface sand and 0.6–1.0 m in a stiffer confined aquifer, where the usual '
+    'estimate gives 35 times the soft-sand value; for liquefaction the water table of the day dominates (in an example '
+    'profile the liquefaction potential index fell from 20.2 to 9.3 as the water table deepened from 0.8 to 2.6 m). '
+    'After a 0.3 m step, 20 days of logger data pinned the leakage time of the confined aquifer 5.8 times more sharply '
+    'than a year of seasonal heads; a hindcast of the 2019 liquefaction map had a power below 50% even with 480 sites. '
+    'At a synthetic port the window between liquefaction and intrusion closed at 0.29 m of sea-level rise for a design '
+    'acceleration of 0.20 g, and the chance of an index above 5 if the earthquake struck that day moved between 0.16 '
+    'and 0.26 over the year.\n'
     'These are tests on synthetic coasts and on the existing chloride model with illustrative values, not results at '
     'Durrës; the project calibrates and verifies them on site.\n'
     'Starting data: Sentinel-1 radar images since 2014, tide-gauge records, the wells and chemical records of the '
@@ -497,7 +531,7 @@ IMPACT = (
     'certified miss rate and the cost-loss ratio agreed with it.\n'
     '• The water utility operates its wells within a certified safe window, sharpened by safe pumping tests on its own '
     'wells, which lowers the risk of salinising wells that take years to recover and avoids new permanent subsidence; '
-    'planners know the year from which the window closes and which measures extend it.\n'
+    'planners know when the window closes and which measures extend it.\n'
     '• The Water Resources Management Agency (AMBU) gains a monitoring design for its decisions and a chloride early '
     'warning for each supply well, in support of its water-use permits for the aquifer that supplies Durrës, with no '
     'procurement, ownership or maintenance obligations.\n'
@@ -507,6 +541,8 @@ IMPACT = (
     '• Models whose inland edge responds as the real aquifer does, learned from piezometers: sea-level rise and new '
     'pumping are then neither underestimated by a prescribed inflow nor overstated by a fixed head (in tests, by a '
     'factor of three either way).\n'
+    '• After an earthquake, the operators know which layers\' pressure rose, and the wells measure the aquifer for '
+    'free.\n'
     '• At least 20 operator and civil-protection staff (at least two per operator) trained and running the system; at '
     'least six early-career researchers trained in the NATO and partner countries.\n'
     '• A monitoring network of piezometers, GNSS, seismic stations and corner reflectors handed over to the operators, '
@@ -524,7 +560,7 @@ TRL_TEXT = (
     'verification, guaranteed reconstruction from rain, value of a sensor, pumping effects with the hidden confounding '
     'removed, counterfactual salinity on the calibrated chloride model of Fushë-Kuqe, a network that corrects its own '
     'sensors, warnings for crossings between samples, decisions before the source of the chloride is known, an inland '
-    'boundary learned from piezometers), and '
+    'boundary learned from piezometers, the pore-pressure step of each layer after an earthquake), and '
     'published methods exist for each element.\n'
     'End: TRL 6, as the 2027-1 call asks (results at TRL 3–6). The integrated system (network, coupled model, '
     'certified surrogate, alarms, pumping rule and safe operating window) is demonstrated in its relevant environment, '
@@ -563,7 +599,8 @@ WORKPLAN = (
     'structures. Milestone: MS2 (Month 12).\n'
     'WP2, One coupled model and its certified fast copy (Months 4–24; NATO-country team). Steps: model set-up for the '
     'two sites, the Durrës wellfields and port and the TAP landfall near Fier, on one coastal motion field (T2.1); '
-    'coupling of flow, salt, compaction and liquefaction (T2.2); calibration (T2.3): the rain reaches the aquifer '
+    'coupling of flow, salt, compaction and liquefaction, with the pore pressure of the day and the earthquake step of '
+    'each layer from its shear modulus (T2.2); calibration (T2.3): the rain reaches the aquifer '
     'through a stochastic soil-water and vadose-delay model learned from irregular head records; the inputs and '
     'boundaries nobody measures (recharge coefficient, vadose delay, storage, sea level, inland inflow, initial head, '
     'dispersion width) are reconstructed by a function-space diffusion prior with an ensemble update through the exact '
@@ -606,7 +643,8 @@ WORKPLAN = (
     'installation (T4.2), with one GNSS station, two corner reflectors, a seismic station and a water-table logger at '
     "the TAP landfall, under TAP's security rules; operation and maintenance (T4.3), in which every reading is "
     'corrected for air pressure and logger drift before use and the corrected residuals are checked for remaining '
-    'correlation; seismic velocity as a water-table gauge (T4.4). Risk: procurement delays and limited site access; '
+    'correlation; seismic velocity as a water-table gauge, and the shear-wave velocity of the soft layers for their '
+    'earthquake step (T4.4). Risk: procurement delays and limited site access; '
     'mitigation: early orders, inductions with security officers. Risk: lagged or uncertain barometric responses; '
     'mitigation: response functions estimated from the first three months by regression deconvolution, with their '
     'error carried into the robust design. Milestones: MS1 (Month 6), MS2 (Month 12).\n'
@@ -619,8 +657,10 @@ WORKPLAN = (
     'rule is agreed with the utility and AMBU; while the source of the chloride is uncertain (sea, deep brine, drought '
     'or return flow), the sources the tracers cannot exclude are kept in a set updated monthly with anytime-valid '
     'e-values, the pumping allocation is kept safe for every source in it, and a ledger shows the cost borne by the '
-    'utility, the farmers and the wetland; post-event protocol (T5.4). Risk: no strong event occurs; mitigation: '
-    'verification by back-testing and storylines. Risk: drawdown coefficients from the pumping tests are uncertain; '
+    'utility, the farmers and the wetland; post-event protocol (T5.4), in which the relaxation of the logged heads '
+    'after a strong earthquake gives the leakage of the confined aquifer as a free pumping test. Risk: no strong event '
+    'occurs; mitigation: verification by back-testing and storylines, and the well records of November 2019 where they '
+    'exist. Risk: drawdown coefficients from the pumping tests are uncertain; '
     'mitigation: their uncertainty is carried into the effect as a stated bias band. Risk: the true source of the '
     'chloride is not among those considered, or mixes two of them; mitigation: a goodness-of-fit check at every '
     'update, mixtures admitted as hypotheses, and the alternative supply as fallback. Milestone: MS6 (Month 34).\n'
@@ -691,6 +731,9 @@ KPIS = (
     'least 95% of back-tested simulated cases.\n'
     '• Inland boundary (T2.3): learned from the two boundary piezometers and passive (all weights nonnegative), with '
     'held-out heads at both piezometers inside the 90% predictive intervals (Month 18, MS3).\n'
+    '• Earthquake response (T4.4, T5.4): the shear-wave velocity of the soft layers at the port and the landfall '
+    'measured by Month 18, giving the step coefficient of each layer; after any earthquake felt at the sites, the '
+    'leakage of the confined aquifer read from the loggers within 30 days.\n'
     '• D6.1 open software and data with a DOI, reproduced by someone outside the team (Month 33); D6.2 operating '
     'procedures adopted and policy brief delivered (Month 36, MS7).\n'
     '• Capacity: at least 20 trained operator and civil-protection staff, at least six early-career researchers, at '
@@ -836,7 +879,7 @@ def main(out):
             'internal regulation on administration, finance and accounting, upload that PDF instead', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready'],
-           ['Additional files (optional): technical annex and two notes, later with the CVs', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (48 pages, contents and bookmarks: the technical annex, 9 pages, with methods, preparatory tests, gates and fallbacks and the eight new contributions; the technical note on the assembled system and the placement of the wells, 22 pages; the PËRTEJ-GO theory note on the inland boundary of the model, 16 pages). When the CVs are filled in, they are added to the same PDF (build_additional_files.py)', 'ready']]
+           ['Additional files (optional): technical annex and two notes, later with the CVs', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (49 pages, contents and bookmarks: the technical annex, 10 pages, with methods, preparatory tests, gates and fallbacks and the nine new contributions; the technical note on the assembled system and the placement of the wells, 22 pages; the PËRTEJ-GO theory note on the inland boundary of the model, 16 pages). When the CVs are filled in, they are added to the same PDF (build_additional_files.py)', 'ready']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
@@ -1050,7 +1093,7 @@ def main(out):
     for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
                   ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', '**Yes** (recommended): upload the signed agreement as one PDF. Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx (NATO sample, Option B, open release of software and data, security release check), with a one-page waiver as alternative. The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete proposal.'),
-                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (48 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (9 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the eight new contributions, consistent with this form), the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values) and the PËRTEJ-GO theory note on the inland boundary of the model (16 pages; four propositions with proofs, synthetic tests). [When the CVs of the Co-Directors are filled in, they are added to the same PDF and the contents page is rebuilt.]'),
+                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (49 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (10 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions, consistent with this form), the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values) and the PËRTEJ-GO theory note on the inland boundary of the model (16 pages; four propositions with proofs, synthetic tests). [When the CVs of the Co-Directors are filled in, they are added to the same PDF and the contents page is rebuilt.]'),
                   ('Additional information (optional)', 'The additional files open with the technical annex, which summarises the methods and their preparatory tests, followed by a technical note on the coupled model and the placement of recharge and supply wells and by a theory note on the inland boundary of that model, learned from piezometers; the full methodology, state of the art, work packages, risk assessment and data management plan are available on request.')]:
         field(doc, nm); answer(doc, a)
 

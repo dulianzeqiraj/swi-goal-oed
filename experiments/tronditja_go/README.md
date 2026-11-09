@@ -27,9 +27,11 @@ Run everything: `./run_all.sh` (Python 3 with numpy, scipy, matplotlib, python-d
 - The earthquake is a free pumping test: a 0.3 m step in the confined aquifer pins the leakage time 5.8 times more
   sharply than a year of seasonal heads.
 - The 2019 liquefaction map cannot test the step (power below 50% with 480 CPT sites even for the upper bound).
-- **Innovation:** the joint safe window between liquefaction and seawater intrusion on one managed head, the sea level at
-  which it closes (0.29 m at 0.20 g at the synthetic port; closed at 0.22 g), and a daily bulletin
-  P(LPI > 5 | earthquake today) that moves between 0.16 and 0.26 over the year.
+- **Innovation:** which aquifer feels the earthquake (the step coefficient of a layer under the free surface), the
+  earthquake as a free pumping test, and the design result for the 2019 hindcast. The certified safe window and the
+  daily state "if the design earthquake struck now" are concepts of the CERTAIN-COAST proposal; computed here, the
+  window between liquefaction and intrusion closes at 0.29 m of sea-level rise for 0.20 g at the synthetic port and is
+  already closed at 0.22 g, and P(LPI > 5 | earthquake today) moves between 0.16 and 0.26 over the year.
 
 Report: `docs/research_notes/TRONDITJA-GO_Earthquake_Aquifer_Liquefaction_Implementation.docx`.
 Revised note: `docs/research_notes/TERMETET_CERTAIN-COAST_Termeti_Akuiferi_Permbytjet_Sistemi_i_Ekuacioneve_rishikuar.docx`.

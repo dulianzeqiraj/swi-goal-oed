@@ -129,7 +129,9 @@ S56 = (r'Ulja nga lëngëzimi për tokë të sheshtë llogaritet si integrali mb
 S6 = (r'**Ngjarja tërmet** në $t_{eq}$: (2.1) jep $\Delta\varepsilon_{a}$ dhe $U_{z}^{ko}$; (2.2a) jep $\Delta p_{0}$ në '
       r'secilën shtresë; (2.5) kërcimin e $k$; (4.2)–(4.8), me presionin e porit (4.2) dhe pjesën $f$ (4.2a), japin FS '
       r'dhe LPI; pastaj relaksimi (2.3) dhe rikthimi i $k$.')
-S7 = (r'**Çfarë shton zbatimi (TRONDITJA-GO, nëntor 2026).** (i) Dritarja e përbashkët e sigurisë: lëngëzimi kërkon '
+S7 = (r'**Çfarë shton zbatimi (TRONDITJA-GO, nëntor 2026).** Dritarja e certifikuar e sigurisë dhe gjendja ditore e '
+      r'lëngëzimit «nëse tërmeti do të ndodhte tani» janë pjesë e propozimit CERTAIN-COAST (dritarja shumë-rreziqesh dhe '
+      r'treguesi $I_{2}$); zbatimi i llogarit me modulin e lëngëzimit. (i) Dritarja për një ngarkesë të menaxhuar: lëngëzimi kërkon '
       r'nivel të thellë, ndërhyrja e kripur kërkon ngarkesë të lartë të ujit të ëmbël, dhe të dyja veprojnë mbi të '
       r'njëjtën ngarkesë të menaxhuar, $\eta + m_{int} \le h \le z_{s} - z^{*}(a)$, ku $z^{*}(a)$ është thellësia e '
       r'nivelit që mban LPI ≤ 5 për nxitimin $a$ dhe $m_{int} = 20/40$ m e mban kufirin e kripur 20 m thellë (3.7). '
@@ -139,7 +141,8 @@ S7 = (r'**Çfarë shton zbatimi (TRONDITJA-GO, nëntor 2026).** (i) Dritarja e p
       r'ujit i asaj dite; në portin sintetik lëviz nga 0.16 (fund korriku) në 0.26 (fillim shkurti). (iii) Tërmeti si '
       r'provë pompimi falas: relaksimi i hapit në akuiferin e mbyllur e ngushton intervalin e kohës së rrjedhjes 5.8 '
       r'herë krahasuar me një vit stinësh. (iv) Koeficienti (2.2a), që tregon cili akuifer e ndien hapin. Në burimet e '
-      r'lexuara nuk e gjetëm dritaren e përbashkët, nivelin e detit ku ajo mbyllet, as buletinin ditor.')
+      r'lexuara nuk e gjetëm koeficientin (2.2a) të përdorur për të vendosur cili akuifer e ndien tërmetin, as hapin '
+      r'koseizmik të përdorur si provë pompimi.')
 ROW8 = [r'$G$ i shtresave', '(2.2a)', r'Shpejtësia e valëve tërthore, $G = \rho V_{s}^{2}$ (CPT sizmike ose valë '
                                       r'sipërfaqësore)']
 REFS = {  # anchor paragraph -> new reference inserted after it: (plain, italic, plain)
