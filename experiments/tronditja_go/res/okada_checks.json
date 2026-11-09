@@ -1,0 +1,50 @@
+{
+ "C1_jump_equals_slip": {
+  "strike-slip, dip 89.9": {
+   "jump": [
+    0.0,
+    0.99994,
+    0.0
+   ],
+   "expected": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "max_abs_err": 6.093118466155012e-05
+  },
+  "reverse, dip 45": {
+   "jump": [
+    -0.70707,
+    0.0,
+    0.70707
+   ],
+   "expected": [
+    -0.70711,
+    0.0,
+    0.70711
+   ],
+   "max_abs_err": 3.688796014511553e-05
+  }
+ },
+ "C2_point_source_rel_err": {
+  "dip 30, rake 90": 0.0006147728873760836,
+  "dip 60, rake 0": 0.0003905374729528884,
+  "dip 75, rake 45": 0.00038533704465300067
+ },
+ "C3_plane_strain": {
+  "long_fault_max_change_nu_025_to_040": 0.0019824280166808278,
+  "short_fault_max_change_nu_025_to_040": 0.05199646548281179
+ },
+ "C4_sense": {
+  "reverse_uz_over_hanging_wall": 0.2265095219912216,
+  "normal_uz_over_hanging_wall": -0.2265095219912216,
+  "left_lateral_un_east_side": 0.05126778349683008,
+  "left_lateral_un_west_side": -0.051262827681730155,
+  "passed": true
+ },
+ "C5_strain_step_rel_change": {
+  "h 1 m vs 2 m": 1.8283434244865064e-11,
+  "h 4 m vs 2 m": 9.175042629279372e-12
+ }
+}
