@@ -39,8 +39,8 @@ SECURITY = (
     'table together. Pumping moves the hazards in opposite directions: it draws seawater towards the wells but lowers the '
     'water table and so strengthens the ground against liquefaction. Managing one hazard alone can increase another.\n'
     'Today these hazards are monitored by different institutions with different models, and no warning states how often it '
-    'misses. For security decisions this is the critical gap: an operator who must cut pumping, restrict a quay or inspect '
-    'the landfall needs to know how far a warning can be trusted, and civil protection needs one consistent picture of '
+    'misses. For security decisions this is the critical gap: whoever must cut pumping, restrict a quay or inspect '
+    'the landfall needs to know how far a warning can be trusted, and the national authorities need one consistent picture of '
     'water, port and energy after an earthquake or a storm.\n'
     'The security challenge is therefore to keep three essential services of an Ally working, and to know in advance when '
     'they will stop being safe. The project serves three of NATO\'s seven baseline requirements for national resilience '
@@ -53,7 +53,7 @@ SECURITY = (
     'Principles of Responsible Use of AI.')
 
 TECHNICAL = (
-    'Four technical problems stand between current science and a warning that operators can act on.\n'
+    'Four technical problems stand between current science and a warning that institutions can act on.\n'
     '1. The hazards are coupled but modelled apart. Seawater intrusion, aquifer compaction, liquefaction and coastal '
     'water levels depend on the same two variables, relative sea level and the water table, yet are computed by '
     'separate models. A pumping decision cannot be checked against all of them at once.\n'
@@ -81,14 +81,15 @@ TECHNICAL = (
     'keeping the model stable. And after an earthquake the pore-pressure step depends on each layer\'s stiffness; in '
     'tests the usual estimate overstated it 35 times in soft sand.\n'
     'All of this must work on a real coast with incomplete records, under security restrictions on data, and in a form '
-    'that the operators can run themselves after the project.')
+    'that the Albanian Geological Survey can run after the project.')
 
 DELIVER = (
     'By Month 36 the project delivers:\n'
     '1. A coastal motion atlas from Durrës to Fier and relative sea level at each asset, from Sentinel-1 InSAR, '
     'reflectors and GNSS (D1.1).\n'
-    '2. A monitoring network chosen for the warnings and handed over to the operators (D4.2): piezometers with '
-    'conductivity loggers, a barometer and sealed hub channels that correct them, a local rain gauge, GNSS, seismic '
+    '2. A monitoring network chosen for the warnings on the wells of the Albanian Geological Survey (SHGJSH), offered '
+    'to it (D4.2): piezometers with '
+    'conductivity loggers, a barometer and sealed hub channels that correct them, a rain gauge, GNSS, seismic '
     'nodes and, where access allows, fibre-optic sensing.\n'
     '3. One calibrated model that couples groundwater flow and salt, aquifer compaction, liquefaction under a moving '
     'water table and coastal water levels, its inland boundary learned from the heads (D2.1), and a fast '
@@ -96,11 +97,11 @@ DELIVER = (
     '4. Certified alarms for seawater intrusion, liquefaction and extreme water levels whose miss rate is bounded in '
     'advance (indicatively 5–10%), with a joint guarantee for the three assets, back-tested since 2014 under a '
     'pre-registered protocol (D3.1, D3.2).\n'
-    "5. Decisions for the water utility: the effect of each wellfield's pumping on salinity with the hidden drought "
+    "5. Decisions for the wellfields: the effect of each wellfield's pumping on salinity with the hidden drought "
     'demand removed; the salinity under drier recharge; the certified safe operating window and the year it closes; '
-    'safe pumping tests that sharpen it; a pumping rule agreed with the utility; and pumping safe while the '
+    'safe pumping tests that sharpen it; a pumping rule; and pumping safe while the '
     'source of the chloride is unknown.\n'
-    '6. Twelve months of live bulletins with the five end-users, every outcome logged and the miss rates verified '
+    '6. Twelve months of live bulletins with the Survey, every outcome logged and the miss rates verified '
     '(D5.1); operating procedures and a policy brief (D6.2); open software and data with a DOI (D6.1).\n'
     'How this advances the state of the art. The alarms apply conformal and anytime-valid methods of 2023–2026 to '
     'coupled coastal hazards. Nine new contributions were tested before the project. (i) Guarantees for quantities '
@@ -116,15 +117,14 @@ DELIVER = (
     'boundary that learns the aquifer beyond the model: exact for any linear aquifer, stable by construction, learned '
     'from two piezometers (6 mm against 372 mm on an unseen drought in tests). (ix) Which layer feels an earthquake, '
     'and its step as a free pumping test (in tests the usual estimate overstated the soft-sand step 35 times). The '
-    'integrated system reaches TRL 6 on site, with the operators.')
+    "integrated system reaches TRL 6 on the Survey's network.")
 
 
 HOW = (
     'Seven work packages run over 36 months in three phases, separated by evidence gates with thresholds fixed in '
     'advance.\n'
-    'Observe and measure (Months 1–12). WP4 designs the network before buying it: each candidate sensor (piezometers '
-    'with conductivity loggers, a rain gauge, GNSS, seismic nodes, a barometer and hub channels that correct the '
-    'loggers) is ranked by the guaranteed warning band it removes and the years of safe operation it adds per euro; '
+    "Observe and measure (Months 1–12). WP4 designs the network on the Survey's wells before buying it: each candidate "
+    'sensor (conductivity loggers, a rain gauge, GNSS, seismic nodes, a barometer and hub reference channels) is ranked by the guaranteed warning band it removes and the years of safe operation it adds per euro; '
     'the network is chosen against the worst plausible sensor error, with a certified optimality gap (D4.1, Month 6); '
     'a logger or samples paired a few days apart are added where sparse samples leave crossings between them open. WP1 '
     'obtains vertical land motion and relative sea level at each asset from Sentinel-1 InSAR since 2014 and GNSS, and '
@@ -135,7 +135,7 @@ HOW = (
     'valid if the simulator is wrong or the climate drifts. The inland boundary is learned from two piezometers as '
     'passive storage compartments. Gate MS3 (Month 18) requires held-out heads, chloride, InSAR and seismic velocity inside the 90% intervals. A '
     'neural-operator copy with a certified error bound then serves the warnings. WP3 agrees thresholds and tolerable '
-    'miss rates with the operators, builds the alarms (crossings between samples included), back-tests them since 2014 '
+    'miss rates with the Survey, builds the alarms (crossings between samples included), back-tests them since 2014 '
     'under a protocol registered before the results; gates MS4 (Month 22) and MS5 (Month 27) decide live operation and '
     'confirm the miss rates.\n'
     'Operate, verify and hand over (Months 22–36). WP5 runs the system live for twelve months, logs every bulletin '
@@ -144,13 +144,13 @@ HOW = (
     'from the heads under a calibrated check. While the source of the chloride is uncertain, tracers chosen for the '
     'decisions they change keep only the sources the data cannot exclude, updated monthly, and the pumping stays safe '
     'for all of them. It computes the salinity under drier recharge, the certified safe operating window, its closing '
-    'year and safe pumping tests that sharpen it, and agrees a pumping rule with the utility. WP6 trains early-career '
-    'researchers and operators, releases open software and transfers the method to a partner coast. WP7 manages data '
+    'year and safe pumping tests that sharpen it, and prepares a pumping rule with the Survey. WP6 trains early-career '
+    'researchers and Survey staff, releases open software and transfers the method to a partner coast. WP7 manages data '
     'access, security classification, risks and reporting.\n'
     'Collaboration. The Albanian team leads WP1–WP5 and WP7; the partner-country team leads WP6, a transfer study on '
     'its own coast and a user-side review of the bulletins. Early-career researchers of both countries work across '
-    'work packages, with two-month exchanges. End-users set thresholds, join a dry run and co-sign operational '
-    'milestones; a steering committee with them meets every six months, and each gate has a named fallback.')
+    'work packages, with two-month exchanges. The Survey agrees the thresholds and reviews the '
+    'bulletins; a steering committee with it meets every six months, and each gate has a named fallback.')
 
 
 SOTA_REFS = [
@@ -410,7 +410,7 @@ SOTA_TEXT = (
     'port or the water supply of Durrës, or write "none known"].\n'
     'What makes CERTAIN-COAST stand out: one model for three hazards at three critical assets, warnings and pumping '
     'decisions whose error is stated in advance and verified in operation, and a certified planning horizon for the '
-    'operators.')
+    'institutions that manage the assets.')
 
 
 def _ref_line(t, u):
@@ -428,10 +428,10 @@ ABSTRACT = (
     'increase another, but today they are watched separately and no warning says how often it can be wrong.\n'
     'CERTAIN-COAST will watch them together. Satellites, GNSS and new ground sensors will feed one computer model of the '
     'coast, copied by a fast artificial-intelligence model whose error is stated for every forecast. Each warning will state '
-    'in advance how often it may miss a dangerous event, and this will be checked in twelve months of live operation with the '
-    'water utility, the water agency, the port, the pipeline operator and civil protection. The project will show how many '
-    'years a safe way of operating the three assets remains, and sharpen that estimate with safe pumping tests. Local '
-    'operators will run the system afterwards.')
+    'in advance how often it may miss a dangerous event, and this will be checked in twelve months of live operation on the '
+    'groundwater monitoring network of the Albanian Geological Survey, which can then run the system. The project '
+    'will show how many years a safe way of operating the three assets remains, and sharpen that estimate with safe '
+    'pumping tests.')
 
 RELEVANCE = (
     'Link to security. The project protects three essential services of a NATO Ally (drinking water, a port that '
@@ -442,15 +442,18 @@ RELEVANCE = (
     'maritime and undersea infrastructure resilience": the TAP landfall is where an undersea gas pipeline between two '
     'Allies, Albania and Italy, leaves the shore.\n'
     'Use cases:\n'
-    '• Water utility: cut or shift pumping before chloride reaches drinking-water wells (weeks to months ahead), '
-    'safely even while the source of the chloride is unknown.\n'
-    '• Water Resources Management Agency (AMBU): use the monitoring design, the chloride early warning for each supply '
-    'well and the pumping and drought rule in its monitoring and in support of water-use permits for the aquifer.\n'
-    '• Port authority: restrict loads or operations and set inspection priorities after an earthquake; prepare for '
-    'storm surges (hours to days ahead).\n'
-    '• Pipeline operator (TAP): inspect, protect or isolate the landfall near Fier when the ground or the water level '
-    'threatens it.\n'
-    '• Civil protection: one consistent bulletin for water, port and energy after an earthquake or a storm.\n'
+    '• Albanian Geological Survey (SHGJSH), the end-user, which administers the national groundwater monitoring '
+    'network: receives and uses the chloride and water-level bulletins for its wells during the live operation, uses the '
+    'open software, the monitoring design and the safe operating window in its network and its advice on the aquifer, '
+    'and can keep the sensors and run the bulletins after the project.\n'
+    '• Water Resources Management Agency (AMBU): uses the chloride early warning and the pumping and drought rule in '
+    'support of water-use permits for the aquifer, with staff time in kind.\n'
+    '• Water utility (an intended beneficiary, contacted): can cut or shift pumping before chloride reaches '
+    'drinking-water wells (weeks to months ahead), safely even while the source of the chloride is unknown.\n'
+    '• Port authority and pipeline operator (TAP) (intended beneficiaries, contacted): warnings of ground motion, '
+    'liquefaction and storm surges for the port and the landfall near Fier, from satellite, GNSS and public data, to set '
+    'inspection priorities after an earthquake and prepare for surges (hours to days ahead); sensors inside these sites '
+    'only if access is granted.\n'
     '• National authorities and resilience planners: the certified year from which no operating plan keeps the three '
     'assets safe together, and the sensors and measures that delay it most.\n'
     'Each bulletin states its certified miss rate, so decision-makers know how far it can be trusted. The method uses '
@@ -514,8 +517,8 @@ STATUS = (
     'and 0.26 over the year.\n'
     'These are tests on synthetic coasts and on the existing chloride model with illustrative values, not results at '
     'Durrës; the project calibrates and verifies them on site.\n'
-    'Starting data: Sentinel-1 radar images since 2014, tide-gauge records, the wells and chemical records of the '
-    'water utility, and the mapped liquefaction of the 2019 earthquake (Mavroulis et al., 2021).\n'
+    'Starting data: Sentinel-1 radar images since 2014, tide-gauge records, the groundwater level and chemistry records '
+    "of the Survey's monitoring network, and the mapped liquefaction of the 2019 earthquake (Mavroulis et al., 2021).\n"
     "Team: [summarise the Co-Directors' prior research on seawater intrusion, coastal geodesy, geotechnics and "
     'statistics, with 3–5 key publications].')
 
@@ -527,28 +530,28 @@ IMPACT = (
     '• Each alarm misses dangerous events no more often than its certified rate (indicatively 5–10%), shown by '
     'back-testing over the record since 2014 and checked in twelve months of live operation; the joint miss rate for '
     'the three assets is bounded by the sum of the rates.\n'
-    '• Each operator knows in advance the minimum value of the warning for its own decisions, computed from the '
+    '• Each user knows in advance the minimum value of the warning for its own decisions, computed from the '
     'certified miss rate and the cost-loss ratio agreed with it.\n'
-    '• The water utility operates its wells within a certified safe window, sharpened by safe pumping tests on its own '
-    'wells, which lowers the risk of salinising wells that take years to recover and avoids new permanent subsidence; '
+    '• The wellfields that supply Durrës get a certified safe operating window, sharpened by safe pumping tests agreed '
+    'with the utility, which lowers the risk of salinising wells that take years to recover and avoids new permanent subsidence; '
     'planners know when the window closes and which measures extend it.\n'
-    '• The Water Resources Management Agency (AMBU) gains a monitoring design for its decisions and a chloride early '
-    'warning for each supply well, in support of its water-use permits for the aquifer that supplies Durrës, with no '
+    '• The Albanian Geological Survey gains a monitoring design for its network and a chloride early warning for each '
+    'monitored well, which it can run after the project; AMBU uses them in support of its water-use permits, with no '
     'procurement, ownership or maintenance obligations.\n'
-    '• The water utility, AMBU, the farmers and the regulator can act before the source of rising chloride is known: '
+    '• The Survey, AMBU, the utility and the farmers can act before the source of rising chloride is known: '
     'tracers are bought for the decision they change, the plausible sources and the pumping in force are published '
     'every month with a risk that holds whatever the source, and a ledger shows who bears the cost.\n'
     '• Models whose inland edge responds as the real aquifer does, learned from piezometers: sea-level rise and new '
     'pumping are then neither underestimated by a prescribed inflow nor overstated by a fixed head (in tests, by a '
     'factor of three either way).\n'
-    '• After an earthquake, the operators know which layers\' pressure rose, and the wells measure the aquifer for '
+    '• After an earthquake, the Survey knows which layers\' pressure rose, and its wells measure the aquifer for '
     'free.\n'
-    '• At least 20 operator and civil-protection staff (at least two per operator) trained and running the system; at '
+    '• At least 15 professionals trained, including at least four Survey staff able to run the system; at '
     'least six early-career researchers trained in the NATO and partner countries.\n'
-    '• A monitoring network of piezometers, GNSS, seismic stations and corner reflectors handed over to the operators, '
-    'with a running cost of about €10,900 per year carried by them under a maintenance agreement.\n'
+    '• A monitoring network of piezometers, GNSS, seismic stations and corner reflectors offered to the Survey, '
+    'with its running cost of about €10,900 per year set out in an agreement.\n'
     '• Open software and data with a DOI, installed and reproduced by a group outside the consortium; at least six '
-    'open-access papers; operating procedures adopted for each asset; a policy brief for the national authorities.\n'
+    'open-access papers; an operating procedure agreed with the Survey; a policy brief for the national authorities.\n'
     '• The method tested on a second coast in the partner country and ready for other subsiding coasts of the Adriatic '
     'and the Mediterranean.\n'
     'For NATO, the result is a tested capability for three baseline requirements of resilience at an Allied site, and '
@@ -564,25 +567,28 @@ TRL_TEXT = (
     'published methods exist for each element.\n'
     'End: TRL 6, as the 2027-1 call asks (results at TRL 3–6). The integrated system (network, coupled model, '
     'certified surrogate, alarms, pumping rule and safe operating window) is demonstrated in its relevant environment, '
-    "the operators' own sites, through twelve months of live operation with the water utility, the water resources "
-    'agency (AMBU), the port authority, the pipeline operator (TAP) and civil protection, before the operators take it '
-    'over. Seismic velocity as a coastal water-table sensor and the pumping rule with its safe pumping tests are '
+    'the groundwater monitoring network of the Albanian Geological Survey on the coast of Durrës and Fushë-Kuqe, '
+    'through twelve months of live operation with the Survey, which can then run it; at the port and the TAP '
+    'landfall the warnings run on satellite, GNSS and public data. Seismic velocity as a coastal water-table sensor and the pumping rule with its safe pumping tests are '
     'demonstrated at the site but not yet run for a full year.')
 
 DATA = (
     'Data required and existing sources: Copernicus Sentinel-1 radar images since 2014 (free and open); GNSS records; the '
-    'Durrës tide-gauge record of the State Authority for Geospatial Information (ASIG); heads, pumping and chloride records of the water utility; groundwater level, chemistry and abstraction records of AMBU; geotechnical records of the port and of '
-    'TAP at its landfall; records of existing national seismic stations; meteorological and wave data.\n'
+    'Durrës tide-gauge record of the State Authority for Geospatial Information (ASIG); groundwater level and chemistry '
+    'records of the national monitoring network of the Albanian Geological Survey; water-use permit and abstraction '
+    'records of AMBU; public geotechnical data and the mapped liquefaction of 2019; heads, pumping and chloride records '
+    'of the water utility and geotechnical records of the port and of TAP only if they agree to share them; records of existing national seismic stations; meteorological and wave data.\n'
     'New data: continuous heads, conductivity and temperature in new and existing wells; GNSS and corner-reflector time series '
     'at the assets; continuous seismic noise from stations and temporary nodes, and fibre-optic sensing where access is '
     'agreed; laboratory chloride and major ions; the bulletin log with outcomes.\n'
     'Collection and management: a data management plan (D7.1, Month 3) following the FAIR principles; standard formats '
     '(miniSEED and StationXML for seismic data, NetCDF with CF conventions for time series) and DataCite metadata; storage '
     'on the partners\' servers with backup; open release of derived products and software with DOIs on Zenodo.\n'
-    'Risks and mitigation: (1) access to operator data: letters of commitment now, signed access agreements by Month 3, and '
-    'satellite and public data as a fallback; (2) security of critical-infrastructure information: every output is '
+    "Risks and mitigation: (1) access to data: the Survey's letter of commitment now and an access agreement by Month 3; "
+    'for the utility, the port and the pipeline operator, satellite and public data are the baseline and their records '
+    'are added only if they agree; (2) security of critical-infrastructure information: every output is '
     'classified before release, asset-level vulnerability, thresholds and sensor locations inside sites stay with the '
-    'operators and authorities, and open products are aggregated or anonymised; (3) privacy: personal data are limited to '
+    'asset owners and authorities, and open products are aggregated or anonymised; (3) privacy: personal data are limited to '
     'workshop and training participants, collected with informed consent, minimised and pseudonymised under Albania\'s Law '
     'No. 124/2024 on personal data protection, aligned with the GDPR; (4) data quality: quality flags, loggers calibrated '
     'against laboratory chloride, and record errors carried as uncertainty in the model.')
@@ -613,11 +619,11 @@ WORKPLAN = (
     'sections with a wider error bound. Risk: the anchors are too few (at least 9 are needed for an average guarantee, '
     '22 for a 90% certificate); mitigation: anchors from the record since 2014 and from the new loggers, and a wider '
     'simulation-calibrated band reported as such. Risk: the inland boundary is not identified (pumping too steady, or an '
-    'unknown source near the cut); mitigation: changes of pumping rate over months to years agreed with the utility, '
+    'unknown source near the cut); mitigation: changes of pumping rate over months to years proposed to the utility, '
     'the prior from simulated geology, and a general-head boundary with a widened band as fallback. Milestones: MS3 '
     '(Month 18), MS4 (Month 22).\n'
     'WP3, Certified multi-hazard alarm (Months 13–34; NATO-country team). Steps: thresholds and tolerable miss rates '
-    'with the operators (T3.1); alarm margins and proofs (T3.2), with anchor calibration so that the guarantee does '
+    'with the Survey, and with the utility, port and pipeline operator if they take part (T3.1); alarm margins and proofs (T3.2), with anchor calibration so that the guarantee does '
     'not depend on the simulator, horizon matching under drift, and the floor that shows how far each band is from the '
     'narrowest possible, and warnings for crossings between samples: the chance that chloride crosses its limit at any '
     'time in the season, as a band over all models that fit the records, widened by a conformal margin calibrated on '
@@ -630,22 +636,22 @@ WORKPLAN = (
     'WP4, Monitoring network designed for the warnings (Months 1–36; NATO-country team). Steps: design (T4.1), in '
     'which each candidate sensor is valued by the guaranteed band it removes, its floor and the years of safe '
     'operation it adds per euro, with a local rain gauge among the candidates and one logger next to the wellfield '
-    'most exposed to local demand; the monitoring wells of AMBU (existing wells only) are candidate sites and the '
-    "design also serves AMBU's monitoring decisions; a barometer and a sealed reference channel on each logger hub are "
+    "most exposed to local demand; the wells of the Survey's groundwater monitoring network are the candidate sites and "
+    "the design also serves the Survey's monitoring decisions; a barometer and a sealed reference channel on each logger hub are "
     'candidates too, the error model carries the barometric efficiency of each well, the drift of each logger, cable '
     'cross-talk and model error within stated ranges, and the network is chosen against the worst plausible error and '
-    'reported with its certified optimality gap; a conductivity logger in at least one production well of each '
-    'wellfield and a yearly campaign of laboratory samples paired 1, 3 and 7 days apart measure the time scale that '
+    'reported with its certified optimality gap; a conductivity logger in the monitoring well closest to each '
+    'wellfield (in a production well only if the utility agrees) and a yearly campaign of laboratory samples paired 1, 3 and 7 days apart measure the time scale that '
     'decides crossings between samples; a tracer campaign (Br/Cl, water isotopes, depth profiles from multilevel '
     'wells, nitrate and boron) is chosen by the value of the pumping decisions it changes; two piezometers between the '
     'wellfields and the inland cut, about one diffusion length apart, learn the boundary of the model (T2.3); '
     'procurement and '
-    'installation (T4.2), with one GNSS station, two corner reflectors, a seismic station and a water-table logger at '
-    "the TAP landfall, under TAP's security rules; operation and maintenance (T4.3), in which every reading is "
+    "installation (T4.2) in the Survey's wells; near the port and the TAP landfall, corner reflectors, GNSS and a "
+    "seismic station on public land, with sensors inside these sites only if access is granted; operation and maintenance (T4.3), in which every reading is "
     'corrected for air pressure and logger drift before use and the corrected residuals are checked for remaining '
     'correlation; seismic velocity as a water-table gauge, and the shear-wave velocity of the soft layers for their '
     'earthquake step (T4.4). Risk: procurement delays and limited site access; '
-    'mitigation: early orders, inductions with security officers. Risk: lagged or uncertain barometric responses; '
+    'mitigation: early orders; satellite and public data as the baseline at the port and the landfall. Risk: lagged or uncertain barometric responses; '
     'mitigation: response functions estimated from the first three months by regression deconvolution, with their '
     'error carried into the robust design. Milestones: MS1 (Month 6), MS2 (Month 12).\n'
     'WP5, Live demonstration (Months 22–36; NATO-country team). Steps: dry run (T5.1); twelve months of bulletins '
@@ -654,7 +660,7 @@ WORKPLAN = (
     'drawdown measured in the pumping tests, and a calibrated check of every substitute is run before any effect is '
     'reported; the salinity under a drier recharge regime is computed from the calibrated state with conformal bands; '
     'the certified window, its closing year and safe pumping tests that sharpen it follow, and the pumping and drought '
-    'rule is agreed with the utility and AMBU; while the source of the chloride is uncertain (sea, deep brine, drought '
+    'rule is prepared with the Survey and offered to the utility and AMBU; while the source of the chloride is uncertain (sea, deep brine, drought '
     'or return flow), the sources the tracers cannot exclude are kept in a set updated monthly with anytime-valid '
     'e-values, the pumping allocation is kept safe for every source in it, and a ledger shows the cost borne by the '
     'utility, the farmers and the wetland; post-event protocol (T5.4), in which the relaxation of the logged heads '
@@ -665,35 +671,44 @@ WORKPLAN = (
     'chloride is not among those considered, or mixes two of them; mitigation: a goodness-of-fit check at every '
     'update, mixtures admitted as hypotheses, and the alternative supply as fallback. Milestone: MS6 (Month 34).\n'
     'WP6, Training, transfer and dissemination (Months 1–36; partner-country team): early-career researchers and a '
-    'training school (T6.1), operator training (T6.2), open release (T6.3), transfer to a second coast (T6.4). Risk: '
-    'the operators rely on the bulletins alone, or trained operator staff leave; mitigation: the system stays advisory '
-    "beside the operators' own procedures, the training explains what a certified miss rate means, and at least two "
-    'people are trained per operator. Milestone: MS7 (Month 36), the operators own and run the system: an operating '
-    'procedure adopted for each asset, every bulletin of Months 34–36 issued by the operators without the project '
-    'team, and a maintenance agreement signed by Month 33 (D6.2).\n'
+    'training school (T6.1), training of Survey staff and of the intended users (T6.2), open release (T6.3), transfer to '
+    'a second coast (T6.4). Risk: users rely on the bulletins alone, or trained Survey staff leave; mitigation: the '
+    "system stays advisory beside the users' own procedures, the training explains what a certified miss rate means, "
+    'and at least four Survey staff are trained. Milestone: MS7 (Month 36), hand-over to the Survey: an '
+    'operating procedure for its network agreed with the Survey, the bulletins of Months 34–36 for its wells run by '
+    'trained Survey staff with the project team only in support, and an agreement on keeping and maintaining the '
+    'sensors signed by Month 33 (D6.2).\n'
     'WP7, Management, data and risk (Months 1–36; coordinator): management and reporting (T7.1), data plan and access '
-    'agreements (T7.2), risk register (T7.3). Risk: the operators delay access to well, port or landfall data; '
-    'mitigation: access agreements by Month 3, with WP1 and the design of WP4 started on public and satellite data '
+    'agreements (T7.2), risk register (T7.3). Risk: the Survey delays access to its wells or records, '
+    'or the port and the pipeline operator do not share data; mitigation: an access agreement with the Survey by '
+    'Month 3, satellite and public data as the baseline for the port and the landfall, with WP1 and the design of WP4 started on public and satellite data '
     'meanwhile. Risk: a release discloses sensitive information on critical infrastructure; mitigation: data '
-    'classified in the data plan, asset-level results shared only with the operators and authorities, and publications '
-    'reviewed by the operators before submission. Milestones: access agreements and data management plan (D7.1, Month '
+    'classified in the data plan, asset-level results shared only with the asset owners and authorities, and '
+    'publications reviewed by the Survey, and by any asset owner whose data they use, before submission. Milestones: access agreements and data management plan (D7.1, Month '
     '3); progress reports at the SPS milestones (D7.2, Months 6, 18 and 30); final report (D7.3, Month 36); the risk '
     'register reviewed at every gate.')
 
 
 AFTER = (
-    'Implementation. The operators issue every bulletin themselves in Months 34–36, with at least two trained staff each, and '
-    'sign a maintenance agreement (Month 33) that covers the running cost of about €10,900 per year for data, telemetry and '
-    'spare sensors. Until it is in place, the Albanian university hosts the system. Operating procedures for each asset and '
-    'a policy brief for the national authorities (D6.2) anchor the warnings in daily practice.\n'
-    'Next steps: extend the warnings to the other wellfields and coastal assets of Albania; offer the open software to '
-    'coasts of Allies and partners (tested on a second coast in the partner country during the project); seek national and '
-    'European funding to keep the network and the verification ledger running.\n'
-    'Role of the end-users. The water utility, the Water Resources Management Agency (AMBU), the port authority, the '
-    'operator of the Trans Adriatic Pipeline (TAP) and the National Civil Protection Agency guide the project from the start: they give access to sites '
-    'and records, agree the thresholds and tolerable miss rates (T3.1), take part in the dry run, co-sign the operational '
-    'milestones and run the bulletins in live operation. The operators own the system after the hand-over; AMBU uses its '
-    'results without procurement, ownership or maintenance obligations. End-users receive no SPS funds.')
+    'Implementation. The Albanian Geological Survey, which administers the national groundwater monitoring network, '
+    'intends to use the open software and the monitoring design in its network and to consider keeping the project\'s '
+    'sensors. In Months 34–36 trained Survey staff run the bulletins for its wells with the project team only in support, '
+    'and an agreement (Month 33) sets out how the sensors are kept and who carries the running cost of about €10,900 per '
+    'year for data, telemetry and spare sensors. Until it is in place, the Albanian university hosts the system. An '
+    'operating procedure for the Survey\'s network and a policy brief for the national authorities (D6.2) anchor the '
+    'warnings in practice.\n'
+    'Next steps: offer the bulletins to the water utility, the port and the pipeline operator, who have been contacted and '
+    'are intended beneficiaries, with sensors inside their sites where they grant access; extend the warnings to the other '
+    'wellfields and coastal assets of Albania; offer the open software to coasts of Allies and partners (tested on a second '
+    'coast in the partner country during the project); seek national and European funding to keep the network and the '
+    'verification ledger running.\n'
+    'Role of the end-users. The Albanian Geological Survey (SHGJSH) is the end-user: it gives access to the wells of its '
+    'monitoring network and to its records, contributes staff time in kind to site and install the sensors, agrees the '
+    'warning thresholds (T3.1), reviews the bulletins during the live operation and receives the network, the software and '
+    'the procedures at the hand-over. The Water Resources Management Agency (AMBU) shares its water-use permit and '
+    'abstraction data, contributes staff time in kind to agree the chloride threshold and review the pumping and drought '
+    'rule, and uses the results in support of water-use permits, without procurement, ownership or maintenance '
+    'obligations. End-users receive no SPS funds.')
 
 COMMS = (
     'Activities: a public kick-off, a public start of live operation and a final event; a project website with public '
@@ -701,17 +716,17 @@ COMMS = (
     'alarms and the bound on the miss rate; at least six open-access papers and eight conference presentations; a policy '
     'brief for the national authorities; stakeholder workshops at kick-off, mid-term, end and for transfer.\n'
     'Presenting the project to the public: the start of live warnings, the training school (Month 14) and the hand-over to '
-    'the operators are natural moments for press releases and local media.\n'
-    'Likely photo and video subjects for the SPS Office (after security clearance by the operators): installing '
-    'piezometers and GNSS stations, corner reflectors on the coast, the training school, a civil-protection exercise with '
-    'the bulletins.\n'
+    'the Survey are natural moments for press releases and local media.\n'
+    'Likely photo and video subjects for the SPS Office (after security clearance by the Survey and the asset owners): '
+    'installing piezometers and GNSS stations, corner reflectors on the coast, the training school, a bulletin exercise '
+    'with the Survey.\n'
     'Budget link: the heading "Communication and Publications" (€18,000) covers open-access fees (€12,000), the website, '
     'translation and printing (€5,000) and public events (€1,000). Asset-level information is never published; every output '
     'passes a release gate.')
 
 KPIS = (
     'The project is on track when the following are achieved on time:\n'
-    '• D4.1 network design approved by the steering committee and the operators, with a certified optimality gap of at '
+    '• D4.1 network design approved by the steering committee and the Survey, with a certified optimality gap of at '
     'most 25% for the chosen network (Month 6, MS1).\n'
     '• D4.2 network installed and streaming with at least 90% data availability, and the corrected heads within 3 cm '
     'root-mean-square of manual dips (at most half the raw error); D1.1 coastal motion atlas with a vertical velocity '
@@ -731,12 +746,12 @@ KPIS = (
     'least 95% of back-tested simulated cases.\n'
     '• Inland boundary (T2.3): learned from the two boundary piezometers and passive (all weights nonnegative), with '
     'held-out heads at both piezometers inside the 90% predictive intervals (Month 18, MS3).\n'
-    '• Earthquake response (T4.4, T5.4): the shear-wave velocity of the soft layers at the port and the landfall '
+    '• Earthquake response (T4.4, T5.4): the shear-wave velocity of the soft layers near the port and the landfall '
     'measured by Month 18, giving the step coefficient of each layer; after any earthquake felt at the sites, the '
     'leakage of the confined aquifer read from the loggers within 30 days.\n'
     '• D6.1 open software and data with a DOI, reproduced by someone outside the team (Month 33); D6.2 operating '
-    'procedures adopted and policy brief delivered (Month 36, MS7).\n'
-    '• Capacity: at least 20 trained operator and civil-protection staff, at least six early-career researchers, at '
+    'procedure agreed with the Survey and policy brief delivered (Month 36, MS7).\n'
+    '• Capacity: at least 15 trained professionals (four from the Survey), at least six early-career researchers, at '
     'least six open-access papers and eight conference presentations.\n'
     '• Management: progress reports at each SPS milestone, spending within 10% of the plan per budget category, and '
     'the risk register reviewed at every gate.')
@@ -745,7 +760,7 @@ CRITERIA = [
     ['Each alarm\'s miss rate in back-testing over the record since 2014 is at or below its certified target (indicatively 5–10%), with a 95% confidence bound (D3.2, Month 27)', 25],
     ['Twelve months of live bulletins (Months 23–34) with every outcome logged and no verification test rejecting a certified miss rate (D5.1)', 20],
     ['Held-out heads, chloride, InSAR and seismic velocity fall inside the model\'s 90% predictive intervals at a rate of at least 85% (D2.1, Month 18)', 15],
-    ['The operators issue all bulletins in Months 34–36 with at least two trained staff each, and the maintenance agreement is signed (MS7)', 15],
+    ['Trained Survey staff run the bulletins for its wells in Months 34–36 with the project team only in support, and the agreement on keeping the sensors is signed (MS7)', 15],
     ['The monitoring network reaches at least 90% data availability over twelve months of operation (D4.2, T4.3)', 10],
     ['The certified safe operating window and its closing year are reported for each asset and confirmed by the full model at the closing point, and every pumping test stays below its chloride test limit (T5.3)', 10],
     ['The open release is installed and reproduces the synthetic test coast for a group outside the consortium (D6.1, Month 33)', 5],
@@ -822,7 +837,7 @@ SPS_CATS = ['Equipment', 'Training', 'Communication and Publications', 'Travel',
 def sps_cat(r):
     c, it = r['cat'], r['item']
     if c == 'Training and travel':
-        return 'Training' if any(k in it for k in ('exchange', 'Training school', 'training sessions')) else 'Travel'
+        return 'Training' if any(k in it for k in ('exchange', 'Training school', 'training sessions', 'Training sessions')) else 'Travel'
     return {'Equipment': 'Equipment', 'Consumables': 'Consumables', 'Stipends': 'Stipends',
             'Dissemination': 'Communication and Publications', 'Other direct costs': 'Other',
             'Management': 'Other'}[c]
@@ -872,7 +887,7 @@ def main(out):
            ['SPS MYP Agreement for Joint Research (NATO template)', 'PDF', 'Filled in: CERTAIN-COAST_SPS_MYP_Agreement_for_Joint_Research.docx; all Co-Directors and a representative of each institution sign', '[to do]'],
            ['SPS MYP Detailed Budget workbook (NATO Excel template, tabs "Info" and "Detail")', 'Excel', 'Fill by hand (the form warns that using AI on this file may corrupt it and lead to automatic rejection), typing the values of CERTAIN-COAST_Budget_Workbook_Guide.docx cell by cell', '[to do]'],
            ['Project schedule with a Gantt chart', 'PDF', 'Ready: CERTAIN-COAST_Project_Schedule.pdf', 'ready'],
-           ['End-user commitments, all letters merged into one file', 'PDF', 'Each end-user on its own letterhead (drafts in the Letters of Commitment document)', '[to do]'],
+           ['End-user commitments, all letters merged into one file', 'PDF', 'The Albanian Geological Survey (SHGJSH), and AMBU if it signs, each on its own letterhead (drafts in the Letters of Commitment document). The water utility, the port and TAP are described as intended beneficiaries, contacted; add their letters only if they arrive', '[to do]'],
            ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Draft: CERTAIN-COAST_Institutions_Overview.docx; fill the yellow fields, save as PDF', '[to do]'],
            ['Financial rules of the NPD\'s institution', 'Link', 'Ready: the UPT Statute in English (Chapter IV, Articles 24–25), '
             'https://upt.edu.al/wp-content/uploads/2023/02/Statuti-PDF-English.pdf. If the UPT finance office provides its '
@@ -885,7 +900,10 @@ def main(out):
     q = para(doc, 3, before=4)
     put(q, '**Still missing before you can submit:** [a partner-country Project Director, employed and resident in an eligible '
            'partner country] (without one the application is not eligible); [confirmation of the Albanian institution of the '
-           'NPD]; [signed letters from the five end-users].', size=10.5)
+           "NPD]; [the signed letter of the Albanian Geological Survey (SHGJSH)]; [AMBU's letter, or else delete AMBU from "
+           'the fields Relevance, Impact, Data exploitation, Sustainability, Project participants, Non-NATO funding and '
+           'End-users]. [The water utility, the port and TAP: if a signed letter arrives by 12 November, add it and '
+           'describe that organisation as an end-user.]', size=10.5)
 
     # 1 Start here
     heading(doc, '1. Start here', 14, before=10)
@@ -959,11 +977,8 @@ def main(out):
             ['[First name]', '[Family name]', '[PPD institution]', 'Partner-country Project Director', '[nationality]', 'WP6 training, transfer and dissemination; transfer study on a partner-country coast; user-side review of the bulletins', '[20%]'],
             ['[First name]', '[Family name]', '[Institute of Geosciences, UPT]', 'Researcher', '[Albanian]', 'Seismic, GNSS and hydrometeorological data; WP1, WP4', '[15%]'],
             ['To be recruited', '(4 people)', 'NPD and PPD institutions', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
-            ['[First name]', '[Family name]', '[Durrës water utility]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins, pumping rule', '[5%]'],
-            ['[First name]', '[Family name]', '[Water Resources Management Agency (AMBU)]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), monitoring design (T4.1), pumping and drought rule (T5.3)', '[5%]'],
-            ['[First name]', '[Family name]', '[Durrës Port Authority]', 'End-user representative', '[Albanian]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
-            ['[First name]', '[Family name]', '[Trans Adriatic Pipeline AG (TAP), Albania branch]', 'End-user representative', '[nationality]', 'Thresholds (T3.1), dry run, live bulletins', '[5%]'],
-            ['[First name]', '[Family name]', '[National Civil Protection Agency]', 'End-user representative', '[Albanian]', 'Post-event protocol; live bulletins', '[5%]']]
+            ['[First name]', '[Family name]', '[Albanian Geological Survey (SHGJSH)]', 'End-user representative', '[Albanian]', 'Siting and installation (T4.1, T4.2), thresholds (T3.1), review of the live bulletins (T5.2), hand-over (MS7)', '[5%]'],
+            ['[First name]', '[Family name]', '[Water Resources Management Agency (AMBU)] [only if its letter is signed]', 'End-user representative', '[Albanian]', 'Chloride threshold (T3.1); pumping and drought rule (T5.3) for water-use permits', '[2%]']]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Affiliation', 'Position', 'Nationality', 'Task(s)', '% time'], part,
                           [1.9, 1.9, 2.6, 2.4, 2.1, 4.6, 1.5], size=8.8)); ph_cells(t)
 
@@ -1046,8 +1061,9 @@ def main(out):
     def listing(cat):
         return '\n'.join(f'• {r["item"]}: €{r["tot"]:,.0f}. {r["just"]}' for r in items(cat))
     field(doc, 'Equipment', 'Major equipment, its role, approximate price, co-funding.')
-    answer(doc, listing('Equipment') + '\nCo-funding: [existing equipment and facilities of the institutions; operators provide '
-                                         'access to wells, port and landfall].')
+    answer(doc, listing('Equipment') + '\nCo-funding: [existing equipment and facilities of the institutions]; the '
+                                         'Albanian Geological Survey provides access to the wells of its monitoring network '
+                                         'and staff time in kind.')
     field(doc, 'Training', 'SPS does not fund fellowships; training periods are short.')
     answer(doc, listing('Training'))
     field(doc, 'Travel')
@@ -1080,13 +1096,15 @@ def main(out):
     heading(doc, '9. End-Users', 14, before=10)
     p = para(doc, 4); put(p, 'At least one end-user; all based in a NATO or eligible partner country; end-users receive no SPS funds.')
     eu = [[f'[First name]', '[Family name]', '[Title]', '[Job title]', inst, '[Postal address]', '[Country]', '[Telephone]', '[E-mail]']
-          for inst in ['[Durrës water utility]', '[Water Resources Management Agency (AMBU)]', '[Durrës Port Authority]',
-                       '[Trans Adriatic Pipeline AG (TAP), Albania branch]', '[National Civil Protection Agency]']]
+          for inst in ['[Albanian Geological Survey (SHGJSH)]',
+                       '[Water Resources Management Agency (AMBU)] [only if its letter is signed]']]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Title', 'Job title', 'Institution', 'Postal address', 'Country', 'Telephone', 'E-mail'],
                           eu, [1.7, 1.7, 1.2, 1.8, 2.6, 2.2, 1.6, 1.9, 2.3], size=8.2)); ph_cells(t)
     field(doc, 'End-User(s) commitments (upload)')
-    answer(doc, 'One PDF with all signed letters, each on the end-user\'s letterhead (drafts in the Letters of Commitment document; '
-                'the end-users sign their own letters). For governmental end-users, a letter of support from the ministry or agency.')
+    answer(doc, 'One PDF with the signed letters, each on the end-user\'s letterhead: the Albanian Geological Survey (SHGJSH) '
+                'and, if it signs, AMBU (drafts in the Letters of Commitment document; the end-users sign their own letters). '
+                'The water utility, the Port of Durrës and TAP have been contacted and are described as intended beneficiaries; '
+                'add their letters only if they arrive. For governmental end-users, a letter of support from the ministry or agency.')
 
     # 10 Attachments
     heading(doc, '10. Project attachments', 14, before=10)

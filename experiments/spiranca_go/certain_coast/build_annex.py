@@ -1,7 +1,7 @@
 """CERTAIN-COAST (NATO SPS proposal): short technical annex for the "Additional files (optional)" upload of the
 application form. It supplements the fields "How will the project reach the planned end state?" and "Work-plan":
 how the methods work, what was tested before the project and what is new, for the two sites (Durrës wellfields and
-port; the TAP landfall near Fier). Work packages, tasks, months and milestones are those of the application form
+port; the TAP landfall near Fier), with the Albanian Geological Survey (SHGJSH) as the end-user. Work packages, tasks, months and milestones are those of the application form
 (build_application.py); equations are those of the Methodology (build_methodology.py); every number comes from the
 preparatory tests reported in the Methodology and Innovation documents; references are those already checked there.
 
@@ -39,7 +39,11 @@ SIZE = 10
 BL = [
     ('h', '1. Two sites, three coupled hazards'),
     ('p', 'The project protects two sites on the Albanian Adriatic coastal plain: at Durrës, the wellfields that supply '
-          'drinking water and the port; near Fier, the landfall of the Trans Adriatic Pipeline (TAP). Both stand on low '
+          'drinking water and the port; near Fier, the landfall of the Trans Adriatic Pipeline (TAP). The demonstration runs '
+          'on the groundwater monitoring network of the Albanian Geological Survey (SHGJSH), the end-user, on the coast of '
+          'Durrës and Fushë-Kuqe; the port and the landfall, whose owners have been contacted and are intended '
+          'beneficiaries, are assessed from satellite radar, GNSS and public data, with sensors inside them only if access '
+          'is granted. Both sites stand on low '
           'ground near active faults, and at Durrës the land is sinking; the earthquake of 26 November 2019 caused '
           'liquefaction near the coast (Mavroulis, Lekkas and Carydis, 2021). Three hazards threaten these assets, and they '
           'are coupled through two variables, the relative sea level and the water table. Sea level enters the aquifer at its '
@@ -50,10 +54,10 @@ BL = [
           'hazard, oriented so that larger means more dangerous (Table 1).'),
     ('cap', 'Table 1. Hazard indicators, thresholds and lead times.'),
     ('table', ['Hazard (assets)', 'Indicator', 'Threshold', 'Lead time, cadence'],
-     [['Seawater intrusion (Durrës wellfields)', 'I₁: chloride at each production well',
-       'Agreed with the utility and AMBU (for example 250 mg/L)', 'Weeks to months; weekly'],
+     [['Seawater intrusion (Durrës wellfields)', 'I₁: chloride at the monitoring wells next to each wellfield',
+       'Agreed with the Survey, offered to the utility and AMBU (for example 250 mg/L)', 'Weeks to months; weekly'],
       ['Liquefaction (Durrës port; TAP landfall)', 'I₂: liquefaction potential index under the design shaking at the '
-       'current water table', 'Class boundary agreed with the operators', 'Daily; recomputed at once after an earthquake'],
+       'current water table', 'Class boundary agreed with the Survey, offered to the port and TAP', 'Daily; recomputed at once after an earthquake'],
       ['Extreme water level (all assets)', 'I₃: total water level at each asset', 'Design or operational level of '
        'each asset', 'Hours to days for storms; return levels yearly']],
      [4.0, 5.4, 4.6, 3.4], 8.5),
@@ -86,7 +90,7 @@ BL = [
     ('h2', '3.2 A network designed for the warnings, which corrects its own sensors (WP4, T4.1–T4.4)'),
     ('p', 'The network is designed before it is bought (D4.1, Month 6). Candidates are piezometers with conductivity '
           'loggers, a local rain gauge, GNSS, corner reflectors, seismic nodes and, where access allows, fibre-optic sensing; '
-          'the monitoring wells of AMBU (existing wells only) are candidate sites. Each candidate is valued by goal-oriented '
+          'the wells of the national groundwater monitoring network of the Survey are the candidate sites. Each candidate is valued by goal-oriented '
           'Bayesian design (Attia, Alexanderian and Saibaba, 2018) in two currencies: the guaranteed width it removes from '
           'the warning bands, and the years of certified safe operation it adds (Eq. (mult)). A sensor is bought only if its '
           'guaranteed value is positive: in a preparatory test, a tide gauge that a standard ensemble rated as narrowing the '
@@ -98,10 +102,10 @@ BL = [
           'sensors the worst-case information was 5.59 nats against 3.67 for the classical design (+52%), with a certified '
           'optimality gap of 18%; 90% forecast intervals covered 88–93% of outcomes after correction and 49–62% without, and '
           'corrected heads were within 2.9 cm root-mean-square against 7.6 cm raw.'),
-    ('p', "At the TAP landfall, T4.2 installs one GNSS station, two corner reflectors, a seismic station and a water-table "
-          "logger under TAP's security rules. Ambient seismic noise tracks the water table (Clements and Denolle, 2018), also "
+    ('p', "Near the port and the TAP landfall, T4.2 places corner reflectors, a GNSS station and a seismic station on "
+          "public land; sensors inside these sites are added only if access is granted. Ambient seismic noise tracks the water table (Clements and Denolle, 2018), also "
           "on unused telecommunication fibre (Rodríguez Tribaldos and Ajo-Franklin, 2021); once calibrated against "
-          "piezometers (T4.4), velocity changes measure the water table between wells at the port and the landfall, and a "
+          "piezometers (T4.4), velocity changes measure the water table between wells, also near the port and the landfall, and a "
           "drop after an earthquake measures the softening of the ground."),
 
     ('h', '4. Model and certify (WP2)'),
@@ -195,7 +199,7 @@ BL = [
 
     ('h', '5. Certified alarms (WP3)'),
     ('h2', '5.1 Alarm rule, calibration under shift and beyond the record (T3.1–T3.2)'),
-    ('p', 'Thresholds $\\tau_k$ and tolerable miss rates $\\alpha_k$ are agreed with the operators (T3.1). Alarm $k$ fires when '
+    ('p', 'Thresholds $\\tau_k$ and tolerable miss rates $\\alpha_k$ are agreed with the Survey (T3.1), and with the utility, the port and the pipeline operator if they take part. Alarm $k$ fires when '
           'the forecast at lead time $L_k$ comes within a margin $m_k$ of its threshold. The margin adds the certified copy '
           'error to a forecast error $\\gamma_k$ that rises after a miss and falls slightly otherwise; with a constant step '
           '$\\lambda$ the long-run miss rate stays within $C_k/(\\lambda T)$ of its target for any sequence of data (Gibbs and '
@@ -214,9 +218,9 @@ BL = [
     ('h2', '5.2 One guarantee for the three assets (T3.3)'),
     ('p', 'The alarms share inputs, so their misses are dependent. The probability that any alarm is missed is bounded by '
           'the sum of the tolerances, which are allocated where tightening them costs least in consequence-weighted false '
-          'alarms, within caps agreed with the operators. The margins are calibrated together by Learn then Test '
+          'alarms, within caps agreed with the users. The margins are calibrated together by Learn then Test '
           '(Angelopoulos, Bates, Candès, Jordan and Lei, 2025), so every certified rate holds at once with probability at '
-          'least $1-\\beta$. Civil protection receives one joint guarantee for the wellfields, the port and the landfall.'),
+          'least $1-\\beta$. The national authorities receive one joint guarantee for the wellfields, the port and the landfall.'),
     ('h2', '5.3 Warnings for what happens between samples (T3.2)'),
     ('p', 'Chloride is sampled weeks or months apart. Sparse samples pin the distribution of chloride on the sampling '
           'dates but not its time scale, so a well can turn salty between two samples that both look safe. The warning is '
@@ -250,7 +254,7 @@ BL = [
     ('p', 'Twelve months of live bulletins (T5.2) follow a dry run (T5.1). Each bulletin states, per asset, the forecast, '
           'the margin, the alarm state, the certified miss rate and the distance to the closing of the safe window, and is '
           'logged with its inputs and code version so that it can be reproduced and audited. A post-event protocol agreed '
-          'with civil protection (T5.4) remeasures heads, chloride, GNSS and seismic velocity within days of a strong '
+          'with the Survey (T5.4) remeasures heads, chloride, GNSS and seismic velocity within days of a strong '
           'earthquake or storm, updates the model and recomputes the alarms and the window.'),
     ('h2', '6.1 The effect of pumping without the hidden drought demand (T5.3)'),
     ('p', 'In droughts the utility pumps more while recharge falls, so a hidden cause drives both the pumping and the '
@@ -287,7 +291,7 @@ BL = [
           'intrusion has a closed form, $\\eta + m_{int} \\le h \\le z_s - z^{*}(a)$, with $z^{*}(a)$ the water-table depth '
           'that keeps the index below 5 for 90% of the profiles under the design acceleration $a$ and $m_{int}$ the fresh '
           'head that keeps the interface 20 m deep. At a synthetic port it closed at 0.29 m of relative sea-level rise for '
-          '0.20 g and was already closed at 0.22 g, so the design acceleration agreed with the port authority decides the '
+          '0.20 g and was already closed at 0.22 g, so the design acceleration chosen for the port decides the '
           'closing year.'),
     ('h2', '6.3 Safe pumping tests chosen for the years they add (T5.3)'),
     ('p', 'Routine pumping keeps the water table in a narrow band, so the records say little about how chloride responds '
@@ -305,7 +309,7 @@ BL = [
     ('h2', '6.4 Pumping rule and the value of the warning for each user (T5.3, D5.1)'),
     ('p', 'Within the window, the pumping and drought rule supplies as much water as possible; it is checked for a sudden '
           'pumping stop, after which the water table recovers and the factor of safety falls, computed with the fast copy, '
-          'confirmed with the full model and agreed with the utility and AMBU. Because each miss rate is certified, the value '
+          'confirmed with the full model, prepared with the Survey and offered to the utility and AMBU. Because each miss rate is certified, the value '
           'of a warning to each user in the cost-loss model (Murphy, 1977; Richardson, 2000) has a guaranteed lower bound '
           'for every cost-loss ratio agreed in T3.1, reported in D5.1.'),
 
@@ -342,7 +346,7 @@ BL = [
     ('h', '7. Gates, pass tests and fallbacks'),
     ('cap', 'Table 2. What each step must achieve before the next starts, and what happens if it does not.'),
     ('table', ['Step and gate', 'Pass test', 'Fallback'],
-     [['Network design (WP4; MS1, Month 6)', 'Approved by the steering committee and the operators; certified optimality '
+     [['Network design (WP4; MS1, Month 6)', 'Approved by the steering committee and the Survey; certified optimality '
        'gap of at most 25%', 'Design re-run with the remaining budget; seismic nodes if fibre is not available'],
       ['Network and coastal motion (WP4, WP1; MS2, Month 12)', 'At least 90% data availability; corrected heads within '
        '3 cm root-mean-square of manual dips; vertical-velocity uncertainty of about 1–2 mm/yr at asset points',
@@ -353,7 +357,7 @@ BL = [
        'asset with a wider error bound; a wider simulation-calibrated band, reported as such, if anchors are too few; a '
        'general-head boundary with a widened band if the inland boundary is not identified'],
       ['Certified copy and alarm prototype (WP2, WP3; MS4, Month 22, go/no-go)', 'Error bound met on test runs; the '
-       'prototype passes a dry run with the operators', 'Full model on a reduced domain for flagged forecasts'],
+       'prototype passes a dry run with the Survey', 'Full model on a reduced domain for flagged forecasts'],
       ['Back-testing (WP3; MS5, Month 27)', 'Each miss rate at or below its target with a 95% confidence bound, crossings '
        'between samples included, under the pre-registered protocol', 'Margin widened: the miss target is kept and the '
        'extra false alarms are reported'],
@@ -361,11 +365,12 @@ BL = [
        'reported for each asset; every pumping test below its chloride test limit; the plausible chloride sources and the '
        'pumping in force published every month', 'If no strong event occurs, '
        'verification rests on back-testing and storylines; smaller and shorter tests, or the window from routine records'],
-      ['Hand-over (WP6, WP7; MS7, Month 36)', 'An operating procedure adopted for each asset; the operators issue every '
-       'bulletin of Months 34–36 without the project team; at least two trained people per operator; maintenance agreement '
+      ['Hand-over (WP6, WP7; MS7, Month 36)', 'An operating procedure for its network agreed with the Survey; trained '
+       'Survey staff run the bulletins for its wells in Months 34–36 with the project team only in support; at least four '
+       'Survey staff trained; agreement on keeping and maintaining the sensors '
        'signed by Month 33 (D6.2); open software and data with a DOI reproduced outside the team (D6.1, Month 33)',
-       'Extra training and tasks reassigned within the consortium; procedures restated jointly with the operator; the '
-       'university hosts the system until the maintenance agreement is in place']],
+       'Extra training and tasks reassigned within the consortium; procedures restated jointly with the Survey; the '
+       'university hosts the system until the agreement on the sensors is in place']],
      [4.4, 7.0, 6.0], 8.5),
 
     ('h', '8. What is new beyond the state of the art'),
@@ -409,16 +414,17 @@ BL = [
        'times the soft-sand value; leakage time 5.8 times sharper than from a year of seasons', 'T2.2, T4.4, T5.4; '
        'D2.1']],
      [3.6, 5.4, 5.6, 2.8], 8.5),
-    ('p', 'Together they answer questions that no current coastal warning answers for its operators: how often a warning '
+    ('p', 'Together they answer questions that no current coastal warning answers for its users: how often a warning '
           'will be missed and so what silence means; how many years of safe pumping and dewatering remain as the sea rises '
           'and the land sinks; which sensor or pumping test buys more of them; how the aquifer beyond the model answers '
           'new pumping and a rising sea; which layer an earthquake loads and what its relaxation reveals; and how to pump '
           'safely before anyone knows where the salt comes from. The system starts at TRL 3, each '
-          'component shown in preparatory tests, and ends at TRL 6, demonstrated on the operators\' own sites through twelve '
-          'months of live operation with the water utility, AMBU, the port authority, TAP and civil protection.'),
+          'component shown in preparatory tests, and ends at TRL 6, demonstrated through twelve months of live operation on '
+          'the groundwater monitoring network of the Albanian Geological Survey, which can then run the system; at the port '
+          'and the landfall the warnings run on satellite, GNSS and public data.'),
     ('p', '**Software and data.** The model, fast copies, alarms, safe window, test planner and network design are released '
-          'under an open licence with containers and tests (D6.1). Operator data are used under the access agreements of '
-          'T7.2 and the security rules of each operator; derived products, the bulletin log and the verification ledger are '
+          'under an open licence with containers and tests (D6.1). Data of the Survey and of any asset owner are used under '
+          'the access agreements of T7.2 and the security rules of each owner; derived products, the bulletin log and the verification ledger are '
           'released openly following FAIR principles, and the preparatory tests are scripted and released with the software.'),
     ('refs', None),
 ]

@@ -32,36 +32,33 @@ PEOPLE = [
     ('NATO-country Project Director', '[NPD institution]', 30),
     ('Partner-country Project Director', '[PPD institution]', 20),
     ('Researcher (seismic, GNSS, hydrometeorological data)', '[Institute of Geosciences, UPT]', 15),
-    ('End-user representative', '[Durrës water utility]', 5),
-    ('End-user representative', '[Water Resources Management Agency (AMBU)]', 5),
-    ('End-user representative', '[Durrës Port Authority]', 5),
-    ('End-user representative', '[Trans Adriatic Pipeline AG (TAP)]', 5),
-    ('End-user representative', '[National Civil Protection Agency]', 5),
+    ('End-user representative', '[Albanian Geological Survey (SHGJSH)]', 5),
+    ('End-user representative', '[Water Resources Management Agency (AMBU)]', 2),
 ]
 
 # platform categories of the non-NATO table -> SPS categories of the budget
 NN_CATS = [
     ('Equipment', ['Equipment'],
      'Existing equipment used by the project: field instruments, laboratory instruments and servers of the institutions; '
-     'the existing wells, piezometers and loggers of the water utility; existing seismic stations. Value: [share of the '
+     "the existing wells, piezometers and loggers of the Albanian Geological Survey's monitoring network; existing seismic stations. Value: [share of the "
      'replacement value or depreciation over the 36 months].'),
     ('Training', ['Training'],
-     'Venues, rooms and trainers\' time of the institutions for the training school and the operator training; '
-     'operators\' staff time as trainees is under "Other".'),
+     'Venues, rooms and trainers\' time of the institutions for the training school and the training of Survey staff; '
+     'the trainees\' staff time is under "Other".'),
     ('Communication & Publication', ['Communication and Publications'],
      '[Institutional open-access agreements or press offices, if any; otherwise 0].'),
     ('Travel', ['Travel'], '[Institutional travel funds used for the project, if any; otherwise 0].'),
     ('Consumables', ['Consumables'],
-     '[Laboratory chloride and major-ion analyses done by the water utility or an institution laboratory at its own '
+     '[Laboratory chloride and major-ion analyses done by the Albanian Geological Survey or an institution laboratory at its own '
      'cost, if agreed; otherwise 0].'),
     ('Stipends', ['Stipends'], 'None expected (stipends of the early-career researchers are requested from SPS).'),
     ('Co-financing', ['Co-financing of personnel'],
      'Personnel cost paid by the institutions: all salaries of the Co-Directors and researchers for their time on the '
      'project (Section 3). SPS co-finances no salary in this version.'),
     ('Other', ['Other'],
-     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the five end-users; '
+     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the end-users (the Albanian Geological Survey and AMBU); '
      'data provided under agreements (Durrës tide-gauge record of ASIG, records of the national seismic stations, records '
-     'of the water utility).'),
+     "of the Survey's groundwater monitoring network)."),
 ]
 
 TEXT = (
@@ -73,8 +70,8 @@ TEXT = (
     '• Overheads of the institutions (offices, laboratories, IT, administration) at their own rates: [€ amount].\n'
     '• Existing equipment and facilities used by the project: [field and laboratory instruments, servers] of the '
     'institutions: [€ amount].\n'
-    '• End-users, who receive no SPS funds: access to the wells, the port and the landfall; existing wells, loggers and '
-    'records; staff time for thresholds, the dry run, the live bulletins and training (about {pm_eu:.1f} person-months): '
+    "• End-users, who receive no SPS funds: access to the wells of the Albanian Geological Survey's monitoring network, "
+    'its existing loggers and records; staff time of the Survey and AMBU for thresholds, the dry run, the live bulletins and training (about {pm_eu:.1f} person-months): '
     '[€ amount].\n'
     '• Data at no cost to the project: Copernicus Sentinel-1 radar images (free and open), the Durrës tide-gauge record '
     'of ASIG and the records of the national seismic stations under data agreements [not valued / € amount].\n'

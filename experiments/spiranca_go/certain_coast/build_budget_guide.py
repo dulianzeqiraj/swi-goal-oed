@@ -53,7 +53,7 @@ GROUPS = {
          ['Computing server', 'Redundant data server', 'Software licences'])],
     ('NPD', 'Training'): [
         ('Training school: venue, materials, trainee travel', ['Training school']),
-        ('Operator and civil-protection training sessions', ['Operator and civil-protection'])],
+        ('Training sessions for Survey staff and intended users', ['Training sessions for Survey'])],
     ('NPD', 'Communication and Publications'): [
         ('Books & Journals', []), ('Publication & IPR Protection', ['Open-access']),
         ('Communications & Publicity', ['Website', 'Public and press'])],
