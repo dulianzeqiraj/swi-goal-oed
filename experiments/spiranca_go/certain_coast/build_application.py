@@ -402,8 +402,12 @@ SOTA_TEXT = (
     'decides how to pump before the source of the salt is known; learns the inland boundary of the model from data '
     'without putting its stability at risk; tells which layer an earthquake loads; or computes when a safe way of '
     'operating the assets ends. A final check in bibliographic databases will be made before submission.\n'
-    'Related activities of the project participants: [list proposed, ongoing or recently completed projects of the '
-    'Co-Directors on related topics, with dates and budgets, or write "none"]. The preparatory technical work of the '
+    'Related activities of the project participants: the NPD leads the project of the National Agency for Scientific '
+    'Research and Innovation (AKKSHI) "Modelling, simulation and optimisation of formation treatment methods to maximise '
+    'the net profit of the massive carbonate reservoir of the Amonicë oil field" (2025–, with Albpetrol; [budget]), which '
+    'builds a 3D reservoir model and validates it against field data. The Qatar team runs Qatar University projects on '
+    'shoreline change between Al Arish and Al Ghariyah (2025–2027) and on wind and wave modelling for the Exclusive '
+    'Economic Zone of Qatar (2025–2027). The preparatory technical work of the '
     "NPD's team in 2026 (eleven reviews with tests, a calibrated chloride model of the Fushë-Kuqe aquifer) is the "
     'starting point of the project, not a separately funded activity.\n'
     'Other activities at the site known to the applicants: [list any national, EU or donor projects on subsidence, the '
@@ -518,8 +522,12 @@ STATUS = (
     'Durrës; the project calibrates and verifies them on site.\n'
     'Starting data: Sentinel-1 radar images since 2014, tide-gauge records, the groundwater level and chemistry records '
     "of the Survey's monitoring network, and the mapped liquefaction of the 2019 earthquake (Mavroulis et al., 2021).\n"
-    "Team: [summarise the Co-Directors' prior research on seawater intrusion, coastal geodesy, geotechnics and "
-    'statistics, with 3–5 key publications].')
+    'Team: the NPD works on seawater intrusion and the design of monitoring networks (Zeqiraj, 2026, Journal of '
+    'Hydrology), Bayesian inference in alluvial aquifers (Zeqiraj and Beqiraj, 2026, Journal of Contaminant Hydrology) '
+    'and stochastic modelling of flow and transport, and leads an AKKSHI project with Albpetrol; Prof. Beqiraj brings '
+    'hydrogeology and groundwater chemistry; the team of the Environmental Science Center of Qatar University works on '
+    'coastal ecology, shoreline change, waves, coastal water quality and the oceanography of the Arabian Gulf (Backer et '
+    'al., 2026; Al-Ansari et al., 2022).')
 
 
 IMPACT = (
@@ -973,7 +981,9 @@ def main(out):
              'University, 2015; National Incentive Award for Research, Qatar, 2026)'],
             ['Research focus and expertise (500 words)', '[how the research of the NPD relates to the project: seawater intrusion, '
              'monitoring design, stochastic flow and transport]', 'The text of Part 1 of the partner form (about 470 words)'],
-            ['Other grants held (optional)', '[dates, donor, grant name, short description, results]', 'None given'],
+            ['Other grants held (optional)', '2025–: AKKSHI, project leader, "Modelling, simulation and optimisation of formation '
+             'treatment methods to maximise the net profit of the massive carbonate reservoir of the Amonicë oil field", with '
+             'Albpetrol; [budget]; [results so far]', 'None given'],
             ['SPS Acceptance of Funds (NPD only)', 'Upload the signed PDF of CERTAIN-COAST_SPS_MYP_Acceptance_of_Funds.docx '
              '(official NATO template, filled in): signature of the NPD and of a representative of the NPD\'s institution', '—']]
     t = head_repeat(table(doc, ['Fields', 'NPD (Dulian Zeqiraj)', 'PPD (Jassim Al-Khayat)'], pers, [4.4, 6.0, 6.6], size=8.8)); ph_cells(t)
