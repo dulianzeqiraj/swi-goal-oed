@@ -41,9 +41,8 @@ BL = [
     ('p', 'The project protects two sites on the Albanian Adriatic coastal plain: at Durrës, the wellfields that supply '
           'drinking water and the port; near Fier, the landfall of the Trans Adriatic Pipeline (TAP). The demonstration runs '
           'on the groundwater monitoring network of the Albanian Geological Survey (SHGJSH), the end-user, on the coast of '
-          'Durrës and Fushë-Kuqe; the port and the landfall, whose owners have been contacted and are intended '
-          'beneficiaries, are assessed from satellite radar, GNSS and public data, with sensors inside them only if access '
-          'is granted. Both sites stand on low '
+          'Durrës and Fushë-Kuqe, with the Water Resources Management Agency (AMBU), which issues the water-use permits; the '
+          'port and the landfall are assessed from satellite radar, GNSS and public data only. Both sites stand on low '
           'ground near active faults, and at Durrës the land is sinking; the earthquake of 26 November 2019 caused '
           'liquefaction near the coast (Mavroulis, Lekkas and Carydis, 2021). Three hazards threaten these assets, and they '
           'are coupled through two variables, the relative sea level and the water table. Sea level enters the aquifer at its '
@@ -55,9 +54,9 @@ BL = [
     ('cap', 'Table 1. Hazard indicators, thresholds and lead times.'),
     ('table', ['Hazard (assets)', 'Indicator', 'Threshold', 'Lead time, cadence'],
      [['Seawater intrusion (Durrës wellfields)', 'I₁: chloride at the monitoring wells next to each wellfield',
-       'Agreed with the Survey, offered to the utility and AMBU (for example 250 mg/L)', 'Weeks to months; weekly'],
+       'Agreed with the Survey and AMBU (for example 250 mg/L)', 'Weeks to months; weekly'],
       ['Liquefaction (Durrës port; TAP landfall)', 'I₂: liquefaction potential index under the design shaking at the '
-       'current water table', 'Class boundary agreed with the Survey, offered to the port and TAP', 'Daily; recomputed at once after an earthquake'],
+       'current water table', 'Class boundary of the design codes, agreed with the Survey', 'Daily; recomputed at once after an earthquake'],
       ['Extreme water level (all assets)', 'I₃: total water level at each asset', 'Design or operational level of '
        'each asset', 'Hours to days for storms; return levels yearly']],
      [4.0, 5.4, 4.6, 3.4], 8.5),
@@ -103,7 +102,7 @@ BL = [
           'optimality gap of 18%; 90% forecast intervals covered 88–93% of outcomes after correction and 49–62% without, and '
           'corrected heads were within 2.9 cm root-mean-square against 7.6 cm raw.'),
     ('p', "Near the port and the TAP landfall, T4.2 places corner reflectors, a GNSS station and a seismic station on "
-          "public land; sensors inside these sites are added only if access is granted. Ambient seismic noise tracks the water table (Clements and Denolle, 2018), also "
+          "public land. Ambient seismic noise tracks the water table (Clements and Denolle, 2018), also "
           "on unused telecommunication fibre (Rodríguez Tribaldos and Ajo-Franklin, 2021); once calibrated against "
           "piezometers (T4.4), velocity changes measure the water table between wells, also near the port and the landfall, and a "
           "drop after an earthquake measures the softening of the ground."),
@@ -199,7 +198,7 @@ BL = [
 
     ('h', '5. Certified alarms (WP3)'),
     ('h2', '5.1 Alarm rule, calibration under shift and beyond the record (T3.1–T3.2)'),
-    ('p', 'Thresholds $\\tau_k$ and tolerable miss rates $\\alpha_k$ are agreed with the Survey (T3.1), and with the utility, the port and the pipeline operator if they take part. Alarm $k$ fires when '
+    ('p', 'Thresholds $\\tau_k$ and tolerable miss rates $\\alpha_k$ are agreed with the Survey and AMBU (T3.1). Alarm $k$ fires when '
           'the forecast at lead time $L_k$ comes within a margin $m_k$ of its threshold. The margin adds the certified copy '
           'error to a forecast error $\\gamma_k$ that rises after a miss and falls slightly otherwise; with a constant step '
           '$\\lambda$ the long-run miss rate stays within $C_k/(\\lambda T)$ of its target for any sequence of data (Gibbs and '
@@ -257,10 +256,10 @@ BL = [
           'with the Survey (T5.4) remeasures heads, chloride, GNSS and seismic velocity within days of a strong '
           'earthquake or storm, updates the model and recomputes the alarms and the window.'),
     ('h2', '6.1 The effect of pumping without the hidden drought demand (T5.3)'),
-    ('p', 'In droughts the utility pumps more while recharge falls, so a hidden cause drives both the pumping and the '
+    ('p', 'In droughts the wellfields pump more while recharge falls, so a hidden cause drives both the pumping and the '
           'salinity, and substitutes for hidden confounders inferred from the treatment history (Bica, Alaa and van der '
           'Schaar, 2020) can miss it. CERTAIN-COAST measures the confounding path instead: the heads, after the drawdown '
-          'measured in the pumping tests is added back, read the recharge, and a calibrated physics check rejects any '
+          'estimated from the abstraction records is added back, read the recharge, and a calibrated physics check rejects any '
           'substitute that misses a confounder before an effect is reported. In the preparatory test the bias of the summed '
           'well effects was 0.59 unadjusted, 0.56 with a history substitute and 0.00 with the heads; the check had a size of '
           '6% and a power of 99–100%. On the calibrated chloride model of Fushë-Kuqe, 40% less recharge would grow the '
@@ -296,7 +295,8 @@ BL = [
     ('h2', '6.3 Safe pumping tests chosen for the years they add (T5.3)'),
     ('p', 'Routine pumping keeps the water table in a narrow band, so the records say little about how chloride responds '
           'near the onset of intrusion, which decides when the window closes. Short pumping and dewatering tests, each '
-          'approved by the utility, approach that onset safely. The response is linear in unknown coefficients of hinge '
+          'approved by the operator of the wells and by AMBU, would approach that onset safely; within the project they are '
+          'planned and checked on the model, and run only where the well operator agrees. The response is linear in unknown coefficients of hinge '
           'features of the head, with a confidence set that holds in every week (Abbasi-Yadkori, Pál and Szepesvári, 2011). '
           'A test is chosen for the years it adds to the certified closing year, as in active identification with '
           'guarantees (Mania, Jordan and Recht, 2022) but for the decision, and only if the upper confidence bound of '
@@ -309,7 +309,7 @@ BL = [
     ('h2', '6.4 Pumping rule and the value of the warning for each user (T5.3, D5.1)'),
     ('p', 'Within the window, the pumping and drought rule supplies as much water as possible; it is checked for a sudden '
           'pumping stop, after which the water table recovers and the factor of safety falls, computed with the fast copy, '
-          'confirmed with the full model, prepared with the Survey and offered to the utility and AMBU. Because each miss rate is certified, the value '
+          'confirmed with the full model and prepared with the Survey and AMBU for the water-use permits. Because each miss rate is certified, the value '
           'of a warning to each user in the cost-loss model (Murphy, 1977; Richardson, 2000) has a guaranteed lower bound '
           'for every cost-loss ratio agreed in T3.1, reported in D5.1.'),
 
@@ -335,7 +335,7 @@ BL = [
     ('p', 'The bound holds whatever the true source is. The prior of experts and users is used only to choose which '
           'tracers to buy, by the cost of the decision they change (T4.1). Monthly samples multiply the e-values, so the set '
           'can be read at every steering meeting and acted on at any time without losing the guarantee (Ville, 1939). A '
-          'ledger shows what not knowing the source costs the utility, the farmers and the wetland. In the preparatory test '
+          'ledger shows what not knowing the source costs the water supply, the farmers and the wetland. In the preparatory test '
           'the rule kept every source at or below 6.9% against a 10% budget, at €3.31 million. Pumping safe for all '
           'sources without tests cost €4.16 million, and €2.87 million if the source were known. Bayesian rules after the '
           'same tests reached 12.3% for the sources the prior did not favour. Monthly updates dropped the true source in '
@@ -362,9 +362,9 @@ BL = [
        'between samples included, under the pre-registered protocol', 'Margin widened: the miss target is kept and the '
        'extra false alarms are reported'],
       ['Live operation (WP5; MS6, Month 34)', 'Twelve months of logged bulletins; no e-process reaches 1/β; safe window '
-       'reported for each asset; every pumping test below its chloride test limit; the plausible chloride sources and the '
+       'reported for each asset with a plan of safe pumping tests and the years it would add; the plausible chloride sources and the '
        'pumping in force published every month', 'If no strong event occurs, '
-       'verification rests on back-testing and storylines; smaller and shorter tests, or the window from routine records'],
+       'verification rests on back-testing and storylines; the window from routine records and the post-earthquake relaxation'],
       ['Hand-over (WP6, WP7; MS7, Month 36)', 'An operating procedure for its network agreed with the Survey; trained '
        'Survey staff run the bulletins for its wells in Months 34–36 with the project team only in support; at least four '
        'Survey staff trained; agreement on keeping and maintaining the sensors '
@@ -423,8 +423,8 @@ BL = [
           'the groundwater monitoring network of the Albanian Geological Survey, which can then run the system; at the port '
           'and the landfall the warnings run on satellite, GNSS and public data.'),
     ('p', '**Software and data.** The model, fast copies, alarms, safe window, test planner and network design are released '
-          'under an open licence with containers and tests (D6.1). Data of the Survey and of any asset owner are used under '
-          'the access agreements of T7.2 and the security rules of each owner; derived products, the bulletin log and the verification ledger are '
+          'under an open licence with containers and tests (D6.1). Data of the Survey and AMBU are used under '
+          'the access agreements of T7.2; derived products, the bulletin log and the verification ledger are '
           'released openly following FAIR principles, and the preparatory tests are scripted and released with the software.'),
     ('refs', None),
 ]
