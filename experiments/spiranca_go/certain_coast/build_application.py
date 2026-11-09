@@ -147,8 +147,8 @@ HOW = (
     'year and safe pumping tests that would sharpen it, and prepares a pumping rule with the Survey and AMBU. WP6 trains early-career '
     'researchers and Survey staff, releases open software and transfers the method to a partner coast. WP7 manages data '
     'access, security classification, risks and reporting.\n'
-    'Collaboration. The Albanian team leads WP1–WP5 and WP7; the partner-country team leads WP6, a transfer study on '
-    'its own coast and a user-side review of the bulletins. Early-career researchers of both countries work across '
+    'Collaboration. The Albanian team leads WP1–WP5 and WP7; Qatar University leads WP6, a transfer study on '
+    'the east coast of Qatar and a user-side review of the bulletins. Early-career researchers of both countries work across '
     'work packages, with two-month exchanges. The Survey agrees the thresholds and reviews the '
     'bulletins; a steering committee with it meets every six months, and each gate has a named fallback.')
 
@@ -551,7 +551,7 @@ IMPACT = (
     'with its running cost of about €10,900 per year set out in an agreement.\n'
     '• Open software and data with a DOI, installed and reproduced by a group outside the consortium; at least six '
     'open-access papers; an operating procedure agreed with the Survey; a policy brief for the national authorities.\n'
-    '• The method tested on a second coast in the partner country and ready for other subsiding coasts of the Adriatic '
+    '• The method tested on the east coast of Qatar and ready for other subsiding coasts of the Adriatic '
     'and the Mediterranean.\n'
     'For NATO, the result is a tested capability for three baseline requirements of resilience at an Allied site, and '
     'a worked example of artificial intelligence used in a security decision chain with testing, evaluation, '
@@ -669,9 +669,9 @@ WORKPLAN = (
     'mitigation: their uncertainty is carried into the effect as a stated bias band. Risk: the true source of the '
     'chloride is not among those considered, or mixes two of them; mitigation: a goodness-of-fit check at every '
     'update, mixtures admitted as hypotheses, and the alternative supply as fallback. Milestone: MS6 (Month 34).\n'
-    'WP6, Training, transfer and dissemination (Months 1–36; partner-country team): early-career researchers and a '
+    'WP6, Training, transfer and dissemination (Months 1–36; Qatar University team): early-career researchers and a '
     'training school (T6.1), training of Survey staff and of the intended users (T6.2), open release (T6.3), transfer to '
-    'a second coast (T6.4). Risk: users rely on the bulletins alone, or trained Survey staff leave; mitigation: the '
+    'the east coast of Qatar (T6.4). Risk: users rely on the bulletins alone, or trained Survey staff leave; mitigation: the '
     "system stays advisory beside the users' own procedures, the training explains what a certified miss rate means, "
     'and at least four Survey staff are trained. Milestone: MS7 (Month 36), hand-over to the Survey: an '
     'operating procedure for its network agreed with the Survey, the bulletins of Months 34–36 for its wells run by '
@@ -697,8 +697,8 @@ AFTER = (
     'warnings in practice.\n'
     'Next steps: make the warnings for the wellfields, the port and the landfall available through the Survey, AMBU and '
     'the national authorities; extend the warnings to the other '
-    'wellfields and coastal assets of Albania; offer the open software to coasts of Allies and partners (tested on a second '
-    'coast in the partner country during the project); seek national and European funding to keep the network and the '
+    'wellfields and coastal assets of Albania; offer the open software to coasts of Allies and partners (tested on the east '
+    'coast of Qatar during the project); seek national and European funding to keep the network and the '
     'verification ledger running.\n'
     'Role of the end-users. The Albanian Geological Survey (SHGJSH) is the end-user: it gives access to the wells of its '
     'monitoring network and to its records, contributes staff time in kind to site and install the sensors, agrees the '
@@ -892,12 +892,12 @@ def main(out):
             'internal regulation on administration, finance and accounting, upload that PDF instead', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready'],
-           ['Additional files (optional): technical annex, two notes, a report and the CV of the NPD', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (65 pages, contents and bookmarks: the technical annex, 10 pages, with methods, preparatory tests, gates and fallbacks and the nine new contributions; the technical note on the assembled system and the placement of the wells, 22 pages; the PËRTEJ-GO theory note on the inland boundary of the model, 16 pages; the TRONDITJA-GO implementation report on the earthquake in the aquifer, 14 pages; the CV of the NPD, 2 pages, [fill its yellow fields first]). The CV of the PPD is added when there is one (build_additional_files.py)', '[CV to complete]']]
+           ['Additional files (optional): technical annex, two notes, a report and the CVs of the two Project Directors', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (67 pages, contents and bookmarks: the technical annex, 10 pages, with methods, preparatory tests, gates and fallbacks and the nine new contributions; the technical note on the assembled system and the placement of the wells, 22 pages; the PËRTEJ-GO theory note on the inland boundary of the model, 16 pages; the TRONDITJA-GO implementation report on the earthquake in the aquifer, 14 pages; the CV of the NPD, 2 pages, [fill its yellow fields first]; the CV of the PPD, 2 pages, from the partner form of Qatar University) (build_additional_files.py)', '[CV of the NPD to complete]']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
-    put(q, '**Still missing before you can submit:** [a partner-country Project Director, employed and resident in an eligible '
-           'partner country] (without one the application is not eligible); [confirmation of the Albanian institution of the '
+    put(q, '**Still missing before you can submit:** [the signatures of the NPD and of UPT on the Agreement for Joint '
+           'Research that Qatar University signed on 5 November]; [confirmation of the Albanian institution of the '
            "NPD]; [the signed letter of the Albanian Geological Survey (SHGJSH)]; [AMBU's letter, or else delete AMBU from "
            'the fields Relevance, Impact, Data exploitation, Sustainability, Project participants, Non-NATO funding and '
            'End-users].', size=10.5)
@@ -919,9 +919,9 @@ def main(out):
 
     # 2 Eligibility
     heading(doc, '2. Eligibility', 14, before=10)
-    for nm, a in [('Are the Co-Directors (including NPD and PPD) affiliated with a governmental, academic, or other non-profit institution?', 'Yes. [Both directors must be employed by a university, public institute or other non-profit body.]'),
-                  ('Do any of the Co-Directors (including NPD and PPD) hold other ongoing SPS grants?', '[No] (an individual may hold only one SPS grant at a time).'),
-                  ('Is the application developed jointly by one or more Co-Directors from NATO countries and one or more from eligible NATO partner countries?', 'Yes. [Requires the partner-country Project Director.] Then click "Check Eligibility".')]:
+    for nm, a in [('Are the Co-Directors (including NPD and PPD) affiliated with a governmental, academic, or other non-profit institution?', 'Yes. The NPD is employed by the Polytechnic University of Tirana and the PPD by Qatar University (Environmental Science Center), both public universities.'),
+                  ('Do any of the Co-Directors (including NPD and PPD) hold other ongoing SPS grants?', 'No. The PPD has confirmed that he holds no ongoing SPS grant; [NPD: confirm] (an individual may hold only one SPS grant at a time).'),
+                  ('Is the application developed jointly by one or more Co-Directors from NATO countries and one or more from eligible NATO partner countries?', 'Yes: the NPD in Albania (NATO member) and the PPD in Qatar (eligible NATO partner country, Istanbul Cooperation Initiative). Then click "Check Eligibility".')]:
         field(doc, nm); answer(doc, a)
 
     # 3 Activity info
@@ -948,17 +948,35 @@ def main(out):
 
     # 4 NPD and PPD
     heading(doc, '4. NPD & PPD', 14, before=10)
-    p = para(doc, 4); put(p, 'Fill these fields directly on the platform, once for the NATO-country Project Director (NPD) and once for the partner-country Project Director (PPD):')
-    pers = [['First name, family name, date of birth, sex, title', '[personal data]'],
-            ['Nationality (and other nationalities)', '[NPD: e.g. Albania; PPD: a NATO or eligible partner country]'],
-            ['Telephone, mobile, personal and work e-mail; online profile (optional)', '[contact data]'],
-            ['Current job title; name, country and postal address of the institution', '[NPD: institution in a NATO country; PPD: institution in an eligible partner country]'],
-            ['Employment history, education (three rows each)', '[dates, positions, employers; dates, degrees, universities]'],
-            ['Publications and honours (optional, up to three each)', '[recent and relevant to the project]'],
-            ['Research focus and expertise (500 words)', '[how the director\'s research relates to the project: e.g. seawater intrusion and groundwater modelling, coastal geodesy, geotechnics, statistics]'],
-            ['Other grants held (optional)', '[dates, donor, grant name, short description, results]'],
-            ['SPS Acceptance of Funds (NPD only)', 'Upload the signed PDF of CERTAIN-COAST_SPS_MYP_Acceptance_of_Funds.docx (official NATO template, filled in): signature of the NPD and of a representative of the NPD\'s institution']]
-    t = head_repeat(table(doc, ['Fields', 'What to enter'], pers, [7.2, 9.8], size=9.3)); ph_cells(t)
+    p = para(doc, 4); put(p, 'Fill these fields directly on the platform, once for the NATO-country Project Director (NPD) and once for '
+                         'the partner-country Project Director (PPD). For the PPD, Part 1 of the revised partner form of 9 November '
+                         '(qatar/1_nga_Katari/2026-11-09_Partner_Form_RISHIKUAR_ekipi_i_ri.docx) uses exactly these fields: copy it '
+                         'field by field; his personal and contact data are only there.')
+    pers = [['First name, family name, date of birth, sex, title', '[personal data]', 'Jassim Al-Khayat, Prof.; date of birth and sex: [from the partner form]'],
+            ['Nationality (and other nationalities)', 'Albanian', 'Qatari'],
+            ['Telephone, mobile, personal and work e-mail; online profile (optional)', '[contact data]', '[from the partner form]'],
+            ['Current job title; name, country and postal address of the institution',
+             'Associate Professor; Faculty of Geology and Mining, Polytechnic University of Tirana, Albania; [postal address]',
+             'Research Professor and Manager of the research vessel Janan; Environmental Science Center, Qatar University, '
+             'P.O. Box 2713, Doha, Qatar'],
+            ['Employment history (three rows)', '2008–: Faculty of Geology and Mining, UPT (lecturer, then associate professor); '
+             '2006–2008: Albanian Geological Survey; 1996–2006: Alpetrol (as in the CV of the NPD)',
+             'Feb 2021–: Research Professor and Manager of RV Janan, ESC, Qatar University; Oct 2007–Feb 2021: Associate Professor '
+             'and Coordinator of the Marine Sciences Program, Qatar University; Sep 1996–Oct 2007: Assistant, then Associate '
+             'Professor and Head of the Marine Sciences Department, Qatar University'],
+            ['Education (three rows)', '[doctorate: year, university]; 1991–1996: university diploma, Faculty of Geology and Mining, '
+             'University of Tirana',
+             '1993–1996: PhD Marine Biology, University of Wales, UK; 1991–1992: MSc Marine Biology and Fisheries, University of '
+             'Aberdeen, UK; 1979–1983: BSc Marine Science/Geology, Qatar University'],
+            ['Publications and honours (optional, up to three each)', 'The first three publications of the CV of the NPD',
+             'The three publications and two honours of Part 1 of the partner form (Outstanding Teaching Award, Qatar '
+             'University, 2015; National Incentive Award for Research, Qatar, 2026)'],
+            ['Research focus and expertise (500 words)', '[how the research of the NPD relates to the project: seawater intrusion, '
+             'monitoring design, stochastic flow and transport]', 'The text of Part 1 of the partner form (about 470 words)'],
+            ['Other grants held (optional)', '[dates, donor, grant name, short description, results]', 'None given'],
+            ['SPS Acceptance of Funds (NPD only)', 'Upload the signed PDF of CERTAIN-COAST_SPS_MYP_Acceptance_of_Funds.docx '
+             '(official NATO template, filled in): signature of the NPD and of a representative of the NPD\'s institution', '—']]
+    t = head_repeat(table(doc, ['Fields', 'NPD (Dulian Zeqiraj)', 'PPD (Jassim Al-Khayat)'], pers, [4.4, 6.0, 6.6], size=8.8)); ph_cells(t)
 
     # 5 Co-directors
     heading(doc, '5. Co-Directors (optional)', 14, before=10)
@@ -971,7 +989,10 @@ def main(out):
     heading(doc, '6. Project Participants', 14, before=10)
     p = para(doc, 4); put(p, 'Roles of Co-Directors and Participants (add rows as needed; all must be nationals of NATO or eligible partner countries):')
     part = [['Dulian', 'Zeqiraj', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'NATO-country Project Director', '[Albanian]', 'Coordination; WP1 coastal motion; WP4 monitoring network; WP5 live operation; WP7 management', '[30%]'],
-            ['[First name]', '[Family name]', '[PPD institution]', 'Partner-country Project Director', '[nationality]', 'WP6 training, transfer and dissemination; transfer study on a partner-country coast; user-side review of the bulletins', '[20%]'],
+            ['Jassim', 'Al-Khayat', 'Environmental Science Center, Qatar University', 'Partner-country Project Director (Prof.)', 'Qatari', 'WP6 training, transfer and dissemination; transfer study on the east coast of Qatar (site, local knowledge, public data); regional workshop; user-side review of the bulletins', '20%'],
+            ['Fares', 'AlMomani', 'Environmental Science Center, Qatar University', 'Research Professor; Acting Director of the Center', 'Canadian', 'Water quality, water resource management and groundwater protection at the transfer site (T6.4)', '5%'],
+            ['Oguz', 'Yigiterhan', 'Environmental Science Center, Qatar University', 'Research Associate Professor', 'Turkish', 'Sampling of seawater, sediment, biota and aeolian dust; methods, data curation and dissemination (WP6)', '5%'],
+            ['Bruno', 'Welter Giraldes', 'Environmental Science Center, Qatar University', 'Research Associate Professor', 'Portuguese', 'Data processing and management, data curation and publications (WP6)', '5%'],
             ['[First name]', '[Family name]', '[Institute of Geosciences, UPT]', 'Researcher', '[Albanian]', 'Seismic, GNSS and hydrometeorological data; WP1, WP4', '[15%]'],
             ['Arjan', 'Beqiraj', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Senior researcher (Prof. Dr.)', '[Albanian]', 'Hydrogeology and groundwater chemistry: tracer campaign and sources of the chloride (T4.1, T5.3); aquifer properties for the coupled model (T2.3)', '[10%]'],
             ['To be recruited', '(4 people)', 'NPD and PPD institutions', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
@@ -1108,8 +1129,8 @@ def main(out):
     for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
                   ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', '**Yes** (recommended): upload the signed agreement as one PDF. Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx (NATO sample, Option B, open release of software and data, security release check), with a one-page waiver as alternative. The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete proposal.'),
-                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (65 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (10 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions, consistent with this form), the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values), the PËRTEJ-GO theory note on the inland boundary of the model (16 pages; four propositions with proofs, synthetic tests) the TRONDITJA-GO implementation report on the earthquake in the aquifer (14 pages; code-based checks, synthetic tests) and the CV of the NATO-country Project Director (2 pages). [When there is a partner-country Project Director, his or her CV is added at the end and the contents page is rebuilt.]'),
-                  ('Additional information (optional)', 'The additional files open with the technical annex, which summarises the methods and their preparatory tests, followed by a technical note on the coupled model and the placement of recharge and supply wells by a theory note on the inland boundary of that model, learned from piezometers, and by an implementation report on the earthquake in the aquifer, and close with the CV of the NATO-country Project Director; the full methodology, state of the art, work packages, risk assessment and data management plan are available on request.')]:
+                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (67 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (10 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions, consistent with this form), the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values), the PËRTEJ-GO theory note on the inland boundary of the model (16 pages; four propositions with proofs, synthetic tests) the TRONDITJA-GO implementation report on the earthquake in the aquifer (14 pages; code-based checks, synthetic tests) and the CVs of the NATO-country and partner-country Project Directors (2 pages each).'),
+                  ('Additional information (optional)', 'The additional files open with the technical annex, which summarises the methods and their preparatory tests, followed by a technical note on the coupled model and the placement of recharge and supply wells by a theory note on the inland boundary of that model, learned from piezometers, and by an implementation report on the earthquake in the aquifer, and close with the CVs of the two Project Directors; the full methodology, state of the art, work packages, risk assessment and data management plan are available on request.')]:
         field(doc, nm); answer(doc, a)
 
     doc.save(out)

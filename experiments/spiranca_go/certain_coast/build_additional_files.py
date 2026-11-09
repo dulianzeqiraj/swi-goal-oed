@@ -2,7 +2,7 @@
 form. It holds a contents page, the technical annex, the technical note on the assembled system of equations and the
 placement of recharge and supply wells, the PERTEJ-GO theory note on the inland boundary, the TRONDITJA-GO
 implementation report on the earthquake in the aquifer and the CV of the NATO-country Project Director (build_cv.py
---npd; the CV of the partner-country Project Director is added when there is one), with PDF bookmarks. New parts go
+--npd) and the CV of the partner-country Project Director (build_cv.py --ppd), with PDF bookmarks. New parts go
 at the end, because the annex refers to the notes by their position. The form asks for one PDF with a table of contents at the start when several documents are uploaded.
 
 usage: python build_additional_files.py OUT.pdf
@@ -42,6 +42,10 @@ PARTS = [
      'Mining, Polytechnic University of Tirana)',
      'CV of the NATO-country Project Director',
      os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_CV_NPD_Zeqiraj.docx')),
+    ('Curriculum vitae of the partner-country Project Director, Prof. Jassim Al-Khayat (Environmental Science Center, '
+     'Qatar University)',
+     'CV of the partner-country Project Director',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_CV_PPD_Al-Khayat.docx')),
 ]
 
 
@@ -94,8 +98,8 @@ def contents_pdf(rows, outdir):
          'is background on the coupled model of work package 2 and on the placement of recharge and supply wells. The '
          'theory note gives the proofs and the checks behind the inland boundary of that model (Section 4.3 of the '
          'annex), and the implementation report the code and the checks behind the earthquake in the aquifer (Section '
-         '4.4). The tests are synthetic and their numbers illustrative, not results at Durrës. The CV of the '
-         'NATO-country Project Director closes the files.', 10,
+         '4.4). The tests are synthetic and their numbers illustrative, not results at Durrës. The CVs of the '
+         'two Project Directors close the files.', 10,
          False, '5B6672', 6, italic=True)
     path = os.path.join(outdir, 'contents.docx')
     doc.save(path)

@@ -7,7 +7,9 @@ templates with grey guidance lines to delete before submission. Roles follow the
 
 usage: python build_cv.py OUT.docx             (all CVs and templates, with the cover page)
        python build_cv.py --npd OUT.docx       (the CV of the NATO-country Project Director alone, two pages, for the
-                                                Additional files PDF)"""
+                                                Additional files PDF)
+       python build_cv.py --ppd OUT.docx       (the CV of the partner-country Project Director alone, from the partner
+                                                form of Qatar University)"""
 import os
 import sys
 
@@ -38,7 +40,7 @@ SOURCES = [
 TEAM = [
     ['Dulian Zeqiraj', 'NATO-country Project Director', 'Albania; Faculty of Geology and Mining, Polytechnic University of Tirana', 'Seawater intrusion, monitoring design, stochastic flow and transport modelling', 'Coordination; WP1–WP5, WP7'],
     ['Arjan Beqiraj', 'Senior researcher (Prof. Dr.)', 'Albania; Faculty of Geology and Mining, Polytechnic University of Tirana', 'Hydrogeology, groundwater chemistry', 'T2.3, T4.1, T5.3'],
-    ['[Name]', 'Partner-country Project Director', '[eligible partner country; institution]', '[expertise]', 'WP6; transfer study'],
+    ['Jassim Al-Khayat', 'Partner-country Project Director', 'Qatar; Environmental Science Center, Qatar University', 'Coastal and marine ecology, coastal monitoring', 'WP6; transfer study on the east coast of Qatar'],
     ['[Name]', 'Additional NATO co-director (optional)', '[NATO member; institution]', '[expertise]', 'WP1; T4.4'],
     ['[Names]', 'Early-career researchers (at least 6)', '[institutions]', '[fields]', 'WP1–WP5'],
 ]
@@ -254,11 +256,15 @@ def cv_filled(doc, d, role, role_text):
     sec(doc, '5. Selected publications (peer-reviewed, with DOI)')
     for i, (t, u) in enumerate(d['pubs'], start=1):
         p = para(doc, 1.5, 0.5); run(p, f'{i}. ', size=sz); ph(p, t + ' ', size=sz); link(p, u, u, sz)
-    p = para(doc, 1.5, before=2); run(p, 'Preprints (2026):', bold=True, size=sz)
-    for t, u in d['preprints']:
-        p = para(doc, 1.5, 0.5); run(p, '• ', size=sz); ph(p, t + ' ', size=sz); link(p, u, u, sz)
+    if d.get('preprints'):
+        p = para(doc, 1.5, before=2); run(p, 'Preprints (2026):', bold=True, size=sz)
+        for t, u in d['preprints']:
+            p = para(doc, 1.5, 0.5); run(p, '• ', size=sz); ph(p, t + ' ', size=sz); link(p, u, u, sz)
     sec(doc, '6. Projects and grants')
-    ph_table(doc, ['Years', 'Project', 'Funder', 'Role'], d['projects'], [2.4, 6.6, 3.8, 3.8], size=sz)
+    if d.get('projects'):
+        ph_table(doc, ['Years', 'Project', 'Funder', 'Role'], d['projects'], [2.4, 6.6, 3.8, 3.8], size=sz)
+    else:
+        bullets_ph(doc, d['projects_bullets'], size=sz + 0.3)
     p = para(doc, 2, before=2); run(p, 'Other NATO SPS grants currently held: ', bold=True, size=sz); ph(p, d['sps'], size=sz)
     sec(doc, '7. Work with end-users and in the field')
     bullets_ph(doc, d['users'], size=sz + 0.3)
@@ -270,19 +276,104 @@ def cv_filled(doc, d, role, role_text):
     bullets_ph(doc, d['other'], size=sz + 0.3)
 
 
-def main_npd(out):
+def main_one(out, d, role, role_text):
     doc = Document()
     s = doc.sections[0]
     s.page_width, s.page_height = Cm(21.0), Cm(29.7)
     s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(1.5)
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(10)
-    cv_filled(doc, NPD, 'NATO-country Project Director', NPD_ROLE)
+    cv_filled(doc, d, role, role_text)
     doc.save(out)
     print('saved', out)
-PPD_ROLE = ('As partner-country Project Director, leads training, transfer and dissemination (WP6): the transfer study on a '
-            'coast of [eligible partner country], carried out with the project\'s tools and the Albanian team, the two-month '
-            'exchanges of the partner-country early-career researchers to the Durrës coast, a regional workshop, and a '
-            'user-side review of the bulletins and operating procedures.')
+
+
+def main_npd(out):
+    main_one(out, NPD, 'NATO-country Project Director', NPD_ROLE)
+
+
+def main_ppd(out):
+    main_one(out, PPD_CV, 'Partner-country Project Director', PPD_ROLE)
+PPD_ROLE = ('As partner-country Project Director, leads training, transfer and dissemination (WP6) for the team of the '
+            'Environmental Science Center of Qatar University: the transfer study on the east coast of Qatar (selection and '
+            'characterisation of the site, local environmental knowledge and public data, and the interpretation of the '
+            'outputs with the Tirana team), the two-month exchanges of early-career researchers to the Durrës coast, a '
+            'regional workshop, and a user-side review of the bulletins and operating procedures.')
+
+# ---------------------------------------------------------------------- the CV of the partner-country Project Director
+# Source: Part 1 and Part 4 of the partner form returned by Qatar University on 9 November 2026 (professional data only;
+# date of birth and contact data stay out of the repository). The DOI of the 2025 review was checked in Crossref.
+PPD_CV = dict(
+    name='Jassim Al-Khayat',
+    details=[
+        ['Name', 'Prof. Jassim Abdulla Al-Khayat'],
+        ['Title and position', 'Research Professor and Manager of the research vessel Janan'],
+        ['Institution', 'Environmental Science Center, Qatar University, Doha'],
+        ['Country', 'Qatar (NATO partner country, Istanbul Cooperation Initiative)'],
+        ['Nationality', 'Qatari'],
+    ],
+    education=[
+        ['1993–1996', 'PhD, Marine Biology', 'University of Wales, United Kingdom', 'Marine biology'],
+        ['1991–1992', 'MSc, Marine Biology and Fisheries', 'University of Aberdeen, United Kingdom', 'Marine biology and fisheries'],
+        ['1979–1983', 'BSc, Marine Science / Geology', 'Qatar University', 'Marine science and geology'],
+    ],
+    career=[
+        ['2021–', 'Research Professor and Manager of the research vessel Janan', 'Environmental Science Center, Qatar University'],
+        ['2007–2021', 'Associate Professor and Coordinator of the Marine Sciences Program; Research Associate Professor',
+         'Qatar University'],
+        ['1996–2007', 'Assistant Professor, then Associate Professor and Head of the Marine Sciences Department',
+         'Qatar University'],
+    ],
+    expertise=[
+        '**Coastal and marine ecology:** mangroves, intertidal habitats, marine biodiversity and benthic communities; '
+        'mangrove loss, restoration and adaptation to climate change.',
+        '**Coastal sediments and carbon:** carbon storage and cycling in the sabkhas and mudflats of Qatar; microbial '
+        'processes in carbonate mineral formation; carbon mineralisation in sabkhas.',
+        '**Coastal pollution and monitoring:** oil residues, metals in mangrove sediments, microplastics in beach sediments; '
+        'satellite-based assessment of suspended sediments and shorelines.',
+        '**Field research and leadership:** head of the Marine Sciences Department, coordinator of the marine science '
+        'programmes and manager of the research vessel Janan.',
+    ],
+    pubs=[
+        ('Haseeba, K. P., Vethamony, P., Veerasingam, S., Aboobacker, V. M., **Al-Khayat, J. A.** (2025). A comprehensive '
+         'review of oil residues in the world oceans: types, characteristics, sources and distribution. Marine Pollution '
+         'Bulletin 217, 118106.', 'https://doi.org/10.1016/j.marpolbul.2025.118106'),
+        ('Backer, S. A., Sankaran, R., Maruthavanan, R., **Al-Khayat, J.**, Vethamony, P., et al. (2026). The shoreline '
+         'shifts: a comprehensive review of change analysis focusing Arabian Gulf within global context. Regional Studies '
+         'in Marine Science 102, 105433.', 'https://doi.org/10.1016/j.rsma.2026.105433'),
+        ('Ibrahim, S. B. M., Sankaran, R., Backer, S. J., Al Absi, R., Mohammed, A. V., **Al-Khayat, J. A.**, et al. (2026). '
+         'Evaluation of mangrove ecosystem dynamics in the arid environment: for restoration on the Qatar coast using '
+         'satellite data and hyperspectral imaging. Marine Pollution Bulletin 231, 119961.',
+         'https://doi.org/10.1016/j.marpolbul.2026.119961'),
+        ('Backer, S. J., Sankaran, R., **Al-Khayat, J. A.**, Vethamony, P., Rahman, M. M., Aravinth, J. (2026). Multi-decadal '
+         'Landsat monitoring of shoreline dynamics in an enclosed arid gulf: comparison of 3-year and 10-year sampling '
+         'designs. IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing.',
+         'https://doi.org/10.1109/JSTARS.2026.3747055'),
+        ('**Al-Khayat, J.**, Veerasingam, S., Aboobacker, V. M., Vethamony, P. (2021). Hitchhiking of encrusting organisms on '
+         'floating marine debris along the west coast of Qatar, Arabian/Persian Gulf. Science of the Total Environment 776, '
+         '145985.', 'https://doi.org/10.1016/j.scitotenv.2021.145985'),
+        ('**Al-Khayat, J. A.**, Vethamony, P., Nanajkar, M. (2021). Molluscan diversity influenced by mangrove habitat in '
+         'the Khors of Qatar. Wetlands 41, 45.', 'https://doi.org/10.1007/s13157-021-01441-6'),
+    ],
+    preprints=[],
+    projects=None,
+    projects_bullets=[
+        'Leads a five-year mangrove restoration project that assesses its environmental and socio-economic benefits.',
+        'Has led a project on carbon mineralisation in sabkhas (microbial mats, minerals and carbon sequestration).',
+        'Has led marine turtle conservation and monitoring programmes, and collaborative research with international '
+        'institutions.',
+    ],
+    sps='None',
+    users=[
+        'Manager of the research vessel Janan of Qatar University: field campaigns, research teams and institutional '
+        'collaboration.',
+        'Environmental monitoring, conservation and habitat restoration on the coasts of Qatar.',
+    ],
+    teaching=[
+        'Head of the Marine Sciences Department (to 2007) and Coordinator of the Marine Sciences Program (2007–2021), '
+        'Qatar University.',
+    ],
+    other=['Honours: Outstanding Teaching Award, Qatar University (2015); National Incentive Award for Research, Qatar (2026).'],
+)
 NCD_ROLE = ('As additional NATO co-director, supervises InSAR time-series processing and the separation of elastic and inelastic '
             'compaction (WP1) and the use of ambient seismic noise as a water-table gauge (T4.4); hosts early-career researchers '
             'for training visits.')
@@ -344,7 +435,7 @@ def main(out):
     page_break(doc)
     cv_filled(doc, NPD, 'NATO-country Project Director', NPD_ROLE)
     page_break(doc)
-    cv(doc, '[Name of the partner-country Project Director]', 'Partner-country Project Director', PPD_DETAILS, PPD_GUIDE, PPD_ROLE)
+    cv_filled(doc, PPD_CV, 'Partner-country Project Director', PPD_ROLE)
     page_break(doc)
     cv(doc, '[Name of the additional NATO co-director]', 'Additional NATO co-director (optional)', NCD_DETAILS, NCD_GUIDE, NCD_ROLE)
     page_break(doc)
@@ -356,5 +447,7 @@ def main(out):
 if __name__ == '__main__':
     if len(sys.argv) > 2 and sys.argv[1] == '--npd':
         main_npd(sys.argv[2])
+    elif len(sys.argv) > 2 and sys.argv[1] == '--ppd':
+        main_ppd(sys.argv[2])
     else:
         main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_CVs.docx')
