@@ -151,7 +151,8 @@ BL = [
           'periods the data do not reach. In the test, six compartments reproduced the full aquifer to 7.8 mm '
           'root-mean-square over 20 years (best general-head boundary: 148 mm). Learned from the two piezometers while '
           'the pumping varied, the boundary predicted an unseen drought with doubled pumping to 6 mm (372 mm), and the '
-          'fresh water lost to the sea-level rise within 4%.'),
+          'fresh water lost to the sea-level rise within 4%. The proofs and the six checks are in the PËRTEJ-GO theory '
+          'note, the third document of these files.'),
     ('h2', '4.4 A fast copy with a certified error (T2.4)'),
     ('p', 'Warnings need thousands of model runs a day. A neural operator (Li et al., 2021; Lu et al., 2021) is trained on '
           'runs of the coupled model, and its error on each forecast is bounded conformally (Ma et al., 2024), with the '

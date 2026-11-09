@@ -1,7 +1,7 @@
 """CERTAIN-COAST (NATO SPS proposal): the single PDF for the "Additional files (optional)" upload of the application
-form. It holds a contents page, the technical annex and the technical note on the assembled system of equations and the
-placement of recharge and supply wells (the CVs of the Co-Directors are added here when they are filled in), with PDF
-bookmarks. The form asks for one PDF with a table of contents at the start when several documents are uploaded.
+form. It holds a contents page, the technical annex, the technical note on the assembled system of equations and the
+placement of recharge and supply wells, and the PERTEJ-GO theory note on the inland boundary (the CVs of the
+Co-Directors are added here when they are filled in), with PDF bookmarks. The form asks for one PDF with a table of contents at the start when several documents are uploaded.
 
 usage: python build_additional_files.py OUT.pdf
 Needs LibreOffice (soffice), python-docx and pypdf."""
@@ -26,6 +26,11 @@ PARTS = [
      'as the final goal (preparatory work of the NPD\'s team, October 2026; corrected 8 November 2026)',
      'Technical note: the assembled system and the placement of the wells',
      os.path.join(ROOT, 'docs', 'research_notes', 'Assembled_System_Equations_Placing_Recharge_and_Pumping_Wells.docx')),
+    ('Theory note: PËRTEJ-GO, the boundary condition the flow equation is missing — a learnable boundary where the '
+     'model is cut, four propositions with proofs and six numerical checks (preparatory work of the NPD\'s team, '
+     'November 2026)',
+     'Theory note: PËRTEJ-GO, the boundary where the model is cut',
+     os.path.join(ROOT, 'docs', 'research_notes', 'PERTEJ-GO_Transparent_Learnable_Boundary_Flow_Equation.docx')),
 ]
 
 
@@ -75,9 +80,10 @@ def contents_pdf(rows, outdir):
             c.width = Cm(w)
     para('', after=14)
     para('The application form is self-contained; these files give detail for readers who want it. The technical note '
-         'is background on the coupled model of work package 2 and on the placement of recharge and supply wells; its '
-         'tests are synthetic and its numbers illustrative, not results at Durrës.', 10, False, '5B6672', 6,
-         italic=True)
+         'is background on the coupled model of work package 2 and on the placement of recharge and supply wells. The '
+         'theory note gives the proofs and the checks behind the inland boundary of that model (Section 4.3 of the '
+         'annex). The tests of both notes are synthetic and their numbers illustrative, not results at Durrës.', 10,
+         False, '5B6672', 6, italic=True)
     path = os.path.join(outdir, 'contents.docx')
     doc.save(path)
     return to_pdf(path, outdir)
