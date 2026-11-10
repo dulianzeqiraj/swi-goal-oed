@@ -2,8 +2,8 @@
 
 The template (downloaded from the "Managing SPS grants" page of nato.int) is kept as it is: its text, header, footer and
 table are not changed. Filled in: one line naming the project above "Agreement", the NPD row (name, job title and
-institution, as in the Agreement for Joint Research), the row of the institution's representative (yellow
-placeholders), and under each signature space a line for the date. Two signatures are required: the NPD and a suitable
+institution, as in the Agreement for Joint Research), the row of the institution's representative (the Rector,
+Prof. Dr. Akli Fundo), and under each signature space a line for the date. Two signatures are required: the NPD and a suitable
 representative of the NPD's institution (Head of Institution and/or Financial Authority). Nothing is signed here.
 
 usage: python fill_acceptance_template.py TEMPLATE.docx OUT.docx"""
@@ -39,8 +39,8 @@ def main(tpl, out):
     fill(npd.cells[2], [('NATO-country Project Director; Associate Professor, Department of Energy Resources', False),
                         ('Faculty of Geology and Mining, Polytechnic University of Tirana, Tirana, Albania', False)])
     fill(npd.cells[3], sig)
-    fill(rep.cells[1], [('[Title, first name, family name]', True)])
-    fill(rep.cells[2], [('[Rector, or Head of Institution, or Financial Authority]', False),
+    fill(rep.cells[1], [('Prof. Dr. Akli Fundo', True)])
+    fill(rep.cells[2], [('Rector (Head of Institution)', False),
                         ('Polytechnic University of Tirana, Tirana, Albania', False)])
     fill(rep.cells[3], sig)
     d.save(out)

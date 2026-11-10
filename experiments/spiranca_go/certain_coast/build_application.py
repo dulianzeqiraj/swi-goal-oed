@@ -896,8 +896,10 @@ def main(out):
            ['End-user commitments, all letters merged into one file', 'PDF', 'The Albanian Geological Survey (SHGJSH), and AMBU if it signs, each on its own letterhead (drafts in the Letters of Commitment document)', '[to do]'],
            ['Brief overview of participating institutions (at most one page each)', 'PDF', 'Draft: CERTAIN-COAST_Institutions_Overview.docx; fill the yellow fields, save as PDF', '[to do]'],
            ['Financial rules of the NPD\'s institution', 'Link', 'Ready: the UPT Statute in English (Chapter IV, Articles 24–25), '
-            'https://upt.edu.al/wp-content/uploads/2023/02/Statuti-PDF-English.pdf. If the UPT finance office provides its '
-            'internal regulation on administration, finance and accounting, upload that PDF instead', 'ready'],
+            'https://upt.edu.al/wp-content/uploads/2023/02/Statuti-PDF-English.pdf. The UPT finance office confirmed on 10 '
+            'November 2026 that UPT has no separate internal financial regulation and applies the national legal framework, '
+            'including Instruction no. 10 of 12.07.2024 of the Ministry of Finance on foreign-funded programmes; these acts '
+            'are named in the answer below', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-users sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready'],
            ['Additional files (optional): technical annex, two notes, a report and the CVs of the two Project Directors', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (67 pages, contents and bookmarks: the technical annex, 10 pages, with methods, preparatory tests, gates and fallbacks and the nine new contributions; the technical note on the assembled system and the placement of the wells, 22 pages; the PËRTEJ-GO theory note on the inland boundary of the model, 16 pages; the TRONDITJA-GO implementation report on the earthquake in the aquifer, 14 pages; the CV of the NPD, 2 pages, [fill its yellow fields first]; the CV of the PPD, 2 pages, from the partner form of Qatar University) (build_additional_files.py)', '[CV of the NPD to complete]']]
@@ -1118,8 +1120,14 @@ def main(out):
     answer(doc, 'Choose "Link to a website": https://upt.edu.al/wp-content/uploads/2023/02/Statuti-PDF-English.pdf '
                 '(Statute of the Polytechnic University of Tirana, English version published by UPT: Chapter IV "Properties, '
                 'financing and services", Articles 24–25; Article 10, the Board of Administration approves the financial '
-                'regulation). [If the UPT finance office provides its internal regulation on administration, finance and '
-                'accounting, choose "File upload" and upload that PDF instead.]')
+                'regulation). The UPT finance office confirmed on 10 November 2026 that UPT has no separate internal financial '
+                'regulation: its funds, including those of foreign-funded projects, are administered under Law no. 80/2015 on '
+                'higher education and scientific research, Law no. 9936/2008 on the management of the budget system, the '
+                'annual budget law, Law no. 25/2018 on accounting and financial statements, Instruction no. 9 of 20.03.2018 '
+                'of the Minister of Finance and Economy on standard procedures for budget execution, Instruction no. 10 of '
+                '12.07.2024 of the Ministry of Finance on the registration, use, reconciliation, reporting and publication of '
+                'foreign funds under international agreements, and Instruction no. 30 of 27.12.2011 on the management of '
+                'assets in public sector units.')
 
     # 9 End-users
     heading(doc, '9. End-Users', 14, before=10)

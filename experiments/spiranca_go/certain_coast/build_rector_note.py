@@ -1,5 +1,5 @@
-"""CERTAIN-COAST: one-page cover note in Albanian for the Rector of the Polytechnic University of Tirana, sent with the
-two NATO templates the Rector signs (SPS MYP Acceptance of Funds; SPS MYP Agreement for Joint Research, already signed
+"""CERTAIN-COAST: one-page cover note in Albanian for the Rector of the Polytechnic University of Tirana, Prof. Dr. Akli
+Fundo, sent with the two NATO templates the Rector signs (SPS MYP Acceptance of Funds; SPS MYP Agreement for Joint Research, already signed
 by Qatar University). Figures follow the form and the budget (build_budget.py); nothing is claimed that the form does
 not state.
 
@@ -97,12 +97,12 @@ def main(out):
     p = para(doc, 8, align=WD_ALIGN_PARAGRAPH.LEFT)
     run(p, 'Fakulteti i Gjeologjisë dhe i Minierave · Departamenti i Burimeve Energjetike', size=9, color=GREY)
     p = para(doc, 6, align=WD_ALIGN_PARAGRAPH.RIGHT); run(p, 'Tiranë, më 10.11.2026')
-    p = para(doc, 2, align=WD_ALIGN_PARAGRAPH.LEFT); run(p, 'Drejtuar: ', bold=True); run(p, 'Rektorit të Universitetit Politeknik të Tiranës')
+    p = para(doc, 2, align=WD_ALIGN_PARAGRAPH.LEFT); run(p, 'Drejtuar: ', bold=True); run(p, 'Prof. Dr. Akli Fundo, Rektor i Universitetit Politeknik të Tiranës')
     p = para(doc, 8, align=WD_ALIGN_PARAGRAPH.LEFT)
     run(p, 'Lënda: ', bold=True)
     run(p, 'Kërkesë për firmë – aplikimi i UPT-së në Programin e NATO-s «Shkenca për Paqe dhe Siguri» (SPS), projekti '
            'CERTAIN-COAST', bold=True, color=BLUE)
-    p = para(doc, 4); run(p, 'Të nderuar,')
+    p = para(doc, 4); run(p, 'I nderuar z. Rektor,')
     p = para(doc, 6)
     rich(p, 'Universiteti Politeknik i Tiranës aplikon, nëpërmjet Fakultetit të Gjeologjisë dhe të Minierave, në thirrjen '
             '2027-1 të Programit të NATO-s «Science for Peace and Security» (SPS) për projekte shumëvjeçare. Afati i '
@@ -133,8 +133,9 @@ def main(out):
                 q2 = c.add_paragraph(); run(q2, ln, size=8.5, color=GREY)
     widths(t, [5.0, 7.6, 4.0])
     p = para(doc, 6, before=3)
-    run(p, 'Gjithashtu, nëse Drejtoria e Financës ka rregulloren e brendshme të administrimit financiar, ju lutem një kopje '
-           'në PDF; përndryshe në aplikim citohet Statuti i UPT-së (nenet 24–25).', size=9, color=GREY, italic=True)
+    run(p, 'Rregullat financiare: sipas Drejtorisë së Financës (10.11.2026), UPT nuk ka rregullore të veçantë dhe zbaton '
+           'kuadrin ligjor në fuqi, përfshirë Udhëzimin e Ministrisë së Financave nr. 10, datë 12.07.2024, për fondet e '
+           'financimeve të huaja; këto citohen në aplikim bashkë me Statutin e UPT-së.', size=9, color=GREY, italic=True)
 
     p = para(doc, 6)
     rich(p, 'Ju lutem **firmën dhe vulën** në të dy dokumentet, nëse është e mundur **deri të enjten, 12 nëntor 2026**, '
