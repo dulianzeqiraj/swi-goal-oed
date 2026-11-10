@@ -21,8 +21,8 @@ from build_letters import run, ph, ADDRESS  # noqa: E402
 from fill_agreement_template import TITLE  # noqa: E402
 
 NAVY, BLUE, GREY = '1F3864', '1F4E99', '52606D'
-MIN_EN = '[Ministry of Infrastructure and Energy of the Republic of Albania]'
-MIN_SQ = '[Ministria e Infrastrukturës dhe Energjisë e Republikës së Shqipërisë]'
+MIN_EN = 'Ministry of Infrastructure and Energy of the Republic of Albania'
+MIN_SQ = 'Ministria e Infrastrukturës dhe Energjisë e Republikës së Shqipërisë'
 
 EN = [
     f'The {MIN_EN} supports the application of the Polytechnic University of Tirana (Faculty of Geology and Mining), '
@@ -76,11 +76,11 @@ def request(doc):
                            color=GREY)
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; run(p, 'Tiranë, më 10.11.2026', size=10.5)
     p = para(doc, 2); run(p, 'Drejtuar: ', bold=True, size=10.5)
-    ph(p, '[Ministrit / Ministres së Infrastrukturës dhe Energjisë], [emri]', size=10.5)
+    run(p, 'Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', size=10.5)
     p = para(doc, 8); run(p, 'Lënda: ', bold=True, size=10.5)
     run(p, 'Kërkesë për letër mbështetjeje për aplikimin e UPT-së në Programin e NATO-s «Shkenca për Paqe dhe Siguri» '
            '(SPS), projekti CERTAIN-COAST', bold=True, size=10.5, color=BLUE)
-    p = para(doc, 5); ph(p, '[I nderuar zoti Ministër / E nderuar zonja Ministre],', size=10.5)
+    p = para(doc, 5); run(p, 'Të nderuar zonja dhe zotërinj,', size=10.5)
     body = [
         'Universiteti Politeknik i Tiranës aplikon, nëpërmjet Fakultetit të Gjeologjisë dhe të Minierave, në thirrjen '
         '2027-1 të Programit të NATO-s «Shkenca për Paqe dhe Siguri» me projektin shumëvjeçar **CERTAIN-COAST** (36 '
@@ -94,8 +94,8 @@ def request(doc):
         'Meqë projekti lidhet drejtpërdrejt me fushat e përgjegjësisë së Ministrisë suaj (furnizimi me ujë, '
         'infrastruktura e energjisë dhe e transportit, rreziqet gjeologjike), një letër mbështetjeje nga Ministria do '
         'ta forconte ndjeshëm aplikimin. **Ju lutem për një letër mbështetjeje**, në letrën zyrtare të Ministrisë, të '
-        'firmosur nga ju ose nga një person i autorizuar, **mundësisht deri të premten, 13 nëntor 2026**, të skanuar në '
-        'PDF në adresën dulian.zeqiraj@fgjm.edu.al.',
+        'firmosur nga titullari ose nga një person i autorizuar, **mundësisht deri të premten, 13 nëntor 2026**, të '
+        'skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al.',
         'Për t\'jua lehtësuar, bashkëngjis tekstin e propozuar të letrës në anglisht, siç e kërkon NATO, dhe përkthimin '
         'e saj në shqip vetëm për lexim; fushat me të verdhë plotësohen nga Ministria, dhe teksti mund të ndryshohet '
         'sipas gjykimit tuaj. Letra shpreh **mbështetje në parim** dhe **nuk krijon asnjë detyrim financiar ose '
