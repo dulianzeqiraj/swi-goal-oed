@@ -162,38 +162,30 @@ PPD = dict(
 )
 
 EU = dict(
-    role='End-users · Albania · in-kind contribution; commitment letters attached separately',
-    name='End-user organisations',
-    local='They agree the thresholds, give access to wells and data, review the bulletins and receive the system at the '
-          'end of the project.',
+    role='End-user · Albania · in-kind contribution; letter of support and end-user commitment attached separately',
+    name='Ministry of Defence of the Republic of Albania',
+    local='Ministria e Mbrojtjes e Republikës së Shqipërisë, Tirana.',
     glance=[
-        ('Geological survey',
-         '**Shërbimi Gjeologjik Shqiptar** (SHGJSH, Albanian Geological Survey), Tirana. It administers the groundwater '
-         'monitoring network of Albania and produces its data, and works on the geological hazards of the country.\n'
-         '**In CERTAIN-COAST:** the end-user. It gives access to existing wells of its network on the Durrës–Fushë Kuqe '
-         'coast for the project\'s loggers and to its records, helps site and install the sensors, agrees the warning '
-         'thresholds and reviews the live bulletins; it gains a monitoring design for its network, open software and '
-         'trained staff, and receives the network at the hand-over.'),
-        ('Water resources agency',
-         '**Agjencia e Menaxhimit të Burimeve Ujore** (AMBU, Water Resources Management Agency), Tirana. '
-         '<https://www.ambu.gov.al>\n'
-         '**In CERTAIN-COAST:** shares its data on water-use permits and abstraction for the aquifer that supplies Durrës, '
-         'agrees the chloride warning threshold and reviews the pumping and drought rule, with staff time in kind; it '
-         'gains a chloride early warning in support of its permits, with no procurement, ownership or maintenance '
-         'obligations.'),
+        ('Ministry of Defence',
+         '**Ministria e Mbrojtjes** (Ministry of Defence of the Republic of Albania), Tirana. '
+         '<https://www.mod.gov.al>\n'
+         '**In CERTAIN-COAST:** the end-user. It designates a contact person and a small team for the steering committee, '
+         'agrees the warning thresholds of the bulletins it uses, reviews the live bulletins and uses them in its planning '
+         'for national resilience and the protection of critical infrastructure; its staff are trained and it receives the '
+         'software and the operating procedures at the hand-over. Staff time in kind; no SPS funds.'),
         ('Port and energy landfall',
          'The Port of Durrës and the landfall of the Trans Adriatic Pipeline near Fier are assessed from satellite radar, '
          'GNSS and public data only; no access or data from their owners is needed.'),
     ],
     role_text=[
-        'Each end-user names a contact person and takes part in setting the thresholds (T3.1); the Survey also reviews the '
-        'live bulletins (WP5) and receives the network, the software and the procedures at the hand-over (MS7).',
+        'The end-user names a contact person and takes part in setting the thresholds (T3.1), reviews the live bulletins '
+        '(WP5) and receives the software and the procedures at the hand-over (MS7).',
     ],
     new=[
-        'The monitoring network is built on the wells of the national groundwater network, so it stays with the '
-        'institution that already runs that network.',
+        'The monitoring network is drilled by the project on public land and stays in Albania with the Polytechnic '
+        'University of Tirana, which keeps the bulletins running for the end-user after the project.',
     ],
-    sources=[('AMBU', 'https://www.ambu.gov.al')],
+    sources=[('Ministry of Defence', 'https://www.mod.gov.al')],
 )
 
 INST = [UPT, PPD, EU]

@@ -24,16 +24,12 @@ NAVY, GREY, LINE = HexColor('#1F3864'), HexColor('#52606D'), HexColor('#C9CED6')
 SUBS = {'≤': 'at most ', '≥': 'at least ', '→': 'to', '−': '-', 'α_k': 'alpha', 'α': 'alpha', 'Δ': 'Delta', '★': '*',
         'η': 'eta', ' ': ' ', ' ': ' ', '·': '-'}
 END_USERS = [
-    ('Albanian Geological Survey (Shërbimi Gjeologjik Shqiptar, SHGJSH): the end-user',
-     'Access to the wells of the national groundwater monitoring network and to its records; staff time to site and '
-     'install the sensors; agrees the warning thresholds and reviews the bulletins during the live operation.',
-     'Chloride and water-level bulletins for its wells; the monitoring network, the open software, the monitoring '
-     'design, the safe operating window and the operating procedures at the hand-over; trained staff.'),
-    ('Water Resources Management Agency (Agjencia e Menaxhimit të Burimeve Ujore, AMBU)',
-     'Water-use permit and abstraction data; staff time to agree the chloride threshold and review the pumping and '
-     'drought rule.',
-     'A chloride early warning and a pumping and drought rule in support of the water-use permits, safe even while the '
-     'source of the chloride is unknown; no procurement, ownership or maintenance obligations.'),
+    ('Ministry of Defence of the Republic of Albania (Ministria e Mbrojtjes): the end-user',
+     'A contact person and a small team on the steering committee; agrees the warning thresholds of the bulletins it uses; '
+     'reviews the bulletins during the live operation and takes part in the final workshop.',
+     'Warnings with a stated miss rate for the wellfields, the port and the landfall, for its planning for national '
+     'resilience and the protection of critical infrastructure; post-event reports; trained staff, the software and the '
+     'operating procedures at the hand-over; no procurement, ownership or maintenance obligations.'),
 ]
 
 
@@ -114,13 +110,14 @@ def main(out):
     st += [Paragraph('3. Who uses it, and how', S['h'])] + text_blocks(S, A.RELEVANCE)
     st += [Paragraph('4. What the project will deliver, and what is new', S['h'])] + text_blocks(S, A.DELIVER)
     st += [Paragraph('5. How the project works', S['h'])] + text_blocks(S, A.HOW)
-    st += [KeepTogether([Paragraph('6. The end-users: what they give and what they gain', S['h']),
+    st += [KeepTogether([Paragraph('6. The end-user: what it gives and what it gains', S['h']),
            grid(S, ['End-user', 'Contribution (in kind; no SPS funds)', 'What it gains'], END_USERS,
                 [4.4 * cm, 6.3 * cm, 6.3 * cm]),
            Paragraph(clean('The Port of Durrës and the TAP landfall near Fier are assessed only from satellite radar, '
-                           'GNSS and public data; no data or access is needed from their owners. '
+                           'GNSS and public data; no data or access is needed from their owners. The monitoring network is drilled by the '
+                           'project on public land and stays in Albania with the Polytechnic University of Tirana. '
                            'The bulletins are advisory: operational decisions stay with the operators, and any warning to '
-                           'the public is issued only by the competent authorities. Data provided by end-users are '
+                           'the public is issued only by the competent authorities. Data shared with the project are '
                            'restricted, used under data agreements, and every publication is reviewed for sensitive '
                            'content before release; software and non-restricted data products are open, with a DOI.'),
                      S['note'])])]
@@ -131,9 +128,9 @@ def main(out):
                 [2.6 * cm, 1.6 * cm, 12.8 * cm])]
     brow = [[c, f'{by[c]:,.0f}'] for c in A.SPS_CATS if by.get(c)] + [['Total requested from NATO SPS', f'{total:,.0f}']]
     st += [Paragraph('8. Budget (EUR)', S['h']), grid(S, ['Category', 'EUR'], brow, [11.0 * cm, 6.0 * cm]),
-           Paragraph(clean('Salaries, overheads and the in-kind contributions of the institutions and end-users are not '
-                           'charged to NATO. The monitoring network bought by the project is handed over to the '
-                           'operators.'), S['note'])]
+           Paragraph(clean('Salaries, overheads and the in-kind contributions of the institutions and the end-user are not '
+                           'charged to NATO. The monitoring network bought by the project stays in Albania and keeps '
+                           'the bulletins running after the project.'), S['note'])]
     picks = ('• Alarms and operating window', '• Pumping and hidden drought demand', '• Sensors that interfere',
              '• Crossings between samples', '• Boundaries known only through rain')
     ev = [ln for ln in A.STATUS.split('\n') if ln.startswith(picks)]

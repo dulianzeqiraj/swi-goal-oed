@@ -55,7 +55,7 @@ SELF = [
     ['Artificial intelligence in safety decisions', 'Yes',
      'Six NATO principles applied (Section 2); human oversight; full logs', 'WP2, WP3, WP5'],
     ['Environment, health and safety', 'Yes',
-     'Permits for drilling and installation; boreholes sealed and logged; field safety plan; pumping tests, if run, approved by the well operator and AMBU, with a chloride test limit and a stop rule; removal or hand-over of all equipment at the end', 'WP4, WP5; R12, R13, R22'],
+     'Permits for drilling and installation; boreholes sealed and logged; field safety plan; pumping tests, if run, approved by the well operator and the permitting authority, with a chloride test limit and a stop rule; removal or hand-over of all equipment at the end', 'WP4, WP5; R12, R13, R22'],
     ['Partner outside NATO', 'Yes',
      'Equal partnership; data transfer agreements; local ethics approval and data law respected in each country', 'Partnership'],
     ['Animals, human tissue, clinical research', 'No', '—', '—'],
@@ -74,8 +74,8 @@ AI = [
 
 WARN = [
     '**Honesty about uncertainty.** No bulletin claims more certainty than it has: each states how often such warnings miss, and that rate is checked against the log.',
-    '**Who bears the error is decided openly.** The trade-off between misses and false alarms is agreed with the Survey and AMBU before the alarms are designed, and tolerances are allocated by consequence, not by convenience (Methodology, Section 5.4).',
-    '**Official warnings stay with the authorities.** CERTAIN-COAST bulletins go to the Albanian Geological Survey, AMBU and the competent national authorities; any warning to the public is issued only by the competent authorities through their own channels.',
+    '**Who bears the error is decided openly.** The trade-off between misses and false alarms is agreed with the end-user, the Ministry of Defence, before the alarms are designed, and tolerances are allocated by consequence, not by convenience (Methodology, Section 5.4).',
+    '**Official warnings stay with the authorities.** CERTAIN-COAST bulletins go to the Ministry of Defence, the end-user, and to the competent national authorities; any warning to the public is issued only by the competent authorities through their own channels.',
     '**Misses are reviewed, not hidden.** Every missed exceedance is reviewed within a week, and the findings are shared with the users and the authorities.',
     '**No false reassurance.** When conditions leave the observed record, the bulletin says so and the margin widens, rather than presenting a forecast as reliable where it is not.',
 ]
@@ -92,7 +92,7 @@ EHS = [
     '**Permits and consent of owners** for drilling, installation and access, obtained before any field work.',
     '**Protection of the aquifer:** boreholes designed and sealed so that they do not connect fresh and saline layers, with conductivity logged before and after (R12).',
     '**Safety of people:** field safety plan, inductions at each site, two-person rule and no field work during active warnings (R13).',
-    '**Safe pumping tests:** if run, each test on existing wells is approved by the well operator and AMBU, keeps heads above the head limit and chloride below an agreed test limit, and stops as soon as measured chloride reaches it (T5.3, R22).',
+    '**Safe pumping tests:** if run, each test on existing wells is approved by the well operator and the permitting authority, keeps heads above the head limit and chloride below an agreed test limit, and stops as soon as measured chloride reaches it (T5.3, R22).',
     '**Clean exit:** equipment not handed over is removed at the end; batteries and electronic waste are disposed of through licensed channels.',
 ]
 
