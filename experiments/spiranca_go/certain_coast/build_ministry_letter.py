@@ -170,7 +170,7 @@ REQUEST = {
               'paralajmërimit, do të shqyrtonte buletinet gjatë 12 muajve të funksionimit dhe në fund do të merrte '
               'procedurat e punës dhe trajnimin.',
               '**Ju lutem për një letër mbështetjeje dhe angazhimi si përdorues fundor**, në letrën zyrtare të '
-              'Ministrisë, të firmosur nga titullari ose nga një person i autorizuar, **mundësisht deri të premten, 13 '
+              'Ministrisë, të firmosur nga titullari ose nga një person i autorizuar, **mundësisht deri të mërkurën, 11 '
               'nëntor 2026**. Mund ta dërgoni të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al, ndërsa origjinalin '
               'mund ta tërheq vetë në Ministri. Bashkëngjis tekstin e propozuar të letrës në anglisht, siç e kërkon NATO, '
               'dhe përkthimin e saj në shqip vetëm për lexim; fushat me të verdhë plotësohen nga Ministria, dhe teksti '
