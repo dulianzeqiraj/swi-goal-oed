@@ -1127,7 +1127,9 @@ def main(out):
                 'of the Minister of Finance and Economy on standard procedures for budget execution, Instruction no. 10 of '
                 '12.07.2024 of the Ministry of Finance on the registration, use, reconciliation, reporting and publication of '
                 'foreign funds under international agreements, and Instruction no. 30 of 27.12.2011 on the management of '
-                'assets in public sector units.')
+                'assets in public sector units. It also confirmed that, under Instruction no. 10/2024, the funds of a project '
+                'are managed in the revenue account of UPT at the State Treasury Branch and used only for the purpose approved '
+                'in the financing agreement.')
 
     # 9 End-users
     heading(doc, '9. End-Users', 14, before=10)
