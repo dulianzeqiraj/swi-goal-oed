@@ -46,7 +46,7 @@ WPLAB = {'WP1': 'Coastal motion and relative sea level', 'WP2': 'Coupled model a
          'WP6': 'Training, transfer and dissemination', 'WP7': 'Management, data and risk'}
 TLAB = dict(W.SHORT)
 TLAB.update({'T2.2': 'Coupled model of the three hazards', 'T3.3': 'Joint guarantee over the three alarms',
-             'T4.3': 'Operation, QC, streaming, assimilation', 'T6.2': 'Training of Survey staff and users'})
+             'T4.3': 'Operation, QC, streaming, assimilation', 'T6.2': 'Training of the end-user\'s staff and users'})
 CRIT = ['T4.1', 'T4.2', 'T2.3', 'T2.4', 'T5.2', 'T6.4']          # the chain of build_timeline.CRITICAL
 # what each step needs (predecessor, what it passes on); starting conditions for steps without a predecessor
 DEPS = {
@@ -88,7 +88,7 @@ NEW = [
     'pass test and a fallback fixed in advance.',
     '**A full year live, with slack.** Back-testing runs alongside live operation, so twelve full months of operation fit '
     'even after a two-month slip at MS4, and they include every season of the hazards.',
-    '**The hand-over is inside the schedule.** Trained staff of the Albanian Geological Survey run the bulletins for its wells in Months 34–36, with the project team only in support, so the end state is '
+    '**The hand-over is inside the schedule.** Trained staff of the Ministry of Defence, the end-user, use the bulletins in Months 34–36, with the project team only in support, so the end state is '
     'demonstrated before the grant ends.',
 ]
 

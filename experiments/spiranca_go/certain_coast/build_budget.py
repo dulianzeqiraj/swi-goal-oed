@@ -37,7 +37,7 @@ LINES = [
     ('Equipment', 'Telemetry units (mobile data loggers)', 12, 600, ['WP4'], (1, 0, 0), 'NPD',
      'Near-real-time data for the live bulletins (WP5)'),
     ('Equipment', 'GNSS stations: receiver, antenna, monument', 3, 9000, ['WP1'], (1, 0, 0), 'NPD',
-     "Vertical land motion at the Survey's wells near Durrës and on public land near the port and the TAP landfall; ties InSAR to a global frame (T1.2)"),
+     "Vertical land motion at the project's boreholes near Durrës and on public land near the port and the TAP landfall; ties InSAR to a global frame (T1.2)"),
     ('Equipment', 'InSAR corner reflectors', 6, 1500, ['WP1'], (1, 0, 0), 'NPD', 'Stable radar targets on soft ground at the assets (R4)'),
     ('Equipment', 'Seismic stations: three-component sensor and digitiser', 4, 7500, ['WP4'], (1, 0, 0), 'NPD',
      'Continuous ambient noise for seismic velocity along the coast near the port of Durrës and the TAP landfall (T4.4)'),
@@ -68,10 +68,10 @@ LINES = [
     ('Training and travel', 'Consortium meetings (kick-off, mid-term, final): travel and subsistence', 18, 1200, ['WP7'], T3, 'Both',
      'Six people from the two countries at three meetings'),
     ('Training and travel', 'Young-researcher exchanges, two months each', 6, 3500, ['WP6'], (0.2, 0.4, 0.4), 'PPD',
-     'Partner-country early-career researchers work on site with the data and the Survey (T6.1)'),
+     'Partner-country early-career researchers work on site with the data and the end-user (T6.1)'),
     ('Training and travel', 'Training school: venue, materials, trainee travel', 1, 15000, ['WP6'], (0, 1, 0), 'NPD',
      'Hands-on school with the coast kit in Month 14 (T6.1)'),
-    ('Training and travel', 'Training sessions for Survey staff and intended users', 1, 5000, ['WP6'], (0, 0.4, 0.6), 'NPD',
+    ('Training and travel', 'Training sessions for the end-user\'s staff and intended users', 1, 5000, ['WP6'], (0, 0.4, 0.6), 'NPD',
      'Staff able to run the system unaided (T6.2)'),
     ('Training and travel', 'Stakeholder workshops: kick-off, mid-term, final, transfer', 4, 3000, ['WP6'], (0.25, 0.25, 0.5), 'NPD',
      'Thresholds, dry run, hand-over and transfer to other coasts (Dissemination Plan)'),
@@ -113,7 +113,7 @@ SOURCES = [
     ('NATO SPS page on funding (2012, older rules)', 'https://www.nato.int/cps/en/natohq/88198.htm'),
 ]
 CONFIRM = [
-    '**Equipment on the NATO-country side.** All field equipment is installed in Albania, a NATO member, because the critical infrastructure is there. An older SPS page says funds to NATO countries are mainly for travel and consumables and that equipment needs justification. Confirm with the SPS Programme (sps.info@hq.nato.int) before submission; the justification is that the network is site-specific, protects Allied critical infrastructure and is handed over to the Albanian Geological Survey.',
+    '**Equipment on the NATO-country side.** All field equipment is installed in Albania, a NATO member, because the critical infrastructure is there. An older SPS page says funds to NATO countries are mainly for travel and consumables and that equipment needs justification. Confirm with the SPS Programme (sps.info@hq.nato.int) before submission; the justification is that the network is site-specific, protects Allied critical infrastructure and stays in Albania with the Polytechnic University of Tirana after the project.',
     '**Partner-country share.** The partner country receives about {ppd_pct}% of the budget in this version. The partner leads training, transfer and dissemination (WP6), while the model and the algorithm stay with the NATO-country team. If the Programme expects more, the options are to place more stipends and exchanges at the partner institution or to widen the transfer study on a partner-country coast.',
     '**Eligibility of drilling.** Borehole drilling is a service needed to install the piezometers; confirm that it can be charged under equipment.',
     '**Current rates and ceilings.** Check the stipend rate, the 15% ceiling of the "Other" category (management hours of the NPD included) and any travel rules in the current handbook.',
@@ -121,7 +121,7 @@ CONFIRM = [
 ]
 INKIND = [
     '**Salaries** of all researchers and project directors, paid by their institutions (not eligible for SPS funding).',
-    '**Albanian Geological Survey (end-user):** access to the wells of its monitoring network and its records, staff time in kind for thresholds, workshops and training; AMBU, if it signs, staff time in kind.',
+    '**Ministry of Defence of Albania (end-user):** staff time in kind for the steering committee, thresholds, the review of the bulletins, workshops and training.',
     '**Free data:** Copernicus Sentinel-1 radar images, tide-gauge records and existing seismic stations.',
     '**Facilities:** offices, laboratories and existing field equipment of the partner institutions.',
 ]
@@ -136,7 +136,7 @@ NEW = [
     '**A budget cut has a known effect.** Because sensors are ranked, removing the last lines removes the least valuable sensors, and the effect on the miss and false-alarm rates can be stated before the cut.',
     '**Money is released on evidence.** The costly fibre campaign is conditional on access by Month 9, and live operation starts only after the go/no-go milestone (MS4), so funds are not committed to work that cannot happen.',
     '**Money at stake at each gate is known in advance.** About two-thirds of the budget is spent by the calibration gate (MS3) and about three-quarters by the go/no-go gate (MS4); the rest pays for live operation, training and transfer, so a slip or fallback at a gate changes how the remaining funds are used, not what has already been bought (Section 2).',
-    '**What is bought stays.** The network, servers and software are handed over to the Albanian Geological Survey, so the equipment budget becomes a lasting national capability rather than project hardware.',
+    '**What is bought stays.** The network, servers and software stay in Albania with the Polytechnic University of Tirana, which keeps the bulletins running for the Ministry of Defence, so the equipment budget becomes a lasting national capability rather than project hardware.',
 ]
 
 
@@ -283,7 +283,7 @@ def main(out):
     lead = (f'CERTAIN-COAST requests **€{eur(total)}** from the NATO SPS Programme for 36 months, within the typical range of '
             f'€250,000–400,000 for a three-year Multi-Year Project. The budget contains only project-specific costs, with no '
             f'salaries or overheads. Equipment is {eq_share:.0f}% of the total, because the project installs a monitoring network '
-            f'for critical infrastructure and hands it over to the Albanian Geological Survey; the rest pays for consumables, training and travel, '
+            f'for critical infrastructure that stays in Albania after the project; the rest pays for consumables, training and travel, '
             f'stipends for young researchers, dissemination and management. Every figure is computed from quantity × unit cost; '
             f'unit costs are planning estimates to be replaced by quotes.')
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; rich(p, lead, size=11.5)
@@ -321,7 +321,7 @@ def main(out):
     p = para(doc, 4)
     run(p, 'Figure 2. Indicative cumulative spending and the share spent at each evidence gate.', italic=True, size=10, color='52606D')
     after = {'MS3': 'Surrogate, alarms, live operation, training, transfer, dissemination',
-             'MS4': 'Live operation, training of Survey staff, transfer workshop, open-access fees, final workshop',
+             'MS4': 'Live operation, training of the end-user\'s staff, transfer workshop, open-access fees, final workshop',
              'MS5': 'Last months of live operation, hand-over, transfer, final reporting'}
     grows = [[f'{lab} (gate)', f'M{g}', f'€{eur(round(tot_c[g], -2))} ({100 * tot_c[g] / total:.0f}%)',
               f'€{eur(round(total - tot_c[g], -2))} ({100 * (total - tot_c[g]) / total:.0f}%)', after[lab]] for g, lab in GATES_M]

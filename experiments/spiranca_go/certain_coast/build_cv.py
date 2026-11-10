@@ -153,10 +153,10 @@ NCD_DETAILS = [
 ]
 
 NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is accountable for the SPS funds (WP7); leads the '
-            'monitoring network designed for the warnings on the wells of the Albanian Geological Survey (WP4) and the live '
-            'demonstration with the Survey and the Water Resources Management Agency (AMBU) (WP5); contributes to the coupled '
+            'monitoring network designed for the warnings (WP4) and the live '
+            'demonstration with the Ministry of Defence, the end-user (WP5); contributes to the coupled '
             'model (WP2) and to the measurement of coastal motion and relative sea level (WP1). Chairs the steering committee, '
-            'signs the access agreements with the Survey and AMBU (T7.2, Month 3) and oversees the hand-over to the Survey at '
+            'signs the access agreements for the wells (T7.2, Month 3) and oversees the hand-over to the Ministry of Defence at '
             'Month 36.')
 
 # ---------------------------------------------------------------------- the CV of the NATO-country Project Director
@@ -226,7 +226,7 @@ NPD = dict(
     projects=[['2025–', 'Modelling, simulation and optimisation of formation treatment methods to maximise the net profit of the massive carbonate reservoir of the Amonicë oil field (with Albpetrol Sh.A.)', 'National Agency for Scientific Research and Innovation (AKKSHI), Albania', 'Project leader']],
     sps='[none]',
     users=[
-        'Albanian Geological Survey (SHGJSH), the end-user of CERTAIN-COAST: staff member, 2006–2008.',
+        'Albanian Geological Survey (SHGJSH): staff member, 2006–2008.',
         'Albpetrol, the national oil company: production wells and reservoirs, 1996–2006; since 2025 partner of his AKKSHI '
         'project, with field data, well records and the validation of a 3D reservoir model (MATLAB-MRST).',
         'Preparatory work for CERTAIN-COAST (2026): reviews with numerical tests and a calibrated chloride model of the '

@@ -36,8 +36,7 @@ PEOPLE = [
     ('Research Professor, Prof. Fares AlMomani', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Oguz Yigiterhan', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Bruno Welter Giraldes', 'Environmental Science Center, Qatar University', 5),
-    ('End-user representative', '[Albanian Geological Survey (SHGJSH)]', 5),
-    ('End-user representative', '[Water Resources Management Agency (AMBU)]', 2),
+    ('End-user representative', '[Ministry of Defence of the Republic of Albania]', 5),
 ]
 
 N_STAFF = 7   # the first rows of PEOPLE are staff of the institutions; the rest are end-users
@@ -46,25 +45,25 @@ N_STAFF = 7   # the first rows of PEOPLE are staff of the institutions; the rest
 NN_CATS = [
     ('Equipment', ['Equipment'],
      'Existing equipment used by the project: field instruments, laboratory instruments and servers of the institutions; '
-     "the existing wells, piezometers and loggers of the Albanian Geological Survey's monitoring network; existing seismic stations. Value: [share of the "
+     "existing wells whose owners agree to their use; existing seismic stations. Value: [share of the "
      'replacement value or depreciation over the 36 months].'),
     ('Training', ['Training'],
-     'Venues, rooms and trainers\' time of the institutions for the training school and the training of Survey staff; '
+     'Venues, rooms and trainers\' time of the institutions for the training school and the training of the end-user\'s staff; '
      'the trainees\' staff time is under "Other".'),
     ('Communication & Publication', ['Communication and Publications'],
      '[Institutional open-access agreements or press offices, if any; otherwise 0].'),
     ('Travel', ['Travel'], '[Institutional travel funds used for the project, if any; otherwise 0].'),
     ('Consumables', ['Consumables'],
-     '[Laboratory chloride and major-ion analyses done by the Albanian Geological Survey or an institution laboratory at its own '
+     '[Laboratory chloride and major-ion analyses done by an institution laboratory at its own '
      'cost, if agreed; otherwise 0].'),
     ('Stipends', ['Stipends'], 'None expected (stipends of the early-career researchers are requested from SPS).'),
     ('Co-financing', ['Co-financing of personnel'],
      'Personnel cost paid by the institutions: all salaries of the Co-Directors and researchers for their time on the '
      'project (Section 3). SPS co-finances no salary in this version.'),
     ('Other', ['Other'],
-     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the end-users (the Albanian Geological Survey and AMBU); '
+     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the end-user (the Ministry of Defence); '
      'data provided under agreements (Durrës tide-gauge record of ASIG, records of the national seismic stations, records '
-     "of the Survey's groundwater monitoring network)."),
+     "of existing wells shared by their owners)."),
 ]
 
 TEXT = (
@@ -77,8 +76,8 @@ TEXT = (
     '• Overheads of the institutions (offices, laboratories, IT, administration) at their own rates: [€ amount].\n'
     '• Existing equipment and facilities used by the project: [field and laboratory instruments, servers] of the '
     'institutions: [€ amount].\n'
-    "• End-users, who receive no SPS funds: access to the wells of the Albanian Geological Survey's monitoring network, "
-    'its existing loggers and records; staff time of the Survey and AMBU for thresholds, the dry run, the live bulletins and training (about {pm_eu:.1f} person-months): '
+    "• The end-user, which receives no SPS funds: staff time of the Ministry of Defence for the steering committee, "
+    'thresholds, the dry run, the live bulletins and training (about {pm_eu:.1f} person-months): '
     '[€ amount].\n'
     '• Data at no cost to the project: Copernicus Sentinel-1 radar images (free and open), the Durrës tide-gauge record '
     'of ASIG and the records of the national seismic stations under data agreements [not valued / € amount].\n'
