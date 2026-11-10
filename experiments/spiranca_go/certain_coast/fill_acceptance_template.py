@@ -36,7 +36,7 @@ def main(tpl, out):
     assert npd.cells[0].text.startswith('NATO country Project Director') and rep.cells[0].text.startswith('A suitable')
     sig = [('', False), ('', False), ('', False), ('Date: [ ]', False)]
     fill(npd.cells[1], [('Assoc. Prof. Dr. Dulian Zeqiraj', True)])
-    fill(npd.cells[2], [('NATO-country Project Director; [current job title]', False),
+    fill(npd.cells[2], [('NATO-country Project Director; Associate Professor, Department of Energy Resources', False),
                         ('Faculty of Geology and Mining, Polytechnic University of Tirana, Tirana, Albania', False)])
     fill(npd.cells[3], sig)
     fill(rep.cells[1], [('[Title, first name, family name]', True)])
