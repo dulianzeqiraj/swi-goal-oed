@@ -82,7 +82,7 @@ def fmt(q, v):
         return f'{v:.3f}'
     if q in ('Ic',):
         return f'{v:.1f}'
-    return f'{v:.2f}'
+    return f'{v:.3f}'
 
 
 def cell(s, q):
@@ -98,6 +98,10 @@ def blocks(r):
     rh = max(v['diag']['rhat_max'] for v in sc.values())
     rh = max(rh, r['no_storms']['diag']['rhat_max'])
     blind = 100 * su['days_below_field_capacity']
+    w0 = np.array(sc[names[0]]['bands']['wet']); t0 = np.array(sc[names[0]]['bands']['theta'])
+    t2 = np.array(sc[names[2]]['bands']['theta'])
+    wet_hw = float(np.median(w0[2] - w0[0]) / 2)
+    th_w = float(np.median(t0[2] - t0[0])); th_w2 = float(np.median(t2[2] - t2[0]))
     B = []
     a = B.append
 
@@ -127,8 +131,8 @@ def blocks(r):
               f'(truth {tq["rain_mm_yr"]:.0f} mm).',
               f'**Fractions: yes.** The share of the rain that becomes recharge, evapotranspiration or runoff does not '
               f'change under that symmetry and is recovered from the heads and the gauge alone: recharge/rain '
-              f'{S0["R_over_P"]["median"]:.2f} [{S0["R_over_P"]["q05"]:.2f}–{S0["R_over_P"]["q95"]:.2f}], truth '
-              f'{tq["R_over_P"]:.2f}.',
+              f'{S0["R_over_P"]["median"]:.3f} [{S0["R_over_P"]["q05"]:.3f}–{S0["R_over_P"]["q95"]:.3f}], truth '
+              f'{tq["R_over_P"]:.3f}.',
               f'**One anchor is enough for the amounts.** A pumping test (specific yield), a soil-moisture probe or a '
               f'chloride mass balance each removes the ambiguity; with all three the true rain is '
               f'{S4["rain_mm_yr"]["median"]:.0f} [{S4["rain_mm_yr"]["q05"]:.0f}–{S4["rain_mm_yr"]["q95"]:.0f}] mm and '
@@ -136,7 +140,8 @@ def blocks(r):
               f'{S4["recharge_mm_yr"]["q95"]:.0f}] mm per year (truth {tq["recharge_mm_yr"]:.0f}).',
               f'**Soil moisture and infiltration capacity have blind spots.** The heads see the soil only when it '
               f'drains: on the {blind:.0f} % of days below field capacity they carry no information on it, and the '
-              f'deficit is revealed only at the first recharge of the wet season (Proposition 3). The infiltration '
+              f'deficit is revealed only at the first recharge of the wet season (Proposition 3); looking back from '
+              f'that onset, the relative wetness is recovered within ±{wet_hw:.3f} of field capacity. The infiltration '
               f'capacity is seen only through storms that exceed it; without such storms the data give only a lower '
               f'bound (Proposition 4).']))
 
@@ -148,9 +153,9 @@ def blocks(r):
             'capacity $\\theta_{fc}$; water above field capacity drains to the water table with time constant '
             '$\\tau_{s}$; and the head responds to that recharge through the specific yield $S_{y}$ and drains towards a '
             'base level $h_{b}$ with time constant $\\tau_{a}$:'))
-    a(('eq', 'chain', r'P=m\,P_{g},\quad I=\min(P,I_{c}),\quad\frac{d\theta}{dt}=I-k_{et}\,\mathrm{PET}\,'
-                      r'\min\!\left(1,\frac{\theta}{\theta_{fc}}\right)-R,\quad R=\frac{(\theta-\theta_{fc})^{+}}{\tau_{s}},'
-                      r'\quad S_{y}\frac{dh}{dt}=R-S_{y}\frac{h-h_{b}}{\tau_{a}}.'))
+    a(('eq', 'chain', r'\begin{aligned}&P=m\,P_{g},\qquad I=\min(P,I_{c}),\qquad R=\frac{(\theta-\theta_{fc})^{+}}{\tau_{s}},\\'
+                      r'&\frac{d\theta}{dt}=I-k_{et}\,\mathrm{PET}\,\min\!\left(1,\frac{\theta}{\theta_{fc}}\right)-R,\qquad '
+                      r'S_{y}\frac{dh}{dt}=R-S_{y}\frac{h-h_{b}}{\tau_{a}}.\end{aligned}'))
     a(('p', 'The data are the daily gauge rain, the daily potential evapotranspiration (PET) of a weather station, and '
             'the daily head of a logger with noise $\\sigma_{h}$ = 1 cm. The unknowns are $m$, $k_{et}$, $I_{c}$, '
             '$\\theta_{fc}$, $\\tau_{s}$, the initial wetness $\\varphi_{0}=\\theta(0)/\\theta_{fc}$, $S_{y}$, $\\tau_{a}$, '
@@ -231,7 +236,9 @@ def blocks(r):
              'does not contain θ; integrating the soil equation with $R=0$ until θ reaches $\\theta_{fc}$ gives (4). ∎'))
     a(('p', f'Reading. In the synthetic record the soil is below field capacity on {blind:.0f} % of the days (shaded in '
             f'Figure 1b). On those days the heads carry no information on the soil; the first autumn recharge reveals '
-            f'how much the summer evapotranspiration has removed, which calibrates $k_{{et}}$ again each year.'))
+            f'how much the summer evapotranspiration has removed, which calibrates $k_{{et}}$ again each year. A smoother '
+            f'that also uses the later heads therefore recovers the relative wetness of the dry season (Figure 4b); a '
+            f'real-time filter cannot, until the onset.'))
 
     a(('pi', '**Proposition 4 (infiltration capacity needs storms).** The heads depend on $I_{c}$ only through days with '
              'true rain above $I_{c}$. If no day of the record exceeds $P_{\\max}$, every $I_{c}\\ge P_{\\max}$ gives '
@@ -293,25 +300,33 @@ def blocks(r):
     a(('p', f'Reading. With the heads and the gauge alone (S0) the amounts are lost along the symmetry: the true rain '
             f'spans {S0["rain_mm_yr"]["q05"]:.0f}–{S0["rain_mm_yr"]["q95"]:.0f} mm and $S_{{y}}$ '
             f'{S0["Sy"]["q05"]:.2f}–{S0["Sy"]["q95"]:.2f}, limited only by the prior ranges, while the shares are found '
-            f'(recharge/rain within ±{50 * S0["R_over_P"]["rel_width"]:.0f} %). Any one anchor (S1–S3) brings the '
-            f'amounts back; the soil probe gives the tightest field capacity and the pumping test the tightest '
-            f'specific yield. Figure 3 shows the ridge and how each anchor cuts it; Figure 4a shows that the heads '
-            f'alone already give the shape of the soil-moisture record, and the probe its size.'))
+            f'(recharge/rain within ±{50 * S0["R_over_P"]["rel_width"]:.1f} %). Any one anchor (S1–S3) brings the '
+            f'amounts back, each with the precision of its own measurement: the pumping test (10 %) and the chloride '
+            f'balance (20 %) leave intervals of about ±{50 * S1["rain_mm_yr"]["rel_width"]:.0f} % and '
+            f'±{50 * sc[names[3]]["summary"]["rain_mm_yr"]["rel_width"]:.0f} % on the rain, while the soil probe, which '
+            f'measures millimetres every day, gives the tightest intervals of all. Figure 3 shows the ridge and how each anchor cuts it. For soil moisture the heads alone give '
+            f'the shape, the relative wetness θ/θfc within a band about {2 * wet_hw:.2f} wide, but not the size: the band '
+            f'of the soil water in millimetres is about {th_w:.0f} mm wide, and a probe narrows it to about '
+            f'{th_w2:.0f} mm (Figure 4).'))
     a(('fig', 'infiltrimi_fig1.png', 'Figure 1. The synthetic chain. (a) True rain and the infiltration capacity. (b) Soil '
                                      'water; shaded: days below field capacity, when the heads carry no information on '
                                      'the soil (Proposition 3). (c) True recharge and its estimate from the heads with '
                                      'Sy known (Proposition 1). (d) Head at the well, true and logged.'))
-    a(('fig', 'infiltrimi_fig2.png', 'Figure 2. (a) Share of a recharge signal seen at a well, against its distance from '
-                                     'the sea, for three periods (factor (2); D = 5000 m²/day, L = 5 km). (b) Singular '
+    a(('fig', 'infiltrimi_fig2.png', 'Figure 2. (a) Head response to recharge at a well, relative to the response far '
+                                     'inland, against its distance from the sea, for three periods (factor (2); '
+                                     'D = 5000 m²/day, L = 5 km); it slightly exceeds 1 where the boundary echo returns '
+                                     'in phase. (b) Singular '
                                      'values of the Jacobian of the heads: one is zero, the scale symmetry of '
                                      'Proposition 2; any one anchor lifts it.'))
-    a(('fig', 'infiltrimi_fig3.png', 'Figure 3. (a) Posterior samples of the rain multiplier m and the specific yield Sy: '
-                                     'a ridge with the heads and the gauge alone, a point with one anchor. (b) 90 % '
+    a(('fig', 'infiltrimi_fig3.png', 'Figure 3. (a) Posterior samples of the rain multiplier m and the specific yield Sy '
+                                     'from the heads and the gauge alone (grey): a ridge; coloured: the 90 % segment of '
+                                     'the ridge that each anchor picks. (b) 90 % '
                                      'intervals divided by the truth: amounts (rain, recharge, field capacity) need an '
                                      'anchor; shares of the rain do not.'))
-    a(('fig', 'infiltrimi_fig4.png', 'Figure 4. (a) Soil water: 90 % bands from the heads and the gauge (grey) and with a '
-                                     'soil probe (blue). (b) Posterior of the infiltration capacity with storms above it '
-                                     'and without (Proposition 4).'))
+    a(('fig', 'infiltrimi_fig4.png', 'Figure 4. (a) Soil water in millimetres: 90 % band from the heads and the gauge '
+                                     '(grey) and the median with a soil probe (blue; its band is thinner than the line). '
+                                     '(b) Relative wetness θ/θfc from the heads and the gauge alone. (c) Infiltration '
+                                     'capacity: 90 % interval with storms above it and without (Proposition 4).'))
 
     a(('h', '5. How to do it at Fushë Kuqe–Mat'))
     a(('ul', ['**Step 1. Heads.** Daily loggers (1 cm) in three to five wells at different distances from the sea and '
@@ -362,10 +377,9 @@ def blocks(r):
                '(2002) and Scanlon, Healy and Cook (2002) for the methods, Raue et al. (2009) for structural '
                'identifiability, ter Braak (2006) for the sampler, and Entekhabi et al. (2010) for satellite soil '
                'moisture. Companion documents, not counted: "A deterministic-first treatment of boundary and initial '
-               'conditions in groundwater models" and "Boundary conditions as operators" (10 November 2026).'))
-    a(('note', 'Appendix. infiltrimi_exp.py (Python 3; numpy, scipy; about 8 minutes) reproduces every number and '
-               'writes infiltrimi_results.json; infiltrimi_figs.py draws Figures 1–4; this document is built by '
-               'build_infiltrimi_doc.py (folder experiments/infiltrimi_go).'))
+               'conditions in groundwater models" and "Boundary conditions as operators" (10 November 2026). Code: '
+               'infiltrimi_exp.py (numpy, scipy; about 8 minutes) reproduces every number, infiltrimi_figs.py draws the '
+               'figures and build_infiltrimi_doc.py builds this document (folder experiments/infiltrimi_go).'))
     return B
 
 
