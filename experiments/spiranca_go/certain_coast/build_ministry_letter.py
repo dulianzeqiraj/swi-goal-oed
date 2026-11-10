@@ -154,7 +154,8 @@ REQUEST = {
         subject='Kërkesë për letër mbështetjeje dhe angazhimi si përdorues fundor për aplikimin e UPT-së në Programin '
                 'e NATO-s «Shkenca për Paqe dhe Siguri» (SPS), projekti CERTAIN-COAST',
         attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes dhe angazhimit (anglisht); 2. Përkthimi në '
-               'shqip, vetëm për lexim; 3. Shënimi i konceptit të projektit (5 faqe).',
+               'shqip, vetëm për lexim; 3. Formulari i përdoruesit fundor (2 faqe), për t\'u plotësuar nga Ministria; '
+               '4. Shënimi i konceptit të projektit (5 faqe).',
         body=[APPLY,
               WARN + 'në dy pjesë të bregut: midis Durrësit dhe Fushë-Kuqes, ku ndodhen fushat e puseve dhe Porti i '
               'Durrësit, dhe afër Fierit, ku gazsjellësi TAP del në breg dhe vazhdon nën det drejt Italisë. **Risia:** '
