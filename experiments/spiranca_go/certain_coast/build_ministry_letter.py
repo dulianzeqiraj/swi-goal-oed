@@ -1,12 +1,14 @@
-"""CERTAIN-COAST: request to the responsible ministry for a letter of support, with the letter itself.
+"""CERTAIN-COAST: request to a ministry for a letter of support, with the letter itself.
 
-Page 1: the NPD's request to the minister (Albanian, on the letterhead of the Faculty).
+Page 1: the NPD's request to the ministry (Albanian, on the letterhead of the Faculty).
 Page 2: the letter of support for the ministry to sign (English, as NATO requires), with yellow fields.
 Page 3: an Albanian reading copy of page 2.
+Two variants: 'mie', the Ministry of Infrastructure and Energy (sent by e-mail), and 'mod', the Ministry of Defence
+(delivered by hand, so page 1 leaves room for the signature and a telephone number written by hand).
 A letter of support expresses support in principle; it is not an end-user commitment and creates no financial or legal
-obligation. The ministry's name, the signatory and the fields of responsibility are placeholders to be checked.
+obligation. The signatory, the contact person and the fields of responsibility are left to the ministry.
 
-usage: python build_ministry_letter.py OUT.docx"""
+usage: python build_ministry_letter.py OUT.docx [mie|mod]"""
 import os
 import sys
 
@@ -23,12 +25,23 @@ from fill_agreement_template import TITLE  # noqa: E402
 NAVY, BLUE, GREY = '1F3864', '1F4E99', '52606D'
 MIN_EN = 'Ministry of Infrastructure and Energy of the Republic of Albania'
 MIN_SQ = 'Ministria e Infrastrukturës dhe Energjisë e Republikës së Shqipërisë'
+MOD_EN = 'Ministry of Defence of the Republic of Albania'
+MOD_SQ = 'Ministria e Mbrojtjes e Republikës së Shqipërisë'
+
+APPLICANT_EN = (
+    'supports the application of the Polytechnic University of Tirana (Faculty of Geology and Mining), with Assoc. Prof. '
+    'Dr. Dulian Zeqiraj as NATO-country Project Director and the Environmental Science Center of Qatar University (Prof. '
+    'Jassim Al-Khayat) as partner-country institution, to the NATO Science for Peace and Security Programme for the '
+    f'Multi-Year Project **CERTAIN-COAST: {TITLE}** (call 2027-1).')
+APPLICANT_SQ = (
+    'mbështet aplikimin e Universitetit Politeknik të Tiranës (Fakulteti i Gjeologjisë dhe i Minierave), me Prof. Asoc. '
+    'Dr. Dulian Zeqiraj si drejtues i projektit nga vendi anëtar i NATO-s dhe me Qendrën e Shkencave Mjedisore të '
+    'Universitetit të Katarit (Prof. Jassim Al-Khayat) si institucion i vendit partner, në Programin e NATO-s «Shkenca '
+    'për Paqe dhe Siguri» për projektin shumëvjeçar **CERTAIN-COAST** (thirrja 2027-1): paralajmërim i hershëm i '
+    'certifikuar për mbrojtjen e infrastrukturës së ujit, të portit dhe të energjisë në një bregdet që po ulet.')
 
 EN = [
-    f'The {MIN_EN} supports the application of the Polytechnic University of Tirana (Faculty of Geology and Mining), '
-    'with Assoc. Prof. Dr. Dulian Zeqiraj as NATO-country Project Director and the Environmental Science Center of Qatar '
-    'University (Prof. Jassim Al-Khayat) as partner-country institution, to the NATO Science for Peace and Security '
-    f'Programme for the Multi-Year Project **CERTAIN-COAST: {TITLE}** (call 2027-1).',
+    f'The {MIN_EN} {APPLICANT_EN}',
     'The coastal plain between Durrës and Fushë Kuqe concentrates assets of national importance: wellfields that supply '
     'drinking water, the Port of Durrës and energy infrastructure, on a low coast that is subsiding and exposed to '
     'seawater intrusion, extreme sea levels and earthquakes, as the earthquake of 26 November 2019 showed. Early warnings '
@@ -43,11 +56,7 @@ EN = [
 ]
 
 SQ = [
-    f'{MIN_SQ} mbështet aplikimin e Universitetit Politeknik të Tiranës (Fakulteti i Gjeologjisë dhe i Minierave), me '
-    'Prof. Asoc. Dr. Dulian Zeqiraj si drejtues i projektit nga vendi anëtar i NATO-s dhe me Qendrën e Shkencave '
-    'Mjedisore të Universitetit të Katarit (Prof. Jassim Al-Khayat) si institucion i vendit partner, në Programin e '
-    'NATO-s «Shkenca për Paqe dhe Siguri» për projektin shumëvjeçar **CERTAIN-COAST** (thirrja 2027-1): paralajmërim i '
-    'hershëm i certifikuar për mbrojtjen e infrastrukturës së ujit, të portit dhe të energjisë në një bregdet që po ulet.',
+    f'{MIN_SQ} {APPLICANT_SQ}',
     'Fusha bregdetare midis Durrësit dhe Fushë Kuqes përqendron asete me rëndësi kombëtare: fushat e puseve që furnizojnë '
     'me ujë të pijshëm, Portin e Durrësit dhe infrastrukturën e energjisë, në një breg të ulët që po ulet dhe që është i '
     'ekspozuar ndaj depërtimit të ujit të detit, niveleve ekstreme të detit dhe tërmeteve, siç e tregoi tërmeti i 26 '
@@ -62,6 +71,92 @@ SQ = [
     'financiar ose ligjor për Ministrinë.',
 ]
 
+EN_MOD = [
+    f'The {MOD_EN} {APPLICANT_EN}',
+    'The project protects critical infrastructure on Albania\'s low Adriatic coast: the wellfields that supply drinking '
+    'water and the Port of Durrës and, near Fier, the landfall where the Trans Adriatic Pipeline, an undersea gas '
+    'pipeline between two Allies, Albania and Italy, leaves the shore. The coast is subsiding and exposed to seawater '
+    'intrusion, extreme sea levels and earthquakes, as the earthquake of 26 November 2019 showed. The project serves three '
+    'of NATO\'s seven baseline requirements for national resilience (resilient food and water resources, resilient civil '
+    'transportation systems and resilient energy supplies), which also underpin civil support to the military, and the '
+    'call\'s topic of protection of critical infrastructure and maritime and undersea infrastructure resilience. Early '
+    'warnings that state in advance how often they may be wrong are directly relevant to [the Ministry\'s '
+    'responsibilities for national resilience, civil emergency planning and the protection of critical infrastructure].',
+    'We welcome the role of the Albanian Geological Survey as the project\'s end-user, which will receive the monitoring '
+    'network, the open software and trained staff at the end of the project, and we value the training of young '
+    'Albanian researchers and the cooperation with Qatar, a NATO partner in the Istanbul Cooperation Initiative, that the '
+    'project provides.',
+    'The Ministry will follow the project through a designated contact person, receive its results and take part in its '
+    'final workshop. This letter expresses support in principle and creates no financial or legal obligation for the '
+    'Ministry.',
+]
+
+SQ_MOD = [
+    f'{MOD_SQ} {APPLICANT_SQ}',
+    'Projekti mbron infrastrukturë kritike në bregdetin e ulët adriatik të Shqipërisë: fushat e puseve që furnizojnë me '
+    'ujë të pijshëm dhe Portin e Durrësit, si dhe, afër Fierit, pikën ku del në breg Gazsjellësi Trans-Adriatik, një '
+    'gazsjellës nënujor midis dy vendeve aleate, Shqipërisë dhe Italisë. Bregu po ulet dhe është i ekspozuar ndaj '
+    'depërtimit të ujit të detit, niveleve ekstreme të detit dhe tërmeteve, siç e tregoi tërmeti i 26 nëntorit 2019. '
+    'Projekti u shërben tri nga shtatë kërkesave bazë të NATO-s për qëndrueshmërinë kombëtare (burime të qëndrueshme '
+    'ushqimi dhe uji, sisteme të qëndrueshme të transportit civil dhe furnizim i qëndrueshëm me energji), mbi të cilat '
+    'mbështetet edhe ndihma civile për forcat e armatosura, dhe bie në temën e thirrjes për mbrojtjen e infrastrukturës '
+    'kritike dhe qëndrueshmërinë e infrastrukturës detare dhe nënujore. Paralajmërimet që deklarojnë paraprakisht sa '
+    'shpesh mund të gabojnë lidhen drejtpërdrejt me [përgjegjësitë e Ministrisë për qëndrueshmërinë kombëtare, '
+    'planifikimin civil të emergjencave dhe mbrojtjen e infrastrukturës kritike].',
+    'Mirëpresim rolin e Shërbimit Gjeologjik Shqiptar si përdorues fundor i projektit, i cili në fund të projektit do të '
+    'marrë rrjetin e monitorimit, softuerin e hapur dhe stafin e trajnuar, dhe vlerësojmë trajnimin e kërkuesve të rinj '
+    'shqiptarë dhe bashkëpunimin me Katarin, partner i NATO-s në Iniciativën e Bashkëpunimit të Stambollit, që ofron '
+    'projekti.',
+    'Ministria do ta ndjekë projektin përmes një personi kontakti të caktuar, do të marrë rezultatet e tij dhe do të marrë '
+    'pjesë në seminarin përmbyllës. Kjo letër shpreh mbështetje në parim dhe nuk krijon asnjë detyrim financiar ose '
+    'ligjor për Ministrinë.',
+]
+
+# Page 1: the request. Shared paragraphs, then the two variants.
+APPLY = ('Universiteti Politeknik i Tiranës aplikon, nëpërmjet Fakultetit të Gjeologjisë dhe të Minierave, në thirrjen '
+         '2027-1 të Programit të NATO-s «Shkenca për Paqe dhe Siguri» me projektin shumëvjeçar **CERTAIN-COAST** (36 '
+         'muaj), në partneritet me Universitetin e Katarit. Drejtues i projektit për UPT-në jam unë. Afati i dorëzimit '
+         'është **e diela, 15 nëntor 2026, ora 23:59**.')
+WARN = ('Projekti jep paralajmërime të hershme për depërtimin e ujit të detit në puset e ujit të pijshëm, për '
+        'lëngëzimin e tokës gjatë tërmeteve dhe për nivelet ekstreme të detit ')
+RISIA = ('**Risia:** çdo paralajmërim deklaron paraprakisht sa shpesh mund të gabojë. Përdorues fundor është Shërbimi '
+         'Gjeologjik Shqiptar, i cili në fund të projektit merr rrjetin e monitorimit, softuerin e hapur dhe stafin e '
+         'trajnuar. NATO financon rreth €382,500.')
+ASK = ('**Ju lutem për një letër mbështetjeje**, në letrën zyrtare të Ministrisë, të firmosur nga titullari ose nga një '
+       'person i autorizuar, **mundësisht deri të premten, 13 nëntor 2026**')
+EASE = ('Për t\'jua lehtësuar, bashkëngjis tekstin e propozuar të letrës në anglisht, siç e kërkon NATO, dhe përkthimin '
+        'e saj në shqip vetëm për lexim; fushat me të verdhë plotësohen nga Ministria, dhe teksti mund të ndryshohet '
+        'sipas gjykimit tuaj. Letra shpreh **mbështetje në parim** dhe **nuk krijon asnjë detyrim financiar ose '
+        'ligjor** për Ministrinë.')
+MEET = 'Jam në dispozicion për ta paraqitur projektin në një takim të shkurtër, në çdo orë që ju përshtatet.'
+
+REQUEST = {
+    'mie': dict(
+        to='Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', by_hand=False,
+        body=[APPLY,
+              WARN + 'në bregun Durrës–Fushë Kuqe, ku ndodhen edhe Porti i Durrësit dhe infrastruktura e energjisë. '
+              + RISIA,
+              'Meqë projekti lidhet drejtpërdrejt me fushat e përgjegjësisë së Ministrisë suaj (furnizimi me ujë, '
+              'infrastruktura e energjisë dhe e transportit, rreziqet gjeologjike), një letër mbështetjeje nga Ministria '
+              'do ta forconte ndjeshëm aplikimin. ' + ASK + ', të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al.',
+              EASE, MEET]),
+    'mod': dict(
+        to='Ministrisë së Mbrojtjes, Kabinetit të Ministrit', by_hand=True,
+        body=[APPLY,
+              WARN + 'në dy pjesë të bregut: midis Durrësit dhe Fushë-Kuqes, ku ndodhen fushat e puseve dhe Porti i '
+              'Durrësit, dhe afër Fierit, ku gazsjellësi TAP del në breg dhe vazhdon nën det drejt Italisë. ' + RISIA,
+              'Projekti u shërben tri nga shtatë kërkesave bazë të NATO-s për qëndrueshmërinë kombëtare (resilience): '
+              'ushqimi dhe uji, transporti civil dhe energjia, mbi të cilat mbështetet edhe ndihma civile për forcat e '
+              'armatosura. Ai bie gjithashtu në temën e thirrjes 2027-1 për mbrojtjen e infrastrukturës kritike dhe '
+              'qëndrueshmërinë e infrastrukturës detare dhe nënujore. Për këtë arsye, një letër mbështetjeje nga '
+              'Ministria e Mbrojtjes do ta forconte ndjeshëm aplikimin. ' + ASK + '. Mund ta dërgoni të skanuar në PDF '
+              'në adresën dulian.zeqiraj@fgjm.edu.al, ndërsa origjinalin mund ta tërheq vetë në Ministri.',
+              EASE + ' Informacioni i ndjeshëm për infrastrukturën trajtohet si i kufizuar, dhe çdo publikim '
+              'kontrollohet para botimit.',
+              MEET]),
+}
+LETTER = {'mie': (EN, SQ, MIN_EN, MIN_SQ), 'mod': (EN_MOD, SQ_MOD, MOD_EN, MOD_SQ)}
+
 
 def setup(doc):
     s = doc.sections[0]
@@ -70,45 +165,30 @@ def setup(doc):
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(10.5)
 
 
-def request(doc):
+def request(doc, variant):
+    r = REQUEST[variant]
     p = para(doc, 0); run(p, 'UNIVERSITETI POLITEKNIK I TIRANËS', bold=True, size=10, color=NAVY)
     p = para(doc, 10); run(p, 'Fakulteti i Gjeologjisë dhe i Minierave · Departamenti i Burimeve Energjetike', size=9,
                            color=GREY)
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; run(p, 'Tiranë, më 10.11.2026', size=10.5)
     p = para(doc, 2); run(p, 'Drejtuar: ', bold=True, size=10.5)
-    run(p, 'Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', size=10.5)
+    run(p, r['to'], size=10.5)
     p = para(doc, 8); run(p, 'Lënda: ', bold=True, size=10.5)
     run(p, 'Kërkesë për letër mbështetjeje për aplikimin e UPT-së në Programin e NATO-s «Shkenca për Paqe dhe Siguri» '
            '(SPS), projekti CERTAIN-COAST', bold=True, size=10.5, color=BLUE)
     p = para(doc, 5); run(p, 'Të nderuar zonja dhe zotërinj,', size=10.5)
-    body = [
-        'Universiteti Politeknik i Tiranës aplikon, nëpërmjet Fakultetit të Gjeologjisë dhe të Minierave, në thirrjen '
-        '2027-1 të Programit të NATO-s «Shkenca për Paqe dhe Siguri» me projektin shumëvjeçar **CERTAIN-COAST** (36 '
-        'muaj), në partneritet me Universitetin e Katarit. Drejtues i projektit për UPT-në jam unë. Afati i dorëzimit '
-        'është **e diela, 15 nëntor 2026, ora 23:59**.',
-        'Projekti jep paralajmërime të hershme për depërtimin e ujit të detit në puset e ujit të pijshëm, për '
-        'lëngëzimin e tokës gjatë tërmeteve dhe për nivelet ekstreme të detit në bregun Durrës–Fushë Kuqe, ku ndodhen '
-        'edhe Porti i Durrësit dhe infrastruktura e energjisë. **Risia:** çdo paralajmërim deklaron paraprakisht sa '
-        'shpesh mund të gabojë. Përdorues fundor është Shërbimi Gjeologjik Shqiptar, i cili në fund të projektit merr '
-        'rrjetin e monitorimit, softuerin e hapur dhe stafin e trajnuar. NATO financon rreth €382,500.',
-        'Meqë projekti lidhet drejtpërdrejt me fushat e përgjegjësisë së Ministrisë suaj (furnizimi me ujë, '
-        'infrastruktura e energjisë dhe e transportit, rreziqet gjeologjike), një letër mbështetjeje nga Ministria do '
-        'ta forconte ndjeshëm aplikimin. **Ju lutem për një letër mbështetjeje**, në letrën zyrtare të Ministrisë, të '
-        'firmosur nga titullari ose nga një person i autorizuar, **mundësisht deri të premten, 13 nëntor 2026**, të '
-        'skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al.',
-        'Për t\'jua lehtësuar, bashkëngjis tekstin e propozuar të letrës në anglisht, siç e kërkon NATO, dhe përkthimin '
-        'e saj në shqip vetëm për lexim; fushat me të verdhë plotësohen nga Ministria, dhe teksti mund të ndryshohet '
-        'sipas gjykimit tuaj. Letra shpreh **mbështetje në parim** dhe **nuk krijon asnjë detyrim financiar ose '
-        'ligjor** për Ministrinë.',
-        'Jam në dispozicion për ta paraqitur projektin në një takim të shkurtër, në çdo orë që ju përshtatet.',
-    ]
-    for t in body:
+    for t in r['body']:
         p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, t, size=10.5)
     p = para(doc, 10); run(p, 'Ju falënderoj për mbështetjen.', size=10.5)
     p = para(doc, 0); run(p, 'Me respekt,', size=10.5)
+    if r['by_hand']:
+        para(doc, 26)                                   # room for the signature
     p = para(doc, 0); run(p, 'Prof. Asoc. Dr. Dulian Zeqiraj', bold=True, size=10.5)
-    for t in ('Drejtues i projektit CERTAIN-COAST (NATO-country Project Director)',
-              'Fakulteti i Gjeologjisë dhe i Minierave, Universiteti Politeknik i Tiranës', 'dulian.zeqiraj@fgjm.edu.al'):
+    lines = ['Drejtues i projektit CERTAIN-COAST (NATO-country Project Director)',
+             'Fakulteti i Gjeologjisë dhe i Minierave, Universiteti Politeknik i Tiranës', 'dulian.zeqiraj@fgjm.edu.al']
+    if r['by_hand']:
+        lines.append('Tel.: ________________________')
+    for t in lines:
         p = para(doc, 0); run(p, t, size=9, color=GREY)
     p = para(doc, 0, before=8)
     run(p, 'Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes (anglisht); 2. Përkthimi në shqip, vetëm për '
@@ -148,15 +228,17 @@ def support(doc, paras, ministry, en=True):
         p = para(doc, 0); ph(p, t, size=10.5)
 
 
-def main(out):
+def main(out, variant='mie'):
+    en, sq, name_en, name_sq = LETTER[variant]
     doc = Document()
     setup(doc)
-    request(doc)
-    support(doc, EN, MIN_EN, en=True)
-    support(doc, SQ, MIN_SQ, en=False)
+    request(doc, variant)
+    support(doc, en, name_en, en=True)
+    support(doc, sq, name_sq, en=False)
     doc.save(out)
     print('saved', out)
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Letter_of_Support_Ministry.docx')
+    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Letter_of_Support_Ministry.docx',
+         sys.argv[2] if len(sys.argv) > 2 else 'mie')
