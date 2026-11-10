@@ -3,10 +3,11 @@
 Page 1: the NPD's request to the ministry (Albanian, on the letterhead of the Faculty).
 Page 2: the letter of support for the ministry to sign (English, as NATO requires), with yellow fields.
 Page 3: an Albanian reading copy of page 2.
-Two variants: 'mie', the Ministry of Infrastructure and Energy (sent by e-mail), and 'mod', the Ministry of Defence
-(delivered by hand, so page 1 leaves room for the signature and a telephone number written by hand).
-A letter of support expresses support in principle; it is not an end-user commitment and creates no financial or legal
-obligation. The signatory, the contact person and the fields of responsibility are left to the ministry.
+Two variants: 'mie', the Ministry of Infrastructure and Energy (a letter of support, sent by e-mail), and 'mod', the
+Ministry of Defence (a letter of support and end-user commitment, delivered by hand, so page 1 leaves room for the
+signature and a telephone number written by hand). The Ministry of Defence is the project's only end-user: staff time
+in kind, no SPS funds, no financial obligation. The signatory, the contact person and the fields of responsibility are
+left to the ministry.
 
 usage: python build_ministry_letter.py OUT.docx [mie|mod]"""
 import os
@@ -72,7 +73,7 @@ SQ = [
 ]
 
 EN_MOD = [
-    f'The {MOD_EN} {APPLICANT_EN}',
+    f'The {MOD_EN} {APPLICANT_EN} The Ministry will take part in the project as its end-user.',
     'The project protects critical infrastructure on Albania\'s low Adriatic coast: the wellfields that supply drinking '
     'water and the Port of Durrës and, near Fier, the landfall where the Trans Adriatic Pipeline, an undersea gas '
     'pipeline between two Allies, Albania and Italy, leaves the shore. The coast is subsiding and exposed to seawater '
@@ -82,17 +83,19 @@ EN_MOD = [
     'call\'s topic of protection of critical infrastructure and maritime and undersea infrastructure resilience. Early '
     'warnings that state in advance how often they may be wrong are directly relevant to [the Ministry\'s '
     'responsibilities for national resilience, civil emergency planning and the protection of critical infrastructure].',
-    'We welcome the role of the Albanian Geological Survey as the project\'s end-user, which will receive the monitoring '
-    'network, the open software and trained staff at the end of the project, and we value the training of young '
-    'Albanian researchers and the cooperation with Qatar, a NATO partner in the Istanbul Cooperation Initiative, that the '
-    'project provides.',
-    'The Ministry will follow the project through a designated contact person, receive its results and take part in its '
-    'final workshop. This letter expresses support in principle and creates no financial or legal obligation for the '
-    'Ministry.',
+    'As end-user, the Ministry will designate a contact person and a small team, who will sit on the project\'s steering '
+    'committee, agree with the project the warning thresholds of the bulletins it uses, review the bulletins during the '
+    'twelve months of live operation and take part in the final workshop. The Ministry will use the results in its '
+    'planning for national resilience and the protection of critical infrastructure; its staff will be trained in the use '
+    'of the bulletins and the open software, and the operating procedures will be handed over to the Ministry at the end '
+    'of the project.',
+    'We value the training of young Albanian researchers and the cooperation with Qatar, a NATO partner in the Istanbul '
+    'Cooperation Initiative, that the project provides. The Ministry\'s contribution is staff time in kind; the Ministry '
+    'receives no SPS funds, and this letter creates no financial obligation for it.',
 ]
 
 SQ_MOD = [
-    f'{MOD_SQ} {APPLICANT_SQ}',
+    f'{MOD_SQ} {APPLICANT_SQ} Ministria do të marrë pjesë në projekt si përdoruesi fundor i tij.',
     'Projekti mbron infrastrukturë kritike në bregdetin e ulët adriatik të Shqipërisë: fushat e puseve që furnizojnë me '
     'ujë të pijshëm dhe Portin e Durrësit, si dhe, afër Fierit, pikën ku del në breg Gazsjellësi Trans-Adriatik, një '
     'gazsjellës nënujor midis dy vendeve aleate, Shqipërisë dhe Italisë. Bregu po ulet dhe është i ekspozuar ndaj '
@@ -103,13 +106,15 @@ SQ_MOD = [
     'kritike dhe qëndrueshmërinë e infrastrukturës detare dhe nënujore. Paralajmërimet që deklarojnë paraprakisht sa '
     'shpesh mund të gabojnë lidhen drejtpërdrejt me [përgjegjësitë e Ministrisë për qëndrueshmërinë kombëtare, '
     'planifikimin civil të emergjencave dhe mbrojtjen e infrastrukturës kritike].',
-    'Mirëpresim rolin e Shërbimit Gjeologjik Shqiptar si përdorues fundor i projektit, i cili në fund të projektit do të '
-    'marrë rrjetin e monitorimit, softuerin e hapur dhe stafin e trajnuar, dhe vlerësojmë trajnimin e kërkuesve të rinj '
-    'shqiptarë dhe bashkëpunimin me Katarin, partner i NATO-s në Iniciativën e Bashkëpunimit të Stambollit, që ofron '
-    'projekti.',
-    'Ministria do ta ndjekë projektin përmes një personi kontakti të caktuar, do të marrë rezultatet e tij dhe do të marrë '
-    'pjesë në seminarin përmbyllës. Kjo letër shpreh mbështetje në parim dhe nuk krijon asnjë detyrim financiar ose '
-    'ligjor për Ministrinë.',
+    'Si përdorues fundor, Ministria do të caktojë një person kontakti dhe një grup të vogël, të cilët do të jenë pjesë e '
+    'komitetit drejtues të projektit, do të bien dakord me projektin për pragjet e paralajmërimit në buletinet që përdor '
+    'Ministria, do të shqyrtojnë buletinet gjatë dymbëdhjetë muajve të funksionimit dhe do të marrin pjesë në seminarin '
+    'përmbyllës. Ministria do t\'i përdorë rezultatet në planifikimin e saj për qëndrueshmërinë kombëtare dhe mbrojtjen e '
+    'infrastrukturës kritike; stafi i saj do të trajnohet për përdorimin e buletineve dhe të softuerit të hapur, dhe '
+    'procedurat e punës do t\'i dorëzohen Ministrisë në fund të projektit.',
+    'Vlerësojmë trajnimin e kërkuesve të rinj shqiptarë dhe bashkëpunimin me Katarin, partner i NATO-s në Iniciativën e '
+    'Bashkëpunimit të Stambollit, që ofron projekti. Kontributi i Ministrisë është koha e punës së stafit; Ministria nuk '
+    'merr fonde nga NATO, dhe kjo letër nuk krijon asnjë detyrim financiar për të.',
 ]
 
 # Page 1: the request. Shared paragraphs, then the two variants.
@@ -133,6 +138,10 @@ MEET = 'Jam në dispozicion për ta paraqitur projektin në një takim të shkur
 REQUEST = {
     'mie': dict(
         to='Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', by_hand=False,
+        subject='Kërkesë për letër mbështetjeje për aplikimin e UPT-së në Programin e NATO-s «Shkenca për Paqe dhe Siguri» '
+                '(SPS), projekti CERTAIN-COAST',
+        attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes (anglisht); 2. Përkthimi në shqip, vetëm për '
+               'lexim; 3. Shënimi i konceptit të projektit (5 faqe).',
         body=[APPLY,
               WARN + 'në bregun Durrës–Fushë Kuqe, ku ndodhen edhe Porti i Durrësit dhe infrastruktura e energjisë. '
               + RISIA,
@@ -142,20 +151,36 @@ REQUEST = {
               EASE, MEET]),
     'mod': dict(
         to='Ministrisë së Mbrojtjes, Kabinetit të Ministrit', by_hand=True,
+        subject='Kërkesë për letër mbështetjeje dhe angazhimi si përdorues fundor për aplikimin e UPT-së në Programin '
+                'e NATO-s «Shkenca për Paqe dhe Siguri» (SPS), projekti CERTAIN-COAST',
+        attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes dhe angazhimit (anglisht); 2. Përkthimi në '
+               'shqip, vetëm për lexim; 3. Shënimi i konceptit të projektit (5 faqe).',
         body=[APPLY,
               WARN + 'në dy pjesë të bregut: midis Durrësit dhe Fushë-Kuqes, ku ndodhen fushat e puseve dhe Porti i '
-              'Durrësit, dhe afër Fierit, ku gazsjellësi TAP del në breg dhe vazhdon nën det drejt Italisë. ' + RISIA,
+              'Durrësit, dhe afër Fierit, ku gazsjellësi TAP del në breg dhe vazhdon nën det drejt Italisë. **Risia:** '
+              'çdo paralajmërim deklaron paraprakisht sa shpesh mund të gabojë. NATO financon rreth €382,500.',
               'Projekti u shërben tri nga shtatë kërkesave bazë të NATO-s për qëndrueshmërinë kombëtare (resilience): '
               'ushqimi dhe uji, transporti civil dhe energjia, mbi të cilat mbështetet edhe ndihma civile për forcat e '
-              'armatosura. Ai bie gjithashtu në temën e thirrjes 2027-1 për mbrojtjen e infrastrukturës kritike dhe '
-              'qëndrueshmërinë e infrastrukturës detare dhe nënujore. Për këtë arsye, një letër mbështetjeje nga '
-              'Ministria e Mbrojtjes do ta forconte ndjeshëm aplikimin. ' + ASK + '. Mund ta dërgoni të skanuar në PDF '
-              'në adresën dulian.zeqiraj@fgjm.edu.al, ndërsa origjinalin mund ta tërheq vetë në Ministri.',
-              EASE + ' Informacioni i ndjeshëm për infrastrukturën trajtohet si i kufizuar, dhe çdo publikim '
-              'kontrollohet para botimit.',
+              'armatosura, dhe bie në temën e thirrjes 2027-1 për mbrojtjen e infrastrukturës kritike dhe '
+              'qëndrueshmërinë e infrastrukturës detare dhe nënujore. Prandaj ju propozojmë që Ministria e Mbrojtjes të '
+              'jetë **përdoruesi fundor** i projektit. NATO kërkon që çdo projekt të ketë të paktën një përdorues fundor, '
+              'i cili merr pjesë në projekt dhe përdor rezultatet e tij pa marrë fonde nga NATO. Ministria do të caktonte '
+              'një person kontakti dhe një grup të vogël për komitetin drejtues, do të binte dakord për pragjet e '
+              'paralajmërimit, do të shqyrtonte buletinet gjatë 12 muajve të funksionimit dhe në fund do të merrte '
+              'procedurat e punës dhe trajnimin.',
+              '**Ju lutem për një letër mbështetjeje dhe angazhimi si përdorues fundor**, në letrën zyrtare të '
+              'Ministrisë, të firmosur nga titullari ose nga një person i autorizuar, **mundësisht deri të premten, 13 '
+              'nëntor 2026**. Mund ta dërgoni të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al, ndërsa origjinalin '
+              'mund ta tërheq vetë në Ministri. Bashkëngjis tekstin e propozuar të letrës në anglisht, siç e kërkon NATO, '
+              'dhe përkthimin e saj në shqip vetëm për lexim; fushat me të verdhë plotësohen nga Ministria, dhe teksti '
+              'mund të ndryshohet sipas gjykimit tuaj. Kontributi i Ministrisë është vetëm koha e punës së stafit: letra '
+              '**nuk krijon asnjë detyrim financiar**. Informacioni i ndjeshëm për infrastrukturën trajtohet si i '
+              'kufizuar, dhe çdo publikim kontrollohet para botimit.',
               MEET]),
 }
-LETTER = {'mie': (EN, SQ, MIN_EN, MIN_SQ), 'mod': (EN_MOD, SQ_MOD, MOD_EN, MOD_SQ)}
+SUPPORT = ('Letter of support', 'Letër mbështetjeje')
+SUPPORT_EU = ('Letter of support and end-user commitment', 'Letër mbështetjeje dhe angazhimi si përdorues fundor')
+LETTER = {'mie': (EN, SQ, MIN_EN, MIN_SQ, SUPPORT), 'mod': (EN_MOD, SQ_MOD, MOD_EN, MOD_SQ, SUPPORT_EU)}
 
 
 def setup(doc):
@@ -174,8 +199,7 @@ def request(doc, variant):
     p = para(doc, 2); run(p, 'Drejtuar: ', bold=True, size=10.5)
     run(p, r['to'], size=10.5)
     p = para(doc, 8); run(p, 'Lënda: ', bold=True, size=10.5)
-    run(p, 'Kërkesë për letër mbështetjeje për aplikimin e UPT-së në Programin e NATO-s «Shkenca për Paqe dhe Siguri» '
-           '(SPS), projekti CERTAIN-COAST', bold=True, size=10.5, color=BLUE)
+    run(p, r['subject'], bold=True, size=10.5, color=BLUE)
     p = para(doc, 5); run(p, 'Të nderuar zonja dhe zotërinj,', size=10.5)
     for t in r['body']:
         p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, t, size=10.5)
@@ -191,11 +215,10 @@ def request(doc, variant):
     for t in lines:
         p = para(doc, 0); run(p, t, size=9, color=GREY)
     p = para(doc, 0, before=8)
-    run(p, 'Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes (anglisht); 2. Përkthimi në shqip, vetëm për '
-           'lexim; 3. Shënimi i konceptit të projektit (5 faqe).', italic=True, size=8.5, color=GREY)
+    run(p, r['attach'], italic=True, size=8.5, color=GREY)
 
 
-def support(doc, paras, ministry, en=True):
+def support(doc, paras, ministry, en=True, kind=SUPPORT):
     p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.page_break_before = True
     if not en:
         run(p, 'PËRKTHIM PËR LEXIM. Letra që firmoset dhe i dërgohet NATO-s është versioni në anglisht.', italic=True,
@@ -211,11 +234,11 @@ def support(doc, paras, ministry, en=True):
     p = para(doc, 8)
     if en:
         run(p, 'Subject: ', bold=True, size=10.5)
-        run(p, f'Letter of support for the NATO SPS Multi-Year Project application CERTAIN-COAST: {TITLE}', bold=True,
+        run(p, f'{kind[0]} for the NATO SPS Multi-Year Project application CERTAIN-COAST: {TITLE}', bold=True,
             size=10.5)
     else:
         run(p, 'Lënda: ', bold=True, size=10.5)
-        run(p, 'Letër mbështetjeje për aplikimin e projektit shumëvjeçar NATO SPS CERTAIN-COAST', bold=True, size=10.5)
+        run(p, f'{kind[1]} për aplikimin e projektit shumëvjeçar NATO SPS CERTAIN-COAST', bold=True, size=10.5)
     p = para(doc, 6); run(p, 'Dear Sir or Madam,' if en else 'Të nderuar zonja dhe zotërinj,', size=10.5)
     for t in paras:
         p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, t, size=10.5)
@@ -229,12 +252,12 @@ def support(doc, paras, ministry, en=True):
 
 
 def main(out, variant='mie'):
-    en, sq, name_en, name_sq = LETTER[variant]
+    en, sq, name_en, name_sq, kind = LETTER[variant]
     doc = Document()
     setup(doc)
     request(doc, variant)
-    support(doc, en, name_en, en=True)
-    support(doc, sq, name_sq, en=False)
+    support(doc, en, name_en, en=True, kind=kind)
+    support(doc, sq, name_sq, en=False, kind=kind)
     doc.save(out)
     print('saved', out)
 
