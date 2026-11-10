@@ -73,10 +73,10 @@ CRITICAL = [
     ['Calibration of the coupled model (T2.3)', 'M12–18', 'MS3 (gate)', 'Model built in stages from Month 7, so calibration starts as soon as data stream'],
     ['Certified surrogate (T2.4)', 'M15–22', 'MS4 (gate)', 'Starts before calibration ends, on preliminary parameters'],
     ['Live operation (T5.2)', 'M23–34', 'MS6', 'Back-testing (to Month 27) runs in parallel, not before'],
-    ['Hand-over (T6.4)', 'M30–36', 'MS7', 'Operators issue all bulletins from Month 34; procedures drafted from Month 30'],
+    ['Hand-over (T6.4)', 'M30–36', 'MS7', 'The end-user\'s staff use all bulletins from Month 34; procedures drafted from Month 30'],
 ]
 SLIP = ('A slip of up to two months at the go/no-go gate (MS4) is absorbed: live operation then runs from Month 25 to Month 36, '
-        'still twelve months, and the operators still issue the bulletins in the final months. A longer slip triggers the '
+        'still twelve months, and the end-user\'s staff still use the bulletins in the final months. A longer slip triggers the '
         'fallbacks of the Risk Assessment (R5, R6) and is decided by the steering committee.')
 
 GOVERN = [
