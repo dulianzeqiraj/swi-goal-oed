@@ -12,7 +12,7 @@ from reportlab.lib.colors import HexColor
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import KeepTogether, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -24,28 +24,16 @@ NAVY, GREY, LINE = HexColor('#1F3864'), HexColor('#52606D'), HexColor('#C9CED6')
 SUBS = {'≤': 'at most ', '≥': 'at least ', '→': 'to', '−': '-', 'α_k': 'alpha', 'α': 'alpha', 'Δ': 'Delta', '★': '*',
         'η': 'eta', ' ': ' ', ' ': ' ', '·': '-'}
 END_USERS = [
-    ('Water utility: Shoqëria Rajonale Ujësjellës Kanalizime Durrës sh.a.',
-     'Access to production and monitoring wells for the loggers; records of heads, chloride and pumping under a data '
-     'agreement; support for a yearly campaign of paired chloride samples; staff time for the chloride threshold, the '
-     'pumping rule and safe pumping tests.',
-     'Certified intrusion warnings (also for crossings between samples), a joint pumping rule, the certified safe '
-     'operating window, the monitoring network and trained staff.'),
-    ('Water resources agency: Agjencia e Menaxhimit të Burimeve Ujore (AMBU)',
-     'Access to monitoring wells under its control (existing wells only); records of levels, chemistry and abstraction '
-     'under a data agreement; staff time for the warning threshold and the pumping and drought rule.',
-     'A monitoring design for its decisions, level and salinity sensors, a chloride early warning for each supply well, '
-     'a pumping and drought rule, open software and training; no procurement, ownership or maintenance obligations.'),
-    ('Port: Autoriteti Portual Durrës',
-     'Access to agreed locations for sensors under its security rules; geotechnical records and quay design levels '
-     'under a data agreement; staff time for the thresholds and the post-event protocol.',
-     'Liquefaction and extreme-water-level warnings for the port, post-event reports and trained staff.'),
-    ('Gas pipeline: Trans Adriatic Pipeline AG (TAP), landfall near Fier',
-     'Access to agreed locations near the landfall for a small set of sensors under its security rules; design levels '
-     'and geotechnical data; staff time for the thresholds.',
-     'Stability bulletins combining shaking, liquefaction, water level and subsidence.'),
-    ('Civil protection: Agjencia Kombëtare e Mbrojtjes Civile',
-     'A seat on the steering committee; the triggers of the post-event protocol and its co-design.',
-     'One picture of water, port and energy after earthquakes or storms; post-event reports and procedures.'),
+    ('Albanian Geological Survey (Shërbimi Gjeologjik Shqiptar, SHGJSH): the end-user',
+     'Access to the wells of the national groundwater monitoring network and to its records; staff time to site and '
+     'install the sensors; agrees the warning thresholds and reviews the bulletins during the live operation.',
+     'Chloride and water-level bulletins for its wells; the monitoring network, the open software, the monitoring '
+     'design, the safe operating window and the operating procedures at the hand-over; trained staff.'),
+    ('Water Resources Management Agency (Agjencia e Menaxhimit të Burimeve Ujore, AMBU)',
+     'Water-use permit and abstraction data; staff time to agree the chloride threshold and review the pumping and '
+     'drought rule.',
+     'A chloride early warning and a pumping and drought rule in support of the water-use permits, safe even while the '
+     'source of the chloride is unknown; no procurement, ownership or maintenance obligations.'),
 ]
 
 
@@ -126,14 +114,16 @@ def main(out):
     st += [Paragraph('3. Who uses it, and how', S['h'])] + text_blocks(S, A.RELEVANCE)
     st += [Paragraph('4. What the project will deliver, and what is new', S['h'])] + text_blocks(S, A.DELIVER)
     st += [Paragraph('5. How the project works', S['h'])] + text_blocks(S, A.HOW)
-    st += [Paragraph('6. The end-users: what they give and what they gain', S['h']),
+    st += [KeepTogether([Paragraph('6. The end-users: what they give and what they gain', S['h']),
            grid(S, ['End-user', 'Contribution (in kind; no SPS funds)', 'What it gains'], END_USERS,
                 [4.4 * cm, 6.3 * cm, 6.3 * cm]),
-           Paragraph(clean('The bulletins are advisory: operational decisions stay with the operators, and any warning to '
+           Paragraph(clean('The Port of Durrës and the TAP landfall near Fier are assessed only from satellite radar, '
+                           'GNSS and public data; no data or access is needed from their owners. '
+                           'The bulletins are advisory: operational decisions stay with the operators, and any warning to '
                            'the public is issued only by the competent authorities. Data provided by end-users are '
                            'restricted, used under data agreements, and every publication is reviewed for sensitive '
                            'content before release; software and non-restricted data products are open, with a DOI.'),
-                     S['note'])]
+                     S['note'])])]
     wp = [[w[0], w[1], f'Months {w[3][0]}-{w[3][1]}'] for w in W.WPS]
     st += [Paragraph('7. Work plan and milestones', S['h']),
            grid(S, ['Work package', 'Title', 'Duration'], wp, [2.6 * cm, 11.0 * cm, 3.4 * cm]), Spacer(1, 4),
