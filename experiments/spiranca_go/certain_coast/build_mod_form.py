@@ -1,7 +1,7 @@
 """CERTAIN-COAST (NATO SPS proposal): end-user form for the Ministry of Defence of the Republic of Albania.
 
-The Ministry fills it in and returns it with its signed letter of support and end-user commitment by Friday
-13 November 2026. Labels are in Albanian with the English field of the NATO SPS application form in grey, so the
+The Ministry fills it in and returns it with its signed letter of support and end-user commitment by Wednesday
+11 November 2026. Labels are in Albanian with the English field of the NATO SPS application form in grey, so the
 answers can be copied to the platform as they are. Part 1 follows the "End-Users" section of the form; Part 2 the
 "Project participants" table; Part 3 lists the commitments of the end-user with the months of the work plan; Part 4
 is the in-kind contribution for the "Non-NATO funding" field; Part 5 the security of information; Part 6 the
@@ -25,7 +25,7 @@ from build_institutions import run, ph, para, cell_text, widths  # noqa: E402
 import build_workplan as W  # noqa: E402
 
 NAVY, FILL, LABEL, GREY, HINT = '1F3864', 'FFF7CC', 'EEF2F8', '6B7280', '6B7280'
-DUE = 'e premte, 13 nëntor 2026'
+DUE = 'të mërkurën, 11 nëntor 2026'
 MOD_EN = 'Ministry of Defence of the Republic of Albania'
 
 
@@ -102,9 +102,9 @@ def main(out):
     p = para(doc, 2); run(p, 'End-user form · Ministria e Mbrojtjes e Republikës së Shqipërisë', bold=True, size=11,
                            color=NAVY)
     p = para(doc, 6); run(p, f'Projekt shumëvjeçar i Programit të NATO-s «Shkenca për Paqe dhe Siguri», thirrja 2027-1 · '
-                             f'ju lutem ktheni deri të {DUE}', bold=True, size=10, color='B91C1C')
+                             f'ju lutem ktheni deri {DUE}', bold=True, size=10, color='B91C1C')
     note(doc, 'Ju lutem plotësoni qelizat me ngjyrë të verdhë të lehtë dhe ktheni këtë formular, bashkë me letrën e '
-              'mbështetjes dhe të angazhimit të firmosur, të skanuar në PDF, në adresën dulian.zeqiraj@fgjm.edu.al, deri të '
+              'mbështetjes dhe të angazhimit të firmosur, të skanuar në PDF, në adresën dulian.zeqiraj@fgjm.edu.al, deri '
               f'{DUE}. Fushat ndjekin formularin e NATO-s: emrin e fushës në anglisht e gjeni me ngjyrë gri, dhe '
               'përgjigjet tuaja i hedhim në platformë ashtu siç i shkruani. Emrat, pozicionet dhe adresat shkruajini siç '
               'duhet të dalin në anglisht. Të dhënat përdoren vetëm për këtë aplikim. Si përdorues fundor, Ministria nuk '
