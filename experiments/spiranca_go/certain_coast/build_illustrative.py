@@ -73,17 +73,17 @@ FIGS = [
      'Range over storylines of the share of seasons above the chloride limit: 4–9% with the extreme-aware margin of M1, '
      '13–21% with a static alarm. Tests on a synthetic coast, not results at Durrës.',
      'Innovation, Figure 2', 4),
-    ('between', 'What happens between samples (review XI, SHTEGU-GO)',
+    ('between', 'What happens between samples (review XI, PATH-GO)',
      'One simulated season with monthly samples: chloride crosses 250 mg/L between two samples that both look safe; the '
      'online forecast jumps at each sample and decays between them. In tests a crossing within the season was 34 times '
      'likelier than an exceedance on a sampling date; CERTAIN-COAST reports this chance as a certified band (M10).',
-     'Review XI (SHTEGU-GO), Figure 1, panel b', 5),
-    ('network', 'A network that corrects its own sensors (review X, NDERHYRJA-GO)',
+     'Review XI (PATH-GO), Figure 1, panel b', 5),
+    ('network', 'A network that corrects its own sensors (review X, INTERVENTION-GO)',
      '(a) Worst-case information of the network against the number of sensors when air pressure, logger drift, cable '
      'cross-talk and model error correlate the errors: buying a barometer and hub reference channels with the piezometers '
      '(orange) is best at every budget, and the certified bound Ū shows how far any network can be from the best one. '
      '(b) On 14 candidates the greedy-plus-exchange design equals the exhaustive optimum. Synthetic test bed (M9).',
-     'Review X (NDERHYRJA-GO), Figures T34–T35', 5),
+     'Review X (INTERVENTION-GO), Figures T34–T35', 5),
     ('ladder', 'Milestones and evidence gates',
      'Each milestone raises the claim the project can make by one rung; orange diamonds are the evidence gates (MS3, MS4, '
      'MS5) with thresholds fixed in advance; the shaded band is the twelve months of live operation; triangles mark the '
