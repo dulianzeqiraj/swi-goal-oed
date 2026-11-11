@@ -42,34 +42,45 @@ APPLICANT_SQ = (
     'certifikuar për mbrojtjen e infrastrukturës së ujit, të portit dhe të energjisë në një bregdet që po ulet.')
 
 EN = [
-    f'The {MIN_EN} {APPLICANT_EN}',
-    'The coastal plain between Durrës and Fushë Kuqe concentrates assets of national importance: wellfields that supply '
-    'drinking water, the Port of Durrës and energy infrastructure, on a low coast that is subsiding and exposed to '
-    'seawater intrusion, extreme sea levels and earthquakes, as the earthquake of 26 November 2019 showed. Early warnings '
-    'that state in advance how often they may be wrong are directly relevant to [the Ministry\'s responsibilities for '
-    'water supply, energy and transport infrastructure and geological hazards].',
-    'We welcome the role of the Albanian Geological Survey as the project\'s end-user, which will receive the monitoring '
-    'network, the open software and trained staff at the end of the project, and we value the training of young '
-    'Albanian researchers that the project provides.',
-    'The Ministry will follow the project through a designated contact person, receive its results and bulletins, and '
-    'take part in its final workshop. This letter expresses support in principle and creates no financial or legal '
-    'obligation for the Ministry.',
+    f'The {MIN_EN} {APPLICANT_EN} The Ministry will take part in the project as its end-user.',
+    'The project protects critical infrastructure on Albania\'s low Adriatic coast: the wellfields that supply drinking '
+    'water and the Port of Durrës and, near Fier, the landfall of the Trans Adriatic Pipeline. The coast is subsiding '
+    'and exposed to seawater intrusion, extreme sea levels and earthquakes, as the earthquake of 26 November 2019 '
+    'showed. The project serves three of NATO\'s seven baseline requirements for national resilience (resilient food and '
+    'water resources, resilient civil transportation systems and resilient energy supplies). Early warnings that state '
+    'in advance how often they may be wrong are directly relevant to [the Ministry\'s responsibilities for water supply, '
+    'energy and transport infrastructure and geological hazards].',
+    'As end-user, the Ministry will designate a contact person and a small team, who will sit on the project\'s steering '
+    'committee, agree with the project the warning thresholds of the bulletins it uses, review the bulletins during the '
+    'twelve months of live operation and take part in the final workshop. The Ministry will use the results in its '
+    'planning for water supply, energy and transport infrastructure and geological hazards. The model and the warning '
+    'algorithm, built by the Project Director, will be released as open-source code; the Ministry\'s staff will be '
+    'trained in its use, and the operating procedures will be handed over to the Ministry at the end of the project.',
+    'We value the training of young Albanian researchers and the cooperation with Qatar, a NATO partner in the Istanbul '
+    'Cooperation Initiative, that the project provides. The Ministry\'s contribution is staff time in kind; the Ministry '
+    'receives no SPS funds, and this letter creates no financial obligation for it.',
 ]
 
 SQ = [
-    f'{MIN_SQ} {APPLICANT_SQ}',
-    'Fusha bregdetare midis Durrësit dhe Fushë Kuqes përqendron asete me rëndësi kombëtare: fushat e puseve që furnizojnë '
-    'me ujë të pijshëm, Portin e Durrësit dhe infrastrukturën e energjisë, në një breg të ulët që po ulet dhe që është i '
-    'ekspozuar ndaj depërtimit të ujit të detit, niveleve ekstreme të detit dhe tërmeteve, siç e tregoi tërmeti i 26 '
-    'nëntorit 2019. Paralajmërimet që deklarojnë paraprakisht sa shpesh mund të gabojnë lidhen drejtpërdrejt me '
-    '[përgjegjësitë e Ministrisë për furnizimin me ujë, infrastrukturën e energjisë dhe të transportit dhe rreziqet '
+    f'{MIN_SQ} {APPLICANT_SQ} Ministria do të marrë pjesë në projekt si përdoruesi fundor i tij.',
+    'Projekti mbron infrastrukturë kritike në bregdetin e ulët adriatik të Shqipërisë: fushat e puseve që furnizojnë me '
+    'ujë të pijshëm dhe Portin e Durrësit, si dhe, afër Fierit, pikën ku del në breg Gazsjellësi Trans-Adriatik. Bregu '
+    'po ulet dhe është i ekspozuar ndaj depërtimit të ujit të detit, niveleve ekstreme të detit dhe tërmeteve, siç e '
+    'tregoi tërmeti i 26 nëntorit 2019. Projekti u shërben tri nga shtatë kërkesave bazë të NATO-s për qëndrueshmërinë '
+    'kombëtare (burime të qëndrueshme ushqimi dhe uji, sisteme të qëndrueshme të transportit civil dhe furnizim i '
+    'qëndrueshëm me energji). Paralajmërimet që deklarojnë paraprakisht sa shpesh mund të gabojnë lidhen drejtpërdrejt '
+    'me [përgjegjësitë e Ministrisë për furnizimin me ujë, infrastrukturën e energjisë dhe të transportit dhe rreziqet '
     'gjeologjike].',
-    'Mirëpresim rolin e Shërbimit Gjeologjik Shqiptar si përdorues fundor i projektit, i cili në fund të projektit do të '
-    'marrë rrjetin e monitorimit, softuerin e hapur dhe stafin e trajnuar, dhe vlerësojmë trajnimin e kërkuesve të rinj '
-    'shqiptarë që ofron projekti.',
-    'Ministria do ta ndjekë projektin përmes një personi kontakti të caktuar, do të marrë rezultatet dhe buletinet e tij '
-    'dhe do të marrë pjesë në seminarin përmbyllës. Kjo letër shpreh mbështetje në parim dhe nuk krijon asnjë detyrim '
-    'financiar ose ligjor për Ministrinë.',
+    'Si përdorues fundor, Ministria do të caktojë një person kontakti dhe një grup të vogël, të cilët do të jenë pjesë e '
+    'komitetit drejtues të projektit, do të bien dakord me projektin për pragjet e paralajmërimit në buletinet që përdor '
+    'Ministria, do të shqyrtojnë buletinet gjatë dymbëdhjetë muajve të funksionimit dhe do të marrin pjesë në seminarin '
+    'përmbyllës. Ministria do t\'i përdorë rezultatet në planifikimin e saj për furnizimin me ujë, infrastrukturën e '
+    'energjisë dhe të transportit dhe rreziqet gjeologjike. Modeli dhe algoritmi i paralajmërimit, të ndërtuara nga '
+    'drejtuesi i projektit, do të publikohen si kod i hapur (open source); stafi i Ministrisë do të trajnohet për '
+    'përdorimin e tij, dhe procedurat e punës do t\'i dorëzohen Ministrisë në fund të projektit.',
+    'Vlerësojmë trajnimin e kërkuesve të rinj shqiptarë dhe bashkëpunimin me Katarin, partner i NATO-s në Iniciativën e '
+    'Bashkëpunimit të Stambollit, që ofron projekti. Kontributi i Ministrisë është koha e punës së stafit; Ministria nuk '
+    'merr fonde nga NATO, dhe kjo letër nuk krijon asnjë detyrim financiar për të.',
 ]
 
 EN_MOD = [
@@ -137,18 +148,34 @@ MEET = 'Jam në dispozicion për ta paraqitur projektin në një takim të shkur
 
 REQUEST = {
     'mie': dict(
-        to='Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', by_hand=False, date='10.11.2026',
-        subject='Kërkesë për letër mbështetjeje për aplikimin e UPT-së në Programin e NATO-s «Shkenca për Paqe dhe Siguri» '
-                '(SPS), projekti CERTAIN-COAST',
-        attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes (anglisht); 2. Përkthimi në shqip, vetëm për '
-               'lexim; 3. Shënimi i konceptit të projektit (5 faqe).',
+        to='Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', by_hand=True, date='12.11.2026',
+        subject='Kërkesë për letër mbështetjeje dhe angazhimi si përdorues fundor për aplikimin e UPT-së në Programin '
+                'e NATO-s «Shkenca për Paqe dhe Siguri» (SPS), projekti CERTAIN-COAST',
+        attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes dhe angazhimit (anglisht); 2. Përkthimi në '
+               'shqip, vetëm për lexim; 3. Shënimi i konceptit të projektit (5 faqe).',
         body=[APPLY,
-              WARN + 'në bregun Durrës–Fushë Kuqe, ku ndodhen edhe Porti i Durrësit dhe infrastruktura e energjisë. '
-              + RISIA,
+              WARN + 'në dy pjesë të bregut: midis Durrësit dhe Fushë-Kuqes, ku ndodhen fushat e puseve dhe Porti i '
+              'Durrësit, dhe afër Fierit, ku gazsjellësi TAP del në breg. **Risia:** çdo paralajmërim deklaron '
+              'paraprakisht sa shpesh mund të gabojë. Modelimin e bën drejtuesi i projektit, i cili ndërton edhe '
+              'algoritmin e paralajmërimit; në fund ato publikohen si **kod i hapur (open source)**, që Ministria dhe '
+              'institucionet e tjera ta përdorin. NATO financon rreth €382,500.',
               'Meqë projekti lidhet drejtpërdrejt me fushat e përgjegjësisë së Ministrisë suaj (furnizimi me ujë, '
-              'infrastruktura e energjisë dhe e transportit, rreziqet gjeologjike), një letër mbështetjeje nga Ministria '
-              'do ta forconte ndjeshëm aplikimin. ' + ASK + ', të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al.',
-              EASE, MEET]),
+              'infrastruktura e energjisë dhe e transportit, rreziqet gjeologjike), ju propozojmë që Ministria e '
+              'Infrastrukturës dhe Energjisë të jetë **përdoruesi fundor** i projektit. NATO kërkon që çdo projekt të ketë '
+              'të paktën një përdorues fundor, i cili merr pjesë në projekt dhe përdor rezultatet e tij pa marrë fonde '
+              'nga NATO. Ministria do të caktonte një person kontakti dhe një grup të vogël për komitetin drejtues, do të '
+              'binte dakord për pragjet e paralajmërimit, do të shqyrtonte buletinet gjatë 12 muajve të funksionimit dhe '
+              'në fund do të merrte kodin, procedurat e punës dhe trajnimin. Dr. Lusien Ismaili, nga Ministria, është '
+              'pjesë e ekipit si lidhja me Ministrinë.',
+              '**Ju lutem për një letër mbështetjeje dhe angazhimi si përdorues fundor**, në letrën zyrtare të '
+              'Ministrisë, të firmosur nga titullari ose nga një person i autorizuar, **mundësisht deri të premten, 13 '
+              'nëntor 2026**. Mund ta dërgoni të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al, ndërsa origjinalin '
+              'mund ta tërheq vetë në Ministri. Bashkëngjis tekstin e propozuar të letrës në anglisht, siç e kërkon NATO, '
+              'dhe përkthimin e saj në shqip vetëm për lexim; fushat me të verdhë plotësohen nga Ministria, dhe teksti '
+              'mund të ndryshohet sipas gjykimit tuaj. Kontributi i Ministrisë është vetëm koha e punës së stafit: letra '
+              '**nuk krijon asnjë detyrim financiar**. Informacioni i ndjeshëm për infrastrukturën trajtohet si i '
+              'kufizuar, dhe çdo publikim kontrollohet para botimit.',
+              MEET]),
     'mod': dict(
         to='Ministrisë së Mbrojtjes, Kabinetit të Ministrit', by_hand=True, date='11.11.2026',
         subject='Kërkesë për letër mbështetjeje dhe angazhimi si përdorues fundor për aplikimin e UPT-së në Programin '
@@ -180,7 +207,7 @@ REQUEST = {
 }
 SUPPORT = ('Letter of support', 'Letër mbështetjeje')
 SUPPORT_EU = ('Letter of support and end-user commitment', 'Letër mbështetjeje dhe angazhimi si përdorues fundor')
-LETTER = {'mie': (EN, SQ, MIN_EN, MIN_SQ, SUPPORT), 'mod': (EN_MOD, SQ_MOD, MOD_EN, MOD_SQ, SUPPORT_EU)}
+LETTER = {'mie': (EN, SQ, MIN_EN, MIN_SQ, SUPPORT_EU), 'mod': (EN_MOD, SQ_MOD, MOD_EN, MOD_SQ, SUPPORT_EU)}
 
 
 def setup(doc):

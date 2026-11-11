@@ -154,9 +154,9 @@ NCD_DETAILS = [
 
 NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is accountable for the SPS funds (WP7); leads the '
             'monitoring network designed for the warnings (WP4) and the live '
-            'demonstration with the Ministry of Defence, the end-user (WP5); contributes to the coupled '
+            'demonstration with the Ministry of Infrastructure and Energy, the end-user (WP5); contributes to the coupled '
             'model (WP2) and to the measurement of coastal motion and relative sea level (WP1). Chairs the steering committee, '
-            'signs the access agreements for the wells (T7.2, Month 3) and oversees the hand-over to the Ministry of Defence at '
+            'signs the access agreements for the wells (T7.2, Month 3) and oversees the hand-over to the Ministry of Infrastructure and Energy at '
             'Month 36.')
 
 # ---------------------------------------------------------------------- the CV of the NATO-country Project Director

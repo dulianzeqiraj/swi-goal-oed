@@ -29,20 +29,19 @@ FORM = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023
 
 # time shares as in the Project Participants table of the form text (placeholders there, to be confirmed)
 PEOPLE = [
-    ('NATO-country Project Director', '[NPD institution]', 30),
+    ('NATO-country Project Director', '[NPD institution]', 60),
     ('Partner-country Project Director, Prof. Jassim Al-Khayat', 'Environmental Science Center, Qatar University', 20),
     ('Senior researcher (hydrogeology and groundwater chemistry), Prof. Dr. Arjan Beqiraj', 'Faculty of Geology and Mining, UPT', 10),
-    ('Researcher, Dr. Bardhosh Seitaj [time to confirm]', 'Faculty of Geology and Mining, UPT', 10),
-    ('Researcher, Dr. Esmeralda Zeqo [time to confirm]', 'Faculty of Geology and Mining, UPT', 10),
+    ('Researcher, Dr. Bardhosh Seitaj', 'Faculty of Geology and Mining, UPT', 10),
+    ('Researcher, Dr. Esmeralda Zeqo', 'Faculty of Geology and Mining, UPT', 10),
     ('Laboratory technician, Sonata Pregja [time to confirm]', 'Faculty of Geology and Mining, UPT', 10),
-    ('Researcher, Dr. Lusien Ismaili [time to confirm]', 'Ministry of Infrastructure and Energy', 5),
     ('Research Professor, Prof. Fares AlMomani', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Oguz Yigiterhan', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Bruno Welter Giraldes', 'Environmental Science Center, Qatar University', 5),
-    ('End-user representative', '[Ministry of Defence of the Republic of Albania]', 5),
+    ('End-user representative, Dr. Lusien Ismaili', 'Ministry of Infrastructure and Energy of the Republic of Albania', 5),
 ]
 
-N_STAFF = 10  # the first rows of PEOPLE are staff of the institutions; the rest are end-users
+N_STAFF = 9   # the first rows of PEOPLE are staff of the institutions; the rest are end-users
 
 # platform categories of the non-NATO table -> SPS categories of the budget
 NN_CATS = [
@@ -64,7 +63,7 @@ NN_CATS = [
      'Personnel cost paid by the institutions: all salaries of the Co-Directors and researchers for their time on the '
      'project (Section 3). SPS co-finances no salary in this version.'),
     ('Other', ['Other'],
-     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the end-user (the Ministry of Defence); '
+     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the end-user (the Ministry of Infrastructure and Energy); '
      'data provided under agreements (Durrës tide-gauge record of ASIG, records of the national seismic stations, records '
      "of existing wells shared by their owners)."),
 ]
@@ -74,13 +73,13 @@ TEXT = (
     'rest:\n'
     '• Salaries of the Co-Directors and researchers, paid by their institutions for about {pm_staff:.1f} person-months '
     'over {months} months (NPD {pm_npd:.1f}, PPD {pm_ppd:.1f}, hydrogeologist of the Faculty of Geology and Mining {pm_hyd:.1f}, '
-    'two researchers and a laboratory technician of the Faculty {pm_fac:.1f}, researcher of the Ministry of Infrastructure and '
-    'Energy {pm_mie:.1f}, three researchers of Qatar University {pm_qa:.1f}): '
+    'two researchers and a laboratory technician of the Faculty {pm_fac:.1f}, three researchers of Qatar University '
+    '{pm_qa:.1f}): '
     '[€ amount]. No salary co-financing is requested from SPS.\n'
     '• Overheads of the institutions (offices, laboratories, IT, administration) at their own rates: [€ amount].\n'
     '• Existing equipment and facilities used by the project: [field and laboratory instruments, servers] of the '
     'institutions: [€ amount].\n'
-    "• The end-user, which receives no SPS funds: staff time of the Ministry of Defence for the steering committee, "
+    "• The end-user, which receives no SPS funds: staff time of the Ministry of Infrastructure and Energy for the steering committee, "
     'thresholds, the dry run, the live bulletins and training (about {pm_eu:.1f} person-months): '
     '[€ amount].\n'
     '• Data at no cost to the project: Copernicus Sentinel-1 radar images (free and open), the Durrës tide-gauge record '
@@ -105,8 +104,8 @@ def sps_by_cat():
 def numbers():
     pm = [MONTHS * s / 100 for _, _, s in PEOPLE]
     staff = pm[:N_STAFF]
-    return dict(months=MONTHS, pm_npd=pm[0], pm_ppd=pm[1], pm_hyd=pm[2], pm_fac=sum(pm[3:6]), pm_mie=pm[6],
-                pm_qa=sum(pm[7:10]), pm_staff=sum(staff),
+    return dict(months=MONTHS, pm_npd=pm[0], pm_ppd=pm[1], pm_hyd=pm[2], pm_fac=sum(pm[3:6]),
+                pm_qa=sum(pm[6:9]), pm_staff=sum(staff),
                 pm_eu=sum(pm[N_STAFF:]),
                 sps_total=sum(sps_by_cat().values()))
 
