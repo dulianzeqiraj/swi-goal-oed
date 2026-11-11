@@ -168,7 +168,7 @@ def main(out):
             ['B15 / C15 / D15 / E15', 'NPD: first / last name / institution / country',
              'Dulian / Zeqiraj / Polytechnic University of Tirana / Albania (choose from the list)'],
             ['B16 / C16 / D16 / E16', 'PPD: first / last name / institution / country',
-             '[first name] / [last name] / [institution] / [eligible partner country, from the list]']]
+             'Jassim / Al-Khayat / Qatar University / Qatar (choose from the list)']]
     t = head_repeat(table(doc, ['Cell', 'Field', 'Type'], info, [4.0, 7.0, 15.4], size=9))
     ph_cells(t)
     q = para(doc, 3, before=2)
