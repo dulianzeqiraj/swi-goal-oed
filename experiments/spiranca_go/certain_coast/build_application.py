@@ -988,9 +988,8 @@ def main(out):
     # 5 Co-directors
     heading(doc, '5. Co-Directors (optional)', 14, before=10)
     answer(doc, 'Not required. If you add a Co-Director, for example [an additional NATO-country co-director], they must be at '
-                'a different institution and have their own budget in the Excel workbook. The Institute of Geosciences belongs '
-                'to UPT, like the NPD\'s faculty, so its staff take part as participants, not as a Co-Director. Otherwise skip '
-                'this tab.')
+                'a different institution and have their own budget in the Excel workbook. Colleagues of the NPD\'s own faculty take '
+                'part as participants, not as Co-Directors. Otherwise skip this tab.')
 
     # 6 Participants
     heading(doc, '6. Project Participants', 14, before=10)
@@ -1000,9 +999,13 @@ def main(out):
             ['Fares', 'AlMomani', 'Environmental Science Center, Qatar University', 'Research Professor; Acting Director of the Center', 'Canadian', 'Water quality, water resource management and groundwater protection at the transfer site (T6.4)', '5%'],
             ['Oguz', 'Yigiterhan', 'Environmental Science Center, Qatar University', 'Research Associate Professor', 'Turkish', 'Sampling of seawater, sediment, biota and aeolian dust; methods, data curation and dissemination (WP6)', '5%'],
             ['Bruno', 'Welter Giraldes', 'Environmental Science Center, Qatar University', 'Research Associate Professor', 'Portuguese', 'Data processing and management, data curation and publications (WP6)', '5%'],
-            ['[First name]', '[Family name]', '[Institute of Geosciences, UPT]', 'Researcher', '[Albanian]', 'Seismic, GNSS and hydrometeorological data; WP1, WP4', '[15%]'],
             ['Arjan', 'Beqiraj', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Senior researcher (Prof. Dr.)', '[Albanian]', 'Hydrogeology and groundwater chemistry: tracer campaign and sources of the chloride (T4.1, T5.3); aquifer properties for the coupled model (T2.3)', '[10%]'],
-            ['To be recruited', '(4 people)', 'NPD and PPD institutions', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
+            ['Bardhosh', 'Seitaj', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Researcher (Dr.); Head of the Department of Energy Resources', '[Albanian]', '[Drilling and installation of the piezometers (T4.2); pumping tests (T5.3)]', '[10%]'],
+            ['Esmeralda', 'Zeqo', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Researcher (Dr.), Department of Energy Resources', '[Albanian]', '[Groundwater modelling and aquifer vulnerability (WP2)]', '[10%]'],
+            ['Aurela', 'Jahja', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Early-career researcher (MSc; stipend)', '[Albanian]', '[GIS, data and aquifer vulnerability (WP2, WP4)]', '[50%]'],
+            ['Sonata', 'Pregja', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Laboratory technician', '[Albanian]', 'Laboratory analyses of chloride and major ions (T4.1, T5.3)', '[10%]'],
+            ['Lusien', 'Ismaili', 'Ministry of Infrastructure and Energy of the Republic of Albania', 'Researcher (Dr.)', '[Albanian]', '[Infrastructure data and use of the results; link with the Ministry]', '[5%]'],
+            ['To be recruited', '(3 people)', 'UPT (1) and Qatar University (2)', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
             ['[First name]', '[Family name]', '[Ministry of Defence of the Republic of Albania]', 'End-user representative', '[Albanian]', 'Steering committee, thresholds (T3.1), review of the live bulletins (T5.2), hand-over (MS7)', '[5%]']]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Affiliation', 'Position', 'Nationality', 'Task(s)', '% time'], part,
                           [1.9, 1.9, 2.6, 2.4, 2.1, 4.6, 1.5], size=8.8)); ph_cells(t)

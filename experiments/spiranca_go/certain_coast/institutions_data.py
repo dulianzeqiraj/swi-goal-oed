@@ -5,7 +5,7 @@ institution are written only from the sources listed on its page (official pages
 marked in the commit history, search-result excerpts checked on 1 November 2026); everything else is a [placeholder]
 for the applicants (yellow in the Word file).
 
-The Faculty of Geology and Mining and the Institute of Geosciences are units of one university (UPT). The form allows
+The Faculty of Geology and Mining (Department of Energy Resources) takes part for UPT. The form allows
 no more than one page per institution, so UPT has one page with a column for each unit."""
 
 UPT = dict(
@@ -14,8 +14,8 @@ UPT = dict(
     local='Universiteti Politeknik i Tiranës · Sheshi "Nënë Tereza" Nr. 4, 1001 Tirana, Albania · <https://upt.edu.al>',
     intro='A public university (Statute, Article 1), institutionally accredited by ASCAL until January 2028. Its roots are '
           'in the Higher Polytechnic Institute founded in 1951; it became a university in 1991 and has seven faculties and '
-          'the Institute of Geosciences. Its Faculty of Geology and Mining takes part, with the Institute of Geosciences as '
-          'research partner [delete the right-hand column if the Institute does not take part].',
+          'the Institute of Geosciences. Its Faculty of Geology and Mining, through the Department of Energy Resources, takes '
+          'part.',
     units=[
         dict(title='Faculty of Geology and Mining (FGJM): faculty of the Project Director',
              sub='Fakulteti i Gjeologjisë dhe i Minierave · Rruga e Elbasanit, Tirana · <https://fgjm.edu.al>',
@@ -35,35 +35,17 @@ UPT = dict(
                  'Networks: CEEPUS RS-0038 "EURO Geo-Sci"; EIT Deep Tech Talent pledger; organiser of the GENRE 2025 '
                  'international geoscience conference (Tirana, November 2025).',
              ]),
-        dict(title='Institute of Geosciences (IGEO): research partner [if it takes part]',
-             sub='Instituti i Gjeoshkencave · Rruga Don Bosko 60, Tirana · <https://www.geo.edu.al>',
-             lines=[
-                 'National research centre for geology, seismology, meteorology, hydrology and the environment; '
-                 'formerly the Institute of Geosciences, Energy, Water and Environment (IGEWE).',
-                 'Operates the Albanian Seismological Network (FDSN code AC): broadband stations in real time, ten '
-                 'short-period stations added with the UNDP RESEAL programme, and a strong-motion network.',
-                 'Permanent GNSS stations, two of them (KRYE, KULL) installed near the source of the 26 November 2019 '
-                 'earthquake; a GNSS geodynamic monitoring centre equipped in 2025.',
-                 'National hydrological network (105 manual and 25 automatic stations) with a daily hazard bulletin for '
-                 'civil protection; national meteorological network, with observations at Durrës since 1868.',
-                 'On the 2019 earthquake: strong-motion records of the mainshock at seven stations and an ambient-noise '
-                 'survey of 76 sites in Durrës with ITSAK (February 2020). Also the 2021 seismic hazard maps of Albania.',
-                 'NATO Science for Peace project BSHAP (SfP 983054), harmonized seismic hazard maps of the Western '
-                 'Balkans; EMSC member, data contributor to ORFEUS and FDSN, CTBTO National Data Centre.',
-             ]),
     ],
     glance=[
         ('Project Director', 'Assoc. Prof. Dr. Dulian Zeqiraj, [position], FGJM; [30%] of working time on the project'),
-        ('Team', '[FGJM members]; [IGEO members, 15%]; early-career researchers recruited by the project'),
+        ('Team', 'Prof. Dr. Arjan Beqiraj; Dr. Bardhosh Seitaj; Dr. Esmeralda Zeqo; MSc Aurela Jahja; laboratory '
+                 'technician Sonata Pregja; early-career researchers recruited by the project'),
         ('Research team page', '[link to the web page of the research team]'),
     ],
     role_text=[
         'FGJM coordinates the project, administers the NATO grant through UPT and chairs the steering committee (WP7). '
         'It leads coastal motion and relative sea level (WP1), the monitoring network (WP4) and the twelve months of live '
-        'operation with the operators (WP5), and hosts early-career researchers (WP6).',
-        'IGEO provides seismic, strong-motion, GNSS, hydrological and meteorological data for the Durrës coast under a data '
-        'agreement by Month 3 (T7.2). It joins the monitoring network (WP4), where its 2020 ambient-noise survey is a '
-        'baseline for the seismic-velocity work (T4.4), and the post-event protocol (T5.4).',
+        'operation with the end-user (WP5), and hosts early-career researchers (WP6).',
     ],
     projects=[
         'Key publications: Cenameri and Beqiraj (2016), Bulletin of the Geological Society of Greece 50(2), 665–670; '
@@ -73,10 +55,9 @@ UPT = dict(
         'aquifer (technical annex, on request); [2–3 relevant projects of the team: title, funder, years, role].',
     ],
     new=[
-        'One university brings both ends of the warning chain: FGJM\'s record of seawater intrusion and coastal hazards '
-        'at Durrës, and IGEO\'s national seismic, geodetic and hydrometeorological networks. CERTAIN-COAST joins them into '
-        'one warning service whose miss rates are stated in advance, verified live and run by the operators after the '
-        'project.',
+        'FGJM brings its record of seawater intrusion and coastal hazards at Durrës; CERTAIN-COAST turns it into one '
+        'warning service whose miss rates are stated in advance and verified live, and that the university keeps running '
+        'after the project.',
     ],
     sources=[
         ('UPT history', 'https://upt.edu.al/university/history/?lang=en'),
@@ -95,17 +76,6 @@ UPT = dict(
         ('GENRE 2025', 'https://genre.fgjm.edu.al/'),
         ('Cenameri and Beqiraj 2016', 'https://ejournals.epublishing.ekt.gr/index.php/geosociety/article/view/11772'),
         ('Raço et al. 2022', 'https://doi.org/10.12911/22998993/151073'),
-        ('IGEO', 'https://www.geo.edu.al/About/IGEO/'),
-        ('seismic network', 'https://www.geo.edu.al/Research/Research_Infrastructure/Seismology_Network/'),
-        ('FDSN AC', 'https://www.fdsn.org/networks/detail/AC/'),
-        ('GNSS centre', 'https://www.geo.edu.al/About/News_and_Announcements/Modernizimi_i_Infrastruktur_s_Komb_tare_GNSS_p_r_Monitorim_Gjeodinamik.html'),
-        ('hydrology network', 'https://www.geo.edu.al/Research/Research_Infrastructure/Hydrology_Network/'),
-        ('meteorology network', 'https://www.geo.edu.al/Research/Research_Infrastructure/Meteorology_Network/'),
-        ('2019 strong motion', 'https://jaguar.emsc-csem.org/Files/news/Earthquakes_reports/Short-Note_EMSC_31122019.pdf'),
-        ('ITSAK–IGEWE survey', 'https://www.itsak.gr/uploads/news/earthquake_reports/Report_AmbientNoise_Durres_April2020.pdf'),
-        ('hazard maps', 'https://geo.edu.al/Natural_Hazards/Geological_Seismic_Hazard/'),
-        ('BSHAP', 'https://hrcak.srce.hr/186022'),
-        ('collaborations', 'https://www.geo.edu.al/Collaborators/Department_of_Seismology/'),
         ('EMSC members', 'https://m.emsc-csem.org/about_us/who_we_are/'),
     ],
 )
