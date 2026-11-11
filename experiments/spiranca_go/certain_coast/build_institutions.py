@@ -125,7 +125,7 @@ def page(doc, k, n, I):
                 q = c.add_paragraph(); q.paragraph_format.space_after = Pt(1.5)
                 q.paragraph_format.left_indent = Cm(0.3); q.paragraph_format.first_line_indent = Cm(-0.3)
                 run(q, '• ', bold=True, size=8.9, color=NAVY); ph(q, line, size=8.9)
-        widths(u, [8.7, 8.7])
+        widths(u, [17.4 / len(I['units'])] * len(I['units']))
         para(doc, 2)
     g = doc.add_table(rows=0, cols=2); g.style = 'Table Grid'; g.alignment = WD_TABLE_ALIGNMENT.CENTER
     for lab, val in I['glance']:
