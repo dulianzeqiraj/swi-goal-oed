@@ -78,7 +78,7 @@ def ph_table(doc, header, rows, widths, size=10):
         for c in r.cells:
             for p in c.paragraphs:
                 for rn in p.runs:
-                    if rn.text.startswith('['):
+                    if '[' in rn.text:                  # also '2008–[year]'
                         rn.font.highlight_color = WD_COLOR_INDEX.YELLOW
     return t
 
