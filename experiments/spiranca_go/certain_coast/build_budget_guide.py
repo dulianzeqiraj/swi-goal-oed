@@ -160,8 +160,7 @@ def main(out):
             ['D2', 'Project Title', TITLE],
             ['E2', 'Short Title (max. 80 characters)', f'{SHORT}  (must equal the "Project short title" of the platform form)'],
             ['B5', 'Project Duration (months)', '36'],
-            ['C5', 'Start Date (Kickoff)', '[planned kick-off date; the SPS decision can take up to nine months after the '
-                                           'deadline]'],
+            ['C5', 'Start Date (Kickoff)', 'leave empty: the template says "Do not fill in Start Date at the time of application"'],
             ['C9 / D9', 'Milestone 2: months / description', '18 / Second technical and financial report'],
             ['C10 / D10', 'Milestone 3: months / description', '30 / Third technical and financial report'],
             ['C11 / D11', 'Milestone 4: months / description', 'leave empty (optional)'],
