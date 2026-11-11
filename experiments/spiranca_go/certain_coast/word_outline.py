@@ -35,6 +35,19 @@ def plain_headings(src, dst=None):
         entries = [(info, zin.read(info.filename)) for info in zin.infolist()]
     trees = {info.filename: etree.fromstring(data) for info, data in entries if PARTS.match(info.filename)}
 
+    # a style id defined twice (docx-js writes its own headings, then the document's override with the same id):
+    # the later definition, the one Word and LibreOffice show, is kept
+    for part in ('word/styles.xml', 'word/stylesWithEffects.xml'):
+        root = trees.get(part)
+        if root is None:
+            continue
+        last = {}
+        for s in root.iter(_w('style')):
+            last[s.get(_w('styleId'))] = s
+        for s in list(root.iter(_w('style'))):
+            if last[s.get(_w('styleId'))] is not s:
+                s.getparent().remove(s)
+
     # the built-in heading styles become styles of their own: "heading 1" -> "Heading 1 (no outline)", id HeadingPlain1
     rename = {}
     styles = trees.get('word/styles.xml')
