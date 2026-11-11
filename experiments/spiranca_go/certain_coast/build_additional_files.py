@@ -5,6 +5,9 @@ implementation report on the earthquake in the aquifer and the CV of the NATO-co
 --npd) and the CV of the partner-country Project Director (build_cv.py --ppd), with PDF bookmarks. New parts go
 at the end, because the annex refers to the notes by their position. The form asks for one PDF with a table of contents at the start when several documents are uploaded.
 
+The upload itself is now made from one Word file by build_additional_word.py (cover, live contents, what is new in
+each part, native Word math); this script keeps the list of parts (PARTS) and the PDF-only merge.
+
 usage: python build_additional_files.py OUT.pdf
 Needs LibreOffice (soffice), python-docx and pypdf."""
 import os
