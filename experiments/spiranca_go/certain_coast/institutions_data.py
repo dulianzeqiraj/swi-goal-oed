@@ -39,7 +39,8 @@ UPT = dict(
     glance=[
         ('Project Director', 'Assoc. Prof. Dr. Dulian Zeqiraj, [position], FGJM; [30%] of working time on the project'),
         ('Team', 'Prof. Dr. Arjan Beqiraj; Dr. Bardhosh Seitaj; Dr. Esmeralda Zeqo; MSc Aurela Jahja; laboratory '
-                 'technician Sonata Pregja; early-career researchers recruited by the project'),
+                 'technician Sonata Pregja (FGJM); MSc Armida Brakaj, mathematician (Faculty of Mathematical Engineering and '
+                 'Physics Engineering)'),
         ('Research team page', '[link to the web page of the research team]'),
     ],
     role_text=[
