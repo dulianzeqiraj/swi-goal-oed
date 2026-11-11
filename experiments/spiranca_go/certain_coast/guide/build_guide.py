@@ -1,12 +1,15 @@
 """CERTAIN-COAST illustrated guide (English, Word, OMML equations): seawater intrusion, sensors, warnings, earthquakes,
 liquefaction and the joint safe window, one computed figure at a time.
 
-usage: python build_guide.py OUT.docx
+usage: python build_guide.py OUT.docx [OUT.pdf]
+The PDF (LibreOffice) is made while the headings still have outline levels, so it has bookmarks; the Word file then
+loses them (../word_outline.py), so that Word draws no collapse arrow beside the headings.
 Figures: guide_figs.py (fig/); results: res/*.mat (guide_compute.m, the open-source MATLAB package run in GNU Octave)
 and ../../../tronditja_go/res. Needs pandoc (through ../../../ml_paradigms/word/omml.py)."""
 import json
 import os
 import re
+import subprocess
 import sys
 import tempfile
 from math import erfc, log, ceil
@@ -26,6 +29,7 @@ sys.path.insert(0, os.path.join(EXP, 'spiranca_go', 'certain_coast'))
 sys.path.insert(1, os.path.join(EXP, 'garancia_go'))
 sys.path.insert(2, os.path.join(EXP, 'ml_paradigms', 'word'))
 from build_sota import run, para, table, shade, link  # noqa: E402
+from word_outline import plain_headings  # noqa: E402
 import omml  # noqa: E402
 from build_gar_doc import Eqs, borders, no_borders, fixed_widths, numref, mrich, display_eq, rich_cell, cell_par  # noqa: E402
 
@@ -937,7 +941,7 @@ def render_refs(doc):
             link(p, url, url, size=9.5)
 
 
-def main(out):
+def main(out, pdf_out=None):
     N = numbers_from_results()
     BL = blocks(N)
     numbers, n_eq, n_fig, n_tab = number_blocks(BL)
@@ -952,6 +956,7 @@ def main(out):
     st.font.size = Pt(11)
     style_headings(doc)
     footer(s)
+    break_next = False
     for bi, b in enumerate(BL):
         kind = b[0]
         nxt = BL[bi + 1][0] if bi + 1 < len(BL) else None
@@ -971,7 +976,10 @@ def main(out):
         elif kind == 'contents':
             contents(doc, BL, numbers)
         elif kind == 'h':
-            doc.add_heading(b[1], level=1)
+            h = doc.add_heading(b[1], level=1)
+            if break_next:
+                h.paragraph_format.page_break_before = True
+                break_next = False
         elif kind == 'h2':
             doc.add_heading(b[1], level=2)
         elif kind == 'p':
@@ -1003,7 +1011,8 @@ def main(out):
                 p.paragraph_format.space_after = Pt(4)
                 mrich(p, item, E, size=10.5, numbers=numbers)
             t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:cantSplit'))
-            para(doc, 6)
+            if nxt != 'pb':                             # before a new chapter the gap would fall on a page of its own
+                para(doc, 6)
         elif kind == 'eq':
             display_eq(doc, E, b[2], numbers[b[1]])
         elif kind == 'img':
@@ -1031,10 +1040,14 @@ def main(out):
             t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:tblHeader'))
             for r_ in t.rows:
                 r_._tr.get_or_add_trPr().append(OxmlElement('w:cantSplit'))
-            para(doc, 8)
+            if nxt != 'pb':
+                para(doc, 8)
         elif kind == 'pb':
-            p = para(doc, 0)
-            p.add_run().add_break(WD_BREAK.PAGE)
+            if nxt == 'h':                              # the chapter opens a page; never an empty page before it
+                break_next = True
+            else:
+                p = para(doc, 0)
+                p.add_run().add_break(WD_BREAK.PAGE)
         elif kind == 'refs':
             render_refs(doc)
     work = tempfile.mkdtemp()
@@ -1046,7 +1059,15 @@ def main(out):
     omml.main(draft, eq_json, out)
     print('saved', out, '|', n_eq, 'numbered equations,', len(E.items) - n_eq, 'inline |', n_fig, 'figures |', n_tab,
           'tables')
+    if pdf_out:                                         # while the headings have outline levels: PDF bookmarks
+        subprocess.run(['soffice', '--headless', '--convert-to', 'pdf', '--outdir', work, out], check=True,
+                       capture_output=True, timeout=900)
+        os.replace(os.path.join(work, os.path.splitext(os.path.basename(out))[0] + '.pdf'), pdf_out)
+        print('saved', pdf_out)
+    n_lvl, n_ren = plain_headings(out)
+    print(f'  Word file: {n_lvl} outline levels removed, {n_ren} built-in heading styles renamed (no collapse arrows)')
 
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Illustrated_Guide.docx')
+    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Illustrated_Guide.docx',
+         sys.argv[2] if len(sys.argv) > 2 else None)
