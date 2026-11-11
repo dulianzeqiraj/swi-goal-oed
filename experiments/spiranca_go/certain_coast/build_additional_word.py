@@ -554,7 +554,9 @@ def copy_styles(elements, src, dst, prefix, normal_id, font=None):
                 new.remove(x)
         if font and new.find(qn('w:rPr')) is not None and new.find(qn('w:rPr')).find(qn('w:rFonts')) is not None:
             _set_fonts(new.find(qn('w:rPr')), font)
-        lvl = {'Heading1': 1, 'Heading2': 2, 'Heading3': 3}.get(sid)
+        nm = src_styles[sid].find(qn('w:name'))
+        m = re.match(r'(?i)heading ([1-3])\b', (nm.get(qn('w:val')) or '') if nm is not None else '')
+        lvl = int(m.group(1)) if m else None             # also 'Heading 1 (no outline)' (word_outline.py)
         if lvl is not None:                                     # under the level of the part banners
             pPr = new.find(qn('w:pPr'))
             if pPr is None:
