@@ -590,7 +590,9 @@ DATA = (
     '(miniSEED and StationXML for seismic data, NetCDF with CF conventions for time series) and DataCite metadata; storage '
     'on the partners\' servers with backup; open release of derived products and software with DOIs on Zenodo. The code '
     'repository is public from the start, under the Apache License 2.0: https://github.com/dulianzeqiraj/certain-coast (version 0.1.0, written in MATLAB and running also in the free GNU Octave, so the end-user needs no licence: the '
-    'certified alarms, the warnings between samples, the learned inland boundary and recharge from heads, with 25 tests); the NPD adds the model, the fast copy and the network design as the project advances.\n'
+    'certified alarms, the warnings between samples, the learned inland boundary, recharge from heads, variable-density '
+    'flow and salt checked on the Henry benchmark, and the goal-oriented design of the monitoring network and of '
+    'recharge from the Fushë-Kuqe work, without any field data; 36 tests); the NPD adds the model, the fast copy and the network design as the project advances.\n'
     "Risks and mitigation: (1) access to data: the project drills its own boreholes on public land, and access agreements "
     'with the owners of existing wells by Month 3; at the port and the landfall the project relies only on satellite and public data; (2) security of critical-infrastructure information: every output is '
     'classified before release, asset-level vulnerability, thresholds and sensor locations stay with the '
