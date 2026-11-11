@@ -1005,7 +1005,8 @@ def main(out):
             ['Aurela', 'Jahja', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Early-career researcher (MSc; stipend)', '[Albanian]', '[GIS, data and aquifer vulnerability (WP2, WP4)]', '[50%]'],
             ['Sonata', 'Pregja', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Laboratory technician', '[Albanian]', 'Laboratory analyses of chloride and major ions (T4.1, T5.3)', '[10%]'],
             ['Lusien', 'Ismaili', 'Ministry of Infrastructure and Energy of the Republic of Albania', 'Researcher (Dr.)', '[Albanian]', '[Infrastructure data and use of the results; link with the Ministry]', '[5%]'],
-            ['To be recruited', '(3 people)', 'UPT (1) and Qatar University (2)', 'Early-career researchers (stipends)', '[NATO or partner]', 'InSAR and GNSS; modelling; alarms; network and live operation (WP1–WP5)', '[50%]'],
+            ['Armida', 'Brakaj', 'Faculty of Mathematical Engineering and Physics Engineering, Polytechnic University of Tirana', 'Early-career researcher (MSc, mathematician; stipend)', '[Albanian]', '[Mathematical methods: certified error bounds of the fast model and alarm margins (WP2, WP3)]', '[50%]'],
+            ['To be recruited', '(2 people)', 'Qatar University', 'Early-career researchers (stipends)', '[NATO or partner]', 'Transfer study and data (WP6); exchanges in Albania', '[50%]'],
             ['[First name]', '[Family name]', '[Ministry of Defence of the Republic of Albania]', 'End-user representative', '[Albanian]', 'Steering committee, thresholds (T3.1), review of the live bulletins (T5.2), hand-over (MS7)', '[5%]']]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Affiliation', 'Position', 'Nationality', 'Task(s)', '% time'], part,
                           [1.9, 1.9, 2.6, 2.4, 2.1, 4.6, 1.5], size=8.8)); ph_cells(t)
