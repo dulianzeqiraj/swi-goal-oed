@@ -422,8 +422,10 @@ BL = [
           'component shown in preparatory tests, and ends at TRL 6, demonstrated through twelve months of live operation on '
           'the project\'s monitoring network with the Ministry of Infrastructure and Energy as end-user; at the port '
           'and the landfall the warnings run on satellite, GNSS and public data.'),
-    ('p', '**Software and data.** The model, fast copies, alarms, safe window, test planner and network design are released '
-          'under an open licence with containers and tests (D6.1). Data shared by the owners of wells and records are used under '
+    ('p', '**Software and data.** The NPD builds the model and the alarm algorithm and writes the code. The model, fast '
+          'copies, alarms, safe window, test planner and network design are released under the Apache License 2.0 with '
+          'containers and tests (D6.1), in a repository that is public from the start: '
+          'https://github.com/dulianzeqiraj/certain-coast. Data shared by the owners of wells and records are used under '
           'the access agreements of T7.2; derived products, the bulletin log and the verification ledger are '
           'released openly following FAIR principles, and the preparatory tests are scripted and released with the software.'),
     ('refs', None),
