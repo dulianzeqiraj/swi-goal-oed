@@ -137,7 +137,7 @@ MEET = 'Jam në dispozicion për ta paraqitur projektin në një takim të shkur
 
 REQUEST = {
     'mie': dict(
-        to='Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', by_hand=False,
+        to='Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', by_hand=False, date='10.11.2026',
         subject='Kërkesë për letër mbështetjeje për aplikimin e UPT-së në Programin e NATO-s «Shkenca për Paqe dhe Siguri» '
                 '(SPS), projekti CERTAIN-COAST',
         attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes (anglisht); 2. Përkthimi në shqip, vetëm për '
@@ -150,7 +150,7 @@ REQUEST = {
               'do ta forconte ndjeshëm aplikimin. ' + ASK + ', të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al.',
               EASE, MEET]),
     'mod': dict(
-        to='Ministrisë së Mbrojtjes, Kabinetit të Ministrit', by_hand=True,
+        to='Ministrisë së Mbrojtjes, Kabinetit të Ministrit', by_hand=True, date='11.11.2026',
         subject='Kërkesë për letër mbështetjeje dhe angazhimi si përdorues fundor për aplikimin e UPT-së në Programin '
                 'e NATO-s «Shkenca për Paqe dhe Siguri» (SPS), projekti CERTAIN-COAST',
         attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes dhe angazhimit (anglisht); 2. Përkthimi në '
@@ -195,7 +195,7 @@ def request(doc, variant):
     p = para(doc, 0); run(p, 'UNIVERSITETI POLITEKNIK I TIRANËS', bold=True, size=10, color=NAVY)
     p = para(doc, 10); run(p, 'Fakulteti i Gjeologjisë dhe i Minierave · Departamenti i Burimeve Energjetike', size=9,
                            color=GREY)
-    p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; run(p, 'Tiranë, më 10.11.2026', size=10.5)
+    p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; run(p, f"Tiranë, më {r['date']}", size=10.5)
     p = para(doc, 2); run(p, 'Drejtuar: ', bold=True, size=10.5)
     run(p, r['to'], size=10.5)
     p = para(doc, 8); run(p, 'Lënda: ', bold=True, size=10.5)
