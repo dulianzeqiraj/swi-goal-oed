@@ -1,6 +1,6 @@
 """CERTAIN-COAST (NATO SPS proposal): the single PDF for the "Additional files (optional)" upload of the application
 form. It holds a contents page, the technical annex, the technical note on the assembled system of equations and the
-placement of recharge and supply wells, the PERTEJ-GO theory note on the inland boundary, the TRONDITJA-GO
+placement of recharge and supply wells, the BEYOND-GO theory note on the inland boundary, the SHOCK-GO
 implementation report on the earthquake in the aquifer and the CV of the NATO-country Project Director (build_cv.py
 --npd) and the CV of the partner-country Project Director (build_cv.py --ppd), with PDF bookmarks. New parts go
 at the end, because the annex refers to the notes by their position. The form asks for one PDF with a table of contents at the start when several documents are uploaded.
@@ -19,6 +19,9 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 from pypdf import PdfReader, PdfWriter
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from codenames import english  # noqa: E402
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 PARTS = [
@@ -28,15 +31,15 @@ PARTS = [
      'as the final goal (preparatory work of the NPD\'s team, October 2026; corrected 8 November 2026)',
      'Technical note: the assembled system and the placement of the wells',
      os.path.join(ROOT, 'docs', 'research_notes', 'Assembled_System_Equations_Placing_Recharge_and_Pumping_Wells.docx')),
-    ('Theory note: PËRTEJ-GO, the boundary condition the flow equation is missing — a learnable boundary where the '
+    ('Theory note: BEYOND-GO, the boundary condition the flow equation is missing — a learnable boundary where the '
      'model is cut, four propositions with proofs and six numerical checks (preparatory work of the NPD\'s team, '
      'November 2026)',
-     'Theory note: PËRTEJ-GO, the boundary where the model is cut',
+     'Theory note: BEYOND-GO, the boundary where the model is cut',
      os.path.join(ROOT, 'docs', 'research_notes', 'PERTEJ-GO_Transparent_Learnable_Boundary_Flow_Equation.docx')),
-    ('Implementation report: TRONDITJA-GO, the earthquake, the aquifer and liquefaction — the pore-pressure step of '
+    ('Implementation report: SHOCK-GO, the earthquake, the aquifer and liquefaction — the pore-pressure step of '
      'each layer, the earthquake as a free pumping test, the design of the 2019 hindcast and the joint safe window, '
      'with numerical checks (preparatory work of the NPD\'s team, November 2026)',
-     'Implementation report: TRONDITJA-GO, the earthquake in the aquifer',
+     'Implementation report: SHOCK-GO, the earthquake in the aquifer',
      os.path.join(ROOT, 'docs', 'research_notes', 'TRONDITJA-GO_Earthquake_Aquifer_Liquefaction_Implementation.docx')),
     ('Curriculum vitae of the NATO-country Project Director, Assoc. Prof. Dr. Dulian Zeqiraj (Faculty of Geology and '
      'Mining, Polytechnic University of Tirana)',
@@ -52,6 +55,11 @@ PARTS = [
 def to_pdf(path, outdir):
     if path.endswith('.pdf'):
         return path
+    if os.path.dirname(os.path.abspath(path)) != os.path.abspath(outdir):      # the English names of the experiments
+        from codenames import english_docx
+        copy = os.path.join(outdir, english(os.path.basename(path).replace('_', ' ')).replace(' ', '_'))
+        english_docx(path, copy)
+        path = copy
     subprocess.run(['soffice', '--headless', '--convert-to', 'pdf', '--outdir', outdir, path], check=True,
                    capture_output=True, timeout=600)
     return os.path.join(outdir, os.path.splitext(os.path.basename(path))[0] + '.pdf')

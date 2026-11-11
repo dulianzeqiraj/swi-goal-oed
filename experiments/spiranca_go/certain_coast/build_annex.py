@@ -156,7 +156,7 @@ BL = [
           'periods the data do not reach. In the test, six compartments reproduced the full aquifer to 7.8 mm '
           'root-mean-square over 20 years (best general-head boundary: 148 mm). Learned from the two piezometers while '
           'the pumping varied, the boundary predicted an unseen drought with doubled pumping to 6 mm (372 mm), and the '
-          'fresh water lost to the sea-level rise within 4%. The proofs and the six checks are in the PËRTEJ-GO theory '
+          'fresh water lost to the sea-level rise within 4%. The proofs and the six checks are in the BEYOND-GO theory '
           'note, the third document of these files.'),
     ('h2', '4.4 The earthquake in the aquifer (T2.2, T4.4, T5.4)'),
     ('p', 'An earthquake changes the pore pressure at once, so the liquefaction indicator uses the pore pressure of that '
@@ -181,7 +181,7 @@ BL = [
           'more sharply than a year of seasonal heads. The post-event protocol (T5.4) therefore reads the leakage of the '
           'confined aquifer from the loggers, and well records of November 2019 are sought where they exist. The mapped '
           'liquefaction of 2019 (Mavroulis, Lekkas and Carydis, 2021) cannot test the step: on a synthetic plain even 480 '
-          'sites gave a power below 50%. The code and the checks are in the TRONDITJA-GO report, the fourth document of '
+          'sites gave a power below 50%. The code and the checks are in the SHOCK-GO report, the fourth document of '
           'these files.'),
     ('h2', '4.5 A fast copy with a certified error (T2.4)'),
     ('p', 'Warnings need thousands of model runs a day. A neural operator (Li et al., 2021; Lu et al., 2021) is trained on '
@@ -423,8 +423,8 @@ BL = [
           'the project\'s monitoring network with the Ministry of Infrastructure and Energy as end-user; at the port '
           'and the landfall the warnings run on satellite, GNSS and public data.'),
     ('p', '**Software and data.** The NPD builds the model and the alarm algorithm and writes the code. The model, fast '
-          'copies, alarms, safe window, test planner and network design are released under the Apache License 2.0 with '
-          'containers and tests (D6.1), in a repository that is public from the start: '
+          'copies, alarms, safe window, test planner and network design are written in MATLAB, run also in the free GNU Octave (no licence is needed to use them) and are released '
+          'under the Apache License 2.0 with tests (D6.1), in a repository that is public from the start: '
           'https://github.com/dulianzeqiraj/certain-coast. Data shared by the owners of wells and records are used under '
           'the access agreements of T7.2; derived products, the bulletin log and the verification ledger are '
           'released openly following FAIR principles, and the preparatory tests are scripted and released with the software.'),

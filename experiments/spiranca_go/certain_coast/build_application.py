@@ -102,7 +102,7 @@ DELIVER = (
     'safe pumping tests planned to sharpen it; a pumping rule; and pumping safe while the '
     'source of the chloride is unknown.\n'
     '6. Twelve months of live bulletins with the end-user, every outcome logged and the miss rates verified '
-    '(D5.1); operating procedures and a policy brief (D6.2); the model and the alarm algorithm, built by the NPD, released as open-source code (https://github.com/dulianzeqiraj/certain-coast) with open data and a DOI (D6.1).\n'
+    '(D5.1); operating procedures and a policy brief (D6.2); the model and the alarm algorithm, built by the NPD, released as open-source MATLAB code (https://github.com/dulianzeqiraj/certain-coast) with open data and a DOI (D6.1).\n'
     'How this advances the state of the art. The alarms apply conformal and anytime-valid methods of 2023–2026 to '
     'coupled coastal hazards. Nine new contributions were tested before the project. (i) Guarantees for quantities '
     'nobody measures: inputs and boundaries known only through rain, with bands valid when the simulator or rain '
@@ -145,7 +145,7 @@ HOW = (
     'year and safe pumping tests that would sharpen it, and prepares a pumping rule for the water-use permits. WP6 trains early-career '
     'researchers and the end-user\'s staff, releases the open-source code and transfers the method to a partner coast. WP7 manages data '
     'access, security classification, risks and reporting.\n'
-    'Collaboration. The NPD builds the coupled model and the alarm algorithm and releases them as open-source code; the Albanian team leads WP1–WP5 and WP7; Qatar University leads WP6, a transfer study on '
+    'Collaboration. The NPD builds the coupled model and the alarm algorithm and releases them as open-source MATLAB/Octave code; the Albanian team leads WP1–WP5 and WP7; Qatar University leads WP6, a transfer study on '
     'the east coast of Qatar and a user-side review of the bulletins. Early-career researchers of both countries work across '
     'work packages, with two-month exchanges. The end-user agrees the thresholds and reviews the '
     'bulletins; a steering committee with it meets every six months, and each gate has a named fallback.')
@@ -268,7 +268,7 @@ SOTA_REFS += [
     ('Slepian, D. (1962). The one-sided barrier problem for Gaussian noise. Bell System Technical Journal 41(2), 463–501.',
      'https://doi.org/10.1002/j.1538-7305.1962.tb02419.x'),
 ]
-SOTA_REFS += [  # decisions when the source of the chloride is unknown (State of the art V, PREJARDHJA-GO)
+SOTA_REFS += [  # decisions when the source of the chloride is unknown (State of the art V, ORIGIN-GO)
     ('Entekhabi, D. (2023). Propagation in the drought cascade: observational analysis over the continental US. Water Resources Research 59(9), e2022WR032608.',
      'https://doi.org/10.1029/2022WR032608'),
     ('Farahmand, A., Reager, J. T., Madani, N. (2021). Drought cascade in the terrestrial water cycle: evidence from remote sensing. Geophysical Research Letters 48(14), e2021GL093482.',
@@ -288,7 +288,7 @@ SOTA_REFS += [  # decisions when the source of the chloride is unknown (State of
     ('Wasserman, L., Ramdas, A., Balakrishnan, S. (2020). Universal inference. Proceedings of the National Academy of Sciences 117(29), 16880–16890.',
      'https://doi.org/10.1073/pnas.1922664117'),
 ]
-SOTA_REFS += [  # the boundary where a model is cut (PERTEJ-GO theory note); all checked in Crossref, 9 November 2026
+SOTA_REFS += [  # the boundary where a model is cut (BEYOND-GO theory note); all checked in Crossref, 9 November 2026
     ('Alpert, B., Greengard, L., Hagstrom, T. (2000). Rapid evaluation of nonreflecting boundary kernels for time-domain wave propagation. SIAM Journal on Numerical Analysis 37(4), 1138–1164.',
      'https://doi.org/10.1137/S0036142998336916'),
     ('Bakker, M., Schaars, F. (2019). Solving groundwater flow problems with time series analysis: you may not even need another model. Groundwater 57(6), 826–833.',
@@ -306,7 +306,7 @@ SOTA_REFS += [  # the boundary where a model is cut (PERTEJ-GO theory note); all
     ('Werner, A. D., Simmons, C. T. (2009). Impact of sea-level rise on sea water intrusion in coastal aquifers. Ground Water 47(2), 197–204.',
      'https://doi.org/10.1111/j.1745-6584.2008.00535.x'),
 ]
-SOTA_REFS += [  # earthquakes in coastal aquifers (TRONDITJA-GO report); all checked in Crossref, 9 November 2026
+SOTA_REFS += [  # earthquakes in coastal aquifers (SHOCK-GO report); all checked in Crossref, 9 November 2026
     ('Boulanger, R. W., Idriss, I. M. (2016). CPT-based liquefaction triggering procedure. Journal of Geotechnical and Geoenvironmental Engineering 142(2), 04015065.',
      'https://doi.org/10.1061/(asce)gt.1943-5606.0001388'),
     ('Ganas, A., Elias, P., Briole, P., et al. (2020). Ground deformation and seismic fault model of the M6.4 Durres (Albania) Nov. 26, 2019 earthquake, based on GNSS/InSAR observations. Geosciences 10(6), 210.',
@@ -589,8 +589,8 @@ DATA = (
     'Collection and management: a data management plan (D7.1, Month 3) following the FAIR principles; standard formats '
     '(miniSEED and StationXML for seismic data, NetCDF with CF conventions for time series) and DataCite metadata; storage '
     'on the partners\' servers with backup; open release of derived products and software with DOIs on Zenodo. The code '
-    'repository is public from the start, under the Apache License 2.0: https://github.com/dulianzeqiraj/certain-coast (version 0.1.0, the certified alarm '
-    'module with tests); the NPD adds the model, the fast copy and the network design as the project advances.\n'
+    'repository is public from the start, under the Apache License 2.0: https://github.com/dulianzeqiraj/certain-coast (version 0.1.0, written in MATLAB and running also in the free GNU Octave, so the end-user needs no licence: the '
+    'certified alarms, the warnings between samples, the learned inland boundary and recharge from heads, with 25 tests); the NPD adds the model, the fast copy and the network design as the project advances.\n'
     "Risks and mitigation: (1) access to data: the project drills its own boreholes on public land, and access agreements "
     'with the owners of existing wells by Month 3; at the port and the landfall the project relies only on satellite and public data; (2) security of critical-infrastructure information: every output is '
     'classified before release, asset-level vulnerability, thresholds and sensor locations stay with the '
@@ -899,7 +899,7 @@ def main(out):
             'are named in the answer below', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-user sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready'],
-           ['Additional files (optional): technical annex, two notes, a report and the CVs of the two Project Directors', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (67 pages, contents and bookmarks: the technical annex, 10 pages, with methods, preparatory tests, gates and fallbacks and the nine new contributions; the technical note on the assembled system and the placement of the wells, 22 pages; the PËRTEJ-GO theory note on the inland boundary of the model, 16 pages; the TRONDITJA-GO implementation report on the earthquake in the aquifer, 14 pages; the CV of the NPD, 2 pages, [fill its yellow fields first]; the CV of the PPD, 2 pages, from the partner form of Qatar University) (build_additional_files.py)', '[CV of the NPD to complete]']]
+           ['Additional files (optional): technical annex, two notes, a report and the CVs of the two Project Directors', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (67 pages, contents and bookmarks: the technical annex, 10 pages, with methods, preparatory tests, gates and fallbacks and the nine new contributions; the technical note on the assembled system and the placement of the wells, 22 pages; the BEYOND-GO theory note on the inland boundary of the model, 16 pages; the SHOCK-GO implementation report on the earthquake in the aquifer, 14 pages; the CV of the NPD, 2 pages, [fill its yellow fields first]; the CV of the PPD, 2 pages, from the partner form of Qatar University) (build_additional_files.py)', '[CV of the NPD to complete]']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
@@ -1145,7 +1145,7 @@ def main(out):
     for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
                   ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', '**Yes** (recommended): upload the signed agreement as one PDF. Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx (NATO sample, Option B, open release of software and data, security release check), with a one-page waiver as alternative. The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete proposal.'),
-                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (67 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (10 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions, consistent with this form), the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values), the PËRTEJ-GO theory note on the inland boundary of the model (16 pages; four propositions with proofs, synthetic tests) the TRONDITJA-GO implementation report on the earthquake in the aquifer (14 pages; code-based checks, synthetic tests) and the CVs of the NATO-country and partner-country Project Directors (2 pages each).'),
+                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (67 pages), one PDF with a table of contents at the start, as the form asks: the technical annex (10 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions, consistent with this form), the technical note on the assembled system of equations and the placement of recharge and supply wells (22 pages; synthetic tests, illustrative values), the BEYOND-GO theory note on the inland boundary of the model (16 pages; four propositions with proofs, synthetic tests) the SHOCK-GO implementation report on the earthquake in the aquifer (14 pages; code-based checks, synthetic tests) and the CVs of the NATO-country and partner-country Project Directors (2 pages each).'),
                   ('Additional information (optional)', 'The additional files open with the technical annex, which summarises the methods and their preparatory tests, followed by a technical note on the coupled model and the placement of recharge and supply wells by a theory note on the inland boundary of that model, learned from piezometers, and by an implementation report on the earthquake in the aquifer, and close with the CVs of the two Project Directors; the full methodology, state of the art, work packages, risk assessment and data management plan are available on request.')]:
         field(doc, nm); answer(doc, a)
 

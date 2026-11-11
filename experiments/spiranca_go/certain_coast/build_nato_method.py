@@ -1,5 +1,5 @@
 """CERTAIN-COAST: the state-of-the-art methodology for the NATO SPS Multi-Year Project form, drawn from reviews I-IX
-(GARANCIA-GO ... FSHEHTA-GO), the SHIU-GO and RINDERTIMI-GO notes and CERTAIN-COAST Methodology v3.
+(GUARANTEE-GO ... HIDDEN-GO), the RAIN-GO and RECONSTRUCTION-GO notes and CERTAIN-COAST Methodology v3.
 
 It answers three questions for the applicants:
 1. what the 2027-1 call, the official sample application form and the MYP Handbook require (checked on nato.int,
@@ -119,65 +119,65 @@ FIXES = [
 
 # the innovations and where they enter CERTAIN-COAST
 MAP = [
-    ['SHIU-GO note: stochastic rain–recharge forcing learned from irregular, incomplete head records',
+    ['RAIN-GO note: stochastic rain–recharge forcing learned from irregular, incomplete head records',
      'The rain enters as a stochastic system (soil water, vadose delay, recharge error), not a fixed transfer',
      'Forecast loss above the optimum 9%, against 80% (linear transfer) and 262% (Gaussian forcing); 90% intervals cover 88%',
      'WP2, T2.3'],
-    ['RINDËRTIMI-GO note: all boundary conditions from rain with a function-space diffusion prior',
+    ['RECONSTRUCTION-GO note: all boundary conditions from rain with a function-space diffusion prior',
      'Sea level, inflow, recharge and initial head reconstructed jointly; heads enter through an ensemble update with the '
      'exact solver', 'Rain only: error 0.97–1.11 times the exact posterior; plain guidance missed the heads by 24.5 cm, the '
                      'update fits them to 2.1 cm', 'WP2, T2.3'],
-    ['Review I, GARANCIA-GO', 'Guaranteed bands for boundaries never observed: calibration pairs simulated from the physical '
+    ['Review I, GUARANTEE-GO', 'Guaranteed bands for boundaries never observed: calibration pairs simulated from the physical '
                               'prior', 'Raw ensemble misses 17–20% of the weeks (recharge coefficient 67%); calibrated '
                                        '9.5–10%, whole-function coverage 0.90', 'WP2, T2.3; WP3, T3.2'],
-    ['Review II, MATJA-GO', 'The guaranteed value of a measurement: the band it removes, with the choice recalibrated',
+    ['Review II, MEASURE-GO', 'The guaranteed value of a measurement: the band it removes, with the choice recalibrated',
      'Tide gauge: −15% promised by the ensemble, +16–21% guaranteed widening; sign predicted for 36/36 pairs',
      'WP4, T4.1'],
-    ['Review III, RESHJA-GO', 'Rain-product errors inside the guarantees; a floor for the recharge coefficient that loggers '
+    ['Review III, PRECIPITATION-GO', 'Rain-product errors inside the guarantees; a floor for the recharge coefficient that loggers '
                               'cannot remove', 'Naive κ band misses 70–76%; aware 9.3–10.3%; gauge and one logger 0.045 '
                                                'against product and eight loggers 0.108', 'WP2, T2.3; WP4, T4.1'],
-    ['Review IV, ANKORA-GO', 'Guarantees that hold for any real law, calibrated on measured anchors',
+    ['Review IV, MOORING-GO', 'Guarantees that hold for any real law, calibrated on measured anchors',
      'Simulation calibration breaks under shift (0.11–0.83); 10–40 anchors stay ≤ 0.10; at least 9 anchors (22 for a 90% '
      'certificate)', 'WP3, T3.2 and T3.4'],
-    ['Review V, PRIRJA-GO', 'Guarantees for a stated number of years ahead under drift', 'Risk 0.003–0.082 up to 20 years; '
+    ['Review V, TREND-GO', 'Guarantees for a stated number of years ahead under drift', 'Risk 0.003–0.082 up to 20 years; '
                                                                                          'with 30 anchor years a band exists '
                                                                                          'only to 17 years', 'WP3, T3.2; '
                                                                                                              'WP5, T5.3'],
-    ['Review VI, DYSHEMEJA-GO', 'The floor: no valid band can be narrower; computable before field data', '20-anchor band '
+    ['Review VI, FLOOR-GO', 'The floor: no valid band can be narrower; computable before field data', '20-anchor band '
                                                                                                          '1.34–1.54 times '
                                                                                                          'the floor; four '
                                                                                                          'loggers remove '
                                                                                                          '82–94% of the '
                                                                                                          'rain-only floor',
      'WP3, T3.2; WP4, T4.1'],
-    ['Review VII, SHKAKU-GO', 'Guaranteed counterfactual bands (what would have happened under another rain)',
+    ['Review VII, CAUSE-GO', 'Guaranteed counterfactual bands (what would have happened under another rain)',
      '40% drought lowers the head at the well by 1.94 m (floor half-width 0.088 m); the robust union is valid in every case '
      '(≤ 0.084)', 'WP5, T5.3'],
-    ['Review VIII, KRIPA-GO', 'Counterfactual salinity on the calibrated Fushë-Kuqe chloride model; the share of the '
+    ['Review VIII, SALT-GO', 'Counterfactual salinity on the calibrated Fushë-Kuqe chloride model; the share of the '
                               'dispersion', '40% less recharge: shallow area > 250 mg/L 31 → 65 km² (+33, band 15–49); '
                                             'dispersion width 62% of the variance; coverage 0.887–0.900', 'WP5, T5.3; '
                                                                                                          'WP2, T2.2'],
-    ['Review IX, FSHEHTA-GO', 'Pumping effects with hidden confounders read from the heads; a calibrated physics check',
+    ['Review IX, HIDDEN-GO', 'Pumping effects with hidden confounders read from the heads; a calibrated physics check',
      'Bias of the summed well effects +0.59 unadjusted, +0.56 history substitute, 0.00 physics; check size 6%, power '
      '99–100%', 'WP5, T5.3; WP4, T4.1'],
-    ['Review X, NDERHYRJA-GO', 'Reference channels (barometer, sealed hub channels) chosen with the piezometers; air-pressure '
+    ['Review X, INTERVENTION-GO', 'Reference channels (barometer, sealed hub channels) chosen with the piezometers; air-pressure '
                                'and logger-drift errors corrected; robust network with a certified optimality gap',
      '12 sensors: worst-case information 5.59 nats against 3.67 (interference ignored); certified gap 18%; 90% intervals '
      'cover 88–93% corrected, 49–62% ignored', 'WP4, T4.1 and T4.3'],
-    ['Review XI, SHTEGU-GO', 'Warnings for crossings between samples: a band over all models that fit the records '
+    ['Review XI, PATH-GO', 'Warnings for crossings between samples: a band over all models that fit the records '
                              '(robust pricing), certified by a conformal margin; the observation that closes the band; '
                              'online warning as the conditional probability (neural jump ODE)',
      'Crossing in the season 0.78, 34 times the exceedance on a sampling date; band 0.18–1 quarterly, 0.76–0.80 daily '
      'logger; certified coverage 90.3% for skewed chloride (74% without); warning skill 7% to 20% with a head logger',
      'WP3, T3.2; WP4, T4.1'],
-    ['Stakeholder review V, PREJARDHJA-GO', 'Decisions before the source of the chloride is known: the sources that '
+    ['Stakeholder review V, ORIGIN-GO', 'Decisions before the source of the chloride is known: the sources that '
                                             'tracer e-values cannot exclude (coverage at least 1 − β, no prior), pumping '
                                             'safe for every one of them, tests bought for their decision value, '
                                             'anytime-valid monthly updates, a ledger of who pays',
      'Exceedance at most 6.9% for every source against a 10% budget at €3.31 M (safe for all four without tests '
      '€4.16 M; assuming seawater intrusion up to 98%); true source dropped in 1.2–1.5% of cases over 12 monthly looks, '
      'about 22% with an ordinary test repeated', 'WP4, T4.1; WP5, T5.3'],
-    ['PËRTEJ-GO note: the boundary where the model is cut', 'The inland boundary as a conductance plus positive storage '
+    ['BEYOND-GO note: the boundary where the model is cut', 'The inland boundary as a conductance plus positive storage '
                                                              'compartments: exact for any linear aquifer beyond the cut, '
                                                              'passive whatever the rest of the model, learned from two '
                                                              'piezometers while the pumping varies, with a prior learned '
@@ -186,7 +186,7 @@ MAP = [
      'drought with doubled pumping 6 mm against 372 mm; fresh water lost to a 0.5 m sea rise 160 m³/m against 154 '
      '(truth), 49 (prescribed inflow), 462 (fixed head); a negative conductance stable at 2 km grew at 6 km',
      'WP2, T2.3; WP4, T4.1'],
-    ['TRONDITJA-GO report: the earthquake in the aquifer', 'The pore-pressure step of each layer from its own stiffness, '
+    ['SHOCK-GO report: the earthquake in the aquifer', 'The pore-pressure step of each layer from its own stiffness, '
                                                           'in the liquefaction indicator with the pore pressure of the '
                                                           'day; the step of the confined aquifer used as a free pumping '
                                                           'test; the 2019 hindcast designed before data are collected',
@@ -233,7 +233,7 @@ def fig_chain(path):
     box(48, 63, 80, 32, '1  Guaranteed reconstruction (WP2, WP3)',
         ['inputs and boundaries from rain and heads', 'valid with a wrong simulator or rain product',
          'and under drift; a floor shows the limit', 'crossings between samples certified'],
-        'reviews I, III–VI, XI; SHIU-GO, RINDËRTIMI-GO', BLUE, '#e3eefb')
+        'reviews I, III–VI, XI; RAIN-GO, RECONSTRUCTION-GO', BLUE, '#e3eefb')
     box(48, 38, 80, 22, '2  Value of a measurement (WP4)',
         ['guaranteed band removed, years added', 'reference channels correct the sensors'], 'reviews II, X; CERTAIN-COAST C2',
         AQUA, '#e2f5ee')
@@ -287,7 +287,7 @@ def main(out):
     put(p, f'{SHORT} — the state-of-the-art methodology for the NATO SPS form', size=17, color=NAVY); p.runs[0].bold = True
     p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'What the 2027-1 call and the official form require, how long each part may be, and the methodology drawn from '
-           'reviews I–XI, stakeholder review V and the PËRTEJ-GO and TRONDITJA-GO notes as texts ready to paste', size=11,
+           'reviews I–XI, stakeholder review V and the BEYOND-GO and SHOCK-GO notes as texts ready to paste', size=11,
         color=GREY)
     p = para(doc, 8); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     put(p, 'Dulian Zeqiraj · 7 November 2026 · Multi-Year Project, call 2027-1 · deadline 15 November 2026, 23:59 CET',
@@ -309,7 +309,7 @@ def main(out):
         '**Recommended lengths** for the fields without a limit (ours, not NATO\'s): state of the art 600–900 words with '
         'references, current status 300–600, work-plan 700–1,500; an optional illustrative upload of at most six pages.',
         f'**The five texts of Section 5 are now in the form text** (CERTAIN-COAST_NATO_Application_Form_Text.docx), '
-        f'built from the eleven reviews, stakeholder review V and the PËRTEJ-GO and TRONDITJA-GO notes: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
+        f'built from the eleven reviews, stakeholder review V and the BEYOND-GO and SHOCK-GO notes: deliverables ({words(DELIVER)} words), methodology ({words(HOW)} words), state of the '
         f'art with references, current status and work-plan.']
     for k, it in enumerate(items):
         q = c.paragraphs[0] if k == 0 else c.add_paragraph()
@@ -391,7 +391,7 @@ def main(out):
     p = para(doc, 4)
     put(p, 'In the form text they follow text 5.3 in the same field (the form invites references). Most details come from '
            'the cards of reviews I–XI, which were checked through search results, and of stakeholder review V and the '
-           'PËRTEJ-GO and TRONDITJA-GO notes, checked in Crossref; check each one in a bibliographic database '
+           'BEYOND-GO and SHOCK-GO notes, checked in Crossref; check each one in a bibliographic database '
            'before submission.', size=10, color=GREY, italic=True)
     for txt, url in REFS:
         q = para(doc, 2, 0.4)
