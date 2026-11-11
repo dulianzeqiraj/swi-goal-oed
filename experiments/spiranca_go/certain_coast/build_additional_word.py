@@ -6,7 +6,8 @@ new in each part, a coloured banner at the start of each part, running headers w
 technical annex, the three notes and the two CVs (the same as in build_additional_files.py), merged at the XML level
 with their figures, hyperlinks, styles, list numbering and sections. Each part keeps its own body style (its
 Normal style over its own document defaults), so its sizes and spacing are those of its source; the technical note
-is set in Arial like the rest.
+is set in Arial like the rest. The PDF is made while the headings still have outline levels, so it has bookmarks;
+the Word file then loses them (word_outline.py), so that Word draws no collapse arrow beside the headings.
 Only python-docx and lxml are used.
 
 usage: python build_additional_word.py OUT.docx [OUT.pdf]
@@ -30,6 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 sys.path.insert(0, HERE)
 from codenames import english, english_docx  # noqa: E402
+from word_outline import plain_headings  # noqa: E402
 from build_additional_files import PARTS  # noqa: E402
 from build_application import TITLE  # noqa: E402
 
@@ -982,9 +984,11 @@ def main(out, pdf_out=None):
     n_sec = build(out, pages)
     print('saved', out, '| sections', n_sec, '| parts start on pages', pages, '| pages', n)
     if pdf_out:
-        pdf = pdf_of(out, work)
+        pdf = pdf_of(out, work)                         # while the headings have outline levels: PDF bookmarks
         os.replace(pdf, pdf_out)
         print('saved', pdf_out)
+    n_lvl, n_ren = plain_headings(out)
+    print(f'  Word file: {n_lvl} outline levels removed, {n_ren} built-in heading styles renamed (no collapse arrows)')
 
 
 if __name__ == '__main__':

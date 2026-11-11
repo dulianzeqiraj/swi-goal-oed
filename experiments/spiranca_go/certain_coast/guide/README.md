@@ -1,7 +1,7 @@
 # CERTAIN-COAST illustrated guide
 
 *Seawater intrusion, sensors, earthquakes and liquefaction: an illustrated guide to the CERTAIN-COAST methods, with
-their equations* (English, Word with native equations, 30 pages, 27 figures).
+their equations* (English, Word with native equations, 29 pages, 27 figures).
 
 | File | What it does |
 |---|---|
@@ -16,7 +16,11 @@ Rebuild (the certain-coast package is the public repository https://github.com/d
     python -I export_fk_csv.py ../../../../data/Fushe_Kuqe_All_Data.xlsx /tmp/fkcsv
     octave --eval "guide_compute('/path/to/certain-coast', '/tmp/fkcsv', 'res')"     # about 1 minute
     python guide_figs.py
-    python build_guide.py ../../../../docs/certain_coast/CERTAIN-COAST_Illustrated_Guide.docx
+    python build_guide.py ../../../../docs/certain_coast/CERTAIN-COAST_Illustrated_Guide.docx \
+                          ../../../../docs/certain_coast/CERTAIN-COAST_Illustrated_Guide.pdf
+
+The PDF keeps the headings as bookmarks; in the Word file the headings have no outline level, so Word shows no
+collapse arrow beside them (`../word_outline.py`).
 
 The Fushë-Kuqe data belong to the Albanian Geological Survey and to Prof. A. Beqiraj and are used with their
 permission (see `data/README.txt`); they do not go into the public certain-coast repository.
