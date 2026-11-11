@@ -166,7 +166,7 @@ NPD = dict(
     details=[
         ['Name', 'Dulian Zeqiraj'],
         ['Title and position', 'Assoc. Prof. Dr., Faculty of Geology and Mining (FGJM), Polytechnic University of Tirana'],
-        ['Department', '[Department of Energy Resources: confirm]'],
+        ['Department', 'Department of Energy Resources'],
         ['Country', 'Albania (NATO member)'],
         ['E-mail', 'dulian.zeqiraj@fgjm.edu.al'],
         ['ORCID and researcher IDs', '[ORCID, Scopus ID]'],
