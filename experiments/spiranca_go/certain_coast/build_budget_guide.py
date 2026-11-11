@@ -67,6 +67,7 @@ GROUPS = {
     ('NPD', 'Other'): [
         ('Shipping and customs for equipment', ['Shipping and customs']),
         ('Insurance of field equipment', ['Insurance of field equipment']),
+        ('Open-source software: repository, testing, cloud computing, archiving', ['Open-source software']),
         ('Man-hours for the management of the project (NPD only, with time records)', ['Man-hours for the management'])],
     ('NPD', 'Stipends'): [('Stipends: {n} young researchers without a PhD, 30 months each', ['Stipends for young'])],
     ('PPD', 'Training'): [('Young-researcher exchanges, two months each', ['Young-researcher exchanges'])],

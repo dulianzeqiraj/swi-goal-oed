@@ -24,11 +24,11 @@ NAVY, GREY, LINE = HexColor('#1F3864'), HexColor('#52606D'), HexColor('#C9CED6')
 SUBS = {'≤': 'at most ', '≥': 'at least ', '→': 'to', '−': '-', 'α_k': 'alpha', 'α': 'alpha', 'Δ': 'Delta', '★': '*',
         'η': 'eta', ' ': ' ', ' ': ' ', '·': '-'}
 END_USERS = [
-    ('Ministry of Defence of the Republic of Albania (Ministria e Mbrojtjes): the end-user',
+    ('Ministry of Infrastructure and Energy of the Republic of Albania (Ministria e Infrastrukturës dhe Energjisë): the end-user',
      'A contact person and a small team on the steering committee; agrees the warning thresholds of the bulletins it uses; '
      'reviews the bulletins during the live operation and takes part in the final workshop.',
-     'Warnings with a stated miss rate for the wellfields, the port and the landfall, for its planning for national '
-     'resilience and the protection of critical infrastructure; post-event reports; trained staff, the software and the '
+     'Warnings with a stated miss rate for the wellfields, the port and the landfall, for its planning for '
+     'the water supply, the energy and transport infrastructure and the geological hazards under its responsibility; post-event reports; trained staff, the software and the '
      'operating procedures at the hand-over; no procurement, ownership or maintenance obligations.'),
 ]
 

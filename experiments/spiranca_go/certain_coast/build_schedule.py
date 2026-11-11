@@ -88,7 +88,7 @@ NEW = [
     'pass test and a fallback fixed in advance.',
     '**A full year live, with slack.** Back-testing runs alongside live operation, so twelve full months of operation fit '
     'even after a two-month slip at MS4, and they include every season of the hazards.',
-    '**The hand-over is inside the schedule.** Trained staff of the Ministry of Defence, the end-user, use the bulletins in Months 34–36, with the project team only in support, so the end state is '
+    '**The hand-over is inside the schedule.** Trained staff of the Ministry of Infrastructure and Energy, the end-user, use the bulletins in Months 34–36, with the project team only in support, so the end state is '
     'demonstrated before the grant ends.',
 ]
 

@@ -56,7 +56,7 @@ DESC = {
              'At least 90% data availability over the first month (MS2).',
              'Demonstrator and installation report, restricted.',
              'WP7; operators', 'D4.1; procurement', 'D1.1; D2.1; WP5'),
-    'D5.1': ('Twelve months of bulletins to the Ministry of Defence, the end-user; the bulletin log with outcomes; verification of the miss and false-alarm rates; the certified window and the plan of safe pumping tests that would sharpen it; the pumping and drought rule; post-event protocol executions.',
+    'D5.1': ('Twelve months of bulletins to the Ministry of Infrastructure and Energy, the end-user; the bulletin log with outcomes; verification of the miss and false-alarm rates; the certified window and the plan of safe pumping tests that would sharpen it; the pumping and drought rule; post-event protocol executions.',
              'Observed miss rates within targets with confidence intervals; bulletin log complete and reproducible (MS6).',
              'Report; verification statistics public, asset annex restricted.',
              'Steering committee; operators; civil protection', 'D3.1–D3.2; D4.2; D2.2', 'D6.2; D7.3; papers'),

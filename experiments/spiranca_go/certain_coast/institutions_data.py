@@ -134,15 +134,15 @@ PPD = dict(
 
 EU = dict(
     role='End-user · Albania · in-kind contribution; letter of support and end-user commitment attached separately',
-    name='Ministry of Defence of the Republic of Albania',
-    local='Ministria e Mbrojtjes e Republikës së Shqipërisë, Tirana.',
+    name='Ministry of Infrastructure and Energy of the Republic of Albania',
+    local='Ministria e Infrastrukturës dhe Energjisë e Republikës së Shqipërisë, Tirana.',
     glance=[
-        ('Ministry of Defence',
-         '**Ministria e Mbrojtjes** (Ministry of Defence of the Republic of Albania), Tirana. '
-         '<https://www.mod.gov.al>\n'
+        ('Ministry of Infrastructure and Energy',
+         '**Ministria e Infrastrukturës dhe Energjisë** (Ministry of Infrastructure and Energy of the Republic of Albania), '
+         'Tirana. <https://www.infrastruktura.gov.al>\n'
          '**In CERTAIN-COAST:** the end-user. It designates a contact person and a small team for the steering committee, '
          'agrees the warning thresholds of the bulletins it uses, reviews the live bulletins and uses them in its planning '
-         'for national resilience and the protection of critical infrastructure; its staff are trained and it receives the '
+         'for the water supply, the energy and transport infrastructure and the geological hazards under its responsibility; its staff are trained and it receives the '
          'software and the operating procedures at the hand-over. Staff time in kind; no SPS funds.'),
         ('Port and energy landfall',
          'The Port of Durrës and the landfall of the Trans Adriatic Pipeline near Fier are assessed from satellite radar, '
@@ -156,7 +156,7 @@ EU = dict(
         'The monitoring network is drilled by the project on public land and stays in Albania with the Polytechnic '
         'University of Tirana, which keeps the bulletins running for the end-user after the project.',
     ],
-    sources=[('Ministry of Defence', 'https://www.mod.gov.al')],
+    sources=[('Ministry of Infrastructure and Energy', 'https://www.infrastruktura.gov.al')],
 )
 
 INST = [UPT, PPD, EU]

@@ -42,7 +42,7 @@ AIMS = [
 ]
 
 AUDIENCES = [
-    ['Ministry of Defence of Albania (end-user)', 'Warnings it can act on, with known reliability', 'Bulletins with certified miss rates; the guaranteed minimum value of the warning for its own decisions; post-event reports; operating procedures; training (restricted tier)', 'Bulletin interface; workshops; on-site training'],
+    ['Ministry of Infrastructure and Energy of Albania (end-user)', 'Warnings it can act on, with known reliability', 'Bulletins with certified miss rates; the guaranteed minimum value of the warning for its own decisions; post-event reports; operating procedures; training (restricted tier)', 'Bulletin interface; workshops; on-site training'],
     ['Authorities that issue water-use permits, and the water supply', 'Pumping that stays safe for drinking water', 'The pumping and drought rule and the plan of safe pumping tests, as a policy brief', 'Policy brief; workshops'],
     ['Civil protection and national authorities', 'One consistent picture after events; numbers for planning', 'Post-event reports; relative sea level at each asset; policy brief', 'Briefings; workshops; policy brief'],
     ['NATO SPS Programme, Allies and partners', 'Evidence of security value and a capability others can adopt', 'Progress and final reports; project summary for SPS communication; transfer workshop', 'Reports; final event; SPS channels'],
@@ -78,7 +78,7 @@ PRODUCTS = [
     ['Back-testing protocol (DOI)', 'Data, events, statistics and pass levels of D3.2, published before the results are computed', 'Science; NATO SPS', '22', 'T3.4'],
     ['Live bulletins', 'Twelve months of certified warnings, logged with outcomes', 'Operators; civil protection', '23–34', 'T5.2'],
     ['Verification ledger', 'Quarterly open table per alarm type: events, misses, false alarms, 95% upper bound on the miss rate; no locations', 'All; public', '24, 27, 30, 33, 36', 'T5.2, D5.1'],
-    ['Training of the end-user\'s staff and users', 'Using the bulletins; what a miss rate means', 'Staff of the Ministry of Defence and intended users', '24–36', 'T6.2'],
+    ['Training of the end-user\'s staff and users', 'Using the bulletins; what a miss rate means', 'Staff of the Ministry of Infrastructure and Energy and intended users', '24–36', 'T6.2'],
     ['Open software and data (D6.1)', 'Code, documentation, synthetic test coast, open data, verification statistics', 'Science; other coasts', '33', 'T6.3'],
     ['Transfer workshop', 'Coast kit for other Adriatic and Mediterranean coasts', 'Other coasts; Allies and partners', '35', 'T6.3'],
     ['Policy brief and procedures (D6.2)', 'Subsidence, water supply, critical-infrastructure protection; operator procedures', 'National authorities; operators', '36', 'T6.4'],
@@ -92,7 +92,7 @@ KPIS = [
     ['Conference presentations', 'At least 8', 'Presentation list'],
     ['Open software and data release with documentation', '1 release with a persistent identifier (D6.1)', 'Repository'],
     ['Groups testing the software on another coast', 'At least 2', 'Transfer workshop; repository records'],
-    ['Professionals trained (at least four from the Ministry of Defence)', 'At least 15', 'Training records'],
+    ['Professionals trained (at least four from the Ministry of Infrastructure and Energy)', 'At least 15', 'Training records'],
     ['Early-career researchers trained', 'At least 6', 'Training records'],
     ['Operating procedures adopted', 'At least 1 per asset', 'D6.2'],
     ['Stakeholder workshops', '3, plus 1 transfer workshop', 'Agendas and participant lists'],

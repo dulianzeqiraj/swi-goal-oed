@@ -80,11 +80,15 @@ LINES = [
     ('Stipends', 'Stipends for young researchers without a PhD: 4 researchers × 30 months × €400', 120, 400,
      ['WP1', 'WP2', 'WP3', 'WP4', 'WP5'], (0.3, 0.4, 0.3), 'Both',
      'Early-career researchers trained by doing the work of WP1–WP5; rate as stated by the SPS Programme'),
-    ('Dissemination', 'Open-access publication fees', 6, 2000, ['WP6'], (0, 1 / 3, 2 / 3), 'Both',
-     'At least six open-access papers (Expected Results, Dissemination Plan)'),
-    ('Dissemination', 'Website, translation and printing in Albanian and English', 1, 5000, ['WP6'], (0.4, 0.2, 0.4), 'NPD',
+    ('Dissemination', 'Open-access publication fees', 3, 2000, ['WP6'], (0, 1 / 3, 2 / 3), 'PPD',
+     'Three article fees; the other open-access papers (at least six in all) go to diamond open-access journals or to '
+     'Zenodo with a DOI'),
+    ('Dissemination', 'Website, translation and printing in Albanian and English', 1, 1500, ['WP6'], (0.4, 0.2, 0.4), 'NPD',
      'Public summaries, policy brief and procedures; quarterly verification ledger page (protocol DOI on Zenodo at no cost)'),
-    ('Dissemination', 'Public and press events', 1, 1000, ['WP6'], (0.25, 0.25, 0.5), 'NPD', 'Kick-off, live start and final event'),
+    ('Dissemination', 'Public and press events', 1, 500, ['WP6'], (0.25, 0.25, 0.5), 'NPD', 'Kick-off, live start and final event'),
+    ('Other direct costs', 'Open-source software of the model and the alarm algorithm: code repository, continuous '
+     'integration, cloud computing for tests and releases, archiving with a DOI', 1, 10000, ['WP6'], (0.2, 0.3, 0.5), 'NPD',
+     'The NPD builds the coupled model and the alarm algorithm and releases them as open-source code for the users (D6.1)'),
     ('Other direct costs', 'Shipping and customs for equipment', 1, 4000, ['WP4'], (1, 0, 0), 'NPD', 'Delivery of sensors to the site'),
     ('Other direct costs', 'Insurance of field equipment', 3, 1000, ['WP4'], T3, 'NPD', 'One year of cover per year of operation'),
     ('Management', 'Man-hours for the management of the project (NATO-country Project Director only)', 1, 15000, ['WP7'],
@@ -121,7 +125,7 @@ CONFIRM = [
 ]
 INKIND = [
     '**Salaries** of all researchers and project directors, paid by their institutions (not eligible for SPS funding).',
-    '**Ministry of Defence of Albania (end-user):** staff time in kind for the steering committee, thresholds, the review of the bulletins, workshops and training.',
+    '**Ministry of Infrastructure and Energy of Albania (end-user):** staff time in kind for the steering committee, thresholds, the review of the bulletins, workshops and training.',
     '**Free data:** Copernicus Sentinel-1 radar images, tide-gauge records and existing seismic stations.',
     '**Facilities:** offices, laboratories and existing field equipment of the partner institutions.',
 ]
@@ -136,7 +140,7 @@ NEW = [
     '**A budget cut has a known effect.** Because sensors are ranked, removing the last lines removes the least valuable sensors, and the effect on the miss and false-alarm rates can be stated before the cut.',
     '**Money is released on evidence.** The costly fibre campaign is conditional on access by Month 9, and live operation starts only after the go/no-go milestone (MS4), so funds are not committed to work that cannot happen.',
     '**Money at stake at each gate is known in advance.** About two-thirds of the budget is spent by the calibration gate (MS3) and about three-quarters by the go/no-go gate (MS4); the rest pays for live operation, training and transfer, so a slip or fallback at a gate changes how the remaining funds are used, not what has already been bought (Section 2).',
-    '**What is bought stays.** The network, servers and software stay in Albania with the Polytechnic University of Tirana, which keeps the bulletins running for the Ministry of Defence, so the equipment budget becomes a lasting national capability rather than project hardware.',
+    '**What is bought stays.** The network, servers and software stay in Albania with the Polytechnic University of Tirana, which keeps the bulletins running for the Ministry of Infrastructure and Energy, so the equipment budget becomes a lasting national capability rather than project hardware.',
 ]
 
 
