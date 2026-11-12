@@ -35,13 +35,14 @@ PEOPLE = [
     ('Researcher, Dr. Bardhosh Seitaj', 'Faculty of Geology and Mining, UPT', 10),
     ('Researcher, Dr. Esmeralda Zeqo', 'Faculty of Geology and Mining, UPT', 10),
     ('Laboratory technician, Sonata Pregja', 'Faculty of Geology and Mining, UPT', 10),
+    ('Financial officer, Elvana Ndreca', 'Rectorate, UPT', 10),
     ('Research Professor, Prof. Fares AlMomani', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Oguz Yigiterhan', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Bruno Welter Giraldes', 'Environmental Science Center, Qatar University', 5),
     ('End-user contact person, [name]', 'Institute of Geosciences (IGJEO), Polytechnic University of Tirana', 5),
 ]
 
-N_STAFF = 9   # the first rows of PEOPLE are staff of the institutions; the rest are end-users
+N_STAFF = 10  # the first rows of PEOPLE are staff of the institutions; the rest are end-users
 
 # platform categories of the non-NATO table -> SPS categories of the budget
 NN_CATS = [
@@ -60,7 +61,7 @@ NN_CATS = [
      'cost, if agreed; otherwise 0].'),
     ('Stipends', ['Stipends'], 'None expected (stipends of the early-career researchers are requested from SPS).'),
     ('Co-financing', ['Co-financing of personnel'],
-     'Personnel cost paid by the institutions: all salaries of the Co-Directors and researchers for their time on the '
+     'Personnel cost paid by the institutions: all salaries of the Co-Directors, researchers and staff for their time on the '
      'project (Section 3). SPS co-finances no salary in this version.'),
     ('Other', ['Other'],
      'Overheads of the institutions (offices, administration, IT) at their own rates; staff time and station data of the end-user (the Institute of Geosciences, IGJEO); '
@@ -71,9 +72,10 @@ NN_CATS = [
 TEXT = (
     'The SPS grant pays only project-specific costs. The participating institutions and the end-users contribute the '
     'rest:\n'
-    '• Salaries of the Co-Directors and researchers, paid by their institutions for about {pm_staff:.1f} person-months '
+    '• Salaries of the Co-Directors, researchers and staff, paid by their institutions for about {pm_staff:.1f} person-months '
     'over {months} months (NPD {pm_npd:.1f}, PPD {pm_ppd:.1f}, hydrogeologist of the Faculty of Geology and Mining {pm_hyd:.1f}, '
-    'two researchers and a laboratory technician of the Faculty {pm_fac:.1f}, three researchers of Qatar University '
+    'two researchers and a laboratory technician of the Faculty {pm_fac:.1f}, financial officer of UPT {pm_fin:.1f}, '
+    'three researchers of Qatar University '
     '{pm_qa:.1f}): '
     '[€ amount]. No salary co-financing is requested from SPS.\n'
     '• Overheads of the institutions (offices, laboratories, IT, administration) at their own rates: [€ amount].\n'
@@ -105,7 +107,7 @@ def numbers():
     pm = [MONTHS * s / 100 for _, _, s in PEOPLE]
     staff = pm[:N_STAFF]
     return dict(months=MONTHS, pm_npd=pm[0], pm_ppd=pm[1], pm_hyd=pm[2], pm_fac=sum(pm[3:6]),
-                pm_qa=sum(pm[6:9]), pm_staff=sum(staff),
+                pm_fin=pm[6], pm_qa=sum(pm[7:10]), pm_staff=sum(staff),
                 pm_eu=sum(pm[N_STAFF:]),
                 sps_total=sum(sps_by_cat().values()))
 
