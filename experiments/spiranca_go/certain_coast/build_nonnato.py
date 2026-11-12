@@ -34,7 +34,7 @@ PEOPLE = [
     ('Senior researcher (hydrogeology and groundwater chemistry), Prof. Dr. Arjan Beqiraj', 'Faculty of Geology and Mining, UPT', 10),
     ('Researcher, Dr. Bardhosh Seitaj', 'Faculty of Geology and Mining, UPT', 10),
     ('Researcher, Dr. Esmeralda Zeqo', 'Faculty of Geology and Mining, UPT', 10),
-    ('Laboratory technician, Sonata Pregja [time to confirm]', 'Faculty of Geology and Mining, UPT', 10),
+    ('Laboratory technician, Sonata Pregja', 'Faculty of Geology and Mining, UPT', 10),
     ('Research Professor, Prof. Fares AlMomani', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Oguz Yigiterhan', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Bruno Welter Giraldes', 'Environmental Science Center, Qatar University', 5),
