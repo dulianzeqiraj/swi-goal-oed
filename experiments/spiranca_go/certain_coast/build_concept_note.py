@@ -140,7 +140,7 @@ def main(out):
     st += [Paragraph('10. Contact', S['h']),
            Paragraph(clean('Assoc. Prof. Dr. Dulian Zeqiraj, NATO-country Project Director - Department of Energy '
                            'Resources, Faculty of Geology and Mining, Polytechnic University of Tirana, Albania - '
-                           'dulian.zeqiraj@fgjm.edu.al - open-source MATLAB code: https://github.com/dulianzeqiraj/certain-coast'), S['p'])]
+                           'dulian.zeqiraj@fgjm.edu.al - open-source MATLAB code: https://doi.org/10.5281/zenodo.24148762'), S['p'])]
     doc.build(st, onFirstPage=footer, onLaterPages=footer)
     print('saved', out, '| total', total)
 

@@ -424,8 +424,8 @@ BL = [
           'and the landfall the warnings run on satellite, GNSS and public data.'),
     ('p', '**Software and data.** The NPD builds the model and the alarm algorithm and writes the code. The model, fast '
           'copies, alarms, safe window, test planner and network design are written in MATLAB, run also in the free GNU Octave (no licence is needed to use them) and are released '
-          'under the Apache License 2.0 with tests (D6.1), in a repository that is public from the start: '
-          'https://github.com/dulianzeqiraj/certain-coast. Data shared by the owners of wells and records are used under '
+          'under the Apache License 2.0 with tests (D6.1), public from the start and archived on Zenodo with a DOI: '
+          'https://doi.org/10.5281/zenodo.24148762. Data shared by the owners of wells and records are used under '
           'the access agreements of T7.2; derived products, the bulletin log and the verification ledger are '
           'released openly following FAIR principles, and the preparatory tests are scripted and released with the software.'),
     ('refs', None),

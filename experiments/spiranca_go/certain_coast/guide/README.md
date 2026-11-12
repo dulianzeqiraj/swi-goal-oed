@@ -11,7 +11,7 @@ their equations* (English, Word with native equations, 29 pages, 27 figures).
 | `guide_figs.py` | the 27 figures (`fig/`), from `res/` and `../../../tronditja_go/res` |
 | `build_guide.py` | the Word document with OMML equations (pandoc through `../../../ml_paradigms/word/omml.py`) |
 
-Rebuild (the certain-coast package is the public repository https://github.com/dulianzeqiraj/certain-coast):
+Rebuild (the certain-coast package is archived on Zenodo, https://doi.org/10.5281/zenodo.24148762):
 
     python -I export_fk_csv.py ../../../../data/Fushe_Kuqe_All_Data.xlsx /tmp/fkcsv
     octave --eval "guide_compute('/path/to/certain-coast', '/tmp/fkcsv', 'res')"     # about 1 minute
