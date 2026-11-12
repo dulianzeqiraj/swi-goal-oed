@@ -20,7 +20,10 @@ and the Handbook counts state organisations, regional authorities and companies 
 With --letter-only the request is left out: two pages, the letter in English to sign and the same letter in Albanian,
 so that the end-user sees what it says and which fields to fill (in English).
 
-usage: python build_enduser_letter.py OUT.docx [environment|durres|ukd|tirana] [--letter-only]"""
+  igjeo        the Institute of Geosciences (IGJEO) of UPT, signed by its head, Prof. Dr. Ylber Muceku: a unit of the
+               applicant's own university, so weaker as an end-user; it also offers the data of its stations.
+
+usage: python build_enduser_letter.py OUT.docx [environment|durres|ukd|tirana|igjeo] [--letter-only]"""
 import os
 import sys
 
@@ -71,7 +74,7 @@ def ask(letterhead, signer):
 
 
 def letterhead_short(letterhead):
-    return {'Ministrisë': 'Ministria', 'Bashkisë': 'Bashkia', 'shoqërisë': 'shoqëria'}[letterhead]
+    return {'Ministrisë': 'Ministria', 'Bashkisë': 'Bashkia', 'shoqërisë': 'shoqëria', 'Institutit': 'Instituti'}[letterhead]
 
 
 # --- paragraphs shared by the letters (pages 2 and 3) ---------------------------------------------------------------
@@ -257,7 +260,70 @@ TIRANA = dict(
         'Kontributi i Bashkisë është koha e punës së stafit; Bashkia nuk merr fonde nga NATO, dhe kjo letër nuk krijon '
         'asnjë detyrim financiar për të.'], 'Bashkia Tiranë'))
 
-VARIANTS = {'environment': ENVIRONMENT, 'durres': DURRES, 'ukd': UKD, 'tirana': TIRANA}
+# --- the Institute of Geosciences (IGJEO) of the Polytechnic University of Tirana ---------------------------------
+# A unit of UPT itself (as listed on upt.edu.al and geo.edu.al: departments of hydrology, geology, meteorology and
+# seismology), headed by Prof. Dr. Ylber Muceku: a state organisation that runs monitoring the warnings need, but not
+# independent of the applicant, so the letter says it is part of UPT. It also offers the data of its stations.
+IGJEO_EN = 'Institute of Geosciences (IGJEO), Polytechnic University of Tirana'
+IGJEO_SQ = 'Instituti i Gjeoshkencave (IGJEO), Universiteti Politeknik i Tiranës'
+IGJEO = dict(
+    out='CERTAIN-COAST_Letter_of_Support_IGJEO.docx',
+    request=dict(
+        to='Prof. Dr. Ylber Muceku, Instituti i Gjeoshkencave (IGJEO)', greeting='I nderuar Prof. Muceku,',
+        body=[APPLY, WHAT,
+              'Rrjetet e Institutit për tërmetet, motin dhe ujërat japin të dhënat që u duhen paralajmërimeve të projektit, '
+              'dhe projekti i jep Institutit metoda që mund t\'i përdorë. Prandaj do të ishte shumë e rëndësishme që '
+              f'**IGJEO të marrë pjesë në projekt si përdorues fundor (end-user)**. {NATO_ASKS} '
+              f'{ROLE_SQ.format(who="Instituti")} {FREE}',
+              ask('Institutit', 'ju ose një person i autorizuar'), MEET]),
+    en=dict(
+        head='[LETTERHEAD OF THE INSTITUTE]', place='Tirana, [date]', ref='Ref. [protocol number]',
+        subject=('Subject: ', 'CERTAIN-COAST, application to the NATO SPS Programme for a Multi-Year Project (call '
+                              '2027-1): letter of support and end-user commitment'),
+        greeting='Dear Sir or Madam,',
+        body=[
+            'The Institute of Geosciences (IGJEO), a unit of the Polytechnic University of Tirana that runs seismological, '
+            'meteorological and hydrological monitoring in Albania, supports the application submitted through the '
+            'University\'s Faculty of Geology and Mining (NATO-country Project Director: Assoc. Prof. Dr. Dulian Zeqiraj), '
+            'with the Environmental Science Center of Qatar University, to the NATO Science for Peace and Security '
+            f'Programme for the Multi-Year Project **CERTAIN-COAST: {TITLE}**.',
+            'Our monitoring of earthquakes, weather and waters gives data that the project\'s warnings need, and the project '
+            'gives us methods we can use: early warnings of seawater intrusion, of earthquake-induced liquefaction and of '
+            'extreme sea levels on the coast of Durrës and near Fier, each stating in advance how often it may be wrong, '
+            'released as open-source code.',
+            'We will take part in the project as an end-user. Our contact person will be [name, position, e-mail]. Our staff '
+            'will take part in the project\'s steering meetings, agree with the project team the warning thresholds for '
+            'earthquakes and extreme sea levels, review the warning bulletins and take part in the training, as our '
+            'resources allow. We will share the data of our stations that the project needs under a data agreement.',
+            'Our contribution is staff time and data in kind; we receive no SPS funds, and this letter creates no financial '
+            'obligation for us.'],
+        close='Yours faithfully,', sign=['[Signature and stamp]', 'Prof. Dr. Ylber Muceku', '[Position]', IGJEO_EN]),
+    sq=dict(
+        note=NOTE, head='[LETËR ZYRTARE E INSTITUTIT]', place='Tiranë, [data]', ref='Nr. prot. [numri]',
+        subject=('Lënda: ', 'CERTAIN-COAST, aplikim në Programin NATO SPS për projekt shumëvjeçar (thirrja 2027-1): '
+                            'letër mbështetjeje dhe angazhimi si përdorues fundor'),
+        greeting='Të nderuar zonja dhe zotërinj,',
+        body=[
+            'Instituti i Gjeoshkencave (IGJEO), njësi e Universitetit Politeknik të Tiranës që kryen monitorimin sizmologjik, '
+            'meteorologjik dhe hidrologjik në Shqipëri, mbështet aplikimin e paraqitur nëpërmjet Fakultetit të Gjeologjisë '
+            'dhe të Minierave të Universitetit (drejtues i projektit: Prof. Asoc. Dr. Dulian Zeqiraj), bashkë me Qendrën e '
+            'Shkencave Mjedisore të Universitetit të Katarit, në Programin e NATO-s «Shkenca për Paqe dhe Siguri» për '
+            'projektin shumëvjeçar **CERTAIN-COAST**: paralajmërim i hershëm i certifikuar për mbrojtjen e infrastrukturës '
+            'së ujit, të portit dhe të energjisë në një bregdet që po ulet.',
+            'Monitorimi ynë i tërmeteve, i motit dhe i ujërave jep të dhëna që u duhen paralajmërimeve të projektit, dhe '
+            'projekti na jep metoda që mund t\'i përdorim: paralajmërime të hershme për depërtimin e ujit të detit, për '
+            'lëngëzimin e tokës gjatë tërmeteve dhe për nivelet ekstreme të detit në bregdetin e Durrësit dhe afër Fierit, '
+            'ku secili paralajmërim deklaron paraprakisht sa shpesh mund të gabojë, të publikuara si kod i hapur.',
+            'Do të marrim pjesë në projekt si përdorues fundor. Personi ynë i kontaktit do të jetë [emri, pozicioni, '
+            'e-mail]. Stafi ynë do të marrë pjesë në mbledhjet drejtuese të projektit, do të bjerë dakord me ekipin e '
+            'projektit për pragjet e paralajmërimit për tërmetet dhe nivelet ekstreme të detit, do të shqyrtojë buletinet '
+            'e paralajmërimit dhe do të marrë pjesë në trajnime, sipas mundësive tona. Të dhënat e stacioneve tona që i '
+            'duhen projektit do t\'i ndajmë sipas një marrëveshjeje për të dhënat.',
+            'Kontributi ynë është koha e stafit dhe të dhënat, në natyrë; nuk marrim fonde nga NATO, dhe kjo letër nuk '
+            'krijon asnjë detyrim financiar për ne.'],
+        close='Me respekt,', sign=['[Firma dhe vula]', 'Prof. Dr. Ylber Muceku', '[Pozicioni]', IGJEO_SQ]))
+
+VARIANTS = {'environment': ENVIRONMENT, 'durres': DURRES, 'ukd': UKD, 'tirana': TIRANA, 'igjeo': IGJEO}
 
 
 def request(doc, r):
@@ -305,7 +371,7 @@ def letter(doc, L, en, first=False, note=None):
 
 
 # genitive of the end-user's own letterhead, for the note of the two-page version
-OWN = {'environment': 'Ministrisë', 'durres': 'Bashkisë', 'ukd': 'shoqërisë', 'tirana': 'Bashkisë'}
+OWN = {'environment': 'Ministrisë', 'durres': 'Bashkisë', 'ukd': 'shoqërisë', 'tirana': 'Bashkisë', 'igjeo': 'Institutit'}
 
 
 def main(out, variant='environment', letter_only=False):
