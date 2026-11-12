@@ -66,7 +66,7 @@ PROJECT = [
     '**Risia:** çdo alarm jepet me një garanci të deklaruar paraprakisht për shpeshtësinë e alarmeve të rreme dhe të '
     'humbura, që përdoruesi ta dijë sa t\'i besojë para se të veprojë.',
     '**Partnerët:** Qatar University (Environmental Science Center), nga një vend partner i NATO-s; përdorues fundor '
-    'është Shërbimi Gjeologjik Shqiptar.',
+    'është Ministria e Infrastrukturës dhe Energjisë.',
     '**Buxheti:** NATO financon €382,500, nga të cilat rreth €313,500 i administron UPT (pajisje monitorimi, analiza, '
     'bursa për kërkues të rinj, trajnime, udhëtime dhe botime) dhe rreth €69,000 Qatar University. Buxheti mbulon vetëm '
     'shpenzime të projektit: pagat e rregullta të stafit dhe shpenzimet e përgjithshme mbeten kontribut në natyrë i '
@@ -96,7 +96,7 @@ def main(out):
     run(p, 'UNIVERSITETI POLITEKNIK I TIRANËS', bold=True, size=10, color=NAVY)
     p = para(doc, 8, align=WD_ALIGN_PARAGRAPH.LEFT)
     run(p, 'Fakulteti i Gjeologjisë dhe i Minierave · Departamenti i Burimeve Energjetike', size=9, color=GREY)
-    p = para(doc, 6, align=WD_ALIGN_PARAGRAPH.RIGHT); run(p, 'Tiranë, më 10.11.2026')
+    p = para(doc, 6, align=WD_ALIGN_PARAGRAPH.RIGHT); run(p, 'Tiranë, më 12.11.2026')
     p = para(doc, 2, align=WD_ALIGN_PARAGRAPH.LEFT); run(p, 'Drejtuar: ', bold=True); run(p, 'Prof. Dr. Akli Fundo, Rektor i Universitetit Politeknik të Tiranës')
     p = para(doc, 8, align=WD_ALIGN_PARAGRAPH.LEFT)
     run(p, 'Lënda: ', bold=True)
@@ -138,7 +138,7 @@ def main(out):
            'financimeve të huaja; këto citohen në aplikim bashkë me Statutin e UPT-së.', size=9, color=GREY, italic=True)
 
     p = para(doc, 6)
-    rich(p, 'Ju lutem **firmën dhe vulën** në të dy dokumentet, nëse është e mundur **deri të enjten, 12 nëntor 2026**, '
+    rich(p, 'Ju lutem **firmën dhe vulën** në të dy dokumentet, nëse është e mundur **deri të premten, 13 nëntor 2026**, '
             'dhe një kopje të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al, që të ngarkohet në platformën e NATO-s '
             'bashkë me aplikimin. Firma nuk krijon detyrim financiar për UPT-në përtej administrimit të fondeve të NATO-s, '
             'nëse projekti fitohet.')
