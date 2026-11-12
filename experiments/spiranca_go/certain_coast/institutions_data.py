@@ -20,8 +20,7 @@ UPT = dict(
         dict(title='Faculty of Geology and Mining (FGJM): faculty of the Project Director',
              sub='Fakulteti i Gjeologjisë dhe i Minierave · Rruga e Elbasanit, Tirana · <https://fgjm.edu.al>',
              lines=[
-                 'Four departments: Earth Sciences; Applied Geology and Geoinformatics; Mineral Resources Engineering; '
-                 'Energy Resources [confirm the official names].',
+                 'Four departments, among them the Department of Energy Resources of the Project Director.',
                  'Degrees in geological, geoinformatics and geoenvironmental engineering; MSc in Engineering Geology and '
                  'Hydrogeology and in Geoinformatics; PhD in Geology and Environment.',
                  'An aquifer that supplies Durrës: UPT researchers showed seawater advancing into the Fushë Kuqe aquifer, '
@@ -30,18 +29,19 @@ UPT = dict(
                  'Coastal hazards: doctoral theses on the geological risk of the Kryevidh–Golem coast with GIS (2021) and '
                  'on coastline change of the Shkumbin and Seman deltas from geospatial and geodetic data (2022).',
                  'Laboratories of the Energy Resources department include fluid mechanics in porous media and modelling '
-                 'of reservoirs and aquifers; [geotechnical, hydrochemical and geophysical laboratories and field '
-                 'equipment: confirm].',
+                 'of reservoirs and aquifers.',
                  'Networks: CEEPUS RS-0038 "EURO Geo-Sci"; EIT Deep Tech Talent pledger; organiser of the GENRE 2025 '
                  'international geoscience conference (Tirana, November 2025).',
              ]),
     ],
     glance=[
-        ('Project Director', 'Assoc. Prof. Dr. Dulian Zeqiraj, [position], FGJM; [30%] of working time on the project'),
+        ('Project Director', 'Assoc. Prof. Dr. Dulian Zeqiraj, Department of Energy Resources, FGJM; ORCID '
+                             '0000-0002-5305-3048'),
         ('Team', 'Prof. Dr. Arjan Beqiraj; Dr. Bardhosh Seitaj; Dr. Esmeralda Zeqo; MSc Aurela Jahja; laboratory '
                  'technician Sonata Pregja (FGJM); MSc Armida Brakaj, mathematician (Faculty of Mathematical Engineering and '
                  'Physics Engineering)'),
-        ('Research team page', '[link to the web page of the research team]'),
+        ('Open code of the team', 'https://github.com/dulianzeqiraj/certain-coast (MATLAB and GNU Octave, Apache 2.0), '
+                                  'archived on Zenodo, DOI 10.5281/zenodo.24148762'),
     ],
     role_text=[
         'FGJM coordinates the project, administers the NATO grant through UPT and chairs the steering committee (WP7). '
@@ -51,9 +51,14 @@ UPT = dict(
     projects=[
         'Key publications: Cenameri and Beqiraj (2016), Bulletin of the Geological Society of Greece 50(2), 665–670; '
         'Raço et al. (2022), Journal of Ecological Engineering 23(8), 327–340, doi:10.12911/22998993/151073; '
-        '[3–5 publications of the project team, with DOI].',
+        'Zeqiraj (2026), Journal of Hydrology 680, 136559, doi:10.1016/j.jhydrol.2026.136559; Zeqiraj and Beqiraj (2026), '
+        'Journal of Contaminant Hydrology 283, 105086, doi:10.1016/j.jconhyd.2026.105086; Zeqiraj, Beqiraj, Jahja, Seitaj, '
+        'Progni and Zeqo (2026), Journal of Hazardous Materials Advances 23, 101261, doi:10.1016/j.hazadv.2026.101261.',
         'Preparatory work (2026): eleven reviews with tested methods and a calibrated chloride model of the Fushë-Kuqe '
-        'aquifer (technical annex, on request); [2–3 relevant projects of the team: title, funder, years, role].',
+        'aquifer (technical annex, on request). Projects: modelling, simulation and optimisation of formation treatment '
+        'in the carbonate reservoir of the Amonicë oil field, with Albpetrol (AKKSHI, 2025–2026; the NPD is principal '
+        'investigator); reconstruction of the groundwater vulnerability map of Albania (UPT institutional project; the NPD '
+        'is co-investigator).',
     ],
     new=[
         'FGJM brings its record of seawater intrusion and coastal hazards at Durrës; CERTAIN-COAST turns it into one '
