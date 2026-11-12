@@ -687,7 +687,7 @@ def cover(doc):
              'Faculty of Geology and Mining, Polytechnic University of Tirana, Albania'),
             ('Partner-country Project Director', 'Prof. Jassim Al-Khayat',
              'Environmental Science Center, Qatar University, Qatar'),
-            ('End-user', 'Ministry of Infrastructure and Energy', 'Republic of Albania')]
+            ('End-user', 'Institute of Geosciences (IGJEO)', 'Polytechnic University of Tirana')]
     for i, (role, name, inst) in enumerate(rows):
         c0, c1 = t.rows[i].cells
         p0 = c0.paragraphs[0]

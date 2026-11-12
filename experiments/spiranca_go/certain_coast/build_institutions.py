@@ -146,7 +146,7 @@ def page(doc, k, n, I):
             if j:
                 run(p, '; ', size=8.6, color='52606D')
             link(p, url, lab, size=8.6)
-        run(p, '. Checked on 1 November 2026.', size=8.6, color='52606D')
+        run(p, f'. Checked on {I.get("checked", "1 November 2026")}.', size=8.6, color='52606D')
 
 
 def main(out):

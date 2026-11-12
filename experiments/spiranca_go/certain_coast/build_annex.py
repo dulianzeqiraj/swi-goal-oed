@@ -1,7 +1,7 @@
 """CERTAIN-COAST (NATO SPS proposal): short technical annex for the "Additional files (optional)" upload of the
 application form. It supplements the fields "How will the project reach the planned end state?" and "Work-plan":
 how the methods work, what was tested before the project and what is new, for the two sites (Durrës wellfields and
-port; the TAP landfall near Fier), with the Ministry of Infrastructure and Energy of Albania as the end-user. Work packages, tasks, months and milestones are those of the application form
+port; the TAP landfall near Fier), with the Institute of Geosciences (IGJEO) of the Polytechnic University of Tirana as the end-user. Work packages, tasks, months and milestones are those of the application form
 (build_application.py); equations are those of the Methodology (build_methodology.py); every number comes from the
 preparatory tests reported in the Methodology and Innovation documents; references are those already checked there.
 
@@ -40,8 +40,8 @@ BL = [
     ('h', '1. Two sites, three coupled hazards'),
     ('p', 'The project protects two sites on the Albanian Adriatic coastal plain: at Durrës, the wellfields that supply '
           'drinking water and the port; near Fier, the landfall of the Trans Adriatic Pipeline (TAP). The demonstration runs '
-          'on the project\'s monitoring network on the coast of Durrës and Fushë-Kuqe, with the Ministry of Infrastructure and Energy of Albania '
-          'as the end-user, which uses the warnings to protect critical infrastructure; the '
+          'on the project\'s monitoring network on the coast of Durrës and Fushë-Kuqe, with the Institute of Geosciences (IGJEO) of the '
+          'Polytechnic University of Tirana as the end-user, which monitors earthquakes, weather and waters in Albania; the '
           'port and the landfall are assessed from satellite radar, GNSS and public data only. Both sites stand on low '
           'ground near active faults, and at Durrës the land is sinking; the earthquake of 26 November 2019 caused '
           'liquefaction near the coast (Mavroulis, Lekkas and Carydis, 2021). Three hazards threaten these assets, and they '
@@ -365,7 +365,7 @@ BL = [
        'reported for each asset with a plan of safe pumping tests and the years it would add; the plausible chloride sources and the '
        'pumping in force published every month', 'If no strong event occurs, '
        'verification rests on back-testing and storylines; the window from routine records and the post-earthquake relaxation'],
-      ['Hand-over (WP6, WP7; MS7, Month 36)', 'An operating procedure for the bulletins agreed with the Ministry of Infrastructure and Energy; its '
+      ['Hand-over (WP6, WP7; MS7, Month 36)', 'An operating procedure for the bulletins agreed with IGJEO; its '
        'trained staff use the bulletins in Months 34–36 with the project team only in support; at least four of its '
        'staff trained; agreement on keeping and maintaining the sensors '
        'signed by Month 33 (D6.2); open software and data with a DOI reproduced outside the team (D6.1, Month 33)',
@@ -420,7 +420,7 @@ BL = [
           'new pumping and a rising sea; which layer an earthquake loads and what its relaxation reveals; and how to pump '
           'safely before anyone knows where the salt comes from. The system starts at TRL 3, each '
           'component shown in preparatory tests, and ends at TRL 6, demonstrated through twelve months of live operation on '
-          'the project\'s monitoring network with the Ministry of Infrastructure and Energy as end-user; at the port '
+          'the project\'s monitoring network with the Institute of Geosciences (IGJEO) as end-user; at the port '
           'and the landfall the warnings run on satellite, GNSS and public data.'),
     ('p', '**Software and data.** The NPD builds the model and the alarm algorithm and writes the code. The model, fast '
           'copies, alarms, safe window, test planner and network design are written in MATLAB, run also in the free GNU Octave (no licence is needed to use them) and are released '

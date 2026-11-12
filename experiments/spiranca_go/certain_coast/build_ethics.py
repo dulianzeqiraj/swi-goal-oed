@@ -74,8 +74,8 @@ AI = [
 
 WARN = [
     '**Honesty about uncertainty.** No bulletin claims more certainty than it has: each states how often such warnings miss, and that rate is checked against the log.',
-    '**Who bears the error is decided openly.** The trade-off between misses and false alarms is agreed with the end-user, the Ministry of Infrastructure and Energy, before the alarms are designed, and tolerances are allocated by consequence, not by convenience (Methodology, Section 5.4).',
-    '**Official warnings stay with the authorities.** CERTAIN-COAST bulletins go to the Ministry of Infrastructure and Energy, the end-user, and to the competent national authorities; any warning to the public is issued only by the competent authorities through their own channels.',
+    '**Who bears the error is decided openly.** The trade-off between misses and false alarms is agreed with the end-user, the Institute of Geosciences (IGJEO), before the alarms are designed, and tolerances are allocated by consequence, not by convenience (Methodology, Section 5.4).',
+    '**Official warnings stay with the authorities.** CERTAIN-COAST bulletins go to the Institute of Geosciences (IGJEO), the end-user, and to the competent national authorities; any warning to the public is issued only by the competent authorities through their own channels.',
     '**Misses are reviewed, not hidden.** Every missed exceedance is reviewed within a week, and the findings are shared with the users and the authorities.',
     '**No false reassurance.** When conditions leave the observed record, the bulletin says so and the margin widens, rather than presenting a forecast as reliable where it is not.',
 ]

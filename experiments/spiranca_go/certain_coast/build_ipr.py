@@ -22,7 +22,7 @@ FULL = ('Certified early warning for seawater intrusion, liquefaction and extrem
         'energy landfall of a subsiding Adriatic coast')
 TEMPLATE = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023/SPS_MYP_Sample_IPR_Agreement.docx'
 HANDBOOK = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023/SPS_MYP_Handbook.pdf'
-END_USERS = ['[Ministry of Infrastructure and Energy of the Republic of Albania]']
+END_USERS = ['[Institute of Geosciences (IGJEO), Polytechnic University of Tirana]']
 
 HOW = [
     '**What it is.** The NATO sample IPR agreement with its articles and numbering kept, filled in for CERTAIN-COAST. '

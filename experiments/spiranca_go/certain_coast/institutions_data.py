@@ -139,29 +139,34 @@ PPD = dict(
 
 EU = dict(
     role='End-user · Albania · in-kind contribution; letter of support and end-user commitment attached separately',
-    name='Ministry of Infrastructure and Energy of the Republic of Albania',
-    local='Ministria e Infrastrukturës dhe Energjisë e Republikës së Shqipërisë, Tirana.',
+    name='Institute of Geosciences (IGJEO), Polytechnic University of Tirana',
+    local='Instituti i Gjeoshkencave (IGJEO), Universiteti Politeknik i Tiranës, Rruga Don Bosko 60, Tirana.',
     glance=[
-        ('Ministry of Infrastructure and Energy',
-         '**Ministria e Infrastrukturës dhe Energjisë** (Ministry of Infrastructure and Energy of the Republic of Albania), '
-         'Tirana. <https://www.infrastruktura.gov.al>\n'
+        ('Institute of Geosciences (IGJEO)',
+         '**Instituti i Gjeoshkencave** (Institute of Geosciences, IGJEO), a research and development institution and a '
+         'main unit of the Polytechnic University of Tirana, formerly the Institute of Geosciences, Energy, Water and '
+         'Environment (IGJEUM), with departments of hydrology, geology, meteorology and seismology. Head: Prof. Dr. Ylber '
+         'Muceku. <https://www.geo.edu.al>\n'
          '**In CERTAIN-COAST:** the end-user. It designates a contact person and a small team for the steering committee, '
-         'agrees the warning thresholds of the bulletins it uses, reviews the live bulletins and uses them in its planning '
-         'for the water supply, the energy and transport infrastructure and the geological hazards under its responsibility; its staff are trained and it receives the '
-         'software and the operating procedures at the hand-over. Staff time in kind; no SPS funds.'),
+         'agrees the warning thresholds for earthquakes and extreme sea levels, reviews the live bulletins and shares the '
+         'data of its stations under a data agreement; its staff are trained and it receives the software and the '
+         'operating procedures at the hand-over. Staff time and data in kind; no SPS funds.'),
         ('Port and energy landfall',
          'The Port of Durrës and the landfall of the Trans Adriatic Pipeline near Fier are assessed from satellite radar, '
          'GNSS and public data only; no access or data from their owners is needed.'),
     ],
     role_text=[
         'The end-user names a contact person and takes part in setting the thresholds (T3.1), reviews the live bulletins '
-        '(WP5) and receives the software and the procedures at the hand-over (MS7).',
+        '(WP5), shares station data under a data agreement and receives the software and the procedures at the hand-over '
+        '(MS7).',
     ],
     new=[
         'The monitoring network is drilled by the project on public land and stays in Albania with the Polytechnic '
         'University of Tirana, which keeps the bulletins running for the end-user after the project.',
     ],
-    sources=[('Ministry of Infrastructure and Energy', 'https://www.infrastruktura.gov.al')],
+    sources=[('Institute of Geosciences (IGJEO)', 'https://www.geo.edu.al/Rreth_nesh/IGJEO/'),
+             ('Prof. Dr. Ylber Muceku', 'https://www.geo.edu.al/Rreth_nesh/Drejtoria/Ylber_MUCEKU.html')],
+    checked='12 November 2026',
 )
 
 INST = [UPT, PPD, EU]

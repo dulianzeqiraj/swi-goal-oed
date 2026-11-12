@@ -38,7 +38,7 @@ PEOPLE = [
     ('Research Professor, Prof. Fares AlMomani', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Oguz Yigiterhan', 'Environmental Science Center, Qatar University', 5),
     ('Research Associate Professor, Dr. Bruno Welter Giraldes', 'Environmental Science Center, Qatar University', 5),
-    ('End-user representative, Dr. Lusien Ismaili', 'Ministry of Infrastructure and Energy of the Republic of Albania', 5),
+    ('End-user contact person, [name]', 'Institute of Geosciences (IGJEO), Polytechnic University of Tirana', 5),
 ]
 
 N_STAFF = 9   # the first rows of PEOPLE are staff of the institutions; the rest are end-users
@@ -63,7 +63,7 @@ NN_CATS = [
      'Personnel cost paid by the institutions: all salaries of the Co-Directors and researchers for their time on the '
      'project (Section 3). SPS co-finances no salary in this version.'),
     ('Other', ['Other'],
-     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time of the end-user (the Ministry of Infrastructure and Energy); '
+     'Overheads of the institutions (offices, administration, IT) at their own rates; staff time and station data of the end-user (the Institute of Geosciences, IGJEO); '
      'data provided under agreements (Durrës tide-gauge record of ASIG, records of the national seismic stations, records '
      "of existing wells shared by their owners)."),
 ]
@@ -79,7 +79,7 @@ TEXT = (
     '• Overheads of the institutions (offices, laboratories, IT, administration) at their own rates: [€ amount].\n'
     '• Existing equipment and facilities used by the project: [field and laboratory instruments, servers] of the '
     'institutions: [€ amount].\n'
-    "• The end-user, which receives no SPS funds: staff time of the Ministry of Infrastructure and Energy for the steering committee, "
+    "• The end-user, which receives no SPS funds: staff time of the Institute of Geosciences (IGJEO) for the steering committee, "
     'thresholds, the dry run, the live bulletins and training (about {pm_eu:.1f} person-months): '
     '[€ amount].\n'
     '• Data at no cost to the project: Copernicus Sentinel-1 radar images (free and open), the Durrës tide-gauge record '
