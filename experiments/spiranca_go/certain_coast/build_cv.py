@@ -65,15 +65,54 @@ def guide(doc, text):
 
 
 def sec(doc, text):
-    p = para(doc, 3, before=7); run(p, text, bold=True, size=11.5, color='1F3864'); p.paragraph_format.keep_with_next = True
+    p = para(doc, 3, before=6); run(p, text, bold=True, size=11.5, color='1F3864'); p.paragraph_format.keep_with_next = True
     pPr = p._p.get_or_add_pPr(); b = OxmlElement('w:pBdr'); bt = OxmlElement('w:bottom')
     for k, v in (('w:val', 'single'), ('w:sz', '6'), ('w:space', '1'), ('w:color', '9AA3AD')):
         bt.set(k if ':' not in k else '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}' + k.split(':')[1], v)
     b.append(bt); pPr.append(b)
 
 
+def soften(t, line='C9D3E0', zebra='F5F7FA'):
+    """Thin light lines instead of the black grid, a little air in the cells and a light band on every other row."""
+    W = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
+    tblPr = t._tbl.tblPr
+    for old in tblPr.findall(W + 'tblBorders') + tblPr.findall(W + 'tblCellMar'):
+        tblPr.remove(old)
+    b = OxmlElement('w:tblBorders')
+    for side in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+        e = OxmlElement(f'w:{side}')
+        e.set(W + 'val', 'single'); e.set(W + 'sz', '4'); e.set(W + 'space', '0'); e.set(W + 'color', line)
+        b.append(e)
+    mar = OxmlElement('w:tblCellMar')
+    for side, w in (('top', 28), ('left', 85), ('bottom', 28), ('right', 85)):
+        e = OxmlElement(f'w:{side}'); e.set(W + 'w', str(w)); e.set(W + 'type', 'dxa'); mar.append(e)
+    # schema order in tblPr: ... tblW, jc, tblCellSpacing, tblInd, tblBorders, shd, tblLayout, tblCellMar, tblLook
+    after = None
+    for tag in ('tblInd', 'tblCellSpacing', 'jc', 'tblW', 'tblStyle'):
+        after = tblPr.find(W + tag)
+        if after is not None:
+            break
+    if after is not None:
+        after.addnext(b)
+    else:
+        tblPr.insert(0, b)
+    tblPr.append(mar)
+    order = ['tblStyle', 'tblpPr', 'tblOverlap', 'bidiVisual', 'tblStyleRowBandSize', 'tblStyleColBandSize', 'tblW', 'jc',
+             'tblCellSpacing', 'tblInd', 'tblBorders', 'shd', 'tblLayout', 'tblCellMar', 'tblLook', 'tblCaption',
+             'tblDescription']
+    kids = sorted(tblPr, key=lambda e: order.index(e.tag.split('}')[1]) if e.tag.split('}')[1] in order else 99)
+    for e in kids:                                      # the children of tblPr in the order of the schema
+        tblPr.append(e)
+    for k, r in enumerate(t.rows[1:], start=1):
+        if k % 2 == 0:
+            for c in r.cells:
+                shade(c, zebra)
+    return t
+
+
 def ph_table(doc, header, rows, widths, size=10):
     t = table(doc, header, rows, widths, size=size)
+    soften(t)
     for r in t.rows[1:]:
         for c in r.cells:
             for p in c.paragraphs:
@@ -160,28 +199,30 @@ NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is 
             'Month 36.')
 
 # ---------------------------------------------------------------------- the CV of the NATO-country Project Director
-# Sources: his CV of February 2021 (education, career, courses, programming) and Crossref records of his publications.
+# Sources: his CVs of February 2021 and November 2026 (education, career, grants, languages, ORCID) and Crossref
+# records of his publications (checked 12 November 2026).
 NPD = dict(
     name='Dulian Zeqiraj',
     details=[
         ['Name', 'Dulian Zeqiraj'],
-        ['Title and position', 'Assoc. Prof. Dr., Faculty of Geology and Mining (FGJM), Polytechnic University of Tirana'],
+        ['Title and position', 'Associate Professor (Prof. Asoc.), PhD; Faculty of Geology and Mining (FGJM), Polytechnic '
+                               'University of Tirana'],
         ['Department', 'Department of Energy Resources'],
         ['Country', 'Albania (NATO member)'],
         ['E-mail', 'dulian.zeqiraj@fgjm.edu.al'],
-        ['ORCID and researcher IDs', '[ORCID, Scopus ID]'],
+        ['ORCID', 'https://orcid.org/0000-0002-5305-3048'],
     ],
     education=[
-        ['[year]', 'Doctor of Sciences (Dr.)', '[institution, country]', '[field]'],
-        ['1991–1996', 'University diploma (five years)', 'Faculty of Geology and Mining, University of Tirana, Albania',
-         'Drilling and production wells'],
+        ['2017', 'Doctor of Philosophy (PhD)', 'Polytechnic University of Tirana, Albania',
+         'Numerical modelling and simulation of flow and geomechanics in petroleum reservoirs'],
+        ['1991–1996', 'Master of Science (five-year diploma)', 'Faculty of Geology and Mining, University of Tirana, Albania',
+         'Petroleum engineering (drilling and production wells)'],
     ],
     career=[
-        ['[year]–', 'Associate Professor', 'Faculty of Geology and Mining, Polytechnic University of Tirana'],
-        ['2008–[year]', 'Lecturer, Department of Reservoir Engineering (now Energy Resources)',
-         'Faculty of Geology and Mining, Polytechnic University of Tirana'],
-        ['2006–2008', '[position]', 'Albanian Geological Survey (Shërbimi Gjeologjik Shqiptar), Tirana'],
-        ['1996–2006', '[position]', 'Albpetrol, the national oil company, Albania'],
+        ['2024–', 'Associate Professor (Prof. Asoc.)', 'Faculty of Geology and Mining, Polytechnic University of Tirana'],
+        ['2008–', 'Lecturer, Department of Energy Resources', 'Faculty of Geology and Mining, Polytechnic University of Tirana'],
+        ['2006–2008', 'Staff member', 'Albanian Geological Survey (Shërbimi Gjeologjik Shqiptar), Tirana'],
+        ['1996–2006', 'Production wells and reservoirs', 'Albpetrol, the national oil company, Albania'],
     ],
     expertise=[
         '**Seawater intrusion and monitoring design:** goal-oriented Bayesian design of monitoring networks and of '
@@ -205,6 +246,8 @@ NPD = dict(
          'chemical mechanisms of bidirectional coupling between DRASTIC vulnerability assessment and numerical transport '
          'modeling in heterogeneous aquifer systems. Journal of Hazardous Materials Advances 23, 101261.',
          'https://doi.org/10.1016/j.hazadv.2026.101261'),
+        ('**Zeqiraj, D.** (2022). Enhanced oil recovery (EOR) project scheduling with multiobjective of maximum net present '
+         'value and minimum makespan. Results in Engineering 13, 100339.', 'https://doi.org/10.1016/j.rineng.2022.100339'),
         ('**Zeqiraj, D.** (2022). 3D stochastic modeling of flow and solute transport in karst vadose zone. Case Studies '
          'in Chemical and Environmental Engineering 6, 100217.', 'https://doi.org/10.1016/j.cscee.2022.100217'),
         ('**Zeqiraj, D.** (2022). Stochastic modeling of fracture initiation and propagation during fluid flow in '
@@ -217,14 +260,16 @@ NPD = dict(
     ],
     preprints=[
         ('**Zeqiraj, D.** (2026). Physics-informed deep learning for joint hydraulic conductivity–porosity mapping with '
-         'Wasserstein optimal experimental design in alluvial aquifers. SSRN preprint.',
+         'Wasserstein optimal experimental design in alluvial aquifers. Under review at the Journal of Hydrology; preprint '
+         'on SSRN.',
          'https://doi.org/10.2139/ssrn.7528503'),
         ('**Zeqiraj, D.**, Beqiraj, A. (2026). Class probabilities for groundwater nitrate vulnerability maps: hierarchical '
-         'Bayesian calibration of DRASTIC against monitoring data, and the value of new stations. SSRN preprint.',
+         'Bayesian calibration of DRASTIC against monitoring data, and the value of new stations. Preprint on SSRN.',
          'https://doi.org/10.2139/ssrn.7511860'),
     ],
-    projects=[['2025–', 'Modelling, simulation and optimisation of formation treatment methods to maximise the net profit of the massive carbonate reservoir of the Amonicë oil field (with Albpetrol Sh.A.)', 'National Agency for Scientific Research and Innovation (AKKSHI), Albania', 'Project leader']],
-    sps='[none]',
+    projects=[['2025–2026', 'Modelling, simulation and optimisation of formation treatment methods to maximise the net profit of the massive carbonate reservoir of the Amonicë oil field (with Albpetrol Sh.A.)', 'National Agency for Scientific Research and Innovation (AKKSHI), Albania', 'Principal investigator'],
+              ['', 'Reconstruction of the groundwater vulnerability map of Albania', 'Polytechnic University of Tirana (institutional research project)', 'Co-investigator']],
+    sps='None',
     users=[
         'Albanian Geological Survey (SHGJSH): staff member, 2006–2008.',
         'Albpetrol, the national oil company: production wells and reservoirs, 1996–2006; since 2025 partner of his AKKSHI '
@@ -235,16 +280,21 @@ NPD = dict(
     teaching=[
         'Master courses: Reservoir Engineering (well stimulation and enhanced oil recovery); Energy Resources (fossil and '
         'renewable); Physics of Energy Resources.',
-        '[number] doctoral and [number] master students supervised.',
     ],
-    other=['Languages: Albanian (native); English [level]; [other languages]', 'Programming: C++, Python, MATLAB'],
+    other=['Languages: Albanian (native); English (professional working proficiency)', 'Programming: C++, Python, MATLAB',
+           'Conference talks: 4th International Conference on Applied Sciences, Munich, 2021 (three); 3rd International '
+           'Conference on Advanced Research in Applied Science and Engineering, Oxford (two).'],
 )
 
 
 def cv_filled(doc, d, role, role_text):
     # a CV with known facts filled in and no guidance lines; unknown facts stay highlighted
-    p = para(doc, 0); ph(p, d['name'], size=15, bold=True)
-    p = para(doc, 5); run(p, role + ', CERTAIN-COAST', bold=True, size=10.5, color='2E6DB4')
+    p = para(doc, 0); run(p, d['name'], bold=True, size=19, color='1F3864')
+    p = para(doc, 6); run(p, role + '  ·  CERTAIN-COAST', bold=True, size=10.5, color='2E6DB4')
+    pPr = p._p.get_or_add_pPr(); b = OxmlElement('w:pBdr'); bt = OxmlElement('w:bottom')
+    for k, v in (('w:val', 'single'), ('w:sz', '12'), ('w:space', '4'), ('w:color', '1F3864')):
+        bt.set('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}' + k.split(':')[1], v)
+    b.append(bt); pPr.append(b)
     sz = 9.2
     sec(doc, '1. Personal details')
     ph_table(doc, ['Item', 'Details'], d['details'], [4.2, 12.4], size=sz)
@@ -256,11 +306,16 @@ def cv_filled(doc, d, role, role_text):
     bullets_ph(doc, d['expertise'], size=sz + 0.3)
     sec(doc, '5. Selected publications (peer-reviewed, with DOI)')
     for i, (t, u) in enumerate(d['pubs'], start=1):
-        p = para(doc, 1.5, 0.5); run(p, f'{i}. ', size=sz); ph(p, t + ' ', size=sz); link(p, u, u, sz)
+        p = para(doc, 1.5, 0.6); p.paragraph_format.first_line_indent = Cm(-0.6)
+        run(p, f'{i}.\t', bold=True, size=sz, color='1F3864'); ph(p, t + ' ', size=sz); link(p, u, u, sz)
+        p.paragraph_format.tab_stops.add_tab_stop(Cm(0.6))
     if d.get('preprints'):
-        p = para(doc, 1.5, before=2); run(p, 'Preprints (2026):', bold=True, size=sz)
+        p = para(doc, 2, before=3); run(p, 'Manuscripts under review and preprints', bold=True, size=sz, color='1F3864')
+        p.paragraph_format.keep_with_next = True
         for t, u in d['preprints']:
-            p = para(doc, 1.5, 0.5); run(p, '• ', size=sz); ph(p, t + ' ', size=sz); link(p, u, u, sz)
+            p = para(doc, 2, 0.6); p.paragraph_format.first_line_indent = Cm(-0.6)
+            run(p, '•\t', bold=True, size=sz, color='1F3864'); ph(p, t + ' ', size=sz); link(p, u, u, sz)
+            p.paragraph_format.tab_stops.add_tab_stop(Cm(0.6))
     sec(doc, '6. Projects and grants')
     if d.get('projects'):
         ph_table(doc, ['Years', 'Project', 'Funder', 'Role'], d['projects'], [2.4, 6.6, 3.8, 3.8], size=sz)
