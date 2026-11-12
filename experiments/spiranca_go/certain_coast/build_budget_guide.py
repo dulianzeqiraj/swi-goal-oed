@@ -220,5 +220,149 @@ def main(out):
           'PPD', sum(len(v) for (d, _), v in B.items() if d == 'PPD'))
 
 
+CAT_SQ = {'Equipment': 'Pajisje', 'Training': 'Trajnime', 'Communication and Publications': 'Komunikim dhe botime',
+          'Travel': 'Udhëtime', 'Consumables': 'Materiale konsumi', 'Other': 'Të tjera', 'Stipends': 'Bursa',
+          'Co-financing of personnel': 'Bashkëfinancim i personelit'}
+# Albanian reading of the English text typed in column A, keyed by its first words
+DESC_SQ = [('Groundwater monitoring', 'monitorimi i ujërave nëntokësore: shpimet, regjistruesit, telemetria, rezervat'),
+           ('Geodesy', 'gjeodezia: stacionet GNSS dhe reflektorët këndorë InSAR'),
+           ('Seismic', 'sizmika: stacionet, qiraja e nyjeve, fushata me fibër optike (me kusht)'),
+           ('Field installation', 'instalimi në terren: energjia, kutitë dhe instrumentet e kimisë'),
+           ('Computing', 'serverët, kopjet rezervë dhe licencat e softuerit'),
+           ('Training school', 'shkolla e trajnimit: salla, materialet, udhëtimi i pjesëmarrësve'),
+           ('Training sessions', 'trajnimi i stafit të përdoruesit fundor dhe i përdoruesve'),
+           ('Books & Journals', 'libra dhe revista'),
+           ('Publication & IPR', 'botimet me akses të hapur'),
+           ('Communications & Publicity', 'faqja e internetit, publiku dhe shtypi'),
+           ('Consortium meetings and stakeholder', 'takimet e konsorciumit dhe seminaret me palët'),
+           ('Consortium meetings', 'takimet e konsorciumit'),
+           ('Conference presentations', 'prezantimet në konferenca'),
+           ('Laboratory analyses', 'analizat laboratorike të kloreve dhe joneve kryesore'),
+           ('Sampling and field', 'materialet e kampionimit dhe të terrenit'),
+           ('Mobile data plans', 'paketat e internetit celular për sensorët'),
+           ('Shipping and customs', 'transporti dhe dogana e pajisjeve'),
+           ('Insurance', 'sigurimi i pajisjeve në terren'),
+           ('Open-source software', 'softueri me kod të hapur: depoja, testimi, llogaritja, arkivimi'),
+           ('Man-hours', 'orët e menaxhimit të projektit (vetëm NPD, me regjistrim kohe)'),
+           ('Stipends', 'bursat e kërkuesve të rinj pa doktoraturë'),
+           ('Young-researcher exchanges', 'shkëmbimet e kërkuesve të rinj')]
+
+
+def desc_sq(text):
+    for key, sq in DESC_SQ:
+        if text.startswith(key):
+            return sq
+    return ''
+
+
+def main_sq(out):
+    """The same figures as main(), with the explanations in Albanian; what is typed into the workbook stays English."""
+    B = blocks()
+    tot_dir = {d: sum(r[3] for (dd, _), rows in B.items() if dd == d for r in rows) for d in ('NPD', 'PPD')}
+    cat_tot = defaultdict(lambda: [0] * 5)
+    for (_, cat), rows in B.items():
+        for r in rows:
+            for i, v in enumerate(r[2]):
+                cat_tot[cat][i] += v or 0
+    grand = sum(tot_dir.values())
+
+    doc = Document()
+    s = doc.sections[0]
+    s.orientation = WD_ORIENT.LANDSCAPE
+    s.page_width, s.page_height = Cm(29.7), Cm(21.0)
+    s.left_margin = s.right_margin = Cm(1.6); s.top_margin = s.bottom_margin = Cm(1.4)
+    st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(10)
+
+    p = para(doc, 2); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    put(p, '**CERTAIN-COAST — shifrat që shtypni në tabelën Excel të buxhetit të NATO-s**', size=15, color='1F3864')
+    p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    put(p, f'SPS MYP Detailed Budget · gjithsej €{grand:,.0f} · UPT (NPD) €{tot_dir["NPD"]:,.0f} · Universiteti i '
+           f'Katarit (PPD) €{tot_dir["PPD"]:,.0f}', size=10, color='52606D')
+    p = para(doc, 4)
+    put(p, '**Pse me dorë.** Formulari i platformës thotë: ')
+    put(p, '"Please note that using AI to fill out this budget file may corrupt the template, which will result in an '
+           'unreadable application and its automatic rejection."', italic=True)
+    put(p, ' Prandaj skedarin e NATO-s e shkarkoni, e hapni në Excel dhe shtypni vetë shifrat më poshtë në qelizat e '
+           'hapura; qelizat e tjera janë të mbrojtura dhe llogariten vetë.')
+    for r_ in ['**Vetëm dy skeda:** fillimisht Info, pastaj Detail. Skeda Summary plotësohet vetë; mos fshini formula ose '
+               'rreshta.',
+               '**Shifrat:** euro të plota, pa «€», pa hapësira dhe pa presje (p.sh. 30400). Ku shifra është zero, qeliza '
+               'mbetet bosh.',
+               '**Milestone 4 nuk përdoret:** kolona E e skedës Detail dhe qeliza C11 e skedës Info mbeten bosh.',
+               '**Teksti në kolonën A** shkruhet në anglisht, siç është në tabelë (mund ta shkurtoni); përkthimi në shqip '
+               'është vetëm për ju. Shifrat nuk ndryshohen, sepse përputhen me formularin dhe me dokumentin e buxhetit.',
+               '**Pas shtypjes** kontrolloni totalet te pjesa 4, para se ta ngarkoni skedarin në platformë (tab 8).']:
+        q = para(doc, 2, 0.3); put(q, '• ' + r_)
+    q = para(doc, 4, before=2); put(q, 'Shablloni: ', size=9, color='52606D', italic=True)
+    link(q, TEMPLATE, 'SPS_MYP_Detailed_Budget.xlsx (nato.int, «Managing SPS grants»)', size=9)
+
+    heading(doc, '1. Skeda Info', 12.5, before=6)
+    info = [['A2', 'Numri i referencës së SPS (SPS Ref. No.)', 'lëreni bosh (e cakton SPS)'],
+            ['C2', 'Buxheti i miratuar (Approved Budget)', 'lëreni bosh (caktohet pas miratimit)'],
+            ['D2', 'Titulli i projektit (Project Title)', TITLE],
+            ['E2', 'Titulli i shkurtër, deri 80 shenja (Short Title)',
+             f'{SHORT}  (i njëjtë me «Project short title» të platformës)'],
+            ['B5', 'Kohëzgjatja në muaj (Project Duration)', '36'],
+            ['C5', 'Data e fillimit (Start Date)', 'lëreni bosh: shablloni thotë «Do not fill in Start Date at the time of '
+                                                   'application»'],
+            ['C9 / D9', 'Milestone 2: muaji / përshkrimi', '18 / Second technical and financial report'],
+            ['C10 / D10', 'Milestone 3: muaji / përshkrimi', '30 / Third technical and financial report'],
+            ['C11 / D11', 'Milestone 4', 'lëreni bosh'],
+            ['B15 / C15 / D15 / E15', 'NPD: emri / mbiemri / institucioni / shteti',
+             'Dulian / Zeqiraj / Polytechnic University of Tirana / Albania (zgjidheni nga lista)'],
+            ['B16 / C16 / D16 / E16', 'PPD: emri / mbiemri / institucioni / shteti',
+             'Jassim / Al-Khayat / Qatar University / Qatar (zgjidheni nga lista)']]
+    head_repeat(table(doc, ['Qeliza', 'Fusha', 'Çfarë shtypni'], info, [4.0, 7.4, 15.0], size=9))
+    q = para(doc, 3, before=2)
+    put(q, 'Milestone 1 (muaji 6) dhe raporti përfundimtar (muaji 36) janë tashmë në shabllon. Kolona F (NATO/Partner) '
+           'dhe datat në kolonën E plotësohen vetë.', size=9, color='52606D', italic=True)
+
+    for d, label in (('NPD', 'UPT-së, drejtuesi i projektit nga vendi i NATO-s (rreshtat 1–52)'),
+                     ('PPD', 'Universitetit të Katarit, drejtuesi nga vendi partner (rreshtat 54–105)')):
+        heading(doc, f'{2 if d == "NPD" else 3}. Skeda Detail, blloku i {label}', 12.5, before=8)
+        rows = []
+        for cat, _, _ in CATS:
+            for row, text, per, tot in B[(d, cat)]:
+                if tot == 0 and cat != 'Communication and Publications':
+                    continue
+                fixed = cat == 'Communication and Publications'
+                a = ('(teksti është tashmë aty) ' if fixed else '') + text
+                rows.append([f'{row}', f'{cat}\n({CAT_SQ[cat]})', f'{a}\n[{desc_sq(text)}]'] +
+                            [fmt(v) for v in per] + [fmt(tot) or '0'])
+            if not B[(d, cat)]:
+                rows.append(['—', f'{cat}\n({CAT_SQ[cat]})', 'asgjë për të shtypur', '', '', '', '', '', ''])
+        rows.append(['', '', f'Totali i bllokut (qeliza F{52 + OFFSET[d]}, llogaritet vetë)', '', '', '', '', '',
+                     f'{tot_dir[d]:,.0f}'.replace(',', '')])
+        head_repeat(table(doc, ['Rreshti', 'Kategoria', 'Kolona A: çfarë shkruani (anglisht) [në shqip]',
+                                'B: M1', 'C: M2', 'D: M3', 'E: M4', 'F: Final', 'Totali'],
+                          rows, [1.3, 3.8, 10.4, 1.8, 1.8, 1.8, 1.3, 1.8, 2.0], size=8.6))
+
+    heading(doc, '4. Kontrollet pas shtypjes', 12.5, before=8)
+    chk = [['Detail F52', 'Totali i UPT-së (NPD)', f'{tot_dir["NPD"]:,.0f}'],
+           ['Detail F105', 'Totali i Universitetit të Katarit (PPD)', f'{tot_dir["PPD"]:,.0f}'],
+           ['Summary G15', 'Totali i kërkuar; duhet të jetë i njëjtë me «Funding requested from NATO SPS» në formular',
+            f'{grand:,.0f}']]
+    head_repeat(table(doc, ['Qeliza', 'Çfarë', 'Duhet të tregojë (€)'], chk, [3.2, 17.0, 6.2], size=9))
+    q = para(doc, 3, before=4)
+    put(q, 'Skeda Summary sipas kategorive dhe periudhave (e njëjtë me tabelën «Budget summary by item» të formularit):',
+        size=9.5)
+    rows = [[f'{c} ({CAT_SQ[c]})'] + [fmt(v) or '0' for v in cat_tot[c][:3]] + ['—'] +
+            [fmt(cat_tot[c][4]) or '0', fmt(sum(cat_tot[c])) or '0'] for c, _, _ in CATS]
+    rows.append(['Gjithsej'] + [fmt(sum(cat_tot[c][i] for c, _, _ in CATS)) for i in range(3)] + ['—'] +
+                [fmt(sum(cat_tot[c][4] for c, _, _ in CATS)), fmt(grand)])
+    head_repeat(table(doc, ['Kategoria', 'M1', 'M2', 'M3', 'M4', 'Final', 'Totali'], rows,
+                      [8.4, 3.0, 3.0, 3.0, 2.0, 3.0, 3.6], size=9))
+    q = para(doc, 3, before=4)
+    put(q, 'Periudhat: M1 = muajt 0–6, M2 = muajt 6–18, M3 = muajt 18–30, Final = muajt 30–36. Kategoria «Other», '
+           f'bashkë me orët e menaxhimit të NPD-së, është {100 * sum(cat_tot["Other"]) / grand:.1f}% e totalit (kufiri '
+           'është 15%).', size=9, color='52606D', italic=True)
+    doc.save(out)
+    print('saved', out, '| NPD', tot_dir['NPD'], 'PPD', tot_dir['PPD'], 'total', grand)
+
+
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else 'CERTAIN-COAST_Budget_Workbook_Guide.docx')
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    if '--sq' in sys.argv:
+        main_sq(args[0] if args else 'CERTAIN-COAST_Shifrat_e_Buxhetit_per_Excel.docx')
+    else:
+        main(args[0] if args else 'CERTAIN-COAST_Budget_Workbook_Guide.docx')
