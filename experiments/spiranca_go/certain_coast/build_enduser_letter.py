@@ -17,7 +17,10 @@ Page 3: an Albanian reading copy of page 2.
 The SPS call 2027-1 and the MYP Handbook list the end-user commitment among the documents submitted with the proposal,
 and the Handbook counts state organisations, regional authorities and companies among the possible end-users.
 
-usage: python build_enduser_letter.py OUT.docx [environment|durres|ukd|tirana]"""
+With --letter-only the request is left out: two pages, the letter in English to sign and the same letter in Albanian,
+so that the end-user sees what it says and which fields to fill (in English).
+
+usage: python build_enduser_letter.py OUT.docx [environment|durres|ukd|tirana] [--letter-only]"""
 import os
 import sys
 
@@ -278,11 +281,13 @@ def request(doc, r):
     p = para(doc, 0, before=8); run(p, ATTACH, italic=True, size=8.5, color=GREY)
 
 
-def letter(doc, L, en):
-    p = para(doc, 4 if not en else 10); p.paragraph_format.page_break_before = True
+def letter(doc, L, en, first=False, note=None):
+    p = para(doc, 4 if not en else 10)
+    if not first:
+        p.paragraph_format.page_break_before = True
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     if not en:
-        run(p, L['note'], italic=True, size=9, color=GREY)
+        run(p, note or L['note'], italic=True, size=9, color=GREY)
         p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run(p, L['head'], bold=True, size=10, hl=True)
     p = para(doc, 0); p.alignment = WD_ALIGN_PARAGRAPH.RIGHT; ph(p, L['place'], size=SIZE)
@@ -299,20 +304,32 @@ def letter(doc, L, en):
         p = para(doc, 0); ph(p, t, size=SIZE)
 
 
-def main(out, variant='environment'):
+# genitive of the end-user's own letterhead, for the note of the two-page version
+OWN = {'environment': 'Ministrisë', 'durres': 'Bashkisë', 'ukd': 'shoqërisë', 'tirana': 'Bashkisë'}
+
+
+def main(out, variant='environment', letter_only=False):
+    """letter_only: two pages, the letter in English to sign and the same letter in Albanian, without the request."""
     V = VARIANTS[variant]
     doc = Document()
     s = doc.sections[0]
     s.page_width, s.page_height = Cm(21.0), Cm(29.7)
     s.left_margin = s.right_margin = Cm(2.3); s.top_margin = Cm(1.8); s.bottom_margin = Cm(1.6)
     st = doc.styles['Normal']; st.font.name = 'Arial'; st.font.size = Pt(SIZE)
-    request(doc, V['request'])
-    letter(doc, V['en'], True)
-    letter(doc, V['sq'], False)
+    if letter_only:
+        letter(doc, V['en'], True, first=True)
+        letter(doc, V['sq'], False, note=(
+            'PËRKTHIM PËR LEXIM. Letra që firmoset dhe i dërgohet NATO-s është versioni në anglisht (faqja 1): hidheni në '
+            f'letrën zyrtare të {OWN[variant]} dhe plotësoni fushat e verdha në anglisht.'))
+    else:
+        request(doc, V['request'])
+        letter(doc, V['en'], True)
+        letter(doc, V['sq'], False)
     doc.save(out)
     print('saved', out)
 
 
 if __name__ == '__main__':
-    var = sys.argv[2] if len(sys.argv) > 2 else 'environment'
-    main(sys.argv[1] if len(sys.argv) > 1 else VARIANTS[var]['out'], var)
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    var = args[1] if len(args) > 1 else 'environment'
+    main(args[0] if args else VARIANTS[var]['out'], var, letter_only='--letter-only' in sys.argv)
