@@ -39,7 +39,7 @@ UPT = dict(
                              '0000-0002-5305-3048'),
         ('Team', 'Prof. Dr. Arjan Beqiraj; Dr. Bardhosh Seitaj; Dr. Esmeralda Zeqo; MSc Aurela Jahja; laboratory '
                  'technician Sonata Pregja (FGJM); MSc Armida Brakaj, mathematician (Faculty of Mathematical Engineering and '
-                 'Physics Engineering)'),
+                 'Physics Engineering); financial officer Elvana Ndreca (Rectorate of UPT)'),
         ('Open code of the team', 'https://github.com/dulianzeqiraj/certain-coast (MATLAB and GNU Octave, Apache 2.0), '
                                   'archived on Zenodo, DOI 10.5281/zenodo.24148762'),
     ],

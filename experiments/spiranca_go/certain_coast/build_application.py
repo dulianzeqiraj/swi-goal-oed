@@ -1012,6 +1012,7 @@ def main(out):
             ['Aurela', 'Jahja', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Early-career researcher (MSc, geochemist; stipend)', '[Albanian]', 'Sampling, chloride and major-ion analyses, tracers (Br/Cl, water isotopes) and their interpretation (T4.1, T5.3)', '50%'],
             ['Sonata', 'Pregja', 'Faculty of Geology and Mining, Polytechnic University of Tirana', 'Laboratory technician', '[Albanian]', 'Laboratory analyses of chloride and major ions (T4.1, T5.3)', '10%'],
             ['Armida', 'Brakaj', 'Faculty of Mathematical Engineering and Physics Engineering, Polytechnic University of Tirana', 'Early-career researcher (MSc, mathematician; stipend)', '[Albanian]', 'Mathematical methods: certified error bounds of the fast model and alarm margins (WP2, WP3)', '50%'],
+            ['Elvana', 'Ndreca', 'Rectorate, Polytechnic University of Tirana', 'Financial officer', '[Albanian]', 'Financial management of the grant at the NPD institution: project account, payments and procurement, Financial Record and financial reports to the SPS Office (WP7)', '10%'],
             ['To be recruited', '(2 people)', 'Qatar University', 'Early-career researchers (stipends)', '[NATO or partner]', 'Transfer study and data (WP6); exchanges in Albania', '[50%]'],
             ]
     t = head_repeat(table(doc, ['First name', 'Family name', 'Affiliation', 'Position', 'Nationality', 'Task(s)', '% time'], part,
