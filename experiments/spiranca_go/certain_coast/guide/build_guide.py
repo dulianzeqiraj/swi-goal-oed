@@ -37,7 +37,8 @@ FIG = os.path.join(HERE, 'fig')
 RES = os.path.join(HERE, 'res')
 TR = os.path.join(EXP, 'tronditja_go', 'res')
 NAVY, BLUE2, GREY = '1F3864', '2E6DB4', '52606D'
-REPO = 'https://doi.org/10.5281/zenodo.24148762'                  # the open-source code on Zenodo
+REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
+DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo
 
 REFS = [
     ('1', 'Bear, J. (1972). Dynamics of Fluids in Porous Media. American Elsevier, New York.', None),
@@ -204,7 +205,8 @@ def blocks(N):
                 'sandy ground and extreme sea levels. Each chapter states the physics in a few equations, shows in a '
                 'figure what they predict, and ends with what the project adds to current practice.',
                 '**Every figure is computed.** By the open-source MATLAB code of the project, which also runs in the free '
-                f'GNU Octave ([{REPO}]({REPO})), by the preparatory tests of the project team, or by the published model '
+                f'GNU Octave ([{REPO}]({REPO}); archived on Zenodo, DOI [{DOI}](https://doi.org/{DOI})), by the preparatory '
+                'tests of the project team, or by the published model '
                 'of the Fushë-Kuqe aquifer. Appendix A lists the source and the check of each figure. Where a figure '
                 'uses illustrative soils, sources or ports, the caption says so.',
                 '**How to read the equations.** They are written in Word’s own equation format and numbered on the '
@@ -733,7 +735,8 @@ def blocks(N):
         ['Decisions', 'one hazard at a time', 'one safe window for intrusion and liquefaction; a daily bulletin',
          '{{fig20_window}}, {{fig21_bulletin}}']], [2.6, 4.4, 7.8, 2.2], 9.5))
     a(('p', 'All the code is open source under the Apache License 2.0, written in MATLAB and running also in the free GNU '
-            f'Octave, so that the end-user needs no licence: [{REPO}]({REPO}). Field data provided by the owners of '
+            f'Octave, so that the end-user needs no licence: [{REPO}]({REPO}), archived on Zenodo with the DOI '
+            f'[{DOI}](https://doi.org/{DOI}). Field data provided by the owners of '
             'wells and records stay restricted; the repository holds code and synthetic data only.'))
 
     # ---- appendix

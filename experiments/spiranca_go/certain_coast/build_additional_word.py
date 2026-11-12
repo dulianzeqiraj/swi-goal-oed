@@ -38,7 +38,8 @@ from build_application import TITLE  # noqa: E402
 FONT = 'Arial'
 NAVY, BLUE, GREY, INK, LIGHT = '1F3864', '2E6DB4', '5A6573', '1F2328', 'EEF4FB'
 ORANGE, CREAM = 'C55A11', 'FDF3EA'
-REPO = 'https://doi.org/10.5281/zenodo.24148762'                  # the open-source code on Zenodo (all versions)
+REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
+DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
 SHORT = ['Technical annex', 'Technical note: the assembled system and the placement of the wells',
          'Theory note: BEYOND-GO, the boundary where the model is cut',
@@ -742,7 +743,7 @@ def contents(doc, pages):
         'in them is computed by the scripts of the preparatory work of the NPD\'s team.',
         'Every equation is set as native Word math. The names of the preparatory experiments are given in English '
         '(BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',
-        'The open-source code of the project (MATLAB, also runs in the free GNU Octave), archived on Zenodo: ']
+        'The open-source code of the project (MATLAB, also runs in the free GNU Octave): ']
     for k, n_ in enumerate(notes):
         q = para(doc, 4)
         q.paragraph_format.left_indent = Cm(0.5)
@@ -751,6 +752,8 @@ def contents(doc, pages):
         run(q, n_, size=9.5, color=INK)
         if k == len(notes) - 1:
             hyperlink(q, REPO, REPO, size=9.5)
+            run(q, ', archived on Zenodo with the DOI ', size=9.5, color=INK)
+            hyperlink(q, f'https://doi.org/{DOI}', DOI, size=9.5)
             run(q, '.', size=9.5, color=INK)
 
 
