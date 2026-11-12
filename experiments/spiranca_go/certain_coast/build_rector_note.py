@@ -138,8 +138,8 @@ def main(out):
            'financimeve të huaja; këto citohen në aplikim bashkë me Statutin e UPT-së.', size=9, color=GREY, italic=True)
 
     p = para(doc, 6)
-    rich(p, 'Ju lutem **firmën dhe vulën** në të dy dokumentet, nëse është e mundur **sot, të enjten, 12 nëntor 2026**, '
-            'dhe një kopje të skanuar në PDF në adresën dulian.zeqiraj@fgjm.edu.al, që të ngarkohet në platformën e NATO-s '
+    rich(p, 'Ju lutem për **firmën dhe vulën** tuaj në të dy dokumentet, si dhe për një kopje të skanuar në PDF në '
+            'adresën dulian.zeqiraj@fgjm.edu.al, që të ngarkohet në platformën e NATO-s '
             'bashkë me aplikimin. Firma nuk krijon detyrim financiar për UPT-në përtej administrimit të fondeve të NATO-s, '
             'nëse projekti fitohet.')
     p = para(doc, 10); run(p, 'Ju falënderoj për mbështetjen.')
