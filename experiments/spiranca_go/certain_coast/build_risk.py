@@ -67,7 +67,7 @@ CATS = [
          'Full model on a reduced domain for flagged forecasts; margin widens automatically', 'WP2', 1, 2),
         ('R7', 'Certified alarms are too cautious: the false-alarm rate is unacceptable to the users',
          3, 4, 'Back-tested false-alarm rate above the level agreed in T3.1',
-         'Acceptable false-alarm rate agreed with the end-user (Ministry of Infrastructure and Energy) at T3.1; tolerances allocated by consequence; network designed to shrink margins',
+         'Acceptable false-alarm rate agreed with the end-user (the Institute of Geosciences, IGJEO) at T3.1; tolerances allocated by consequence; network designed to shrink margins',
          'Longer lead-time windows; staged alerts (watch, then warning); report the trade-off to the users', 'WP3', 2, 3),
         ('R8', 'Conditions move beyond the observed record (drought, compound storm, post-seismic change) and weaken the guarantees',
          3, 4, 'Growing share of issue times outside the observed record',
@@ -121,7 +121,7 @@ CATS = [
     ('E. People, partners and budget', [
         ('R18', 'Loss of key researchers or of trained staff of the end-user',
          3, 3, 'Fewer than two trained staff of the end-user; departure of a WP lead',
-         'At least four staff of the Ministry of Infrastructure and Energy trained; documented procedures and software; early-career researchers paired with seniors',
+         'At least four staff of IGJEO trained; documented procedures and software; early-career researchers paired with seniors',
          'Reassign tasks within the consortium; extra training session', 'WP7', 2, 2),
         ('R19', 'Equipment prices rise above the budget lines',
          3, 3, 'Quotes more than 10% above the budget line',
@@ -131,8 +131,8 @@ CATS = [
     ('F. Security of information', [
         ('R20', 'Sensitive information on critical-infrastructure vulnerability is disclosed through open data or publications',
          3, 5, 'A planned release contains asset-level vulnerability results',
-         'Data classification in the data plan (T7.2); asset-level results shared only with the end-user and the competent national authorities; open release of methods, code and non-sensitive aggregated data; the Ministry of Infrastructure and Energy reviews publications before submission',
-         'Withdraw or redact the release; notify the Ministry of Infrastructure and Energy and the competent authorities; review the data plan', 'WP7', 1, 4),
+         'Data classification in the data plan (T7.2); asset-level results shared only with the end-user and the competent national authorities; open release of methods, code and non-sensitive aggregated data; publications are checked for sensitive information on the assets before submission',
+         'Withdraw or redact the release; notify the end-user and the competent authorities; review the data plan', 'WP7', 1, 4),
     ]),
     ('G. External events', [
         ('R21', 'A strong earthquake or storm damages the network or disrupts the project',

@@ -67,7 +67,7 @@ WPS = [
       ('T4.4', 'Seismic velocity calibrated against the water table at the port or landfall', (12, 24))],
      [('D4.1', 'Network design report', 6), ('D4.2', 'Network installed and streaming', 12)]),
     ('WP5', 'Live demonstration at the wellfields, port and landfall', 'O5', (22, 36),
-     'Run the system live for twelve months with the end-user, the Ministry of Infrastructure and Energy, evaluate every operating decision against all three hazards, sharpen the certified safe window with safe pumping tests, and execute the post-event protocol whenever it is triggered.',
+     'Run the system live for twelve months with the end-user, the Institute of Geosciences (IGJEO), evaluate every operating decision against all three hazards, sharpen the certified safe window with safe pumping tests, and execute the post-event protocol whenever it is triggered.',
      [('T5.1', 'Bulletin protocol and decision interfaces with the end-user', (22, 23)),
       ('T5.2', 'Twelve months of live operation, bulletins logged and outcomes verified', (23, 34)),
       ('T5.3', 'Safe pumping tests planned to sharpen the certified window; pumping rule evaluated against the three hazards together and prepared for the authorities that issue water-use permits', (24, 33)),
@@ -105,7 +105,7 @@ RISKS = [
     ['No strong earthquake or surge during the demonstration', 'High', 'Medium', 'Guarantees are tested in back-testing over the historical record, including the 2019 earthquake, and on storylines beyond it (T3.4)'],
     ['Surrogate fails its error bound in part of the domain', 'Low', 'Medium', 'Bound triggers fall-back to the full model on a reduced domain for those forecasts; the alarm margin widens automatically'],
     ['Equipment procurement or customs delays', 'Medium', 'Medium', 'Orders placed in Month 4; installation window to Month 12 with priority given to the sensors ranked highest in D4.1'],
-    ['Loss of trained staff at the end-user', 'Medium', 'Medium', 'At least four staff of the Ministry of Infrastructure and Energy trained; procedures and software documented for use without the project team'],
+    ['Loss of trained staff at the end-user', 'Medium', 'Medium', 'At least four staff of IGJEO trained; procedures and software documented for use without the project team'],
 ]
 
 
@@ -163,7 +163,7 @@ NEW = [
     '**Back-testing runs alongside live operation.** Live bulletins start in Month 23 while back-testing continues to Month 27, so twelve full months of operation fit even after a two-month slip at MS4.',
     '**Buffers where the risks are.** Slack is placed on procurement, calibration and the go/no-go gate, the steps the Risk Assessment scores highest, not spread evenly across the plan.',
     '**Every task has an owner, a deliverable and a watched risk.** The risks that score high before mitigation are tied to the work package that owns them and watched monthly through numeric triggers.',
-    '**The hand-over is inside the plan.** The staff of the Ministry of Infrastructure and Energy use every bulletin in Months 34–36 with the project team only in support, so the end state is demonstrated before the grant ends.',
+    '**The hand-over is inside the plan.** The staff of IGJEO use every bulletin in Months 34–36 with the project team only in support, so the end state is demonstrated before the grant ends.',
 ]
 
 
@@ -200,7 +200,7 @@ def main(out, fig_path):
             'three phases:', size=10.5)
     for t in ['**Measure and design (Months 1–12).** WP1 measures the coastal motion and WP4 designs and installs the monitoring network; both start at once because the network design needs only existing and remote-sensing data.',
               '**Model and certify (Months 4–30).** WP2 builds and calibrates the coupled model and its fast surrogate on the data of WP1 and WP4; WP3 turns the forecasts into certified alarms and tests them on the historical record and on storylines beyond it.',
-              '**Operate and hand over (Months 22–36).** After the go/no-go gate MS4, WP5 runs the system live for twelve months with the Ministry of Infrastructure and Energy as end-user; WP6 trains the people who will use and run it after the project and releases the software and procedures.']:
+              '**Operate and hand over (Months 22–36).** After the go/no-go gate MS4, WP5 runs the system live for twelve months with the Institute of Geosciences (IGJEO) as end-user; WP6 trains the people who will use and run it after the project and releases the software and procedures.']:
         q = para(doc, 3, 0.5); run(q, '• ', bold=True); rich(q, t, size=10.5)
     p = para(doc, 2, before=4); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_format.keep_with_next = True
     p.add_run().add_picture(fig_l, width=Cm(15.0))

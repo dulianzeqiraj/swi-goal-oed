@@ -24,11 +24,12 @@ NAVY, GREY, LINE = HexColor('#1F3864'), HexColor('#52606D'), HexColor('#C9CED6')
 SUBS = {'≤': 'at most ', '≥': 'at least ', '→': 'to', '−': '-', 'α_k': 'alpha', 'α': 'alpha', 'Δ': 'Delta', '★': '*',
         'η': 'eta', ' ': ' ', ' ': ' ', '·': '-'}
 END_USERS = [
-    ('Ministry of Infrastructure and Energy of the Republic of Albania (Ministria e Infrastrukturës dhe Energjisë): the end-user',
-     'A contact person and a small team on the steering committee; agrees the warning thresholds of the bulletins it uses; '
-     'reviews the bulletins during the live operation and takes part in the final workshop.',
-     'Warnings with a stated miss rate for the wellfields, the port and the landfall, for its planning for '
-     'the water supply, the energy and transport infrastructure and the geological hazards under its responsibility; post-event reports; trained staff, the software and the '
+    ('Institute of Geosciences (IGJEO) of the Polytechnic University of Tirana (Instituti i Gjeoshkencave): the end-user',
+     'A contact person and a small team on the steering committee; agrees the warning thresholds for earthquakes and '
+     'extreme sea levels; reviews the bulletins during the live operation; shares the data of its stations under a data '
+     'agreement and takes part in the final workshop.',
+     'Warnings with a stated miss rate for the wellfields, the port and the landfall, and methods it can use in its '
+     'monitoring of earthquakes, weather and waters; post-event reports; trained staff, the software and the '
      'operating procedures at the hand-over; no procurement, ownership or maintenance obligations.'),
 ]
 

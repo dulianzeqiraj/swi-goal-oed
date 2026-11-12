@@ -66,7 +66,7 @@ PROJECT = [
     '**Risia:** çdo alarm jepet me një garanci të deklaruar paraprakisht për shpeshtësinë e alarmeve të rreme dhe të '
     'humbura, që përdoruesi ta dijë sa t\'i besojë para se të veprojë.',
     '**Partnerët:** Qatar University (Environmental Science Center), nga një vend partner i NATO-s; përdorues fundor '
-    'është Ministria e Infrastrukturës dhe Energjisë.',
+    'është Instituti i Gjeoshkencave (IGJEO) i UPT-së.',
     '**Buxheti:** NATO financon €382,500, nga të cilat rreth €313,500 i administron UPT (pajisje monitorimi, analiza, '
     'bursa për kërkues të rinj, trajnime, udhëtime dhe botime) dhe rreth €69,000 Qatar University. Buxheti mbulon vetëm '
     'shpenzime të projektit: pagat e rregullta të stafit dhe shpenzimet e përgjithshme mbeten kontribut në natyrë i '

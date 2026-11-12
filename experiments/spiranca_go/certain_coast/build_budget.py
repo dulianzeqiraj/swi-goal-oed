@@ -125,7 +125,7 @@ CONFIRM = [
 ]
 INKIND = [
     '**Salaries** of all researchers and project directors, paid by their institutions (not eligible for SPS funding).',
-    '**Ministry of Infrastructure and Energy of Albania (end-user):** staff time in kind for the steering committee, thresholds, the review of the bulletins, workshops and training.',
+    '**Institute of Geosciences (IGJEO), Polytechnic University of Tirana (end-user):** staff time and station data in kind for the steering committee, thresholds, the review of the bulletins, workshops and training.',
     '**Free data:** Copernicus Sentinel-1 radar images, tide-gauge records and existing seismic stations.',
     '**Facilities:** offices, laboratories and existing field equipment of the partner institutions.',
 ]
@@ -140,7 +140,7 @@ NEW = [
     '**A budget cut has a known effect.** Because sensors are ranked, removing the last lines removes the least valuable sensors, and the effect on the miss and false-alarm rates can be stated before the cut.',
     '**Money is released on evidence.** The costly fibre campaign is conditional on access by Month 9, and live operation starts only after the go/no-go milestone (MS4), so funds are not committed to work that cannot happen.',
     '**Money at stake at each gate is known in advance.** About two-thirds of the budget is spent by the calibration gate (MS3) and about three-quarters by the go/no-go gate (MS4); the rest pays for live operation, training and transfer, so a slip or fallback at a gate changes how the remaining funds are used, not what has already been bought (Section 2).',
-    '**What is bought stays.** The network, servers and software stay in Albania with the Polytechnic University of Tirana, which keeps the bulletins running for the Ministry of Infrastructure and Energy, so the equipment budget becomes a lasting national capability rather than project hardware.',
+    '**What is bought stays.** The network, servers and software stay in Albania with the Polytechnic University of Tirana, which keeps the bulletins running for IGJEO and the national authorities, so the equipment budget becomes a lasting national capability rather than project hardware.',
 ]
 
 
