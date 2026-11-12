@@ -148,7 +148,8 @@ MEET = 'Jam në dispozicion për ta paraqitur projektin në një takim të shkur
 
 REQUEST = {
     'mie': dict(
-        to='Ministrisë së Infrastrukturës dhe Energjisë, Kabinetit të Ministrit', by_hand=True, date='12.11.2026',
+        to='z. Enea Karakaçi, Ministër i Infrastrukturës dhe Energjisë', greeting='I nderuar z. Ministër,',
+        by_hand=True, date='12.11.2026',
         subject='Kërkesë për letër mbështetjeje dhe angazhimi si përdorues fundor për aplikimin e UPT-së në Programin '
                 'e NATO-s «Shkenca për Paqe dhe Siguri» (SPS), projekti CERTAIN-COAST',
         attach='Bashkëlidhur: 1. Teksti i propozuar i letrës së mbështetjes dhe angazhimit (anglisht); 2. Përkthimi në '
@@ -227,7 +228,7 @@ def request(doc, variant):
     run(p, r['to'], size=10.5)
     p = para(doc, 8); run(p, 'Lënda: ', bold=True, size=10.5)
     run(p, r['subject'], bold=True, size=10.5, color=BLUE)
-    p = para(doc, 5); run(p, 'Të nderuar zonja dhe zotërinj,', size=10.5)
+    p = para(doc, 5); run(p, r.get('greeting', 'Të nderuar zonja dhe zotërinj,'), size=10.5)
     for t in r['body']:
         p = para(doc, 6); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, t, size=10.5)
     p = para(doc, 10); run(p, 'Ju falënderoj për mbështetjen.', size=10.5)
