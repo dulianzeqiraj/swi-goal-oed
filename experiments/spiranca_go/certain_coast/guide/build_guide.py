@@ -37,7 +37,7 @@ FIG = os.path.join(HERE, 'fig')
 RES = os.path.join(HERE, 'res')
 TR = os.path.join(EXP, 'tronditja_go', 'res')
 NAVY, BLUE2, GREY = '1F3864', '2E6DB4', '52606D'
-REPO = 'https://github.com/dulianzeqiraj/certain-coast'
+REPO = 'https://doi.org/10.5281/zenodo.24148762'                  # the open-source code on Zenodo
 
 REFS = [
     ('1', 'Bear, J. (1972). Dynamics of Fluids in Porous Media. American Elsevier, New York.', None),
