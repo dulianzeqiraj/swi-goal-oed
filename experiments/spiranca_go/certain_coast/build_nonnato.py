@@ -31,9 +31,9 @@ FORM = 'https://www.nato.int/content/dam/nato/webready/documents/sps/grants/2023
 PEOPLE = [
     ('NATO-country Project Director', '[NPD institution]', 60),
     ('Partner-country Project Director, Prof. Jassim Al-Khayat', 'Environmental Science Center, Qatar University', 20),
-    ('Senior researcher (hydrogeology and groundwater chemistry), Prof. Dr. Arjan Beqiraj', 'Faculty of Geology and Mining, UPT', 10),
-    ('Researcher, Dr. Bardhosh Seitaj', 'Faculty of Geology and Mining, UPT', 10),
-    ('Researcher, Dr. Esmeralda Zeqo', 'Faculty of Geology and Mining, UPT', 10),
+    ('Senior researcher (hydrogeology and groundwater chemistry), Prof. Dr. Arjan Beqiraj', 'Faculty of Geology and Mining, UPT', 30),
+    ('Researcher, Dr. Bardhosh Seitaj', 'Faculty of Geology and Mining, UPT', 20),
+    ('Researcher, Dr. Esmeralda Zeqo', 'Faculty of Geology and Mining, UPT', 20),
     ('Laboratory technician, Sonata Pregja', 'Faculty of Geology and Mining, UPT', 10),
     ('Financial officer, Elvana Ndreca', 'Rectorate, UPT', 10),
     ('Research Professor, Prof. Fares AlMomani', 'Environmental Science Center, Qatar University', 5),
@@ -168,7 +168,9 @@ def main(out):
                       'table in the form text and must be confirmed. Contribution = person-months × monthly gross salary '
                       '(plus employer charges if the institution counts them).', size=10)
     prow = [[role, inst, f'[{sh}%]', f'{MONTHS * sh / 100:.1f}', '[€/month]', '[€ = PM × salary]'] for role, inst, sh in PEOPLE]
-    prow.append(['Early-career researchers (4, to be recruited)', 'NPD and PPD institutions', '[50%]', '—', '—',
+    prow.append(['Early-career researchers on SPS stipends: MSc Aurela Jahja, MSc Armida Brakaj',
+                 'Polytechnic University of Tirana', '30% each', '—', '—', 'Stipends from SPS; not a salary contribution'])
+    prow.append(['Early-career researchers on SPS stipends (2, to be recruited)', 'Qatar University', '[50%]', '—', '—',
                  'Stipends from SPS; not a salary contribution'])
     prow.append(['Total', '', '', f'{n["pm_staff"] + n["pm_eu"]:.1f}', '', '[€ total]'])
     t = head_repeat(table(doc, ['Role', 'Institution', 'Time', 'Person-months', 'Monthly gross salary', 'Contribution'],
