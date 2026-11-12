@@ -1141,8 +1141,11 @@ def main(out):
                           eu, [1.7, 1.7, 1.2, 1.8, 2.6, 2.2, 1.6, 1.9, 2.3], size=8.2)); ph_cells(t)
     field(doc, 'End-User(s) commitments (upload)')
     answer(doc, 'One PDF with the signed letter of support and end-user commitment of the Ministry of Infrastructure and Energy of the Republic '
-                'of Albania, on its letterhead (draft: CERTAIN-COAST_Letter_of_Support_Ministry.docx, page 2; the '
-                'Ministry signs its own letter).')
+                'of Albania, on its letterhead (draft: CERTAIN-COAST_Letter_of_Support_Ministry.docx, page 2; a one-page version '
+                'for a quick signature: CERTAIN-COAST_End-User_Letter_Ministry_Short.docx; the Ministry signs its own '
+                'letter). It cannot follow after the deadline: the call and the MYP Handbook list the end-user '
+                'commitment among the documents submitted with the proposal; only the IPR agreement may follow '
+                'approval.')
 
     # 10 Attachments
     heading(doc, '10. Project attachments', 14, before=10)
