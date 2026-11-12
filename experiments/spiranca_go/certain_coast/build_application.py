@@ -905,9 +905,11 @@ def main(out):
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
-    put(q, '**Still missing before you can submit:** [the signatures of the NPD and of UPT on the Agreement for Joint '
-           'Research that Qatar University signed on 5 November]; [confirmation of the Albanian institution of the '
-           'NPD]; [the signed letter of support and end-user commitment of the Ministry of Infrastructure and Energy].', size=10.5)
+    put(q, '**Still missing before you can submit:** [the signature and stamp of the Rector of UPT on the Acceptance of '
+           'Funds and on the Agreement for Joint Research, which Qatar University signed on 5 November and the NPD on 10 '
+           'November]; [the signed letter of support and end-user commitment of the Ministry of Infrastructure and '
+           'Energy]. The Rector\'s signatures confirm the NPD\'s institution; no decision of a department meeting is '
+           'needed.', size=10.5)
 
     # 1 Start here
     heading(doc, '1. Start here', 14, before=10)
