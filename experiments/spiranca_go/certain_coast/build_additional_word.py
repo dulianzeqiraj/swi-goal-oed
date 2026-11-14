@@ -34,6 +34,8 @@ from codenames import english, english_docx  # noqa: E402
 from word_outline import plain_headings  # noqa: E402
 from build_additional_files import PARTS  # noqa: E402
 from build_application import TITLE  # noqa: E402
+from sota_data import N_PAPERS  # noqa: E402
+import polish_parts as PP  # noqa: E402
 
 FONT = 'Arial'
 NAVY, BLUE, GREY, INK, LIGHT = '1F3864', '2E6DB4', '5A6573', '1F2328', 'EEF4FB'
@@ -41,16 +43,19 @@ ORANGE, CREAM = 'C55A11', 'FDF3EA'
 REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
+RED_NOTE = (' Equations set in red are new in this proposal, results of the preparatory work of the NPD\'s team; '
+            'equations in black are standard.')
 SHORT = ['State of the art: what has been done and what CERTAIN-COAST brings',
          'Mathematical state of the art: forcing, boundaries, initial state, propagation',
          'Technical annex', 'Technical note: the assembled system and the placement of the wells',
          'Theory note: BEYOND-GO, the boundary where the model is cut',
          'Implementation report: SHOCK-GO, the earthquake in the aquifer',
+         'Decisions in extreme events: final assembled system and deep reinforcement learning',
          'CV of the NATO-country Project Director', 'CV of the partner-country Project Director']
 # the line under the title of each part in the contents and in its banner
 BLURB = [
-    'What has been done (30 key papers, 2020–2026, Caltech, MIT, Harvard, Oxford), what has not been done, and what '
-    'CERTAIN-COAST brings in mathematics and physics.',
+    f'What has been done ({N_PAPERS} key papers, 2020–2026, Caltech, MIT, Harvard, Oxford), what has not been done, and '
+    'what CERTAIN-COAST brings in mathematics and physics.',
     'Random forcing, boundaries, initial state and propagation of uncertainty in a stochastic coastal aquifer: what the '
     'literature answers, what remains open, and the four numbers that choose the method. Supplement to WP2 and WP3.',
     'How the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions.',
@@ -61,11 +66,14 @@ BLURB = [
     'The earthquake, the aquifer and liquefaction: the pore-pressure step of each layer, the earthquake as a free '
     'pumping test, the design of the 2019 hindcast and the joint safe window, with numerical checks. Preparatory '
     'work of the NPD\'s team, November 2026.',
+    'The decisions the operators and the end-user must take when an extreme event comes, the equations of the project '
+    'as one final assembled system with the decisions in it, and deep reinforcement learning that recommends only '
+    'decisions inside the certified safe window. Supplement to WP2, WP3 and WP5.',
     'Assoc. Prof. Dr. Dulian Zeqiraj, Faculty of Geology and Mining, Polytechnic University of Tirana.',
     'Prof. Jassim Al-Khayat, Environmental Science Center, Qatar University.']
 # the running header of each part
 HEADER = ['State of the art', 'Mathematical state of the art', 'Technical annex', 'Technical note: the assembled system', 'Theory note: BEYOND-GO',
-          'Implementation report: SHOCK-GO', 'CV of the NATO-country Project Director',
+          'Implementation report: SHOCK-GO', 'Decisions in extreme events', 'CV of the NATO-country Project Director',
           'CV of the partner-country Project Director']
 # what is new in each part, in the words of the part itself (its innovation box, or Table 3 of the annex)
 NEW = [
@@ -95,6 +103,11 @@ NEW = [
      'Which aquifer feels the earthquake: the static step of a layer under the free surface follows its own shear '
      'modulus, centimetres in soft surface sand and up to a metre in a confined aquifer. Its relaxation, a free '
      'pumping test, identifies the leakage time 5.8 times more sharply than a year of seasonal heads.'),
+    ('Decisions in extremes', 7,
+     'The decision is part of the assembled system: one set of equations carries the hazards, the certified warnings '
+     'and the decisions of every operator, and a deep reinforcement learning agent recommends only decisions inside '
+     'the certified safe window. When no decision is safe, a rule agreed before the season shows the trade-off between '
+     'the hazards to the people who decide.'),
 ]
 W14 = 'http://schemas.microsoft.com/office/word/2010/wordml'
 
@@ -724,8 +737,8 @@ def cover(doc):
     p = para(doc, 4)
     run(p, 'Additional files', size=26, bold=True, color=INK)
     p = para(doc, 18)
-    run(p, 'State of the art  ·  technical annex  ·  three notes of the preparatory work  ·  CVs of the two Project '
-           'Directors', size=11,
+    run(p, 'State of the art  ·  technical annex  ·  three notes of the preparatory work  ·  decisions in extreme '
+           'events  ·  CVs of the two Project Directors', size=11,
         color=GREY)
     if os.path.exists(COVER_FIG):
         p = para(doc, 18, align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -792,10 +805,14 @@ def contents(doc, pages):
         'method chosen for each mathematical question. The technical annex (Part 3) explains how the methods work, the '
         'preparatory tests, and the gates of the project with their fallbacks. Parts 4 to 6 give the equations, the '
         'proofs and the numerical checks behind it; every number in them is computed by the scripts of the preparatory '
-        'work of the NPD\'s team.',
-        'The equations of Parts 2 to 6 are set as native Word math. The names of the preparatory experiments are given in English '
-        '(BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',
-        'The open-source code of the project (MATLAB, also runs in the free GNU Octave): ']
+        'work of the NPD\'s team. Part 7 states the decisions the operators must take in extreme events, writes the '
+        'equations as one final assembled system and adds deep reinforcement learning kept inside the certified limits; '
+        'each of Parts 1 to 6 opens with what it gives to that agent.',
+        'The equations of Parts 1 to 7 are set as native Word math.' + RED_NOTE + ' The names of the preparatory '
+        'experiments are given in English (BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',
+        'Every figure is a result of the author\'s code. The open-source code of the project (MATLAB, also runs in the '
+        'free GNU Octave) is updated continuously; if the project is funded, its final stage is a three-dimensional '
+        'open-source model: ']
     for k, n_ in enumerate(notes):
         q = para(doc, 4)
         q.paragraph_format.left_indent = Cm(0.5)
@@ -908,6 +925,53 @@ def footer(section):
     field(p, 'NUMPAGES', '1', size=8, color=GREY)
 
 
+def note_run(text, size=8, color=GREY):
+    """A run (raw XML) in small grey italics: the code note under every figure caption."""
+    r = OxmlElement('w:r')
+    rPr = OxmlElement('w:rPr')
+    f = OxmlElement('w:rFonts')
+    for a in ('ascii', 'hAnsi', 'eastAsia', 'cs'):
+        f.set(qn(f'w:{a}'), FONT)
+    rPr.append(f)
+    rPr.append(OxmlElement('w:i'))
+    c = OxmlElement('w:color')
+    c.set(qn('w:val'), color)
+    rPr.append(c)
+    sz = OxmlElement('w:sz')
+    sz.set(qn('w:val'), str(int(size * 2)))
+    rPr.append(sz)
+    r.append(rPr)
+    t = OxmlElement('w:t')
+    t.text = text
+    t.set(qn('xml:space'), 'preserve')
+    r.append(t)
+    return r
+
+
+def drl_box(doc, i):
+    """The box that opens Parts 1 to 6: what the part gives to the deep reinforcement learning of Part 7."""
+    t = doc.add_table(rows=1, cols=1)
+    borders(t, None)
+    widths(t, [17.0])
+    c = t.rows[0].cells[0]
+    tcPr = c._tc.get_or_add_tcPr()
+    b = parse_xml(f'<w:tcBorders {nsdecls("w")}><w:left w:val="single" w:sz="24" w:space="0" w:color="1E8A5A"/>'
+                  f'</w:tcBorders>')
+    tcPr.append(b)
+    shade(c, 'EEF7F2')
+    q = c.paragraphs[0]
+    q.paragraph_format.space_before = Pt(3)
+    q.paragraph_format.space_after = Pt(1)
+    run(q, 'Deep reinforcement learning in this part', size=9.5, bold=True, color='1E6B47')
+    q = c.add_paragraph()
+    q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    q.paragraph_format.space_after = Pt(4)
+    run(q, PP.DRL[i], size=9, color=INK)
+    t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:cantSplit'))
+    gap = para(doc, 8)
+    return [t._tbl, gap._p]
+
+
 def build(out, pages):
     work = tempfile.mkdtemp()
     doc = Document()
@@ -964,12 +1028,20 @@ def build(out, pages):
             print(f'  part {i + 1}: {text_subscripts(elements)} subscript(s) typeset')
         if n_fix:
             print(f'  part {i + 1}: {n_fix} doubled semicolon(s) removed')
+        elements, n_ed = PP.edit_part(elements, i)     # the limits sections and their cross-references
+        n_j = PP.justify(elements, ppr_insert)           # justified body text
+        n_c = PP.caption_notes(elements, note_run)       # the code note under every figure caption
+        n_red, n_red_in = PP.colour_equations(elements, i)   # the equations new in this proposal, in red
+        print(f'  part {i + 1}: {n_ed} edit(s), {n_j} paragraph(s) justified, {n_c} caption note(s), '
+              f'{n_red} numbered and {n_red_in} inline equation(s) in red')
         for el in elements:
             for s in el.iter(qn('w:sectPr')):
                 strip_section_refs(s)
         # the banner, then the content of the part, then its own last section
         made = banner(None, doc, i, bid)
         bid += 1
+        if i < len(PP.DRL):
+            made += drl_box(doc, i)
         for el in made:
             final.addprevious(el)
         for el in elements:

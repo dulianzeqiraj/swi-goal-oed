@@ -27,8 +27,10 @@ from codenames import english  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
+from sota_data import N_PAPERS  # noqa: E402  (the number of key papers of the state of the art)
+
 PARTS = [
-    ('State of the art: what has been done (30 key papers, 2020-2026, Caltech, MIT, Harvard, Oxford), what has not '
+    (f'State of the art: what has been done ({N_PAPERS} key papers, 2020-2026, Caltech, MIT, Harvard, Oxford), what has not '
      'been done, and what CERTAIN-COAST brings in mathematics and physics',
      'State of the art: what has been done and what CERTAIN-COAST brings',
      os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_State_of_the_Art.docx')),
@@ -52,6 +54,10 @@ PARTS = [
      'with numerical checks (preparatory work of the NPD\'s team, November 2026)',
      'Implementation report: SHOCK-GO, the earthquake in the aquifer',
      os.path.join(ROOT, 'docs', 'research_notes', 'TRONDITJA-GO_Earthquake_Aquifer_Liquefaction_Implementation.docx')),
+    ('Decisions in extreme events: the decisions of the operators and the end-user, the final assembled system of '
+     'equations, and deep reinforcement learning kept inside the certified limits (supplement to WP2, WP3 and WP5)',
+     'Decisions in extreme events: final assembled system and deep reinforcement learning',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Decisions_DRL.docx')),
     ('Curriculum vitae of the NATO-country Project Director, Assoc. Prof. Dr. Dulian Zeqiraj (Faculty of Geology and '
      'Mining, Polytechnic University of Tirana)',
      'CV of the NATO-country Project Director',
