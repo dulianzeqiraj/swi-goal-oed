@@ -74,34 +74,72 @@ def links_of(c):
 
 # ------------------------------------------------------------------------------------------------ the sections
 SECTIONS = [
-    ('1', 'Dynamic data assimilation for missing dynamics',
+    ('asm', 'Dynamic data assimilation for missing dynamics',
      'How a known model is completed by a learned error term while the state is estimated from partial, noisy data: '
      'the approximation theory of the model error, the mean-field limit of ensemble Kalman methods, transport, '
      'particle and variational filters, robust filtering and the completion of computational graphs. This is the '
      'mathematical engine of the data assimilation of CERTAIN-COAST (WP2).', ['+recharge', '+model']),
-    ('2', 'Inputs, dispersion and boundary conditions from rain, with guarantees',
+    ('rain', 'Inputs, dispersion and boundary conditions from rain, with guarantees',
      'What can be learned about the recharge, the dispersion and the boundaries that nobody measures from rain, heads '
      'and a few chloride profiles, and with which guarantee (reviews I–III).', ['+boundary']),
-    ('3', 'When the simulator is wrong or drifts: anchors, horizons and the floor',
+    ('drift', 'When the simulator is wrong or drifts: anchors, horizons and the floor',
      'Guarantees that survive a wrong simulator, a drifting climate and a long forecast horizon, and the floor below '
      'which no valid band can go (reviews IV–VI).', ['+alarms']),
-    ('4', 'Counterfactuals and the hidden causes of salinity',
+    ('transfer', 'Transferring the model between sites',
+     'When a model built where the aquifer is monitored can be carried to another coast with other characteristics: '
+     'causal transportability, doubly and triply robust transfer, exact asymptotics of transfer, distributionally '
+     'robust optimisation with optimal transport and transfer across many sites; the question behind carrying '
+     'CERTAIN-COAST from the Albanian coast to the east coast of Qatar (WP6).', []),
+    ('cf', 'Counterfactuals and the hidden causes of salinity',
      'What the salinity would have been under another recharge or pumping, and how hidden causes such as an unrecorded '
      'drought demand are kept out of the effect of pumping (reviews VII–IX).', []),
-    ('5', 'The monitoring network: designed for the warnings, kept optimal in time',
+    ('causal', 'Causal inference and causal discovery with optimization',
+     'Identification, impossibility results, optimal rates and consistent combinatorial algorithms for causal effects, '
+     'and causal discovery by optimization with latent confounders, cycles and instrument validity: the tools that '
+     'separate the effect of pumping on salinity from what merely accompanies it.', []),
+    ('kauz', 'Causality under chaos and a monitoring network for the causal effect of pumping',
+     'Structural causal models, potential outcomes, Granger causality and transfer entropy, Takens embedding, linear '
+     'response and the fluctuation–dissipation theorem, kernel tests and structure discovery when the data come from '
+     'chaotic dynamics; and CAUSAL-OED, a monitoring network designed for the causal effect of pumping, which corrects '
+     'for hidden nodes and turns to interventional tests where chaos defeats observational data.', []),
+    ('voi', 'The value of information without a prior',
+     'The non-Bayesian value of information: comparison of experiments, the risk and regret of Wald, ambiguity, '
+     'out-of-sample guarantees and anytime-valid testing; what a piezometer is worth when no one prior is agreed, and '
+     'how a salinity alarm keeps its error rate however often the data are looked at.', []),
+    ('net', 'The monitoring network: designed for the warnings, kept optimal in time',
      'Sensor placement that corrects its own interference, robust and certified design, and networks that must change '
      'as the coast changes (review X and the review of networks that are optimal today).', ['+network']),
-    ('6', 'Warnings between samples',
+    ('between', 'Warnings between samples',
      'Warnings for what happens between laboratory samples: neural jump ODEs, robust neural SDEs and certified bands for '
      'a crossing at any time in the season (review XI).', ['+betweensamples']),
-    ('7', 'Stakeholder decisions when the source of the chloride is unknown',
+    ('chem', 'Reactions away from equilibrium and modern hydrogeochemistry',
+     'Theorem-level mathematics of real reacting systems (stoichiometry and reaction invariants, thermodynamic '
+     'consistency, chemical reaction network theory, graphs and the matrix-tree theorem, operators and entropy methods) '
+     'and the modern hydrogeochemistry of homogenised reactive transport, electrodiffusion and the electric double '
+     'layer, dissolution and precipitation fronts, cation exchange and geochemical inversion, for the mixing zone of a '
+     'coastal aquifer.', []),
+    ('stake', 'Stakeholder decisions when the source of the chloride is unknown',
      'All thirty papers of the stakeholder review: how water utilities, regulators and users decide when the chloride '
      'may come from the sea, deep brine, drought or return flow, and how the decision is kept safe for every source '
      'that the evidence cannot exclude.', []),
-    ('8', 'Coastal hazards and certified warnings: the state of the art of the proposal',
+    ('sota', 'Coastal hazards and certified warnings: the state of the art of the proposal',
      'The thirty-two key papers on subsidence and relative sea level, extreme sea levels and ports, liquefaction, '
      'continuous sensing, the mathematics of certified warning and causal structure, as in the proposal.', []),
 ]
+SECNUM = {k: j + 1 for j, (k, _, _, _) in enumerate(SECTIONS)}
+N_ALL = len(SECTIONS) + 1                 # the closing section: all the innovations
+
+# the reviews added last: (file key, section, label if the file gives none)
+NEW_REVIEWS = [
+    ('TRANSFER', 'transfer', 'Transferring models between sites under distribution shift'),
+    ('INF', 'causal', 'Causal inference with a mathematical and algorithmic emphasis'),
+    ('ZBUL', 'causal', 'Discovering causal models with optimization: latent confounders, cycles and instrument validity'),
+    ('KAUZ', 'kauz', 'When causality meets data under chaos'),
+    ('VOI', 'voi', 'The value of information without a prior'),
+    ('NEQ', 'chem', 'Reactions away from equilibrium in hydrogeochemistry: theorems, algebra and operators'),
+    ('HGK', 'chem', 'Modern hydrogeochemistry with advanced mathematics'),
+]
+INNOV = {}            # review label -> (file key, the review's own innovation), set as a block with its equations in red
 
 FIELD_LABELS = [('inputs', 'Inputs'), ('dispersion', 'Dispersion'), ('bcs', 'Boundary conditions'),
                 ('source', 'Source of the chloride'), ('demand', 'Demand'), ('stake', 'Stakeholders')]
@@ -183,10 +221,10 @@ def gather():
 
         for c in A:
             c = {k: (renum(v) if k not in ('id', 'links', 'title', 'eq') else v) for k, v in c.items()}
-            sec['1'].append(norm_json(c, 'Dynamic data assimilation for missing dynamics (20 papers)'))
+            sec['asm'].append(norm_json(c, 'Dynamic data assimilation for missing dynamics (20 papers)'))
     S = json.load(open(os.path.join(SCRATCH, 'complete_sota', 'series_cards.json'), encoding='utf-8'))
-    where = {'I': '2', 'II': '2', 'III': '2', 'IV': '3', 'V': '3', 'VI': '3', 'VII': '4', 'VIII': '4', 'IX': '4',
-             'S': '7'}
+    where = {'I': 'rain', 'II': 'rain', 'III': 'rain', 'IV': 'drift', 'V': 'drift', 'VI': 'drift', 'VII': 'cf',
+             'VIII': 'cf', 'IX': 'cf', 'S': 'stake'}
     for k in ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'S']:
         lab = (f'Review {k}: ' if k != 'S' else 'Stakeholder review: ') + S[k]['title']
         NOVELTY[en(lab)] = [en(x) for x in S[k].get('novelty', [])]
@@ -202,7 +240,7 @@ def gather():
             NOVELTY[lx] = [XN.X]
         if J.get('XI'):
             NOVELTY[lxi] = [XN.XI]
-        for rk, key, lab in (('X', '5', lx), ('XI', '6', lxi)):
+        for rk, key, lab in (('X', 'net', lx), ('XI', 'between', lxi)):
             for c in J.get(rk, []):
                 if rk == 'X':
                     c = {f: (fix_x(v) if f not in ('id', 'links', 'title', 'eq') else v) for f, v in c.items()}
@@ -212,11 +250,26 @@ def gather():
     import netsota_data as ND
     for _, items in ND.GROUPS:
         for it in items:
-            sec['5'].append(norm_cite(it, 'Networks that are optimal today and not tomorrow (20 papers)', 'net'))
+            sec['net'].append(norm_cite(it, 'Networks that are optimal today and not tomorrow (20 papers)', 'net'))
     import sota_data as SD
     for _, items in SD.GROUPS:
         for it in items:
-            sec['8'].append(norm_cite(it, 'State of the art of the proposal (32 papers)', 'sota'))
+            sec['sota'].append(norm_cite(it, 'State of the art of the proposal (32 papers)', 'sota'))
+    for key, where_to, fallback in NEW_REVIEWS:       # the reviews added last, each with its own innovation
+        p = os.path.join(SCRATCH, 'complete_sota', f'cards_{key}.json')
+        if not os.path.exists(p):
+            continue
+        J = json.load(open(p, encoding='utf-8'))
+        inv = J.get('innovation') or {}
+        lab = en(inv.get('label') or fallback)
+        if inv.get('name') and inv['name'] not in lab:
+            lab = f'{lab} ({en(inv["name"])})'
+        if inv:
+            INNOV[lab] = (key, inv)
+        for c in J.get('cards', []):
+            d = norm_json(c, lab)
+            d['_rk'], d['_rid'] = key, c.get('id')
+            sec[where_to].append(d)
     for k in sec:                                     # English names of the preparatory experiments
         for c in sec[k]:
             for f in ('title', 'summary', 'innovation', 'link', 'gap', 'step', 'extra', 'review', 'evidence', 'short'):
@@ -232,15 +285,21 @@ def gather():
                 n += 1
                 c['n'] = n
                 seen[key] = (n, k)
-    # reviews X and XI cite their sources by labels (A1, R8, C14, W2, B5): the card numbers of this document
+    # reviews X, XI and the reviews added last cite their papers by labels (A1, R8, O5, BK2, T6): the card numbers
     idmap = {(c['_rk'], c['_rid']): (c['dup_of'][0] if c.get('dup_of') else c['n'])
-             for k in sec for c in sec[k] if c.get('_rk')}
+             for k in sec for c in sec[k] if c.get('_rk') and c.get('_rid')}
+    ids = {}
+    for rk, rid in idmap:
+        ids.setdefault(rk, []).append(rid)
+    pats = {rk: re.compile(r'\[?\b(' + '|'.join(re.escape(x) for x in sorted(v, key=len, reverse=True)) + r')\b\]?')
+            for rk, v in ids.items()}
 
     def renum(t, rk):
-        parts = (t or '').split('$')
+        if not isinstance(t, str) or rk not in pats:
+            return t
+        parts = t.split('$')
         for j in range(0, len(parts), 2):
-            parts[j] = re.sub(r'\b[ARCWB]\d{1,2}\b', lambda m: f'[{idmap[(rk, m.group(0))]}]'
-                              if (rk, m.group(0)) in idmap else m.group(0), parts[j])
+            parts[j] = pats[rk].sub(lambda m: f'[{idmap[(rk, m.group(1))]}]', parts[j])
         return '$'.join(parts)
 
     for k in sec:
@@ -248,6 +307,12 @@ def gather():
             if c.get('_rk'):
                 for f in ('summary', 'innovation', 'link', 'gap', 'step', 'extra'):
                     c[f] = renum(c.get(f, ''), c['_rk'])
+    for lab, (rk, inv) in INNOV.items():
+        for f in ('title', 'intro', 'in_cc', 'short'):
+            inv[f] = en(renum(inv.get(f, ''), rk))
+        for it in inv.get('items', []):
+            for f in ('title', 'before', 'after'):
+                it[f] = en(renum(it.get(f, ''), rk))
     return sec
 
 
@@ -398,7 +463,8 @@ def card(doc, c, sec_no, E, display_eq, num):
         n0, s0 = c['dup_of']
         q = para(doc, 4, before=4)
         run(q, c['title'] + ' ', bold=True, size=10, color=NAVY)
-        run(q, f'— see [{n0}] in Section {s0}; it also belongs here ({c["review"]}).', italic=True, size=9.5, color=GREY)
+        run(q, f'— see [{n0}] in Section {SECNUM[s0]}; it also belongs here ({c["review"]}).', italic=True, size=9.5,
+            color=GREY)
         return
     p = para(doc, 2, before=8)
     p.paragraph_format.keep_with_next = True
@@ -428,7 +494,7 @@ def card(doc, c, sec_no, E, display_eq, num):
 def asm_block(doc, E, num, red):
     """Section 1.1: the innovation of the data assimilation review (N1-N3), equations in red."""
     import asm_novelty as A
-    heading(doc, '1.1 ' + A.TITLE, 12, color=RED, before=8)
+    heading(doc, f'{SECNUM["asm"]}.1 ' + A.TITLE, 12, color=RED, before=8)
     body(doc, A.INTRO, E, size=10.5)
     for title, before, tex, after in A.PROPOSALS:
         q = para(doc, 2, before=6)
@@ -443,21 +509,48 @@ def asm_block(doc, E, num, red):
             q = para(doc, 3)
             q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
             E_mrich(q, txt, E, size=10)
-    box(doc, 'In CERTAIN-COAST', A.IN_CC, E, fill='FDF3EA', bar=ORANGE)
+    box(doc, 'In CERTAIN-COAST', A.IN_CC.replace('(Section 6.0)', f'(Section {SECNUM["between"]}.0)'), E,
+        fill='FDF3EA', bar=ORANGE)
+
+
+def innov_block(doc, E, num, red, inv):
+    """The innovation of one of the reviews added last, as the review states it; its equations in red."""
+    heading(doc, inv.get('title') or 'What is new', 11.5, color=RED, before=6)
+    if inv.get('intro'):
+        body(doc, inv['intro'], E, size=10.5)
+    for it in inv.get('items', []):
+        if it.get('title'):
+            q = para(doc, 2, before=6)
+            q.paragraph_format.keep_with_next = True
+            run(q, it['title'], bold=True, size=10.5, color=ORANGE)
+        if it.get('before'):
+            q = para(doc, 3)
+            q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            E_mrich(q, it['before'], E, size=10)
+        if it.get('tex'):
+            num[0] += 1
+            red.append(num[0])
+            deq(doc, E, it['tex'], num[0])
+        if it.get('after'):
+            q = para(doc, 3)
+            q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            E_mrich(q, it['after'], E, size=10)
+    if inv.get('in_cc'):
+        box(doc, 'In CERTAIN-COAST', inv['in_cc'], E, fill='FDF3EA', bar=ORANGE)
 
 
 def all_innovations(doc, E, sec):
-    """Section 9: every innovation of CERTAIN-COAST, with the result that tested it."""
+    """The closing section: every innovation of CERTAIN-COAST, with the result that tested it."""
     import sota_data as SD
     import netsota_data as ND
     from build_additional_word import NEW
-    h = heading(doc, '9. All the innovations of CERTAIN-COAST', 16, before=6)
+    h = heading(doc, f'{N_ALL}. All the innovations of CERTAIN-COAST', 16, before=6)
     h.paragraph_format.page_break_before = True
     body(doc, 'This section gathers every innovation of the proposal and of its preparatory work in one place: the '
               'innovations of the proposal itself, those of each review of the state-of-the-art series with the test '
               'that supports it, and those of the technical notes and parts of the additional files. The equations '
               'new in this proposal are the red equations at the head of each section.', E, size=10.5)
-    heading(doc, '9.1 The innovations of the proposal', 12, color=BLUE, before=6)
+    heading(doc, f'{N_ALL}.1 The innovations of the proposal', 12, color=BLUE, before=6)
     for t, items in SD.SECTIONS:
         if t.startswith('4.'):
             for kind, v in items:
@@ -469,10 +562,11 @@ def all_innovations(doc, E, sec):
                     q.paragraph_format.first_line_indent = Cm(-0.4)
                     run(q, '•  ', bold=True, size=10, color=ORANGE)
                     E_mrich(q, en(v), E, size=10)
-    heading(doc, '9.2 The innovations of the state-of-the-art series', 12, color=BLUE, before=8)
+    heading(doc, f'{N_ALL}.2 The innovations of the state-of-the-art series', 12, color=BLUE, before=8)
     import asm_novelty as A
     q = para(doc, 2, before=4)
-    run(q, 'Dynamic data assimilation for missing dynamics (Section 1.1)', bold=True, size=10.5, color=NAVY)
+    run(q, f'Dynamic data assimilation for missing dynamics (Section {SECNUM["asm"]}.1)', bold=True, size=10.5,
+        color=NAVY)
     q = para(doc, 3, 0.4)
     q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     E_mrich(q, A.SHORT, E, size=10)
@@ -484,7 +578,14 @@ def all_innovations(doc, E, sec):
                 q = para(doc, 3, 0.4)
                 q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                 E_mrich(q, txt, E, size=10)
-    heading(doc, '9.3 The innovations of the technical notes and parts', 12, color=BLUE, before=8)
+    for lab, (rk, inv) in INNOV.items():
+        if inv.get('short'):
+            q = para(doc, 2, before=4)
+            run(q, lab, bold=True, size=10.5, color=NAVY)
+            q = para(doc, 3, 0.4)
+            q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            E_mrich(q, inv['short'], E, size=10)
+    heading(doc, f'{N_ALL}.3 The innovations of the technical notes and parts', 12, color=BLUE, before=8)
     for name, part, text in NEW:
         q = para(doc, 3, 0.4)
         q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -502,7 +603,12 @@ def main(out):
     import polish_parts as PP
     E = Eqs()
     BS._EQ = E
+    global N_ALL
     sec = gather()
+    active = [t for t in SECTIONS if sec[t[0]]]             # a review whose cards are not there yet leaves no section
+    SECNUM.clear()
+    SECNUM.update({k: j + 1 for j, (k, _, _, _) in enumerate(active)})
+    N_ALL = len(active) + 1
     M = matlab_items()
     doc = Document()
     s = doc.sections[0]
@@ -522,7 +628,7 @@ def main(out):
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     years = [int(c['year'][:4]) for k in sec for c in sec[k] if not c.get('dup_of') and c['year'][:4].isdigit()]
     n_old = sum(1 for y in years if y < 2020)
-    span = (f'{n_full} papers ({n_full - n_old} of 2020–2026 and {n_old} earlier works that reviews X and XI build on)'
+    span = (f'{n_full} papers ({n_full - n_old} of 2020–2026 and {n_old} earlier works that the reviews build on)'
             if n_old else f'{n_full} papers of 2020–2026')
     run(p, f'{span} from the author\'s state-of-the-art series, each with its summary, its link '
            f'to the anchor and to seawater intrusion, its innovation and the step CERTAIN-COAST takes beyond it; the '
@@ -540,23 +646,23 @@ def main(out):
         'and the step CERTAIN-COAST takes beyond it. A paper met in more than one review has one full card and a '
         'cross-reference where it appears again.', E)
     heading(doc, 'Contents', 14)
-    for k, t, _, _ in SECTIONS:
+    for k, t, _, _ in active:
         n_k = sum(1 for c in sec[k] if not c.get('dup_of'))
         q = para(doc, 2)
-        run(q, f'{k}.  {t}', bold=True, size=10.5, color=NAVY)
+        run(q, f'{SECNUM[k]}.  {t}', bold=True, size=10.5, color=NAVY)
         run(q, f'   ({n_k} papers)', size=10, color=GREY)
     q = para(doc, 2)
-    run(q, '9.  All the innovations of CERTAIN-COAST', bold=True, size=10.5, color=ORANGE)
+    run(q, f'{N_ALL}.  All the innovations of CERTAIN-COAST', bold=True, size=10.5, color=ORANGE)
 
-    for k, t, intro, pkgs in SECTIONS:
-        h = heading(doc, f'{k}. {t}', 16, before=6)
+    for k, t, intro, pkgs in active:
+        h = heading(doc, f'{SECNUM[k]}. {t}', 16, before=6)
         h.paragraph_format.page_break_before = True
         body(doc, intro, E, size=10.5)
         mine = [it for it in M if any(f'/{pk}/' in it.get('file', '') or it.get('file', '').startswith(pk + '/')
                                       for pk in pkgs)]
         mine = [it for it in mine if any(e.get('status') == 'new' for e in it.get('equations', []))]
         if mine:
-            heading(doc, f'{k}.0 Our equations in the CERTAIN-COAST MATLAB code', 12, color=RED, before=6)
+            heading(doc, f'{SECNUM[k]}.0 Our equations in the CERTAIN-COAST MATLAB code', 12, color=RED, before=6)
             body(doc, 'The equations below are those of the open-source MATLAB code of CERTAIN-COAST that are new in this '
                       'work (set in red), each with the file that computes it; the standard equations the same files use '
                       '(least squares, the split-conformal quantile, the Gaussian information gain) are not repeated.',
@@ -579,7 +685,7 @@ def main(out):
                     num[0] += 1
                     red.append(num[0])
                     deq(doc, E, e['latex'], num[0])
-        if k == '1':
+        if k == 'asm':
             asm_block(doc, E, num, red)
         reviews = []
         for c in sec[k]:
@@ -589,18 +695,23 @@ def main(out):
             heading(doc, r, 12, color=BLUE, before=10)
             for j, txt in enumerate(NOVELTY.get(r, [])):
                 box(doc, 'What is new in this review' if j == 0 else 'The method', txt, E, fill='FDF3EA', bar=ORANGE)
+            if r in INNOV:
+                innov_block(doc, E, num, red, INNOV[r][1])
             for c in sec[k]:
                 if c['review'] == r:
-                    card(doc, c, k, E, display_eq, num)
+                    card(doc, c, SECNUM[k], E, display_eq, num)
 
     all_innovations(doc, E, sec)
 
     p = para(doc, 4, before=10)
     run(p, 'Verification note. Every card comes from the author\'s reviews, where each reference was checked against '
-           'Crossref, arXiv, the proceedings or institutional repositories; the cards of the data assimilation review '
-           'and of reviews X and XI were translated or extracted from those reviews and their references checked again '
-           'in Crossref in November 2026. The equations in red were checked against the MATLAB code of the package. The '
-           'document was assembled with the help of an AI assistant.', italic=True, size=9, color=GREY)
+           'Crossref, arXiv, the proceedings or institutional repositories; the cards of the data assimilation review, '
+           'of reviews X and XI and of the seven reviews added last (transfer between sites, causal inference, causal '
+           'discovery with optimization, causality under chaos, the value of information without a prior, reactions '
+           'away from equilibrium and modern hydrogeochemistry) were translated or extracted from those reviews and their '
+           'references checked again in Crossref in November 2026. The equations in red were checked against the MATLAB '
+           'code of the package or are the author\'s own proposals as the reviews state them. The document was assembled '
+           'with the help of an AI assistant.', italic=True, size=9, color=GREY)
 
     BS._EQ = None
     work = tempfile.mkdtemp()
