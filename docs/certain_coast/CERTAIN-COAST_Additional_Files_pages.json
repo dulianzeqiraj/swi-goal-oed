@@ -1,15 +1,16 @@
 {
- "total": 104,
+ "total": 106,
  "start": [
   4,
   21,
   28,
   38,
-  61,
-  78,
-  92,
-  101,
-  103
+  59,
+  74,
+  88,
+  97,
+  103,
+  105
  ],
  "short": [
   "State of the art: what has been done and what CERTAIN-COAST brings",
@@ -19,6 +20,7 @@
   "Theory note: BEYOND-GO, the boundary where the model is cut",
   "Implementation report: SHOCK-GO, the earthquake in the aquifer",
   "Decisions in extreme events: final assembled system and deep reinforcement learning",
+  "The project at a glance: structure, communication, team, deliverables and timeline",
   "CV of the NATO-country Project Director",
   "CV of the partner-country Project Director"
  ]
