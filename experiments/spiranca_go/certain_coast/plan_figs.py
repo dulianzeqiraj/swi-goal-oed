@@ -434,11 +434,11 @@ def fig1_structure(path):
         put(ax, x0 + 0.09, by1 - 0.34, body, ew - 0.18, 10.0, ls=1.12, box=box, minsize=9.4, maxh=by1 - by0 - 0.42)
 
     # ---------- WP4 on top: the network serves every warning ----------
-    y40, y41 = 8.5, 9.46
+    y40, y41 = 8.62, 9.46
     band(ax, 'WP4', y40, y41, 4)
 
     # ---------- middle row: the chain WP1 -> WP2 -> WP3 -> WP5 ----------
-    ym0, ym1 = 4.78, 7.92
+    ym0, ym1 = 4.86, 8.0
     gap = 1.06
     bw = (WF - 0.4 - 3 * gap) / 4
     mids = ['WP1', 'WP2', 'WP3', 'WP5']
@@ -451,7 +451,7 @@ def fig1_structure(path):
                    ls=1.08, box=box)
         a, b = WPD[wp]['span']
         y = ym1 - 0.15 - h
-        _, h2 = put(ax, x0 + 0.12, y, f'lead: {lead(wp)}, {team_of(wp)} · Months {a}–{b} · {WPD[wp]["obj"]}',
+        _, h2 = put(ax, x0 + 0.12, y, f'lead: {lead(wp)}, {team_of(wp)} · M{a}–{b} · {WPD[wp]["obj"]}',
                     bw - 0.24, 10.0, color=c, fstyle='italic', box=box)
         ytop = foot(ax, x0, x0 + bw, ym0, wp, box)
         ylow = wp_tasks(ax, x0 + 0.12, y - h2 - 0.09, wp, bw - 0.24, box=box)
@@ -485,20 +485,20 @@ def fig1_structure(path):
                 fontweight='bold', linespacing=1.05)
 
     # ---------- WP6 and WP7, wide ----------
-    y60, y61 = 3.28, 4.22
+    y60, y61 = 3.38, 4.3
     band(ax, 'WP6', y60, y61, 4)
     for wp, dx, lab in (('WP1', 1.4, 'results'), ('WP2', 1.4, 'results'), ('WP3', 0.55, 'verification statistics'),
                         ('WP5', 0.55, 'bulletin log and outcomes')):
         xx = xs[wp] + dx
         arrow(ax, (xx, ym0 - 0.03), (xx, y61 + 0.02), color=COL[wp])
         ax.text(xx + 0.12, (ym0 + y61) / 2, lab, ha='left', va='center', fontsize=10.0, color=COL[wp], fontweight='bold')
-    y70, y71 = 2.48, 3.18
+    y70, y71 = 2.42, 3.28
     fo = P['Ndreca']
     band(ax, 'WP7', y70, y71, 4, extra=f'grant finance: {fo["pos"].lower()}, {first_clause(fo["aff"])} of UPT, '
                                         f'{fo["time"]} of time')
 
     # ---------- phases and rhythm ----------
-    yq0, yq1 = 1.34, 2.38
+    yq0, yq1 = 1.32, 2.32
     rbox(ax, 0.2, yq0, 7.75, yq1 - yq0, '#fff6e5', GATE_TXT, lw=1.5)
     box = (0.2, yq0, 7.95, yq1)
     t = ax.text(0.35, yq1 - 0.09, 'Three phases, separated by evidence gates', fontsize=11.6, fontweight='bold',
