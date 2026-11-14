@@ -19,7 +19,8 @@ WHY = ('A monitoring network is designed for a question, and at the coast the an
        'network that was optimal on the day it was installed can therefore watch the wrong place a decade later, and '
        'nobody notices until a warning is missed.')
 
-ILLUSTRATION = ('Figure 1 shows the effect on a one-dimensional coastal aquifer with illustrative values. With relative '
+ILLUSTRATION = ('Figure 1 shows the effect on a one-dimensional coastal aquifer with a sharp interface [C2] and '
+                'illustrative values. With relative '
                 'sea level rising by 12 mm/yr, the toe of the wedge moves from {t0:.0f} m to {t20:.0f} m from the coast '
                 'in 20 years and to {t40:.0f} m in 40 years. Five chloride sensors placed today by D-optimality keep '
                 '{e10} of the efficiency of the best network after 10 years and {e20} after 20: their lifetime at '
@@ -34,7 +35,6 @@ PAPERS_INTRO = ('The papers were chosen for their mathematics and for what they 
                 'in a common notation; where it differs from the paper\'s, the form is ours and the result is the '
                 'paper\'s.')
 
-GROUPS = []          # filled below
 
 # ------------------------------------------------------------------------------------------------------------------
 OXFORD_A = [
@@ -307,14 +307,260 @@ FIELD_E = [
                 'the end-user, so a change of goal triggers a re-design rather than a missed exceedance.'),
 ]
 
-COVER = []           # filled below
-SOLVED = []
-OPEN = []
-STEP_INTRO = ''
-STEP_LIFETIME = ''
-STEP_RULE = ''
-STEP_BULLETS = []
-ONE_SENTENCE = ''
+MITCALTECH_B = [
+    dict(inst='Caltech (Dunbar, Schneider, Stuart); Howland also MIT',
+         cite='Dunbar, O. R. A., Howland, M. F., Schneider, T. and Stuart, A. M. (2022). Ensemble-based experimental '
+              'design for targeting data acquisition to inform climate models. Journal of Advances in Modeling Earth '
+              'Systems 14(9), e2022MS002997.',
+         doi='https://doi.org/10.1029/2022MS002997', free='https://arxiv.org/abs/2201.06998', free_label='arXiv',
+         done='An ensemble-based Bayesian design algorithm, inside the calibrate–emulate–sample loop with ensemble Kalman '
+              'inversion, that picks the regions and times where targeted extra data would most reduce the uncertainty '
+              'of climate-model parameters. In an idealised general circulation model the most informative targets were '
+              'often, but not always, near the intertropical convergence zone, and physical intuition could pick worse '
+              'ones.',
+         math=[(r'\theta^{(j)}_{n+1}=\theta^{(j)}_{n}+C^{\theta\mathcal{G}}_{n}\left(C^{\mathcal{G}\mathcal{G}}_{n}+\Gamma'
+                r'\right)^{-1}\left(y+\eta^{(j)}_{n}-\mathcal{G}\left(\theta^{(j)}_{n}\right)\right)',
+                'the ensemble Kalman update used for the calibration, in standard form;'),
+               (r'd^{\star}=\underset{d}{\arg\max}\ \frac{1}{2}\log\det\left(\Gamma_{\mathrm{pr}}\Gamma_{\mathrm{post}}(d)^{-1}'
+                r'\right),\qquad \Gamma_{\mathrm{post}}(d)^{-1}=\Gamma_{\mathrm{pr}}^{-1}+G_d^{\top}\Gamma_d^{-1}G_d',
+                'in our notation, the information gain of a candidate region and time $d$ under the Gaussian '
+                'approximation, with $G_d$ estimated from the ensemble:')],
+         theorem='No formal theorem; calibrate–emulate–sample needs about $10^2$ forward runs against about $10^5$ for '
+                 'traditional Bayesian calibration.',
+         gap='It chooses where to obtain extra data, not where to install sensors with a cost; the model structure is '
+             'assumed right; there is no sensor drift and no mix of sensor types.',
+         beyond='CERTAIN-COAST runs the same loop on the coastal model: the ensemble of the assimilation gives the design '
+                'sensitivities at each review, and the cost of moving a sensor and the certified lifetime of the network '
+                'are added to the criterion.'),
+    dict(inst='MIT (Carlone, Jadbabaie), with Pennsylvania',
+         cite='Tzoumas, V., Carlone, L., Pappas, G. J. and Jadbabaie, A. (2021). LQG control and sensing co-design. IEEE '
+              'Transactions on Automatic Control 66(4), 1468–1483.',
+         doi='https://doi.org/10.1109/TAC.2020.2997661', free='https://arxiv.org/abs/1802.08376', free_label='arXiv',
+         done='Chooses, at every time step, the sensors of a linear time-varying system together with its controller: the '
+              'best control performance under a sensing budget, or the cheapest sensing that meets a performance bound. '
+              'A separation principle partly decouples sensing, estimation and control; no polynomial algorithm '
+              'guarantees a constant factor on every instance, yet polynomial algorithms with per-instance guarantees '
+              'follow from approximate supermodularity.',
+         math=[(r'x_{t+1}=A_t x_t+B_t u_t+w_t,\qquad y_t=C_t\left(\mathcal{S}_t\right)x_t+v_t\left(\mathcal{S}_t\right)',
+                'the system observed by the sensor set $\\mathcal{S}_t$ active at step $t$;'),
+               (r'\mathcal{S}^{\star}_{1:T}\in\underset{\mathcal{S}_{1:T}}{\arg\min}\ \sum_{t=1}^{T}\mathrm{tr}\left['
+                r'\Theta_t\,\Sigma_{t\mid t}\left(\mathcal{S}_{1:t}\right)\right]',
+                'in our notation, the separated sensing problem: the Kalman error covariance $\\Sigma_{t\\mid t}$ weighted '
+                'by $\\Theta_t$, a weight that comes from the control task:')],
+         theorem='Per-instance approximation guarantees for polynomial-time co-design through approximate '
+                 'supermodularity; no polynomial algorithm guarantees a constant factor on every instance.',
+         gap='Linear-Gaussian with known matrices; switching sensors on and off is free; no density-driven intrusion, no '
+             'structural change after an earthquake and no sensor drift.',
+         beyond='The weight $\\Theta_t$ is the point: sensors are chosen for the decision, not for the state. CERTAIN-COAST '
+                'uses the value of the warnings as that weight, lets it move in time, and replaces free switching by the '
+                'real cost of moving a sensor.'),
+    dict(inst='MIT (Mechanical Engineering)',
+         cite='Blanchard, A. and Sapsis, T. (2022). Informative path planning for anomaly detection in environment '
+              'exploration and monitoring. Ocean Engineering 243, 110242.',
+         doi='https://doi.org/10.1016/j.oceaneng.2021.110242', free='https://arxiv.org/abs/2005.10040', free_label='arXiv',
+         done='Plans the path of a vehicle that searches for strong anomalies, with acquisition functions built on an '
+              'output-weighted, probabilistic definition of an anomaly. Tested on seafloor bathymetry from real data and '
+              'on moving anomalies, it works even when the prior belief about where the anomalies are is wrong.',
+         math=[(r'w(\mathbf{x})=\frac{p_{\mathbf{x}}(\mathbf{x})}{p_{\mu}\left(\mu(\mathbf{x})\right)},\qquad a(\mathbf{x})'
+                r'=\frac{1}{\sigma^2(\mathbf{x})}\int\mathrm{cov}\left(\mathbf{x},\mathbf{x}^{\prime}\right)^2w\left('
+                r'\mathbf{x}^{\prime}\right)d\mathbf{x}^{\prime}',
+                'the likelihood ratio, large where the predicted output is rare or extreme, and the likelihood-weighted '
+                'integrated variance reduction that uses it:')],
+         theorem='No formal theorem; the output weighting rests on the result that, for a known output variance, the usual '
+                 'variance and information criteria ignore the observed outputs [C4].',
+         gap='One mobile sensor and a two-dimensional surrogate without physics or guarantees; fixed wells, multi-modal '
+             'data and drift are not treated.',
+         beyond='A moving saline front is a moving anomaly. CERTAIN-COAST weights the information of a sensor by how close '
+                'its reading comes to a warning threshold, takes the anomaly from the coupled model, and keeps fixed wells '
+                'and mobile sensors in one design.'),
+    dict(inst='Caltech (Electrical Engineering)',
+         cite='Guo, N. and Kostina, V. (2021). Optimal causal rate-constrained sampling for a class of continuous Markov '
+              'processes. IEEE Transactions on Information Theory 67(12), 7876–7890.',
+         doi='https://doi.org/10.1109/TIT.2021.3114142', free='https://arxiv.org/abs/2002.01581', free_label='arXiv',
+         done='Finds the causal policies that sample, encode and decode a continuous Markov process so as to minimise the '
+              'real-time mean-square error under a limit in bits per second: the optimal encoder sends one bit when the '
+              'innovation crosses one of two thresholds, and the distortion-rate function of the Ornstein–Uhlenbeck '
+              'process is computed.',
+         math=[(r'\min\ \limsup_{T\to\infty}\frac{1}{T}\,\mathbb{E}\int_0^T\left(X_t-\hat{X}_t\right)^2dt\ \ \text{s.t. '
+                r'rate}\le R,\qquad \tau_{i+1}=\inf\left\{t>\tau_i:\ X_t-\hat{X}_t\notin\left(a_-,a_+\right)\right\}',
+                'in our notation, the tracking objective under a rate limit and the optimal event-triggered sampling '
+                'times:')],
+         theorem='For the class of continuous Markov processes considered, which includes the Ornstein–Uhlenbeck process, '
+                 'the two-threshold, one-bit causal code is optimal.',
+         gap='One scalar process with a known Markov model; no spatial placement, no fusion of sensors, no model change.',
+         beyond='It proves that a logger should report when the process departs from its prediction. CERTAIN-COAST applies '
+                'the principle to its loggers and to the manual samples between which chloride can cross the limit, with '
+                'the threshold set by the warning rather than by a mean-square error.'),
+]
+
+MITCALTECH_C = [
+    dict(inst='MIT (Aeronautics and Astronautics)',
+         cite='Jagalur-Mohan, J. and Marzouk, Y. (2021). Batch greedy maximization of non-submodular functions: '
+              'guarantees and applications to experimental design. Journal of Machine Learning Research 22(252), 1–62.',
+         doi='https://jmlr.org/papers/v22/20-1023.html', free='https://arxiv.org/abs/2006.04554', free_label='arXiv',
+         done='Analyses batch greedy heuristics (standard, distributed and stochastic) for maximising non-decreasing set '
+              'functions that are not submodular, with guarantees through submodularity and supermodularity ratios; for '
+              'Bayesian design in linear inverse problems it bounds these ratios for the mutual information and applies '
+              'the result to sensor placement for climate models.',
+         math=[(r'f(\mathcal{S})=I\left(x;y_{\mathcal{S}}\right)=\frac{1}{2}\log\det\left(G_{\mathcal{S}}\Gamma_{\mathrm{pr}}'
+                r'G_{\mathcal{S}}^{\top}+\Gamma_{\varepsilon,\mathcal{S}}\right)-\frac{1}{2}\log\det\Gamma_{\varepsilon,'
+                r'\mathcal{S}}',
+                'the mutual information of a sensor set $\\mathcal{S}$ in a linear-Gaussian model, in standard form;'),
+               (r'\gamma=\min_{L,S:\ L\cap S=\emptyset}\ \frac{\sum_{j\in S}\left[f\left(L\cup\{j\}\right)-f(L)\right]}'
+                r'{f\left(L\cup S\right)-f(L)}',
+                'the submodularity ratio on which the guarantees rest (a supermodularity ratio is used with it):')],
+         theorem='Approximation guarantees for batch greedy selection in terms of the submodularity and supermodularity '
+                 'ratios, and bounds on these ratios for the mutual information in linear Bayesian inverse problems.',
+         gap='A static, one-shot, linear-Gaussian design: no dynamics, model error, drift, costs per sensor type or '
+             'nonlinear intrusion physics.',
+         beyond='Correlated errors, such as the barometric interference of the loggers on one hub, make the information '
+                'non-submodular; CERTAIN-COAST uses these guarantees for the greedy re-selection at each review, after the '
+                'correctable interference has been removed.'),
+    dict(inst='MIT (Jadbabaie), with Pennsylvania',
+         cite='Tzoumas, V., Jadbabaie, A. and Pappas, G. J. (2022). Robust and adaptive sequential submodular '
+              'optimization. IEEE Transactions on Automatic Control 67(1), 89–104.',
+         doi='https://doi.org/10.1109/TAC.2020.3046222', free='https://arxiv.org/abs/1909.11783', free_label='arXiv',
+         done='Defines robust sequential submodular maximisation: at each step a designer selects elements such as '
+              'sensors, failures or attacks remove some, and both adapt to what they have seen. The RAM algorithm, the '
+              'first scalable one for the problem, runs online, adapts to the history of failures and was near-optimal '
+              'against failures from worst-case to random.',
+         math=[(r'\max_{\mathcal{A}_1}\min_{\mathcal{B}_1\subseteq\mathcal{A}_1}\cdots\max_{\mathcal{A}_T}\min_{\mathcal{B}'
+                r'_T\subseteq\mathcal{A}_T}f\left(\mathcal{A}_1\setminus\mathcal{B}_1,\dots,\mathcal{A}_T\setminus'
+                r'\mathcal{B}_T\right),\quad\left|\mathcal{A}_t\right|\le\alpha_t,\ \left|\mathcal{B}_t\right|\le\beta_t',
+                'in our notation, the alternating game of selections $\\mathcal{A}_t$ and failures $\\mathcal{B}_t$;'),
+               (r'\kappa_f=1-\min_{v\in\mathcal{V}}\frac{f(\mathcal{V})-f\left(\mathcal{V}\setminus\{v\}\right)}'
+                r'{f\left(\{v\}\right)}',
+                'the total curvature on which the a priori bounds depend:')],
+         theorem='Polynomial running time, a priori suboptimality bounds for any number of failures among the selected '
+                 'elements, and tight a posteriori bounds.',
+         gap='Failures are discrete removals, not gradual drift or bias; the objective must be known and near-submodular; '
+             'no physics, model change or installation cost.',
+         beyond='A coastal network loses loggers to fouling, floods and earthquakes. CERTAIN-COAST treats a failed sensor '
+                'as a removal in the same game and re-selects among the mobile sensors with the failure history, while '
+                'the correctable drift is removed by reference channels instead of abandoning the sensor.'),
+    dict(inst='Caltech (Owhadi, Computing and Mathematical Sciences), with co-authors at other universities',
+         cite='Huan, S., Guinness, J., Katzfuss, M., Owhadi, H. and Schäfer, F. (2025). Sparse inverse Cholesky '
+              'factorization of dense kernel matrices by greedy conditional selection. SIAM/ASA Journal on Uncertainty '
+              'Quantification 13(3), 1649–1679.',
+         doi='https://doi.org/10.1137/23M1606253', free='https://arxiv.org/abs/2307.11648', free_label='arXiv',
+         done='Builds sparse inverse-Cholesky factors of kernel matrices by greedy selection instead of nearest '
+              'neighbours: each step adds the point with the most mutual information about the target points given the '
+              'points already chosen. Fast partial-Cholesky algorithms make the selection cheap, and it improves on '
+              'nearest-neighbour selection in Gaussian-process regression and preconditioning.',
+         math=[(r'k_{i+1}=\underset{k\notin I}{\arg\max}\ \frac{\mathrm{Var}\left[y_k\mid y_I\right]}{\mathrm{Var}\left['
+                r'y_k\mid y_I,y_{\mathrm{Pr}}\right]}\iff\underset{k\notin I}{\arg\max}\ I\left(y_k;y_{\mathrm{Pr}}\mid '
+                r'y_I\right)',
+                'in our notation, greedy conditional selection of the next point $k$ given the selected set $I$ and the '
+                'targets $\\mathrm{Pr}$:')],
+         theorem='Choosing $k$ of $N$ points costs $O(Nk^2)$ instead of the naive $O(Nk^4)$, and $O(Nk^2+Nm^2+m^3)$ for $m$ '
+                 'targets.',
+         gap='A fixed, stationary kernel with no dynamics or PDE; fixed targets; drift or model change means refitting '
+             'the kernel; no installation costs.',
+         beyond='The targets of CERTAIN-COAST move: the toe of the wedge, the supply wells, the water table under the port. '
+                'The selection is cheap enough to be repeated at every review with the targets and the covariance taken '
+                'from the coupled model of that year.'),
+]
+
+GROUPS = [
+    ('A. Re-designing as data arrive: sequential and policy-based design', OXFORD_A + BERKELEY_A),
+    ('B. Designs for evolving fields: targeting, sensor scheduling and event-triggered sampling', MITCALTECH_B),
+    ('C. Guarantees for greedy re-selection, failures and moving targets', MITCALTECH_C),
+    ('D. When the world drifts or reacts: valid learning and inference after re-design', BERKELEY_C + HARVARD_C),
+    ('E. Monitoring what cannot be watched everywhere: restless bandits', HARVARD_D),
+    ('F. Real networks that went out of date', FIELD_E),
+]
+_n = 0
+for _, _items in GROUPS:
+    for _it in _items:
+        _n += 1
+        _it['n'] = _n
+
+COVER = [
+    ['[1] Deep adaptive design (Oxford)', '✓', '–', '~', '✓', '–'],
+    ['[2] Step-DAD (Oxford)', '✓', '~', '~', '–', '–'],
+    ['[3] Implicit deep adaptive design (Oxford)', '✓', '–', '~', '✓', '–'],
+    ['[4] Modern Bayesian design, review (Oxford)', '✓', '~', '–', '–', '–'],
+    ['[5] Task-optimal exploration (Berkeley)', '✓', '–', '✓', '✓', '–'],
+    ['[6] Ensemble-based targeting (Caltech)', '✓', '–', '~', '–', '~'],
+    ['[7] LQG control and sensing co-design (MIT)', '✓', '–', '✓', '✓', '–'],
+    ['[8] Path planning for anomalies (MIT)', '✓', '~', '✓', '–', '~'],
+    ['[9] Event-triggered sampling (Caltech)', '✓', '–', '–', '✓', '–'],
+    ['[10] Batch greedy, non-submodular (MIT)', '–', '–', '~', '✓', '~'],
+    ['[11] Robust adaptive submodular (MIT)', '✓', '~', '–', '✓', '–'],
+    ['[12] Greedy conditional selection (Caltech)', '–', '–', '✓', '✓', '–'],
+    ['[13] Performative prediction (Berkeley)', '✓', '✓', '–', '✓', '–'],
+    ['[14] Feedback covariate shift (Berkeley)', '~', '✓', '–', '✓', '–'],
+    ['[15] Inference on adaptive data (Harvard)', '–', '~', '–', '✓', '–'],
+    ['[16] Collapsing bandits (Harvard)', '✓', '–', '–', '✓', '–'],
+    ['[17] Optimistic Whittle index (Harvard)', '✓', '~', '–', '✓', '–'],
+    ['[18] PM2.5 sensor placement (Harvard)', '~', '✓', '–', '–', '✓'],
+    ['[19] Groundwater monitoring, PyLEnM (Berkeley)', '~', '–', '–', '–', '✓'],
+    ['[20] PM2.5 network under a new standard (Berkeley)', '~', '✓', '✓', '–', '✓'],
+    ['**CERTAIN-COAST (proposed)**', '**✓**', '**✓**', '**✓**', '**✓ lifetime**', '**✓**'],
+]
+
+SOLVED = [
+    'Adaptive design is practical: policies trained before the experiment choose each new design in milliseconds and '
+    'can be refined as data arrive [1–4], and re-solving a task-weighted design with the current model is provably '
+    'optimal for learning a linear system [5].',
+    'Sensing can be scheduled in time for a decision rather than for the state, with per-instance guarantees [7]; data '
+    'can be targeted in space and time with the ensembles of a large model [6]; sampling can be weighted toward rare '
+    'and dangerous outputs and follow moving anomalies [8]; event-triggered reporting is optimal for tracking a '
+    'Markov process under a reporting budget [9]; and operational ocean forecasting already recomputes its sampling '
+    'plan from every new forecast [C3].',
+    'Greedy re-selection has guarantees beyond submodularity [10], survives adaptive failures [11] and is cheap enough '
+    'to repeat when the targets move [12].',
+    'Guarantees survive feedback: retraining converges when predictions change the world [13], conformal sets stay '
+    'valid when the design depends on the data [14], and estimates stay valid on adaptively collected data [15].',
+    'Monitoring under a budget of visits is a restless bandit with fast indices [16] that can be learned online [17]; '
+    'and three field studies show that real networks go out of date when the system or the goal changes [18–20].',
+]
+
+OPEN = [
+    'No study gives the date at which a fixed network stops being near-optimal for a hazard that moves with relative '
+    'sea level: the lifetime of a network is not a quantity of the literature.',
+    'Adaptive designs move every sensor freely [1–3, 6–9]; real networks have fixed boreholes and a few mobile sensors, '
+    'and the cost of moving them is not in the criteria [1–17].',
+    'The system itself changes, but the parameters are static in the policy-based methods [1–4], the dynamics are '
+    'time-invariant in the guarantees [5, 7, 13], and the bandit models are stationary [16, 17].',
+    'The goals are single and fixed; a network that serves three warnings whose weights move in time, the wedge at the '
+    'wellfields, the water table under the port after an earthquake, the extreme sea level, is not treated.',
+    'The field re-designs are retrospective [18–20]: they find the gap after the record shows it.',
+]
+
+STEP_INTRO = ('CERTAIN-COAST combines what the literature solves separately into one rule for a real network. First, '
+              'the lifetime of the network is certified rather than guessed: the efficiency of the installed network is '
+              'bounded from below along an ensemble of futures of relative sea level, pumping and earthquakes generated '
+              'by the coupled model and calibrated as the warnings are, and the certified lifetime is the first time '
+              'that lower bound falls below $1-\\varepsilon$:')
+STEP_LIFETIME = ('Here $\\underline{e}_t(\\xi)$ is the lower confidence bound of the efficiency at time $t$ and $\\delta$ '
+                 'the tolerated probability of overstating the lifetime. A design is accepted only if its certified '
+                 'lifetime reaches the next scheduled review, and the network design report states it.')
+STEP_RULE = ('Second, the network is re-designed at each yearly review and after each strong earthquake or storm, but '
+             'only where it pays. The boreholes stay; the mobile sensors (loggers, seismic nodes, fibre segments) can be '
+             'moved or added among the positions $\\Xi(\\xi_k)$ reachable from the present network, and the move from '
+             '$\\xi_k$ is made when the value of information until the next review, $V_t$, the expected avoided loss of '
+             'the warnings in the cost-loss metric of the proposal, exceeds the cost $c$ of moving:')
+STEP_BULLETS = [
+    'The design keeps the goal of the warnings: $V_t$ is computed for the three alarms together, so a sensor that '
+    'serves the port after an earthquake can outrank one that served the wellfield before it; the weights move in time '
+    'as the weight $\\Theta_t$ does in sensing–control co-design [7].',
+    'The policy is learned once and applied at every review: an amortized design policy [1, 3], refined at each review '
+    'as in [2] and trained on the assembled system of the project, proposes the moves, and the rule above, with the '
+    'certified lifetime, decides them. This is the pattern of the deep reinforcement learning agent and its shield in '
+    'the decision part of the proposal.',
+    'Failures and drift are part of the design: a lost logger is a removal in the robust sequential game [11], and the '
+    'correctable drift is removed by barometers and sealed reference channels, which stay design candidates at every '
+    're-design.',
+    'The guarantees survive the re-design: the bands at newly placed sensors are calibrated with the feedback weighting '
+    'of [14], on simulated aquifers in which the same re-design rule runs [15].',
+    'Each earthquake is also a free experiment: the pore-pressure step and its relaxation identify the leakage of each '
+    'layer, and the re-design after the event uses that information at once.',
+]
+ONE_SENTENCE = ('The literature knows how to design a network that is optimal at one time, how to adapt a design as data '
+                'arrive, and how to keep guarantees when distributions shift; CERTAIN-COAST adds the date until which a '
+                'real, fixed coastal network stays near-optimal, certified from the physics that moves the hazards, and a '
+                'rule that moves only what pays to move.')
 NOTE = ('Verification note. The references were checked in Crossref, arXiv or the official proceedings (authors, title, '
         'venue, pages) in November 2026; the institutions are those printed in the papers. Figure 1 is computed by '
         'netsota_fig.py with illustrative values, not with measurements at the sites. The note was drafted with the '
@@ -324,4 +570,10 @@ OTHER = [
            'Mathematical Statistics 27(4), 986–1005.', 'https://doi.org/10.1214/aoms/1177728069'),
     ('C2', 'Glover, R. E. (1959). The pattern of fresh-water flow in a coastal aquifer. Journal of Geophysical Research '
            '64(4), 457–459.', 'https://doi.org/10.1029/JZ064i004p00457'),
+    ('C3', 'Lermusiaux, P. F. J., Haley, P. J., Mirabito, C., Mule, E. M., DiMarco, S. F., Dancer, A. et al. (2024). '
+           'Real-time ocean probabilistic forecasts, reachability analysis, and adaptive sampling in the Gulf of Mexico. '
+           'OCEANS 2024 – Halifax, 1–10.', 'https://doi.org/10.1109/OCEANS55160.2024.10754153'),
+    ('C4', 'Sapsis, T. P. (2020). Output-weighted optimal sampling for Bayesian regression and rare event statistics '
+           'using few samples. Proceedings of the Royal Society A 476(2234), 20190834.',
+     'https://doi.org/10.1098/rspa.2019.0834'),
 ]
