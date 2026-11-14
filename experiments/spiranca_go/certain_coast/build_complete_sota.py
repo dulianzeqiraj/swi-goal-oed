@@ -61,7 +61,12 @@ def links_of(c):
     out = []
     for x in ls:
         if isinstance(x, (list, tuple)) and len(x) >= 2:
-            out.append((str(x[0]), str(x[1])))
+            lab, url = str(x[0]), str(x[1])
+            if lab.strip().lower() == 'doi' and 'doi.org/' in url:          # show the DOI itself, as the other cards do
+                lab = 'doi:' + url.split('doi.org/', 1)[1]
+            elif lab.strip().lower() == 'arxiv' and 'arxiv.org/abs/' in url:
+                lab = 'arXiv:' + url.split('arxiv.org/abs/', 1)[1]
+            out.append((lab, url))
     return out
 
 
@@ -195,10 +200,13 @@ def gather():
             NOVELTY[lx] = [XN.X]
         if J.get('XI'):
             NOVELTY[lxi] = [XN.XI]
-        for c in J.get('X', []):
-            sec['5'].append(norm_json(c, lx))
-        for c in J.get('XI', []):
-            sec['6'].append(norm_json(c, lxi))
+        for rk, key, lab in (('X', '5', lx), ('XI', '6', lxi)):
+            for c in J.get(rk, []):
+                if rk == 'X':
+                    c = {f: (fix_x(v) if f not in ('id', 'links', 'title', 'eq') else v) for f, v in c.items()}
+                d = norm_json(c, lab)
+                d['_rk'], d['_rid'] = rk, c.get('id')
+                sec[key].append(d)
     import netsota_data as ND
     for _, items in ND.GROUPS:
         for it in items:
@@ -222,7 +230,39 @@ def gather():
                 n += 1
                 c['n'] = n
                 seen[key] = (n, k)
+    # reviews X and XI cite their sources by labels (A1, R8, C14, W2, B5): the card numbers of this document
+    idmap = {(c['_rk'], c['_rid']): (c['dup_of'][0] if c.get('dup_of') else c['n'])
+             for k in sec for c in sec[k] if c.get('_rk')}
+
+    def renum(t, rk):
+        parts = (t or '').split('$')
+        for j in range(0, len(parts), 2):
+            parts[j] = re.sub(r'\b[ARCWB]\d{1,2}\b', lambda m: f'[{idmap[(rk, m.group(0))]}]'
+                              if (rk, m.group(0)) in idmap else m.group(0), parts[j])
+        return '$'.join(parts)
+
+    for k in sec:
+        for c in sec[k]:
+            if c.get('_rk'):
+                for f in ('summary', 'innovation', 'link', 'gap', 'step', 'extra'):
+                    c[f] = renum(c.get(f, ''), c['_rk'])
     return sec
+
+
+def fix_x(t):
+    """Review X: its Propositions N1-N4 named as review X's (Section 1.1 has its own N1-N3), and the Certified OED
+    framework (A2 in the review, not a paper card) named."""
+    if not isinstance(t, str):
+        return t
+    parts = t.split('$')
+    for j in range(0, len(parts), 2):
+        q = parts[j]
+        q = re.sub(r'(Propositions? N\d(?:\([a-z]\))?(?:(?:–| and |, )N\d(?:\([a-z]\))?)*)', r'\1 of review X', q)
+        q = re.sub(r'\s*\(A2\)', '', q)
+        q = re.sub(r'\bof A2\b', 'of the Certified OED framework', q)
+        q = re.sub(r'\bA2\b', 'the Certified OED framework', q)
+        parts[j] = q
+    return '$'.join(parts)
 
 
 def _vlen(t):
