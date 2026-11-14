@@ -8,7 +8,7 @@ X = ('**INTERVENTION-GO** turns sensor interference from a nuisance into a desig
      'marginalisation, and the corrected data reproduce the interference-free estimate (Proposition N2(i)). (3) A '
      'ceiling bounds what any correction can achieve (Proposition N2(ii)). (4) The worst case is found exactly in the '
      'amplitudes and by an adversary with exact data-space gradients in the shapes (Proposition N3), which replaces '
-     'the eigenvalue sensitivities of the robust design of Chowdhary, Attia and Alexanderian (2025). (5) Every robust '
+     'the eigenvalue sensitivities of the robust design of Chowdhary, Attia and Alexanderian. (5) Every robust '
      'network carries a certified gap, which that design lacks, built from a relaxation that is tightened by the '
      'ceiling and by enumerating the reference channels (Proposition N4). To our knowledge, neither that article nor '
      'the Certified OED framework, nor the other sources of review X, places reference channels by optimal design or '
