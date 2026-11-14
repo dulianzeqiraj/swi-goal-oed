@@ -9,10 +9,10 @@ SUBTITLE = ('What has been done (30 key papers, 2020–2026, Caltech, MIT, Harva
             'and what CERTAIN-COAST brings in mathematics and physics')
 
 GAP_ROWS = [
-    ['Seawater intrusion at the wellfields', 'Variable-density models, management optimisation and monitoring design exist, but our searches found no 2020–2026 intrusion paper from the four universities; the preparatory work of this proposal (coupled model, goal-oriented design, extreme-aware alarm) covers it',
-     'No intrusion warning with a guaranteed miss rate; subsidence and earthquakes absent from the seaward boundary; no pumping test designed for the decision it informs', '**Certified intrusion alarm** on the coupled model, with the relative-sea-level boundary R(t); **safe pumping tests** chosen for the years they add (M6)'],
+    ['Seawater intrusion at the wellfields', 'Variable-density models, management optimisation and monitoring design exist; the preparatory work of this proposal adds a coupled model, a goal-oriented design and an extreme-aware alarm',
+     'No intrusion warning with a guaranteed miss rate; subsidence and earthquakes absent from the seaward boundary; no pumping test designed for the decision it informs', '**Certified intrusion alarm** on the coupled model, with the relative-sea-level boundary $R(t)$; **safe pumping tests** chosen for the years they add (M6)'],
     ['Land subsidence and vertical land motion', 'Measured from InSAR/GNSS; sustainable pumping set from 30 years of InSAR; abrupt switch to irreversible compaction detected [1–3]; land motion at tide gauges shown to vary in time with fluid withdrawal and earthquakes [4]',
-     'Measured subsidence is not used as a time-varying boundary condition in intrusion, flooding and liquefaction models at the same site', '**One relative sea level R(t) = η(t) − u_z(t)** from InSAR/GNSS drives all three hazard models'],
+     'Measured subsidence is not used as a time-varying boundary condition in intrusion, flooding and liquefaction models at the same site', '**One relative sea level** $R(t)=\\eta(t)-u_z(t)$ **from InSAR/GNSS drives all three hazard models**'],
     ['Extreme sea levels', 'Probabilistic sea-level reconstructions with causes and land motion [5]; extremes attributed to relative sea-level rise [6]; physics-based compound flooding [7]; compound and multi-hazard risk to ports [8, 9]',
      'Land motion enters local extremes as a straight-line trend; port risk is expected annual damage, not a warning; earthquake and flood pathways added, not coupled', '**Nonstationary extremes with InSAR land motion as covariate**, calibrated by conformal risk control'],
     ['Liquefaction', 'Spatially correlated, data-driven liquefaction maps [10]; sub-kilometre site effects imaged by fibre [11]; water table shown to control near-surface stiffness [12]; Durrës 2019 liquefaction mapped [L1]',
@@ -23,6 +23,8 @@ GAP_ROWS = [
      'Never used to warn of intrusion or liquefaction; not part of any sensor-design problem', '**dv/v and fibre as observation types** in a goal-oriented design and as liquefaction-susceptibility sensors'],
     ['Certified uncertainty and alarms', 'Distribution-free risk control [19]; online and adaptive conformal prediction with long-run guarantees [20–22]; conformal coverage for neural-operator surrogates [23]; conformal Bayes [24]',
      'Guarantees assume exchangeable data or hold only on time average; never applied to slow physics models of coastal hazards; the first method for levels beyond the record (extreme conformal prediction, 2026) not yet used for them', '**Certified multi-hazard alarm**: surrogate error bound + online conformal margin + extreme-value extension beyond the record'],
+    ['Causes of the salinity (pumping, drought, source)', 'Causal graphs learned from data up to equivalence classes that interventions refine [31]; valid treatment effects from predicted outcomes, transferred between similar experiments [32]; hidden confounders inferred from treatment histories [X5]',
+     'Not applied to an aquifer; interventions not chosen for a warning; calibration of predicted outcomes not tested on the target without labels', '**Physics-fixed causal graph, safe pumping tests as interventions, and pumping effects from predicted chloride tested on laboratory samples** (M6, M8)'],
     ['Fast models and assimilation', 'Neural operators with universal approximation [25]; kernel/GP solvers for nonlinear PDEs [26]; optimal UQ by minimum enclosing ball [27]; ensemble Kalman theory [28]; certified dimension reduction [29]; experimental design review [30]',
      'Approximation guarantees, not per-forecast certificates, for coupled variable-density and poroelastic models', '**Error-certified surrogate of the coupled model**, with sensors chosen jointly for the three warnings'],
 ]
@@ -32,17 +34,17 @@ SECTIONS = [
         ('p', 'On a subsiding coast, seawater intrusion at the wellfields, liquefaction at the port and the energy landfall, '
               'and extreme sea levels at both are usually studied by different communities with different models. '
               'Physically they are one system, because they share two state variables:'),
-        ('b', '**Relative sea level** R(t) = η(t) − u_z(t), the sea level η minus the vertical motion of the land u_z. It sets the '
+        ('b', '**Relative sea level** $R(t)=\\eta(t)-u_z(t)$, the sea level $\\eta$ minus the vertical motion of the land $u_z$. It sets the '
               'seaward boundary of the aquifer, and therefore the position of the saline wedge (by the Ghyben–Herzberg relation the '
               'interface lies about 40 times deeper than the fresh head above sea level, so each centimetre of R raises it by up to about '
               '40 cm), and it sets the base of every extreme water level at the port and the landfall.'),
-        ('b', '**Pore pressure and water-table depth** z_w(x, t). It drives intrusion (the fresh head), compaction (the change in '
-              'effective stress σ′ = σ − p compacts the clays and lowers the land) and liquefaction: in the simplified procedure the '
-              'cyclic stress ratio CSR = 0.65 (a_max/g)(σ_v/σ′_v) r_d grows as the water table rises, so the factor of safety '
-              'FS = CRR/CSR falls when the ground is wetter.'),
+        ('b', '**Pore pressure and water-table depth** $z_w(x,t)$. It drives intrusion (the fresh head), compaction (the change in '
+              'effective stress $\\sigma^{\\prime}=\\sigma-p$ compacts the clays and lowers the land) and liquefaction: in the simplified procedure the '
+              'cyclic stress ratio $\\mathrm{CSR}=0.65\\,\\left(a_{\\max}/g\\right)\\left(\\sigma_v/\\sigma^{\\prime}_v\\right)r_d$ grows as the water table rises, so the factor of safety '
+              '$\\mathrm{FS}=\\mathrm{CRR}/\\mathrm{CSR}$ falls when the ground is wetter.'),
         ('p', 'Pumping is the lever that moves all three at once, and in opposite directions. Lowering the water table thickens the '
               'unsaturated crust and reduces liquefaction susceptibility, but it draws the saline wedge inland and compacts the clays; '
-              'the compaction lowers the land, raises R(t), and so raises both the intrusion boundary and every extreme sea level. '
+              'the compaction lowers the land, raises $R(t)$, and so raises both the intrusion boundary and every extreme sea level. '
               'Sea-level rise works the other way round: it lifts the coastal water table, which brings liquefiable sand back into '
               'saturation. A warning system that treats one hazard at a time will recommend actions that worsen the others. '
               'This coupled chain is the object of CERTAIN-COAST.'),
@@ -54,8 +56,7 @@ SECTIONS = [
               'environmental one.'),
     ]),
     ('2. State of the art', [
-        ('p', 'Seawater intrusion itself is notable by its absence: the searches behind this review found no 2020–2026 paper on intrusion '
-              'from Caltech, MIT, Harvard or Oxford. The intrusion component of CERTAIN-COAST therefore rests on the preparatory work of '
+        ('p', 'For seawater intrusion, CERTAIN-COAST builds on the preparatory work of '
               'the consortium, a coupled variable-density model with salt memory in clay layers, ion exchange, goal-oriented monitoring '
               'design and an extreme-aware alarm, and on the methods reviewed below.'),
         ('h', '2.1 Subsidence and relative sea level: the amplifier'),
@@ -101,6 +102,14 @@ SECTIONS = [
               'gives worst-case risk as the radius of a minimum enclosing ball [27], ensemble Kalman methods have a mean-field theory '
               '[28], dimension reduction can be certified by a computable bound [29], and optimal experimental design has a unified '
               'theory [30].'),
+        ('h', '2.6 Causal structure and causal effects'),
+        ('p', 'Which variable drives which can itself be learned. Observational data identify a causal graph only up to a Markov '
+              'equivalence class; interventions split that class, choosing the interventions is a problem of experimental design, '
+              'and that design with hidden confounders, together with feedback loops, is named as open [31]. When the outcome is '
+              'not measured but predicted from other measurements, a treatment effect computed on the predictions is valid if the '
+              'predictor is conditionally calibrated with respect to the treatment and the adjustment set; a constraint on the '
+              'learned representation transfers this validity from a similar annotated experiment, although it cannot be '
+              'verified on the target without labels [32].'),
     ]),
     ('3. What has not been done', [
         ('p', 'The table sets out, for each component, what the literature has achieved, what it has not, and the step CERTAIN-COAST takes.'),
@@ -112,20 +121,21 @@ SECTIONS = [
               'observed record (extreme conformal prediction, 2026; Methodology, Section 5.3) has not been used for them. Third, '
               '**the new sensors (InSAR time series, seismic noise, fibre) are measured but not designed**: no study chooses them '
               'jointly with wells and chemical samples to minimise the miss probability of the warnings, and our search found '
-              'no pumping-test design chosen for the decision it informs.'),
+              'no pumping-test design chosen for the decision it informs, and no causal graph of a coastal aquifer learned from '
+              'the pumping it already carries out.'),
     ]),
     ('4. What CERTAIN-COAST brings', [
         ('h', 'Mathematical innovations'),
         ('b', '**M1. Certified multi-hazard alarm.** For each hazard k (intrusion at a wellfield, liquefaction at the port or landfall, '
-              'extreme water level) the alarm fires when the forecast indicator exceeds its threshold minus a margin m_k. The margin '
+              'extreme water level) the alarm fires when the forecast indicator exceeds its threshold minus a margin $m_k$. The margin '
               'adds three parts: the a-posteriori error bound of the fast surrogate [23, 27], an online conformal term that keeps the '
-              'long-run miss rate at α_k under nonstationarity [19–21], and an extreme-value extension for events rarer than the observed '
+              'long-run miss rate at $\\alpha_k$ under nonstationarity [19–21], and an extreme-value extension for events rarer than the observed '
               'record, stress-tested on storylines (Methodology, Section 5.3). In our preparatory synthetic tests on a coupled variable-density model, '
               'an extreme-aware margin kept the share of seasons above the chloride limit at 4–9% across drought, human-feedback and '
               'compound storylines, where a static alarm allowed 13–21%.'),
         ('b', '**M2. A joint guarantee across hazards.** Because the three alarms share inputs, their miss events are dependent; '
-              'CERTAIN-COAST controls the probability that any of them is missed (at most Σ α_k by a union bound, tightened by joint '
-              'calibration) and allocates the α_k by consequence, so that a water-supply alarm and a landfall alarm are not held to the '
+              'CERTAIN-COAST controls the probability that any of them is missed (at most $\\sum\\nolimits_{k}\\alpha_k$ by a union bound, tightened by joint '
+              'calibration) and allocates the $\\alpha_k$ by consequence, so that a water-supply alarm and a landfall alarm are not held to the '
               'same tolerance by accident.'),
         ('b', '**M3. Multi-hazard goal-oriented sensor design.** InSAR, GNSS, piezometers, chloride samples, seismic noise, fibre and '
               'temporary nodes are chosen together to maximise the expected reduction in the miss probability of the three alarms, '
@@ -165,7 +175,13 @@ SECTIONS = [
               'substitute that fails a calibrated physics check, and computes the salinity under a drier recharge regime with '
               'guaranteed bands. In preparatory tests the bias of the summed well effects was 0.59 without adjustment, 0.56 with '
               'a history substitute and 0.00 with the heads; on the calibrated Fushë-Kuqe chloride model, 40% less recharge grew '
-              'the shallow area above 250 mg/L from 31 to 65 km² (band 15–49 km²).'),
+              'the shallow area above 250 mg/L from 31 to 65 km² (band 15–49 km²). The causal graph behind these effects is '
+              'fixed by physics except for the edges that change a warning, such as which source feeds the chloride and whether a '
+              'leaky layer connects the sea; the safe pumping tests of M6 are interventions with known targets and each '
+              'earthquake one with unknown targets, so together they split the equivalent graphs of [31] where the warning needs '
+              'it. Between laboratory samples the chloride is predicted from the loggers, and an effect is computed on those '
+              'predictions only after the predictor passes a conditional-calibration test with respect to the pumping and the '
+              'recharge read from the heads [32], checked on the laboratory samples of each wellfield.'),
         ('b', '**M9. A monitoring network that corrects its own sensors.** Unvented piezometers read the air pressure through '
               'their barometric efficiency, and the loggers of one hub drift together. Robust designs guard against such '
               'correlated errors [X6] but never remove them, while records are corrected one by one with a nearby barometer '
@@ -184,9 +200,9 @@ SECTIONS = [
               'an exceedance on a sampling date (0.78 against 0.023); quarterly samples left the band at 0.18–1 and a daily '
               'logger at 0.76–0.80, and for skewed chloride the margin restored a coverage of 90.3% (74% without).'),
         ('h', 'Physical innovations'),
-        ('b', '**P1. One relative-sea-level boundary for all three hazards**, R(t) = η(t) − u_z(t), with u_z from InSAR/GNSS after removal '
+        ('b', '**P1. One relative-sea-level boundary for all three hazards**, $R(t)=\\eta(t)-u_z(t)$, with $u_z$ from InSAR/GNSS after removal '
               'of loading signals [1–5].'),
-        ('b', '**P2. A time-varying liquefaction factor of safety**, FS(x, t) = CRR / CSR(z_w(x, t)), with the water table z_w taken '
+        ('b', '**P2. A time-varying liquefaction factor of safety**, $\\mathrm{FS}(x,t)=\\mathrm{CRR}/\\mathrm{CSR}\\left(z_w(x,t)\\right)$, with the water table $z_w$ taken '
               'from the calibrated groundwater model and checked by seismic velocity [12, 16–18], instead of a fixed design water table.'),
         ('b', '**P3. A certified safe operating window and the year it closes.** Pumping raises intrusion and subsidence but '
               'lowers liquefaction susceptibility, so CERTAIN-COAST computes the set of pumping and dewatering decisions that keeps all '
@@ -195,7 +211,7 @@ SECTIONS = [
               'test the certified window closed after 38 years, while plans that watch one hazard believed they had 43–97 years '
               '(Methodology, Section 7).'),
         ('b', '**P4. The compaction tipping point as a warning in itself**: the switch from elastic to inelastic compaction [2, 3] '
-              'is irreversible and permanently raises R(t); detecting it early is a warning for all three hazards.'),
+              'is irreversible and permanently raises $R(t)$; detecting it early is a warning for all three hazards.'),
         ('b', '**P5. Seismic velocity as a pore-pressure sensor in saturated coastal sediments** at the port and the landfall, '
               'transferring [11, 16–18] from dry or inland basins to the coastal setting where it matters for liquefaction.'),
         ('h', 'Decision innovation'),
@@ -234,7 +250,7 @@ GROUPS = [
         dict(n=5, inst='Harvard', cite='Dangendorf, S., Sun, Q., Wahl, T., Thompson, P., Mitrovica, J.X. and Hamlington, B. (2024). Probabilistic reconstruction of sea-level changes and their causes since 1900. Earth System Science Data 16, 3471–3494.',
              doi='https://doi.org/10.5194/essd-16-3471-2024', free='https://essd.copernicus.org/articles/16/3471/2024/', free_label='open access',
              done='Near-global probabilistic reconstruction of relative sea level and its causes, 1900–2021; global mean rise 1.5 ± 0.19 mm/yr, consistent with observations only once local land motion is included.',
-             beyond='Its regional climate component supplies η(t) with uncertainty; CERTAIN-COAST adds the local u_z(t) from InSAR to obtain R(t) at the assets.'),
+             beyond='Its regional climate component supplies $\\eta(t)$ with uncertainty; CERTAIN-COAST adds the local $u_z(t)$ from InSAR to obtain $R(t)$ at the assets.'),
     ]),
     ('B. Extreme sea levels, compound flooding and ports', [
         dict(n=6, inst='Harvard (Mitrovica)', cite='Dangendorf, S., Sun, Q., Maduwantha, P., Wahl, T., Marcos, M., Marzeion, B., Slangen, A.B.A. and Mitrovica, J.X. (2026). Human-driven sea-level rise has quadrupled the frequency of coastal sea-level extremes since 1900. Nature Climate Change 16(7), 796–803.',
@@ -297,7 +313,7 @@ GROUPS = [
     ('E. Mathematics of certified warning', [
         dict(n=19, inst='MIT (Bates, Fisch)', cite='Angelopoulos, A.N., Bates, S., Fisch, A., Lei, L. and Schuster, T. (2024). Conformal risk control. International Conference on Learning Representations (ICLR 2024).',
              doi='https://proceedings.iclr.cc/paper_files/paper/2024/hash/f3549ef9b5ff520a7e41ff3cc306ab2b-Abstract-Conference.html', free='https://arxiv.org/abs/2208.02814', free_label='arXiv',
-             done='Extends split conformal prediction to any monotone bounded loss: the calibrated threshold guarantees E[L(λ̂)] ≤ α under exchangeability, tight to O(B/n); a false-negative (miss) rate is a special case.',
+             done='Extends split conformal prediction to any monotone bounded loss: the calibrated threshold guarantees $\\mathbb{E}\\left[L(\\hat{\\lambda})\\right]\\le\\alpha$ under exchangeability, tight to $O(B/n)$; a false-negative (miss) rate is a special case.',
              beyond='The miss rate of each alarm is the controlled loss; CERTAIN-COAST removes the exchangeability assumption by the online and extreme-value terms of M1.'),
         dict(n=20, inst='MIT (Bates)', cite='Angelopoulos, A.N., Barber, R.F. and Bates, S. (2024). Online conformal prediction with decaying step sizes. Proceedings of the 41st International Conference on Machine Learning, PMLR 235, 1616–1630.',
              doi='https://proceedings.mlr.press/v235/angelopoulos24a.html', free='https://arxiv.org/abs/2402.01139', free_label='arXiv',
@@ -346,6 +362,18 @@ GROUPS = [
     ]),
 ]
 
+GROUPS.append(
+    ('F. Causal structure and causal effects', [
+        dict(n=31, inst='MIT (Uhler)', cite='Squires, C. and Uhler, C. (2023). Causal structure learning: a combinatorial perspective. Foundations of Computational Mathematics 23(5), 1781–1815.',
+             doi='https://doi.org/10.1007/s10208-022-09581-9', free='https://doi.org/10.1007/s10208-022-09581-9', free_label='open access (journal)',
+             done='Reviews how causal graphs are learned from data: the search space of directed acyclic graphs and of graphs with hidden variables, the Markov equivalence classes that observational data cannot split, how interventions refine them (interventional Markov equivalence), and the open problems of experimental design with hidden confounders and of feedback loops.',
+             beyond='In a coastal aquifer most of the graph is fixed by physics (sea level to boundary head to chloride; pumping to head to compaction to land motion to relative sea level). CERTAIN-COAST searches only the edges that change a warning, such as which source feeds the chloride, and chooses its safe pumping tests (M6) as interventions that split the remaining equivalent graphs, with each earthquake as a free intervention with unknown targets (Part 6); written in time, the feedback loops of the coupled system leave an acyclic graph.'),
+        dict(n=32, inst='MIT (Demirel), ETH Zurich and ISTA', cite='Cadei, R., Demirel, I., De Bartolomeis, P., Lindorfer, L., Cremer, S., Schmid, C. and Locatello, F. (2025). Prediction-powered causal inferences. Advances in Neural Information Processing Systems 38 (NeurIPS 2025), 82200–82229.',
+             doi='https://doi.org/10.52202/085713-2479', free='https://arxiv.org/abs/2502.06343', free_label='arXiv',
+             done='Treatment effects when the outcome is not annotated but predicted from complex measurements: conditional calibration of the predictor with respect to the treatment and the adjustment set gives identification and doubly robust estimation with valid intervals; a causal-lifting constraint on the representation, enforced by deconfounded empirical risk minimisation, transfers validity from a similar annotated experiment, and gave valid effects on a real ecological experiment without target annotations, where standard and invariant training did not.',
+             beyond='Chloride is measured in the laboratory a few times a year and predicted between samples from loggers, heads and geophysics. CERTAIN-COAST computes the effect of pumping on salinity from those predictions only after the predictor passes a conditional-calibration test with respect to the pumping and the recharge read from the heads (M8), checked on the laboratory samples of the target wellfield, and removes the bias measured on them; the transfer between the wellfields of Durrës and Fushë-Kuqe becomes a tested condition instead of an assumption.'),
+    ]))
+
 LOCAL = [
     ('L1', 'Mavroulis, S., Lekkas, E. and Carydis, P. (2021). Liquefaction phenomena induced by the 26 November 2019, Mw = 6.4 Durrës (Albania) earthquake and liquefaction susceptibility assessment in the affected area. Geosciences 11(5), 215.',
      'https://doi.org/10.3390/geosciences11050215'),
@@ -353,8 +381,7 @@ LOCAL = [
 
 NOTE = ('Verification: each entry was checked against publisher, proceedings or institutional-repository records through web search; '
         'publisher sites could not be opened directly from this environment. Gaps are stated in the entry (the DOI of [27]). '
-        'Some free links are repository records whose full text was not checked. No 2020–2026 paper on seawater intrusion with an author '
-        'at the four universities was found; the intrusion state of the art rests on the preparatory work and is itself a gap.')
+        'Some free links are repository records whose full text was not checked.')
 
 OTHER = [
     ('X1', 'Richardson, D. S. (2000). Skill and relative economic value of the ECMWF Ensemble Prediction System. Quarterly Journal of the Royal Meteorological Society 126, 649–667.',
@@ -380,7 +407,26 @@ WHAT_NEW = [
     '**Organised by the shared variables, not by hazard.** The review follows relative sea level and the water table through the three hazards (Figure 1), which is where the gaps appear.',
     '**Every gap is closed by a named innovation.** The gap matrix (Figure 2) marks what the literature has done and, in each empty cell, the CERTAIN-COAST innovation that fills it.',
     '**Every paper has a role.** Each of the 30 papers states what it did and the step CERTAIN-COAST takes beyond it; no paper is cited for decoration.',
-    '**Absence is reported.** The review states that no 2020–2026 intrusion paper from the four universities was found, and that the intrusion component rests on the preparatory work.',
     '**Open where possible.** Each entry gives a DOI and, where one exists, a free copy, so evaluators can check every claim.',
     '**Claims updated as the frontier moves.** Where a 2026 method now does what was a gap (extreme conformal prediction beyond the record), the review says so and states the remaining step.',
 ]
+
+
+def _counts():
+    n = sum(len(items) for _, items in GROUPS)
+    by = {}
+    for _, items in GROUPS:
+        for it in items:
+            k = next(u for u in ('Caltech', 'MIT', 'Harvard', 'Oxford') if it['inst'].startswith(u))
+            by[k] = by.get(k, 0) + 1
+    return n, by
+
+
+N_PAPERS, _BY = _counts()
+SUBTITLE = (f'What has been done ({N_PAPERS} key papers, 2020–2026, Caltech, MIT, Harvard, Oxford), what has not been done, '
+            'and what CERTAIN-COAST brings in mathematics and physics')
+PAPERS_TITLE = f'5. The {N_PAPERS} key papers (2020–2026)'
+PAPERS_INTRO = (', '.join(f'{k} {_BY.get(k, 0)}' for k in ('Caltech', 'MIT', 'Harvard', 'Oxford')) +
+                '. For each: where to download it, what it did, and the step CERTAIN-COAST takes beyond it. [L1] is a local '
+                'study, not from the four universities.')
+WHAT_NEW = [w.replace('Each of the 30 papers', f'Each of the {N_PAPERS} papers') for w in WHAT_NEW]

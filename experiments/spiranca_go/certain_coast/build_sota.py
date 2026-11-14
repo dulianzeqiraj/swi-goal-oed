@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sota_data as D  # noqa: E402
 
 FONT = 'Arial'
+_EQ = None          # set by main(): text between $...$ becomes native Word math (OMML)
 
 
 def run(p, text, bold=False, italic=False, size=11, color=None):
@@ -54,7 +55,14 @@ def heading(doc, text, size=14, color='1F3864', before=10):
 
 
 def rich(p, text, size=11):
-    """Text with [n] references kept as plain text; **bold** segments supported."""
+    """Text with [n] references kept as plain text; **bold** segments supported; $math$ while main() runs."""
+    if _EQ is not None and '$' in text:
+        for i, seg in enumerate(text.split('$')):
+            if i % 2:
+                run(p, _EQ.add(seg, False, size=int(size * 2)), size=size)
+            elif seg:
+                rich(p, seg.replace('$', ''), size)
+        return
     parts = text.split('**')
     for i, seg in enumerate(parts):
         if seg:
@@ -147,7 +155,7 @@ def fig_evidence(path):
     ax.tick_params(axis='y', length=0)
     h = [plt.Line2D([], [], marker='o', ls='', ms=9, color=c, label=f'{k} ({counts.get(k, 0)})') for k, c in INST_COL.items()]
     ax.legend(handles=h, loc='upper center', bbox_to_anchor=(0.42, -0.1), ncol=4, frameon=False, fontsize=8.8)
-    fig.tight_layout(); fig.savefig(path, dpi=300); plt.close(fig)
+    fig.tight_layout(); fig.savefig(path, dpi=300, bbox_inches='tight', pad_inches=0.05); plt.close(fig)
 
 
 def fig_gaps(path):
@@ -189,7 +197,15 @@ def figure(doc, path, width, caption):
 
 
 def main(out):
+    import json
     import tempfile
+    global _EQ
+    here = os.path.dirname(os.path.abspath(__file__))
+    for k, sub in enumerate(('garancia_go', 'ml_paradigms/word')):
+        sys.path.insert(1 + k, os.path.join(here, '..', '..', sub))
+    from build_gar_doc import Eqs   # imported here: build_gar_doc itself imports this module
+    import omml
+    _EQ = Eqs()
     import build_introduction as BI
     work = tempfile.mkdtemp()
     f_sys = os.path.join(work, 'fig_system.png'); BI.fig_system(f_sys)
@@ -232,7 +248,7 @@ def main(out):
 
     h = heading(doc, D.PAPERS_TITLE, 14); h.paragraph_format.page_break_before = True
     p = para(doc, 6); rich(p, D.PAPERS_INTRO)
-    figure(doc, f_ev, 16.0, 'Figure 3. The 30 key papers by topic and year; colour: university (number of papers). Numbers '
+    figure(doc, f_ev, 16.0, f'Figure 3. The {D.N_PAPERS} key papers by topic and year; colour: university (number of papers). Numbers '
                             'are the reference numbers used throughout the proposal.')
     for grp, items in D.GROUPS:
         heading(doc, grp, 12.5, color='2E6DB4', before=6)
@@ -247,8 +263,8 @@ def main(out):
             else:
                 run(p, '   |   ' + it.get('free_note', 'paywalled'), italic=True, size=10, color='52606D')
             p = para(doc, 2, 0.5); p.paragraph_format.keep_with_next = True
-            run(p, 'Done: ', bold=True, size=10.5); run(p, it['done'], size=10.5)
-            p = para(doc, 8, 0.5); run(p, 'Beyond it in CERTAIN-COAST: ', bold=True, size=10.5, color='1E8A5A'); run(p, it['beyond'], size=10.5)
+            run(p, 'Done: ', bold=True, size=10.5); rich(p, it['done'], size=10.5)
+            p = para(doc, 8, 0.5); run(p, 'Beyond it in CERTAIN-COAST: ', bold=True, size=10.5, color='1E8A5A'); rich(p, it['beyond'], size=10.5)
 
     heading(doc, 'Local study (not from the four universities)', 12.5, color='2E6DB4', before=6)
     for code, cite, url in D.LOCAL:
@@ -265,8 +281,13 @@ def main(out):
         p = para(doc, 3, 0.5); run(p, '• ', bold=True); rich(p, x)
         if i < len(D.WHAT_NEW) - 1:
             p.paragraph_format.keep_with_next = True
-    doc.save(out)
-    print('saved', out, sum(len(i) for _, i in D.GROUPS), 'papers')
+    draft = os.path.join(work, 'draft.docx'); doc.save(draft)
+    eq_json = os.path.join(work, 'eqs.json')
+    with open(eq_json, 'w', encoding='utf-8') as fh:
+        json.dump(_EQ.items, fh)
+    n_eq = len(_EQ.items); _EQ = None
+    omml.main(draft, eq_json, out)
+    print('saved', out, sum(len(i) for _, i in D.GROUPS), 'papers |', n_eq, 'inline equations')
 
 
 if __name__ == '__main__':

@@ -136,7 +136,7 @@ def fig_n1(out, R, Sx):
     ax.plot(t[sel], Sx['fixed_head_bc'][sel], color=ORANGE, lw=1.1, label='fixed head')
     ax.plot(t[sel], Sx['no_flow_bc'][sel], color=VIOLET, lw=1.1, label='no flow')
     ax.plot(t[sel], Sx['ghb_calibrated_bc'][sel], color=AQUA, lw=1.1, label='calibrated GHB')
-    ax.plot(t[sel], Sx['pertej_M6_bc'][sel], color=BLUE, lw=1.2, ls=(0, (4, 2)), label='PËRTEJ-GO, 6 compartments',
+    ax.plot(t[sel], Sx['pertej_M6_bc'][sel], color=BLUE, lw=1.2, ls=(0, (4, 2)), label='BEYOND-GO, 6 compartments',
             zorder=6)
     GF.style(ax); ax.set_xlim(6, 14)
     ax.set_xlabel('time (years)'); ax.set_ylabel('head at the boundary cell (m)')
@@ -146,9 +146,9 @@ def fig_n1(out, R, Sx):
     ax = axs[1]
     rows = [('fixed head', N1['cases']['fixed_head']['rms_bc'], REF), ('no flow', N1['cases']['no_flow']['rms_bc'], REF),
             ('calibrated GHB', N1['cases']['ghb_calibrated']['rms_bc'], REF),
-            ('PËRTEJ-GO, 3', N1['cases']['pertej_M3']['rms_bc'], BLUE),
-            ('PËRTEJ-GO, 6', N1['cases']['pertej_M6']['rms_bc'], BLUE),
-            ('PËRTEJ-GO, 12', N1['cases']['pertej_M12']['rms_bc'], BLUE)]
+            ('BEYOND-GO, 3', N1['cases']['pertej_M3']['rms_bc'], BLUE),
+            ('BEYOND-GO, 6', N1['cases']['pertej_M6']['rms_bc'], BLUE),
+            ('BEYOND-GO, 12', N1['cases']['pertej_M12']['rms_bc'], BLUE)]
     ys = np.arange(len(rows))[::-1]
     for y, (lab, v, col) in zip(ys, rows):
         ax.barh(y, v - 1e-4, height=0.62, color=col, left=1e-4)
@@ -258,8 +258,8 @@ def fig_n4(out, R, Sx):
             color=MUTED)
     ax.plot(t, Sx['n4_pred_full'], color=INK, lw=2.4, label='full aquifer (truth)', zorder=5)
     ax.plot(t, Sx['n4_pred_ghb'], color=REF, lw=1.3, label='calibrated GHB', zorder=4)
-    ax.plot(t, Sx['n4_pred_seasonal_10mm'], color=ORANGE, lw=1.2, label='PËRTEJ-GO, steady pumping, 10 mm')
-    ax.plot(t, Sx['n4_pred_broadband_2mm'], color=BLUE, lw=1.3, ls=(0, (4, 2)), label='PËRTEJ-GO, varied pumping, 2 mm',
+    ax.plot(t, Sx['n4_pred_seasonal_10mm'], color=ORANGE, lw=1.2, label='BEYOND-GO, steady pumping, 10 mm')
+    ax.plot(t, Sx['n4_pred_broadband_2mm'], color=BLUE, lw=1.3, ls=(0, (4, 2)), label='BEYOND-GO, varied pumping, 2 mm',
             zorder=6)
     GF.style(ax); ax.set_xlim(0, 10); ax.set_ylim(-1.55, 2.4)
     ax.set_xlabel('time (years)'); ax.set_ylabel('head at the boundary cell (m)')

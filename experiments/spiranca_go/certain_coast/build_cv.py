@@ -64,8 +64,8 @@ def guide(doc, text):
     p = para(doc, 3, 0.3); run(p, 'Guidance: ' + text, italic=True, size=9, color='7A8590')
 
 
-def sec(doc, text):
-    p = para(doc, 3, before=6); run(p, text, bold=True, size=11.5, color='1F3864'); p.paragraph_format.keep_with_next = True
+def sec(doc, text, before=6, after=3):
+    p = para(doc, after, before=before); run(p, text, bold=True, size=11.5, color='1F3864'); p.paragraph_format.keep_with_next = True
     pPr = p._p.get_or_add_pPr(); b = OxmlElement('w:pBdr'); bt = OxmlElement('w:bottom')
     for k, v in (('w:val', 'single'), ('w:sz', '6'), ('w:space', '1'), ('w:color', '9AA3AD')):
         bt.set(k if ':' not in k else '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}' + k.split(':')[1], v)
@@ -122,9 +122,9 @@ def ph_table(doc, header, rows, widths, size=10):
     return t
 
 
-def bullets_ph(doc, items, size=10.5):
+def bullets_ph(doc, items, size=10.5, after=2):
     for t in items:
-        p = para(doc, 2, 0.5); run(p, '• ', size=size); ph(p, t, size=size)
+        p = para(doc, after, 0.5); run(p, '• ', size=size); ph(p, t, size=size)
 
 
 def page_break(doc):
@@ -191,10 +191,12 @@ NCD_DETAILS = [
     ['Country', '[NATO member]'], ['E-mail', '[e-mail]'], ['ORCID and researcher IDs', '[ORCID, Scopus ID]'],
 ]
 
-NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is accountable for the SPS funds (WP7); leads the '
-            'monitoring network designed for the warnings (WP4) and the live '
-            'demonstration with the Institute of Geosciences (IGJEO), the end-user (WP5); contributes to the coupled '
-            'model (WP2) and to the measurement of coastal motion and relative sea level (WP1). Chairs the steering committee, '
+NPD_ROLE = ('As NATO-country Project Director, coordinates CERTAIN-COAST and is accountable for the SPS funds (WP7). '
+            '**He builds the mathematical model of the project himself, the coupled model (WP2) and the certified alarms '
+            '(WP3), and does all the programming**, released as open-source code in MATLAB '
+            '(github.com/dulianzeqiraj/certain-coast). He leads the monitoring network designed for the warnings (WP4) and '
+            'the live demonstration with the Institute of Geosciences (IGJEO), the end-user (WP5), and contributes to the '
+            'measurement of coastal motion and relative sea level (WP1). Chairs the steering committee, '
             'signs the access agreements for the wells (T7.2, Month 3) and oversees the hand-over to IGJEO at '
             'Month 36.')
 
@@ -235,6 +237,8 @@ NPD = dict(
         '**Modelling software and field background:** C++, Python and MATLAB; ten years in oil production (Albpetrol) and '
         'two years at the Albanian Geological Survey.',
     ],
+    pubs_note='**First author of every publication listed below; all are published by Elsevier** (the eight journal '
+              'papers, and the two preprints on SSRN, an Elsevier service).',
     pubs=[
         ('**Zeqiraj, D.** (2026). Goal-oriented Bayesian experimental design for variable-density seawater intrusion: '
          'Adjoint expected information gain for joint monitoring and managed-aquifer-recharge placement. Journal of '
@@ -290,21 +294,24 @@ NPD = dict(
 def cv_filled(doc, d, role, role_text):
     # a CV with known facts filled in and no guidance lines; unknown facts stay highlighted
     p = para(doc, 0); run(p, d['name'], bold=True, size=19, color='1F3864')
-    p = para(doc, 6); run(p, role + '  ·  CERTAIN-COAST', bold=True, size=10.5, color='2E6DB4')
+    p = para(doc, 4); run(p, role + '  ·  CERTAIN-COAST', bold=True, size=10.5, color='2E6DB4')
     pPr = p._p.get_or_add_pPr(); b = OxmlElement('w:pBdr'); bt = OxmlElement('w:bottom')
     for k, v in (('w:val', 'single'), ('w:sz', '12'), ('w:space', '4'), ('w:color', '1F3864')):
         bt.set('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}' + k.split(':')[1], v)
     b.append(bt); pPr.append(b)
     sz = 9.2
-    sec(doc, '1. Personal details')
+    sec_ = lambda doc_, t_: sec(doc_, t_, before=4, after=2)      # compact: two pages also inside the merged files
+    sec_(doc, '1. Personal details')
     ph_table(doc, ['Item', 'Details'], d['details'], [4.2, 12.4], size=sz)
-    sec(doc, '2. Education')
+    sec_(doc, '2. Education')
     ph_table(doc, ['Year', 'Degree', 'Institution', 'Field'], d['education'], [2.2, 3.8, 6.4, 4.2], size=sz)
-    sec(doc, '3. Career')
+    sec_(doc, '3. Career')
     ph_table(doc, ['Years', 'Position', 'Institution'], d['career'], [2.2, 6.4, 8.0], size=sz)
-    sec(doc, '4. Expertise relevant to CERTAIN-COAST')
-    bullets_ph(doc, d['expertise'], size=sz + 0.3)
-    sec(doc, '5. Selected publications (peer-reviewed, with DOI)')
+    sec_(doc, '4. Expertise relevant to CERTAIN-COAST')
+    bullets_ph(doc, d['expertise'], size=sz + 0.3, after=1)
+    sec_(doc, '5. Selected publications (peer-reviewed, with DOI)')
+    if d.get('pubs_note'):
+        p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, d['pubs_note'], size=sz)
     for i, (t, u) in enumerate(d['pubs'], start=1):
         p = para(doc, 1.5, 0.6); p.paragraph_format.first_line_indent = Cm(-0.6)
         run(p, f'{i}.\t', bold=True, size=sz, color='1F3864'); ph(p, t + ' ', size=sz); link(p, u, u, sz)
@@ -316,20 +323,20 @@ def cv_filled(doc, d, role, role_text):
             p = para(doc, 2, 0.6); p.paragraph_format.first_line_indent = Cm(-0.6)
             run(p, '•\t', bold=True, size=sz, color='1F3864'); ph(p, t + ' ', size=sz); link(p, u, u, sz)
             p.paragraph_format.tab_stops.add_tab_stop(Cm(0.6))
-    sec(doc, '6. Projects and grants')
+    sec_(doc, '6. Projects and grants')
     if d.get('projects'):
         ph_table(doc, ['Years', 'Project', 'Funder', 'Role'], d['projects'], [2.4, 6.6, 3.8, 3.8], size=sz)
     else:
         bullets_ph(doc, d['projects_bullets'], size=sz + 0.3)
     p = para(doc, 2, before=2); run(p, 'Other NATO SPS grants currently held: ', bold=True, size=sz); ph(p, d['sps'], size=sz)
-    sec(doc, '7. Work with end-users and in the field')
-    bullets_ph(doc, d['users'], size=sz + 0.3)
-    sec(doc, '8. Teaching and supervision')
-    bullets_ph(doc, d['teaching'], size=sz + 0.3)
-    sec(doc, '9. Role in CERTAIN-COAST')
+    sec_(doc, '7. Work with end-users and in the field')
+    bullets_ph(doc, d['users'], size=sz + 0.3, after=1)
+    sec_(doc, '8. Teaching and supervision')
+    bullets_ph(doc, d['teaching'], size=sz + 0.3, after=1)
+    sec_(doc, '9. Role in CERTAIN-COAST')
     p = para(doc, 3); p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY; ph(p, role_text, size=sz + 0.3)
-    sec(doc, '10. Other')
-    bullets_ph(doc, d['other'], size=sz + 0.3)
+    sec_(doc, '10. Other')
+    bullets_ph(doc, d['other'], size=sz + 0.3, after=1)
 
 
 def main_one(out, d, role, role_text):
