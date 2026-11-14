@@ -30,34 +30,46 @@ Pipeline
      An equation that mathtext cannot typeset keeps its OMML (fallback); the list of such LaTeX strings is
      returned.
   4. Inline equations are typeset at the size of the neighbouring text run (w:sz of the run, else of its
-     character style, paragraph style or the document defaults, else default_inline_pt); display equations
-     at display_pt. The picture has exactly the typeset width, height and depth (descent).
+     character style, paragraph style or the document defaults; with no text beside it, the size of the
+     equation's own runs; else default_inline_pt); display equations at display_pt, smaller if the equation
+     is wider than its text column or table cell (Word would break the line). The picture has exactly the
+     typeset width, height and depth (descent); ink beyond that box widens it. The colour is black, dark red
+     when red(element) is true, an explicit colour of the equation's runs, or, among light text (white on
+     a dark table header), the colour of that text so that it stays readable.
 
 Baseline
   Word lowers an inline picture with <w:position w:val="-N"/> (N in half-points) on its run. LibreOffice
-  24.2 ignores w:position for pictures (it only turns it into an escapement of text) and always puts the
-  bottom of an inline picture on the baseline. So every inline equation is written in an
-  <mc:AlternateContent>:
+  24.2 ignores w:position for pictures (it turns it into an escapement of text only) and puts the bottom of
+  an inline picture on the baseline. So each inline equation is written in an <mc:AlternateContent>:
     * mc:Choice Requires="wp14", taken by Word 2010 and later: the inline picture lowered by w:position
-      (the picture's depth is rounded up to whole half-points, so the lowering is exact);
-    * mc:Fallback, taken by LibreOffice (it only takes a Choice that requires wps, wpg, wpc or w14): a
-      zero-width VML rectangle as high as the part of the equation above the baseline, the picture anchored
-      at the next character (positionH relative to the character, positionV relative to the line, offset 0,
-      no wrap), and a transparent inline picture of the equation's width and height above the baseline.
-      With proportional line spacing LibreOffice puts the top of a picture anchored relative to the line at
-      the top of the character rectangle at the anchor, which is the top of the two spacers (on either side
-      of the anchor, so that this holds also when the line breaks between them): the picture's baseline
-      lands on the text baseline to 0.1 pt, also in justified text and in tables. When the equation goes
-      deeper than the font's descent, a zero-width VML rectangle hanging below the baseline makes the line
-      deep enough, as Word does.
-  A display equation alone in its paragraph is a plain inline picture (with w:position for Word); the
-  paragraph takes the equation's alignment (m:jc, centred by default) if it had none, since a picture
-  does not follow m:jc. A display equation with text in its paragraph (tabs, an equation number "(6)")
-  is written like an inline equation, so that the number sits on its baseline.
+      (its depth is rounded up to whole half-points, so the lowering is exact);
+    * mc:Fallback, taken by LibreOffice (it takes only a Choice that requires wps, wpg, wpc or w14): an
+      invisible inline DrawingML rectangle of no width, the picture anchored at the next character
+      (positionH relative to the character, positionV relative to the line, no wrap), and an invisible
+      rectangle as wide as the equation; both rectangles are as high as the equation above the baseline.
+      With proportional line spacing LibreOffice puts a picture anchored relative to the line at the top
+      of the character rectangle at the anchor: that of the rectangle before it, or at the start of a line
+      that of the one after it. The equation's baseline lands on the text baseline to 0.1 pt, in justified
+      text and in tables, and its place in the line is exactly its width. (Measured in 24.2: inline VML
+      shapes there add height to the lines of a paragraph with direct space after and move the anchored
+      picture; a transparent picture cannot be narrower than 1.15 pt.)
+  With single, exact or at-least line spacing LibreOffice takes the top of the line instead. A paragraph
+  with single spacing (w:line 240, auto, in itself, its style or its table's style) that holds inline
+  equations gets 101 % (w:line 243), which looks the same; with exact or at-least spacing the equation is a
+  plain inline picture there (lowered for Word only; counted in the statistics).
+  In a paragraph without text (an equation alone in a table cell) Word's line is as high as the paragraph
+  mark's font, so the rectangles are made that high (and the picture goes down by the difference).
+  LibreOffice reserves no room below the baseline for the anchored picture; inline equations are at most
+  about half an em deep, which the line spacing takes.
+  A display equation alone in its paragraph is a plain inline picture (lowered for Word); the paragraph
+  takes the equation's justification (m:jc, else the document's m:defJc, centred) since a picture does not
+  follow m:jc. A display equation with other content in its paragraph (tabs, an equation number "(6)") is
+  written like an inline equation, so that the number sits on its baseline; the other content stays.
 
-Nothing else in the document changes: only the m:oMath / m:oMathPara elements are replaced, the pictures
-are added under word/media with their relationships, [Content_Types].xml gets a png default if missing,
-and the paragraph of a display equation gets w:jc as said. All other parts are copied byte for byte.
+Nothing else in the document changes: the m:oMath / m:oMathPara elements are replaced in place, the
+pictures are added under word/media with their relationships, [Content_Types].xml gets a png default if it
+lacks one, the paragraph of a display equation may get w:jc and a single-spaced paragraph with inline
+equations w:line 243, as said. All other parts of the package are copied byte for byte.
 
 Make the PDF with lossless pictures:
   soffice --headless --convert-to 'pdf:writer_pdf_Export:{"UseLosslessCompression":{"type":"boolean","value":"true"},"ReduceImageResolution":{"type":"boolean","value":"false"}}' --outdir OUT file.docx
@@ -65,8 +77,9 @@ Make the PDF with lossless pictures:
 levels of transparency (tRNS), so they are small and sit on shaded table cells without a white box;
 LibreOffice stores identical pictures once in the PDF.
 
-Only python-docx, lxml, numpy, matplotlib (mathtext; its Pillow dependency writes the PNG files) and
-pandoc are used.
+Only python-docx, lxml, numpy, matplotlib (mathtext; its Pillow dependency writes the PNG files), pandoc
+and fontconfig's fc-match (the ascent of a paragraph's font, for an equation alone in its paragraph) are
+used.
 """
 import argparse
 import copy
@@ -98,15 +111,14 @@ WP_NS = 'http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing'
 A_NS = 'http://schemas.openxmlformats.org/drawingml/2006/main'
 PIC_NS = 'http://schemas.openxmlformats.org/drawingml/2006/picture'
 MC_NS = 'http://schemas.openxmlformats.org/markup-compatibility/2006'
-V_NS = 'urn:schemas-microsoft-com:vml'
-O_NS = 'urn:schemas-microsoft-com:office:office'
 WP14_NS = 'http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing'
 PR_NS = 'http://schemas.openxmlformats.org/package/2006/relationships'
 CT_NS = 'http://schemas.openxmlformats.org/package/2006/content-types'
 IMAGE_REL = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image'
+WPS_NS = 'http://schemas.microsoft.com/office/word/2010/wordprocessingShape'
 
 _NSDECL = (f'xmlns:w="{W_NS}" xmlns:r="{R_NS}" xmlns:wp="{WP_NS}" xmlns:a="{A_NS}" xmlns:pic="{PIC_NS}" '
-           f'xmlns:mc="{MC_NS}" xmlns:v="{V_NS}" xmlns:o="{O_NS}" xmlns:wp14="{WP14_NS}"')
+           f'xmlns:mc="{MC_NS}" xmlns:wp14="{WP14_NS}"')
 
 
 def _w(tag):
@@ -135,6 +147,9 @@ _PREP_VERSION = 'omml-prep-3'
 _UPRIGHT, _BOLDITALIC, _OPNAME = '\ue000', '\ue001', '\ue002'
 # Placeholders for arrays (matrices, cases, aligned) inside a mathtext string.
 _PLACEHOLDER0 = 0xE100
+# Put before an operator, relation or comma in a script (or a text-style fraction): no spaces around it,
+# as TeX and Word set them; mathtext would space them as in the main line.
+_TIGHT = '\ue0ff'
 
 # Function names that pandoc's OMML reader turns into \ln, \max ... and that mathtext knows.
 _TEX_FUNCS = set('arccos arcsin arctan arg cos cosh cot coth csc deg det dim exp gcd hom inf ker lg lim '
@@ -397,6 +412,27 @@ def _as_list(node):
     return node if isinstance(node, _G) else _G([node])
 
 
+def _primes(node):
+    """Number of primes if the node is a superscript made only of primes (\\prime, ', ′, ″, ‴), else 0."""
+    toks = [x for x in _as_list(node) if not (isinstance(x, str) and x.isspace())]
+    n = 0
+    for x in toks:
+        if isinstance(x, _G):
+            m = _primes(x)
+            if not m:
+                return 0
+            n += m
+        elif x in (r'\prime', "'", '′'):
+            n += 1
+        elif x == '″':
+            n += 2
+        elif x == '‴':
+            n += 3
+        else:
+            return 0
+    return n
+
+
 def _empty(node):
     if node is None:
         return True
@@ -444,7 +480,7 @@ class _Translator:
         self.arrays = {}  # placeholder character -> (rows of cell strings, alignment, gap em, stretch)
 
     # -- helpers -------------------------------------------------------------------------------------
-    def _text(self, raw, kind=r'\text'):
+    def _text(self, raw):
         """\\text{raw} (raw is the LaTeX inside the braces) -> mathtext."""
         marker = raw[:1]
         if marker in (_UPRIGHT, _BOLDITALIC, _OPNAME):
@@ -556,14 +592,17 @@ class _Translator:
         return ph, j
 
     # -- main walk --------------------------------------------------------------------------------------
-    def emit(self, nodes, lvl=0):
+    def emit(self, nodes, lvl=0, script=False):
+        """Walk a token list. lvl counts fraction and script levels (\\dfrac only at the top of a
+        display equation); script is true in scripts and in text-style fractions."""
         out = []
         i = 0
         n = len(nodes)
+        spaced = _spaced_symbols()
         while i < n:
             t = nodes[i]
             if isinstance(t, _G):
-                out.append('{' + self.emit(t, lvl) + '}')
+                out.append('{' + self.emit(t, lvl, script) + '}')
                 i += 1
                 continue
             if t.isspace():
@@ -575,7 +614,28 @@ class _Translator:
                 if _empty(a):                       # empty limits of n-ary operators: \sum_{x}^{}
                     i = j
                     continue
-                out.append(t + '{' + self.emit(_as_list(a), lvl + 1) + '}')
+                nprimes = _primes(a) if t == '^' else 0
+                if nprimes:
+                    # A^{\prime}: the STIX prime is drawn raised already; as a superscript it would be tiny
+                    # and too high. Put it beside the base, before a subscript: {A′}_{e}, {f″}.
+                    glyph = {1: r'\prime', 2: '″', 3: '‴'}.get(nprimes, r'\prime' * nprimes)
+                    k = len(out) - 1
+                    while k >= 0 and out[k] == ' ':
+                        k -= 1
+                    sub = k >= 1 and out[k].startswith('_{')
+                    if sub:
+                        k -= 1
+                        while k >= 0 and out[k] == ' ':
+                            k -= 1
+                    nk = _skip_ws(nodes, j)
+                    sub = sub or (nk < n and nodes[nk] == '_')
+                    if k >= 0:
+                        out[k] = '{' + out[k] + glyph + (r'\!' if sub else '') + '}'
+                    else:
+                        out.append(glyph)
+                    i = j
+                    continue
+                out.append(t + '{' + self.emit(_as_list(a), lvl + 1, True) + '}')
                 i = j
                 continue
             if t == '\\\\':                          # a line break outside an environment: mathtext has none
@@ -590,8 +650,13 @@ class _Translator:
                     i += 1
                 out.append('%s{%s}' % (op, ''.join(chars)))
                 continue
+            if t == ',' and i + 1 < n and isinstance(nodes[i + 1], str) and nodes[i + 1][:1].isdigit() \
+                    and ''.join(out).rstrip()[-1:].isdigit():
+                out.append('{,}')                    # a digit-group comma (1,000): no space after it
+                i += 1
+                continue
             if not t.startswith('\\'):
-                out.append(t)
+                out.append((_TIGHT + t) if script and t in spaced else t)
                 i += 1
                 continue
             # ---- commands
@@ -635,8 +700,9 @@ class _Translator:
             if t in (r'\frac', r'\dfrac', r'\tfrac', r'\cfrac', r'\binom', r'\dbinom', r'\tbinom'):
                 a, j = _arg(nodes, i + 1)
                 b, j = _arg(nodes, j)
-                na, nb = self.emit(_as_list(a), lvl + 1), self.emit(_as_list(b), lvl + 1)
                 disp = (self.display and lvl == 0 and t not in (r'\tfrac', r'\tbinom')) or t in (r'\dfrac', r'\dbinom', r'\cfrac')
+                na = self.emit(_as_list(a), lvl + 1, script or not disp)
+                nb = self.emit(_as_list(b), lvl + 1, script or not disp)
                 if 'binom' in t:
                     out.append(r'\genfrac{(}{)}{0}{%s}{%s}{%s}' % ('0' if disp else '', na, nb))
                 else:
@@ -652,16 +718,16 @@ class _Translator:
                     while k < n and nodes[k] != ']':
                         idx.append(nodes[k])
                         k += 1
-                    root = '[' + self.emit(_G(idx), lvl + 2) + ']'
+                    root = '[' + self.emit(_G(idx), lvl + 2, True) + ']'
                     j = k + 1
                 a, j = _arg(nodes, j)
-                out.append(r'\sqrt%s{%s}' % (root, self.emit(_as_list(a), lvl)))
+                out.append(r'\sqrt%s{%s}' % (root, self.emit(_as_list(a), lvl, script)))
                 i = j
                 continue
             if t in (r'\overset', r'\underset', r'\stackrel'):
                 a, j = _arg(nodes, i + 1)
                 b, j = _arg(nodes, j)
-                ann, body = self.emit(_as_list(a), lvl + 1), self.emit(_as_list(b), lvl)
+                ann, body = self.emit(_as_list(a), lvl + 1, True), self.emit(_as_list(b), lvl, script)
                 fname = self._funcname(body)
                 if t == r'\underset' and fname and not self.display:      # inline: limit beside
                     out.append(r'{\operatorname{%s}}_{%s}' % (fname, ann))
@@ -673,7 +739,7 @@ class _Translator:
                 continue
             if t in _ACCENTS:
                 a, j = _arg(nodes, i + 1)
-                body = self.emit(_as_list(a), lvl)
+                body = self.emit(_as_list(a), lvl, script)
                 single = (not isinstance(a, _G) or len([x for x in a if not (isinstance(x, str) and x.isspace())]) == 1) \
                     and not (isinstance(a, _G) and a and isinstance(a[0], _G))
                 cmd = t
@@ -695,12 +761,12 @@ class _Translator:
                 if cmd == r'\mathit' and len(inner) == 1 and isinstance(inner[0], str) and inner[0][1:] in _TEX_FUNCS:
                     out.append(r'\mathit{%s}' % inner[0][1:])
                 else:
-                    out.append(r'%s{%s}' % (cmd, self.emit(inner, lvl)))
+                    out.append(r'%s{%s}' % (cmd, self.emit(inner, lvl, script)))
                 i = j
                 continue
             if t == r'\boxed':
                 a, j = _arg(nodes, i + 1)
-                out.append('{' + self.emit(_as_list(a), lvl) + '}')
+                out.append('{' + self.emit(_as_list(a), lvl, script) + '}')
                 i = j
                 continue
             if t in _BIG_OPS:
@@ -722,11 +788,10 @@ class _Translator:
                 out.append(t + ' ')
                 i += 1
                 continue
-            if t in _SYMBOL_MAP:
-                out.append(_SYMBOL_MAP[t] + ' ')
-                i += 1
-                continue
-            out.append(t + (' ' if t[1:2].isalpha() else ''))
+            t = _SYMBOL_MAP.get(t, t)
+            if script and t in spaced:
+                t = _TIGHT + t
+            out.append(t + (' ' if t[-1:].isalpha() else ''))
             i += 1
         return ''.join(out)
 
@@ -738,6 +803,19 @@ class _Translator:
             return None
         name = next(g for g in m.groups() if g)
         return name if (name in _LIMIT_FUNCS or m.group(1) or m.group(3) or m.group(4)) else None
+
+
+_SPACED = []
+
+
+def _spaced_symbols():
+    """The operators, relations, arrows and punctuation that mathtext spaces."""
+    if not _SPACED:
+        from matplotlib import _mathtext as mt
+        P = mt.Parser
+        _SPACED.append(set(P._binary_operators) | set(P._relation_symbols) | set(P._arrow_symbols)
+                       | {',', ';', '-', '+', '='})
+    return _SPACED[0]
 
 
 def _tidy(s):
@@ -779,6 +857,13 @@ def _mathtext():
     from matplotlib import _mathtext as mt
     from matplotlib.font_manager import FontProperties
     from matplotlib.ft2font import LoadFlags
+
+    class BarRule(mt.Rule):
+        """A vertical rule from `height` above to `depth` below the baseline (mathtext draws a rule in a
+        horizontal list only `height` tall, ending `depth` below the baseline)."""
+
+        def render(self, output, x, y, w, h):
+            self.fontset.render_rect_filled(output, x, y - self.height - self.depth, w, self.height + self.depth)
 
     class ShiftedChar(mt.Char):
         """A character moved down by `shift` pixels (a big operator centred on the math axis). It is still a
@@ -827,20 +912,21 @@ def _mathtext():
             return super()._auto_sized_delimiter(front, middle, back)
 
         def _bar(self, c, h, d):
-            """A | or ‖ as tall as the content, drawn as rules of the glyph's own stem width (mathtext
-            would stretch the one glyph STIX has, into a heavy bar)."""
-            state = self.get_state()
+            """A | or ‖ around content, drawn as rules of the glyph's stem width, at least as tall as a
+            parenthesis and as tall as the content: STIX has one size of these glyphs, which mathtext would
+            scale to the content, into a heavy bar for a tall one and a tiny bar for a short one."""
+            state = self.get_state().copy()
+            state.font = '0'
             double = c in (r'\|', r'\Vert', '‖')
             glyph = mt.Char('‖' if double else '|', state)
-            if h + d <= (glyph.height + glyph.depth) * 1.02:
-                return None
+            paren = mt.Char('(', state)
             single = mt.Char('|', state)._metrics
             m = glyph._metrics
             t = single.xmax - single.xmin
-            h, d = max(h, glyph.height), max(d, glyph.depth)
-            parts = [mt.Kern(m.xmin), mt.Rule(t, h, d, state)]
+            h, d = max(h, paren.height), max(d, paren.depth)
+            parts = [mt.Kern(m.xmin), BarRule(t, h, d, state)]
             if double:
-                parts += [mt.Kern((m.xmax - m.xmin) - 2 * t), mt.Rule(t, h, d, state)]
+                parts += [mt.Kern((m.xmax - m.xmin) - 2 * t), BarRule(t, h, d, state)]
             parts.append(mt.Kern(m.advance - m.xmax))
             return mt.Hlist(parts)
 
@@ -849,10 +935,15 @@ def _mathtext():
             spec = self.arrays.get(c)
             if spec is not None:
                 return [self._array(spec)]
-            if c in ('-', '+', '−', r'\pm', r'\mp') and not self._in_subscript_or_superscript \
-                    and unary_before.search(s[:loc]):
-                # a sign after a comma, a quad or at the start: unary, no operator spaces (as TeX, Word)
-                return [mt.Char('−' if c == '-' else c, self.get_state())]
+            if c == _TIGHT:
+                return [mt.Hbox(0)]
+            if s[loc - 1:loc] == _TIGHT or (c in ('-', '+', '−', r'\pm', r'\mp')
+                                             and unary_before.search(s[:loc])):
+                # in a script, or a sign after a comma, a quad or at the start: no spaces (as TeX, Word)
+                try:
+                    return [mt.Char('−' if c == '-' else c, self.get_state())]
+                except ValueError:
+                    pass
             if self.display and (c in _BIG_OPS or c in _INTEGRALS):
                 state = self.get_state()
                 if state.fontsize >= self.base_size * 0.99:            # not in a script
@@ -1012,13 +1103,19 @@ def _png(cov, color):
 
 # ============================================================================================ document side
 class _Styles:
-    """Font size and colour of paragraph and character styles (with basedOn) and of the defaults."""
+    """Font size, colour and line spacing of paragraph, character and table styles (with basedOn) and of
+    the document defaults."""
 
     def __init__(self, styles_xml):
         self.styles = {}
+        self.spacing = {}            # style id -> (w:line, w:lineRule) of its w:pPr, if it sets w:line
+        self.cell_mar_raw = {}       # table style id -> {'left': twips, 'right': twips}
+        self.fonts = {}              # style id -> w:rFonts/@w:ascii
+        self.doc_font = None
         self.default_para = None
         self.doc_sz = None
         self.doc_color = None
+        self.doc_line = None
         if not styles_xml:
             return
         root = etree.fromstring(styles_xml)
@@ -1026,6 +1123,11 @@ class _Styles:
         if dd is not None:
             self.doc_sz = self._sz(dd)
             self.doc_color = self._color(dd)
+            rf = dd.find(_w('rFonts'))
+            self.doc_font = rf.get(_w('ascii')) if rf is not None else None
+        dp = root.find(f'{_w("docDefaults")}/{_w("pPrDefault")}/{W_PPR}')
+        if dp is not None:
+            self.doc_line = _line_of(dp)
         for s in root.findall(_w('style')):
             sid = s.get(_w('styleId'))
             based = s.find(_w('basedOn'))
@@ -1033,8 +1135,53 @@ class _Styles:
             self.styles[sid] = (based.get(W_VAL) if based is not None else None,
                                 self._sz(rpr) if rpr is not None else None,
                                 self._color(rpr) if rpr is not None else None)
+            ppr = s.find(W_PPR)
+            if ppr is not None and _line_of(ppr):
+                self.spacing[sid] = _line_of(ppr)
+            rf = rpr.find(_w('rFonts')) if rpr is not None else None
+            if rf is not None and rf.get(_w('ascii')):
+                self.fonts[sid] = rf.get(_w('ascii'))
+            if s.get(_w('type')) == 'table':
+                mar = s.find(f'{_w("tblPr")}/{_w("tblCellMar")}')
+                d = {}
+                if mar is not None:
+                    for side, alt in (('left', 'start'), ('right', 'end')):
+                        e = mar.find(_w(side))
+                        if e is None:
+                            e = mar.find(_w(alt))
+                        if e is not None:
+                            d[side] = _twips(e, 'w')
+                self.cell_mar_raw[sid] = d
             if s.get(_w('type')) == 'paragraph' and s.get(_w('default')) in ('1', 'true', 'on'):
                 self.default_para = sid
+
+    def tbl_cell_mar(self, sid):
+        """Left/right cell margins (twips) of a table style, following basedOn."""
+        seen = set()
+        while sid and sid not in seen and sid in self.cell_mar_raw:
+            seen.add(sid)
+            if self.cell_mar_raw[sid]:
+                return self.cell_mar_raw[sid]
+            sid = self.styles.get(sid, (None,))[0]
+        return {}
+
+    def font_chain(self, sid):
+        seen = set()
+        while sid and sid not in seen and sid in self.styles:
+            seen.add(sid)
+            if sid in self.fonts:
+                return self.fonts[sid]
+            sid = self.styles[sid][0]
+        return None
+
+    def line_chain(self, sid):
+        seen = set()
+        while sid and sid not in seen and sid in self.styles:
+            seen.add(sid)
+            if sid in self.spacing:
+                return self.spacing[sid]
+            sid = self.styles[sid][0]
+        return None
 
     @staticmethod
     def _sz(rpr):
@@ -1060,6 +1207,35 @@ class _Styles:
                 return v
             sid = based
         return None
+
+
+def _line_of(ppr):
+    sp = ppr.find(_w('spacing'))
+    if sp is None or sp.get(_w('line')) is None:
+        return None
+    try:
+        return int(sp.get(_w('line'))), sp.get(_w('lineRule')) or 'auto'
+    except ValueError:
+        return None
+
+
+def _line_spacing(p, styles):
+    """(w:line, w:lineRule) in force for a paragraph: direct, paragraph style, table style, defaults."""
+    ppr = p.find(W_PPR)
+    v = _line_of(ppr) if ppr is not None else None
+    if v:
+        return v
+    v = styles.line_chain(_para_style(p, styles))
+    if v:
+        return v
+    tbl = next((a for a in p.iterancestors() if a.tag == _w('tbl')), None)
+    if tbl is not None:
+        ts = tbl.find(f'{_w("tblPr")}/{_w("tblStyle")}')
+        if ts is not None:
+            v = styles.line_chain(ts.get(W_VAL))
+            if v:
+                return v
+    return styles.doc_line or (240, 'auto')
 
 
 def _para_style(p, styles):
@@ -1107,6 +1283,64 @@ def _neighbour_run(el, p):
     return prev if prev is not None else nxt
 
 
+def _omml_size(el):
+    """The commonest w:sz (half-points) of the runs of an OMML element, or None."""
+    szs = Counter()
+    for e in el.iter(W_SZ):
+        try:
+            szs[int(e.get(W_VAL))] += 1
+        except (TypeError, ValueError):
+            pass
+    return szs.most_common(1)[0][0] if szs else None
+
+
+_ASCENT = {}
+
+
+def _font_ascent(family):
+    """Ascent of a font family as LibreOffice lays out text (hhea ascender + line gap, per em), from the
+    font file fontconfig picks for it; 0.94 (Arial, Liberation Sans) when it cannot be read."""
+    if family in _ASCENT:
+        return _ASCENT[family]
+    ratio = 0.94
+    try:
+        path = subprocess.run(['fc-match', '-f', '%{file}', family or 'Liberation Serif'], capture_output=True,
+                              text=True, timeout=20).stdout.strip()
+        if path:
+            from matplotlib import ft2font
+            f = ft2font.FT2Font(path)
+            hh = f.get_sfnt_table('hhea')
+            if hh and f.units_per_EM:
+                ratio = (hh['ascent'] + max(hh.get('lineGap', 0), 0)) / f.units_per_EM
+    except Exception:
+        pass
+    _ASCENT[family] = ratio
+    return ratio
+
+
+def _para_has_text(p):
+    """True if the paragraph has text of its own (w:t outside equations) or a tab."""
+    for t in p.iter(W_T, _w('tab'), _w('sym')):
+        if t.tag != W_T or (t.text or '').strip():
+            if not any(a.tag in (M_OMATH, M_OMATHPARA) for a in t.iterancestors()):
+                return True
+    return False
+
+
+def _mark_ascent_pt(p, styles):
+    """Ascent (pt) of the font of the paragraph mark, as LibreOffice lays out a line."""
+    rpr = p.find(f'{W_PPR}/{W_RPR}')
+    sz = styles._sz(rpr) if rpr is not None else None
+    fam = None
+    if rpr is not None:
+        rf = rpr.find(_w('rFonts'))
+        fam = rf.get(_w('ascii')) if rf is not None else None
+    sid = _para_style(p, styles)
+    sz = sz or styles.chain(sid, 0) or styles.doc_sz or 20
+    fam = fam or styles.font_chain(sid) or styles.doc_font or 'Liberation Serif'
+    return _font_ascent(fam) * sz / 2.0
+
+
 def _omml_color(el):
     cols = Counter()
     for c in el.iter(W_COLOR):
@@ -1152,7 +1386,124 @@ def _set_jc(p, val):
     return True
 
 
-def _effective_jc(p, styles_root):
+def _twips(e, name):
+    if e is None:
+        return 0
+    v = e.get(_w(name))
+    try:
+        return int(float(v)) if v is not None else 0
+    except ValueError:
+        return 0
+
+
+def _cell_margins(tc, tbl, styles_tbl_mar):
+    """Left + right inner margins of a table cell (twips): the cell's, the table's, its style's, 108 each."""
+    total = 0
+    for side, alt in (('left', 'start'), ('right', 'end')):
+        v = None
+        for holder in (tc.find(f'{_w("tcPr")}/{_w("tcMar")}'), tbl.find(f'{_w("tblPr")}/{_w("tblCellMar")}')):
+            if holder is not None:
+                e = holder.find(_w(side))
+                if e is None:
+                    e = holder.find(_w(alt))
+                if e is not None and e.get(_w('type'), 'dxa') == 'dxa':
+                    v = _twips(e, 'w')
+                    break
+        if v is None:
+            v = styles_tbl_mar.get(side, 108)
+        total += v
+    return total
+
+
+def _text_widths(root, styles):
+    """Width (pt) available to the text of each paragraph: its column in the section, or its table cell
+    (from the table grid), less the cell margins and the paragraph indents."""
+    out = {}
+    body = root.find(_w('body'))
+    if body is None:
+        return out
+    # the section of each top-level block: sections end at a paragraph with w:sectPr, the last at the body's
+    sect_w = []
+    pending = []
+    def section_width(sp):
+        if sp is None:
+            return None
+        pg, mar = sp.find(_w('pgSz')), sp.find(_w('pgMar'))
+        w = _twips(pg, 'w') - _twips(mar, 'left') - _twips(mar, 'right') - _twips(mar, 'gutter')
+        cols = sp.find(_w('cols'))
+        n = int(cols.get(_w('num'), '1')) if cols is not None and (cols.get(_w('num')) or '1').isdigit() else 1
+        if n > 1:
+            w = (w - _twips(cols, 'space') * (n - 1)) / n
+        return w if w > 0 else None
+    for blk in body:
+        pending.append(blk)
+        sp = blk.find(f'{W_PPR}/{_w("sectPr")}') if blk.tag == W_P else (blk if blk.tag == _w('sectPr') else None)
+        if sp is not None:
+            w = section_width(sp)
+            sect_w.extend((b, w) for b in pending)
+            pending = []
+    final = body.find(_w('sectPr'))
+    fw = section_width(final)
+    sect_w.extend((b, fw) for b in pending)
+    for blk, w in sect_w:
+        for p in ([blk] if blk.tag == W_P else blk.iter(W_P)):
+            tc = next((a for a in p.iterancestors() if a.tag == _w('tc')), None)
+            avail = w
+            if tc is not None:
+                tbl = next(a for a in tc.iterancestors() if a.tag == _w('tbl'))
+                tr = tc.getparent()
+                grid = [_twips(g, 'w') for g in tbl.findall(f'{_w("tblGrid")}/{_w("gridCol")}')]
+                col = 0
+                gb = tr.find(f'{_w("trPr")}/{_w("gridBefore")}')
+                if gb is not None:
+                    col += int(gb.get(W_VAL, '0') or 0)
+                cw = None
+                for c in tr.findall(_w('tc')):
+                    span_e = c.find(f'{_w("tcPr")}/{_w("gridSpan")}')
+                    span = int(span_e.get(W_VAL, '1')) if span_e is not None else 1
+                    if c is tc:
+                        cw = sum(grid[col:col + span]) if grid[col:col + span] else None
+                        break
+                    col += span
+                if not cw:
+                    tw = tc.find(f'{_w("tcPr")}/{_w("tcW")}')
+                    cw = _twips(tw, 'w') if tw is not None and tw.get(_w('type')) == 'dxa' else None
+                if not cw:
+                    continue
+                ts = tbl.find(f'{_w("tblPr")}/{_w("tblStyle")}')
+                avail = cw - _cell_margins(tc, tbl, styles.tbl_cell_mar(ts.get(W_VAL) if ts is not None else None))
+            if not avail:
+                continue
+            ind = p.find(f'{W_PPR}/{_w("ind")}')
+            if ind is not None:
+                avail -= (_twips(ind, 'left') or _twips(ind, 'start')) + (_twips(ind, 'right') or _twips(ind, 'end'))
+                avail -= _twips(ind, 'firstLine')
+            out[p] = avail / 20.0
+    return out
+
+
+def _set_line(p, line):
+    """Give the paragraph direct proportional line spacing w:line (keeping its other w:spacing)."""
+    ppr = p.find(W_PPR)
+    if ppr is None:
+        ppr = etree.Element(W_PPR)
+        p.insert(0, ppr)
+    sp = ppr.find(_w('spacing'))
+    if sp is None:
+        sp = etree.Element(_w('spacing'))
+        pos = _PPR_ORDER.index('spacing')
+        for k, child in enumerate(ppr):
+            name = etree.QName(child).localname if isinstance(child.tag, str) else ''
+            if name in _PPR_ORDER and _PPR_ORDER.index(name) > pos:
+                ppr.insert(k, sp)
+                break
+        else:
+            ppr.append(sp)
+    sp.set(_w('line'), str(line))
+    sp.set(_w('lineRule'), 'auto')
+
+
+def _direct_jc(p):
     jc = p.find(f'{W_PPR}/{W_JC}')
     return jc.get(W_VAL) if jc is not None else None
 
@@ -1190,23 +1541,32 @@ def _inline_xml(rid, cx, cy, pid, name, descr):
             + _pic_xml(rid, cx, cy, pid, name, descr) + '</wp:inline></w:drawing>')
 
 
-def _anchor_xml(rid, cx, cy, pid, name, descr, zorder):
+def _anchor_xml(rid, cx, cy, pid, name, descr, zorder, yoff=0):
+    """The equation picture anchored at the next character: at its left edge, `yoff` EMU below the top of
+    the line (LibreOffice: the top of the character rectangle, see the module doc), no wrap."""
     return (f'<w:drawing><wp:anchor distT="0" distB="0" distL="0" distR="0" simplePos="0" relativeHeight="{zorder}" '
             f'behindDoc="0" locked="0" layoutInCell="1" allowOverlap="1">'
             f'<wp:simplePos x="0" y="0"/>'
             f'<wp:positionH relativeFrom="character"><wp:posOffset>0</wp:posOffset></wp:positionH>'
-            f'<wp:positionV relativeFrom="line"><wp:posOffset>0</wp:posOffset></wp:positionV>'
+            f'<wp:positionV relativeFrom="line"><wp:posOffset>{yoff}</wp:posOffset></wp:positionV>'
             f'<wp:extent cx="{cx}" cy="{cy}"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:wrapNone/>'
             f'<wp:docPr id="{pid}" name="{name}" descr="{descr}"/>'
             f'<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a="{A_NS}" noChangeAspect="1"/></wp:cNvGraphicFramePr>'
             + _pic_xml(rid, cx, cy, pid, name, descr) + '</wp:anchor></w:drawing>')
 
 
-def _vml_strut(pid, height_pt, where):
-    """A zero-width, invisible inline VML rectangle: on the baseline (top) or hanging below it (bottom)."""
-    return (f'<w:pict><v:rect id="omml_strut_{pid}" style="width:0;height:{height_pt:.3f}pt;'
-            f'mso-position-vertical:{where};mso-wrap-distance-left:0;mso-wrap-distance-top:0;'
-            f'mso-wrap-distance-right:0;mso-wrap-distance-bottom:0" stroked="f" filled="f"/></w:pict>')
+def _shape_spacer_xml(cx, cy, pid):
+    """An invisible inline DrawingML rectangle (no fill, no line) of cx x cy EMU, on the baseline: it keeps
+    the place of an equation in the line and gives the anchor its reference (see the module doc). Unlike
+    a picture it may have no width, and unlike a VML shape it does not change the line height."""
+    return (f'<w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0">'
+            f'<wp:extent cx="{cx}" cy="{cy}"/><wp:effectExtent l="0" t="0" r="0" b="0"/>'
+            f'<wp:docPr id="{pid}" name="Equation space {pid}"/><wp:cNvGraphicFramePr/>'
+            f'<a:graphic xmlns:a="{A_NS}"><a:graphicData uri="{WPS_NS}">'
+            f'<wps:wsp xmlns:wps="{WPS_NS}"><wps:cNvSpPr/><wps:spPr><a:xfrm><a:off x="0" y="0"/>'
+            f'<a:ext cx="{cx}" cy="{cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:noFill/>'
+            f'<a:ln><a:noFill/></a:ln></wps:spPr><wps:bodyPr/></wps:wsp></a:graphicData></a:graphic>'
+            f'</wp:inline></w:drawing>')
 
 
 def _xml_attr(s):
@@ -1298,13 +1658,14 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
                 if str(x).isdigit()] + [0]) + 1]
     zorder = [251660000]
     new_parts = {}
-    spacer_rid = [None]
     images_meta = []
     stats = Counter()
     fallback = []
     colors = Counter()
     sizes = Counter()
     jc_set = 0
+    spaced_paras = set()
+    para_text = {}
 
     def add_media(png):
         h = hashlib.sha1(png).hexdigest()
@@ -1327,11 +1688,6 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
         new_parts[name] = png
         media[h] = (name, rid)
         return rid
-
-    def get_spacer():
-        if spacer_rid[0] is None:
-            spacer_rid[0] = add_media(_png(np.zeros((1, 1), np.uint8), '000000'))
-        return spacer_rid[0]
 
     def render(key, size, color, display):
         rk = (key, size, color, display)
@@ -1362,6 +1718,7 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
         pid[0] += 1
         return pid[0] - 1
 
+    widths = _text_widths(root, styles)
     for el, kind, p, oms, alone in units:
         stats[kind + '_found'] += 1
         # colour
@@ -1385,6 +1742,8 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
             if p is not None:
                 nb = _neighbour_run(el, p)
                 hs = _run_prop(nb, p, styles, 0) if nb is not None else None
+                if hs is None:       # no text beside it: the size of its own runs, as Word uses
+                    hs = _omml_size(el)
                 if hs is None:
                     hs = styles.chain(_para_style(p, styles), 0) or styles.doc_sz
                 if hs:
@@ -1393,6 +1752,16 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
                 size = float(default_inline_pt)
         keys = [key_of[id(om)] for om in oms]
         results = [render(k, size, color, kind == 'display') for k in keys]
+        if kind == 'display' and p is not None and all('error' not in r for r in results):
+            # a display equation wider than its column is set smaller, to fit (as Word would break it)
+            avail = widths.get(p)
+            widest = max(r['w_pt'] for r in results)
+            if avail and widest > avail:
+                small = max(size * avail / widest * 0.995, 0.6 * size)
+                small = math.floor(small * 4) / 4.0
+                results = [render(k, small, color, True) for k in keys]
+                stats['display_shrunk'] += 1
+                size = small
         bad = [r for r in results if 'error' in r]
         if bad or not results:
             stats[kind + '_fallback'] += 1
@@ -1400,6 +1769,18 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
                 fallback.append({'kind': kind, 'tex': r.get('tex'), 'reason': r['error']})
             continue
         # ---- the replacement runs
+        # LibreOffice's construct needs proportional line spacing (see the module doc): a paragraph with
+        # single spacing (w:line 240, auto) gets 101 % (243); with exact or at-least spacing the equation is
+        # a plain inline picture there (lowered for Word only).
+        anchored = not (kind == 'display' and alone)
+        if anchored and p is not None:
+            line, rule = _line_spacing(p, styles)
+            if rule in ('exact', 'atLeast'):
+                anchored = False
+                stats['not_aligned_in_libreoffice'] += 1
+            elif 236 <= line <= 241 and id(p) not in spaced_paras:
+                _set_line(p, 243)
+                spaced_paras.add(id(p))
         new_runs = []
         for k, res in enumerate(results):
             if k:
@@ -1409,17 +1790,23 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
             descr = _xml_attr(res['tex'] or '')
             i1 = new_id()
             name = 'Equation %d' % i1
-            if kind == 'display' and alone:
+            if not anchored:
                 xml = f'<w:r {_NSDECL}>{rpr}' + _inline_xml(res['rid'], res['cx'], res['cy'], i1, name, descr) + '</w:r>'
             else:
                 i2, i3 = new_id(), new_id()
                 zorder[0] += 1
                 choice = _inline_xml(res['rid'], res['cx'], res['cy'], i1, name, descr)
-                fb = (_vml_strut(i2, res['asc_pt'], 'top')
-                      + _anchor_xml(res['rid'], res['cx'], res['cy'], i2, name, descr, zorder[0])
-                      + _inline_xml(get_spacer(), res['cx'], res['asc_emu'], i3, 'Equation space %d' % i3, ''))
-                if res['depth_pt'] > 0.2 * size:      # deeper than the font's descent: make the line deep enough
-                    fb += _vml_strut(i3, res['depth_pt'], 'bottom')
+                # In a paragraph without text, Word's line still has the height of the paragraph mark's
+                # font; LibreOffice's line would be only as high as the spacers. Make them that high (the
+                # picture then goes down by the difference) so the baseline is where Word puts it.
+                h_emu = res['asc_emu']
+                if p is not None and not para_text.setdefault(id(p), _para_has_text(p)):
+                    t_emu = int(math.ceil(_mark_ascent_pt(p, styles) * 20)) * 635
+                    h_emu = max(h_emu, t_emu)
+                fb = (_shape_spacer_xml(0, h_emu, i3)
+                      + _anchor_xml(res['rid'], res['cx'], res['cy'], i2, name, descr, zorder[0],
+                                    h_emu - res['asc_emu'])
+                      + _shape_spacer_xml(res['cx'], h_emu, new_id()))
                 xml = (f'<w:r {_NSDECL}>{rpr}<mc:AlternateContent><mc:Choice Requires="wp14">{choice}</mc:Choice>'
                        f'<mc:Fallback>{fb}</mc:Fallback></mc:AlternateContent></w:r>')
             new_runs.append(etree.fromstring(xml))
@@ -1439,7 +1826,7 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
             mjc = el.find(f'{_m("oMathParaPr")}/{_m("jc")}')
             val = mjc.get(M_VAL) if mjc is not None else def_jc
             val = {'center': 'center', 'centerGroup': 'center', 'left': 'left', 'right': 'right'}.get(val, 'center')
-            cur = _effective_jc(p, None)
+            cur = _direct_jc(p)
             if cur is None or cur in ('center', 'left', 'right', 'start', 'end', 'both'):
                 if cur != val and _set_jc(p, val):
                     jc_set += 1
@@ -1467,8 +1854,12 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
             zi.compress_type = info.compress_type
             zi.external_attr = info.external_attr
             z.writestr(zi, data[info.filename])
-        for name in sorted(new_parts):
-            z.writestr(name, new_parts[name], compress_type=zipfile.ZIP_STORED)
+        stamp = next((i.date_time for i in infos if i.filename == doc_name), (1980, 1, 1, 0, 0, 0))
+        for name in sorted(new_parts):       # PNG data is compressed already; same stamp: reproducible file
+            zi = zipfile.ZipInfo(name, date_time=stamp)
+            zi.compress_type = zipfile.ZIP_STORED
+            zi.external_attr = 0o644 << 16
+            z.writestr(zi, new_parts[name])
     os.replace(tmp_out, dst_docx)
 
     seen_tex = set()
@@ -1485,9 +1876,11 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
         'fallback': stats['inline_fallback'] + stats['display_fallback'],
         'fallback_tex': fb_unique,
         'unique_omml': len(set(key_of.values())),
-        'unique_pictures': len(media) - (1 if spacer_rid[0] else 0),
+        'unique_pictures': len(media),
         'pictures_bytes': sum(len(v) for v in new_parts.values()),
-        'pandoc_calls': calls, 'paragraph_jc_set': jc_set,
+        'pandoc_calls': calls, 'paragraph_jc_set': jc_set, 'paragraph_line_243': len(spaced_paras),
+        'display_shrunk_to_fit': stats['display_shrunk'],
+        'not_aligned_in_libreoffice': stats['not_aligned_in_libreoffice'],
         'colors': dict(colors), 'inline_sizes_pt': dict(sorted(sizes.items())), 'dpi': dpi,
         'seconds_pandoc': round(t_pandoc, 2), 'seconds_typeset': round(t_render, 2),
         'seconds_total': round(time.time() - t0, 2),

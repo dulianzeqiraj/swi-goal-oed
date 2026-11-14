@@ -1116,8 +1116,9 @@ def pdf_for_upload(docx_path, outdir):
     rdir = os.path.join(outdir, base + '_render')
     os.makedirs(rdir, exist_ok=True)
     rendered = os.path.join(rdir, base + '.docx')
-    omml_render.render_equations(docx_path, rendered, workdir=os.path.join(rdir, 'eq'))
-    return pdf_of(rendered, rdir)
+    st = omml_render.render_equations(docx_path, rendered, workdir=os.path.join(rdir, 'eq'))
+    print('  equations drawn for the PDF:', {k: v for k, v in st.items() if isinstance(v, (int, float))})
+    return omml_render.export_pdf(rendered, rdir)     # pictures lossless and not downsampled
 
 
 def part_pages(pdf):
