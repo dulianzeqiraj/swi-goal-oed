@@ -44,6 +44,7 @@ ORANGE, CREAM = 'C55A11', 'FDF3EA'
 REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
+EQ_DPI = 400          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
 PAGES_JSON = os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Additional_Files_pages.json')
 RED_NOTE = (' Equations set in red are new in this proposal, results of the preparatory work of the NPD\'s team; '
             'equations in black are standard.')
@@ -1105,6 +1106,39 @@ def pdf_of(docx_path, outdir):
     return os.path.join(outdir, os.path.splitext(os.path.basename(docx_path))[0] + '.pdf')
 
 
+def shrink_media(docx_path, min_kb=150):
+    """In a copy made for the PDF only: every PNG figure larger than min_kb is reduced to 256 colours, the plan
+    figures (flat colours and text, at least 2300 px wide) to 64, without dithering; this halves them in the PDF,
+    which must stay under the 10 MB a file that upload platforms often allow. The small equation pictures are left
+    as they are."""
+    import zipfile
+    from PIL import Image
+    tmp = docx_path + '.tmp'
+    n = saved = 0
+    with zipfile.ZipFile(docx_path) as zin, zipfile.ZipFile(tmp, 'w') as zout:
+        for info in zin.infolist():
+            data = zin.read(info.filename)
+            if (info.filename.startswith('word/media/') and info.filename.lower().endswith('.png')
+                    and len(data) > min_kb * 1024):
+                im = Image.open(io.BytesIO(data))
+                if im.mode != 'P' or im.width >= 2300:
+                    rgb = im.convert('RGBA')
+                    bg = Image.new('RGBA', rgb.size, (255, 255, 255, 255))
+                    bg.alpha_composite(rgb)
+                    ncol = 64 if im.width >= 2300 else 128      # the plan figures: flat colours and text
+                    q = bg.convert('RGB').quantize(colors=ncol, method=Image.Quantize.MEDIANCUT,
+                                                   dither=Image.Dither.NONE)
+                    buf = io.BytesIO()
+                    q.save(buf, format='PNG', optimize=True, dpi=im.info.get('dpi', (300, 300)))
+                    if buf.tell() < len(data):
+                        saved += len(data) - buf.tell()
+                        data = buf.getvalue()
+                        n += 1
+            zout.writestr(info, data)
+    os.replace(tmp, docx_path)
+    print(f'  {n} figure(s) reduced to 256 colours for the PDF, {saved // 1024} KB less')
+
+
 def pdf_for_upload(docx_path, outdir):
     """The PDF of a Word file with every equation drawn as an image in the look of Word math (omml_render.py), since
     LibreOffice draws OMML poorly; the Word file itself keeps native, editable math."""
@@ -1116,8 +1150,9 @@ def pdf_for_upload(docx_path, outdir):
     rdir = os.path.join(outdir, base + '_render')
     os.makedirs(rdir, exist_ok=True)
     rendered = os.path.join(rdir, base + '.docx')
-    st = omml_render.render_equations(docx_path, rendered, workdir=os.path.join(rdir, 'eq'))
+    st = omml_render.render_equations(docx_path, rendered, dpi=EQ_DPI, workdir=os.path.join(rdir, 'eq'))
     print('  equations drawn for the PDF:', {k: v for k, v in st.items() if isinstance(v, (int, float))})
+    shrink_media(rendered)
     return omml_render.export_pdf(rendered, rdir)     # pictures lossless and not downsampled
 
 
