@@ -786,6 +786,63 @@ LIMITS = {'Security challenge': (SECURITY, 500), 'Technical challenge': (TECHNIC
 
 
 # ------------------------------------------------------------------------------------------------- helpers
+AF_PAGES = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'docs', 'certain_coast',
+                        'CERTAIN-COAST_Additional_Files_pages.json')
+
+
+def af_texts():
+    """The texts of the form on the Additional files, with the pages of each part as measured on the PDF by
+    build_additional_word.py (CERTAIN-COAST_Additional_Files_pages.json)."""
+    import json
+    from sota_data import N_PAPERS
+    if not os.path.exists(AF_PAGES):              # build_additional_word.py has not measured the PDF yet
+        msg = 'CERTAIN-COAST_Additional_Files.pdf (run build_additional_word.py first to measure its pages)'
+        return msg, msg, msg
+    with open(AF_PAGES, encoding='utf-8') as fh:
+        d = json.load(fh)
+    st, total, short = d['start'], d['total'], d['short']
+    n = [e - s_ for s_, e in zip(st, st[1:] + [total + 1])]
+    pg = dict(zip(short, n))
+    glance = next((k for k in short if k.startswith('The project at a glance')), None)
+
+    def of(prefix):
+        return pg[next(k for k in short if k.startswith(prefix))]
+    parts = [f'the state of the art, {of("State of the art")} pages, with {N_PAPERS} key papers of 2020–2026, what they '
+             f'have not done and what CERTAIN-COAST brings',
+             f'the mathematical state of the art, {of("Mathematical state")} pages, on random forcing, boundaries, initial '
+             f'state and propagation of uncertainty',
+             f'the technical annex, {of("Technical annex")} pages, with methods, preparatory tests, gates and fallbacks and '
+             f'the nine new contributions',
+             f'the technical note on the assembled system and the placement of the wells, {of("Technical note")} pages',
+             f'the BEYOND-GO theory note on the inland boundary of the model, {of("Theory note")} pages',
+             f'the SHOCK-GO implementation report on the earthquake in the aquifer, {of("Implementation report")} pages',
+             f'decisions in extreme events, with the final assembled system of equations and deep reinforcement learning '
+             f'kept inside the certified limits, {of("Decisions in extreme")} pages']
+    if glance:
+        parts.append(f'the project at a glance in five figures (structure, communication, team, deliverables, Gantt chart), '
+                     f'{pg[glance]} pages')
+    parts += [f'the CV of the NPD, {of("CV of the NATO")} pages',
+              f'the CV of the PPD, {of("CV of the partner")} pages, from the partner form of Qatar University']
+    check = (f'Ready: CERTAIN-COAST_Additional_Files.pdf ({total} pages, the PDF of the Word file '
+             f'CERTAIN-COAST_Additional_Files.docx with the equations in native Word math, those new in this proposal in '
+             f'red, and justified text; a cover, contents with live page numbers, what is new in each part and '
+             f'bookmarks: ' + '; '.join(parts) + ') (build_additional_word.py)')
+    upload = (f'Upload CERTAIN-COAST_Additional_Files.pdf ({total} pages), one PDF with a cover and a table of contents at '
+              f'the start, as the form asks: ' + '; '.join(parts) + '. Every figure is a result of the author\'s code, '
+              'whose open-source version is updated continuously.')
+    info = (f'The additional files open with the state of the art, what {N_PAPERS} key papers of 2020–2026 have done, '
+            'what they have not done and what CERTAIN-COAST brings, and with a mathematical state of the art. They '
+            'continue with the technical annex, which summarises the methods and their preparatory tests, a technical '
+            'note on the coupled model and the placement of recharge and supply wells, a theory note on the inland '
+            'boundary of that model, learned from piezometers, and an implementation report on the earthquake in the '
+            'aquifer. A further part states the decisions the operators must take in extreme events, writes the '
+            'equations as one final assembled system and adds deep reinforcement learning kept inside the certified '
+            'limits; ' + ('the project at a glance and ' if glance else '') + 'the CVs of the two Project Directors close '
+            'the files. The full methodology, work packages, risk assessment and data management plan are available on '
+            'request.')
+    return check, upload, info
+
+
 def words(t):
     return len(re.sub(r'\*\*', '', t).split())
 
@@ -904,7 +961,7 @@ def main(out):
             'are named in the answer below', 'ready'],
            ['Intellectual Property Rights agreement or waiver', 'PDF', 'Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx; all Co-Directors, their institutions and the end-user sign; recommended now (listed in the 2027-1 call), allowed after approval', '[to do]'],
            ['Illustrative figures (optional, one PDF with a table of contents)', 'PDF', 'Ready: CERTAIN-COAST_Illustrative_Figures.pdf (6 pages, 12 figures)', 'ready'],
-           ['Additional files (optional): state of the art, technical annex, two notes, a report and the CVs of the two Project Directors', 'PDF', 'Ready: CERTAIN-COAST_Additional_Files.pdf (92 pages, the PDF of the Word file CERTAIN-COAST_Additional_Files.docx with the equations in native Word math; a cover, contents with live page numbers, what is new in each part and bookmarks: the state of the art, 15 pages, with 30 key papers of 2020–2026, what they have not done and what CERTAIN-COAST brings; the mathematical state of the art, 7 pages, on random forcing, boundaries, initial state and propagation of uncertainty; the technical annex, 10 pages, with methods, preparatory tests, gates and fallbacks and the nine new contributions; the technical note on the assembled system and the placement of the wells, 23 pages; the BEYOND-GO theory note on the inland boundary of the model, 16 pages; the SHOCK-GO implementation report on the earthquake in the aquifer, 14 pages; the CV of the NPD, 2 pages; the CV of the PPD, 2 pages, from the partner form of Qatar University) (build_additional_word.py)', 'Ready']]
+           ['Additional files (optional): state of the art, technical annex, three notes, decisions in extreme events, the project at a glance and the CVs of the two Project Directors', 'PDF', af_texts()[0], 'Ready']]
     t = head_repeat(table(doc, ['Upload', 'Format', 'Who signs or prepares it', 'Status'], chk, [6.4, 1.6, 6.8, 2.2], size=9.2))
     ph_cells(t)
     q = para(doc, 3, before=4)
@@ -1155,8 +1212,8 @@ def main(out):
     for nm, a in [('Brief overview of participating institutions (upload)', 'One PDF, at most one page per institution: capabilities, resources, facilities, websites. Use CERTAIN-COAST_Institutions_Overview.docx: [fill the yellow fields, delete the pages of institutions that do not take part], then save it as PDF.'),
                   ('SPS MYP Agreement for Joint Research (upload)', 'NATO template, signed by all Co-Directors and a representative of each institution.'),
                   ('Do you want to include the Intellectual Property Rights (IPR) Agreement (or Waiver) now?', '**Yes** (recommended): upload the signed agreement as one PDF. Draft: CERTAIN-COAST_IPR_Agreement_Draft.docx (NATO sample, Option B, open release of software and data, security release check), with a one-page waiver as alternative. The form and the Handbook allow it after approval, but the 2027-1 call lists it among the documents of a complete proposal.'),
-                  ('Additional files (optional)', 'Upload CERTAIN-COAST_Additional_Files.pdf (92 pages), one PDF with a cover and a table of contents at the start, as the form asks: the state of the art (15 pages: what 30 key papers of 2020–2026 from Caltech, MIT, Harvard and Oxford have done, what they have not done, and what CERTAIN-COAST brings in mathematics and physics), the mathematical state of the art (7 pages: random forcing, boundaries, initial state and propagation of uncertainty, and the four numbers that choose the method), the technical annex (10 pages: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions, consistent with this form), the technical note on the assembled system of equations and the placement of recharge and supply wells (23 pages; synthetic tests, illustrative values), the BEYOND-GO theory note on the inland boundary of the model (16 pages; four propositions with proofs, synthetic tests), the SHOCK-GO implementation report on the earthquake in the aquifer (14 pages; code-based checks, synthetic tests) and the CVs of the NATO-country and partner-country Project Directors (2 pages each).'),
-                  ('Additional information (optional)', 'The additional files open with the state of the art, what 30 key papers of 2020–2026 have done, what they have not done and what CERTAIN-COAST brings, and with a mathematical state of the art. They continue with the technical annex, which summarises the methods and their preparatory tests, a technical note on the coupled model and the placement of recharge and supply wells, a theory note on the inland boundary of that model, learned from piezometers, and an implementation report on the earthquake in the aquifer, and close with the CVs of the two Project Directors; the full methodology, work packages, risk assessment and data management plan are available on request.')]:
+                  ('Additional files (optional)', af_texts()[1]),
+                  ('Additional information (optional)', af_texts()[2])]:
         field(doc, nm); answer(doc, a)
 
     doc.save(out)
