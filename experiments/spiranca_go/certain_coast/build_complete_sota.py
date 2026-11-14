@@ -37,13 +37,13 @@ CODE = 'https://github.com/dulianzeqiraj/certain-coast'
 
 from codenames import english  # noqa: E402
 
-GLOSS = re.compile(r'\s*\(\*?[a-zçë]+\*?,\s*[a-z ]+\)')      # "(*prejardhja*, provenance)" after a code name
+GLOSS = re.compile(r'(-GO(?:\*\*)?)\s*\(\*[a-zçë]+\*,\s*[a-z ]+\)')   # "**ORIGIN-GO** (*prejardhja*, provenance)"
 
 
 def en(t):
     if not isinstance(t, str):
         return t
-    return GLOSS.sub('', english(t)).replace('{{map}}', '').replace(' (Section 3, Figure )', '')
+    return GLOSS.sub(r'\1', english(t)).replace('{{map}}', '').replace(' (Section 3, Figure )', '')
 
 
 def norm(t):
@@ -100,24 +100,39 @@ FIELD_LABELS = [('inputs', 'Inputs'), ('dispersion', 'Dispersion'), ('bcs', 'Bou
                 ('source', 'Source of the chloride'), ('demand', 'Demand'), ('stake', 'Stakeholders')]
 
 
+def split_first(t):
+    """(first sentence, the rest) of a summary, bold labels removed; the rest is '' for a one-sentence summary."""
+    t = re.sub(r'\*\*[^*]+\*\*\s*', '', t or '').strip()
+    m = re.match(r'(.+?[.!?])\s+(\S.*)$', t, re.S)
+    return (m.group(1), m.group(2)) if m else (t, '')
+
+
 def norm_series(c, review):
     link_parts = []
     for k, lab in FIELD_LABELS:
         if c.get(k):
             link_parts.append(f'**{lab}.** {c[k]}')
+    summary, innovation = c.get('does', ''), c.get('sota')
+    if not innovation:                         # no innovation field: the first sentence states it, the rest summarises
+        innovation, rest = split_first(summary)
+        summary = rest or summary
     return dict(title=c['title'], authors=c.get('authors', ''), year=str(c.get('year', '')), venue=c.get('venue', ''),
                 links=links_of(c), evidence=c.get('evidence', ''), short=c.get('short', ''), review=review,
-                inst=c.get('inst', ''), summary=c.get('does', ''), innovation=c.get('sota') or first_sentence(c.get('does')),
+                inst=c.get('inst', ''), summary=summary, innovation=innovation,
                 link=' '.join(link_parts), gap=c.get('gap', ''), step=c.get('step', ''), extra=c.get('novel', ''),
                 eqs=[])
 
 
 def norm_json(c, review):
     eqs = [(c['eq'], 'the key equation of the paper:')] if c.get('eq') else []
+    summary, innovation = c.get('does', ''), c.get('sota') or c.get('innovation')
+    if not innovation:
+        innovation, rest = split_first(summary)
+        summary = rest or summary
     return dict(title=c.get('title', ''), authors=c.get('authors', ''), year=str(c.get('year', '')),
                 venue=c.get('venue', ''), links=links_of(c), evidence=c.get('evidence', ''), short=c.get('short', ''),
-                review=review, inst=c.get('inst', ''), summary=c.get('does', ''),
-                innovation=c.get('sota') or first_sentence(c.get('does')), link=c.get('link', ''), gap=c.get('gap', ''),
+                review=review, inst=c.get('inst', ''), summary=summary,
+                innovation=innovation, link=c.get('link', ''), gap=c.get('gap', ''),
                 step=c.get('step', ''), extra='', eqs=eqs)
 
 
@@ -132,8 +147,10 @@ def norm_cite(it, review, kind):
                     short='', review=review, inst=it['inst'], summary=it['done'],
                     innovation=it.get('theorem') or first_sentence(it['done']), link=it.get('gap', ''), gap='',
                     step=it.get('beyond', ''), extra='', eqs=list(it.get('math', [])))
+    from sota_innovations import INNOV
     return dict(title=title, authors=authors, year=year, venue=venue, links=links, evidence=it['inst'], short='',
-                review=review, inst=it['inst'], summary=it['done'], innovation=first_sentence(it['done']), link='',
+                review=review, inst=it['inst'], summary=it['done'],
+                innovation=INNOV.get(it.get('n')) or first_sentence(it['done']), link='',
                 gap='', step=it.get('beyond', ''), extra='', eqs=[])
 
 
@@ -157,11 +174,18 @@ def gather():
             sec[where[k]].append(norm_series(c, lab))
     p = os.path.join(SCRATCH, 'complete_sota', 'cards_X_XI.json')
     if os.path.exists(p):
+        import xxi_novelty as XN
         J = json.load(open(p, encoding='utf-8'))
+        lx = 'Review X: placing sensors that interfere (INTERVENTION-GO)'
+        lxi = 'Review XI: warnings for what happens between samples (PATH-GO)'
+        if J.get('X'):
+            NOVELTY[lx] = [XN.X]
+        if J.get('XI'):
+            NOVELTY[lxi] = [XN.XI]
         for c in J.get('X', []):
-            sec['5'].append(norm_json(c, 'Review X: sensor placement, interference correction, robust certified design'))
+            sec['5'].append(norm_json(c, lx))
         for c in J.get('XI', []):
-            sec['6'].append(norm_json(c, 'Review XI: warnings between samples'))
+            sec['6'].append(norm_json(c, lxi))
     import netsota_data as ND
     for _, items in ND.GROUPS:
         for it in items:
@@ -188,11 +212,82 @@ def gather():
     return sec
 
 
+def _vlen(t):
+    """Rough printed width of a LaTeX string, in characters."""
+    t = re.sub(r'\\(left|right|big|Big|bigg|Bigg|mathrm|mathcal|boldsymbol|operatorname|text|tfrac|dfrac|frac)\b', '', t)
+    t = re.sub(r'\\[a-zA-Z]+', 'x', t)
+    return len(re.sub(r'[{}^_\s]|\\[,;:! ]', '', t))
+
+
+def _top_splits(tex, sep):
+    """Pieces of tex cut at each occurrence of the command sep that stands outside braces, environments and
+    \\left...\\right pairs."""
+    out, depth, start, i = [], 0, 0, 0
+    while i < len(tex):
+        ch = tex[i]
+        if ch == '\\':
+            m = re.match(r'\\([a-zA-Z]+|.)', tex[i:])
+            name = m.group(1)
+            if name in ('begin', 'left'):
+                depth += 1
+            elif name in ('end', 'right'):
+                depth -= 1
+            elif name == sep and depth == 0:
+                out.append(tex[start:i].strip())
+                start = i + len(m.group(0))
+            i += len(m.group(0))
+            continue
+        if ch == '{':
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+        i += 1
+    out.append(tex[start:].strip())
+    return [p for p in out if p]
+
+
+def split_long(tex, limit=72, first=80):
+    """A long display equation as several lines, cut at its top-level \\qquad (then \\quad) and packed greedily."""
+    if not isinstance(tex, str) or _vlen(tex) <= first:
+        return tex
+    for sep in ('qquad', 'quad'):
+        parts = _top_splits(tex, sep)
+        if len(parts) < 2:
+            continue
+        lines, cur = [], ''
+        for p in parts:
+            cand = (cur + r'\qquad ' + p) if cur else p
+            if cur and _vlen(cand) > limit:
+                lines.append(cur)
+                cur = p
+            else:
+                cur = cand
+        lines.append(cur)
+        if len(lines) > 1:
+            return lines
+    return tex
+
+
+def deq(doc, E, tex, number):
+    from build_gar_doc import display_eq
+    display_eq(doc, E, split_long(tex), number)
+
+
 def matlab_items():
     p = os.path.join(SCRATCH, 'matlab_eqs', 'matlab_equations.json')
     if not os.path.exists(p):
         return []
-    return json.load(open(p, encoding='utf-8')).get('items', [])
+    items = json.load(open(p, encoding='utf-8')).get('items', [])
+
+    def plain(t):                                  # code-style text: no markdown markers, readable relations
+        t = (t or '').replace('*', '·').replace('<=', '≤').replace('>=', '≥').replace('+-', '±')
+        return t.replace('$', '')
+
+    for it in items:
+        it['purpose'] = plain(it.get('purpose', ''))
+        for e in it.get('equations', []):
+            e['what'] = plain(e.get('what', ''))
+    return items
 
 
 def kv_table(doc, rows, E):
@@ -265,7 +360,7 @@ def card(doc, c, sec_no, E, display_eq, num):
         run(q, 'Mathematics: ', bold=True, size=10, color=BLUE)
         E_mrich(q, what, E, size=10)
         num[0] += 1
-        display_eq(doc, E, tex, num[0])
+        deq(doc, E, tex, num[0])
     lk = ' '.join(x for x in [c['link'], (f'**What it leaves open.** {c["gap"]}' if c['gap'] else '')] if x)
     labelled(doc, f'Link to the anchor paper and to seawater intrusion. Belongs to Section {sec_no}.', lk, E, BLUE)
     q = para(doc, 3)
@@ -273,6 +368,27 @@ def card(doc, c, sec_no, E, display_eq, num):
     run(q, 'INNOVATION  ', bold=True, size=10, color=ORANGE)
     E_mrich(q, c['innovation'], E, size=10)
     labelled(doc, 'Step in CERTAIN-COAST.', ' '.join(x for x in [c['step'], c['extra']] if x), E, GREEN)
+
+
+def asm_block(doc, E, num, red):
+    """Section 1.1: the innovation of the data assimilation review (N1-N3), equations in red."""
+    import asm_novelty as A
+    heading(doc, '1.1 ' + A.TITLE, 12, color=RED, before=8)
+    body(doc, A.INTRO, E, size=10.5)
+    for title, before, tex, after in A.PROPOSALS:
+        q = para(doc, 2, before=6)
+        q.paragraph_format.keep_with_next = True
+        run(q, title, bold=True, size=10.5, color=ORANGE)
+        for txt in (before, None, after):
+            if txt is None:
+                num[0] += 1
+                red.append(num[0])
+                deq(doc, E, tex, num[0])
+                continue
+            q = para(doc, 3)
+            q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            E_mrich(q, txt, E, size=10)
+    box(doc, 'In CERTAIN-COAST', A.IN_CC, E, fill='FDF3EA', bar=ORANGE)
 
 
 def all_innovations(doc, E, sec):
@@ -299,6 +415,12 @@ def all_innovations(doc, E, sec):
                     run(q, '•  ', bold=True, size=10, color=ORANGE)
                     E_mrich(q, en(v), E, size=10)
     heading(doc, '9.2 The innovations of the state-of-the-art series', 12, color=BLUE, before=8)
+    import asm_novelty as A
+    q = para(doc, 2, before=4)
+    run(q, 'Dynamic data assimilation for missing dynamics (Section 1.1)', bold=True, size=10.5, color=NAVY)
+    q = para(doc, 3, 0.4)
+    q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    E_mrich(q, A.SHORT, E, size=10)
     for r, txts in NOVELTY.items():
         if txts:
             q = para(doc, 2, before=4)
@@ -373,17 +495,33 @@ def main(out):
         body(doc, intro, E, size=10.5)
         mine = [it for it in M if any(f'/{pk}/' in it.get('file', '') or it.get('file', '').startswith(pk + '/')
                                       for pk in pkgs)]
-        neqs = [(it, e) for it in mine for e in it.get('equations', []) if e.get('status') == 'new']
-        if neqs:
+        mine = [it for it in mine if any(e.get('status') == 'new' for e in it.get('equations', []))]
+        if mine:
             heading(doc, f'{k}.0 Our equations in the CERTAIN-COAST MATLAB code', 12, color=RED, before=6)
-            for it, e in neqs:
-                q = para(doc, 0)
+            body(doc, 'The equations below are those of the open-source MATLAB code of CERTAIN-COAST that are new in this '
+                      'work (set in red), each with the file that computes it; the standard equations the same files use '
+                      '(least squares, the split-conformal quantile, the Gaussian information gain) are not repeated.',
+                 E, size=10)
+            for it in mine:
+                rel = it.get('file', '').split('certain-coast/')[-1]
+                q = para(doc, 1, before=4)
                 q.paragraph_format.keep_with_next = True
-                run(q, it.get('file', '') + ': ', bold=True, size=9.5, color=RED)
-                E_mrich(q, e.get('what', ''), E, size=9.5)
-                num[0] += 1
-                red.append(num[0])
-                display_eq(doc, E, e['latex'], num[0])
+                link(q, f'{CODE}/blob/main/{rel}', rel, 9.5)
+                if it.get('purpose'):
+                    run(q, '  ', size=9.5)
+                    E_mrich(q, it['purpose'], E, size=9.5)
+                for e in it.get('equations', []):
+                    if e.get('status') != 'new':
+                        continue
+                    q = para(doc, 0, 0.4)
+                    q.paragraph_format.keep_with_next = True
+                    run(q, 'New: ', bold=True, size=9.5, color=RED)
+                    E_mrich(q, e.get('what', ''), E, size=9.5)
+                    num[0] += 1
+                    red.append(num[0])
+                    deq(doc, E, e['latex'], num[0])
+        if k == '1':
+            asm_block(doc, E, num, red)
         reviews = []
         for c in sec[k]:
             if c['review'] not in reviews:
