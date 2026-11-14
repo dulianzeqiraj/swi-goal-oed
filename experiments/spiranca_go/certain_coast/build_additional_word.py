@@ -14,6 +14,7 @@ usage: python build_additional_word.py OUT.docx [OUT.pdf]
 Needs LibreOffice (soffice) for the PDF and for the page numbers of the contents (two passes)."""
 import copy
 import io
+import json
 import os
 import re
 import subprocess
@@ -43,6 +44,7 @@ ORANGE, CREAM = 'C55A11', 'FDF3EA'
 REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
+PAGES_JSON = os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Additional_Files_pages.json')
 RED_NOTE = (' Equations set in red are new in this proposal, results of the preparatory work of the NPD\'s team; '
             'equations in black are standard.')
 SHORT = ['State of the art: what has been done and what CERTAIN-COAST brings',
@@ -1094,6 +1096,21 @@ def pdf_of(docx_path, outdir):
     return os.path.join(outdir, os.path.splitext(os.path.basename(docx_path))[0] + '.pdf')
 
 
+def pdf_for_upload(docx_path, outdir):
+    """The PDF of a Word file with every equation drawn as an image in the look of Word math (omml_render.py), since
+    LibreOffice draws OMML poorly; the Word file itself keeps native, editable math."""
+    try:
+        import omml_render
+    except ImportError:
+        return pdf_of(docx_path, outdir)
+    base = os.path.splitext(os.path.basename(docx_path))[0]
+    rdir = os.path.join(outdir, base + '_render')
+    os.makedirs(rdir, exist_ok=True)
+    rendered = os.path.join(rdir, base + '.docx')
+    omml_render.render_equations(docx_path, rendered, workdir=os.path.join(rdir, 'eq'))
+    return pdf_of(rendered, rdir)
+
+
 def part_pages(pdf):
     """First page of each part in the PDF rendering (where its banner title stands)."""
     from pypdf import PdfReader
@@ -1112,12 +1129,16 @@ def main(out, pdf_out=None):
     work = tempfile.mkdtemp()
     first = os.path.join(work, 'pass1.docx')
     build(first, None)
-    pages, n = part_pages(pdf_of(first, work))
+    pages, n = part_pages(pdf_for_upload(first, work))
     n_sec = build(out, pages)
     print('saved', out, '| sections', n_sec, '| parts start on pages', pages, '| pages', n)
     if pdf_out:
-        pdf = pdf_of(out, work)                         # while the headings have outline levels: PDF bookmarks
+        pdf = pdf_for_upload(out, work)                 # while the headings have outline levels: PDF bookmarks
         os.replace(pdf, pdf_out)
+        final_pages, total = part_pages(pdf_out)        # the pages of each part, for the texts of the form
+        with open(PAGES_JSON, 'w', encoding='utf-8') as fh:
+            json.dump({'total': total, 'start': final_pages, 'short': SHORT}, fh, indent=1)
+        print('  part pages', final_pages, 'of', total, '->', PAGES_JSON)
         print('saved', pdf_out)
     n_lvl, n_ren = plain_headings(out)
     print(f'  Word file: {n_lvl} outline levels removed, {n_ren} built-in heading styles renamed (no collapse arrows)')

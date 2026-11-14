@@ -356,12 +356,14 @@ def main(out, figdir=None):
     if figs:
         heading(doc, '5. Results of the author\'s MATLAB code', 14)
         body(doc, 'The figures below are computed with the author\'s open-source MATLAB package CERTAIN-COAST, version 0.1.0 '
-                  f'([{CODE.replace("https://", "")}]({CODE}), DOI 10.5281/zenodo.24148762); they show the physics of the '
-                  'environment, the certified alarm and the observation network on which the agent is trained. The code '
-                  'is updated continuously; if the project is funded, its final stage is a three-dimensional open-source '
-                  'model.', E)
+                  f'([{CODE.replace("https://", "")}]({CODE}), DOI 10.5281/zenodo.24148762), by the script '
+                  'run_all_figures.m, run here in GNU Octave 8.4. They show what the agent is trained on: the physics of the '
+                  'environment, the certified alarm, the warnings between samples, the learned boundary, the observation '
+                  'network and the forcing. All cases are synthetic tests. The code is updated continuously; if the project '
+                  'is funded, its final stage is a three-dimensional open-source model.', E)
         for k, f in enumerate(figs, 1):
-            figure(doc, os.path.join(figdir, f['file']), f'Figure {k}. ' + f['caption'])
+            figure(doc, os.path.join(figdir, f['file']), f'Figure {k}. ' + f['caption'] + ' Result of the author\'s '
+                   'MATLAB code.')
 
     heading(doc, 'References', 14)
     for i, (cite, url) in enumerate(REFS, 1):

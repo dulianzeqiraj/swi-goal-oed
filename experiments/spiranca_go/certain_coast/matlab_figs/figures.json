@@ -1,0 +1,26 @@
+[
+ {
+  "file": "fig1_henry.png",
+  "caption": "The environment of the agent: the variable-density solver of the package on the Henry benchmark of seawater intrusion (Henry number 0.1). (a) Relative salinity and the 0.5 isochlor on a 61 × 31 grid; its toe lies 1.386 m from the inland boundary. (b) The toe converges as the mesh is refined (1.423, 1.397, 1.392 and 1.386 m), with Newton residuals below 10⁻¹²."
+ },
+ {
+  "file": "fig2_alarm.png",
+  "caption": "The certified alarm whose margins the shield uses, on a synthetic chloride record: a forecast, a margin of 23.9 mg/L calibrated on 600 earlier steps, and the alarm level of 226.1 mg/L. (a) In the 600 live steps all 23 events at or above 250 mg/L were warned (none missed; 95% upper bound on the miss rate 0.122). (b) The calibration errors and the margin."
+ },
+ {
+  "file": "fig3_betweensamples.png",
+  "caption": "Warnings between samples. (a) The probability that chloride crosses 250 mg/L within a season of 120 days depends on its correlation time: 0.79 at 8 days, while the samples alone give 0.023. (b) The robust warning band from an 8-year record narrows from quarterly samples (0.18–1.00) to monthly (0.44–1.00), weekly (0.78–0.89) and a daily logger (0.79–0.82)."
+ },
+ {
+  "file": "fig4_boundary.png",
+  "caption": "The learned boundary of Part 5 in the environment: a 2-km model of a 10-km aquifer predicts ten years of drought with doubled pumping. (a) With the boundary learned from two piezometers the head at the boundary cell stays within 0.0049 m (rms) of the whole aquifer, against 0.605 m with no flow and 1.234 m with a fixed head. (b) The impedance of the learned boundary matches the exact exterior within 1% at periods of one to forty years."
+ },
+ {
+  "file": "fig5_network.png",
+  "caption": "The network that observes the environment. (a) Among 12 candidate salinity sensors, the greedy design [4, 7, 8] for the salt mass near the toe equals the exhaustive optimum (2.539 nats) and gives 100% of the best information on whether the supply cell exceeds its limit. (b) The gain after each added sensor, against all 220 designs of three sensors (median 1.457 nats)."
+ },
+ {
+  "file": "fig6_recharge.png",
+  "caption": "The forcing of the environment read from the heads. (a) Daily recharge reconstructed from heads with 1 cm noise (rms error 2.8 mm, as predicted). (b) Sums over 30 days: rms error 2.6 mm against a mean of 32.4 mm. The heads give the timing of the recharge and, with the specific yield from a pumping test, its amount."
+ }
+]
