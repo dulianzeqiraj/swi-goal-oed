@@ -277,8 +277,9 @@ def gather():
         J = json.load(open(p, encoding='utf-8'))
         inv = J.get('innovation') or {}
         lab = en(inv.get('label') or fallback)
-        if inv.get('name') and inv['name'] not in lab:
-            lab = f'{lab} ({en(inv["name"])})'
+        name = en(inv.get('name') or '')
+        if name and name not in lab and len(name) <= 30:          # a code name such as CAUSAL-OED, not a sentence
+            lab = f'{lab} ({name})'
         if inv:
             INNOV[lab] = (key, inv)
         for c in J.get('cards', []):
