@@ -102,7 +102,7 @@ def main(out):
     body(doc, 'A design $\\xi$ (where the sensors stand and of which type they are) is chosen to learn a goal $q$, '
               'here the position of the saline wedge at the supply wells, the water table under the foundations, or '
               'the alarm indicators. In the Bayesian, goal-oriented form the criterion is the expected information '
-              'the data $y$ bring about $q$:', E)
+              'the data $y$ bring about $q$ [C1]:', E)
     num[0] += 1
     display_eq(doc, E, r'U(\xi)=\mathbb{E}_{y\mid\xi}\left[D_{\mathrm{KL}}\left(p(q\mid y,\xi)\,\|\,p(q)\right)\right]'
                        r'=I(q;y\mid\xi),\qquad \xi^{\star}=\underset{\xi\in\Xi}{\arg\max}\ U(\xi)', num[0])
