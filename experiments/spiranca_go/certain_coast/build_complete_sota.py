@@ -172,7 +172,9 @@ PLANNING_SUBS = [(', which ties in directly with the theme of status reporting i
                  ('; but it should not be opened before COST and the submission of the manuscript to the Journal of '
                   'Hydrology', ''),
                  ('If it is ever used, the most natural link', 'The most natural link'),
-                 ('; it also advises that the literature search stop with this tenth review', '')]
+                 ('; it also advises that the literature search stop with this tenth review', ''),
+                 (', with the Caltech wall-modelling group (with', ' (with'),
+                 (' with Koumoutsakos at Harvard (with', ' (with')]
 PLANNING_CLAUSES = [(re.compile(r'(?:;\s*it|,? and(?: it)?) names the [^.()]*\([^)]*\) among the possible collaborations'), ''),
                     (re.compile(r'The review names the [^.()]*\([^)]*\) among the possible collaborations, and takes'),
                      'The review takes'),
@@ -182,10 +184,43 @@ PLANNING_CLAUSES = [(re.compile(r'(?:;\s*it|,? and(?: it)?) names the [^.()]*\([
 DROPPED = []
 
 
+JOINT = re.compile(r'(joint innovations?(?: the review proposes)?) with ')
+
+
+def no_partners(t):
+    """"... a possible joint innovation with <names> (with B14; Section 8)" -> "... a possible joint innovation (with
+    B14; Section 8)": the idea stays, the people the author may write to are left out."""
+    out, k = '', 0
+    for m in JOINT.finditer(t):
+        if m.start() < k:
+            continue
+        j, depth = m.end(), 0
+        while j < len(t):
+            if depth == 0 and any(t.startswith(x, j) for x in (' (with', ' (Section', ' on hypothesis', '; ')):
+                break
+            ch = t[j]
+            if ch == '(':
+                if depth == 0 and (t.startswith('(with', j) or t.startswith('(Section', j)):
+                    break
+                depth += 1
+            elif ch == ')':
+                if depth == 0:
+                    break
+                depth -= 1
+            elif depth == 0 and ch == '.' and (j + 1 == len(t) or t[j + 1] == ' ') and not re.search(r'(^|\s)[A-Z]$',
+                                                                                                t[:j]):
+                break
+            j += 1
+        out += t[k:m.start()] + m.group(1)
+        k = j
+    return out + t[k:]
+
+
 def no_planning(t):
     """The text without the sentences and clauses that are planning notes (outside inline math)."""
     if not isinstance(t, str):
         return t
+    t = no_partners(t)
     for a, b in PLANNING_SUBS:
         t = t.replace(a, b)
     if not PLANNING.search(t):
