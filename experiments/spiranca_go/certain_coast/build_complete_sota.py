@@ -156,6 +156,55 @@ NEW_REVIEWS = [
 ]
 INNOV = {}            # review label -> (file key, the review's own innovation), set as a block with its equations in red
 
+# the reviews carry the author's own planning notes (whom to contact, the COST deadline of 28 October, a manuscript):
+# they are dated and private, so the sentences that hold them are left out of the state of the art
+PLANNING = re.compile(r'\bCOST\b|After the deadline|Eawag|28 October|research portfolio|two-page technical note|'
+                      r'\bsent to\b|\bcontacts? (?:for|with)\b|\b(?:the|a|one|single|no|natural|practical|Caltech|'
+                      r'Princeton|Oxford|Harvard|first Swiss) contacts?\b|as (?:the )?contacts?\b|would contact|'
+                      r'possible collaborations|submission of the manuscript')
+PLANNING_SUBS = [(', which ties in directly with the theme of status reporting in the COST proposal', ''),
+                 ('; the review sees this as one of the possible results of a working group on observatories in the '
+                  'COST proposal', ''),
+                 (', the one contact it recommends after the NATO submission', ''),
+                 (', as the author asked', ''),
+                 ('The review names Adkins (G13, G20) as the Caltech contact for two-regime carbonate kinetics in the '
+                  'mixing zone, where', 'Two-regime carbonate kinetics apply in the mixing zone, where'),
+                 ('; but it should not be opened before COST and the submission of the manuscript to the Journal of '
+                  'Hydrology', ''),
+                 ('If it is ever used, the most natural link', 'The most natural link'),
+                 ('; it also advises that the literature search stop with this tenth review', '')]
+PLANNING_CLAUSES = [(re.compile(r'(?:;\s*it|,? and(?: it)?) names the [^.()]*\([^)]*\) among the possible collaborations'), ''),
+                    (re.compile(r'The review names the [^.()]*\([^)]*\) among the possible collaborations, and takes'),
+                     'The review takes'),
+                    (re.compile(r',? and names [^.]*?\bcontacts?\b[^.]*'), ''),
+                    (re.compile(r';\s*the review would contact[^.]*'), ''),
+                    (re.compile(r';\s*the review names [^.]*?\bcontacts?\b[^.]*'), '')]
+DROPPED = []
+
+
+def no_planning(t):
+    """The text without the sentences and clauses that are planning notes (outside inline math)."""
+    if not isinstance(t, str):
+        return t
+    for a, b in PLANNING_SUBS:
+        t = t.replace(a, b)
+    if not PLANNING.search(t):
+        return t
+    # protect the full stops that do not end a sentence: initials (J. Obłój, R. F. Katz), e.g., i.e., et al.
+    q = re.sub(r'\b([A-Z])\.(?=\s?[A-ZÀ-Ž])', '\\1§', t)
+    for a in ('e.g.', 'i.e.', 'et al.', 'cf.', 'vs.'):
+        q = q.replace(a, a.replace('.', '§'))
+    for pat, rep_ in PLANNING_CLAUSES:
+        q = pat.sub(rep_, q)
+    keep = []
+    for sent in re.split(r'(?<=\.)\s+', q):
+        if PLANNING.search(re.sub(r'\$[^$]*\$', '', sent)):
+            DROPPED.append(sent.replace('§', '.'))
+        else:
+            keep.append(sent)
+    out = ' '.join(keep).strip().replace('§', '.')
+    return re.sub(r';$', '.', out)
+
 FIELD_LABELS = [('inputs', 'Inputs'), ('dispersion', 'Dispersion'), ('bcs', 'Boundary conditions'),
                 ('source', 'Source of the chloride'), ('demand', 'Demand'), ('stake', 'Stakeholders')]
 
@@ -275,7 +324,15 @@ def gather():
         if not os.path.exists(p):
             continue
         J = json.load(open(p, encoding='utf-8'))
+        for c in J.get('cards', []):
+            for f in ('does', 'sota', 'link', 'gap', 'step'):
+                c[f] = no_planning(c.get(f, ''))
         inv = J.get('innovation') or {}
+        for f in ('intro', 'in_cc', 'short'):
+            inv[f] = no_planning(inv.get(f, ''))
+        for it in inv.get('items', []):
+            for f in ('before', 'after'):
+                it[f] = no_planning(it.get(f, ''))
         lab = en(inv.get('label') or fallback)
         name = en(inv.get('name') or '')
         if name and name not in lab and len(name) <= 30:          # a code name such as CAUSAL-OED, not a sentence
