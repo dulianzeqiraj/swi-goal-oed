@@ -35,6 +35,17 @@ NAVY, BLUE, GREY, GREEN, ORANGE, RED = '1F3864', '2E6DB4', '52606D', '1E8A5A', '
 CODE = 'https://github.com/dulianzeqiraj/certain-coast'
 
 
+from codenames import english  # noqa: E402
+
+GLOSS = re.compile(r'\s*\(\*?[a-zçë]+\*?,\s*[a-z ]+\)')      # "(*prejardhja*, provenance)" after a code name
+
+
+def en(t):
+    if not isinstance(t, str):
+        return t
+    return GLOSS.sub('', english(t)).replace('{{map}}', '').replace(' (Section 3, Figure )', '')
+
+
 def norm(t):
     return re.sub(r'[^a-z0-9]+', ' ', (t or '').lower()).strip()[:70]
 
@@ -126,6 +137,9 @@ def norm_cite(it, review, kind):
                 gap='', step=it.get('beyond', ''), extra='', eqs=[])
 
 
+NOVELTY = {}          # review label -> its "what is new" paragraphs
+
+
 def gather():
     """Section -> list of normalised cards, in the order of the document."""
     sec = {s[0]: [] for s in SECTIONS}
@@ -138,6 +152,7 @@ def gather():
              'S': '7'}
     for k in ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'S']:
         lab = (f'Review {k}: ' if k != 'S' else 'Stakeholder review: ') + S[k]['title']
+        NOVELTY[en(lab)] = [en(x) for x in S[k].get('novelty', [])]
         for c in S[k]['cards']:
             sec[where[k]].append(norm_series(c, lab))
     p = os.path.join(SCRATCH, 'complete_sota', 'cards_X_XI.json')
@@ -155,6 +170,10 @@ def gather():
     for _, items in SD.GROUPS:
         for it in items:
             sec['8'].append(norm_cite(it, 'State of the art of the proposal (32 papers)', 'sota'))
+    for k in sec:                                     # English names of the preparatory experiments
+        for c in sec[k]:
+            for f in ('title', 'summary', 'innovation', 'link', 'gap', 'step', 'extra', 'review', 'evidence', 'short'):
+                c[f] = en(c.get(f, ''))
     # one full card per paper; a later occurrence becomes a cross-reference
     seen, n = {}, 0
     for k, _, _, _ in SECTIONS:
@@ -256,6 +275,50 @@ def card(doc, c, sec_no, E, display_eq, num):
     labelled(doc, 'Step in CERTAIN-COAST.', ' '.join(x for x in [c['step'], c['extra']] if x), E, GREEN)
 
 
+def all_innovations(doc, E, sec):
+    """Section 9: every innovation of CERTAIN-COAST, with the result that tested it."""
+    import sota_data as SD
+    import netsota_data as ND
+    from build_additional_word import NEW
+    h = heading(doc, '9. All the innovations of CERTAIN-COAST', 16, before=6)
+    h.paragraph_format.page_break_before = True
+    body(doc, 'This section gathers every innovation of the proposal and of its preparatory work in one place: the '
+              'innovations of the proposal itself, those of each review of the state-of-the-art series with the test '
+              'that supports it, and those of the technical notes and parts of the additional files. The equations '
+              'new in this proposal are the red equations at the head of each section.', E, size=10.5)
+    heading(doc, '9.1 The innovations of the proposal', 12, color=BLUE, before=6)
+    for t, items in SD.SECTIONS:
+        if t.startswith('4.'):
+            for kind, v in items:
+                if kind == 'h':
+                    heading(doc, v, 11, color=NAVY, before=6)
+                elif kind == 'b':
+                    q = para(doc, 3, 0.5)
+                    q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                    q.paragraph_format.first_line_indent = Cm(-0.4)
+                    run(q, '•  ', bold=True, size=10, color=ORANGE)
+                    E_mrich(q, en(v), E, size=10)
+    heading(doc, '9.2 The innovations of the state-of-the-art series', 12, color=BLUE, before=8)
+    for r, txts in NOVELTY.items():
+        if txts:
+            q = para(doc, 2, before=4)
+            run(q, r, bold=True, size=10.5, color=NAVY)
+            for txt in txts[:1]:
+                q = para(doc, 3, 0.4)
+                q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                E_mrich(q, txt, E, size=10)
+    heading(doc, '9.3 The innovations of the technical notes and parts', 12, color=BLUE, before=8)
+    for name, part, text in NEW:
+        q = para(doc, 3, 0.4)
+        q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        run(q, f'{en(name)} (Part {part} of the additional files). ', bold=True, size=10, color=ORANGE)
+        E_mrich(q, en(text), E, size=10)
+    q = para(doc, 3, 0.4)
+    q.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    run(q, 'Network lifetime (review of networks that are optimal today). ', bold=True, size=10, color=ORANGE)
+    E_mrich(q, ND.INNOVATION, E, size=10)
+
+
 def main(out):
     from build_gar_doc import Eqs, display_eq
     import omml
@@ -301,6 +364,8 @@ def main(out):
         q = para(doc, 2)
         run(q, f'{k}.  {t}', bold=True, size=10.5, color=NAVY)
         run(q, f'   ({n_k} papers)', size=10, color=GREY)
+    q = para(doc, 2)
+    run(q, '9.  All the innovations of CERTAIN-COAST', bold=True, size=10.5, color=ORANGE)
 
     for k, t, intro, pkgs in SECTIONS:
         h = heading(doc, f'{k}. {t}', 16, before=6)
@@ -325,9 +390,13 @@ def main(out):
                 reviews.append(c['review'])
         for r in reviews:
             heading(doc, r, 12, color=BLUE, before=10)
+            for j, txt in enumerate(NOVELTY.get(r, [])):
+                box(doc, 'What is new in this review' if j == 0 else 'The method', txt, E, fill='FDF3EA', bar=ORANGE)
             for c in sec[k]:
                 if c['review'] == r:
                     card(doc, c, k, E, display_eq, num)
+
+    all_innovations(doc, E, sec)
 
     p = para(doc, 4, before=10)
     run(p, 'Verification note. Every card comes from the author\'s reviews, where each reference was checked against '

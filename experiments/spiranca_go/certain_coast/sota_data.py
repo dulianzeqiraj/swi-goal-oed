@@ -267,7 +267,7 @@ GROUPS = [
              beyond='Hazard interactions matter at the continental scale; CERTAIN-COAST resolves them physically at one port, including the interactions this framework does not carry: subsidence, groundwater and liquefaction.'),
         dict(n=9, inst='Oxford (Hall)', cite='Verschuur, J., Koks, E.E., Li, S. and Hall, J.W. (2023). Multi-hazard risk to global port infrastructure and resulting trade and logistics losses. Communications Earth & Environment 4, 5.',
              doi='https://doi.org/10.1038/s43247-022-00656-7', free='https://doi.org/10.1038/s43247-022-00656-7', free_label='open access (journal)',
-             done='An asset-level analysis of about 1,340 ports for cyclone wind, coastal, river and pluvial flooding and earthquakes: port-specific risk US$7.5 bn per year, 58.6% physical damage, 22.2% logistics losses, 19.2% damage to nearby infrastructure; US$63.1 bn of trade at risk per year.',
+             done='An asset-level analysis of about 1,340 ports for cyclone wind, coastal, river and pluvial flooding and earthquakes: port-specific risk of 7.5 billion US dollars per year, 58.6% physical damage, 22.2% logistics losses, 19.2% damage to nearby infrastructure; 63.1 billion US dollars of trade at risk per year.',
              beyond='Earthquakes and flooding are counted side by side but not coupled; CERTAIN-COAST couples them at the port through the water table and relative sea level, and turns expected annual damage into a warning.'),
     ]),
     ('C. Liquefaction and the foundations of port and landfall', [

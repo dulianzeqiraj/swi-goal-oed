@@ -40,11 +40,11 @@ REVIEWS = [
                                                  _json(GAR, 'gar_exp.json'), _json(GAR, 'gar_rcps.json')),
      'What a measurement is worth (MEASURE-GO)'),
     ('III', 'reshja_go', 'text_reshja', lambda d: (_json(d, 'res', 'reshja.json'), _json(GAR, 'gar_exp.json')),
-     'Rain uncertainty (RAIN-GO)'),
+     'Rain uncertainty (PRECIPITATION-GO)'),
     ('IV', 'ankora_go', 'text_ankora', lambda d: (_json(d, 'res', 'ankora.json'), _json(GAR, 'gar_exp.json')),
-     'Simulator shift and anchors (ANCHOR-GO)'),
+     'Simulator shift and anchors (MOORING-GO)'),
     ('V', 'prirja_go', 'text_prirja', lambda d: (_json(d, 'res', 'prirja.json'), _json(GAR, 'gar_exp.json')),
-     'Drift and horizon guarantees (DRIFT-GO)'),
+     'Drift and horizon guarantees (TREND-GO)'),
     ('VI', 'dyshemeja_go', 'text_dyshemeja', lambda d: (_json(d, 'res', 'dyshemeja.json'), _json(GAR, 'gar_exp.json')),
      'The floor of optimality (FLOOR-GO)'),
     ('VII', 'shkaku_go', 'text_shkaku', lambda d: (_json(d, 'res', 'shkaku.json'), _json(d, 'res', 'shkaku_sign.json')),
@@ -91,7 +91,17 @@ def collect():
             cards = list(_load(os.path.join(d, cm), f'cards_{folder}').CARDS)
             how = f'raw cards ({type(e).__name__}: {str(e)[:80]})'
         left = sum(1 for c in cards for v in c.values() if isinstance(v, str) and '<<' in v)
-        res[key] = dict(title=title, folder=folder, how=how, cards=cards)
+        novelty = []
+        try:
+            for b in bl:
+                if isinstance(b, (list, tuple)) and b and b[0] == 'box':
+                    for x in b[1:]:
+                        for y in ([x] if isinstance(x, str) else (x if isinstance(x, (list, tuple)) else [])):
+                            if isinstance(y, str):
+                                novelty.append(y)
+        except NameError:
+            pass
+        res[key] = dict(title=title, folder=folder, how=how, cards=cards, novelty=novelty)
         print(f'{key:5s} {len(cards):3d} cards  {how}  | fields with placeholders left: {left}')
     return res
 
