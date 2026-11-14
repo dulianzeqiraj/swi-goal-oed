@@ -31,7 +31,7 @@ SHORT = {'T1.1': 'InSAR time series 2014 onwards', 'T1.2': 'GNSS, corner reflect
          'T5.1': 'Bulletin protocol and interfaces', 'T5.2': 'Twelve months of live operation',
          'T5.3': 'Safe tests and joint pumping rule', 'T5.4': 'Post-event protocol (on trigger)',
          'T6.1': 'Early-career researchers', 'T6.2': 'Training of the end-user\'s staff and users',
-         'T6.3': 'Open software and data', 'T6.4': 'Operating procedures and policy brief',
+         'T6.3': 'Open software and data', 'T6.4': 'Transfer to Qatar; operating procedures',
          'T7.1': 'Coordination and reporting', 'T7.2': 'Data plan and access agreements', 'T7.3': 'Risk and quality management'}
 
 COL = {'WP1': '#2e6db4', 'WP2': '#6a4fb3', 'WP3': '#b03a3a', 'WP4': '#1e8a5a', 'WP5': '#c27c12', 'WP6': '#0e7490', 'WP7': '#52606d'}
@@ -78,7 +78,7 @@ WPS = [
      [('T6.1', 'Early-career researchers: exchanges, schools and supervised work in WP1–WP5', (3, 36)),
       ('T6.2', 'Training of the end-user\'s staff and of the intended users', (24, 36)),
       ('T6.3', 'Open software and data release with documentation', (30, 33)),
-      ('T6.4', 'Operating procedures and policy brief', (30, 36))],
+      ('T6.4', 'Transfer to the east coast of Qatar; operating procedures and policy brief', (30, 36))],
      [('D6.1', 'Software and data release', 33), ('D6.2', 'Operating procedures and policy brief', 36)]),
     ('WP7', 'Management, data and risk', 'all', (1, 36),
      'Coordinate the consortium, secure drilling permits and access to wells and data, manage risks and report.',

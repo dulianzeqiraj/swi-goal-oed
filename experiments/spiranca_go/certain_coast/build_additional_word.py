@@ -53,6 +53,7 @@ SHORT = ['State of the art: what has been done and what CERTAIN-COAST brings',
          'Theory note: BEYOND-GO, the boundary where the model is cut',
          'Implementation report: SHOCK-GO, the earthquake in the aquifer',
          'Decisions in extreme events: final assembled system and deep reinforcement learning',
+         'The project at a glance: structure, communication, team, deliverables and timeline',
          'CV of the NATO-country Project Director', 'CV of the partner-country Project Director']
 # the line under the title of each part in the contents and in its banner
 BLURB = [
@@ -71,11 +72,14 @@ BLURB = [
     'The decisions the operators and the end-user must take when an extreme event comes, the equations of the project '
     'as one final assembled system with the decisions in it, and deep reinforcement learning that recommends only '
     'decisions inside the certified safe window. Supplement to WP2, WP3 and WP5.',
+    'The work plan in five figures: who leads each work package and what passes between them, how the results reach '
+    'each audience, who does the work, when each deliverable is due, and the Gantt chart with the evidence gates.',
     'Assoc. Prof. Dr. Dulian Zeqiraj, Faculty of Geology and Mining, Polytechnic University of Tirana.',
     'Prof. Jassim Al-Khayat, Environmental Science Center, Qatar University.']
 # the running header of each part
 HEADER = ['State of the art', 'Mathematical state of the art', 'Technical annex', 'Technical note: the assembled system', 'Theory note: BEYOND-GO',
-          'Implementation report: SHOCK-GO', 'Decisions in extreme events', 'CV of the NATO-country Project Director',
+          'Implementation report: SHOCK-GO', 'Decisions in extreme events', 'The project at a glance',
+          'CV of the NATO-country Project Director',
           'CV of the partner-country Project Director']
 # what is new in each part, in the words of the part itself (its innovation box, or Table 3 of the annex)
 NEW = [
@@ -110,6 +114,10 @@ NEW = [
      'and the decisions of every operator, and a deep reinforcement learning agent recommends only decisions inside '
      'the certified safe window. When no decision is safe, a rule agreed before the season shows the trade-off between '
      'the hazards to the people who decide.'),
+    ('Work plan', 8,
+     'A work plan built around evidence gates: each certified result is tested at a gate with a pass test and a '
+     'fallback fixed in advance before the next work package relies on it, and the gates stand on the critical path. '
+     'The figures are drawn from the tables of the form, so the two cannot disagree.'),
 ]
 W14 = 'http://schemas.microsoft.com/office/word/2010/wordml'
 
@@ -740,7 +748,7 @@ def cover(doc):
     run(p, 'Additional files', size=26, bold=True, color=INK)
     p = para(doc, 18)
     run(p, 'State of the art  ·  technical annex  ·  three notes of the preparatory work  ·  decisions in extreme '
-           'events  ·  CVs of the two Project Directors', size=11,
+           'events  ·  the project at a glance  ·  CVs of the two Project Directors', size=11,
         color=GREY)
     if os.path.exists(COVER_FIG):
         p = para(doc, 18, align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -809,7 +817,8 @@ def contents(doc, pages):
         'proofs and the numerical checks behind it; every number in them is computed by the scripts of the preparatory '
         'work of the NPD\'s team. Part 7 states the decisions the operators must take in extreme events, writes the '
         'equations as one final assembled system and adds deep reinforcement learning kept inside the certified limits; '
-        'each of Parts 1 to 6 opens with what it gives to that agent.',
+        'each of Parts 1 to 6 opens with what it gives to that agent. Part 8 shows the work plan in five figures, and '
+        'Parts 9 and 10 are the CVs of the two Project Directors.',
         'The equations of Parts 1 to 7 are set as native Word math.' + RED_NOTE + ' The names of the preparatory '
         'experiments are given in English (BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',
         'Every figure is a result of the author\'s code. The open-source code of the project (MATLAB, also runs in the '

@@ -14,14 +14,15 @@ build_workplan.py; leads and the inputs and outputs of each work package from bu
 access levels and what each feeds from build_deliverables.py; milestone leads from build_milestones.py; task labels,
 the critical path and the task that produces each deliverable from build_schedule.py; the governance calendar from
 build_timeline.py; audiences, products, months, indicators and licences from build_dissemination.py; the number of
-risks from build_risk.py; the participants and their shares of time from section 6 of build_application.py (read
-from its source, where the table is local to main()); team facts from institutions_data.py. The sentences in boxes
+risks from build_risk.py; gender targets from build_gender.py; the participants and their shares of time (section 6)
+and the answers on collaboration, end-user, data and communication from build_application.py, read from its source
+(the participants table is local to its main()); team facts from institutions_data.py. The sentences in boxes
 and banners repeat the builders' own texts. Every figure is checked for overlapping text, text outside its box or
 the canvas, and the Albanian working names of the experiments (codenames.py).
 
 Each figure is drawn on a 16 x 12 inch canvas for a 16 cm wide A4 column and saved as PNG at 300 dpi.
 
-usage: python plan_figs.py OUTDIR"""
+usage: python plan_figs.py OUTDIR [structure|dissemination|team|deliverables|gantt ...]"""
 import ast
 import os
 import re
@@ -33,7 +34,7 @@ import matplotlib  # noqa: E402
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.font_manager import FontProperties  # noqa: E402
-from matplotlib.patches import FancyBboxPatch, Polygon, Rectangle, Circle  # noqa: E402
+from matplotlib.patches import FancyBboxPatch, Polygon, Rectangle  # noqa: E402
 from matplotlib.textpath import TextPath  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -118,14 +119,28 @@ def wrap(text, width, size, weight='normal', fstyle='normal'):
     return '\n'.join(out)
 
 
+def balanced(text, width, size, weight='normal', fstyle='normal'):
+    """The same number of lines as a greedy wrap at width, but with line lengths as even as possible."""
+    n = wrap(text, width, size, weight, fstyle).count('\n') + 1
+    lo, hi = 0.0, width
+    for _ in range(30):
+        mid = (lo + hi) / 2
+        if wrap(text, mid, size, weight, fstyle).count('\n') + 1 > n:
+            lo = mid
+        else:
+            hi = mid
+    return wrap(text, hi, size, weight, fstyle)
+
+
 def lines_h(n, size, ls):
     """Height in inches of n lines (matplotlib 3.11: linespacing times the font size per line)."""
     return n * ls * size / 72.0
 
 
 def put(ax, x, y, text, width, size, color=INK, weight='normal', fstyle='normal', ls=1.15, ha='left', va='top',
-        box=None, z=3, minsize=None, maxh=None):
-    """Wrapped text; shrinks the font (down to minsize) until it fits maxh. Returns (artist, height in inches)."""
+        box=None, z=3, minsize=None, maxh=None, even=False):
+    """Wrapped text; shrinks the font (down to minsize) until it fits maxh; even=True balances the line lengths.
+    Returns (artist, height in inches)."""
     minsize = minsize or size
     while True:
         t = wrap(text, width, size, weight, fstyle)
@@ -133,6 +148,8 @@ def put(ax, x, y, text, width, size, color=INK, weight='normal', fstyle='normal'
         if maxh is None or lines_h(n, size, ls) <= maxh or size <= minsize:
             break
         size -= 0.2
+    if even:
+        t = balanced(text, width, size, weight, fstyle)
     art = ax.text(x, y, t, fontsize=size, color=color, fontweight=weight, style=fstyle, ha=ha, va=va, linespacing=ls,
                   zorder=z)
     if box is not None:
@@ -150,7 +167,7 @@ def banner(ax, text, y0=0.2, h=1.0, size=12.2):
     """The dark navy band at the bottom that states what is new, in the builders' words."""
     rbox(ax, 0.2, y0, WF - 0.4, h, NAVY, NAVY, lw=0, r=0.1, z=0)
     put(ax, WF / 2, y0 + h / 2, text, WF - 1.2, size, color='white', ls=1.35, ha='center', va='center',
-        box=(0.2, y0, WF - 0.2, y0 + h), minsize=10.5, maxh=h - 0.12)
+        box=(0.2, y0, WF - 0.2, y0 + h), minsize=10.5, maxh=h - 0.12, even=True)
 
 
 def months(ms):
@@ -316,6 +333,13 @@ COMMS = form_text('COMMS')
 REPO = re.search(r'https://(github\.com/[\w.-]+/[\w.-]+)', DATA).group(1)
 NTESTS = re.search(r'(\d+) tests', DATA).group(1)
 UPKEEP = re.search(r'about (€[\d,]+) per year', AFTER).group(1)
+OA_FEES = re.search(r'open-access fees \((€[\d,]+)\)', COMMS).group(1)
+WEB_COST = re.search(r'translation and printing \((€[\d,]+)\)', COMMS).group(1)
+EVENT_COST = re.search(r'public events \((€[\d,]+)\)', COMMS).group(1)
+# the three phases as the Work Plan names them ('**Measure and design (Months 1–12).** ...', inside its main())
+PHASES = re.findall(r'\*\*([A-Z][a-z ,]+ \(Months \d+–\d+\))\.\*\*',
+                    open(os.path.join(HERE, 'build_workplan.py'), encoding='utf-8').read())
+assert len(PHASES) == 3, PHASES
 assert 'the Albanian team leads WP1–WP5 and WP7; Qatar University leads WP6' in HOW
 
 
@@ -504,8 +528,8 @@ def fig1_structure(path):
     t = ax.text(0.35, yq1 - 0.09, 'Three phases, separated by evidence gates', fontsize=11.6, fontweight='bold',
                 color=GATE_TXT, va='top')
     ax._inside.append((t, box))
-    put(ax, 0.35, yq1 - 0.42, 'Observe and measure (Months 1–12); model and certify (Months 4–30); operate, verify and '
-        'hand over (Months 22–36). Gates ' + and_list(f'{c} (Month {MS[c]["month"]})' for c in GATE_LIST) +
+    put(ax, 0.35, yq1 - 0.42, '; '.join([PHASES[0]] + [low1(x) for x in PHASES[1:]]) + '. Gates ' +
+        and_list(f'{c} (Month {MS[c]["month"]})' for c in GATE_LIST) +
         ' decide whether each next step starts; each gate has a named fallback.', 7.45, 10.4, box=box)
     rbox(ax, 8.05, yq0, WF - 0.2 - 8.05, yq1 - yq0, '#e8f1fb', BLUE, lw=1.5)
     box = (8.05, yq0, WF - 0.2, yq1)
@@ -563,7 +587,7 @@ def fig2_dissemination(path):
                 color=INK if k < 2 else 'white', zorder=3)
         put(ax, x0 + 0.12, 10.27, ev, seg - 0.3, 10.3, va='bottom', ls=1.12, box=(x0, 10.2, x1, 10.92))
 
-    cols = [(0.2, 2.62), (2.72, 6.62), (6.72, 9.62), (9.72, 11.5), (11.6, 15.8)]
+    cols = [(0.2, 2.62), (2.72, 6.62), (6.72, 9.36), (9.46, 11.5), (11.6, 15.8)]
     head = ['Audience', 'What they receive', 'Channel', 'When', 'Attainable because']
     yh0, yh1 = 9.28, 9.7
     for (x0, x1), t in zip(cols, head):
@@ -583,10 +607,10 @@ def fig2_dissemination(path):
          f'hand-over M{MS["MS7"]["month"]}',
          'sits on the steering committee and agrees the thresholds (T3.1); gives staff time and station data in kind, '
          'with no procurement, ownership or maintenance obligations'),
-        ('Operators', 'wellfields, port and energy\nlanding; water-use permits', ORANGE,
+        ('Operators', 'wellfields, port and energy\nlandfall; permit authorities', ORANGE,
          f'water supply and permit authorities: {low1(per[2])}; port and landfall: warnings of ground motion, '
          'liquefaction and storm surges',
-         f'{low1(per[3])}; kick-off and mid-term workshops',
+         low1(per[3]).replace('workshops', 'kick-off and mid-term workshops'),
          f'workshops M{pm("Kick-off stakeholder workshop")}, M{pm("Mid-term workshop")}\n'
          f'rule by M{TASK["T5.3"]["b"]}\nbrief M{pm("Policy brief and procedures (D6.2)")}',
          'port and landfall warnings run on satellite radar, GNSS and public data, so no data or access from their '
@@ -594,16 +618,16 @@ def fig2_dissemination(path):
         ('Policy makers', 'national authorities, civil\nprotection, NATO SPS', BLUE,
          f'{low1(civ[2])} (D6.2); {low1(sps[2]).replace("; transfer workshop", "")}',
          f'{low1(civ[3])}; {low1(sps[3]).replace("reports; ", "")}',
-         f'post-event reports\non trigger (T5.4)\nSPS reports M{pm("Reports to NATO SPS").replace(", ", ", M")}',
-         'reached through IGJEO, which monitors earthquakes, weather and waters in Albania; each report to SPS falls '
-         'on a decision: MS1, MS3, MS4 and MS5, MS7'),
+         f'post-event reports\non trigger (T5.4)\nSPS reports\nM{pm("Reports to NATO SPS").replace(", ", ", M")}',
+         'reached through IGJEO, which monitors earthquakes, weather and waters in Albania; each SPS report carries a '
+         'decision (MS1; MS3; MS4 and MS5; MS7)'),
         ('Scientific\ncommunity', 'and early-career\nresearchers', TEAL,
          f'{low1(sci[2])}; {low1(ecr[2])}',
-         f'{low1(sci[3])}: {conf}; {low1(ecr[3])}',
+         f'{low1(sci[3]).replace("conferences", f"conferences ({conf})")}; {low1(ecr[3])}',
          f'papers M{pm("Open-access papers (at least six)")}\nschool M{pm("Training school")}\n'
          f'protocol M{pm("Back-testing protocol (DOI)")}\nsoftware M{pm("Open software and data (D6.1)")}',
          f'the code is public from the start (MATLAB and free GNU Octave, Apache 2.0, {NTESTS} tests); open-access fees '
-         'are budgeted (€6,000); two-month exchanges between the two countries'),
+         f'are budgeted ({OA_FEES}); two-month exchanges between the two countries'),
         ('Other coasts', 'operators and agencies;\nAllies and partners', PURPLE,
          low1(oth[2]), low1(oth[3]),
          f'workshop M{pm("Transfer workshop")}\nsoftware M{pm("Open software and data (D6.1)")}',
@@ -611,10 +635,11 @@ def fig2_dissemination(path):
          'the team reproduces the synthetic coast'),
         ('Public\nand media', 'in Durrës and Albania', RED,
          low1(pub[2]), low1(pub[3]),
-         f'press M{pm("Press releases").replace(", ", ", M")}\nwebsite from M{pm("Website and visual identity").split(",")[0]}'
+         f'press releases\nM{pm("Press releases").replace(", ", ", M")}\n'
+         f'website from M{pm("Website and visual identity").split(",")[0]}'
          '\nledger each quarter',
          'press releases at natural moments: the start of live warnings, the training school, the hand-over; website, '
-         'translation and printing (€1,500) and public events (€500) are budgeted'),
+         f'translation and printing ({WEB_COST}) and public events ({EVENT_COST}) are budgeted'),
     ]
     rh, gy, top = 1.02, 0.07, 9.2
     for r, (name, sub_, col, rec, chan, when, why) in enumerate(rows):
@@ -649,11 +674,14 @@ def fig2_dissemination(path):
     t = ax.text(0.35, yv1 - 0.1, 'Exploitation: used by the end-user, kept running in Albania, offered to other coasts',
                 fontsize=11.8, fontweight='bold', color=INK, va='top')
     ax._inside.append((t, box))
-    lic = BDI.RULES[1].split('**', 2)[-1].strip()
+    lic = ('code under the Apache License 2.0' if 'under the Apache License 2.0' in DATA else 'open-source code') + \
+        ', ' + re.search(r'open data under CC BY 4\.0; papers open access', BDI.RULES[1]).group(0)
     put(ax, 0.35, yv1 - 0.45, 'IGJEO intends to use the bulletins and the open methods in its monitoring. The network stays '
         'in Albania with the Polytechnic University of Tirana, which keeps the bulletins running; an agreement (Month 33) '
-        f'sets out how the sensors are kept, at about {UPKEEP} a year. Next: the other wellfields and coastal assets of '
-        f'Albania, and coasts of Allies and partners. {lic}', 9.1, 10.3, box=box, minsize=9.6, maxh=yv1 - yv0 - 0.5)
+        f'sets out how the sensors are kept and who carries the running cost of about {UPKEEP} a year. Next: the warnings '
+        'for the other wellfields and coastal assets of Albania; the open software for coasts of Allies and partners; '
+        f'national and European funding to keep the network and the ledger running. Licences: {lic}.', 9.1, 10.3, box=box,
+        minsize=9.6, maxh=yv1 - yv0 - 0.5)
     rbox(ax, 9.72, yv0, WF - 0.2 - 9.72, yv1 - yv0, '#e6f5ee', GREEN, lw=1.6)
     box = (9.72, yv0, WF - 0.2, yv1)
     t = ax.text(9.87, yv1 - 0.1, 'How we know it worked (Month 36)', fontsize=11.8, fontweight='bold', color=GREEN, va='top')
@@ -663,13 +691,14 @@ def fig2_dissemination(path):
         f'conference presentations; {at_least("Professionals trained (at least four from IGJEO)")} professionals trained, '
         f'≥ 4 from IGJEO; {at_least("Early-career researchers trained")} early-career researchers; '
         f'{at_least("Groups testing the software on another coast")} groups test the software on another coast; '
-        f'{at_least("Operating procedures adopted")} procedure adopted', WF - 0.2 - 9.72 - 0.3, 10.3, box=box,
+        f'{KPI["Verification ledger updates"].split(" (")[0]} quarterly updates of the verification ledger; one software and '
+        'data release with a DOI (D6.1)', WF - 0.2 - 9.72 - 0.3, 10.3, box=box,
         minsize=9.6, maxh=yv1 - yv0 - 0.5)
 
     banner(ax, 'New: open verification of a restricted service: each quarter the events, misses and false alarms of every '
                'alarm type are published with the 95% upper bound on its miss rate, without a single vulnerable location; '
                f'the back-testing protocol gets a DOI in Month {pm("Back-testing protocol (DOI)")}, before any result '
-               f'exists; the code is public from the start: {REPO}.', y0=0.2, h=1.08)
+               f'exists; the code is public from the start at {REPO}', y0=0.2, h=1.08)
     return save(fig, ax, path)
 
 
@@ -713,32 +742,39 @@ def fig3_team(path):
     check_groups()
     fig, ax = canvas()
     title(ax, 'Team and competences: what the project needs, who brings it, and the team today')
+    split = 5.12                                    # between the upper and the lower panels
 
     # ---------- competences ----------
-    px0, px1, py0, py1 = 0.2, 10.4, 5.62, 11.4
+    px0, px1, py0, py1 = 0.2, 10.4, split, 11.4
     rbox(ax, px0, py0, px1 - px0, py1 - py0, LIGHT, EDGE, lw=1.3, z=0)
     ax.text(px0 + 0.18, py1 - 0.13, 'The competences the project needs, and who brings them', fontsize=13,
             fontweight='bold', color=INK, va='top')
-    cw, gx, ch, gy = (px1 - px0 - 0.3 - 2 * 0.1) / 3, 0.1, 1.06, 0.08
+    cw, gx, gy = (px1 - px0 - 0.3 - 2 * 0.1) / 3, 0.1, 0.08
+    ch = (10.37 - (py0 + 0.12) - 3 * gy) / 4
     for g, (gt, col, items) in enumerate(GROUPS):
         x0 = px0 + 0.15 + g * (cw + gx)
         rbox(ax, x0, 10.47, cw, 0.36, col, col, lw=0, r=0.07, z=2)
-        ax.text(x0 + cw / 2, 10.65, gt, ha='center', va='center', fontsize=11, color='white', fontweight='bold', zorder=3)
+        size = 11.0
+        while tw(gt, size, 'bold') > cw - 0.2:
+            size -= 0.2
+        t = ax.text(x0 + cw / 2, 10.65, gt, ha='center', va='center', fontsize=size, color='white', fontweight='bold',
+                    zorder=3)
+        ax._inside.append((t, (x0, 10.47, x0 + cw, 10.83)))
         for k, (name, tag, who) in enumerate(items):
             y1 = 10.37 - k * (ch + gy)
             y0 = y1 - ch
             box = (x0, y0, x0 + cw, y1)
             rbox(ax, x0, y0, cw, ch, TINT[col], col, lw=1.3, r=0.07, z=2)
-            _, h = put(ax, x0 + 0.1, y1 - 0.07, name, cw - 0.2, 10.6, weight='bold', ls=1.08, box=box)
-            tagw = tw(tag, 10, 'bold')
-            t = ax.text(x0 + cw - 0.1, y0 + 0.1, tag, ha='right', va='bottom', fontsize=10, color=col, fontweight='bold',
+            _, h = put(ax, x0 + 0.1, y1 - 0.08, name, cw - 0.2, 10.6, weight='bold', ls=1.08, box=box)
+            t = ax.text(x0 + cw - 0.1, y0 + 0.09, tag, ha='right', va='bottom', fontsize=10, color=col, fontweight='bold',
                         zorder=3)
             ax._inside.append((t, box))
-            put(ax, x0 + 0.1, y1 - 0.12 - h, who, cw - 0.2, 9.8, color=MUTED, ls=1.1, box=box, minsize=9.2,
-                maxh=ch - 0.2 - h - 0.12 if tagw > 0 else None)
+            put(ax, x0 + 0.1, y1 - 0.15 - h, who, cw - 0.2, 10.0, color=MUTED, ls=1.1, box=box, minsize=9.2,
+                maxh=ch - 0.15 - h - 0.36)
 
     # ---------- the team today ----------
     xr, wr = 10.55, WF - 0.2 - 10.55
+    pbox = (xr, py0, xr + wr, py1)
     rbox(ax, xr, py0, wr, py1 - py0, 'white', NAVY, lw=1.6, z=0)
     ax.text(xr + 0.18, py1 - 0.13, 'The team today', fontsize=13, fontweight='bold', color=NAVY, va='top')
     unis = []
@@ -746,38 +782,37 @@ def fig3_team(path):
         u = p['aff'].split(', ')[-1]
         if u not in unis:
             unis.append(u)
-    ax.text(xr + 1.05, 10.42, str(len(NAMED)), ha='center', va='center', fontsize=30, fontweight='bold', color=NAVY)
-    ax.text(xr + 1.05, 9.93, 'named participants', ha='center', va='center', fontsize=10.6, color=INK)
-    ax.text(xr + 3.6, 10.42, str(len(unis)), ha='center', va='center', fontsize=30, fontweight='bold', color=NAVY)
-    ax.text(xr + 3.6, 9.93, 'universities, Albania\nand Qatar', ha='center', va='center', fontsize=10.6, color=INK,
-            linespacing=1.05)
+    for xx, big, lab in ((xr + 1.15, str(len(NAMED)), 'named participants'),
+                         (xr + 3.75, str(len(unis)), 'universities, one in\nAlbania, one in Qatar')):
+        ax.text(xx, 10.5, big, ha='center', va='center', fontsize=28, fontweight='bold', color=NAVY)
+        ax.text(xx, 10.12, lab, ha='center', va='top', fontsize=10.4, color=INK, linespacing=1.05)
     bx, bwid = xr + 1.72, wr - 1.72 - 0.62
-    y = 9.5
-    for u, label in ((unis[0], 'Albania: Polytechnic University of Tirana'), (unis[1], 'Qatar: Environmental Science Center, '
-                                                                                       'Qatar University')):
+    y = 9.6
+    n_rec = int(re.search(r'(\d+)', RECRUIT[0]['family']).group(1)) if RECRUIT else 0
+    for u, label in ((unis[0], f'Albania: {unis[0]}'), (unis[1], f'Qatar: {P["Al-Khayat"]["aff"]}')):
         team = sorted([p for p in NAMED if p['aff'].endswith(u)], key=lambda p: -pct(p))
-        tot = sum(pct(p) for p in team)
-        t = ax.text(xr + 0.2, y, f'{label}', fontsize=10.4, fontweight='bold', color=INK, va='center')
-        ax._inside.append((t, (xr, py0, xr + wr, py1)))
-        y -= 0.27
+        t = ax.text(xr + 0.2, y, label, fontsize=10.4, fontweight='bold', color=INK, va='center')
+        ax._inside.append((t, pbox))
+        y -= 0.25
         for p in team:
             role = ' (NPD)' if p is P['Zeqiraj'] else ' (PPD)' if p is P['Al-Khayat'] else ''
             ax.text(xr + 0.2, y, p['family'] + role, fontsize=10.2, color=INK, va='center')
-            ax.add_patch(Rectangle((bx, y - 0.07), bwid, 0.14, fc='#e4e7eb', ec='none', zorder=1))
-            ax.add_patch(Rectangle((bx, y - 0.07), bwid * pct(p) / 100, 0.14, fc=BLUE, ec='none', zorder=2))
+            ax.add_patch(Rectangle((bx, y - 0.065), bwid, 0.13, fc='#e4e7eb', ec='none', zorder=1))
+            ax.add_patch(Rectangle((bx, y - 0.065), bwid * pct(p) / 100, 0.13, fc=BLUE, ec='none', zorder=2))
             ax.text(bx + bwid * pct(p) / 100 + 0.06, y, p['time'], fontsize=10, color=INK, va='center', fontweight='bold',
                     zorder=3)
-            y -= 0.235
-        t = ax.text(xr + 0.2, y + 0.02, f'together {tot}% of one person\'s time' +
-                    (f'; {RECRUIT[0]["family"].strip("()")} to be recruited ({RECRUIT[0]["pos"].lower()})'
-                     if u in RECRUIT[0]['aff'] else ''), fontsize=9.6, color=MUTED, va='center', style='italic')
-        ax._inside.append((t, (xr, py0, xr + wr, py1)))
-        y -= 0.36
-    put(ax, xr + 0.2, y + 0.08, 'and the end-user, IGJEO: a contact person and a small team, with staff time and data in '
-        'kind; no SPS funds', wr - 0.4, 10.0, color=GREEN, weight='bold', box=(xr, py0, xr + wr, py1))
+            y -= 0.212
+        fte = sum(pct(p) for p in team) / 100
+        note = f'together {fte:g} full-time equivalents'
+        if RECRUIT and u in RECRUIT[0]['aff']:
+            note += f'; {n_rec} {RECRUIT[0]["pos"].lower().replace(" (stipends)", "")} on stipends to be recruited'
+        _, h = put(ax, xr + 0.2, y + 0.08, note, wr - 0.4, 9.8, color=MUTED, fstyle='italic', box=pbox)
+        y -= h + 0.3
+    put(ax, xr + 0.2, y + 0.12, 'and the end-user, IGJEO: a contact person and a small team, with staff time and data in '
+        'kind and no SPS funds', wr - 0.4, 10.0, color=GREEN, weight='bold', box=pbox)
 
     # ---------- capacity the project builds ----------
-    qx0, qx1, qy0, qy1 = 0.2, 10.4, 1.32, 5.47
+    qx0, qx1, qy0, qy1 = 0.2, 10.4, 1.3, split - 0.15
     rbox(ax, qx0, qy0, qx1 - qx0, qy1 - qy0, '#f2f8fb', TEAL, lw=1.3, z=0)
     ax.text(qx0 + 0.18, qy1 - 0.13, 'Capacity the project builds, each with a target', fontsize=13, fontweight='bold',
             color=TEAL, va='top')
@@ -785,7 +820,7 @@ def fig3_team(path):
     trained = at_least('Professionals trained (at least four from IGJEO)')
     cards = [('Trained professionals',
               f'the end-user\'s staff and the intended users learn to use the bulletins and what a certified miss rate '
-              f'means (T6.2, Months {TASK["T6.2"]["a"]}–{TASK["T6.2"]["b"]})',
+              f'means (T6.2, M{TASK["T6.2"]["a"]}–{TASK["T6.2"]["b"]})',
               'procedures and software documented for use without the project team',
               f'{trained}, of them ≥ 4 from IGJEO'),
              ('Early-career researchers',
@@ -798,30 +833,28 @@ def fig3_team(path):
               'workshop',
               f'transfer workshop for other coasts in Month {pm("Transfer workshop")}',
               f'D6.1 reproduced outside the team, M{pm("Open software and data (D6.1)")}')]
+    y0c, y1c = 2.36, qy1 - 0.43
     for g, (head, now, act, tgt) in enumerate(cards):
         x0 = qx0 + 0.15 + g * (cw + gx)
-        y0, hc = 2.38, 2.48
-        box = (x0, y0, x0 + cw, y0 + hc)
-        rbox(ax, x0, y0, cw, hc, 'white', TEAL, lw=1.3, r=0.07, z=2)
-        t = ax.text(x0 + 0.1, y0 + hc - 0.08, head, ha='left', va='top', fontsize=11.2, color=TEAL, fontweight='bold',
-                    zorder=3)
+        box = (x0, y0c, x0 + cw, y1c)
+        rbox(ax, x0, y0c, cw, y1c - y0c, 'white', TEAL, lw=1.3, r=0.07, z=2)
+        t = ax.text(x0 + 0.1, y1c - 0.08, head, ha='left', va='top', fontsize=11.2, color=TEAL, fontweight='bold', zorder=3)
         ax._inside.append((t, box))
-        _, h = put(ax, x0 + 0.1, y0 + hc - 0.44, now, cw - 0.2, 10.2, ls=1.13, box=box)
-        put(ax, x0 + 0.1, y0 + hc - 0.56 - h, act, cw - 0.2, 10.2, color=GREEN, fstyle='italic', ls=1.13, box=box)
-        rbox(ax, x0 + 0.08, y0 + 0.08, cw - 0.16, 0.5, GREEN, GREEN, lw=0, r=0.06, z=3)
-        put(ax, x0 + cw / 2, y0 + 0.33, tgt, cw - 0.3, 10.4, color='white', weight='bold', ha='center', va='center',
+        _, h = put(ax, x0 + 0.1, y1c - 0.4, now, cw - 0.2, 10.2, ls=1.13, box=box)
+        put(ax, x0 + 0.1, y1c - 0.5 - h, act, cw - 0.2, 10.2, color=GREEN, fstyle='italic', ls=1.13, box=box)
+        rbox(ax, x0 + 0.08, y0c + 0.08, cw - 0.16, 0.5, GREEN, GREEN, lw=0, r=0.06, z=3)
+        put(ax, x0 + cw / 2, y0c + 0.33, tgt, cw - 0.3, 10.4, color='white', weight='bold', ha='center', va='center',
             ls=1.08, z=4, box=box, minsize=9.4, maxh=0.46)
-    # the starting point
-    rbox(ax, qx0 + 0.15, 1.44, qx1 - qx0 - 0.3, 0.82, 'white', EDGE, lw=1.0, r=0.06, z=2)
-    box = (qx0 + 0.15, 1.44, qx1 - 0.15, 2.26)
-    t = ax.text(qx0 + 0.27, 2.17, 'Starting point (2026):', fontsize=10.4, fontweight='bold', color=INK, va='top', zorder=3)
+    rbox(ax, qx0 + 0.15, 1.42, qx1 - qx0 - 0.3, 0.82, 'white', EDGE, lw=1.0, r=0.06, z=2)
+    box = (qx0 + 0.15, 1.42, qx1 - 0.15, 2.24)
+    lab = 'Starting point (2026):'
+    t = ax.text(qx0 + 0.27, 2.15, lab, fontsize=10.4, fontweight='bold', color=INK, va='top', zorder=3)
     ax._inside.append((t, box))
-    put(ax, qx0 + 0.27 + tw('Starting point (2026):', 10.4, 'bold') + 0.1, 2.17,
+    put(ax, qx0 + 0.27 + tw(lab, 10.4, 'bold') + 0.1, 2.15,
         'eleven reviews with tested methods and a calibrated chloride model of the aquifer that supplies Durrës; the '
         f'open code with {NTESTS} tests; papers of the team in Journal of Hydrology, Journal of Contaminant Hydrology '
         'and Journal of Hazardous Materials Advances; on the Qatar side, projects on shoreline change and on wind and '
-        'waves (2025–2027)', qx1 - qx0 - 0.5 - tw('Starting point (2026):', 10.4, 'bold') - 0.1, 10.0, box=box,
-        minsize=9.4, maxh=0.7)
+        'waves (2025–2027)', qx1 - qx0 - 0.5 - tw(lab, 10.4, 'bold') - 0.1, 10.0, box=box, minsize=9.4, maxh=0.7)
 
     # ---------- how the team works ----------
     rbox(ax, xr, qy0, wr, qy1 - qy0, '#e6f5ee', GREEN, lw=1.6, z=0)
@@ -837,9 +870,9 @@ def fig3_team(path):
     assert all(b.split(';')[0].split(',')[0][4:30].lower() in collab.lower() for b in bullets), 'bullets left the form text'
     y = qy1 - 0.58
     box = (xr, qy0, xr + wr, qy1)
-    for b in bullets:
+    for b_ in bullets:
         ax.text(xr + 0.2, y, '•', fontsize=12, color=GREEN, va='top', fontweight='bold')
-        _, h = put(ax, xr + 0.42, y, b, wr - 0.6, 10.6, ls=1.15, box=box)
+        _, h = put(ax, xr + 0.42, y, b_, wr - 0.6, 10.6, ls=1.15, box=box)
         y -= h + 0.16
 
     banner(ax, 'New in how the team is built: the model and the alarm algorithm stay with the team that builds them and '
@@ -901,13 +934,13 @@ def fig4_deliverables(path):
             ax.text(X(m), yc + 0.07, d['code'], ha='center', va='bottom', fontsize=10, fontweight='bold', color=INK, zorder=5)
 
     # ---------- table ----------
-    cols = [(0.2, 0.95, 'D'), (1.0, 4.85, 'Deliverable'), (4.9, 7.75, 'Type · access'), (7.8, 9.95, 'Lead'),
-            (10.0, 11.35, 'Month'), (11.4, 15.8, 'Serves: milestone · feeds')]
+    cols = [(0.2, 0.95, 'D'), (1.0, 4.85, 'Deliverable'), (4.9, 7.75, 'Type · access'), (7.8, 9.6, 'Lead'),
+            (9.65, 10.9, 'Month'), (10.95, 15.8, 'Serves: milestone · feeds')]
     th0, th1 = 6.48, 6.88
     for x0, x1, t in cols:
         rbox(ax, x0, th0, x1 - x0, th1 - th0, '#eceff3', EDGE, lw=1.0)
         ax.text((x0 + x1) / 2, (th0 + th1) / 2, t, ha='center', va='center', fontsize=11, fontweight='bold', color=INK)
-    rh = 0.335
+    rh = 0.35
     for i, d in enumerate(its):
         y1 = th0 - 0.04 - i * rh
         y0 = y1 - rh + 0.03
@@ -916,16 +949,18 @@ def fig4_deliverables(path):
         mk, col = TYPES[d['type']]
         cells = [(cols[0], d['code'], 'center', 'bold', INK), (cols[1], d['name'], 'left', 'normal', INK)]
         for (x0, x1, _), txt, ha, wt, tc in cells:
-            put(ax, (x0 + x1) / 2 if ha == 'center' else x0 + 0.08, ym, txt, x1 - x0 - 0.1, 10.4, color=tc, weight=wt,
-                ha=ha, va='center', box=(x0, y0, x1, y1), minsize=9.4, maxh=rh)
+            put(ax, (x0 + x1) / 2 if ha == 'center' else x0 + 0.08, ym, txt, x1 - x0 - 0.12, 10.4, color=tc, weight=wt,
+                ha=ha, va='center', box=(x0, y0, x1, y1), minsize=9.4, maxh=lines_h(1, 10.4, 1.15) + 0.01)
         x0 = cols[2][0]
         ax.plot([x0 + 0.17], [ym], marker=mk, ms=10, color=col, mec='white', mew=1.0)
         tt = d['type'].lower()
-        ax.text(x0 + 0.36, ym, tt, ha='left', va='center', fontsize=10.4, color=col, fontweight='bold')
-        ax.text(x0 + 0.36 + tw(tt, 10.4, 'bold') + 0.08, ym, '· ' + ACCESS[d['cls']], ha='left', va='center',
-                fontsize=10.2, color=MUTED)
+        t = ax.text(x0 + 0.36, ym, tt, ha='left', va='center', fontsize=10.4, color=col, fontweight='bold')
+        ax._inside.append((t, (cols[2][0], y0, cols[2][1], y1)))
+        t = ax.text(x0 + 0.36 + tw(tt, 10.4, 'bold') + 0.08, ym, '· ' + ACCESS[d['cls']], ha='left', va='center',
+                    fontsize=10.2, color=MUTED)
+        ax._inside.append((t, (cols[2][0], y0, cols[2][1], y1)))
         put(ax, (cols[3][0] + cols[3][1]) / 2, ym, lead(d['wp']), cols[3][1] - cols[3][0] - 0.1, 10.4, ha='center',
-            va='center', box=cols[3][:2] and (cols[3][0], y0, cols[3][1], y1), minsize=9.4, maxh=rh)
+            va='center', box=(cols[3][0], y0, cols[3][1], y1), minsize=9.0, maxh=lines_h(1, 10.4, 1.15) + 0.01)
         put(ax, (cols[4][0] + cols[4][1]) / 2, ym, months(d['months']), cols[4][1] - cols[4][0] - 0.1, 10.4,
             weight='bold', ha='center', va='center', box=(cols[4][0], y0, cols[4][1], y1), minsize=9.0, maxh=rh)
         ms = BD.ms_of(d['code'])
@@ -939,11 +974,13 @@ def fig4_deliverables(path):
             ax.text(x0, ym, '·', ha='left', va='center', fontsize=10.4, color=MUTED)
             x0 += 0.16
         put(ax, x0, ym, feeds, x1 - x0 - 0.05, 10.2, ha='left', va='center', box=(cols[5][0], y0, x1, y1), minsize=9.0,
-            maxh=rh)
+            maxh=lines_h(1, 10.2, 1.15) + 0.01)
     yn = th0 - 0.04 - len(its) * rh - 0.08
     put(ax, 0.25, yn, f'Lead: NPD team, {P["Zeqiraj"]["aff"].split(", ")[-1]} (Albania); PPD team, '
         f'{P["Al-Khayat"]["aff"]} (Qatar). Access: public; restricted; or public with a restricted annex for asset-level '
-        f'results. Months count from the start; D7.2 is the progress report at each SPS reporting milestone.',
+        f'results. Months count from the start of the grant. D7.2 is the progress report at each SPS reporting milestone '
+        f'(Months {", ".join(str(m) for m in [d for d in its if d["code"] == "D7.2"][0]["months"])}), so the {len(its)} '
+        f'deliverables count as {n_items}.',
         WF - 0.5, 9.8, color=MUTED, fstyle='italic', box=(0.2, 1.3, WF - 0.2, yn + 0.02))
 
     banner(ax, 'New: every deliverable has a pass test stated in advance, and three of them decide the evidence gates (D2.1, '
@@ -976,14 +1013,14 @@ def fig5_gantt(path):
     la, lb = BM.LIVE
     ax.add_patch(Rectangle((X(la), ybot), X(lb + 1) - X(la), top - ybot, fc='#fcebd3', ec='none', zorder=0.2))
     # milestones on top, lines through the chart
-    ymr = 10.68
+    ymr = 10.6
     ax.text(X0 - 0.12, ymr, 'Milestones', ha='right', va='center', fontsize=11, fontweight='bold', color=GATE_TXT)
     for c in MS:
         g, m = c in GATES, MS[c]['month']
         xm = X(m + 1)
         ax.plot([xm, xm], [ybot, ymr - 0.12], color=GATE if g else '#9aa3ae', lw=1.6 if g else 1.0, ls='--', zorder=1)
         ax.plot([xm], [ymr], marker='D', ms=11, color=GATE if g else NAVY, mec=INK if g else 'white', mew=1.0, zorder=5)
-        ax.text(xm - 0.15, ymr, c, ha='right', va='center', fontsize=10.4, fontweight='bold', color=GATE_TXT if g else NAVY)
+        ax.text(xm, ymr + 0.13, c, ha='center', va='bottom', fontsize=10.4, fontweight='bold', color=GATE_TXT if g else NAVY)
     ypos = {}
     for i, (kind, code) in enumerate(rows):
         y1 = top - i * rh
@@ -1076,5 +1113,5 @@ def main(outdir, only=None):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        sys.exit('usage: python plan_figs.py OUTDIR')
+        sys.exit(__doc__.split('usage: ')[-1])
     main(sys.argv[1], sys.argv[2:] or None)

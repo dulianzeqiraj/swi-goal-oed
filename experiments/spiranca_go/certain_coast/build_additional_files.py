@@ -58,6 +58,10 @@ PARTS = [
      'equations, and deep reinforcement learning kept inside the certified limits (supplement to WP2, WP3 and WP5)',
      'Decisions in extreme events: final assembled system and deep reinforcement learning',
      os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Decisions_DRL.docx')),
+    ('The project at a glance: structure, communication, team, deliverables and timeline of the work plan, in five '
+     'figures drawn from the tables of the form',
+     'The project at a glance: structure, communication, team, deliverables and timeline',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Project_at_a_Glance.docx')),
     ('Curriculum vitae of the NATO-country Project Director, Assoc. Prof. Dr. Dulian Zeqiraj (Faculty of Geology and '
      'Mining, Polytechnic University of Tirana)',
      'CV of the NATO-country Project Director',
