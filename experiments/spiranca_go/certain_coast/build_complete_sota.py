@@ -162,7 +162,20 @@ def gather():
     sec = {s[0]: [] for s in SECTIONS}
     p = os.path.join(SCRATCH, 'complete_sota', 'cards_assimilation.json')
     if os.path.exists(p):
-        for c in json.load(open(p, encoding='utf-8')):
+        A = json.load(open(p, encoding='utf-8'))
+        order = {c.get('id'): j + 1 for j, c in enumerate(A)}       # A1..A20 -> [1]..[20], the numbers of Section 1
+
+        def renum(t):
+            if not isinstance(t, str):
+                return t
+            parts = t.split('$')
+            for j in range(0, len(parts), 2):                     # outside inline math only
+                parts[j] = re.sub(r'\bA(\d{1,2})\b', lambda m: f'[{order.get("A" + m.group(1), m.group(1))}]'
+                                  if 'A' + m.group(1) in order else m.group(0), parts[j])
+            return '$'.join(parts)
+
+        for c in A:
+            c = {k: (renum(v) if k not in ('id', 'links', 'title', 'eq') else v) for k, v in c.items()}
             sec['1'].append(norm_json(c, 'Dynamic data assimilation for missing dynamics (20 papers)'))
     S = json.load(open(os.path.join(SCRATCH, 'complete_sota', 'series_cards.json'), encoding='utf-8'))
     where = {'I': '2', 'II': '2', 'III': '2', 'IV': '3', 'V': '3', 'VI': '3', 'VII': '4', 'VIII': '4', 'IX': '4',
@@ -465,7 +478,11 @@ def main(out):
     run(p, 'CERTAIN-COAST — The complete state of the art', bold=True, size=22, color=NAVY)
     p = para(doc, 6)
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run(p, f'{n_full} papers of 2020–2026 from the author\'s state-of-the-art series, each with its summary, its link '
+    years = [int(c['year'][:4]) for k in sec for c in sec[k] if not c.get('dup_of') and c['year'][:4].isdigit()]
+    n_old = sum(1 for y in years if y < 2020)
+    span = (f'{n_full} papers ({n_full - n_old} of 2020–2026 and {n_old} earlier works that reviews X and XI build on)'
+            if n_old else f'{n_full} papers of 2020–2026')
+    run(p, f'{span} from the author\'s state-of-the-art series, each with its summary, its link '
            f'to the anchor and to seawater intrusion, its innovation and the step CERTAIN-COAST takes beyond it; the '
            f'equations of the author\'s MATLAB code in red', bold=True, size=12, color=NAVY)
     p = para(doc, 18)
