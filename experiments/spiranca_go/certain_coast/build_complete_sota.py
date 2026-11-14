@@ -82,6 +82,12 @@ SECTIONS = [
     ('rain', 'Inputs, dispersion and boundary conditions from rain, with guarantees',
      'What can be learned about the recharge, the dispersion and the boundaries that nobody measures from rain, heads '
      'and a few chloride profiles, and with which guarantee (reviews I–III).', ['+boundary']),
+    ('sbc', 'Stochastic boundary conditions and their deterministic approximation',
+     'Partial differential equations whose boundaries are random (noisy sea level and river stage on Dirichlet or Robin '
+     'boundaries, recharge and lateral inflow on Neumann boundaries) and how closely deterministic boundary conditions '
+     'can stand in for them: random boundaries that become deterministic in a limit, averaging of fast random '
+     'coefficients, effective and learned boundary conditions, and a ladder of seven deterministic approximations for '
+     'a coastal aquifer.', []),
     ('drift', 'When the simulator is wrong or drifts: anchors, horizons and the floor',
      'Guarantees that survive a wrong simulator, a drifting climate and a long forecast horizon, and the floor below '
      'which no valid band can go (reviews IV–VI).', ['+alarms']),
@@ -131,6 +137,7 @@ N_ALL = len(SECTIONS) + 1                 # the closing section: all the innovat
 
 # the reviews added last: (file key, section, label if the file gives none)
 NEW_REVIEWS = [
+    ('SBC', 'sbc', 'Stochastic boundary conditions in PDE systems and their deterministic approximation'),
     ('TRANSFER', 'transfer', 'Transferring models between sites under distribution shift'),
     ('INF', 'causal', 'Causal inference with a mathematical and algorithmic emphasis'),
     ('ZBUL', 'causal', 'Discovering causal models with optimization: latent confounders, cycles and instrument validity'),
@@ -706,9 +713,9 @@ def main(out):
     p = para(doc, 4, before=10)
     run(p, 'Verification note. Every card comes from the author\'s reviews, where each reference was checked against '
            'Crossref, arXiv, the proceedings or institutional repositories; the cards of the data assimilation review, '
-           'of reviews X and XI and of the seven reviews added last (transfer between sites, causal inference, causal '
-           'discovery with optimization, causality under chaos, the value of information without a prior, reactions '
-           'away from equilibrium and modern hydrogeochemistry) were translated or extracted from those reviews and their '
+           'of reviews X and XI and of the eight reviews added last (stochastic boundary conditions, transfer between '
+           'sites, causal inference, causal discovery with optimization, causality under chaos, the value of information '
+           'without a prior, reactions away from equilibrium and modern hydrogeochemistry) were translated or extracted from those reviews and their '
            'references checked again in Crossref in November 2026. The equations in red were checked against the MATLAB '
            'code of the package or are the author\'s own proposals as the reviews state them. The document was assembled '
            'with the help of an AI assistant.', italic=True, size=9, color=GREY)
