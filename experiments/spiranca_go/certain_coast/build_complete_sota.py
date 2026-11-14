@@ -43,7 +43,9 @@ GLOSS = re.compile(r'(-GO(?:\*\*)?)\s*\(\*[a-zçë]+\*,\s*[a-z ]+\)')   # "**ORI
 def en(t):
     if not isinstance(t, str):
         return t
-    return GLOSS.sub(r'\1', english(t)).replace('{{map}}', '').replace(' (Section 3, Figure )', '')
+    t = GLOSS.sub(r'\1', english(t)).replace('{{map}}', '').replace(' (Section 3, Figure )', '')
+    t = t.replace('in the case of Figure {{case}}', 'in the simulated case shown in review IX')
+    return re.sub(r'\{\{\w+\}\}', '', t)                      # figure tokens of the reviews' own builders
 
 
 def norm(t):
