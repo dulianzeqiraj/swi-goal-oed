@@ -66,7 +66,7 @@ for k = 1:size(topics, 1)
     catch err
         skipped{end + 1} = topics{k, 1}; %#ok<AGROW>
         say(lg, 'SKIPPED %s: %s\n', topics{k, 1}, err.message);
-        close(findall(0, 'Type', 'figure'));
+        close(findall(0, 'Type', 'figure', 'Visible', 'off'));
     end
 end
 say(lg, '\n%d figure(s) made: %s\n', numel(done), strjoin(done, ', '));
@@ -217,6 +217,8 @@ counts = zeros(1, numel(edges) - 1);
 for k = 1:numel(counts)
     counts(k) = sum(res >= edges(k) & res < edges(k + 1));
 end
+say(lg, '  plotted: histogram of the calibration errors in bins of %d mg/L from %d to %d (%d of %d errors)\n', ...
+    w, edges(1), edges(end), sum(counts), numel(res));
 for k = 1:numel(counts)
     patch('Parent', ax2, 'XData', edges(k) + [0 w w 0], 'YData', [0 0 counts(k) counts(k)], ...
           'FaceColor', pal.barGray, 'EdgeColor', 'w', 'LineWidth', 0.6);
@@ -263,6 +265,7 @@ end
 tail = 0.5 * erfc(z / sqrt(2));
 say(lg, '  plotted: crossing curve over correlation times %.2f-%.0f d (%d rates, 8000 paths, season 120 d, z = %.0f)\n', ...
     1 / kGrid(end), 1 / kGrid(1), numel(kGrid), z);
+say(lg, '  inputs of the example: limit 250 mg/L, mean 180 mg/L, standard deviation 35 mg/L, true correlation time 8 d\n');
 
 fig = newFigure(16, 7.3);
 ax = newAxes(fig, [1.95 1.25 6.0 5.3]);
@@ -370,6 +373,8 @@ for T = [40, 10, 1, 0.1, 5 / 365.25]
     say(lg, '    period %7.4f years: exact %.3f, learned %.3f (%+.0f%%)\n', T, ze, zl, 100 * (zl / ze - 1));
 end
 say(lg, '  fixed head: |Z| = %.1f m/d at every period; no flow: Z = 0 (not on the log scale)\n', p.c);
+say(lg, '  inputs of the example: piezometers in cells %d and %d with 2 mm noise, %d days of calibration; prediction: pumping %.1f -> %.1f m2/d from year 2, recharge x 0.3 in years 3-8\n', ...
+    p.bandCells(1), p.bandCells(2), nd, p.Q0, Qp(end));
 
 fig = newFigure(16, 7.7);
 ax = newAxes(fig, [1.6 1.25 8.8 4.6]);
@@ -474,6 +479,12 @@ say(lg, '  the salt-mass design %s gives it %.3f nats (%.0f%% of that optimum).\
 say(lg, '  plotted: greedy order %s; gain after each added sensor %s nats; all %d designs of 3 sensors: %.3f-%.3f nats\n', ...
     mat2str([steps.added]), mat2str([steps.gain], 4), numel(gains), min(gains), max(gains));
 
+if isequal(sort(S), combs(ib, :))
+    greedyLabel = sprintf('greedy design %s for the salt mass = exhaustive optimum', mat2str(sort(S)));
+else
+    greedyLabel = sprintf('greedy design %s for the salt mass (exhaustive optimum %s)', mat2str(sort(S)), ...
+                          mat2str(combs(ib, :)));
+end
 C = reshape(U(g.N + 1:2 * g.N), g.Nx, g.Ny).';
 [xy, yy, Cy] = padVertically(g, C);
 fig = newFigure(16, 7.9);
@@ -517,8 +528,7 @@ set(ax, 'XLim', [0 g.Lx], 'YLim', [0 g.Ly], 'XTick', 0:0.25:2, 'YTick', 0:0.25:1
 finishAxes(ax, 'Distance from the inland boundary, x (m)', 'Height, y (m)', true);
 panelLabel(ax, '(a)', 1.4);
 items = {legendItem('marker', 'candidate salinity sensor (number)', 'w', 'o', 5.5, pal.ink2), ...
-         legendItem('marker', sprintf('greedy design %s for the salt mass = exhaustive optimum', mat2str(sort(S))), ...
-                    pal.blue, 'o', 6.5, 'w'), ...
+         legendItem('marker', greedyLabel, pal.blue, 'o', 6.5, 'w'), ...
          legendItem('marker', sprintf('best design %s for "supply cell above its limit?"', mat2str(combs(ir, :))), ...
                     'none', 's', 9, pal.orange), ...
          legendItem('marker', 'supply cell', pal.ink, 'd', 6.5, 'w'), ...
@@ -675,7 +685,11 @@ fig = figure('Visible', 'off', 'Color', 'w', 'Units', 'centimeters', 'Position',
              'DefaultAxesFontName', 'Helvetica', 'DefaultAxesFontSize', 9, ...
              'DefaultTextFontName', 'Helvetica', 'DefaultTextFontSize', 9, ...
              'DefaultAxesLineWidth', 0.5, 'DefaultLineLineWidth', 1.0, 'DefaultAxesTickDir', 'out', ...
-             'DefaultAxesXColor', [0.15 0.15 0.15], 'DefaultAxesYColor', [0.15 0.15 0.15]);
+             'DefaultAxesXColor', [0.15 0.15 0.15], 'DefaultAxesYColor', [0.15 0.15 0.15], ...
+             'DefaultTextColor', [0.1 0.1 0.1]);
+if isprop(fig, 'Theme')                                  % MATLAB R2025a and later: never follow a dark desktop
+    set(fig, 'Theme', 'light');
+end
 end
 
 function ax = newAxes(fig, pos)
@@ -803,10 +817,19 @@ i2 = find(d == -1) - 1;
 end
 
 function saveFigure(fig, outDir, name, lg)
+% PNG at 300 dpi and vector PDF, both at the size of the figure (its paper size).
 png = fullfile(outDir, [name, '.png']);
 pdf = fullfile(outDir, [name, '.pdf']);
 print(fig, '-dpng', '-r300', png);
 print(fig, '-dpdf', '-painters', pdf);
+if exist('OCTAVE_VERSION', 'builtin') ~= 0
+    % GNU Octave writes the PNG without its resolution (MATLAB records it): tag it 300 dpi with ImageMagick, if
+    % installed. The pixels are not changed.
+    [status, out] = system(sprintf('mogrify -units PixelsPerInch -density 300 "%s" 2>&1', png));
+    if status ~= 0
+        say(lg, '  PNG left without a resolution tag (ImageMagick: %s)\n', strtrim(out));
+    end
+end
 say(lg, 'saved %s and %s\n', png, pdf);
 close(fig);
 end

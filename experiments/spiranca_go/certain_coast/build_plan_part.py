@@ -19,19 +19,23 @@ from build_sota import run, para, heading, shade  # noqa: E402
 NAVY, GREY = '1F3864', '52606D'
 FIGS = [
     ('plan_fig1_structure.png',
-     'Project structure: the management, the work packages with their leads, the interfaces between them and the '
-     'deliverables they hand on.'),
+     'Project structure: the Project Directors, the steering committee and the end-user IGJEO; the seven work '
+     'packages with their leads, months, tasks, milestones and deliverables; what flows between them; and the three '
+     'evidence gates.'),
     ('plan_fig2_dissemination.png',
-     'Communication, dissemination and exploitation, audience by audience: the products, the months, the indicators '
-     'and the licences.'),
+     'Communication, dissemination and exploitation for six audiences: what each receives, through which channel, '
+     'when, and why it is attainable; the exploitation after the project and the indicators for Month 36.'),
     ('plan_fig3_team.png',
-     'The team and its competences: the participants of the Polytechnic University of Tirana, Qatar University and '
-     'the end-user, with their shares of time.'),
+     'The team and its competences: the twelve competences the project needs and who brings them, the twelve named '
+     'participants with their shares of time (2.1 full-time equivalents in Albania, 0.35 in Qatar), the capacity '
+     'targets and how the team works.'),
     ('plan_fig4_deliverables.png',
-     'Deliverables: their timeline by work package, their type and access level, and what each one feeds.'),
+     'Deliverables: the 13 deliverables (15 counting the three progress reports) on a timeline of Months 0–36 by work '
+     'package, with their type and access, lead and month, and the milestone and work each one serves.'),
     ('plan_fig5_gantt.png',
-     'Gantt chart: the tasks, the milestones, the evidence gates with their fallbacks, the deliverables and the '
-     'critical path over 36 months.'),
+     'Gantt chart of the seven work packages and 28 tasks over 36 months: the milestones MS1–MS7, the evidence gates '
+     'MS3–MS5, each deliverable at the end of the task that produces it, the critical path and the live operation in '
+     'Months 23–34.'),
 ]
 
 

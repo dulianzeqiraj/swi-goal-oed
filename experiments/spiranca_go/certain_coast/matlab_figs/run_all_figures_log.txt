@@ -1,10 +1,10 @@
 CERTAIN-COAST 0.1.0 from /home/user/dulianzeqiraj/certain-coast
-GNU Octave 8.4.0 (graphics toolkit qt), 2026-11-14 16:45:04
+GNU Octave 8.4.0 (graphics toolkit qt), 2026-11-14 16:58:48
 
 === fig1_henry
 Henry benchmark: Henry number phi*Dmol/Q = 0.100
   16 x  8: toe 1.4226 m (0.711 of the length), residual 3.2e-17, 8 Newton steps, 0.1 s
-  32 x 16: toe 1.3971 m (0.699 of the length), residual 2.3e-16, 7 Newton steps, 0.4 s
+  32 x 16: toe 1.3971 m (0.699 of the length), residual 2.3e-16, 7 Newton steps, 0.3 s
   41 x 21: toe 1.3918 m (0.696 of the length), residual 3.5e-14, 7 Newton steps, 0.6 s
   61 x 31: toe 1.3864 m (0.693 of the length), residual 7.0e-13, 7 Newton steps, 1.6 s
   plotted: field of the 61 x 31 grid; the 0.5 isochlor meets the base at 1.3864 m and the sea boundary at y = 0.93 m
@@ -15,6 +15,7 @@ saved /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0
 margin 23.9 mg/L; events 23, missed 0; 95% upper bound on the miss rate 0.122
   plotted: alarm level (limit - margin) 226.1 mg/L; alarm on at 119 of 600 live steps (96 of them without an event)
   plotted: 600 calibration errors (steps 1-600), 59 of them above the margin; live steps 601-1200
+  plotted: histogram of the calibration errors in bins of 10 mg/L from -60 to 60 (600 of 600 errors)
 saved /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig2_alarm.png and /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig2_alarm.pdf
 (1.3 s)
 
@@ -25,8 +26,9 @@ monthly samples    correlation time   11.9 d, 95% interval    0.2-  23.3 d (shor
 weekly samples     correlation time    6.8 d, 95% interval    5.5-   8.3 d; warning band 0.78-0.89
 daily logger       correlation time    7.6 d, 95% interval    7.2-   8.1 d; warning band 0.79-0.82
   plotted: crossing curve over correlation times 0.25-400 d (41 rates, 8000 paths, season 120 d, z = 2)
+  inputs of the example: limit 250 mg/L, mean 180 mg/L, standard deviation 35 mg/L, true correlation time 8 d
 saved /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig3_betweensamples.png and /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig3_betweensamples.pdf
-(7.6 s)
+(8.1 s)
 
 === fig4_boundary
 20 years, error at the boundary cell (m, rms):
@@ -44,6 +46,7 @@ Prediction of a drought with doubled pumping, 10 years (m, rms at the boundary c
     period  0.1000 years: exact 1.789, learned 1.981 (+11%)
     period  0.0137 years: exact 3.706, learned 12.379 (+234%)
   fixed head: |Z| = 5.0 m/d at every period; no flow: Z = 0 (not on the log scale)
+  inputs of the example: piezometers in cells 18 and 19 with 2 mm noise, 7305 days of calibration; prediction: pumping 0.6 -> 1.2 m2/d from year 2, recharge x 0.3 in years 3-8
 saved /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig4_boundary.png and /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig4_boundary.pdf
 (7.7 s)
 
@@ -62,6 +65,6 @@ scaled parameters: largest head change 2.7e-15 m, recharge 599 mm/yr instead of 
 so a pumping test (Sy), a soil-moisture probe or a chloride balance is needed to fix the amount.
   plotted: days 2-1096; 37 blocks of 30 days (the last one has 15 days); largest true daily recharge 9.5 mm/d
 saved /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig6_recharge.png and /tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/matlab_figs/figures/fig6_recharge.pdf
-(1.1 s)
+(1.3 s)
 
 6 figure(s) made: fig1_henry, fig2_alarm, fig3_betweensamples, fig4_boundary, fig5_network, fig6_recharge
