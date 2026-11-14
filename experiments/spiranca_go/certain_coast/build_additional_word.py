@@ -41,12 +41,18 @@ ORANGE, CREAM = 'C55A11', 'FDF3EA'
 REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
-SHORT = ['Technical annex', 'Technical note: the assembled system and the placement of the wells',
+SHORT = ['State of the art: what has been done and what CERTAIN-COAST brings',
+         'Mathematical state of the art: forcing, boundaries, initial state, propagation',
+         'Technical annex', 'Technical note: the assembled system and the placement of the wells',
          'Theory note: BEYOND-GO, the boundary where the model is cut',
          'Implementation report: SHOCK-GO, the earthquake in the aquifer',
          'CV of the NATO-country Project Director', 'CV of the partner-country Project Director']
 # the line under the title of each part in the contents and in its banner
 BLURB = [
+    'What has been done (30 key papers, 2020–2026, Caltech, MIT, Harvard, Oxford), what has not been done, and what '
+    'CERTAIN-COAST brings in mathematics and physics.',
+    'Random forcing, boundaries, initial state and propagation of uncertainty in a stochastic coastal aquifer: what the '
+    'literature answers, what remains open, and the four numbers that choose the method. Supplement to WP2 and WP3.',
     'How the methods work, the preparatory tests, the gates with their fallbacks and the nine new contributions.',
     'Assembling the equations of a coastal aquifer, with the placement of recharge and pumping wells as the final '
     'goal. Preparatory work of the NPD\'s team, October 2026; corrected 8 November 2026.',
@@ -58,24 +64,34 @@ BLURB = [
     'Assoc. Prof. Dr. Dulian Zeqiraj, Faculty of Geology and Mining, Polytechnic University of Tirana.',
     'Prof. Jassim Al-Khayat, Environmental Science Center, Qatar University.']
 # the running header of each part
-HEADER = ['Technical annex', 'Technical note: the assembled system', 'Theory note: BEYOND-GO',
+HEADER = ['State of the art', 'Mathematical state of the art', 'Technical annex', 'Technical note: the assembled system', 'Theory note: BEYOND-GO',
           'Implementation report: SHOCK-GO', 'CV of the NATO-country Project Director',
           'CV of the partner-country Project Director']
 # what is new in each part, in the words of the part itself (its innovation box, or Table 3 of the annex)
 NEW = [
-    ('Nine contributions', 1,
+    ('State of the art', 1,
+     'Organised by the shared variables, not by hazard: the review follows relative sea level and the water table '
+     'through the three hazards, and its gap matrix marks, in each empty cell, the CERTAIN-COAST innovation that fills '
+     'it: warnings for the wellfields, the port and the energy landfall that come from one physical model, are issued '
+     'fast enough to act on, and carry a stated, verifiable bound on how often they miss.'),
+    ('Decision map', 2,
+     'Four dimensionless numbers, computed from the site records before any simulation, choose the method for random '
+     'forcing, boundaries, initial state and propagation, so the workflow is fixed by data rather than by habit and '
+     'each approximation comes with a stated error. The results are known; their use as one decision map for a '
+     'coastal aquifer is the contribution.'),
+    ('Nine contributions', 3,
      'Nine new contributions, each derived and tested before the project: from guarantees for quantities nobody '
      'measures and the value of a sensor to a boundary that learns the aquifer beyond the model and which aquifer '
      'feels an earthquake (Table 3 of the annex).'),
-    ('ASSEMBLY-GO', 2,
+    ('ASSEMBLY-GO', 4,
      'The placement of the wells is stated first, and the adjoint of its constraint, the chloride at the supply '
      'screen, decides how the equations are assembled. On the test, the goal-graded assembly runs a 30-year forecast '
      '2.5 times faster than the complete one and ranks the 25 layouts as it does (rank correlation 0.997).'),
-    ('BEYOND-GO', 3,
+    ('BEYOND-GO', 5,
      'A boundary condition that learns what lies beyond the model. Every member of its class is a physical exterior '
      'and every linear exterior is a member, so the learned boundary cannot be unphysical, cannot destabilise the '
      'model and loses nothing in generality.'),
-    ('SHOCK-GO', 4,
+    ('SHOCK-GO', 6,
      'Which aquifer feels the earthquake: the static step of a layer under the free surface follows its own shear '
      'modulus, centimetres in soft surface sand and up to a metre in a confined aquifer. Its relaxation, a free '
      'pumping test, identifies the leakage time 5.8 times more sharply than a year of seasonal heads.'),
@@ -359,6 +375,39 @@ def fix_text(elements):
                     n += 1
                 if t.text:
                     prev = t
+    return n
+
+
+SUBS = re.compile(r'(a_max|u_z|z_w|α_k|m_k|r_d|σ_v|′_v)')
+
+
+def text_subscripts(elements):
+    """Short formulas typed as 'u_z' in the running text of the state of the art get a real subscript."""
+    n = 0
+    for el in elements:
+        for r in list(el.iter(qn('w:r'))):
+            kids = [x for x in r if x.tag != qn('w:rPr')]
+            if len(kids) != 1 or kids[0].tag != qn('w:t') or not SUBS.search(kids[0].text or ''):
+                continue
+            anchor = r
+            for seg in SUBS.split(kids[0].text):
+                if not seg:
+                    continue
+                parts = [(seg.split('_', 1)[0], False), (seg.split('_', 1)[1], True)] if SUBS.fullmatch(seg) \
+                    else [(seg, False)]
+                n += SUBS.fullmatch(seg) is not None
+                for text, sub in parts:
+                    nr = copy.deepcopy(r)
+                    for x in [x for x in nr if x.tag != qn('w:rPr')]:
+                        nr.remove(x)
+                    t = OxmlElement('w:t'); t.text = text; t.set(qn('xml:space'), 'preserve'); nr.append(t)
+                    if sub:
+                        rPr = nr.find(qn('w:rPr'))
+                        if rPr is None:
+                            rPr = OxmlElement('w:rPr'); nr.insert(0, rPr)
+                        va = OxmlElement('w:vertAlign'); va.set(qn('w:val'), 'subscript'); rpr_insert(rPr, va)
+                    anchor.addnext(nr); anchor = nr
+            r.getparent().remove(r)
     return n
 
 
@@ -675,7 +724,8 @@ def cover(doc):
     p = para(doc, 4)
     run(p, 'Additional files', size=26, bold=True, color=INK)
     p = para(doc, 18)
-    run(p, 'Technical annex  ·  three notes of the preparatory work  ·  CVs of the two Project Directors', size=11,
+    run(p, 'State of the art  ·  technical annex  ·  three notes of the preparatory work  ·  CVs of the two Project '
+           'Directors', size=11,
         color=GREY)
     if os.path.exists(COVER_FIG):
         p = para(doc, 18, align=WD_ALIGN_PARAGRAPH.CENTER)
@@ -738,10 +788,12 @@ def contents(doc, pages):
     p = para(doc, 6, before=12)
     run(p, 'About these files', size=12, bold=True, color=NAVY)
     notes = [
-        'The technical annex explains how the methods work, the preparatory tests, and the gates of the project with '
-        'their fallbacks. Parts 2 to 4 give the equations, the proofs and the numerical checks behind it; every number '
-        'in them is computed by the scripts of the preparatory work of the NPD\'s team.',
-        'Every equation is set as native Word math. The names of the preparatory experiments are given in English '
+        'Parts 1 and 2 set out the state of the art: what the 2020–2026 literature has done and has not done, and the '
+        'method chosen for each mathematical question. The technical annex (Part 3) explains how the methods work, the '
+        'preparatory tests, and the gates of the project with their fallbacks. Parts 4 to 6 give the equations, the '
+        'proofs and the numerical checks behind it; every number in them is computed by the scripts of the preparatory '
+        'work of the NPD\'s team.',
+        'The equations of Parts 2 to 6 are set as native Word math. The names of the preparatory experiments are given in English '
         '(BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',
         'The open-source code of the project (MATLAB, also runs in the free GNU Octave): ']
     for k, n_ in enumerate(notes):
@@ -896,7 +948,8 @@ def build(out, pages):
         src_final = copy.deepcopy(sbody.find(qn('w:sectPr')))
         strip_noise(elements)
         remap_relationships(elements, src, doc)
-        font = FONT if i == 1 else None                 # the technical note: Cambria and Calibri become Arial
+        note = 'Assembled_System' in src_path            # the technical note: Cambria and Calibri become Arial
+        font = FONT if note else None
         normal_id = base_style(src, doc, f'P{i + 1}', font)
         copy_styles(elements, src, doc, f'P{i + 1}', normal_id, font)
         copy_numbering(elements, src, doc)
@@ -904,9 +957,11 @@ def build(out, pages):
         fixed = latex_leftovers(elements)
         if fixed:
             print(f'  part {i + 1}: {fixed} equation(s) left as text set as native math')
-        if i == 1:
+        if note:
             arial_runs(elements)
         n_fix = fix_text(elements)
+        if 'CERTAIN-COAST_State_of_the_Art' in src_path:
+            print(f'  part {i + 1}: {text_subscripts(elements)} subscript(s) typeset')
         if n_fix:
             print(f'  part {i + 1}: {n_fix} doubled semicolon(s) removed')
         for el in elements:
