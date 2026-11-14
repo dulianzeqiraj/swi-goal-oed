@@ -27,7 +27,15 @@ sys.path.insert(1, os.path.join(HERE, '..', '..', 'garancia_go'))
 sys.path.insert(2, os.path.join(HERE, '..', '..', 'ml_paradigms', 'word'))
 import build_sota as BS  # noqa: E402
 from build_sota import run, para, heading, link, shade  # noqa: E402
-from build_decisions_drl import box, body, E_mrich  # noqa: E402
+from build_decisions_drl import box as _box, body, E_mrich  # noqa: E402
+
+
+def box(doc, title, text, E, **kw):
+    """A coloured box whose title never stands alone at the foot of a page and whose row is not split."""
+    t = _box(doc, title, text, E, **kw)
+    t.rows[0].cells[0].paragraphs[0].paragraph_format.keep_with_next = True
+    t.rows[0]._tr.get_or_add_trPr().append(OxmlElement('w:cantSplit'))
+    return t
 
 SCRATCH = os.environ.get('CC_SCRATCH', '/tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/'
                                        'scratchpad')
