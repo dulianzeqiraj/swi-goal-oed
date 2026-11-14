@@ -28,6 +28,14 @@ from codenames import english  # noqa: E402
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 PARTS = [
+    ('State of the art: what has been done (30 key papers, 2020-2026, Caltech, MIT, Harvard, Oxford), what has not '
+     'been done, and what CERTAIN-COAST brings in mathematics and physics',
+     'State of the art: what has been done and what CERTAIN-COAST brings',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_State_of_the_Art.docx')),
+    ('Mathematical state of the art: random forcing, boundaries, initial state and propagation of uncertainty in a '
+     'stochastic coastal aquifer (supplement to the methods of WP2 and WP3)',
+     'Mathematical state of the art: forcing, boundaries, initial state, propagation',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Mathematical_State_of_the_Art.docx')),
     ('Technical annex: how the methods work, the preparatory tests, the gates with their fallbacks and the nine new '
      'contributions', 'Technical annex', os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Technical_Annex.pdf')),
     ('Technical note: assembling the equations of a coastal aquifer, with the placement of recharge and pumping wells '
