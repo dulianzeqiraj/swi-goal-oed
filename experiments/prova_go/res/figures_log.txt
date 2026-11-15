@@ -74,3 +74,26 @@ P6 done (2.2 s)
 P7: section N = 30.25 km: toe at 1.70 (current), 1.78 (planned), 1.66 km (planned + MAR) from the coast; vertical exaggeration 104
 saved /home/user/swi-goal-oed/experiments/prova_go/res/figP7_section.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP7_section.pdf
 P7 done (1.4 s)
+
+=== make_prova_figures 2026-11-15 09:21:55
+P1a: truth seed 48 (strip 1, xi_R -0.184): log10 K in [0.99, 2.55]; zones 12; strip cells 1613; J = 25 wells
+P1b: parameters per arm [12 2 4 13 14]; facies classes present [1 2]
+P1c-d: c = 1.50: natural heads max|dh| 1.35e-13 m; Stage-0 ratio median 0.666667 (min 0.666667, max 0.666667) for 25 items > 1 mm
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP1_model.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP1_model.pdf
+P1 done (5.4 s)
+P3: seed 48: TRIAL-GO plays [2 50 50 4 50] misses [1 18 19 2 13], bandit runs 202, selected A5, conditioning runs 75
+P3d: PEST std  A 1.565 [0.957 2.172] B 0.784 [0.401 1.167] risk 0.8237; truth A 1.495 B 1.335 risk 0.4496
+P3d: PEST all  A 1.436 [0.832 2.040] B 0.620 [0.242 0.998] risk 0.9509; truth A 1.495 B 1.335 risk 0.4496
+P3d: TRIAL-GO  A 1.318 [0.703 1.932] B 1.178 [0.795 1.562] risk 0.2446; truth A 1.495 B 1.335 risk 0.4496
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP3_demo.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP3_demo.pdf
+P3 done (2.4 s)
+P5: intruded area current 46.69, planned 48.75, planned+MAR3 43.44, planned+MAR6 40.75 km^2; mound max 5.00 m; risks 0.4496 -> 0.0009 / 0.0000
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP5_mar_process.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP5_mar_process.pdf
+P5 done (11.5 s)
+P6: PEST standard (A1): sites [4669 3818 4517]; risk predicted 0.0462 true 0.3482; area predicted 53.81 true 43.38 km^2
+P6: TRIAL-GO (A5): sites [4669 1796 3818]; risk predicted 0.0000 true 0.0009; area predicted 44.25 true 43.44 km^2
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP6_structure_mar.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP6_structure_mar.pdf
+P6 done (5.4 s)
+P7: section N = 30.25 km: toe at 1.70 (current), 1.78 (planned), 1.66 km (planned + MAR) from the coast; GH depth below A [114 41.9 86.5] m; VE 104
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP7_section.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP7_section.pdf
+P7 done (1.7 s)
