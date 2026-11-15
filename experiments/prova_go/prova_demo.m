@@ -14,7 +14,10 @@ function dm = prova_demo(seeds)
         tr = make_truth(M, S, s);
         if tr.riskTrue >= 0.2 && tr.riskTrue <= 0.8 && abs(tr.xiR) >= 0.15, pick = s; break; end
     end
-    if isnan(pick), error('prova_demo:none', 'No seed satisfies the demonstration rule.'); end
+    if isnan(pick)                                        % small test runs: first even seed
+        ev = seeds(mod(seeds, 2) == 0); pick = ev(1); tr = make_truth(M, S, pick);
+        warning('prova_demo:rule', 'No seed satisfies the demonstration rule; seed %d is used.', pick);
+    end
     o = prova_truth(M, S, L.arms, L.tabs, tr, true); dm = o; dm.tr = tr;
     demo = dm; save(fullfile(resDir, 'prova_demo.mat'), 'demo', '-v7');
     fprintf('demonstration truth: seed %d, xi_R %+.3f, true risk %.3f, TRIAL-GO selects A%d\n', pick, tr.xiR, tr.riskTrue, o.pol.trial.sel);

@@ -1101,6 +1101,8 @@ SERIF_FONTS = ('cambria', 'times', 'georgia', 'garamond', 'book antiqua', 'palat
                'noto serif', 'pt serif', 'stix')
 DISPLAY_SCALE = 1.0         # display equations: the same for their size
 ALPHA_GAMMA = 1.0           # below 1 darkens the anti-aliased edges, so thin strokes read a little heavier
+ALPHA_LEVELS = 256          # levels of transparency kept in a picture; fewer (e.g. 16) compress much better in a
+                            # PDF, where the transparency is stored as a soft mask, and look the same at 250+ dpi
 
 
 def _png(cov, color):
@@ -1108,6 +1110,9 @@ def _png(cov, color):
     from PIL import Image
     if ALPHA_GAMMA != 1.0:
         cov = np.clip(np.rint(255.0 * (cov.astype(np.float64) / 255.0) ** ALPHA_GAMMA), 0, 255).astype(np.uint8)
+    if ALPHA_LEVELS < 256:                       # transparency rounded to ALPHA_LEVELS evenly spaced levels
+        q = 255.0 / (ALPHA_LEVELS - 1)
+        cov = np.clip(np.rint(np.rint(cov.astype(np.float64) / q) * q), 0, 255).astype(np.uint8)
     r, g, b = (int(color[k:k + 2], 16) for k in (0, 2, 4))
     im = Image.frombytes('P', (cov.shape[1], cov.shape[0]), np.ascontiguousarray(cov).tobytes())
     im.putpalette([r, g, b] * 256)

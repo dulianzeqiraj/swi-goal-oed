@@ -1,0 +1,209 @@
+{
+ "blocks": [
+  {
+   "kind": "heading",
+   "text": "5.1 The aquifer and its model"
+  },
+  {
+   "kind": "text",
+   "text": "The test uses the model of the Tirana–Fushë-Kuqe–Lezhë alluvial aquifer of the author's published design {ref:zeqiraj} (Figure 2): confined steady flow on the 349 km² aquifer polygon, cells of 0.25 km (5,589 active cells on a grid of 210 by 84), conductivity interpolated from the wells inside the polygon, twelve pilot zones with a facies prior, the coast held at sea level and a uniform recharge of $5\\times10^{-4}$ m/d. The model is the author's MATLAB function fushe_kuqe_field_design, used unchanged; in GNU Octave 8.4 it reproduces the published recharge sites A18, P21 and P16. The supply wells were chosen by a fixed rule, the nearest wells at least 3 km from the coast with a head of at least 2 m: A11 (A) and H140 (B); the wells of the published risk example already have heads below the critical head $h_c=1$ m in the model. Their planned pumping, 5,165 and 3,450 m³/d, is set so that each is intruded with prior probability 0.5 (0.58 for A or B); the current pumping is half of it. Twenty-five existing wells spread over the aquifer are the observation wells."
+  },
+  {
+   "kind": "figure",
+   "file": "/home/user/swi-goal-oed/experiments/spiranca_go/certain_coast/calib_figs/fig_study_site.png",
+   "caption": "The Tirana–Fushë-Kuqe–Lezhë alluvial aquifer: the 349 km² aquifer polygon and the 43 wells with a measured hydraulic conductivity, classified by the thresholds of the facies prior (coarse gravel K ≥ 150 m/d, medium 75–150, fine below 75); open symbols are wells outside the polygon, excluded from the prior. Coordinates Gauss–Krüger zone 4. Figure from the author's published design (Zeqiraj, 2026, Journal of Hydrology); data of the Albanian Geological Survey (2024), used with permission.",
+   "width": 15.0
+  },
+  {
+   "kind": "heading",
+   "text": "5.2 The test: 200 synthetic aquifers and five structures"
+  },
+  {
+   "kind": "text",
+   "text": "Each synthetic truth draws the twelve zonal log-conductivities from the facies prior and adds what no structure represents: a field below the scale of the zones (standard deviation 0.35, correlation length 2 km), in half of the truths a low-permeability coastal strip 1.5 km wide (log-multiplier −1), and a recharge that differs from the nominal value by a log-normal factor (standard deviation 0.3); the future recharge changes by a further 8%. The five arms are the structures of Figures 1 and 3: A1 zones with the recharge fixed at the nominal value (the common PEST practice), A2 one multiplier, A3 facies multipliers, A4 zones with the recharge estimated, and A5 zones, the coastal strip and the recharge. Heads at the 25 wells (error 0.05 m) are the calibration data; 50 readings of two metered pumping stops at A and B (error 0.01 m) are the checks. TRIAL-GO has 213 runs for its plays (2.5 times the median cost of calibrating A4), with $k=0.5$, $\\beta=0.95$ and $H=60$, plus the final conditioning. On the same truths and data it is compared with PEST on A1 and on A4 with the heads only, PEST on A4 with all data, all five arms calibrated in full with the structure chosen by BIC, three other bandit indices (UCB, Thompson sampling, greedy) and the arm that was best in hindsight."
+  },
+  {
+   "kind": "text",
+   "text": "The checks of the implementation hold: the assembly of the experiment reproduces the operator of the published model exactly, reciprocity holds to machine precision, and multiplying conductivity and recharge by 1.5 changes the recharge-driven heads by at most $7\\times10^{-13}$ m while every metered response is divided by exactly 1.5 (Figure 3c–d), as Proposition 2 states. The robust Gittins index computed by the MATLAB implementation of the algorithm of Cohen and Treetanthiploet behaves as in their study (Figure 4): $\\gamma-p$ tends to zero as the readings accumulate (at $p=0.3$ and $k=0.5$: −0.141 after one reading, +0.020 after 20, +0.005 after 1,000), rises with the credible level $k$ (−0.152, −0.107, −0.013 and +0.152 for $k=0$, 0.2, 0.5 and 0.8 after five readings) and falls with the discount factor $\\beta$."
+  },
+  {
+   "kind": "figure",
+   "file": "figP1_model.png",
+   "caption": "The Fushë-Kuqe model and the misspecification of the test. (a) The log-conductivity of one synthetic truth, with the zones, the field below their scale and the coastal strip (dashed), the 25 observation wells (red) and the supply wells A (A11) and B (H140). (b) The five structures (arms). (c, d) The flux-scale invariance on the model: multiplying conductivity and recharge by 1.5 leaves the heads unchanged (largest change 1×10⁻¹³ m) and divides every metered response by exactly 1.5. Result of the author's MATLAB code.",
+   "width": 16.0
+  },
+  {
+   "kind": "figure",
+   "file": "figP2_index.png",
+   "caption": "The robust Gittins index of Cohen and Treetanthiploet (2022) from the author's MATLAB implementation of their Appendix D. (a) γ − p against the miss-rate estimate p for 1 to 80 readings (k = 0.5, β = 0.95); (b) the effect of the credible level k after 5 and 20 readings; (c) γ − p at p = 0.3 against 1/√n for three values of k and of β. Result of the author's MATLAB code.",
+   "width": 16.0
+  },
+  {
+   "kind": "heading",
+   "text": "5.3 Results over 200 aquifers"
+  },
+  {
+   "kind": "table",
+   "title": "Table 4. Results over 200 synthetic Fushë-Kuqe aquifers: coverage of the 90% intervals of the future heads at A and B, their continuous ranked probability score (CRPS, mean of A and B), the absolute error of the probability that A or B is intruded, the share of wrong safe/unsafe decisions (planned pumping declared safe when the predicted risk is below 0.1) and the mean number of model runs.",
+   "header": [
+    "Method",
+    "Coverage A / B",
+    "CRPS [m]",
+    "Risk error",
+    "Wrong decisions",
+    "Runs"
+   ],
+   "rows": [
+    [
+     "**TRIAL-GO**",
+     "0.72 / 0.59",
+     "0.354",
+     "0.092",
+     "0.075",
+     "261"
+    ],
+    [
+     "PEST standard (A1, heads only)",
+     "0.49 / 0.35",
+     "0.730",
+     "0.167",
+     "0.230",
+     "76"
+    ],
+    [
+     "PEST, recharge estimated (A4, heads only)",
+     "0.65 / 0.77",
+     "0.462",
+     "0.123",
+     "0.115",
+     "95"
+    ],
+    [
+     "PEST on all data (A4)",
+     "0.76 / 0.57",
+     "0.317",
+     "0.100",
+     "0.060",
+     "82"
+    ],
+    [
+     "All five arms, BIC, all data",
+     "0.76 / 0.68",
+     "0.277",
+     "0.062",
+     "0.055",
+     "380"
+    ],
+    [
+     "Bandit with UCB index",
+     "0.69 / 0.56",
+     "0.433",
+     "0.113",
+     "0.095",
+     "257"
+    ],
+    [
+     "Bandit with Thompson sampling",
+     "0.75 / 0.57",
+     "0.328",
+     "0.099",
+     "0.085",
+     "261"
+    ],
+    [
+     "Bandit, greedy",
+     "0.72 / 0.59",
+     "0.352",
+     "0.090",
+     "0.070",
+     "261"
+    ],
+    [
+     "Best arm in hindsight",
+     "0.72 / 0.74",
+     "0.289",
+     "0.059",
+     "0.045",
+     "521"
+    ]
+   ],
+   "widths": [
+    5.7,
+    2.6,
+    1.8,
+    1.8,
+    2.4,
+    1.5
+   ]
+  },
+  {
+   "kind": "text",
+   "text": "**Against standard practice.** TRIAL-GO halves the forecast error of standard PEST practice, zones with the recharge fixed, and cuts its wrong decisions by two thirds: the coverage of the 90% intervals rises by 0.24 (95% interval 0.17 to 0.30), the CRPS falls from 0.73 to 0.35 m (paired difference −0.38, −0.48 to −0.28) and the share of wrong safe/unsafe decisions falls from 0.23 to 0.075 (−0.155, −0.21 to −0.10). The fixed recharge is the flux-scale misspecification of Proposition 1: the heads are fitted, the scale is wrong, and the forecast under more pumping fails."
+  },
+  {
+   "kind": "text",
+   "text": "**The misspecification index finds the structure.** At convergence on the heads, the miss rates of the five arms on the metered readings are 0.22, 0.33, 0.33, 0.21 and 0.14 (nominal 0.10). In the truths with the coastal strip the arm that has it, A5, misses 0.17 against 0.28–0.39 for the others; without the strip A4 and A5 both reach 0.11. TRIAL-GO keeps A5 in 48 of the 100 strip truths and A4 in 55 of the 100 without it (Figure 5d–e)."
+  },
+  {
+   "kind": "text",
+   "text": "**Where it does not win.** Most of the gain comes from the metered readings themselves: PEST on A4 calibrated on heads and readings together does as well, with no significant difference and a third of the runs, but with its structure fixed in advance; TRIAL-GO reaches the same quality without knowing which structure to trust, and reports the ones the readings refute. Calibrating all five structures in full and choosing by BIC covers better at B (0.68 against 0.59) with 119 more runs; at an equal budget of 380 runs, chosen after the main run, the two do not differ in coverage or CRPS, while BIC still makes fewer wrong decisions (0.06 against 0.11). The robust index does no better here than greedy selection or Thompson sampling, because once an arm has converged its plays cost no runs; it does better than UCB (CRPS −0.08 m, −0.15 to −0.01). Every method covers less than 90%: the heterogeneity below the zones, which no structure represents, moves the future head at the pumped wells by about 0.8 m at A and 0.4 m at B (standard deviation from 30 prior draws); without it TRIAL-GO covers 0.89 at A and 0.74 at B, against 0.58 and 0.33 for standard PEST."
+  },
+  {
+   "kind": "figure",
+   "file": "figP4_results.png",
+   "caption": "Results over 200 synthetic Fushë-Kuqe aquifers. (a) Coverage of the 90% intervals of the future heads at A and B, with 95% intervals (red diamonds: the supplementary run without the field below the zones); (b) model runs; (c) wrong safe/unsafe decisions; (d) the structure each method keeps; (e) the miss rate of each structure at convergence on the heads, in the truths with and without the coastal strip (dashed: the nominal 0.1). Result of the author's MATLAB code.",
+   "width": 16.0
+  },
+  {
+   "kind": "heading",
+   "text": "5.4 The final demonstration: one Fushë-Kuqe aquifer, its calibration and its recharge wells"
+  },
+  {
+   "kind": "text",
+   "text": "The demonstration truth is the first whose planned pumping gives a true risk between 0.2 and 0.8 and whose recharge differs from the nominal by at least 15% (seed 48: risk 0.45, recharge 18% below nominal, coastal strip present); it was chosen by these properties of the truth, after a first rule had given a truth without intrusion risk. TRIAL-GO spent its runs mostly on A2, A3 and A5, refuted A2 and A3 (18 and 19 misses in 50 readings) and kept A5 (13 misses in 50) (Figure 6). Its 90% intervals contain the true future heads at A and B, where the standard PEST model misses the head at B: it predicts 0.78 m against a true 1.33 m, below the critical head when the truth is above it."
+  },
+  {
+   "kind": "figure",
+   "file": "figP3_demo.png",
+   "caption": "The final demonstration on one Fushë-Kuqe truth (seed 48, coastal strip present, recharge 18% below nominal). (a) Plays of each arm against the model runs used, with its misses (crosses); (b) the miss rate of each arm with its credible band; (c) the robust Gittins index of each arm; (d) the 90% intervals of the future heads at A and B from PEST standard, PEST on all data and TRIAL-GO (structure A5), against the truth and the critical head. Result of the author's MATLAB code.",
+   "width": 16.0
+  },
+  {
+   "kind": "text",
+   "text": "Figure 7 shows the managed-aquifer-recharge process on this aquifer, pumping out of the supply wells and injection into the recharge wells. The planned pumping moves the toe of the seawater wedge inland and raises the probability that A or B is intruded to 0.45 (intruded area 46.7 → 48.8 km²). Three recharge wells of 5,000 m³/d each, at the sites ranked by the kept model (the risk field of PRAG-MAR on A5), push the toe back and lower that probability to 0.001 (43.4 km²); six wells lower it below 0.0001 (40.8 km²), and the heads at A and B rise from 1.05 and 1.06 m to 2.16 and 3.01 m with three wells. Figure 8 shows the wedge on a west–east section through A: its toe lies 1.70 km from the coast with the current pumping, 1.78 km with the planned pumping and 1.66 km with recharge, and below A the Ghyben–Herzberg interface would lie 114 m below sea level today, 42 m with the planned pumping, only 2 m below the aquifer base, and 87 m with recharge."
+  },
+  {
+   "kind": "figure",
+   "file": "figP5_mar_process.png",
+   "caption": "The managed-aquifer-recharge process on the Fushë-Kuqe aquifer (demonstration truth): heads, the toe of the seawater wedge (dashed: h = h_c = 1 m, the interface at the aquifer base) and the intruded zone (a) with the current pumping, (b) with the planned pumping out of supply wells A and B, (c) with three and (d) with six recharge wells injecting 5,000 m³/d each at the sites ranked by the TRIAL-GO model, and (e) the head rise produced by the six wells. The intruded areas and the probability that A or B is intruded are in the panel on the right. Result of the author's MATLAB code.",
+   "width": 15.0
+  },
+  {
+   "kind": "figure",
+   "file": "figP7_section.png",
+   "caption": "West–east section through supply well A (N = 30.25 km). (a) The seawater wedge read from the model heads by the Ghyben–Herzberg relation (interface depth 40 h, cut at the aquifer base 40 m below sea level) with the current pumping, the planned pumping out of A, and the planned pumping with a recharge well injecting 5,000 m³/d 1 km inland of A; vertical exaggeration about 104. (b) The heads along the section and the critical head h_c. A sharp-interface reading of the steady confined model, not a variable-density simulation. Result of the author's MATLAB code.",
+   "width": 16.0
+  },
+  {
+   "kind": "text",
+   "text": "Figure 9 shows why the structure matters for this decision. The standard PEST model, with the recharge fixed, chooses its own three recharge sites and predicts that the probability of intrusion falls to 0.05 and the intruded area to 53.8 km²; with those wells the truth is 0.35 and 43.4 km². The structure TRIAL-GO keeps predicts below 0.0001 and 44.2 km² for its sites, against a true 0.001 and 43.4 km². A plan judged safe by the standard model would leave the supply wells with a risk seven times larger than it believes."
+  },
+  {
+   "kind": "figure",
+   "file": "figP6_structure_mar.png",
+   "caption": "Why the structure matters for recharge. With the planned pumping and three recharge wells chosen by each calibrated model: (a) the standard PEST model (recharge fixed) and (b) the structure TRIAL-GO keeps (A5), each with its own sites, the true toe (black dashed) and the toe its model predicts; (c) predicted and true probability that A or B is intruded; (d) predicted and true intruded area. Result of the author's MATLAB code.",
+   "width": 16.0
+  },
+  {
+   "kind": "text",
+   "text": "The whole test, 200 truths, eleven methods and two supplementary runs, takes about 17 minutes on four cores in GNU Octave 8.4; MATLAB gives the same results up to Monte Carlo error, since its random numbers differ."
+  }
+ ],
+ "conclusions": [
+  "TRIAL-GO spends the calibration runs where the structure is plausible and measures misspecification on the readings that matter for the decision; on the Fushë-Kuqe model it halves the forecast error of standard PEST practice and cuts its wrong decisions by two thirds.",
+  "The metered pumping stops are the key data: they fix the flux scale that heads cannot (Propositions 1 and 2) and carry most of the gain. The project takes them in Stage 0, at the supply wells, with no drilling.",
+  "The miss rate of each structure on those readings finds the right structure: the coastal strip is detected where it exists, and the structures the data refute are reported to the decision-maker.",
+  "With the structure TRIAL-GO keeps, three recharge wells chosen by the model lower the true probability that a supply well is intruded from 0.45 to 0.001; the plan of the standard model leaves 0.35 while it believes 0.05.",
+  "What is still open: the robust Gittins index adds little over greedy selection in this test, where converged arms cost nothing to play, and every method under-covers because no structure represents the heterogeneity below the zones. In WP2 the arms will include an error model for that heterogeneity {ref:wu}, and the index will be tested where plays stay costly, on the coupled variable-density model."
+ ]
+}

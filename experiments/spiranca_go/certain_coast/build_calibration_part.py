@@ -431,7 +431,11 @@ def main(out, resdir=None):
         with open(txt_path, encoding='utf-8') as fh:
             TX = json.load(fh)
         heading(doc, '5. Demonstration on the Fushë-Kuqe coastal aquifer (MATLAB)', 14)
+        def refs(t):                               # {ref:key} -> the number of the reference in this part
+            return re.sub(r'\{ref:(\w+)\}', lambda m: c(m.group(1)), t)
         for blk in TX['blocks']:
+            if 'text' in blk:
+                blk = dict(blk, text=refs(blk['text']))
             kind = blk['kind']
             if kind == 'heading':
                 heading(doc, blk['text'], 12, color=BLUE, before=6)
@@ -452,7 +456,7 @@ def main(out, resdir=None):
                 para(doc, 4)
         heading(doc, '6. Conclusions', 14)
         for t in TX['conclusions']:
-            bullet(doc, t, E)
+            bullet(doc, refs(t), E)
         body(doc, 'The MATLAB code of the demonstration, which uses the functions of the published design unchanged, is '
                   f'in the open repository of the author, [{CODE.replace("https://", "")}]({CODE}) (folder '
                   'experiments/prova_go).', E)

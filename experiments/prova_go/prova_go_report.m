@@ -60,23 +60,26 @@ function out = prova_go_report(resDir, tTotal)
         'fdStep', S.fdStep, 'tolRel', S.tolRel, 'maxIt', S.maxIt, 'minItems', S.minItems, 'J', M.J, 'nItems', 2 * M.J, ...
         'supplyIDs', {M.supID}, 'obsIDs', {M.obsID}, 'Nc', M.Nc, 'grid', [M.ny M.nx], 'Nz', M.Nz, 'dx', M.dx), ...
         'pumpingDesign', D, 'checks', C, 'indexCheck', I);
-    tags = {'main', 'nozeta'};
-    for t = 1:2
+    tags = {'main', 'nozeta'}; fb = dir(fullfile(resDir, 'prova_budget*.mat'));
+    for q = 1:numel(fb), [~, nmq] = fileparts(fb(q).name); tags{end + 1} = nmq(7:end); end %#ok<AGROW>
+    for t = 1:numel(tags)
         f = fullfile(resDir, ['prova_' tags{t} '.mat']); if ~exist(f, 'file'), continue; end
         P = load(f); R = prova_metrics(P.res, methods);
         if t == 1, say(lg, '\n== MAIN RUN: %d truths (%d with the coastal strip), sub-zonal field sd %.2f\n', R.n, R.nStrip, S.zetaSd);
-        else, say(lg, '\n== SUPPLEMENTARY RUN without the sub-zonal field (zeta = 0), same seeds: %d truths\n', R.n); end
+        elseif t == 2, say(lg, '\n== SUPPLEMENTARY RUN without the sub-zonal field (zeta = 0), same seeds: %d truths\n', R.n);
+        else, say(lg, '\n== SUPPLEMENTARY EQUAL-COST RUN: bandit budget %s runs (about the mean cost of all arms + BIC), same seeds: %d truths\n', tags{t}(7:end), R.n); end
         say(lg, 'true risk P(A or B intruded): mean %.3f; fraction of truths truly safe (risk < 0.1): %.3f\n', R.riskTrue(1), R.fracTrueSafe);
         say(lg, 'validation miss rate of each arm at convergence on the heads (nominal 0.10): all %s, strip %s, no strip %s\n', ...
             mat2str(R.missConv.all, 3), mat2str(R.missConv.strip, 3), mat2str(R.missConv.nostrip, 3));
         say(lg, 'mean LM iterations to convergence %s, mean runs %s\n', mat2str(R.nIterConv, 3), mat2str(R.costConv, 4));
-        say(lg, '%-31s %-19s %-19s %-7s %-7s %-7s %-7s %-6s %-19s %-7s %s\n', 'method', 'cov A [95% CI]', 'cov B [95% CI]', 'width', 'MAE', 'CRPS', 'logS', 'riskE', 'dec.err [95% CI]', 'runs', 'arm freq A1..A5');
+        say(lg, '%-31s %-19s %-19s %-7s %-7s %-7s %-7s %-6s %-19s %-7s %s\n', 'method', 'cov A [95% CI]', 'cov B [95% CI]', 'width', 'MAE', 'CRPS', 'logS*', 'riskE', 'dec.err [95% CI]', 'runs', 'arm freq A1..A5');
         for q = 1:numel(methods)
             m = R.m.(methods{q});
             say(lg, '%-31s %.3f [%.3f %.3f] %.3f [%.3f %.3f] %.3f   %.3f   %.3f   %6.2f  %.3f  %.3f [%.3f %.3f] %6.1f  %s\n', labels{q}, ...
                 m.covA, m.covB, mean([m.widthA(1) m.widthB(1)]), mean([m.maeA(1) m.maeB(1)]), mean([m.crpsA(1) m.crpsB(1)]), ...
-                m.logScore(1), m.riskAbsErr(1), m.decErr, m.runs(1), mat2str(m.armFreq));
+                m.logScoreMedian, m.riskAbsErr(1), m.decErr, m.runs(1), mat2str(m.armFreq));
         end
+        say(lg, '(width, MAE, CRPS: mean over A and B, m; logS*: median joint negative log density of (H_A, H_B); riskE: mean |predicted - true risk|)\n');
         say(lg, 'coverage by truth type (A, B): strip / no strip\n');
         for q = 1:numel(methods)
             m = R.m.(methods{q});
