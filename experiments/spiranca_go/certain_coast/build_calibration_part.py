@@ -4,7 +4,8 @@ The state of the art of calibration and of bandits (from the author's two review
 invariance-first calibration of the calibration review, and TRIAL-GO: a robust bandit over model structures whose
 plays are calibration iterations checked against metered pumping stops, allocated by the robust Gittins index of
 Cohen and Treetanthiploet (2022). The demonstration on the Fushë-Kuqe aquifer is computed by the MATLAB code in
-experiments/prova_go (run in GNU Octave 8.4) and read from its results file and figures.
+experiments/prova_go (run in GNU Octave 8.4) and read from its results file and figures; the algorithm itself is
+released in the open-source code of the project, package certaincoast.calibration of dulianzeqiraj/certain-coast.
 
 usage: python3 build_calibration_part.py OUT.docx [RESULTS_DIR]
 """
@@ -28,7 +29,7 @@ from build_sota import run, para, heading, table, link  # noqa: E402
 from build_decisions_drl import body, bullet, figure, box  # noqa: E402
 
 NAVY, BLUE, GREY = '1F3864', '2E6DB4', '52606D'
-CODE = 'https://github.com/dulianzeqiraj/swi-goal-oed'
+CODE = 'https://github.com/dulianzeqiraj/certain-coast/tree/nato-sps-2027'   # certaincoast.calibration
 PART_INDEX = 9                 # position of this part in the Additional Files (0-based): its red equations
 
 # ------------------------------------------------------------------------------------------------ references
@@ -457,9 +458,12 @@ def main(out, resdir=None):
         heading(doc, '6. Conclusions', 14)
         for t in TX['conclusions']:
             bullet(doc, refs(t), E)
-        body(doc, 'The MATLAB code of the demonstration, which uses the functions of the published design unchanged, is '
-                  f'in the open repository of the author, [{CODE.replace("https://", "")}]({CODE}) (folder '
-                  'experiments/prova_go).', E)
+        body(doc, f'The repository [github.com/dulianzeqiraj/certain-coast]({CODE}) (branch nato-sps-2027) holds '
+                  'TRIAL-GO as the package certaincoast.calibration of the open-source MATLAB code of the project: the '
+                  'robust Gittins index, the Levenberg–Marquardt calibration of each structure with its prior and the '
+                  'bandit with its checks against metered pumping stops, with an example on a synthetic coastal aquifer '
+                  'and tests that pass in MATLAB and in GNU Octave. The Fushë-Kuqe data of the demonstration are '
+                  'restricted and are not published there.', E)
 
     heading(doc, 'References', 14)
     for i, (_, cite, url) in enumerate(REFS, 1):
