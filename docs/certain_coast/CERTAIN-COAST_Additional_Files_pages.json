@@ -1,16 +1,18 @@
 {
- "total": 107,
+ "total": 134,
  "start": [
-  4,
-  21,
-  28,
-  38,
-  59,
-  75,
-  89,
-  98,
-  104,
-  106
+  5,
+  22,
+  29,
+  39,
+  60,
+  76,
+  90,
+  99,
+  121,
+  125,
+  131,
+  133
  ],
  "short": [
   "State of the art: what has been done and what CERTAIN-COAST brings",
@@ -20,6 +22,8 @@
   "Theory note: BEYOND-GO, the boundary where the model is cut",
   "Implementation report: SHOCK-GO, the earthquake in the aquifer",
   "Decisions in extreme events: final assembled system and deep reinforcement learning",
+  "Theory: decisions of many stakeholders under normal, drought, flood and extreme conditions",
+  "The decision flowchart for a shared coastal aquifer",
   "The project at a glance: structure, communication, team, deliverables and timeline",
   "CV of the NATO-country Project Director",
   "CV of the partner-country Project Director"
