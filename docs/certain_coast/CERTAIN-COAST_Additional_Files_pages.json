@@ -1,5 +1,5 @@
 {
- "total": 136,
+ "total": 152,
  "start": [
   5,
   22,
@@ -8,11 +8,12 @@
   60,
   76,
   90,
-  101,
-  123,
-  127,
-  133,
-  135
+  102,
+  122,
+  126,
+  142,
+  149,
+  151
  ],
  "short": [
   "State of the art: what has been done and what CERTAIN-COAST brings",
@@ -24,7 +25,8 @@
   "Decisions in extreme events: final assembled system and deep reinforcement learning",
   "Theory: decisions of many stakeholders under normal, drought, flood and extreme conditions",
   "The decision flowchart for a shared coastal aquifer",
-  "The project at a glance: structure, communication, team, deliverables and timeline",
+  "Calibration when the model is wrong: TRIAL-GO on the Fush\u00eb-Kuqe aquifer",
+  "The project at a glance: the solution in one flowchart, and the work plan",
   "CV of the NATO-country Project Director",
   "CV of the partner-country Project Director"
  ]

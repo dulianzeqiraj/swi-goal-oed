@@ -63,13 +63,13 @@ set(ax, 'XLim', [0 21], 'YLim', [0 52.5], 'DataAspectRatio', [1 1 1], 'XTick', 0
 finishAxes(ax, 'E [km]', 'N [km]', true);
 northArrow(ax, 19.3, 44.5, 4.0); scaleBar(ax, 0.8, 2.2, 5);
 panelLabel(ax, '(a)', 1.2);
-colorbarV(fig, [6.0 1.7 0.25 4.2], turbo(256), cl, {'log_{10} K', '[m d^{-1}]'});
+colorbarV(fig, [1.3 + 15.3 * 4.4 / 21, 1.2 + 19.5 * 11 / 52.5, 0.22, 3.1], turbo(256), cl, {'log_{10} K', '[m d^{-1}]'});
 say(lg, 'P1a: truth seed %d (strip %d, xi_R %+.3f): log10 K in [%.2f, %.2f]; zones %d; strip cells %d; J = %d wells\n', ...
     tr.seed, tr.hasStrip, tr.xiR, min(lk), max(lk), M.Nz, nnz(M.strip), M.J);
 % (b) five structures ------------------------------------------------------------------------------------------
 names = {'A1 zones', 'A2 uniform', 'A3 facies', 'A4 zones', 'A5 zones'};
 sub = {'R fixed', '+ R', '+ R', '+ R', '+ strip + R'};
-w = 1.72; x0 = 7.2; y0 = 8.75; hgt = 4.3;
+w = 1.70; x0 = 7.2; y0 = 8.75; hgt = 4.25;
 zc = lines_(M.Nz);
 for m = 1:5
     axm = newAxes(fig, [x0 + (m - 1) * (w + 0.06) y0 w hgt]);
@@ -92,11 +92,11 @@ for m = 1:5
     if m == 1, panelLabel(axm, '(b)', 0.35); end
 end
 say(lg, 'P1b: parameters per arm %s; facies classes present %s\n', mat2str([arms.n]), mat2str(unique(M.zfac)'));
-items = {legendItem('line', 'coast (h = 0)', coastBlue(), '-', 1.8), legendItem('line', 'pilot-zone borders (a)', pal.muted, '-', 0.8), ...
+items = {legendItem('line', 'coast (h = 0)', coastBlue(), '-', 1.8), legendItem('line', 'pilot-zone borders (a)', [0.75 0.75 0.75], '-', 0.8), ...
          legendItem('line', sprintf('coastal strip, %.1f km', M.stripKm), pal.ink, '--', 0.9), ...
          legendItem('marker', sprintf('observation wells (J = %d)', M.J), pal.red, 'o', 4, 'w'), ...
          legendItem('marker', 'supply wells A, B (out)', pal.ink, 'v', 6, 'w')};
-drawLegend(fig, [7.2 6.15 8.7 0.95], items, 2, [3.0 2.9 2.8]);
+drawLegend(fig, [7.2 5.85 8.6 1.45], items, 3, [4.0 4.5]);
 % (c) heads invariant, (d) metered responses scale as 1/c --------------------------------------------------------
 J = M.J; th = zeros(M.Nz, 1); c = C.scale_c;
 f1 = fk_forward(M, S, th(M.zone), M.R0); f2 = fk_forward(M, S, th(M.zone) + log(c), c * M.R0);
@@ -108,8 +108,8 @@ plot(axc, lim, lim, '-', 'Color', pal.refGray, 'LineWidth', 0.8);
 plot(axc, hn1, hn2, 'o', 'MarkerSize', 4, 'MarkerFaceColor', pal.blue, 'MarkerEdgeColor', 'w', 'LineWidth', 0.4);
 set(axc, 'XLim', lim, 'YLim', lim, 'XTick', 0:1:lim(2), 'YTick', 0:1:lim(2)); grid(axc, 'on');
 finishAxes(axc, 'head, nominal [m]', 'head, scaled [m]', false);
-text(axc, 0.04, 0.97, {sprintf('K, R \\times %.1f', c), sprintf('max |\\Deltah| = %.0e m', max(abs(hn1 - hn2)))}, 'Units', 'normalized', ...
-     'FontSize', fs(7.5), 'VerticalAlignment', 'top', 'Color', pal.ink2);
+text(axc, 0.97, 0.04, {sprintf('K, R \\times %.1f', c), sprintf('max |\\Deltah| = %.0e m', max(abs(hn1 - hn2)))}, 'Units', 'normalized', ...
+     'FontSize', fs(7.5), 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right', 'Color', pal.ink2);
 panelLabel(axc, '(c)', 1.0);
 axd = newAxes(fig, [12.6 1.2 3.0 3.6]);
 r1 = f1(J+1:3*J); r2 = f2(J+1:3*J); sel = r1 > 1e-3; lim2 = [1e-3 1];
@@ -121,7 +121,7 @@ set(axd, 'XScale', 'log', 'YScale', 'log', 'XLim', lim2, 'YLim', lim2, 'XTick', 
 finishAxes(axd, 'rise, nominal [m]', 'rise, scaled [m]', false);
 text(axd, 0.04, 0.97, {'Stage-0 rise', sprintf('ratio %.4f = 1/c', median(r2(sel) ./ r1(sel)))}, 'Units', 'normalized', 'FontSize', fs(7.5), ...
      'VerticalAlignment', 'top', 'Color', pal.ink2);
-panelLabel(axd, '(d)', 1.0);
+panelLabel(axd, '(d)', 1.35);
 say(lg, 'P1c-d: c = %.2f: natural heads max|dh| %.2e m; Stage-0 ratio median %.6f (min %.6f, max %.6f) for %d items > 1 mm\n', ...
     c, max(abs(hn1 - hn2)), median(r2(sel) ./ r1(sel)), min(r2(sel) ./ r1(sel)), max(r2(sel) ./ r1(sel)), nnz(sel));
 saveFigure(fig, resDir, 'figP1_model', lg);
@@ -200,9 +200,9 @@ function figP3(L, resDir, lg)
 % One truth: plays against runs, posterior miss-rate bands, index trajectories, goal intervals.
 pal = palette(); S = L.S; P = load(fullfile(resDir, 'prova_demo.mat')); dm = P.demo; tr = dm.tr;
 PL = dm.PL{1}; arm = PL.logArm; runs = PL.logRuns; miss = PL.logMiss;
-fig = newFigure(16, 12.4);
+fig = newFigure(16, 12.9);
 % (a) cumulative plays against runs
-ax = newAxes(fig, [1.45 6.3 6.0 3.9]);
+ax = newAxes(fig, [1.45 6.9 6.0 3.75]);
 for m = 1:5
     k = find(arm == m); if isempty(k), continue; end
     stairs(ax, [0; runs(k)], [0; (1:numel(k))'], '-', 'Color', armColor(m), 'LineWidth', 1.3);
@@ -212,10 +212,10 @@ end
 plot(ax, [S.budget S.budget], [0 52], ':', 'Color', pal.ink2, 'LineWidth', 0.9);
 text(ax, S.budget - 4, 51, sprintf('budget %d runs', S.budget), 'HorizontalAlignment', 'right', 'FontSize', fs(7.5), 'Color', pal.ink2, 'VerticalAlignment', 'top');
 set(ax, 'XLim', [0 10 * ceil(S.budget * 1.05 / 10)], 'YLim', [0 52]); grid(ax, 'on');
-finishAxes(ax, 'model runs used', 'plays = items evaluated', false);
+finishAxes(ax, 'model runs used', 'plays', false);
 panelLabel(ax, '(a)', 1.3);
 % (b) posterior miss-rate band per arm against its items
-ax = newAxes(fig, [9.55 6.3 6.0 3.9]);
+ax = newAxes(fig, [9.55 6.9 6.0 3.75]);
 plot(ax, [0 50], [0.1 0.1], '--', 'Color', pal.ink2, 'LineWidth', 0.8);
 yl = [];
 for m = 1:5
@@ -234,12 +234,12 @@ if ~isempty(yl)                                        % end labels, nudged apar
         text(ax, yl(q, 3) + 0.8, yl(q, 4), sprintf('A%d', yl(q, 1)), 'FontSize', fs(7.5), 'Color', armColor(yl(q, 1)), 'FontWeight', 'bold', 'VerticalAlignment', 'middle');
     end
 end
-text(ax, 1, 0.1, 'nominal 0.10', 'HorizontalAlignment', 'left', 'VerticalAlignment', 'top', 'FontSize', fs(7.5), 'Color', pal.ink2);
+text(ax, 50, 0.085, 'nominal 0.10', 'HorizontalAlignment', 'right', 'VerticalAlignment', 'top', 'FontSize', fs(7.5), 'Color', pal.ink2);
 set(ax, 'XLim', [0 55], 'YLim', [0 1], 'XTick', 0:10:50); grid(ax, 'on');
 finishAxes(ax, 'items evaluated by the arm', 'miss rate', false);
 panelLabel(ax, '(b)', 1.3);
 % (c) index trajectories against runs
-ax = newAxes(fig, [1.45 1.1 6.0 3.9]);
+ax = newAxes(fig, [1.45 1.3 6.0 3.75]);
 G = PL.logIdx; G(~isfinite(G)) = NaN;
 for m = 1:5
     plot(ax, runs, G(:, m), '.-', 'Color', armColor(m), 'MarkerSize', 6, 'LineWidth', 0.9);
@@ -248,7 +248,7 @@ set(ax, 'XLim', [0 10 * ceil(S.budget * 1.05 / 10)], 'YLim', [0 1]); grid(ax, 'o
 finishAxes(ax, 'model runs used', 'robust Gittins index \gamma', false);
 panelLabel(ax, '(c)', 1.3);
 % (d) goal intervals: truth, TRIAL-GO (selected arm, all data), PEST standard, PEST all data
-ax = newAxes(fig, [9.55 1.1 6.0 3.9]);
+ax = newAxes(fig, [9.55 1.3 6.0 3.75]);
 mt = {'pest_std', 'pest_all', 'trial'}; mc = [pal.orange; pal.muted; pal.blue];
 for w = 1:2
     plot(ax, w + [-0.42 0.42], tr.Hfut(w) * [1 1], '-', 'Color', pal.ink, 'LineWidth', 1.6);
@@ -269,11 +269,11 @@ finishAxes(ax, '', 'future head [m]', false);
 panelLabel(ax, '(d)', 1.3);
 items = {};
 for m = 1:5, items{end + 1} = legendItem('line', sprintf('A%d', m), armColor(m), '-', 1.3); end %#ok<AGROW>
-items{end + 1} = legendItem('marker', 'miss (item outside the 90% interval)', pal.ink2, 'x', 5);
-drawLegend(fig, [1.45 11.55 14.3 0.5], items, 1, [1.55 1.55 1.55 1.55 1.55 6]);
+items{end + 1} = legendItem('marker', 'miss (item outside the 90% interval)', pal.ink2, 'x', 6, pal.ink2);
+drawLegend(fig, [1.45 12.2 14.3 0.5], items, 1, [1.55 1.55 1.55 1.55 1.55 6]);
 items = {legendItem('line', '(d) truth', pal.ink, '-', 1.6), legendItem('line', 'PEST standard 90%', pal.orange, '-', 2.2), ...
          legendItem('line', 'PEST all data 90%', pal.muted, '-', 2.2), legendItem('line', 'TRIAL-GO 90%', pal.blue, '-', 2.2)};
-drawLegend(fig, [1.45 10.95 14.3 0.5], items, 1, [2.6 3.6 3.6 3.2]);
+drawLegend(fig, [1.45 11.65 14.3 0.5], items, 1, [2.4 4.1 4.0 3.4]);
 say(lg, 'P3: seed %d: TRIAL-GO plays %s misses %s, bandit runs %d, selected A%d, conditioning runs %d\n', tr.seed, ...
     mat2str(dm.pol.trial.n), mat2str(dm.pol.trial.s), dm.pol.trial.runs, dm.pol.trial.sel, dm.pol.trial.condRuns);
 lab = {'PEST std', 'PEST all', 'TRIAL-GO'};
@@ -292,14 +292,13 @@ pal = palette(); S = L.S;
 J = jsondecode_(fullfile(resDir, 'prova_go_results.json'));
 R = J.main; R2 = []; if isfield(J, 'nozeta'), R2 = J.nozeta; end
 mt = {'trial', 'trial_k02', 'trial_k08', 'ucb', 'ts', 'greedy', 'bic', 'pest_std', 'pest_rch', 'pest_all', 'oracle'};
-lab = {'TRIAL-GO', 'TRIAL-GO k=0.2', 'TRIAL-GO k=0.8', 'UCB', 'Thompson', 'greedy', 'all arms+BIC', 'PEST std. (A1)', ...
-       'PEST+R (A4)', 'PEST all (A4)', 'oracle arm'};
+lab = {'TRIAL-GO', 'TRIAL-GO k = 0.2', 'TRIAL-GO k = 0.8', 'UCB', 'Thompson', 'greedy', 'all arms + BIC', 'PEST std. (A1)', ...
+       'PEST + R (A4)', 'PEST all data (A4)', 'oracle arm'};
 mc = [pal.blue; pal.lightBlue; pal.lightBlue; pal.aqua; pal.aqua; pal.aqua; pal.muted; pal.orange; pal.orange; pal.orange; pal.ink];
-nm = numel(mt);
-fig = newFigure(16, 15.2);
+nm = numel(mt); y = nm:-1:1;
+fig = newFigure(16, 15.8);
 % (a) coverage A and B
-ax = newAxes(fig, [3.55 9.0 6.1 5.6]);
-y = nm:-1:1;
+ax = newAxes(fig, [3.6 9.0 6.0 5.55]);
 plot(ax, [0.9 0.9], [0.3 nm + 0.7], '--', 'Color', pal.ink2, 'LineWidth', 0.8);
 for q = 1:nm
     m = R.m.(mt{q});
@@ -307,34 +306,38 @@ for q = 1:nm
     errbarH(ax, m.covB(2:3), y(q) - 0.17, mc(q, :)); plot(ax, m.covB(1), y(q) - 0.17, 's', 'MarkerSize', 4.5, 'MarkerFaceColor', 'w', 'MarkerEdgeColor', mc(q, :), 'LineWidth', 1.0);
     if ~isempty(R2)
         m2 = R2.m.(mt{q});
-        plot(ax, mean([m2.covA(1) m2.covB(1)]), y(q), 'd', 'MarkerSize', 4, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.4);
+        plot(ax, m2.covA(1), y(q) + 0.17, 'd', 'MarkerSize', 3.6, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.3);
+        plot(ax, m2.covB(1), y(q) - 0.17, 'd', 'MarkerSize', 3.6, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.3);
     end
 end
-set(ax, 'YLim', [0.3 nm + 0.7], 'YTick', 1:nm, 'YTickLabel', fliplr(lab), 'XLim', [0 1], 'XTick', 0:0.2:1); grid(ax, 'on'); set(ax, 'YGrid', 'off');
+set(ax, 'YLim', [0.3 nm + 0.7], 'YTick', 1:nm, 'YTickLabel', fliplr(lab), 'XLim', [0.2 1], 'XTick', 0.2:0.2:1); grid(ax, 'on'); set(ax, 'YGrid', 'off');
 finishAxes(ax, 'coverage of the 90% goal intervals', '', false);
-panelLabel(ax, '(a)', 3.45);
+panelLabel(ax, '(a)', 3.5);
 % (b) model runs
-ax = newAxes(fig, [10.35 9.0 2.5 5.6]);
+ax = newAxes(fig, [10.25 9.0 2.55 5.55]);
 for q = 1:nm
     m = R.m.(mt{q}); errbarH(ax, m.runs(2:3), y(q), mc(q, :));
     plot(ax, m.runs(1), y(q), 'o', 'MarkerSize', 4.5, 'MarkerFaceColor', mc(q, :), 'MarkerEdgeColor', mc(q, :));
 end
 plot(ax, [S.budget S.budget], [0.3 nm + 0.7], ':', 'Color', pal.ink2, 'LineWidth', 0.9);
-set(ax, 'YLim', [0.3 nm + 0.7], 'YTick', 1:nm, 'YTickLabel', {}, 'XLim', [0 700]); grid(ax, 'on'); set(ax, 'YGrid', 'off');
+set(ax, 'YLim', [0.3 nm + 0.7], 'YTick', 1:nm, 'YTickLabel', {}, 'XLim', [0 600], 'XTick', 0:200:600); grid(ax, 'on'); set(ax, 'YGrid', 'off');
 finishAxes(ax, 'model runs', '', false);
-panelLabel(ax, '(b)', 0.4);
+panelLabel(ax, '(b)', 0.45);
 % (c) decision error
-ax = newAxes(fig, [13.45 9.0 2.3 5.6]);
+ax = newAxes(fig, [13.4 9.0 2.35 5.55]);
 for q = 1:nm
     m = R.m.(mt{q}); errbarH(ax, m.decErr(2:3), y(q), mc(q, :));
     plot(ax, m.decErr(1), y(q), 'o', 'MarkerSize', 4.5, 'MarkerFaceColor', mc(q, :), 'MarkerEdgeColor', mc(q, :));
-    if ~isempty(R2), plot(ax, R2.m.(mt{q}).decErr(1), y(q), 'd', 'MarkerSize', 4, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.4); end
+    if ~isempty(R2), plot(ax, R2.m.(mt{q}).decErr(1), y(q), 'd', 'MarkerSize', 3.6, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.3); end
 end
-set(ax, 'YLim', [0.3 nm + 0.7], 'YTick', 1:nm, 'YTickLabel', {}, 'XLim', [0 0.5], 'XTick', 0:0.25:0.5); grid(ax, 'on'); set(ax, 'YGrid', 'off');
+set(ax, 'YLim', [0.3 nm + 0.7], 'YTick', 1:nm, 'YTickLabel', {}, 'XLim', [0 0.4], 'XTick', 0:0.2:0.4); grid(ax, 'on'); set(ax, 'YGrid', 'off');
 finishAxes(ax, 'decision error', '', false);
-panelLabel(ax, '(c)', 0.4);
+panelLabel(ax, '(c)', 0.45);
+items = {legendItem('marker', 'supply well A', pal.ink2, 'o', 4.5, pal.ink2), legendItem('marker', 'supply well B', 'w', 's', 4.5, pal.ink2), ...
+         legendItem('line', 'nominal', pal.ink2, '--', 0.8), legendItem('marker', 'run without sub-zonal field', pal.red, 'd', 4, 'w')};
+drawLegend(fig, [1.45 15.1 14.4 0.45], items, 1, [3.0 3.0 2.3 5]);
 % (d) arm-selection frequency
-ax = newAxes(fig, [1.45 1.35 7.2 5.4]);
+ax = newAxes(fig, [1.45 1.55 7.4 5.15]);
 ms = {'trial', 'ucb', 'ts', 'greedy', 'bic', 'oracle'}; ls = {'TRIAL-GO', 'UCB', 'Thomp.', 'greedy', 'BIC', 'oracle'};
 F = zeros(numel(ms), 5);
 for q = 1:numel(ms), F(q, :) = R.m.(ms{q}).armFreq(:)' / R.n; end
@@ -347,37 +350,38 @@ for q = 1:numel(ms)
         end
         b0 = b0 + F(q, m);
     end
+    text(ax, q, -0.035, ls{q}, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'top', 'FontSize', fs(7.5));
 end
-set(ax, 'XLim', [0.4 numel(ms) + 0.6], 'YLim', [0 1], 'XTick', 1:numel(ms), 'XTickLabel', ls, 'YTick', 0:0.25:1);
+set(ax, 'XLim', [0.4 numel(ms) + 0.6], 'YLim', [0 1], 'XTick', 1:numel(ms), 'XTickLabel', {}, 'YTick', 0:0.25:1);
 grid(ax, 'on'); set(ax, 'XGrid', 'off');
-finishAxes(ax, '', 'selected arm (fraction of truths)', false);
+finishAxes(ax, '', 'fraction of truths', false);
 panelLabel(ax, '(d)', 1.25);
+items = {};
+for m = 1:5, items{end + 1} = legendItem('patch', sprintf('A%d', m), armColor(m), '', 1); end %#ok<AGROW>
+drawLegend(fig, [1.45 7.25 7.4 0.45], items, 1, [1.45 1.45 1.45 1.45 1.45]);
 % (e) validation miss rate of each arm at convergence on the heads
-ax = newAxes(fig, [10.35 1.35 5.4 5.4]);
+ax = newAxes(fig, [10.6 1.55 5.15 5.15]);
 plot(ax, [0.4 5.6], [0.1 0.1], '--', 'Color', pal.ink2, 'LineWidth', 0.8);
 for m = 1:5
     patch(ax, m - 0.36 + [0 0.34 0.34 0], [0 0 1 1] * R.missConv.strip(m), armColor(m), 'EdgeColor', 'none');
     patch(ax, m + 0.02 + [0 0.34 0.34 0], [0 0 1 1] * R.missConv.nostrip(m), 'w', 'EdgeColor', armColor(m), 'LineWidth', 1.0);
     if ~isempty(R2)
-        plot(ax, m - 0.19, R2.missConv.strip(m), 'd', 'MarkerSize', 4, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.4);
-        plot(ax, m + 0.19, R2.missConv.nostrip(m), 'd', 'MarkerSize', 4, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.4);
+        plot(ax, m - 0.19, R2.missConv.strip(m), 'd', 'MarkerSize', 3.6, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.3);
+        plot(ax, m + 0.19, R2.missConv.nostrip(m), 'd', 'MarkerSize', 3.6, 'MarkerFaceColor', pal.red, 'MarkerEdgeColor', 'w', 'LineWidth', 0.3);
     end
 end
-set(ax, 'XLim', [0.4 5.6], 'YLim', [0 0.7], 'XTick', 1:5, 'XTickLabel', {'A1', 'A2', 'A3', 'A4', 'A5'}, 'YTick', 0:0.1:0.7);
+set(ax, 'XLim', [0.4 5.6], 'YLim', [0 0.5], 'XTick', 1:5, 'XTickLabel', {'A1', 'A2', 'A3', 'A4', 'A5'}, 'YTick', 0:0.1:0.5);
 grid(ax, 'on'); set(ax, 'XGrid', 'off');
-finishAxes(ax, '', 'validation miss rate at convergence', false);
+finishAxes(ax, '', 'miss rate at convergence', false);
 panelLabel(ax, '(e)', 1.25);
-items = {legendItem('marker', 'A (filled)', pal.ink2, 'o', 4.5, pal.ink2), legendItem('marker', 'B (open)', 'w', 's', 4.5, pal.ink2), ...
-         legendItem('marker', 'without sub-zonal field', pal.red, 'd', 4, 'w')};
-drawLegend(fig, [3.55 14.65 12 0.45], items, 1, [2.3 2.3 4]);
-items = {legendItem('patch', 'strip truths', pal.muted, '', 1), legendItem('patch', 'no strip (open)', 'w', '', 1, pal.muted)};
-drawLegend(fig, [10.35 6.85 5.4 0.45], items, 1, [2.6 2.8]);
+items = {legendItem('patch', 'strip truths', pal.muted, '', 1), legendItem('patch', 'no strip', 'w', '', 1, pal.muted)};
+drawLegend(fig, [10.6 7.25 5.2 0.45], items, 1, [2.7 2.3]);
 say(lg, 'P4: n = %d truths; coverage A/B, runs, decision error per method:\n', R.n);
 for q = 1:nm
     m = R.m.(mt{q});
-    say(lg, '   %-16s covA %.3f [%.3f %.3f] covB %.3f [%.3f %.3f] runs %.1f decErr %.3f [%.3f %.3f]\n', lab{q}, m.covA, m.covB, m.runs(1), m.decErr);
+    say(lg, '   %-18s covA %.3f [%.3f %.3f] covB %.3f [%.3f %.3f] runs %.1f decErr %.3f [%.3f %.3f]\n', lab{q}, m.covA, m.covB, m.runs(1), m.decErr);
 end
-say(lg, 'P4d: selection fractions (A1..A5): %s\n', mat2str(F, 3));
+say(lg, 'P4d: selection fractions (A1..A5) for %s: %s\n', strjoin(ls, ', '), mat2str(F, 3));
 say(lg, 'P4e: miss rate at convergence strip %s, no strip %s\n', mat2str(R.missConv.strip(:)', 3), mat2str(R.missConv.nostrip(:)', 3));
 saveFigure(fig, resDir, 'figP4_results', lg);
 end
@@ -415,7 +419,7 @@ plot(ax, M.Bk(:, 1), M.Bk(:, 2), '-', 'Color', pal.ink, 'LineWidth', 0.9); coast
 wellsOut(ax, M, pal); marWells(ax, M, F6.sites, pal);
 set(ax, 'XLim', [0 21], 'YLim', [0 52.5], 'DataAspectRatio', [1 1 1], 'XTick', 0:5:20, 'YTick', 0:10:50, 'YTickLabel', {});
 finishAxes(ax, 'E [km]', '', true);
-mapTitle(ax, sprintf('head rise by the %d MAR wells', n6));
+mapTitle(ax, 'head rise by MAR');
 panelLabel(ax, '(e)', 0.3);
 colorbarV(fig, [pos(2, 1) + wm + 0.45 3.2 0.25 5.0], cm, clm, {'\Deltah', '[m]'});
 % side legend panel
@@ -444,9 +448,9 @@ for p = 1:2
     if p == 1, northArrow(ax, 19.3, 44.5, 4.0); scaleBar(ax, 0.8, 2.2, 5); end
     panelLabel(ax, char('(a)' + [0 p - 1 0]), off);
 end
-colorbarV(fig, [1.35 + 2 * wm + 0.35 + 0.4 3.2 0.25 5.0], turbo(256), cl, {'true head', '[m]'});
+colorbarV(fig, [1.35 + wm + 0.35 + 15.3 * wm / 21, 1.4 + 19.5 * 9.7 / 52.5, 0.22, 3.0], turbo(256), cl, {'true head', '[m]'});
 % (c) risk and (d) area: predicted (open) vs true (filled) for both designs
-ax = newAxes(fig, [12.1 6.55 4.6 3.9]);
+ax = newAxes(fig, [11.95 6.6 4.75 3.85]);
 for p = 1:2
     D = T.(mm{p});
     bar_(ax, p - 0.2, D.predRisk, mcol(p, :), 'w'); bar_(ax, p + 0.2, D.trueRisk, mcol(p, :), mcol(p, :));
@@ -456,7 +460,7 @@ end
 set(ax, 'XLim', [0.4 2.6], 'XTick', [1 2], 'XTickLabel', {'PEST std.', 'TRIAL-GO'}, 'YLim', [0 1], 'YTick', 0:0.25:1);
 grid(ax, 'on'); set(ax, 'XGrid', 'off'); finishAxes(ax, '', 'P(A or B intruded)', false);
 panelLabel(ax, '(c)', 1.3);
-ax = newAxes(fig, [12.1 1.4 4.6 3.9]);
+ax = newAxes(fig, [11.95 1.4 4.75 3.85]);
 for p = 1:2
     D = T.(mm{p});
     bar_(ax, p - 0.2, D.predArea, mcol(p, :), 'w'); bar_(ax, p + 0.2, D.trueArea, mcol(p, :), mcol(p, :));
@@ -467,11 +471,11 @@ ymax = 10 * ceil(max([T.pest.predArea T.pest.trueArea T.trial.predArea T.trial.t
 set(ax, 'XLim', [0.4 2.6], 'XTick', [1 2], 'XTickLabel', {'PEST std.', 'TRIAL-GO'}, 'YLim', [0 ymax]);
 grid(ax, 'on'); set(ax, 'XGrid', 'off'); finishAxes(ax, '', 'intruded area [km^2]', false);
 panelLabel(ax, '(d)', 1.3);
-items = {legendItem('line', 'true toe (h = h_c)', pal.ink, '--', 1.8), legendItem('line', 'toe predicted by PEST standard', pal.orange, '-', 1.6), ...
-         legendItem('line', 'toe predicted by TRIAL-GO', pal.blue, '-', 1.6), legendItem('patch', 'intruded zone (true)', intrudedTint(), '', 1, pal.muted), ...
-         legendItem('marker', 'supply well (pumping out)', pal.ink, 'v', 6, 'w'), legendItem('marker', 'MAR well (injection in)', marGreen(), 'd', 6, 'w'), ...
-         legendItem('patch', '(c, d) predicted', 'w', '', 1, pal.ink2), legendItem('patch', '(c, d) true', pal.muted, '', 1, pal.muted)};
-drawLegend(fig, [1.35 11.85 15.5 1.4], items, 2, [3.3 4.4 4.0 3.6]);
+items = {legendItem('line', 'true toe (h = h_c)', pal.ink, '--', 1.8), legendItem('line', 'toe, PEST std. model', pal.orange, '-', 1.6), ...
+         legendItem('line', 'toe, TRIAL-GO model', pal.blue, '-', 1.6), legendItem('patch', 'intruded zone (true)', intrudedTint(), '', 1, pal.muted), ...
+         legendItem('marker', 'supply well (out)', pal.ink, 'v', 6, 'w'), legendItem('marker', 'MAR well (in)', marGreen(), 'd', 6, 'w'), ...
+         legendItem('patch', 'predicted (c, d)', 'w', '', 1, pal.ink2), legendItem('patch', 'true (c, d)', pal.muted, '', 1, pal.muted)};
+drawLegend(fig, [1.35 11.85 15.6 1.3], items, 2, [4.15 4.15 3.5 3.3]);
 for p = 1:2
     D = T.(mm{p});
     say(lg, 'P6: %s: sites %s; risk predicted %.4f true %.4f; area predicted %.2f true %.2f km^2\n', mlab{p}, mat2str(D.sites), D.predRisk, D.trueRisk, D.predArea, D.trueArea);
@@ -483,11 +487,11 @@ end
 function figP7(L, resDir, lg)
 % W-E section through supply well A: sharp-interface (Ghyben-Herzberg) wedge from the model heads; head profiles.
 pal = palette(); M = L.M; S = L.S; Q = load(fullfile(resDir, 'prova_mar.mat')); X = Q.X;
-fig = newFigure(16, 12.2);
+fig = newFigure(16, 12.5);
 x = X.x; base = -M.P.base; xe = 10; sel = x <= xe + 0.3; x = x(sel);
 sea = [0.66 0.83 0.92]; wedge = [0.36 0.58 0.78]; g = marGreen();
 cs = {'cur', 'plan', 'mar'}; cc = [pal.muted; pal.red; g];
-ax = newAxes(fig, [1.7 5.0 13.8 5.2]);
+ax = newAxes(fig, [1.7 5.35 13.8 5.2]);
 patch(ax, [-1.0 0 0 -1.0], [base base 0 0], sea, 'EdgeColor', 'none');
 patch(ax, [0 xe xe 0], [base base base - 4 base - 4], [0.60 0.58 0.56], 'EdgeColor', 'none');
 zP = X.zi.plan(sel);
@@ -502,27 +506,27 @@ plot(ax, [0 xe], [base base], '-', 'Color', pal.ink, 'LineWidth', 0.8);
 xw = X.xA; ztop = 4;
 plot(ax, [xw xw], [base + 1 ztop], '-', 'Color', pal.ink, 'LineWidth', 1.4);
 arrowV(ax, xw, ztop + 7, ztop + 1.0, pal.ink);
-text(ax, xw - 0.12, ztop + 6, {sprintf('supply well A (%s)', M.supID{1}), 'pumping out'}, 'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', 'FontSize', fs(7.5));
+text(ax, xw - 0.12, ztop + 6, {sprintf('supply well A (%s)', M.supID{1}), sprintf('pumping out, %.0f m^3 d^{-1}', S.Q(1))}, 'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', 'FontSize', fs(7.5));
 for q = 1:numel(X.xMar)
     xm = X.xMar(q);
     plot(ax, [xm xm], [base + 1 ztop], '-', 'Color', g, 'LineWidth', 1.4);
     arrowV(ax, xm, ztop + 1.0, ztop + 7, g);
-    text(ax, xm + 0.12, ztop + 6, {sprintf('MAR well (N %.2f km)', X.marN(q)), sprintf('injection in, %.0f m^3 d^{-1}', X.qSite)}, 'HorizontalAlignment', 'left', ...
+    text(ax, xm + 0.12, ztop + 6, {'MAR well', sprintf('injection in, %.0f m^3 d^{-1}', X.qSite)}, 'HorizontalAlignment', 'left', ...
          'VerticalAlignment', 'middle', 'FontSize', fs(7.5), 'Color', g);
 end
 text(ax, -0.5, base / 2, 'sea', 'Rotation', 90, 'HorizontalAlignment', 'center', 'FontSize', fs(8), 'Color', [0.13 0.33 0.52]);
 text(ax, 0.12, base + 7, {'seawater', 'wedge'}, 'FontSize', fs(7.5), 'FontWeight', 'bold', 'Color', 'w', 'VerticalAlignment', 'middle');
 gh = 40 * [X.hA.cur X.hA.plan X.hA.mar];
-text(ax, 2.6, -20, {'Ghyben-Herzberg interface depth below A:', sprintf('%.0f m (current), %.0f m (planned), %.0f m (+ MAR);', gh), ...
-     sprintf('aquifer base %.0f m below sea level', M.P.base)}, 'FontSize', fs(7.5), 'Color', pal.ink2, 'VerticalAlignment', 'middle');
+text(ax, 6.35, -18, {'interface depth below A (40 h):', sprintf('%.0f m current, %.0f m planned,', gh(1), gh(2)), ...
+     sprintf('%.0f m planned + MAR; base %.0f m', gh(3), M.P.base)}, 'FontSize', fs(7.5), 'Color', pal.ink2, 'VerticalAlignment', 'middle');
 set(ax, 'XLim', [-1.0 xe], 'YLim', [base - 4 ztop + 10], 'XTick', 0:1:xe, 'YTick', -40:10:0);
 grid(ax, 'on');
 finishAxes(ax, '', 'elevation [m a.s.l.]', false);
-text(ax, 0.995, 0.03, sprintf('vertical exaggeration \\approx %.0f\\times', X.ve), 'Units', 'normalized', 'HorizontalAlignment', 'right', ...
-     'VerticalAlignment', 'bottom', 'FontSize', fs(7), 'Color', 'w');
+text(ax, 0.995, 0.17, sprintf('vertical exaggeration \\approx %.0f\\times', X.ve), 'Units', 'normalized', 'HorizontalAlignment', 'right', ...
+     'VerticalAlignment', 'bottom', 'FontSize', fs(7.5), 'Color', pal.ink2);
 panelLabel(ax, '(a)', 1.5);
 % (b) head profiles
-ax = newAxes(fig, [1.7 1.15 13.8 2.75]);
+ax = newAxes(fig, [1.7 1.35 13.8 2.75]);
 plot(ax, [0 xe], S.hc * [1 1], '--', 'Color', pal.ink, 'LineWidth', 0.9);
 for q = 1:3, plot(ax, x, X.h.(cs{q})(sel), '-', 'Color', cc(q, :), 'LineWidth', 1.4); end
 plot(ax, xw, X.hA.plan, 'v', 'MarkerSize', 6, 'MarkerFaceColor', pal.ink, 'MarkerEdgeColor', 'w');
@@ -534,7 +538,7 @@ finishAxes(ax, sprintf('distance from the coast along N = %.2f km [km]', X.N), '
 panelLabel(ax, '(b)', 1.5);
 items = {legendItem('line', 'current pumping', pal.muted, '-', 1.6), legendItem('line', 'planned pumping', pal.red, '-', 1.6), ...
          legendItem('line', 'planned + MAR', g, '-', 1.6), legendItem('marker', 'toe (h = h_c)', pal.ink2, '^', 6, 'w')};
-drawLegend(fig, [1.7 11.35 13.8 0.5], items, 1, [3.4 3.4 3.2 3]);
+drawLegend(fig, [1.7 11.75 13.8 0.5], items, 1, [3.4 3.4 3.2 3]);
 say(lg, 'P7: section N = %.2f km: toe at %.2f (current), %.2f (planned), %.2f km (planned + MAR) from the coast; GH depth below A %s m; VE %.0f\n', ...
     X.N, X.toe.cur, X.toe.plan, X.toe.mar, mat2str(gh, 3), X.ve);
 saveFigure(fig, resDir, 'figP7_section', lg);
@@ -543,25 +547,29 @@ end
 % =====================================================================================================================
 % ---- map helpers ------------------------------------------------------------------------------------------------------
 function drawField(ax, M, v, cmap, clim, categorical)
-% Cell values V as an RGB image: colour map CMAP over CLIM (or category index when CATEGORICAL), white outside.
+% Cell values V drawn as one patch of flat-coloured cells (vector output in PDF): colour map CMAP over CLIM, or the
+% category index when CATEGORICAL; nothing is drawn outside the aquifer (white background).
 if nargin < 6, categorical = false; end
-G = nan(M.ny, M.nx); G(M.act) = v; ok = ~isnan(G); n = size(cmap, 1);
-if categorical, k = round(G - clim(1) + 0.5); else, k = 1 + round((min(max(G, clim(1)), clim(2)) - clim(1)) / diff(clim) * (n - 1)); end
-k(~ok) = 1; k = min(max(k, 1), n);
-RGB = ones(M.ny, M.nx, 3);
-for c = 1:3, ch = ones(M.ny, M.nx); ch(ok) = cmap(k(ok), c); RGB(:, :, c) = ch; end
-image(ax, M.xs, M.ys, RGB); set(ax, 'YDir', 'normal', 'Color', 'w');
+n = size(cmap, 1); v = v(:);
+if categorical, k = round(v - clim(1) + 0.5); else, k = 1 + round((min(max(v, clim(1)), clim(2)) - clim(1)) / diff(clim) * (n - 1)); end
+k = min(max(k, 1), n);
+cellPatch(ax, M, cmap(k, :));
+end
+function cellPatch(ax, M, C)
+% One patch with a square face per active cell, face colours C (Nc-by-3).
+d = M.dx / 2; X = M.X(:); Y = M.Y(:); Nc = numel(X);
+V = [X - d Y - d; X + d Y - d; X + d Y + d; X - d Y + d];
+F = [(1:Nc)' (Nc + 1:2 * Nc)' (2 * Nc + 1:3 * Nc)' (3 * Nc + 1:4 * Nc)'];
+patch('Parent', ax, 'Faces', F, 'Vertices', V, 'FaceVertexCData', C, 'FaceColor', 'flat', 'EdgeColor', 'none');
+set(ax, 'Color', 'w');
 end
 function mapHeads(ax, M, S, h, cl, pal)
 % Head field (turbo over CL) with the intruded zone h < h_c tinted, light head contours, the toe (h = h_c, black
 % dashed), the polygon outline (black) and the coast (blue).
-G = nan(M.ny, M.nx); G(M.act) = h; ok = ~isnan(G);
-cm = turbo(256); k = 1 + round((min(max(G, cl(1)), cl(2)) - cl(1)) / diff(cl) * 255); k(~ok) = 1;
-RGB = ones(M.ny, M.nx, 3); tint = intrudedTint();
-for c = 1:3
-    ch = ones(M.ny, M.nx); ch(ok) = cm(k(ok), c); ch(ok & G < S.hc) = tint(c); RGB(:, :, c) = ch;
-end
-image(ax, M.xs, M.ys, RGB); set(ax, 'YDir', 'normal', 'Color', 'w');
+cm = turbo(256); k = 1 + round((min(max(h(:), cl(1)), cl(2)) - cl(1)) / diff(cl) * 255);
+C = cm(k, :); in = h(:) < S.hc; C(in, :) = repmat(intrudedTint(), nnz(in), 1);
+cellPatch(ax, M, C);
+G = nan(M.ny, M.nx); G(M.act) = h;
 contour(ax, M.xs, M.ys, G, [2 3 4 5 6 8 10], 'LineColor', [1 1 1] * 0.95, 'LineWidth', 0.35);
 contour(ax, M.xs, M.ys, G, [S.hc S.hc], 'LineColor', pal.ink, 'LineStyle', '--', 'LineWidth', 1.8);
 plot(ax, M.Bk(:, 1), M.Bk(:, 2), '-', 'Color', pal.ink, 'LineWidth', 0.9);

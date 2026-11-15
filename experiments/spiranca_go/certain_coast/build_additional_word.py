@@ -44,12 +44,13 @@ ORANGE, CREAM = 'C55A11', 'FDF3EA'
 REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
-EQ_DPI = 300          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
-FIG_DPI = 170         # figures of the PDF are resampled to this resolution at the size they are printed (if finer)
+EQ_DPI = 270          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
+FIG_DPI = 140         # figures of the PDF are resampled to this resolution at the size they are printed (if finer)
 FIG_COLOURS = 64      # colours of each figure in the PDF copy (no dithering): flat plots compress best this way
 EQ_INLINE_SCALE = 1.15   # inline formulas a little larger than the text (the math font has a smaller x-height than Arial)
 EQ_DISPLAY_SCALE = 1.08  # display equations a little larger
 EQ_ALPHA_GAMMA = 0.8     # slightly heavier strokes, so the equations read clearly on screen
+EQ_ALPHA_LEVELS = 12     # transparency levels of the equation pictures: same look, far smaller soft masks in the PDF
 PAGES_JSON = os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Additional_Files_pages.json')
 RED_NOTE = (' Equations set in red are new in this proposal, results of the preparatory work of the NPD\'s team; '
             'equations in black are standard.')
@@ -1218,6 +1219,7 @@ def pdf_for_upload(docx_path, outdir):
     rendered = os.path.join(rdir, base + '.docx')
     omml_render.INLINE_SCALE, omml_render.DISPLAY_SCALE = EQ_INLINE_SCALE, EQ_DISPLAY_SCALE
     omml_render.ALPHA_GAMMA = EQ_ALPHA_GAMMA
+    omml_render.ALPHA_LEVELS = EQ_ALPHA_LEVELS
     st = omml_render.render_equations(docx_path, rendered, dpi=EQ_DPI, workdir=os.path.join(rdir, 'eq'))
     print('  equations drawn for the PDF:', {k: v for k, v in st.items() if isinstance(v, (int, float))})
     shrink_media(rendered)
