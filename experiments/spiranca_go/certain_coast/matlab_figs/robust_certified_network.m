@@ -25,7 +25,7 @@ function R = robust_certified_network(repoRoot, outDir)
 %   defaults of run_all_figures.m apply (CERTAINCOAST_ROOT, then the local clone; the folder 'figures' next to this
 %   file). R = robust_certified_network(...) also returns the results structure.
 %
-%   GNU Octave on a machine without a display:
+%   GNU Octave on a machine without a display (about 2.5 minutes on one core):
 %       xvfb-run -a octave --no-gui --eval "robust_certified_network"
 %   The designs use no random numbers; the Monte Carlo checks use fixed seeds (the random streams of MATLAB and GNU
 %   Octave differ, so the Monte Carlo digits differ slightly between the two programs).
@@ -432,6 +432,14 @@ for gl = 1:2
             ternary(opt == 1, 'no reference', '0/1 reference'), best);
         say(lg, '      grid minus refined worst r2 at most %.2e; margin to the second configuration %.2e (r2)\n', ...
             max(vs(1:10) - ref), ref(1) - max(ref(2:end)));
+    end
+    if gl == 1
+        sdr = sqrt(diag(Kj));
+        say(lg, '  Reading of the designs: sensors 9 and 6 carry little signal (prior sd of the reading %.4f and %.4f)\n', ...
+            sdr(9), sdr(6));
+        say(lg, '  against a hub error of up to a = %.3f, so they read mostly the common error of hubs 3 and 2: the robust\n', ...
+            aBox(2));
+        say(lg, '  designs spend a sensor as a quasi-reference channel, which the independent-noise criterion cannot value.\n');
     end
     loss = rules{3}.worst - rules{1}.worst;
     lossRef = rules{4}.worst - rules{1}.worst;
@@ -1163,10 +1171,10 @@ function figRobust(outDir, name, lg, g, U, X, Y, cand, zone, supply, D4, CERT, b
 pal = palette();
 r1 = D4(1).rules;
 r2 = D4(2).rules;
-fig = newFigure(16, 13.2);
+fig = newFigure(16, 12.7);
 
 % ---------------------------------------------------------------- (a) the section, hubs, designs, reference channel
-ax = newAxes(fig, [1.45 6.95 8.6 4.3]);
+ax = newAxes(fig, [1.45 6.85 8.6 4.3]);
 C = reshape(U(g.N + 1:2 * g.N), g.Nx, g.Ny).';
 [xy, yy, Cy] = padVertically(g, C);
 zx = [min(X(zone)) - g.dx / 2, max(X(zone)) + g.dx / 2];
@@ -1232,22 +1240,25 @@ items = {legendItem('marker', 'candidate sensor (number)', 'w', 'o', 5, pal.ink2
          legendItem('patch', 'toe zone (salt-mass goal)', pal.zoneTint, '', 0, pal.orange), ...
          legendItem('line', '0.5 isochlor', pal.muted, '--', 0.8), ...
          legendItem('marker', 'supply cell (yes/no goal)', pal.ink, 'd', 6, 'w')};
-drawLegend(fig, [10.3 6.95 5.6 4.75], items, 9, 5.6);
-text('Parent', ax, 'Units', 'centimeters', 'Position', [8.85 4.95 0], 'String', 'designs for the salt mass:', ...
+drawLegend(fig, [10.3 7.95 5.6 3.95], items, 9, 5.6);
+text('Parent', ax, 'Units', 'centimeters', 'Position', [8.85 5.45 0], 'String', 'Designs for the salt mass', ...
      'FontSize', fs(8), 'FontWeight', 'bold', 'Color', pal.ink, 'HorizontalAlignment', 'left', ...
-     'VerticalAlignment', 'bottom', 'Clipping', 'off');
-supplyNote = {sprintf('yes/no goal: ignored %s, robust %s,', mat2str(r2{1}.S), mat2str(r2{3}.S)), ...
+     'VerticalAlignment', 'top', 'Clipping', 'off');
+text('Parent', ax, 'Units', 'centimeters', 'Position', [8.85 0.98 0], 'String', 'Designs for the supply question', ...
+     'FontSize', fs(8), 'FontWeight', 'bold', 'Color', pal.ink, 'HorizontalAlignment', 'left', ...
+     'VerticalAlignment', 'top', 'Clipping', 'off');
+supplyNote = {sprintf('ignored %s, robust %s,', mat2str(r2{1}.S), mat2str(r2{3}.S)), ...
               sprintf('robust + reference %s + r%d', mat2str(r2{4}.S), r2{4}.R - 12)};
-text('Parent', ax, 'Units', 'centimeters', 'Position', [8.85 -0.72 0], 'String', supplyNote, ...
-     'FontSize', fs(7.5), 'Color', pal.ink2, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'top', ...
+text('Parent', ax, 'Units', 'centimeters', 'Position', [8.85 0.55 0], 'String', supplyNote, ...
+     'FontSize', fs(8), 'Color', pal.ink, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'top', ...
      'Clipping', 'off');
 
 % ---------------------------------------------------------------- (b) worst-case information of the design rules
 cols = {pal.orange, pal.blue, pal.aqua};
-labs = {{'interference', 'ignored'}, {'robust', ''}, {'robust +', 'reference'}};
-pos = {[1.45 1.25 3.35 3.85], [5.75 1.25 3.35 3.85]};
-lims = {[0 2.8], [0 0.7]};
-ticks = {0:0.5:2.5, 0:0.1:0.7};
+labs = {{'ignored', ''}, {'robust', ''}, {'robust +', 'reference'}};
+pos = {[1.45 1.2 3.35 3.85], [5.75 1.2 3.35 3.85]};
+lims = {[0 3.2], [0 0.8]};
+ticks = {0:0.5:3, 0:0.1:0.8};
 titles = {'salt mass near the toe', 'supply cell above its limit?'};
 for gl = 1:2
     rl = D4(gl).rules;
@@ -1258,8 +1269,10 @@ for gl = 1:2
     % claimed value of the design that ignores the interference: outline
     patch('Parent', a2, 'XData', 1 + 0.34 * [-1 1 1 -1], 'YData', [0 0 rl{1}.claimed rl{1}.claimed], ...
           'FaceColor', 'none', 'EdgeColor', pal.orange, 'LineWidth', 0.9, 'LineStyle', ':');
-    text(1, rl{1}.claimed + 0.015 * yr, {'claimed', sprintf('%.3f', rl{1}.claimed)}, 'Parent', a2, ...
+    text(1, rl{1}.claimed + 0.012 * yr, sprintf('%.3f', rl{1}.claimed), 'Parent', a2, ...
          'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom', 'FontSize', fs(7.5), 'Color', pal.ink2);
+    text(0.56, lims{gl}(2) - 0.015 * yr, 'dotted: claimed value', 'Parent', a2, 'HorizontalAlignment', 'left', ...
+         'VerticalAlignment', 'top', 'FontSize', fs(7.5), 'Color', pal.ink2, 'BackgroundColor', 'w', 'Margin', 0.5);
     for q = 1:3
         patch('Parent', a2, 'XData', q + 0.34 * [-1 1 1 -1], 'YData', [0 0 vals(q) vals(q)], ...
               'FaceColor', cols{q}, 'EdgeColor', 'none');
@@ -1276,7 +1289,7 @@ for gl = 1:2
     grid(a2, 'on');
     set(a2, 'XGrid', 'off');
     if gl == 1
-        finishAxes(a2, '', 'Worst-case information (nats)', false);
+        finishAxes(a2, '', 'Worst case (nats)', false);
     else
         finishAxes(a2, '', '', false);
     end
@@ -1288,7 +1301,7 @@ for gl = 1:2
 end
 
 % ---------------------------------------------------------------- (c) certificate and robust optimum against the budget
-axC = newAxes(fig, [11.15 1.25 4.6 3.85]);
+axC = newAxes(fig, [11.15 1.2 4.6 3.85]);
 nk = numel(budgets);
 optN = zeros(nk, 1);
 optR = optN;
@@ -1317,20 +1330,20 @@ plot(axC, budgets, gxN, 'LineStyle', 'none', 'Marker', '+', 'MarkerSize', 7, 'Ma
      'LineWidth', 0.9);
 plot(axC, budgets, gxR, 'LineStyle', 'none', 'Marker', '+', 'MarkerSize', 7, 'MarkerEdgeColor', pal.ink, ...
      'LineWidth', 0.9);
-text(budgets(end) + 0.08, optR(end) - 0.012, '+ 1 reference', 'Parent', axC, 'HorizontalAlignment', 'right', ...
-     'VerticalAlignment', 'top', 'FontSize', fs(7.5), 'Color', pal.aqua);
-text(budgets(end) + 0.08, optN(end) - 0.012, 'sensors only', 'Parent', axC, 'HorizontalAlignment', 'right', ...
-     'VerticalAlignment', 'top', 'FontSize', fs(7.5), 'Color', pal.blue);
+text(5.0, optR(3) - 0.03, '+ 1 reference channel', 'Parent', axC, 'HorizontalAlignment', 'center', ...
+     'VerticalAlignment', 'top', 'FontSize', fs(7.5), 'Color', pal.ink);
+text(5.0, optN(3) - 0.03, 'sensors only', 'Parent', axC, 'HorizontalAlignment', 'center', ...
+     'VerticalAlignment', 'top', 'FontSize', fs(7.5), 'Color', pal.ink);
 set(axC, 'XLim', [2.7 6.3], 'XTick', budgets, 'YLim', [1.55 2.1], 'YTick', 1.6:0.1:2.1);
 grid(axC, 'on');
-finishAxes(axC, 'Number of sensors, k', 'Salt mass: worst case (nats)', false);
-text('Parent', axC, 'Units', 'normalized', 'Position', [0.5, 1.03, 0], 'String', 'bound and robust optimum', ...
+finishAxes(axC, 'Number of sensors, k', 'Worst case (nats)', false);
+text('Parent', axC, 'Units', 'normalized', 'Position', [0.5, 1.03, 0], 'String', 'salt mass: bound and optimum', ...
      'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom', 'FontSize', fs(8), 'Color', pal.ink);
 panelLabel(axC, '(c)', 1.4);
 itemsC = {legendItem('line', 'certificate (upper bound)', pal.ink2, '--', 1.0), ...
           legendItem('marker', 'exhaustive optimum', pal.ink2, 'o', 5.5, 'w'), ...
           legendItem('marker', 'greedy + exchange', 'none', '+', 7, pal.ink)};
-drawLegend(fig, [11.35 1.35 4.3 1.15], itemsC, 3, 4.3);
+drawLegend(fig, [11.35 1.3 4.3 1.15], itemsC, 3, 4.3);
 
 say(lg, '  plotted (a): salt-mass designs: ignored %s, robust %s, robust + reference %s + r%d; yes/no designs %s, %s,\n', ...
     mat2str(r1{1}.S), mat2str(r1{3}.S), mat2str(r1{4}.S), refHub, mat2str(r2{1}.S), mat2str(r2{3}.S));
@@ -1536,13 +1549,54 @@ x = round(x * 1e4) / 1e4;
 end
 
 function writeJson(file, R)
-% JSON with jsonencode (MATLAB R2016b+, GNU Octave 7+), pretty-printed where supported.
-try
-    txt = jsonencode(R, 'PrettyPrint', true);
-catch
-    txt = jsonencode(R);
-end
+% JSON with jsonencode (MATLAB R2016b+, GNU Octave 7+), one object member per line.
+txt = prettyJson(jsonencode(R));
 fid = fopen(file, 'w');
 fprintf(fid, '%s\n', txt);
 fclose(fid);
+end
+
+function out = prettyJson(txt)
+% Indent compact JSON: one object member per line; arrays of numbers stay on one line.
+nl = char(10);
+out = '';
+stack = '';
+inStr = false;
+for i = 1:numel(txt)
+    c = txt(i);
+    if inStr
+        out = [out, c]; %#ok<AGROW>
+        if c == '"' && txt(i - 1) ~= '\'
+            inStr = false;
+        end
+        continue
+    end
+    switch c
+        case '"'
+            inStr = true;
+            out = [out, c]; %#ok<AGROW>
+        case '{'
+            stack(end + 1) = '{'; %#ok<AGROW>
+            out = [out, c, nl, repmat(' ', 1, 2 * numel(stack))]; %#ok<AGROW>
+        case '['
+            stack(end + 1) = '['; %#ok<AGROW>
+            out = [out, c]; %#ok<AGROW>
+        case '}'
+            stack(end) = [];
+            out = [out, nl, repmat(' ', 1, 2 * numel(stack)), c]; %#ok<AGROW>
+        case ']'
+            stack(end) = [];
+            out = [out, c]; %#ok<AGROW>
+        case ','
+            if ~isempty(stack) && stack(end) == '{'
+                out = [out, c, nl, repmat(' ', 1, 2 * numel(stack))]; %#ok<AGROW>
+            else
+                out = [out, c, ' ']; %#ok<AGROW>
+            end
+        case ':'
+            out = [out, ': ']; %#ok<AGROW>
+        otherwise
+            out = [out, c]; %#ok<AGROW>
+    end
+end
 end
