@@ -61,6 +61,7 @@ SHORT = ['State of the art: what has been done and what CERTAIN-COAST brings',
          'Decisions in extreme events: final assembled system and deep reinforcement learning',
          'Theory: decisions of many stakeholders under normal, drought, flood and extreme conditions',
          'The decision flowchart for a shared coastal aquifer',
+         'Calibration when the model is wrong: TRIAL-GO on the Fushë-Kuqe aquifer',
          'The project at a glance: structure, communication, team, deliverables and timeline',
          'CV of the NATO-country Project Director', 'CV of the partner-country Project Director']
 # the line under the title of each part in the contents and in its banner
@@ -86,6 +87,10 @@ BLURB = [
     'on a synthetic coastal aquifer. Preparatory work of the NPD\'s team, November 2026.',
     'The decision flowchart read once per season: monitoring, the forecast layer, the classification of the regime, '
     'the actions of each stakeholder in each regime, the exit test with its hysteresis band and the learning step.',
+    'Calibration when the model is wrong: the 2020–2026 state of the art of calibration and of bandits, invariance-first '
+    'calibration, and TRIAL-GO, a robust Gittins bandit over model structures checked against metered pumping stops, '
+    'with the MAR process and the seawater wedge of the Fushë-Kuqe aquifer, computed in MATLAB. Supplement to WP2 and '
+    'WP4.',
     'The work plan in five figures: who leads each work package and what passes between them, how the results reach '
     'each audience, who does the work, when each deliverable is due, and the Gantt chart with the evidence gates.',
     'Assoc. Prof. Dr. Dulian Zeqiraj, Faculty of Geology and Mining, Polytechnic University of Tirana.',
@@ -93,7 +98,7 @@ BLURB = [
 # the running header of each part
 HEADER = ['State of the art', 'Mathematical state of the art', 'Technical annex', 'Technical note: the assembled system', 'Theory note: BEYOND-GO',
           'Implementation report: SHOCK-GO', 'Decisions in extreme events', 'Theory: stakeholder decisions by regime',
-          'The decision flowchart', 'The project at a glance',
+          'The decision flowchart', 'Calibration: TRIAL-GO', 'The project at a glance',
           'CV of the NATO-country Project Director',
           'CV of the partner-country Project Director']
 # what is new in each part, in the words of the part itself (its innovation box, or Table 3 of the annex)
@@ -141,7 +146,12 @@ NEW = [
      'One operational scheme that assigns, in every regime, the actions, the instruments and the theorem behind them to '
      'each stakeholder, with security reports as a direct trigger of the extreme regime and a hysteresis band for the '
      'way out.'),
-    ('Work plan', 10,
+    ('TRIAL-GO', 10,
+     'Calibration under misspecification as a bandit over model structures: a pumping stop at a metered rate measures, '
+     'by reciprocity, the sensitivity on which the decision rests and fixes the flux scale that heads cannot, so the '
+     'miss rate of each structure on such readings is a misspecification index, and the robust Gittins index of '
+     'Cohen and Treetanthiploet decides which structure receives the next model runs.'),
+    ('Work plan', 11,
      'A work plan built around evidence gates: each certified result is tested at a gate with a pass test and a '
      'fallback fixed in advance before the next work package relies on it, and the gates stand on the critical path. '
      'The figures are drawn from the tables of the form, so the two cannot disagree.'),
@@ -847,8 +857,10 @@ def contents(doc, pages):
         'and gives the robust, certified objective function of the monitoring network; '
         'each of Parts 1 to 6 opens with what it gives to that agent. Part 8 proves what each stakeholder should do in '
         'normal, drought, flood and extreme conditions, and Part 9 gives the same decisions as one flowchart. Part 10 '
-        'shows the work plan in five figures, and Parts 11 and 12 are the CVs of the two Project Directors.',
-        'The equations of Parts 1 to 9 are set as native Word math.' + RED_NOTE + ' The names of the preparatory '
+        'asks what calibration should do when the model is wrong and demonstrates TRIAL-GO, a robust bandit over model '
+        'structures, on the Fushë-Kuqe aquifer in MATLAB. Part 11 shows the work plan in five figures, and Parts 12 and '
+        '13 are the CVs of the two Project Directors.',
+        'The equations of Parts 1 to 10 are set as native Word math.' + RED_NOTE + ' The names of the preparatory '
         'experiments are given in English (BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',
         'Every figure is a result of the author\'s code. The open-source code of the project (MATLAB, also runs in the '
         'free GNU Octave) is updated continuously; if the project is funded, its final stage is a three-dimensional '
