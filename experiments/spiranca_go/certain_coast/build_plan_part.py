@@ -55,11 +55,13 @@ def main(figdir, out):
     run(p, 'CERTAIN-COAST — The project at a glance', bold=True, size=18, color=NAVY)
     p = para(doc, 10)
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run(p, 'Structure, communication, team, deliverables and timeline of the work plan', italic=True, size=11,
-        color=GREY)
+    run(p, 'The solution of all the problems in one flowchart, and the structure, communication, team, deliverables '
+           'and timeline of the work plan', italic=True, size=11, color=GREY)
     p = para(doc, 8)
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    run(p, 'The five figures show the work plan of the proposal: who leads each work package, what passes between '
+    run(p, 'Figure 1 puts the whole proposal on one page: the problems of the coast, and how the project observes, '
+           'models and calibrates, warns, decides and delivers, with the work package and the part of these files '
+           'behind each step. The five figures after it show the work plan: who leads each work package, what passes between '
            'them, how the results reach each audience, who does the work, when each deliverable is due and where the '
            'evidence gates stand on the critical path. They are drawn from the same tables as the form (work packages, '
            'tasks, deliverables, milestones, risks and participants), so the figures and the form cannot disagree.',
@@ -86,6 +88,25 @@ def main(figdir, out):
            'and a fallback before the next work package relies on it, and the gates stand on the critical path, so '
            'the plan shows where the project can fail early and what it does then.', size=10.5)
     para(doc, 6)
+    # Figure 1: the solution of all the problems, on its own portrait page
+    flow = os.path.join(HERE, 'matlab_figs', 'fig_solution_flowchart.png')
+    nfig = 0
+    if os.path.exists(flow):
+        nfig = 1
+        p = para(doc, 0)
+        p.paragraph_format.page_break_before = True
+        p = para(doc, 2)
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.keep_with_next = True
+        p.add_run().add_picture(flow, width=Cm(16.4))
+        p = para(doc, 6)
+        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        run(p, 'Figure 1. The solution of all the problems of CERTAIN-COAST in one flowchart: the problems of the '
+               'coast, and how the project observes them, models and calibrates the aquifer when the model is wrong, '
+               'warns with a stated miss rate, decides with every stakeholder inside the certified safe window and '
+               'delivers to the end-user; each box names the part of these files where the step is derived and tested, '
+               'or its work package, and live operation sends new readings back to the observation and the calibration. '
+               'Drawn with the author\'s MATLAB code (solution_flowchart.m).', italic=True, size=9.5, color=GREY)
     # the figures on landscape pages, 20.5 cm wide instead of 17 cm: their text prints about 20 % larger
     ls = doc.add_section(WD_SECTION.NEW_PAGE)
     ls.orientation = WD_ORIENT.LANDSCAPE
@@ -106,7 +127,7 @@ def main(figdir, out):
         p.add_run().add_picture(path, width=Cm(20.5))
         p = para(doc, 10)
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        run(p, f'Figure {k}. {cap}', italic=True, size=9.5, color=GREY)
+        run(p, f'Figure {k + nfig}. {cap}', italic=True, size=9.5, color=GREY)
     doc.save(out)
     print('saved', out)
 

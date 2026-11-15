@@ -1,0 +1,76 @@
+
+=== make_prova_figures 2026-11-15 09:12:21
+P2a: gamma-p at p = 0.3 for n = [1 2 5 10 20 80]: [-0.141 -0.0769 -0.0132 0.0105 0.02 0.0176]
+P2c: k 0.0 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.277 -0.236 -0.152 -0.0942 -0.0544 -0.0265 -0.0167 -0.0103 -0.00602 -0.00472]
+P2c: k 0.2 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.251 -0.195 -0.107 -0.0576 -0.0275 -0.00948 -0.00463 -0.00358 -7.74e-05 6.42e-05]
+P2c: k 0.5 beta 0.90 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.0758 -0.0241 0.0193 0.0312 0.0327 0.0265 0.0204 0.0152 0.0102 0.00589]
+P2c: k 0.5 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.141 -0.077 -0.0133 0.0105 0.02 0.0201 0.0155 0.0107 0.00636 0.00524]
+P2c: k 0.5 beta 0.99 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.204 -0.139 -0.0574 -0.0195 0.000599 0.00846 0.00672 0.00526 0.00451 0.00196]
+P2c: k 0.8 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [0.288 0.208 0.152 0.12 0.0929 0.063 0.0454 0.031 0.0202 0.0151]
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.pdf
+P2 done (1.7 s)
+
+=== make_prova_figures 2026-11-15 09:12:54
+P2a: gamma-p at p = 0.3 for n = [1 2 5 10 20 80]: [-0.141 -0.0769 -0.0132 0.0105 0.02 0.0176]
+P2b: k 0.2: gamma-p at p = 0.3, n = 5: -0.1067, n = 20: -0.0275
+P2b: k 0.5: gamma-p at p = 0.3, n = 5: -0.0132, n = 20: 0.0200
+P2b: k 0.8: gamma-p at p = 0.3, n = 5: 0.1522, n = 20: 0.0929
+P2c: k 0.0 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.277 -0.236 -0.152 -0.0942 -0.0544 -0.0265 -0.0167 -0.0103 -0.00602 -0.00472]
+P2c: k 0.2 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.251 -0.195 -0.107 -0.0576 -0.0275 -0.00948 -0.00463 -0.00358 -7.74e-05 6.42e-05]
+P2c: k 0.5 beta 0.90 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.0758 -0.0241 0.0193 0.0312 0.0327 0.0265 0.0204 0.0152 0.0102 0.00589]
+P2c: k 0.5 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.141 -0.077 -0.0133 0.0105 0.02 0.0201 0.0155 0.0107 0.00636 0.00524]
+P2c: k 0.5 beta 0.99 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.204 -0.139 -0.0574 -0.0195 0.000599 0.00846 0.00672 0.00526 0.00451 0.00196]
+P2c: k 0.8 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [0.288 0.208 0.152 0.12 0.0929 0.063 0.0454 0.031 0.0202 0.0151]
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.pdf
+P2 done (1.8 s)
+
+=== make_prova_figures 2026-11-15 09:13:19
+P2a: gamma-p at p = 0.3 for n = [1 2 5 10 20 80]: [-0.141 -0.0769 -0.0132 0.0105 0.02 0.0176]
+P2b: k 0.2: gamma-p at p = 0.3, n = 5: -0.1067, n = 20: -0.0275
+P2b: k 0.5: gamma-p at p = 0.3, n = 5: -0.0132, n = 20: 0.0200
+P2b: k 0.8: gamma-p at p = 0.3, n = 5: 0.1522, n = 20: 0.0929
+P2c: k 0.0 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.277 -0.236 -0.152 -0.0942 -0.0544 -0.0265 -0.0167 -0.0103 -0.00602 -0.00472]
+P2c: k 0.2 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.251 -0.195 -0.107 -0.0576 -0.0275 -0.00948 -0.00463 -0.00358 -7.74e-05 6.42e-05]
+P2c: k 0.5 beta 0.90 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.0758 -0.0241 0.0193 0.0312 0.0327 0.0265 0.0204 0.0152 0.0102 0.00589]
+P2c: k 0.5 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.141 -0.077 -0.0133 0.0105 0.02 0.0201 0.0155 0.0107 0.00636 0.00524]
+P2c: k 0.5 beta 0.99 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.204 -0.139 -0.0574 -0.0195 0.000599 0.00846 0.00672 0.00526 0.00451 0.00196]
+P2c: k 0.8 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [0.288 0.208 0.152 0.12 0.0929 0.063 0.0454 0.031 0.0202 0.0151]
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.pdf
+P2 done (2.0 s)
+
+=== make_prova_figures 2026-11-15 09:13:36
+P2a: gamma-p at p = 0.3 for n = [1 2 5 10 20 80]: [-0.141 -0.0769 -0.0132 0.0105 0.02 0.0176]
+P2b: k 0.2: gamma-p at p = 0.3, n = 5: -0.1067, n = 20: -0.0275
+P2b: k 0.5: gamma-p at p = 0.3, n = 5: -0.0132, n = 20: 0.0200
+P2b: k 0.8: gamma-p at p = 0.3, n = 5: 0.1522, n = 20: 0.0929
+P2c: k 0.0 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.277 -0.236 -0.152 -0.0942 -0.0544 -0.0265 -0.0167 -0.0103 -0.00602 -0.00472]
+P2c: k 0.2 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.251 -0.195 -0.107 -0.0576 -0.0275 -0.00948 -0.00463 -0.00358 -7.74e-05 6.42e-05]
+P2c: k 0.5 beta 0.90 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.0758 -0.0241 0.0193 0.0312 0.0327 0.0265 0.0204 0.0152 0.0102 0.00589]
+P2c: k 0.5 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.141 -0.077 -0.0133 0.0105 0.02 0.0201 0.0155 0.0107 0.00636 0.00524]
+P2c: k 0.5 beta 0.99 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [-0.204 -0.139 -0.0574 -0.0195 0.000599 0.00846 0.00672 0.00526 0.00451 0.00196]
+P2c: k 0.8 beta 0.95 p 0.3: gamma-p over n = [1 2 5 10 20 50 100 200 500 1000]: [0.288 0.208 0.152 0.12 0.0929 0.063 0.0454 0.031 0.0202 0.0151]
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP2_index.pdf
+P2 done (2.2 s)
+
+=== make_prova_figures 2026-11-15 09:16:47
+P1a: truth seed 48 (strip 1, xi_R -0.184): log10 K in [0.99, 2.55]; zones 12; strip cells 1613; J = 25 wells
+P1b: parameters per arm [12 2 4 13 14]; facies classes present [1 2]
+P1c: c = 1.50: natural heads max|dh| 1.35e-13 m; Stage-0 ratio median 0.666667 (min 0.666667, max 0.666667) for 25 items > 1 mm
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP1_model.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP1_model.pdf
+P1 done (5.2 s)
+P3: seed 48: TRIAL-GO plays [2 50 50 4 50] misses [1 18 19 2 13], bandit runs 202, selected A5, conditioning runs 75
+P3d: PEST std. A 1.565 [0.957 2.172] B 0.784 [0.401 1.167] risk 0.8237; truth A 1.495 B 1.335 risk 0.4496
+P3d: PEST all  A 1.436 [0.832 2.040] B 0.620 [0.242 0.998] risk 0.9509; truth A 1.495 B 1.335 risk 0.4496
+P3d: TRIAL-GO  A 1.318 [0.703 1.932] B 1.178 [0.795 1.562] risk 0.2446; truth A 1.495 B 1.335 risk 0.4496
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP3_demo.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP3_demo.pdf
+P3 done (2.5 s)
+P5: intruded area current 46.69, planned 48.75, planned+MAR3 43.44, planned+MAR6 40.75 km^2; mound max 5.00 m
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP5_mar_process.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP5_mar_process.pdf
+P5 done (11.4 s)
+P6: PEST standard (A1): sites [4669 3818 4517]; risk predicted 0.0462 true 0.3482; area predicted 53.81 true 43.38 km^2
+P6: TRIAL-GO (A5): sites [4669 1796 3818]; risk predicted 0.0000 true 0.0009; area predicted 44.25 true 43.44 km^2
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP6_structure_mar.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP6_structure_mar.pdf
+P6 done (2.2 s)
+P7: section N = 30.25 km: toe at 1.70 (current), 1.78 (planned), 1.66 km (planned + MAR) from the coast; vertical exaggeration 104
+saved /home/user/swi-goal-oed/experiments/prova_go/res/figP7_section.png and /home/user/swi-goal-oed/experiments/prova_go/res/figP7_section.pdf
+P7 done (1.4 s)

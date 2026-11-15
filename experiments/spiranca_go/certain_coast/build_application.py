@@ -827,7 +827,8 @@ def af_texts():
         parts.append(f'calibration when the model is wrong, with TRIAL-GO, a robust bandit over model structures, '
                      f'demonstrated in MATLAB on the Fushë-Kuqe aquifer, {of("Calibration when")} pages')
     if glance:
-        parts.append(f'the project at a glance in five figures (structure, communication, team, deliverables, Gantt chart), '
+        parts.append(f'the project at a glance: the solution of all the problems in one flowchart and the work plan in five '
+                     f'figures (structure, communication, team, deliverables, Gantt chart), '
                      f'{pg[glance]} pages')
     parts += [f'the CV of the NPD, {of("CV of the NATO")} pages',
               f'the CV of the PPD, {of("CV of the partner")} pages, from the partner form of Qatar University']
@@ -1033,7 +1034,7 @@ def main(out):
             ['Nationality (and other nationalities)', 'Albanian', 'Qatari'],
             ['Telephone, mobile, personal and work e-mail; online profile (optional)', '[contact data]', '[from the partner form]'],
             ['Current job title; name, country and postal address of the institution',
-             'Associate Professor; hydrogeologist and geo-environmental engineer; Faculty of Geology and Mining, Polytechnic '
+             'Associate Professor; hydrologist, hydrogeologist and geo-environmental engineer; Faculty of Geology and Mining, Polytechnic '
              'University of Tirana, Albania; [postal address]',
              'Research Professor and Manager of the research vessel Janan; Environmental Science Center, Qatar University, '
              'P.O. Box 2713, Doha, Qatar'],

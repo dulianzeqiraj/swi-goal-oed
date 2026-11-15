@@ -62,7 +62,7 @@ SHORT = ['State of the art: what has been done and what CERTAIN-COAST brings',
          'Theory: decisions of many stakeholders under normal, drought, flood and extreme conditions',
          'The decision flowchart for a shared coastal aquifer',
          'Calibration when the model is wrong: TRIAL-GO on the Fushë-Kuqe aquifer',
-         'The project at a glance: structure, communication, team, deliverables and timeline',
+         'The project at a glance: the solution in one flowchart, and the work plan',
          'CV of the NATO-country Project Director', 'CV of the partner-country Project Director']
 # the line under the title of each part in the contents and in its banner
 BLURB = [
@@ -91,7 +91,8 @@ BLURB = [
     'calibration, and TRIAL-GO, a robust Gittins bandit over model structures checked against metered pumping stops, '
     'with the MAR process and the seawater wedge of the Fushë-Kuqe aquifer, computed in MATLAB. Supplement to WP2 and '
     'WP4.',
-    'The work plan in five figures: who leads each work package and what passes between them, how the results reach '
+    'The solution of all the problems in one flowchart, and the work plan in five figures: who leads each work '
+    'package and what passes between them, how the results reach '
     'each audience, who does the work, when each deliverable is due, and the Gantt chart with the evidence gates.',
     'Assoc. Prof. Dr. Dulian Zeqiraj, Faculty of Geology and Mining, Polytechnic University of Tirana.',
     'Prof. Jassim Al-Khayat, Environmental Science Center, Qatar University.']
@@ -858,7 +859,8 @@ def contents(doc, pages):
         'each of Parts 1 to 6 opens with what it gives to that agent. Part 8 proves what each stakeholder should do in '
         'normal, drought, flood and extreme conditions, and Part 9 gives the same decisions as one flowchart. Part 10 '
         'asks what calibration should do when the model is wrong and demonstrates TRIAL-GO, a robust bandit over model '
-        'structures, on the Fushë-Kuqe aquifer in MATLAB. Part 11 shows the work plan in five figures, and Parts 12 and '
+        'structures, on the Fushë-Kuqe aquifer in MATLAB. Part 11 puts the solution of all the problems in one '
+        'flowchart and shows the work plan in five figures, and Parts 12 and '
         '13 are the CVs of the two Project Directors.',
         'The equations of Parts 1 to 10 are set as native Word math.' + RED_NOTE + ' The names of the preparatory '
         'experiments are given in English (BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',

@@ -209,7 +209,7 @@ NPD = dict(
         ['Name', 'Dulian Zeqiraj'],
         ['Title and position', 'Associate Professor (Prof. Asoc.), PhD; Department of Energy Resources, Faculty of Geology '
                                'and Mining (FGJM), Polytechnic University of Tirana'],
-        ['Profession', 'Hydrogeologist and geo-environmental engineer'],
+        ['Profession', 'Hydrologist, hydrogeologist and geo-environmental engineer'],
         ['Country', 'Albania (NATO member)'],
         ['E-mail', 'dulian.zeqiraj@fgjm.edu.al'],
         ['ORCID', 'https://orcid.org/0000-0002-5305-3048'],
@@ -349,7 +349,7 @@ def main_one(out, d, role, role_text):
     print('saved', out)
 
 
-NPD_TITLE = 'NATO-country Project Director  ·  Hydrogeologist and geo-environmental engineer'
+NPD_TITLE = 'NATO-country Project Director  ·  Hydrologist, hydrogeologist and geo-environmental engineer'
 
 
 def main_npd(out):

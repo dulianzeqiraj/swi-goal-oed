@@ -73,7 +73,7 @@ txt(ax, 11.45, 8.92, {'when the budget of runs is spent:', '\bullet  keep the ar
                       '    rate (at least 5 readings)', '\bullet  calibrate it on all data'}, B, ink);
 card(ax, 11.25, 0.15, 4.60, 5.85, fillG, pal.aqua, 'DECISIONS');
 txt(ax, 11.45, 5.05, {'\bullet  heads and intrusion risk at', '    the supply wells, with a checked', ...
-                      '    interval', '\bullet  recharge sites (VENDI-GO)', '\bullet  warnings and the decision', ...
+                      '    interval', '\bullet  recharge sites (SITE-GO)', '\bullet  warnings and the decision', ...
                       '    agent of Part 7', '\bullet  the miss rate of every', '    structure, reported'}, B, ink);
 arrow(ax, [10.80 11.25], [8.05 8.05], pal.aqua);
 text(ax, 11.03, 8.40, 'budget', 'FontName', 'Helvetica', 'FontSize', fs(5.6), 'Color', grey, ...
@@ -82,7 +82,7 @@ arrow(ax, [13.55 13.55], [6.30 6.00], pal.aqua);
 
 png = fullfile(outDir, 'fig_trial_go_scheme.png');
 pdf = fullfile(outDir, 'fig_trial_go_scheme.pdf');
-print(fig, '-dpng', '-r300', png);
+print(fig, '-dpng', '-r375', png);
 print(fig, '-dpdf', '-painters', pdf);
 close(fig);
 fprintf('saved %s and %s\n', png, pdf);
