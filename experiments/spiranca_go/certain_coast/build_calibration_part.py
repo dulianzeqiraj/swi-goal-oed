@@ -326,9 +326,9 @@ def main(out, resdir=None):
     eq(r'y_{wj}\left(c\,\theta_{\mathrm{flux}}\right)=\frac{1}{c}\,y_{wj}\left(\theta_{\mathrm{flux}}\right)')
     body(doc, 'because $\\Delta Q_w$ is metered and does not scale, so the readings fix the flux scale that the heads '
               'cannot. *Proof.* (i) Each face conductance enters the two rows of its cells with the same value, so '
-              '$A_\\theta=A_\\theta^{\\top}$. (ii) Scaling the flux-type parameters multiplies the rows of the active '
-              'cells and the recharge by $c$ and leaves the fixed-head rows, whose right-hand side is zero, unchanged; '
-              'the response to the unscaled $\\Delta Q_w$ is therefore divided by $c$. ∎ The readings are Stage 0 of '
+              '$A_\\theta=A_\\theta^{\\top}$. (ii) Scaling the flux-type parameters multiplies the equations of the '
+              'active cells, recharge included, by $c$ and leaves the fixed-head rows unchanged, so the heads are the '
+              'same; the response to the unscaled $\\Delta Q_w$ is divided by $c$. ∎ The readings are Stage 0 of '
               'VENDI-GO: two pumping stops of a few days at the supply wells, read by pressure loggers in the existing '
               'wells, with no drilling.', E)
     heading(doc, '4.2 The misspecification index', 12, color=BLUE, before=6)

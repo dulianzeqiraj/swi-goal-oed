@@ -35,7 +35,6 @@ function out = prova_truth(M, S, arms, tabs, tr, keepAll)
     out.missConv = cellfun(@(x) mean(x(end, :)), A.miss);       % validation miss rate at convergence (heads only)
     % ---- all-data continuation from the heads-converged iterate (cached) ----
     cache = struct('key', {}, 'st', {});
-    function_dummy = []; %#ok<NASGU>
     allc = cell(1, nA);
     for m = 1:nA
         [allc{m}, cache] = cond_all(M, S, A, m, A.nIter(m), rAll, dAll, sigAll, cache);
@@ -83,7 +82,7 @@ function out = prova_truth(M, S, arms, tabs, tr, keepAll)
         P = PL{q}; out.pol.(pols{q, 1}) = struct('sel', P.sel, 'n', P.n, 's', P.s, 'pm', P.pm, 'runs', P.runs, 'condRuns', P.condRuns);
     end
     if keepAll
-        out.A = A; out.PL = PL; out.allc = allc; out.methFull = meth; out.cacheKeys = {cache.key};
+        out.A = A; out.PL = PL; out.allc = allc; out.methFull = meth; out.cacheKeys = {cache.key}; out.cache = cache;
     end
 end
 function [st, cache] = cond_all(M, S, A, m, it, rAll, dAll, sigAll, cache)
