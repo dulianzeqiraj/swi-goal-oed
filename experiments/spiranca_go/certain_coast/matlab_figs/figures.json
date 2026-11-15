@@ -17,7 +17,7 @@
  },
  {
   "file": "fig5_network.png",
-  "caption": "The network that observes the environment. (a) Among 12 candidate salinity sensors, the greedy design [4, 7, 8] for the salt mass near the toe equals the exhaustive optimum (2.539 nats) and gives 100% of the best information on whether the supply cell exceeds its limit. (b) The gain after each added sensor, against all 220 designs of three sensors (median 1.457 nats)."
+  "caption": "The network that observes the environment. (a) Among 12 candidate salinity sensors, the greedy design [4, 7, 8] for the salt mass near the toe equals the exhaustive optimum (2.539 nats) and gives 95% of the best information on whether the supply cell exceeds its limit (0.564 of the 0.592 nats of the best design [7, 8, 11], integrated accurately). (b) The gain after each added sensor, against all 220 designs of three sensors (median 1.457 nats)."
  },
  {
   "file": "fig6_recharge.png",

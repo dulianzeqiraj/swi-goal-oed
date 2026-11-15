@@ -45,7 +45,7 @@ REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-sou
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
 EQ_DPI = 300          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
-FIG_DPI = 180         # figures of the PDF are resampled to this resolution at the size they are printed (if finer)
+FIG_DPI = 170         # figures of the PDF are resampled to this resolution at the size they are printed (if finer)
 FIG_COLOURS = 64      # colours of each figure in the PDF copy (no dithering): flat plots compress best this way
 EQ_INLINE_SCALE = 1.15   # inline formulas a little larger than the text (the math font has a smaller x-height than Arial)
 EQ_DISPLAY_SCALE = 1.08  # display equations a little larger
@@ -78,8 +78,9 @@ BLURB = [
     'pumping test, the design of the 2019 hindcast and the joint safe window, with numerical checks. Preparatory '
     'work of the NPD\'s team, November 2026.',
     'The decisions the operators and the end-user must take when an extreme event comes, the equations of the project '
-    'as one final assembled system with the decisions in it, and deep reinforcement learning that recommends only '
-    'decisions inside the certified safe window. Supplement to WP2, WP3 and WP5.',
+    'as one final assembled system with the decisions in it, deep reinforcement learning that recommends only '
+    'decisions inside the certified safe window, and the robust, certified objective function of the monitoring '
+    'network, computed in MATLAB. Supplement to WP2 to WP5.',
     'What each stakeholder (agency, water utility, farmers, tourism, civil protection) should do in each regime of the '
     'aquifer and how the system leaves it: five theorems and three propositions with proofs, and seven worked examples '
     'on a synthetic coastal aquifer. Preparatory work of the NPD\'s team, November 2026.',
@@ -127,7 +128,9 @@ NEW = [
      'The decision is part of the assembled system: one set of equations carries the hazards, the certified warnings '
      'and the decisions of every operator, and a deep reinforcement learning agent recommends only decisions inside '
      'the certified safe window. When no decision is safe, a rule agreed before the season shows the trade-off between '
-     'the hazards to the people who decide.'),
+     'the hazards to the people who decide. The monitoring network is chosen by its worst-case information over the '
+     'errors that sensors share through their logger hubs, with sealed reference channels in the search, and carries '
+     'a certified bound on the best possible network.'),
     ('Stakeholder decisions by regime', 8,
      'A charge rule for a resource with two opposite hazards: personalised by damage shares, a tax in drought and a '
      'subsidy for drainage where flood risk dominates; the value of stored water that tells the agency when to hedge '
@@ -840,7 +843,8 @@ def contents(doc, pages):
         'preparatory tests, and the gates of the project with their fallbacks. Parts 4 to 6 give the equations, the '
         'proofs and the numerical checks behind it; every number in them is computed by the scripts of the preparatory '
         'work of the NPD\'s team. Part 7 states the decisions the operators must take in extreme events, writes the '
-        'equations as one final assembled system and adds deep reinforcement learning kept inside the certified limits; '
+        'equations as one final assembled system, adds deep reinforcement learning kept inside the certified limits '
+        'and gives the robust, certified objective function of the monitoring network; '
         'each of Parts 1 to 6 opens with what it gives to that agent. Part 8 proves what each stakeholder should do in '
         'normal, drought, flood and extreme conditions, and Part 9 gives the same decisions as one flowchart. Part 10 '
         'shows the work plan in five figures, and Parts 11 and 12 are the CVs of the two Project Directors.',

@@ -22,8 +22,8 @@ function R = robust_certified_network(repoRoot, outDir)
 %   run_all_figures.m), the log robust_certified_network_log.txt with every number and the short results file
 %   robust_certified_network_results.json are written to OUTDIR.
 %   robust_certified_network(REPOROOT, OUTDIR) uses the given repository and output folders; without them the
-%   defaults of run_all_figures.m apply (CERTAINCOAST_ROOT, then the local clone; the folder 'figures' next to this
-%   file). R = robust_certified_network(...) also returns the results structure.
+%   defaults of run_all_figures.m apply (CERTAINCOAST_ROOT, then the folder certain-coast next to this file, then the
+%   local clone; the folder 'figures' next to this file). R = robust_certified_network(...) also returns the results structure.
 %
 %   GNU Octave on a machine without a display (about 2.5 minutes on one core):
 %       xvfb-run -a octave --no-gui --eval "robust_certified_network"
@@ -40,7 +40,10 @@ function R = robust_certified_network(repoRoot, outDir)
 if nargin < 1 || isempty(repoRoot)
     repoRoot = getenv('CERTAINCOAST_ROOT');
     if isempty(repoRoot)
-        repoRoot = '/home/user/dulianzeqiraj/certain-coast';
+        repoRoot = fullfile(fileparts(mfilename('fullpath')), 'certain-coast');   % certain-coast.zip unpacked here
+        if ~exist(fullfile(repoRoot, '+certaincoast'), 'dir')
+            repoRoot = '/home/user/dulianzeqiraj/certain-coast';                  % the local clone
+        end
     end
 end
 if nargin < 2 || isempty(outDir)
