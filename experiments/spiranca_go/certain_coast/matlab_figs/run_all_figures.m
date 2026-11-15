@@ -5,7 +5,8 @@ function run_all_figures(repoRoot, outDir)
 %   topic, 16 cm wide for an A4 text column, as PNG (300 dpi) and as vector PDF in the folder 'figures' next to this
 %   file. Every number shown in a figure is printed and written to figures/run_all_figures_log.txt.
 %   run_all_figures(REPOROOT, OUTDIR) uses the given repository folder and output folder. Without REPOROOT the
-%   environment variable CERTAINCOAST_ROOT is used, then the local clone named below.
+%   environment variable CERTAINCOAST_ROOT is used, then the folder certain-coast next to this file (the archive
+%   certain-coast.zip unpacked here), then the local clone named below.
 %
 %   Topics (a topic that fails is skipped and reported, the others still run)
 %       fig1_henry          certaincoast.model          variable-density Henry problem (examples/example_henry.m)
@@ -28,7 +29,10 @@ function run_all_figures(repoRoot, outDir)
 if nargin < 1 || isempty(repoRoot)
     repoRoot = getenv('CERTAINCOAST_ROOT');
     if isempty(repoRoot)
-        repoRoot = '/home/user/dulianzeqiraj/certain-coast';
+        repoRoot = fullfile(fileparts(mfilename('fullpath')), 'certain-coast');   % certain-coast.zip unpacked here
+        if ~exist(fullfile(repoRoot, '+certaincoast'), 'dir')
+            repoRoot = '/home/user/dulianzeqiraj/certain-coast';                  % the local clone
+        end
     end
 end
 if nargin < 2 || isempty(outDir)

@@ -6,6 +6,7 @@ equations (pandoc), clickable links. Figures, when given, are results of the aut
 usage: python build_decisions_drl.py OUT.docx [FIGDIR]"""
 import json
 import os
+import re
 import sys
 import tempfile
 
@@ -31,6 +32,9 @@ REFS = [
     ('Alshiekh, M., Bloem, R., Ehlers, R., Könighofer, B., Niekum, S. and Topcu, U. (2018). Safe reinforcement learning '
      'via shielding. Proceedings of the AAAI Conference on Artificial Intelligence 32(1).',
      'https://doi.org/10.1609/aaai.v32i1.11797'),
+    ('Chowdhary, A., Attia, A. and Alexanderian, A. (2026). Robust optimal experimental design of '
+     'infinite-dimensional Bayesian nonlinear inverse problems. SIAM Journal on Scientific Computing 48(2), '
+     'B262–B288.', 'https://doi.org/10.1137/24M1693921'),
     ('Coughlan de Perez, E., van den Hurk, B., van Aalst, M.K., Jongman, B., Klose, T. and Suarez, P. (2015). '
      'Forecast-based financing: an approach for catalyzing humanitarian action based on extreme weather and climate '
      'forecasts. Natural Hazards and Earth System Sciences 15(4), 895–904.', 'https://doi.org/10.5194/nhess-15-895-2015'),
@@ -66,7 +70,7 @@ REFS = [
      'Future climate risk from compound events. Nature Climate Change 8(6), 469–477.',
      'https://doi.org/10.1038/s41558-018-0156-3'),
 ]
-R = {k: i + 1 for i, k in enumerate(['altman', 'shield', 'fbf', 'coulson', 'pathways', 'mnih', 'drought', 'chance',
+R = {k: i + 1 for i, k in enumerate(['altman', 'shield', 'roed', 'fbf', 'coulson', 'pathways', 'mnih', 'drought', 'chance',
                                        'mcts', 'storylines', 'sirignano', 'dro', 'cbf', 'reachavoid', 'compound'])}
 
 
@@ -196,7 +200,7 @@ def main(out, figdir=None):
     run(p, 'The decisions the operators must take, the final assembled system of equations, and deep reinforcement '
            'learning kept inside the certified limits', bold=True, size=12, color=NAVY)
     p = para(doc, 10); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run(p, 'NATO SPS Multi-Year Project, call 2027-1. Supplement to WP2, WP3 and WP5. Equations are native Word math; '
+    run(p, 'NATO SPS Multi-Year Project, call 2027-1. Supplement to WP2 to WP5. Equations are native Word math; '
            'references were checked in Crossref.', italic=True, size=10, color=GREY)
 
     body(doc, 'When an extreme event comes, a drought with a storm surge, an earthquake or a sea level higher than any on '
@@ -205,7 +209,8 @@ def main(out, figdir=None):
               'decisions that pull the hazards in opposite directions. This part states those decisions, writes the '
               'equations of the project as one final assembled system in which the decisions are part of the state '
               'equations, and shows how deep reinforcement learning turns that system into recommended decisions that '
-              'never leave the certified limits.', E)
+              'never leave the certified limits. It closes with the objective function that chooses the monitoring '
+              'network feeding the warnings: robust to the errors that sensors share, and certified.', E)
     box(doc, 'Innovation', 'The decision is part of the assembled system: one set of equations carries the hazards, the '
              'certified warnings and the decisions of every operator, and a deep reinforcement learning agent searches '
              'the decisions only inside the set that the certified margins keep safe, so its recommendations carry the '
@@ -368,15 +373,18 @@ def main(out, figdir=None):
     rn = os.path.join(figdir or '', 'robust_network_text.json')
     if figdir and os.path.exists(rn):
         with open(rn, encoding='utf-8') as fh:
-            R = json.load(fh)
+            RN = json.load(fh)
         heading(doc, '6. The objective function of the monitoring network: robust, certified and free of interference', 14)
-        body(doc, R['intro'], E)
-        for j, eq in enumerate(R['equations']):
+        def cite_refs(text):                       # {ref:key} -> the number of the reference in this part
+            return re.sub(r'\{ref:(\w+)\}', lambda m: c(m.group(1)), text)
+        body(doc, cite_refs(RN['intro']), E)
+        for j, eq in enumerate(RN['equations']):
             if eq.get('what'):
-                body(doc, eq['what'], E, after=2)
+                body(doc, cite_refs(eq['what']), E, after=2)
             display_eq(doc, E, eq['tex'], 14 + j)
-        body(doc, R['results'], E)
-        figure(doc, os.path.join(figdir, R['figure']), f'Figure {len(figs) + 1}. ' + R['caption'] + ' Result of the '
+        for text in (RN['results'] if isinstance(RN['results'], list) else [RN['results']]):
+            body(doc, cite_refs(text), E)
+        figure(doc, os.path.join(figdir, RN['figure']), f'Figure {len(figs) + 1}. ' + RN['caption'] + ' Result of the '
                'author\'s MATLAB code.')
 
     heading(doc, 'References', 14)
