@@ -69,6 +69,7 @@ RED = {
     4: [1, 3, 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
     5: [3, 4, 6, 7],
     6: [4, 5, 8, 10, 12, 13, 14, 15, 16],
+    9: [4, 5, 6, 7, 8, 12],      # calibration: Propositions 1-2, Corollary 1, the index p_m and the TRIAL-GO rule
 }
 RED_INLINE = {0: ['FSx,t=CRR/CSRzwx,t']}
 RED_HEX = 'C00000'

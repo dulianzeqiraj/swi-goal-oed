@@ -823,6 +823,9 @@ def af_texts():
                      f'with theorems, proofs and worked examples, {of("Theory: decisions")} pages')
     if any(k.startswith('The decision flowchart') for k in short):
         parts.append(f'the decision flowchart with its tables, {of("The decision flowchart")} pages')
+    if any(k.startswith('Calibration when the model') for k in short):
+        parts.append(f'calibration when the model is wrong, with TRIAL-GO, a robust bandit over model structures, '
+                     f'demonstrated in MATLAB on the Fushë-Kuqe aquifer, {of("Calibration when")} pages')
     if glance:
         parts.append(f'the project at a glance in five figures (structure, communication, team, deliverables, Gantt chart), '
                      f'{pg[glance]} pages')
@@ -841,7 +844,8 @@ def af_texts():
             'the placement of wells, a theory note on the inland boundary learned from piezometers and a report on the '
             'earthquake in the aquifer. Further parts write the decisions in extreme events as one final assembled system '
             'with deep reinforcement learning kept inside the certified limits, and prove what each stakeholder should do '
-            'in normal, drought, flood and extreme conditions, with a decision flowchart; '
+            'in normal, drought, flood and extreme conditions, with a decision flowchart; a part on calibration when '
+            'the model is wrong demonstrates TRIAL-GO on the Fushë-Kuqe aquifer; '
             + ('the project at a glance and ' if glance else '') + 'the CVs of the two Project Directors close the files. '
             'The full methodology, work packages, risk assessment and data management plan are available on request.')
     return check, upload, info

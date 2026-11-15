@@ -67,6 +67,11 @@ PARTS = [
      'test and the learning step, as one page and three tables',
      'The decision flowchart for a shared coastal aquifer',
      os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Decision_Flowchart.docx')),
+    ('Calibration when the model is wrong: the state of the art 2020–2026, invariance-first calibration and TRIAL-GO, '
+     'a robust bandit over model structures, demonstrated in MATLAB on the Fushë-Kuqe coastal aquifer (preparatory '
+     'work of the NPD\'s team, November 2026)',
+     'Calibration when the model is wrong: TRIAL-GO on the Fushë-Kuqe aquifer',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Calibration_TRIAL-GO.docx')),
     ('The project at a glance: structure, communication, team, deliverables and timeline of the work plan, in five '
      'figures drawn from the tables of the form',
      'The project at a glance: structure, communication, team, deliverables and timeline',

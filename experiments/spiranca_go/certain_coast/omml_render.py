@@ -1093,6 +1093,12 @@ def typeset(mtex, arrays, size_pt, dpi, display):
 # Set larger than 1 to make the equations of the PDF stand out more from the text: the STIX math font has a smaller
 # x-height than Arial, so at the size of the text an inline formula looks smaller and lighter than the words around it.
 INLINE_SCALE = 1.0          # inline formulas: typeset at this multiple of the size of the text beside them
+# Beside a serif text font (Cambria, Times, ...) the STIX letters already match the text: there inline formulas
+# are typeset at this multiple instead, so that they are not larger than the words around them.
+INLINE_SCALE_SERIF = 1.0
+SERIF_FONTS = ('cambria', 'times', 'georgia', 'garamond', 'book antiqua', 'palatino', 'caladea', 'liberation serif',
+               'dejavu serif', 'source serif', 'charter', 'constantia', 'century', 'baskerville', 'minion',
+               'noto serif', 'pt serif', 'stix')
 DISPLAY_SCALE = 1.0         # display equations: the same for their size
 ALPHA_GAMMA = 1.0           # below 1 darkens the anti-aliased edges, so thin strokes read a little heavier
 
@@ -1270,6 +1276,34 @@ def _run_prop(run, p, styles, idx):
         if v is not None:
             return v
     return (styles.doc_sz, styles.doc_color)[idx]
+
+
+def _run_font(r, p, styles):
+    """The w:rFonts/@w:ascii in force for a run: direct, character style, paragraph style, defaults."""
+    rpr = r.find(W_RPR) if r is not None else None
+    if rpr is not None:
+        rf = rpr.find(_w('rFonts'))
+        if rf is not None and rf.get(_w('ascii')):
+            return rf.get(_w('ascii'))
+        rs = rpr.find(_w('rStyle'))
+        if rs is not None:
+            f = styles.font_chain(rs.get(W_VAL))
+            if f:
+                return f
+    return styles.font_chain(_para_style(p, styles)) or styles.doc_font
+
+
+def _explicit_line_rule(root):
+    """Write w:lineRule="auto" on every w:spacing that sets w:line without a rule. "auto" (proportional) is the
+    default of the standard and what Word uses, but LibreOffice 24.2 lays out such a paragraph like one with a
+    fixed rule and then puts anchored equation pictures at the top of the line, above the text. Returns the
+    number of elements changed."""
+    n = 0
+    for sp in root.iter(_w('spacing')):
+        if sp.get(_w('line')) is not None and sp.get(_w('lineRule')) is None:
+            sp.set(_w('lineRule'), 'auto')
+            n += 1
+    return n
 
 
 def _neighbour_run(el, p):
@@ -1615,6 +1649,13 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
     parser = etree.XMLParser(huge_tree=True, remove_blank_text=False, resolve_entities=False)
     doc_name = 'word/document.xml'
     root = etree.fromstring(data[doc_name], parser)
+    n_rule = _explicit_line_rule(root)
+    if data.get('word/styles.xml'):
+        sroot_ = etree.fromstring(data['word/styles.xml'], parser)
+        k = _explicit_line_rule(sroot_)
+        if k:
+            data['word/styles.xml'] = etree.tostring(sroot_, xml_declaration=True, encoding='UTF-8', standalone=True)
+        n_rule += k
     styles = _Styles(data.get('word/styles.xml'))
     def_jc = 'centerGroup'
     if 'word/settings.xml' in data:
@@ -1669,6 +1710,7 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
     new_parts = {}
     images_meta = []
     stats = Counter()
+    n_serif = [0]
     fallback = []
     colors = Counter()
     sizes = Counter()
@@ -1758,6 +1800,10 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
                     hs = styles.chain(_para_style(p, styles), 0) or styles.doc_sz
                 if hs:
                     size = hs / 2.0
+                    fam = (_run_font(nb, p, styles) or '').lower() if nb is not None else ''
+                    if INLINE_SCALE and fam.startswith(SERIF_FONTS):
+                        size *= INLINE_SCALE_SERIF / INLINE_SCALE
+                        n_serif[0] += 1
             if size is None:
                 size = float(default_inline_pt)
         keys = [key_of[id(om)] for om in oms]
@@ -1889,6 +1935,7 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
         'unique_pictures': len(media),
         'pictures_bytes': sum(len(v) for v in new_parts.values()),
         'pandoc_calls': calls, 'paragraph_jc_set': jc_set, 'paragraph_line_243': len(spaced_paras),
+        'line_rule_set': n_rule, 'inline_beside_serif': n_serif[0],
         'display_shrunk_to_fit': stats['display_shrunk'],
         'not_aligned_in_libreoffice': stats['not_aligned_in_libreoffice'],
         'colors': dict(colors), 'inline_sizes_pt': dict(sorted(sizes.items())), 'dpi': dpi,

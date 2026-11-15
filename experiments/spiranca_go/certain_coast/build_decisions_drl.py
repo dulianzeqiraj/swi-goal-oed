@@ -27,6 +27,8 @@ NAVY, BLUE, GREY, GREEN = '1F3864', '2E6DB4', '52606D', '1E8A5A'
 CODE = 'https://github.com/dulianzeqiraj/certain-coast'
 
 REFS = [
+    ('Alexanderian, A. (2021). Optimal experimental design for infinite-dimensional Bayesian inverse problems '
+     'governed by PDEs: a review. Inverse Problems 37(4), 043001.', 'https://doi.org/10.1088/1361-6420/abe10c'),
     ('Altman, E. (2021). Constrained Markov Decision Processes. Routledge (first published 1999).',
      'https://doi.org/10.1201/9781315140223'),
     ('Alshiekh, M., Bloem, R., Ehlers, R., Könighofer, B., Niekum, S. and Topcu, U. (2018). Safe reinforcement learning '
@@ -70,7 +72,7 @@ REFS = [
      'Future climate risk from compound events. Nature Climate Change 8(6), 469–477.',
      'https://doi.org/10.1038/s41558-018-0156-3'),
 ]
-R = {k: i + 1 for i, k in enumerate(['altman', 'shield', 'roed', 'fbf', 'coulson', 'pathways', 'mnih', 'drought', 'chance',
+R = {k: i + 1 for i, k in enumerate(['alex21', 'altman', 'shield', 'roed', 'fbf', 'coulson', 'pathways', 'mnih', 'drought', 'chance',
                                        'mcts', 'storylines', 'sirignano', 'dro', 'cbf', 'reachavoid', 'compound'])}
 
 
@@ -378,13 +380,19 @@ def main(out, figdir=None):
         def cite_refs(text):                       # {ref:key} -> the number of the reference in this part
             return re.sub(r'\{ref:(\w+)\}', lambda m: c(m.group(1)), text)
         body(doc, cite_refs(RN['intro']), E)
+        n_fig = len(figs)
+        if RN.get('scheme_text'):
+            n_fig += 1
+            body(doc, cite_refs(RN['scheme_text']).replace('{fig}', str(n_fig)), E)
+            figure(doc, os.path.join(HERE, 'part7_figs', 'certified_oed_vs_review.png'),
+                   f'Figure {n_fig}. ' + RN['scheme_caption'], width=17.0)
         for j, eq in enumerate(RN['equations']):
             if eq.get('what'):
                 body(doc, cite_refs(eq['what']), E, after=2)
             display_eq(doc, E, eq['tex'], 14 + j)
         for text in (RN['results'] if isinstance(RN['results'], list) else [RN['results']]):
             body(doc, cite_refs(text), E)
-        figure(doc, os.path.join(figdir, RN['figure']), f'Figure {len(figs) + 1}. ' + RN['caption'] + ' Result of the '
+        figure(doc, os.path.join(figdir, RN['figure']), f'Figure {n_fig + 1}. ' + RN['caption'] + ' Result of the '
                'author\'s MATLAB code.')
 
     heading(doc, 'References', 14)
