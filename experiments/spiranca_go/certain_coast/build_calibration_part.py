@@ -382,6 +382,15 @@ def main(out, resdir=None):
               'first iterations and then settles at the level its structure allows. The index treats the misses as '
               f'Bernoulli with a fixed unknown probability, the same model as the numerical study of {c("ct22")}.', E)
     heading(doc, '4.6 How it works in the system', 12, color=BLUE, before=6)
+    nfig = [0]
+    scheme = os.path.join(HERE, 'matlab_figs', 'fig_trial_go_scheme.png')
+    if os.path.exists(scheme):
+        nfig[0] += 1
+        body(doc, f'Figure {nfig[0]} shows the loop and where it sits in the system.', E)
+        figure(doc, scheme, f'Figure {nfig[0]}. How TRIAL-GO works in the CERTAIN-COAST system: the data (heads and '
+               'metered pumping stops), the competing model structures (arms), the loop of the robust calibration '
+               'bandit, the stop with the conditioning of the kept structure, and the decisions it feeds. Drawn with '
+               'the author\'s MATLAB code (trial_go_scheme.m).')
     for t in ['**WP2, the coupled model.** The calibration of the flow and transport model of each site runs through '
               'TRIAL-GO: the zonations, coastal features and free fluxes proposed by the hydrogeologists are the arms, '
               'and no runs are spent on structures that the readings refute.',
@@ -418,7 +427,6 @@ def main(out, resdir=None):
 
     # ---------------------------------------------------------------------------------------------- 5
     txt_path = os.path.join(HERE, 'matlab_figs', 'trial_go_text.json')
-    nfig = 0
     if resdir and os.path.exists(txt_path):
         with open(txt_path, encoding='utf-8') as fh:
             TX = json.load(fh)
@@ -434,9 +442,9 @@ def main(out, resdir=None):
             elif kind == 'eq':
                 eq(blk['tex'])
             elif kind == 'figure':
-                nfig += 1
+                nfig[0] += 1
                 src = blk['file'] if os.path.isabs(blk['file']) else os.path.join(resdir, blk['file'])
-                figure(doc, src, f'Figure {nfig}. ' + blk['caption'], width=blk.get('width', 16.0))
+                figure(doc, src, f'Figure {nfig[0]}. ' + blk['caption'], width=blk.get('width', 16.0))
             elif kind == 'table':
                 p = para(doc, 2); run(p, blk['title'], italic=True, size=9.5, color=GREY)
                 t = table(doc, blk['header'], blk['rows'], blk['widths'], size=9)
@@ -473,7 +481,7 @@ def main(out, resdir=None):
     d = Document(out)
     n_red, _ = PP.colour_equations(list(d.element.body), PART_INDEX)
     d.save(out)
-    print('saved', out, '|', len(E.items), 'equations |', neq[0], 'numbered |', n_red, 'in red |', nfig, 'figures')
+    print('saved', out, '|', len(E.items), 'equations |', neq[0], 'numbered |', n_red, 'in red |', nfig[0], 'figures')
 
 
 if __name__ == '__main__':
