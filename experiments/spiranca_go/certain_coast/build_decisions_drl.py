@@ -364,6 +364,20 @@ def main(out, figdir=None):
         for k, f in enumerate(figs, 1):
             figure(doc, os.path.join(figdir, f['file']), f'Figure {k}. ' + f['caption'] + ' Result of the author\'s '
                    'MATLAB code.')
+    # the objective function of the monitoring network (robust, certified, free of interference), computed in MATLAB
+    rn = os.path.join(figdir or '', 'robust_network_text.json')
+    if figdir and os.path.exists(rn):
+        with open(rn, encoding='utf-8') as fh:
+            R = json.load(fh)
+        heading(doc, '6. The objective function of the monitoring network: robust, certified and free of interference', 14)
+        body(doc, R['intro'], E)
+        for j, eq in enumerate(R['equations']):
+            if eq.get('what'):
+                body(doc, eq['what'], E, after=2)
+            display_eq(doc, E, eq['tex'], 14 + j)
+        body(doc, R['results'], E)
+        figure(doc, os.path.join(figdir, R['figure']), f'Figure {len(figs) + 1}. ' + R['caption'] + ' Result of the '
+               'author\'s MATLAB code.')
 
     heading(doc, 'References', 14)
     for i, (cite, url) in enumerate(REFS, 1):
