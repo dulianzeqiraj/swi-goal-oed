@@ -193,16 +193,46 @@ def justify(elements, ppr_insert):
 def caption_notes(elements, run_xml):
     """Append the code note, on a new line, to every figure caption that does not already credit the author's code."""
     n = 0
+    pending = []
     for el in elements:
         for p in ([el] if el.tag == qn('w:p') else el.iter(qn('w:p'))):
             t = ptext(p)
             if not CAPTION_RE.match(t) or re.search(r"author[’']s (MATLAB )?code", t):
                 continue
-            br = OxmlElement('w:r')
-            br.append(OxmlElement('w:br'))
-            p.append(br)
-            p.append(run_xml(CAPTION_NOTE))
+            # the note in its own paragraph, kept with the caption: a line break inside a justified caption would
+            # stretch the caption's last line across the page
+            ppr = p.find(qn('w:pPr'))
+            if ppr is None:
+                ppr = OxmlElement('w:pPr')
+                p.insert(0, ppr)
+            if ppr.find(qn('w:keepNext')) is None:
+                ppr.append(OxmlElement('w:keepNext'))
+            sp = ppr.find(qn('w:spacing'))
+            after = sp.get(qn('w:after')) if sp is not None else None
+            if sp is None:
+                sp = OxmlElement('w:spacing')
+                ppr.append(sp)
+            sp.set(qn('w:after'), '0')
+            q = OxmlElement('w:p')
+            qpr = OxmlElement('w:pPr')
+            qsp = OxmlElement('w:spacing')
+            qsp.set(qn('w:before'), '0')
+            qsp.set(qn('w:after'), after or '160')
+            qpr.append(qsp)
+            jc = ppr.find(qn('w:jc'))
+            if jc is not None and jc.get(qn('w:val')) == 'center':
+                qjc = OxmlElement('w:jc')
+                qjc.set(qn('w:val'), 'center')
+                qpr.append(qjc)
+            q.append(qpr)
+            q.append(run_xml(CAPTION_NOTE))
+            if p.getparent() is not None:
+                p.addnext(q)
+            else:                                   # a paragraph of the body, not yet in a tree: insert into the list
+                pending.append((p, q))
             n += 1
+    for p, q in pending:
+        elements.insert(elements.index(p) + 1, q)
     return n
 
 

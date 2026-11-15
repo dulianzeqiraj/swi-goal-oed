@@ -44,7 +44,9 @@ ORANGE, CREAM = 'C55A11', 'FDF3EA'
 REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
-EQ_DPI = 360          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
+EQ_DPI = 300          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
+FIG_DPI = 180         # figures of the PDF are resampled to this resolution at the size they are printed (if finer)
+FIG_COLOURS = 64      # colours of each figure in the PDF copy (no dithering): flat plots compress best this way
 EQ_INLINE_SCALE = 1.15   # inline formulas a little larger than the text (the math font has a smaller x-height than Arial)
 EQ_DISPLAY_SCALE = 1.08  # display equations a little larger
 EQ_ALPHA_GAMMA = 0.8     # slightly heavier strokes, so the equations read clearly on screen
@@ -1137,19 +1139,40 @@ def shrink_media(docx_path, min_kb=150):
     as they are."""
     import zipfile
     from PIL import Image
+    from lxml import etree
     tmp = docx_path + '.tmp'
-    n = saved = 0
+    n = saved = n_res = 0
+    WPN = 'http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing'
+    AN = 'http://schemas.openxmlformats.org/drawingml/2006/main'
+    RN = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
     with zipfile.ZipFile(docx_path) as zin, zipfile.ZipFile(tmp, 'w') as zout:
+        # the printed width of every figure (EMU), from the drawings of the body
+        rels = etree.fromstring(zin.read('word/_rels/document.xml.rels'))
+        target = {r.get('Id'): 'word/' + r.get('Target').lstrip('/') for r in rels}
+        widths = {}
+        for dr in etree.fromstring(zin.read('word/document.xml')).iter('{%s}inline' % WPN, '{%s}anchor' % WPN):
+            ext, blip = dr.find('{%s}extent' % WPN), dr.find('.//{%s}blip' % AN)
+            if ext is not None and blip is not None:
+                t = target.get(blip.get('{%s}embed' % RN))
+                if t:
+                    widths[t] = max(widths.get(t, 0), int(ext.get('cx')))
         for info in zin.infolist():
             data = zin.read(info.filename)
             if (info.filename.startswith('word/media/') and info.filename.lower().endswith('.png')
-                    and len(data) > min_kb * 1024):
+                    and len(data) > min_kb * 1024 and 'omml_eq_' not in info.filename):
                 im = Image.open(io.BytesIO(data))
-                if im.mode != 'P' or im.width >= 2300:
+                plan = im.mode == 'P' and im.width >= 2300           # the plan figures: text-dense, kept finer
+                inches = widths.get(info.filename, 0) / 914400.0
+                if inches > 0 and not plan and im.width / inches > FIG_DPI * 1.1:
+                    w = int(round(inches * FIG_DPI))
+                    im = im.convert('RGBA').resize((w, int(round(im.height * w / im.width))), Image.LANCZOS)
+                    n_res += 1
+
+                if im.mode != 'P' or im.width >= 2300 or plan:
                     rgb = im.convert('RGBA')
                     bg = Image.new('RGBA', rgb.size, (255, 255, 255, 255))
                     bg.alpha_composite(rgb)
-                    ncol = 64 if im.width >= 2300 else 128      # the plan figures: flat colours and text
+                    ncol = FIG_COLOURS
                     q = bg.convert('RGB').quantize(colors=ncol, method=Image.Quantize.MEDIANCUT,
                                                    dither=Image.Dither.NONE)
                     buf = io.BytesIO()
@@ -1160,7 +1183,8 @@ def shrink_media(docx_path, min_kb=150):
                         n += 1
             zout.writestr(info, data)
     os.replace(tmp, docx_path)
-    print(f'  {n} figure(s) reduced to 256 colours for the PDF, {saved // 1024} KB less')
+    print(f'  {n} figure(s) reduced to {FIG_COLOURS} colours for the PDF ({n_res} resampled to {FIG_DPI} dpi at '
+          f'their printed size), {saved // 1024} KB less')
 
 
 def pdf_for_upload(docx_path, outdir):
