@@ -30,3 +30,6 @@ seed 108 done (356 s): trial arm 5, pest_std cov 01, trial cov 11
 seed 112 done (370 s): trial arm 2, pest_std cov 10, trial cov 00
 seed 116 done (381 s): trial arm 2, pest_std cov 10, trial cov 01
 seed 120 done (392 s): trial arm 1, pest_std cov 00, trial cov 10
+seed 124 done (405 s): trial arm 5, pest_std cov 00, trial cov 10
+seed 128 done (412 s): trial arm 5, pest_std cov 10, trial cov 11
+seed 132 done (423 s): trial arm 5, pest_std cov 11, trial cov 11
