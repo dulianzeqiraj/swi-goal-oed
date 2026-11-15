@@ -1,0 +1,268 @@
+ROBUST, CERTIFIED PLACEMENT OF THE SALINITY SENSORS (ROED + Certified OED) on examples/example_network.m
+CERTAIN-COAST 0.1.0 from /home/user/dulianzeqiraj/certain-coast
+GNU Octave 8.4.0 (graphics toolkit qt), 2026-11-15 03:56:00
+Package functions used: model.henryGrid, model.henryParameters, model.solveDensity, model.densityJacobian,
+  network.adjointSensitivities, network.eigOperator, network.greedyDesign, network.thresholdGoalEig,
+  network.exactGoalEig (Monte Carlo check). The package is read only; nothing in it is changed.
+
+=== 0. Test case (examples/example_network.m)
+Henry section 16 x 8 cells (2.00 x 1.00 m); 128 log-conductivity parameters, prior 0.25 exp(-d/0.4)
+12 candidate salinity sensors (relative salinity, sea water = 1), noise sigma = 0.020:
+  sensor  1  x = 0.5625 m  y = 0.0625 m  prior sd of the reading 0.0071
+  sensor  2  x = 0.5625 m  y = 0.4375 m  prior sd of the reading 0.0037
+  sensor  3  x = 0.5625 m  y = 0.8125 m  prior sd of the reading 0.0012
+  sensor  4  x = 1.0625 m  y = 0.0625 m  prior sd of the reading 0.1279
+  sensor  5  x = 1.0625 m  y = 0.4375 m  prior sd of the reading 0.0477
+  sensor  6  x = 1.0625 m  y = 0.8125 m  prior sd of the reading 0.0109
+  sensor  7  x = 1.4375 m  y = 0.0625 m  prior sd of the reading 0.2044
+  sensor  8  x = 1.4375 m  y = 0.4375 m  prior sd of the reading 0.1188
+  sensor  9  x = 1.4375 m  y = 0.8125 m  prior sd of the reading 0.0320
+  sensor 10  x = 1.8125 m  y = 0.0625 m  prior sd of the reading 0.0650
+  sensor 11  x = 1.8125 m  y = 0.4375 m  prior sd of the reading 0.1243
+  sensor 12  x = 1.8125 m  y = 0.8125 m  prior sd of the reading 0.0558
+goal 1: salt mass in the toe zone (10 cells), prior sd 0.02715; goal 2: supply cell (x = 1.5625, y = 0.3125),
+  salinity 0.4507, prior sd 0.1610, limit 0.4990 (= salinity + 0.3 sd), prior probability above it 0.3821
+Nominal model (independent noise 0.02^2, as in example_network):
+  salt mass: greedyDesign [4 7 8] gives 2.5391 nats; exhaustive optimum [4 7 8] 2.5391 nats; median design 1.4574
+  supply cell above its limit: exhaustive optimum (thresholdGoalEig) [7 8 11] 0.4998 nats; the salt-mass design [4 7 8] 0.4987
+  accurate quadrature of the same integral (see section 2): [7 8 11] 0.5922 nats (r2_s = 0.988808), [4 7 8] 0.5636 nats
+  (r2_s = 0.978257), i.e. 95.2% of the optimum; thresholdGoalEig gives 99.8%. Same designs, other values.
+
+=== 1. Noise model of the candidates (all values in relative salinity, sea water = 1)
+Gamma_n(theta) = sigma^2 I + a^2 B B' + s_m^2 C_ell, (C_ell)_ij = exp(-|x_i - x_j| / ell), theta = (a, ell)
+  sigma = 0.020   independent sensor noise (2% of sea-water salinity, as in example_network)
+  a in [0.010, 0.030]   common error of each data-logger hub (logger drift / shared calibration between
+                    recalibrations: 1-3% of sea-water salinity, 0.5-1.5 times the sensor noise)
+  B   12 x 4 hub loadings: hub h = column h of candidates (hub 1: sensors 1-3 at x = 0.5625 m, hub 2: 4-6 at
+      x = 1.0625, hub 3: 7-9 at x = 1.4375, hub 4: 10-12 at x = 1.8125 m)
+  s_m = 0.020 fixed   model error (structural error of the section model at the sensors, equal to sigma)
+  ell in [0.10, 2.00] m   from one cell (nearly independent at the sensor spacing of 0.375-0.5 m) to the
+                    length of the section (one common pattern)
+  nominal theta0 = (a, ell) = (0.020, 0.4472 m), the middle of the box (geometric middle in ell)
+Reference channels r1-r4 (candidates 13-16): one sealed channel per hub (a conductivity cell in a sealed
+  standard on the logger): zero sensitivity to the aquifer (rows [G_S; 0]), reads the hub error c_h with
+  noise sigma_r = 0.005; its noise is correlated with the sensors of its hub through a^2 B. Joint covariance
+  Gamma_joint = blkdiag(sigma^2 I_12 + s_m^2 C_ell, sigma_r^2 I_4) + a^2 [B; I_4] [B; I_4]'
+Budget: 3 salinity sensors (piezometers) and at most 1 reference channel (a sealed cell on an existing
+  logger, a small fraction of the cost of a sensor); budgets of 3-6 sensors for the certificate.
+
+=== 2. Objective function
+For sensors S (rows G_S) and reference channels R (rows 0), T = S u R, data y_T = [G_S; 0] m + e_T,
+e_T ~ N(0, Gamma_joint(theta)_TT); the goal-oriented expected information gain (eigOperator, exact):
+  EIG_goal(S, R; theta) = -1/2 log(1 - r2),  r2 = z_T' (K_TT + Gamma_TT(theta))^-1 z_T / sigma_q^2,
+  K = [G; 0] Gam [G; 0]', z = [G; 0] Gam h', sigma_q^2 = h Gam h' (h = goal row)
+Robust objective (Wald max-min of ROED):  J(S, R) = min_{theta in Theta} EIG_goal(S, R; theta),
+  Theta = [0.01, 0.03] x [0.10, 2.00] m;  design problem  max_{|S| = k, |R| <= 1} J(S, R).
+Supply cell: I(1{s > limit}; y_T) = thresholdGoalEig(Sigma_theta, -s0, T, 0, 17, -limit) with
+  Sigma_theta = [K + Gamma_joint(theta), -z_s; -z_s', sigma_s^2]: the correlated noise is placed in the
+  covariance of the readings and NOISEVAR = 0. This is exact, because thresholdGoalEig uses the readings only
+  through Sigma(design, design) + NOISEVAR I and Sigma(goal, design); so the threshold function applies.
+  It depends on the design only through r2_s (explained fraction of the variance of the supply salinity) and is
+  increasing in it (Gaussian channels of higher r2_s are Blackwell-better), so J_supply = phi_t(min_theta r2_s)
+  and the robust design for the yes/no question is the robust design for the Gaussian supply-salinity goal.
+Check: data-space formula against eigOperator on all 1100 configurations (3 sensors, 0/1 reference) at
+  theta = (0.030, 0.4472): max difference 1.58e-14 nats (salt mass), 6.88e-15 nats (supply salinity)
+Check: thresholdGoalEig with the noise folded into Sigma (NOISEVAR = 0), a = s_m = 0, against the original
+  call of example_network on all 220 designs: max difference 9.44e-16 nats
+Check: phi_t(r2) (yes/no information at explained fraction r2) is increasing on [0, 0.999] (1000 points):
+  thresholdGoalEig 1, accurate quadrature 1; entropy of the prior event 0.6651 nats (the most data can give)
+Accuracy of thresholdGoalEig (24 Gauss-Hermite nodes): when r2 -> 1 the integrand H(Phi((a - r x)/sqrt(1 - r2)))
+  is a peak of width sqrt(1 - r2)/r in x, narrower than the node spacing. The same integral after the change of
+  variable u = (a - r x)/sqrt(1 - r2), 28001-point rule on u in [-14, 14] (phiAccurate):
+    r2 = 0.600: thresholdGoalEig 0.2353 nats, accurate 0.2353 nats
+    r2 = 0.800: thresholdGoalEig 0.3591 nats, accurate 0.3591 nats
+    r2 = 0.900: thresholdGoalEig 0.4460 nats, accurate 0.4480 nats
+    r2 = 0.950: thresholdGoalEig 0.4903 nats, accurate 0.5113 nats
+    r2 = 0.970: thresholdGoalEig 0.4979 nats, accurate 0.5459 nats
+    r2 = 0.980: thresholdGoalEig 0.4989 nats, accurate 0.5677 nats
+    r2 = 0.990: thresholdGoalEig 0.5000 nats, accurate 0.5962 nats
+    r2 = 0.999: thresholdGoalEig 0.5194 nats, accurate 0.6433 nats
+  The values in nats of the yes/no question below are accurate ones (Monte Carlo check in section 6);
+  thresholdGoalEig is logged beside them. Designs are the same with both (both increase with r2).
+
+=== 3. Worst case over the box (Proposition N3)
+d Gamma_joint / da = 2a [B; I][B; I]' >= 0 and (K + Gamma)^-1 decreases in the Loewner order, so r2 and
+  EIG_goal are non-increasing in a: the worst amplitude is the upper end a = 0.030. ell is searched on a grid of
+  41 log-spaced values in [0.10, 2.00] m, refined by fminbnd around the grid minimum for reported designs.
+Numerical check on the grid a = [0.01 0.015 0.02 0.025 0.03] x 41 values of ell, all 1100 configurations x 2 goals:
+  largest increase of r2 with a: -4.58e-06 (non-positive = non-increasing); worst point at the upper end of a
+  for 2200 of 2200 (configuration, goal) pairs; worst ell at the lower end for 308, at the upper end for 977,
+  in the interior for 915: the worst correlation length depends on the design, as in ROED.
+
+=== 4. Placement of 3 sensors and at most 1 reference channel
+
+-- goal 1: salt mass near the toe
+  interference ignored                     [4 7 8]      ref none: claimed (independent noise) 2.5391; at theta0 1.8739; worst case 1.6818 nats
+      worst theta = (a, ell) = (0.030, 2.0000 m); worst r2 0.965390 (grid minimum 0.965390)
+  exact at nominal theta0                  [4 7 11]     ref none: claimed (independent noise) 2.4864; at theta0 1.9037; worst case 1.7078 nats
+      worst theta = (a, ell) = (0.030, 2.0000 m); worst r2 0.967144 (grid minimum 0.967144)
+  robust (ROED), no reference              [4 7 9]      ref none: claimed (independent noise) 2.4342; at theta0 1.8788; worst case 1.7816 nats
+      worst theta = (a, ell) = (0.030, 0.4166 m); worst r2 0.971649 (grid minimum 0.971649)
+  robust + reference channel               [4 6 7]      ref r3  : claimed (independent noise) 2.4240; at theta0 1.9861; worst case 1.9700 nats
+      worst theta = (a, ell) = (0.030, 0.5912 m); worst r2 0.980550 (grid minimum 0.980551)
+  interference ignored + best reference    [4 7 8]      ref r3  : claimed (independent noise) 2.5391; at theta0 2.0189; worst case 1.9122 nats
+      worst theta = (a, ell) = (0.030, 2.0000 m); worst r2 0.978170 (grid minimum 0.978170)
+  refinement check (no reference): best of the 10 leading configurations after refinement is number 1;
+      grid minus refined worst r2 at most 5.02e-07; margin to the second configuration 1.20e-03 (r2)
+  refinement check (0/1 reference): best of the 10 leading configurations after refinement is number 1;
+      grid minus refined worst r2 at most 1.06e-06; margin to the second configuration 1.28e-03 (r2)
+  Reading of the designs: sensors 9 and 6 carry little signal (prior sd of the reading 0.0320 and 0.0109)
+  against a hub error of up to a = 0.030, so they read mostly the common error of hubs 3 and 2: the robust
+  designs spend a sensor as a quasi-reference channel, which the independent-noise criterion cannot value.
+  The nominal design [4 7 8] claims 2.5391 nats and delivers 1.6818 at its worst theta (a drop of 0.8573, 33.8%);
+  it is 0.0998 nats (5.6%) below the robust optimum [4 7 9] and 0.2882 nats (14.6%) below the robust optimum
+  with a reference channel [4 6 7] + r3.
+
+-- goal 2: supply cell above its limit
+  interference ignored                     [7 8 11]     ref none: claimed (independent noise) 0.5922; at theta0 0.5436; worst case 0.5187 nats
+      worst theta = (a, ell) = (0.030, 2.0000 m); worst r2 0.954725 (grid minimum 0.954725)
+      thresholdGoalEig at the worst theta 0.4929 nats; Gaussian information on the supply salinity 1.5475
+  exact at nominal theta0                  [4 7 11]     ref none: claimed (independent noise) 0.5812; at theta0 0.5442; worst case 0.5226 nats
+      worst theta = (a, ell) = (0.030, 2.0000 m); worst r2 0.957101 (grid minimum 0.957101)
+      thresholdGoalEig at the worst theta 0.4940 nats; Gaussian information on the supply salinity 1.5744
+  robust (ROED), no reference              [7 9 11]     ref none: claimed (independent noise) 0.5765; at theta0 0.5410; worst case 0.5299 nats
+      worst theta = (a, ell) = (0.030, 0.4744 m); worst r2 0.961407 (grid minimum 0.961407)
+      thresholdGoalEig at the worst theta 0.4957 nats; Gaussian information on the supply salinity 1.6273
+  robust + reference channel               [7 10 11]    ref r3  : claimed (independent noise) 0.5765; at theta0 0.5486; worst case 0.5453 nats
+      worst theta = (a, ell) = (0.030, 2.0000 m); worst r2 0.969736 (grid minimum 0.969736)
+      thresholdGoalEig at the worst theta 0.4978 nats; Gaussian information on the supply salinity 1.7489
+  interference ignored + best reference    [7 8 11]     ref r3  : claimed (independent noise) 0.5922; at theta0 0.5577; worst case 0.5445 nats
+      worst theta = (a, ell) = (0.030, 2.0000 m); worst r2 0.969320 (grid minimum 0.969320)
+      thresholdGoalEig at the worst theta 0.4978 nats; Gaussian information on the supply salinity 1.7421
+  refinement check (no reference): best of the 10 leading configurations after refinement is number 1;
+      grid minus refined worst r2 at most 2.76e-07; margin to the second configuration 1.50e-03 (r2)
+  refinement check (0/1 reference): best of the 10 leading configurations after refinement is number 1;
+      grid minus refined worst r2 at most 1.08e-06; margin to the second configuration 1.24e-04 (r2)
+  The nominal design [7 8 11] claims 0.5922 nats and delivers 0.5187 at its worst theta (a drop of 0.0735, 12.4%);
+  it is 0.0112 nats (2.1%) below the robust optimum [7 9 11] and 0.0266 nats (4.9%) below the robust optimum
+  with a reference channel [7 10 11] + r3.
+
+=== 5. Certified upper bound on the robust optimum (no enumeration of the designs)
+Derivation. Let Theta_c = {a_hi} x {11 values of ell} (a subset of the search grid, a subset of Theta). For
+  every design OPT_k(Theta) <= OPT_k(Theta_c) because a minimum over a smaller set is larger. EIG_goal =
+  phi(r2) with phi increasing (phi(x) = -1/2 log(1 - x); phi_t for the yes/no question), so the robust
+  problem is max_S min_theta r2 and any bound U on it gives phi(U). For a fixed reference set R0 and a
+  scenario theta_j, relax the sensor weights w in the capped simplex Delta_k = {0 <= w <= 1, sum w = k}:
+    r2_j(w) = z' P_j(w) (I + K P_j(w))^-1 z / sigma_q^2,  P_j(w) = (R_j + W (Gamma_j - R_j))^-1 W,
+  the noise-inflation relaxation (Certified OED, eq. 36-38, Theorem 15 with a diagonal inflation, its
+  Appendix A.6) with R_j = blkdiag(rho_j I_12, sigma_r^2 I_|R0|), rho_j = lambda_min(sigma^2 I + s_m^2 C_ellj),
+  the inflation borrowed from the non-correctable part (Gamma_j >= Gamma_e,j >= R_j). It is exact at binary
+  w (P_j(1_S) = E_S' Gamma_SS^-1 E_S) and concave (P_j operator concave, X -> h'(Gam^-1 + G'XG)^-1 h convex
+  and non-increasing). Gradient: d r2_j / d w_i = rho_i ((N_j' \ v)_i)^2 / sigma_q^2, N_j = R_j + W(Gamma_j - R_j),
+  v = (I + K P_j)^-1 z. Then for every w_bar in Delta_k and every lambda in the simplex of the scenarios
+    max_S min_j r2(S; theta_j) <= max_{w in Delta_k} sum_j lambda_j r2_j(w)
+                               <= sum_j lambda_j r2_j(w_bar) + gamma_FW(sum_j lambda_j grad r2_j(w_bar), w_bar),
+  gamma_FW(g, w) = sum of the k largest g_i - g'w (Frank-Wolfe certificate, Theorem 8). lambda = e_j gives
+  min_j (best-k bound at theta_j) (min over theta of an upper bound of the best k-subset); a mixed lambda (the
+  soft-min weights at the relaxed max-min point) gives the max-min (dual) bound. Reference channels: the
+  bound is the maximum over the 5 reference sets R0 (none, r1-r4). Two cruder valid bounds, for any R:
+  the interference-free ceiling (N2: EIG(S u R; theta) <= EIG_e(S; theta), Gamma_e = sigma^2 I + s_m^2 C_ell,
+  relaxed in the same way) and the full network (all 16 channels; more data never lose information).
+  The certificate is the smallest of these bounds; the certified gap of a design is U - J(design).
+Scenarios Theta_c: a = 0.030, ell = [0.1 0.1349 0.1821 0.2456 0.3314 0.4472 0.6034 0.8142 1.099 1.482 2] m
+  inflations rho_j = lambda_min(Gamma_e,j) = [0.0007774 0.0007457 0.0006998 0.0006473 0.0005961 0.0005514 0.0005149 0.0004863 0.0004645 0.000448 0.0004357] (sigma^2 = 4.0e-04)
+Self-checks of the relaxation (scenario ell = 0.4472, reference r3 fixed, salt mass):
+  exact at all 220 binary designs: max error 7.22e-16; gradient against finite differences: relative error 1.32e-09;
+  concavity along 200 random segments: largest f(a) + f(b) - 2 f(mid) = -7.25e-05 (<= 0: concave)
+
+-- goal 1: salt mass near the toe (nats; r2 in brackets)
+  k = 3 sensors, no reference: exhaustive robust optimum [4 7 9] 1.7816 [0.971649]; greedy + exchange [4 7 9] 1.7816
+      certificate 1.8222 [0.973862]: relaxation (R0 = none) 1.8222 [vertex 0.973862, dual 0.973862], ceiling 2.0209,
+      full network 2.0743; certified gap 0.0406 nats (2.3% of the optimum)
+  k = 3 sensors, <= 1 reference: exhaustive robust optimum [4 6 7] + r3 1.9700 [0.980551]; greedy + exchange
+      [4 6 7] + r3 1.9700; certificate 1.9880 [0.981239] (relaxation bounds per reference set [0.973862 0.973862 0.978081 0.981239 0.974325], max 1.9880);
+      certified gap 0.0180 nats (0.9% of the optimum); relaxed max-min values [0.973862 0.973862 0.97808 0.981239 0.974325]
+  k = 4 sensors, no reference: exhaustive robust optimum [4 7 9 11] 1.8433 [0.974944]; greedy + exchange [4 7 9 11] 1.8433
+      certificate 1.8616 [0.975844]: relaxation (R0 = none) 1.8616 [vertex 0.975844, dual 0.975844], ceiling 2.0471,
+      full network 2.0743; certified gap 0.0183 nats (1.0% of the optimum)
+  k = 4 sensors, <= 1 reference: exhaustive robust optimum [4 6 7 8] + r3 2.0178 [0.982326]; greedy + exchange
+      [4 6 7 8] + r3 2.0178; certificate 2.0181 [0.982336] (relaxation bounds per reference set [0.975844 0.975844 0.979205 0.982336 0.976451], max 2.0181);
+      certified gap 0.0003 nats (0.0% of the optimum); relaxed max-min values [0.975844 0.975844 0.979205 0.982336 0.976451]
+  k = 5 sensors, no reference: exhaustive robust optimum [4 6 7 9 11] 1.8797 [0.976700]; greedy + exchange [4 6 7 9 11] 1.8797
+      certificate 1.8799 [0.976711]: relaxation (R0 = none) 1.8799 [vertex 0.976711, dual 0.976711], ceiling 2.0620,
+      full network 2.0743; certified gap 0.0002 nats (0.0% of the optimum)
+  k = 5 sensors, <= 1 reference: exhaustive robust optimum [4 5 6 7 8] + r3 2.0264 [0.982626]; greedy + exchange
+      [4 5 6 7 8] + r3 2.0264; certificate 2.0301 [0.982753] (relaxation bounds per reference set [0.976711 0.976711 0.979501 0.982753 0.977472], max 2.0301);
+      certified gap 0.0037 nats (0.2% of the optimum); relaxed max-min values [0.976711 0.976711 0.979501 0.982753 0.977472]
+  k = 6 sensors, no reference: exhaustive robust optimum [4 6 7 8 9 11] 1.8832 [0.976866]; greedy + exchange [4 6 7 8 9 11] 1.8832
+      certificate 1.8847 [0.976935]: relaxation (R0 = none) 1.8847 [vertex 0.976935, dual 0.976937], ceiling 2.0726,
+      full network 2.0743; certified gap 0.0015 nats (0.1% of the optimum)
+  k = 6 sensors, <= 1 reference: exhaustive robust optimum [1 4 5 6 7 8] + r3 2.0315 [0.982804]; greedy + exchange
+      [1 4 5 6 7 8] + r3 2.0315; certificate 2.0372 [0.982997] (relaxation bounds per reference set [0.976935 0.976935 0.979603 0.982997 0.977597], max 2.0372);
+      certified gap 0.0056 nats (0.3% of the optimum); relaxed max-min values [0.976935 0.976935 0.979601 0.982996 0.977597]
+
+-- goal 2: supply cell above its limit (nats; r2 in brackets)
+  k = 3 sensors, no reference: exhaustive robust optimum [7 9 11] 0.5299 [0.961407]; greedy + exchange [7 9 11] 0.5299
+      certificate 0.5335 [0.963442]: relaxation (R0 = none) 0.5335 [vertex 0.963442, dual 0.963444], ceiling 0.5542,
+      full network 0.5629; certified gap 0.0036 nats (0.7% of the optimum)
+  k = 3 sensors, <= 1 reference: exhaustive robust optimum [7 10 11] + r3 0.5453 [0.969736]; greedy + exchange
+      [7 10 11] + r3 0.5453; certificate 0.5481 [0.971115] (relaxation bounds per reference set [0.963442 0.963442 0.963812 0.971115 0.970413], max 0.5481);
+      certified gap 0.0028 nats (0.5% of the optimum); relaxed max-min values [0.963442 0.963442 0.963811 0.971115 0.970413]
+  k = 4 sensors, no reference: exhaustive robust optimum [7 8 9 11] 0.5372 [0.965494]; greedy + exchange [7 8 9 11] 0.5372
+      certificate 0.5389 [0.966367]: relaxation (R0 = none) 0.5389 [vertex 0.966367, dual 0.966367], ceiling 0.5590,
+      full network 0.5629; certified gap 0.0016 nats (0.3% of the optimum)
+  k = 4 sensors, <= 1 reference: exhaustive robust optimum [7 8 10 11] + r3 0.5521 [0.973049]; greedy + exchange
+      [7 8 10 11] + r3 0.5521; certificate 0.5535 [0.973708] (relaxation bounds per reference set [0.966367 0.966367 0.966793 0.973708 0.97244], max 0.5535);
+      certified gap 0.0014 nats (0.3% of the optimum); relaxed max-min values [0.966367 0.966367 0.966791 0.973706 0.97244]
+  k = 5 sensors, no reference: exhaustive robust optimum [4 7 8 9 11] 0.5401 [0.967035]; greedy + exchange [4 7 8 9 11] 0.5401
+      certificate 0.5421 [0.968070]: relaxation (R0 = none) 0.5421 [vertex 0.968070, dual 0.968071], ceiling 0.5610,
+      full network 0.5629; certified gap 0.0020 nats (0.4% of the optimum)
+  k = 5 sensors, <= 1 reference: exhaustive robust optimum [7 8 9 10 11] + r3 0.5560 [0.974904]; greedy + exchange
+      [7 8 9 10 11] + r3 0.5560; certificate 0.5563 [0.975024] (relaxation bounds per reference set [0.96807 0.96807 0.968621 0.975024 0.973331], max 0.5563);
+      certified gap 0.0003 nats (0.0% of the optimum); relaxed max-min values [0.96807 0.96807 0.96862 0.975024 0.973329]
+  k = 6 sensors, no reference: exhaustive robust optimum [4 7 8 9 10 11] 0.5434 [0.968727]; greedy + exchange [4 7 8 9 10 11] 0.5434
+      certificate 0.5434 [0.968766]: relaxation (R0 = none) 0.5434 [vertex 0.968766, dual 0.968768], ceiling 0.5622,
+      full network 0.5629; certified gap 0.0001 nats (0.0% of the optimum)
+  k = 6 sensors, <= 1 reference: exhaustive robust optimum [7 8 9 10 11 12] + r3 0.5572 [0.975459]; greedy + exchange
+      [7 8 9 10 11 12] + r3 0.5572; certificate 0.5574 [0.975521] (relaxation bounds per reference set [0.968766 0.968766 0.969507 0.975521 0.97375], max 0.5574);
+      certified gap 0.0001 nats (0.0% of the optimum); relaxed max-min values [0.968765 0.968765 0.969507 0.975521 0.97375]
+
+Certificate never below the exhaustive robust optimum (k = 3-6, both goals, 0 or <= 1 reference): 1
+Robust greedy + exchange equal to the exhaustive robust optimum in 16 of 16 cases (k = 3-6, 2 goals, 0 or <= 1 ref)
+
+=== 6. Independent verification
+(a) Direct Gaussian conditioning: unknowns (m, c), c the 4 hub errors with prior a^2 I; readings
+    y_S = G_S m + B_S c + e_S, e_S ~ N(0, sigma^2 I + s_m^2 C_ell), y_R = c_R + e_R, e_R ~ N(0, sigma_r^2 I);
+    posterior precision Gam_x^-1 + A' E^-1 A, goal variance h' Lambda^-1 h (precision form, no K, no z)
+  goal 1 interference ignored           [4 7 8]        ell 2.0000: eigOperator 1.6817996771, direct conditioning 1.6817996771 nats
+  goal 1 robust (ROED), no reference    [4 7 9]        ell 0.4166: eigOperator 1.7815543393, direct conditioning 1.7815543393 nats
+  goal 1 robust + reference channel     [4 6 7] + r3   ell 0.5912: eigOperator 1.9699603173, direct conditioning 1.9699603173 nats
+  goal 2 interference ignored           [7 8 11]       ell 2.0000: eigOperator 1.5475040984, direct conditioning 1.5475040984 nats
+  goal 2 robust (ROED), no reference    [7 9 11]       ell 0.4744: eigOperator 1.6273448130, direct conditioning 1.6273448130 nats
+  goal 2 robust + reference channel     [7 10 11] + r3 ell 2.0000: eigOperator 1.7489060170, direct conditioning 1.7489060170 nats
+  largest difference 8.44e-15 nats
+(b) Monte Carlo (2 x 10^5 draws of m, c and the noises; regression of the goal on the readings):
+  goal 1 robust + reference channel     [4 6 7] + r3  : exact 1.9700 nats, Monte Carlo 1.9713 +- 0.0016 (1 standard error of 10 batches)
+  goal 2 robust + reference channel     [7 10 11] + r3: exact 1.7489 nats, Monte Carlo 1.7472 +- 0.0018 (1 standard error of 10 batches)
+(c) Supply cell above its limit with correlated noise, at the worst theta of each design:
+    MC1 = Monte Carlo over 4 x 10^4 data sets with the exact posterior probability of the event (Gaussian
+    conditioning, no quadrature): H(p0) - mean H(P(s > limit | y)); MC2 = exactGoalEig (likelihood
+    re-weighting of 1.2 x 10^5 prior runs, 2000 data sets; readings whitened by chol(Gamma_TT)); its
+    effective sample size is printed: with few effective runs it is biased upwards.
+  interference ignored           [7 8 11]      : accurate 0.5187, thresholdGoalEig 0.4929, MC1 0.5184 +- 0.0011, MC2 0.5165 (mean ESS 10414) nats
+  robust + reference channel     [7 10 11] + r3: accurate 0.5453, thresholdGoalEig 0.4978, MC1 0.5444 +- 0.0011, MC2 0.5457 (mean ESS 7258) nats
+(d) a = 0 and s_m = 0 (independent noise 0.02^2), all 1100 configurations through the joint machinery:
+    salt mass optimum [4 7 8], 2.5391 nats (example_network: [4 7 8], 2.5391); supply optimum [7 8 11], 0.4998 nats by
+    thresholdGoalEig (example_network: [7 8 11], 0.4998; accurate 0.5922); a reference channel then adds at most
+    1.7e-14 nats (N1: without a hub error a reference channel is worth nothing)
+(e) Value of the reference channel r3 of hub 3 (Proposition N1), salt mass, worst amplitude, ell = 0.4472 m:
+    alone: 0.00e+00 nats
+    added to 4        : +0.0000 nats
+    added to 7        : +0.2726 nats
+    added to [7 8]    : +0.3395 nats
+    added to [7 8 9]  : +0.2186 nats
+    added to [4 7 8]  : +0.2713 nats
+    added to [4 6 7]  : +0.2107 nats
+
+Time: 144.1 s for the computations
+
+=== 7. Figure fig7_robust_network
+  plotted (a): salt-mass designs: ignored [4 7 8], robust [4 7 9], robust + reference [4 6 7] + r3; yes/no designs [7 8 11], [7 9 11],
+               [7 10 11] + r3
+  plotted (b): worst case (nats) ignored / robust / robust + reference: salt mass [1.6818 1.7816 1.97] (claimed 2.5391,
+               certificate 1.9880); supply [0.51871 0.52991 0.54535] (claimed 0.5922, certificate 0.5481)
+  plotted (c): k = [3 4 5 6]; salt mass, sensors only: optimum [1.7816 1.8433 1.8797 1.8832], certificate [1.8222 1.8616 1.8799 1.8847], greedy + exchange [1.7816 1.8433 1.8797 1.8832];
+               + 1 reference: optimum [1.97 2.0178 2.0264 2.0315], certificate [1.988 2.0181 2.0301 2.0372], greedy + exchange [1.97 2.0178 2.0264 2.0315]
+saved /home/user/swi-goal-oed/experiments/spiranca_go/certain_coast/matlab_figs/fig7_robust_network.png and /home/user/swi-goal-oed/experiments/spiranca_go/certain_coast/matlab_figs/fig7_robust_network.pdf
+saved /home/user/swi-goal-oed/experiments/spiranca_go/certain_coast/matlab_figs/robust_certified_network_results.json
+Total time 146.1 s
