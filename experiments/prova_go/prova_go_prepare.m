@@ -9,16 +9,6 @@ function setupFile = prova_go_prepare(xlsxfile, outDir)
     tabs.main = robust_gittins_table(S.k, S.beta, S.Hor, 101, 80, 401);
     tabs.k02 = robust_gittins_table(S.kSens(1), S.beta, S.Hor, 101, 80, 401);
     tabs.k08 = robust_gittins_table(S.kSens(2), S.beta, S.Hor, 101, 80, 401);
-    % qualitative checks of the index (Cohen & Treetanthiploet 2022, Fig. 1)
-    nl = [1 2 5 10 20 50 100 200 500 1000]; ks = [0 0.2 0.5 0.8]; bs = [0.9 0.95 0.99];
-    G = zeros(numel(ks), numel(bs), numel(nl), 3); pq = [0.1 0.3 0.5];
-    for a = 1:numel(ks)
-        for b = 1:numel(bs)
-            T = robust_gittins_table(ks(a), bs(b), S.Hor, 101, nl, 201);
-            for c = 1:3, G(a, b, :, c) = interp1(T.p, T.gam, pq(c)) - pq(c); end
-        end
-    end
-    idxCheck = struct('n', nl, 'k', ks, 'beta', bs, 'p', pq, 'gamMinusP', G);
     % budget: 2.5 x the median cost of calibrating A4 on the heads (pilot truths 100001..100010)
     J = M.J; cst = zeros(10, 1);
     for i = 1:10
@@ -30,5 +20,6 @@ function setupFile = prova_go_prepare(xlsxfile, outDir)
     S.costA4pilot = cst'; S.budget = round(S.budgetFactor * median(cst));
     setupFile = fullfile(outDir, 'prova_setup.mat');
     tPrep = toc(t0);
-    save(setupFile, 'M', 'S', 'D', 'checks', 'arms', 'tabs', 'idxCheck', 'tPrep', '-v7');
+    M = rmfield(M, 'operator');                     % function handles are not saved
+    save(setupFile, 'M', 'S', 'D', 'checks', 'arms', 'tabs', 'tPrep', '-v7');
 end

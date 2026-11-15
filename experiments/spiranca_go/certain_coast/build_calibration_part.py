@@ -266,7 +266,7 @@ def main(out, resdir=None):
               'information in theory and in the subsurface. Correlated arms and stopping rules '
               f'{c("chick", "russo")}, priors and kernels that are themselves uncertain {c("ziomek1", "ziomek2")} and '
               f'sequential information in the subsurface {c("hall", "wang")} meet three open problems there: arms coupled '
-              'through physics, a stop-and-build action and a test that informs many sites. Its innovation, VENDI-GO, '
+              'through physics, a stop-and-build action and a test that informs many sites. Its innovation, SITE-GO, '
               'decides where to pilot-test and where to build recharge wells at Fushë-Kuqe; on 200 synthetic aquifers it '
               'lowered the probability that a supply well is intruded from 0.23 with the earlier closed form to 0.16, '
               'with about five pilot tests.', E)
@@ -329,7 +329,7 @@ def main(out, resdir=None):
               '$A_\\theta=A_\\theta^{\\top}$. (ii) Scaling the flux-type parameters multiplies the equations of the '
               'active cells, recharge included, by $c$ and leaves the fixed-head rows unchanged, so the heads are the '
               'same; the response to the unscaled $\\Delta Q_w$ is divided by $c$. ∎ The readings are Stage 0 of '
-              'VENDI-GO: two pumping stops of a few days at the supply wells, read by pressure loggers in the existing '
+              'SITE-GO: two pumping stops of a few days at the supply wells, read by pressure loggers in the existing '
               'wells, with no drilling.', E)
     heading(doc, '4.2 The misspecification index', 12, color=BLUE, before=6)
     body(doc, 'The cost of a play is a miss: $h=1$ if the reading falls outside the arm\'s 90% predictive interval, '
@@ -399,7 +399,7 @@ def main(out, resdir=None):
               'rank recharge sites and monitoring wells (Part 7, Section 6).',
               '**WP5, live operation.** When new readings arrive the arms are re-indexed; a structure whose miss rate '
               'rises is replaced before its forecasts mislead the warnings and the recommended decisions.',
-              '**Decisions.** The kept structure gives the risk at the supply wells, the recharge sites of VENDI-GO and '
+              '**Decisions.** The kept structure gives the risk at the supply wells, the recharge sites of SITE-GO and '
               'the environment of the deep reinforcement learning agent of Part 7 an interval that has been checked '
               'against the readings that matter.']:
         bullet(doc, t, E)

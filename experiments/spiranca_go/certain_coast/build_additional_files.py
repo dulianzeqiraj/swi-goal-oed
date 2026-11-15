@@ -72,9 +72,9 @@ PARTS = [
      'work of the NPD\'s team, November 2026)',
      'Calibration when the model is wrong: TRIAL-GO on the Fushë-Kuqe aquifer',
      os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Calibration_TRIAL-GO.docx')),
-    ('The project at a glance: structure, communication, team, deliverables and timeline of the work plan, in five '
-     'figures drawn from the tables of the form',
-     'The project at a glance: structure, communication, team, deliverables and timeline',
+    ('The project at a glance: the solution of all the problems in one flowchart, and the structure, communication, '
+     'team, deliverables and timeline of the work plan in five figures drawn from the tables of the form',
+     'The project at a glance: the solution in one flowchart, and the work plan',
      os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Project_at_a_Glance.docx')),
     ('Curriculum vitae of the NATO-country Project Director, Assoc. Prof. Dr. Dulian Zeqiraj (Faculty of Geology and '
      'Mining, Polytechnic University of Tirana)',

@@ -1,0 +1,28 @@
+octave: X11 DISPLAY environment variable not set
+octave: disabling GUI features
+seed 3 done (14 s): trial arm 4, pest_std cov 11, trial cov 01
+seed 7 done (26 s): trial arm 4, pest_std cov 01, trial cov 11
+seed 11 done (34 s): trial arm 4, pest_std cov 01, trial cov 00
+seed 15 done (48 s): trial arm 5, pest_std cov 00, trial cov 01
+seed 19 done (63 s): trial arm 5, pest_std cov 01, trial cov 10
+seed 23 done (77 s): trial arm 5, pest_std cov 11, trial cov 11
+seed 27 done (92 s): trial arm 4, pest_std cov 00, trial cov 10
+seed 31 done (105 s): trial arm 1, pest_std cov 00, trial cov 00
+seed 35 done (117 s): trial arm 5, pest_std cov 01, trial cov 11
+seed 39 done (128 s): trial arm 4, pest_std cov 11, trial cov 11
+seed 43 done (136 s): trial arm 4, pest_std cov 10, trial cov 10
+seed 47 done (146 s): trial arm 4, pest_std cov 11, trial cov 00
+seed 51 done (155 s): trial arm 4, pest_std cov 10, trial cov 11
+seed 55 done (169 s): trial arm 1, pest_std cov 00, trial cov 00
+seed 59 done (184 s): trial arm 4, pest_std cov 11, trial cov 11
+seed 63 done (197 s): trial arm 4, pest_std cov 11, trial cov 10
+seed 67 done (210 s): trial arm 4, pest_std cov 01, trial cov 11
+seed 71 done (224 s): trial arm 4, pest_std cov 01, trial cov 11
+seed 75 done (233 s): trial arm 5, pest_std cov 11, trial cov 11
+seed 79 done (255 s): trial arm 4, pest_std cov 11, trial cov 11
+seed 83 done (266 s): trial arm 4, pest_std cov 00, trial cov 11
+seed 87 done (277 s): trial arm 4, pest_std cov 00, trial cov 01
+seed 91 done (295 s): trial arm 5, pest_std cov 00, trial cov 11
+seed 95 done (318 s): trial arm 5, pest_std cov 10, trial cov 10
+seed 99 done (334 s): trial arm 4, pest_std cov 00, trial cov 00
+seed 103 done (346 s): trial arm 4, pest_std cov 00, trial cov 11

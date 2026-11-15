@@ -1,6 +1,6 @@
 """CERTAIN-COAST (NATO SPS proposal): illustrative figures, the optional PDF upload of the "Project plan" tab of the SPS
 grant platform ("any file that might help to illustrate your project ... merge them into a single PDF file, and include
-a table of contents at the start"). Six A4 pages: a table of contents and twelve figures taken from the proposal
+a table of contents at the start"). Seven A4 pages: a table of contents and thirteen figures taken from the proposal
 documents and the preparatory reviews, each with its caption and its source. The figures are regenerated from the same
 code and data as those documents, so the PDF cannot drift from them.
 
@@ -93,6 +93,12 @@ FIGS = [
      'From the work packages to outputs (deliverables), outcomes (what the users do differently) and impacts. Italic '
      'notes: the condition for each step.',
      'Impact, Figure 1', 6),
+    ('solution', 'The solution of all the problems in one flowchart',
+     'The problems of the coast, and how CERTAIN-COAST observes them, models and calibrates the aquifer when the model is '
+     'wrong, warns with a stated miss rate, decides with every stakeholder inside the certified safe window and delivers '
+     'to the end-user, IGJEO; each box names the part of the Additional files or the work package behind the step, and '
+     'live operation sends new readings back to the observation and the calibration.',
+     'Additional files, Part 11, Figure 1 (drawn with the author\'s MATLAB code)', 7),
 ]
 
 
@@ -128,6 +134,7 @@ def make_figures(work):
     panel.crop((max(box[0] - 20, 0), max(box[1] - 20, 0), min(box[2] + 20, panel.size[0]),
                 min(box[3] + 20, panel.size[1]))).save(p['between'])
     Image.open(os.path.join(work, 'nderhyrja_go', 'fig_t34.png')).save(p['network'])
+    Image.open(os.path.join(HERE, 'matlab_figs', 'fig_solution_flowchart.png')).convert('RGB').save(p['solution'])
     return p
 
 
@@ -151,7 +158,7 @@ def styles():
 def footer(canvas, doc):
     canvas.saveState(); canvas.setFont('DV', 7.8); canvas.setFillColor(GREY)
     canvas.drawString(2.0 * cm, 1.1 * cm, 'CERTAIN-COAST — illustrative figures (optional upload, NATO SPS call 2027-1)')
-    canvas.drawRightString(A4[0] - 2.0 * cm, 1.1 * cm, f'page {doc.page} of 6')
+    canvas.drawRightString(A4[0] - 2.0 * cm, 1.1 * cm, f'page {doc.page} of 7')
     canvas.restoreState()
 
 
@@ -173,8 +180,9 @@ def main(out):
                             bottomMargin=1.7 * cm, title='CERTAIN-COAST — illustrative figures',
                             author='CERTAIN-COAST applicants', subject=FULL)
     story = [Paragraph('CERTAIN-COAST — illustrative figures', S['title']), Paragraph(FULL, S['sub']),
-             Paragraph('Optional upload of the "Project plan" tab of the SPS grant platform (NATO SPS call 2027-1). Twelve '
-                       'figures from the proposal documents and the preparatory reviews of 2026. Results of synthetic tests '
+             Paragraph('Optional upload of the "Project plan" tab of the SPS grant platform (NATO SPS call 2027-1). Thirteen '
+                       'figures from the proposal documents and the preparatory reviews of 2026, the last of them the '
+                       'solution of all the problems in one flowchart. Results of synthetic tests '
                        'use illustrative values; they are not results at Durrës, which the project calibrates and verifies '
                        'on site.', S['body']),
              Paragraph('Contents', S['h'])]
@@ -187,7 +195,7 @@ def main(out):
     for i, (key, title, cap, src, pg) in enumerate(FIGS, start=1):
         if pg != page:
             story.append(PageBreak()); page = pg
-        max_h = 9.6 * cm if pg == 1 else (6.6 * cm if pg == 4 else 10.4 * cm)
+        max_h = 9.6 * cm if pg == 1 else (6.6 * cm if pg == 4 else (21.6 * cm if pg == 7 else 10.4 * cm))
         story.append(block(S, i, key, title, cap, src, paths[key], max_h))
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
     print('saved', out, '| figures', len(FIGS))

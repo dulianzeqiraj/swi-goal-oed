@@ -40,12 +40,17 @@ function out = prova_go_report(resDir, tTotal)
     say(lg, '  metered Stage-0 responses ratio scaled/original: min %.6f max %.6f (1/c = %.6f); self response at A ratio %.6f\n', C.scale_responseRatio_minmax, 1 / C.scale_c, C.scale_selfResponse_ratio);
     say(lg, '  heads under the current metered pumping change only through the pumping term: max|dh| %.3f m, rms %.3f m (pumping term max %.3f m)\n', ...
         C.scale_curHeads_maxAbsDiff, C.scale_curHeads_rmsDiff, C.scale_curHeads_pumpTerm_maxAbs);
-    I = L.idxCheck;
+    fi = fullfile(resDir, 'prova_index_check.mat'); I = []; if exist(fi, 'file'), Z = load(fi); I = Z.I; end
+    if ~isempty(I)
     say(lg, '\n== Robust Gittins index (Appendix D), H = %d; gamma - p\n', S.Hor);
     for a = 1:numel(I.k)
         for b = 1:numel(I.beta)
-            say(lg, '  k = %.1f beta = %.2f, p = 0.3: n = %s -> %s\n', I.k(a), I.beta(b), mat2str(I.n), mat2str(squeeze(I.gamMinusP(a, b, :, 2))', 3));
+            if any(isnan(I.gamMinusP(a, b, :, 2))), continue; end
+            for c = 1:3
+                say(lg, '  k = %.1f beta = %.2f, p = %.1f: n = %s -> %s\n', I.k(a), I.beta(b), I.p(c), mat2str(I.n), mat2str(squeeze(I.gamMinusP(a, b, :, c))', 3));
+            end
         end
+    end
     end
     say(lg, 'main table: k = %.1f, beta = %.2f, H = %d, p grid 101, n = 1..80, gamma grid 401\n', S.k, S.beta, S.Hor);
     say(lg, '\n== Budget and LM\nA4 heads-calibration cost on 10 pilot truths: %s runs -> budget = %.1f x median = %d runs\n', mat2str(S.costA4pilot), S.budgetFactor, S.budget);
@@ -94,8 +99,9 @@ function out = prova_go_report(resDir, tTotal)
         say(lg, 'runtime of the truth runs: %.0f s CPU (sum over workers)\n', P.tRun);
         R.tRunCPU = P.tRun; R.methodLabels = labels; R.methods = methods;
         J.(tags{t}) = R;
-        if t == 1 && ~isempty(P.demo)
-            dm = P.demo; tr = dm.tr; say(lg, '\n== Demonstration truth: seed %d (strip %d, xi_R = %+.3f, xi_f = %+.3f)\n', tr.seed, tr.hasStrip, tr.xiR, tr.xif);
+        fd = fullfile(resDir, 'prova_demo.mat');
+        if t == 1 && exist(fd, 'file')
+            Z = load(fd); dm = Z.demo; tr = dm.tr; say(lg, '\n== Demonstration truth: seed %d (strip %d, xi_R = %+.3f, xi_f = %+.3f)\n', tr.seed, tr.hasStrip, tr.xiR, tr.xif);
             say(lg, 'true future heads A, B: %.3f %.3f m (xi_f = 0: %.3f %.3f); true risk %.4f\n', tr.Hfut, tr.Hfut0, tr.riskTrue);
             dd = struct('seed', tr.seed, 'hasStrip', tr.hasStrip, 'xiR', tr.xiR, 'xif', tr.xif, 'Hfut', tr.Hfut', 'riskTrue', tr.riskTrue);
             for q = 1:numel(methods)

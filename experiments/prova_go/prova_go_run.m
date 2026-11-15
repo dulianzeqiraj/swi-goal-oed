@@ -9,7 +9,8 @@ function out = prova_go_run(nTruths, seed0, nWorkers, nSupp)
 %   Steps: PROVA_GO_PREPARE (model, checks, pumping design, robust Gittins
 %   tables, budget) -> PROVA_GO_WORKER on subsets of the seeds -> merge ->
 %   PROVA_METRICS -> res/prova_go_results.json and res/prova_go_log.txt.
-%   Figures: MAKE_PROVA_FIGURES (after this run). MAR maps: PROVA_MAR.
+%   Then PROVA_DEMO (demonstration truth) and PROVA_MAR (MAR process numbers).
+%   Figures: MAKE_PROVA_FIGURES (after this run).
     if nargin < 1 || isempty(nTruths), nTruths = 200; end
     if nargin < 2 || isempty(seed0), seed0 = 1; end
     if nargin < 3 || isempty(nWorkers), nWorkers = 4; end
@@ -33,6 +34,8 @@ function out = prova_go_run(nTruths, seed0, nWorkers, nSupp)
         end
         save(fullfile(resDir, ['prova_' R.tag '.mat']), 'res', 'demo', 'tRun', '-v7');
     end
+    prova_demo(seeds);                                   % demonstration truth (rule on the truth only)
+    prova_mar();                                         % MAR process on the demonstration truth
     out = prova_go_report(resDir, toc(tAll));
 end
 function s = demo_seed(M, S, seeds)

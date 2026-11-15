@@ -28,7 +28,8 @@ function T = robust_gittins_table(k, beta, H, np, N, ng)
     cmax = max(nlist) + H;
     PL = zeros(cmax, np); PH = zeros(cmax, np);
     IU = zeros(cmax, np); WU = zeros(cmax, np); ID = zeros(cmax, np); WD = zeros(cmax, np);
-    for c = 1:cmax
+    need = false(cmax, 1); for n = nlist, need(n:n + H - 1) = true; end
+    for c = find(need)'
         a = max(p * c, ep); b = max((1 - p) * c, ep);
         PL(c, :) = beta_q(qlo, a, b); PH(c, :) = beta_q(qhi, a, b);
         [IU(c, :), WU(c, :)] = lin_w((p * c + 1) / (c + 1), np);
@@ -64,7 +65,7 @@ function q = beta_q(prob, a, b)
     if prob <= 0, q = zeros(size(a)); return; end
     if prob >= 1, q = ones(size(a)); return; end
     lo = zeros(size(a)); hi = ones(size(a));
-    for it = 1:60
+    for it = 1:42
         x = 0.5 * (lo + hi); up = betainc(x, a, b) < prob;
         lo(up) = x(up); hi(~up) = x(~up);
     end
