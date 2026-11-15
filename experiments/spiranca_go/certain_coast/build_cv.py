@@ -207,10 +207,9 @@ NPD = dict(
     name='Dulian Zeqiraj',
     details=[
         ['Name', 'Dulian Zeqiraj'],
-        ['Title and position', 'Associate Professor (Prof. Asoc.), PhD; Faculty of Geology and Mining (FGJM), Polytechnic '
-                               'University of Tirana'],
-        ['Profession', 'Hydrogeologist and geo-environmental engineer; petroleum engineer by his first degree'],
-        ['Department', 'Department of Energy Resources'],
+        ['Title and position', 'Associate Professor (Prof. Asoc.), PhD; Department of Energy Resources, Faculty of Geology '
+                               'and Mining (FGJM), Polytechnic University of Tirana'],
+        ['Profession', 'Hydrogeologist and geo-environmental engineer'],
         ['Country', 'Albania (NATO member)'],
         ['E-mail', 'dulian.zeqiraj@fgjm.edu.al'],
         ['ORCID', 'https://orcid.org/0000-0002-5305-3048'],
@@ -286,22 +285,21 @@ NPD = dict(
         'Master courses: Reservoir Engineering (well stimulation and enhanced oil recovery); Energy Resources (fossil and '
         'renewable); Physics of Energy Resources.',
     ],
-    other=['Languages: Albanian (native); English (professional working proficiency)', 'Programming: C++, Python, MATLAB',
-           'Conference talks: 4th International Conference on Applied Sciences, Munich, 2021 (three); 3rd International '
-           'Conference on Advanced Research in Applied Science and Engineering, Oxford (two).'],
+    other=['Languages: Albanian (native), English (professional). Programming: C++, Python, MATLAB',
+           'Conference talks: Munich, 2021 (three, applied sciences); Oxford (two, applied science and engineering)'],
 )
 
 
 def cv_filled(doc, d, role, role_text):
     # a CV with known facts filled in and no guidance lines; unknown facts stay highlighted
     p = para(doc, 0); run(p, d['name'], bold=True, size=19, color='1F3864')
-    p = para(doc, 4); run(p, role + '  ·  CERTAIN-COAST', bold=True, size=10.5, color='2E6DB4')
+    p = para(doc, 4); run(p, role if len(role) > 60 else role + '  ·  CERTAIN-COAST', bold=True, size=10.5, color='2E6DB4')
     pPr = p._p.get_or_add_pPr(); b = OxmlElement('w:pBdr'); bt = OxmlElement('w:bottom')
     for k, v in (('w:val', 'single'), ('w:sz', '12'), ('w:space', '4'), ('w:color', '1F3864')):
         bt.set('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}' + k.split(':')[1], v)
     b.append(bt); pPr.append(b)
     sz = 9.2
-    sec_ = lambda doc_, t_: sec(doc_, t_, before=4, after=2)      # compact: two pages also inside the merged files
+    sec_ = lambda doc_, t_: sec(doc_, t_, before=3, after=2)      # compact: two pages also inside the merged files
     sec_(doc, '1. Personal details')
     ph_table(doc, ['Item', 'Details'], d['details'], [4.2, 12.4], size=sz)
     sec_(doc, '2. Education')

@@ -126,12 +126,14 @@ SECTIONS = [
     ('between', 'Warnings between samples',
      'Warnings for what happens between laboratory samples: neural jump ODEs, robust neural SDEs and certified bands for '
      'a crossing at any time in the season (review XI).', ['+betweensamples']),
-    ('chem', 'Reactions away from equilibrium and modern hydrogeochemistry',
+    ('chem', 'Reactions away from equilibrium, modern hydrogeochemistry and its neighbouring fields',
      'Theorem-level mathematics of real reacting systems (stoichiometry and reaction invariants, thermodynamic '
      'consistency, chemical reaction network theory, graphs and the matrix-tree theorem, operators and entropy methods) '
      'and the modern hydrogeochemistry of homogenised reactive transport, electrodiffusion and the electric double '
      'layer, dissolution and precipitation fronts, cation exchange and geochemical inversion, for the mixing zone of a '
-     'coastal aquifer.', []),
+     'coastal aquifer; and six neighbouring fields whose theorems carry over to it (gradient flows, Stefan–Maxwell '
+     'transport, identifiability algebra, operator learning, path signatures, non-equilibrium statistical mechanics).',
+     []),
     ('stake', 'Stakeholder decisions when the source of the chloride is unknown',
      'All thirty papers of the stakeholder review: how water utilities, regulators and users decide when the chloride '
      'may come from the sea, deep brine, drought or return flow, and how the decision is kept safe for every source '
@@ -153,6 +155,7 @@ NEW_REVIEWS = [
     ('VOI', 'voi', 'The value of information without a prior'),
     ('NEQ', 'chem', 'Reactions away from equilibrium in hydrogeochemistry: theorems, algebra and operators'),
     ('HGK', 'chem', 'Modern hydrogeochemistry with advanced mathematics'),
+    ('FQ', 'chem', 'Neighbouring fields with the highest mathematics of the moment, for coastal hydrogeochemistry'),
 ]
 INNOV = {}            # review label -> (file key, the review's own innovation), set as a block with its equations in red
 
@@ -814,9 +817,10 @@ def main(out):
     p = para(doc, 4, before=10)
     run(p, 'Verification note. Every card comes from the author\'s reviews, where each reference was checked against '
            'Crossref, arXiv, the proceedings or institutional repositories; the cards of the data assimilation review, '
-           'of reviews X and XI and of the eight reviews added last (stochastic boundary conditions, transfer between '
+           'of reviews X and XI and of the nine reviews added last (stochastic boundary conditions, transfer between '
            'sites, causal inference, causal discovery with optimization, causality under chaos, the value of information '
-           'without a prior, reactions away from equilibrium and modern hydrogeochemistry) were translated or extracted from those reviews and their '
+           'without a prior, reactions away from equilibrium, modern hydrogeochemistry and its neighbouring fields) were '
+           'translated or extracted from those reviews and their '
            'references checked again in Crossref in November 2026. The equations in red were checked against the MATLAB '
            'code of the package or are the author\'s own proposals as the reviews state them. The document was assembled '
            'with the help of an AI assistant.', italic=True, size=9, color=GREY)
