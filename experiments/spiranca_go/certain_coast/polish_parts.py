@@ -198,7 +198,8 @@ def caption_notes(elements, run_xml):
     for el in elements:
         for p in ([el] if el.tag == qn('w:p') else el.iter(qn('w:p'))):
             t = ptext(p)
-            if not CAPTION_RE.match(t) or re.search(r"author[’']s (MATLAB )?code", t):
+            # a diagram or a figure taken from a publication is not a result of the code: no note
+            if not CAPTION_RE.match(t) or re.search(r"author[’']s (MATLAB )?code|[Dd]iagram from|[Ff]igure from", t):
                 continue
             # the note in its own paragraph, kept with the caption: a line break inside a justified caption would
             # stretch the caption's last line across the page
