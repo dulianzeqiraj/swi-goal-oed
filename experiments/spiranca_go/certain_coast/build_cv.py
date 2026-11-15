@@ -209,6 +209,7 @@ NPD = dict(
         ['Name', 'Dulian Zeqiraj'],
         ['Title and position', 'Associate Professor (Prof. Asoc.), PhD; Faculty of Geology and Mining (FGJM), Polytechnic '
                                'University of Tirana'],
+        ['Profession', 'Hydrogeologist and geo-environmental engineer; petroleum engineer by his first degree'],
         ['Department', 'Department of Energy Resources'],
         ['Country', 'Albania (NATO member)'],
         ['E-mail', 'dulian.zeqiraj@fgjm.edu.al'],
@@ -350,8 +351,11 @@ def main_one(out, d, role, role_text):
     print('saved', out)
 
 
+NPD_TITLE = 'NATO-country Project Director  ·  Hydrogeologist and geo-environmental engineer'
+
+
 def main_npd(out):
-    main_one(out, NPD, 'NATO-country Project Director', NPD_ROLE)
+    main_one(out, NPD, NPD_TITLE, NPD_ROLE)
 
 
 def main_ppd(out):
@@ -496,7 +500,7 @@ def main(out):
         q = para(doc, 3, 0.5); run(q, '• ', bold=True); ph(q, t, size=10.5)
 
     page_break(doc)
-    cv_filled(doc, NPD, 'NATO-country Project Director', NPD_ROLE)
+    cv_filled(doc, NPD, NPD_TITLE, NPD_ROLE)
     page_break(doc)
     cv_filled(doc, PPD_CV, 'Partner-country Project Director', PPD_ROLE)
     page_break(doc)

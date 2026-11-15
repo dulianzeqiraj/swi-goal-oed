@@ -265,3 +265,30 @@ def colour_equations(elements, i):
     if missing:
         print(f'    part {i + 1}: red equations not found: {sorted(missing)}')
     return len(done), n_inline
+
+
+# parts whose own theorems, propositions and corollaries are shaded statements (Part 8, the theory of the
+# stakeholders' decisions): their equations are new in this work and are set in red
+THEOREM_PARTS = {7}
+THEOREM_FILL = 'F2F5F9'
+
+
+def colour_theorems(elements):
+    """Paint in red the equations of the shaded statements of theorems, propositions and corollaries, and the display
+    equations set between the shaded paragraphs of a statement. Returns the number of equations painted."""
+    def shaded(p):
+        ppr = p.find(qn('w:pPr'))
+        shd = ppr.find(qn('w:shd')) if ppr is not None else None
+        return shd is not None and (shd.get(qn('w:fill')) or '').upper() == THEOREM_FILL
+
+    paras = [el for el in elements if el.tag == qn('w:p')]
+    n = 0
+    for k, p in enumerate(paras):
+        prev_sh = k > 0 and shaded(paras[k - 1])
+        display = p.find('.//{%s}oMathPara' % M_NS) is not None and not _wtext(p).strip()
+        if shaded(p) or (display and prev_sh):
+            for om in p.iter('{%s}oMath' % M_NS):
+                _paint(om)
+                n += 1
+    return n
+

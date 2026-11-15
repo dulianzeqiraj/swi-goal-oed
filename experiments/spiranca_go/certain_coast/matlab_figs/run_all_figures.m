@@ -21,6 +21,8 @@ function run_all_figures(repoRoot, outDir)
 %   boundary and recharge examples (and the numbers derived from them) differ between the two programs; the
 %   Henry and network examples use no random numbers.
 
+%   All text is set through fs(), 8 % larger than the base sizes, so that labels read well at the printed size.
+%
 %   Synthetic data only, as in the examples. Copyright 2026 Dulian Zeqiraj. Licensed under the Apache License 2.0.
 
 if nargin < 1 || isempty(repoRoot)
@@ -119,13 +121,13 @@ set(hi, 'LineColor', pal.ink, 'LineWidth', 1.5);
 plot(ax, toe, 0, 'LineStyle', 'none', 'Marker', '^', 'MarkerSize', 7, 'MarkerFaceColor', pal.ink, ...
      'MarkerEdgeColor', 'w', 'LineWidth', 0.75, 'Clipping', 'off');
 text(toe - 0.05, 0.075, sprintf('toe %.4f m', toe), 'Parent', ax, 'HorizontalAlignment', 'right', ...
-     'VerticalAlignment', 'middle', 'FontSize', 9, 'Color', pal.ink);
+     'VerticalAlignment', 'middle', 'FontSize', fs(9), 'Color', pal.ink);
 text(xTop - 0.06, yTop, '0.5 isochlor', 'Parent', ax, 'HorizontalAlignment', 'right', ...
-     'VerticalAlignment', 'middle', 'FontSize', 9, 'Color', pal.ink);
+     'VerticalAlignment', 'middle', 'FontSize', fs(9), 'Color', pal.ink);
 text(0.04, 0.5, {'fresh-water', 'inflow'}, 'Parent', ax, 'HorizontalAlignment', 'left', ...
-     'VerticalAlignment', 'middle', 'FontSize', 8, 'Color', pal.ink2);
+     'VerticalAlignment', 'middle', 'FontSize', fs(8), 'Color', pal.ink2);
 text(1.96, 0.45, 'sea', 'Parent', ax, 'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', ...
-     'FontSize', 8, 'Color', 'w');
+     'FontSize', fs(8), 'Color', 'w');
 set(ax, 'XLim', [0 g.Lx], 'YLim', [0 g.Ly], 'XTick', 0:0.25:2, 'YTick', 0:0.25:1);
 finishAxes(ax, 'Distance from the inland boundary, x (m)', 'Height, y (m)', true);
 panelLabel(ax, '(a)', 1.45);
@@ -140,19 +142,19 @@ plot(ax2, dxs, toes, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 5, 'Marke
 for k = 1:4
     if k == 1
         text(dxs(k) - 0.007, toes(k), names{k}, 'Parent', ax2, 'HorizontalAlignment', 'right', ...
-             'VerticalAlignment', 'middle', 'FontSize', 8, 'Color', pal.ink2);
+             'VerticalAlignment', 'middle', 'FontSize', fs(8), 'Color', pal.ink2);
     elseif k == 4
         text(dxs(k) + 0.004, toes(k) - 0.0012, names{k}, 'Parent', ax2, 'HorizontalAlignment', 'left', ...
-             'VerticalAlignment', 'top', 'FontSize', 8, 'Color', pal.ink2);
+             'VerticalAlignment', 'top', 'FontSize', fs(8), 'Color', pal.ink2);
     else
         text(dxs(k) + 0.007, toes(k) - 0.0006, names{k}, 'Parent', ax2, 'HorizontalAlignment', 'left', ...
-             'VerticalAlignment', 'middle', 'FontSize', 8, 'Color', pal.ink2);
+             'VerticalAlignment', 'middle', 'FontSize', fs(8), 'Color', pal.ink2);
     end
 end
 set(ax2, 'XLim', [0 0.14], 'YLim', [1.38 1.43], 'XTick', 0:0.05:0.1, 'YTick', 1.38:0.01:1.43);
 grid(ax2, 'on');
 finishAxes(ax2, 'Cell size, {\Delta}x (m)', 'Toe of the 0.5 isochlor (m)', false);
-panelLabel(ax2, '(b)', 1.25);
+panelLabel(ax2, '(b)', 1.6);
 saveFigure(fig, outDir, name, lg);
 end
 
@@ -198,7 +200,7 @@ plot(ax, ev, truth(ev), 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 4.5, '
      'MarkerEdgeColor', 'w', 'LineWidth', 0.6);
 text(live(1) + 6, 330, sprintf('%d events, %d missed; 95%% upper bound on the miss rate %.3f', ...
      sum(events), misses, bound), 'Parent', ax, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'middle', ...
-     'FontSize', 8.5, 'Color', pal.ink, 'BackgroundColor', 'w', 'Margin', 1);
+     'FontSize', fs(8.5), 'Color', pal.ink, 'BackgroundColor', 'w', 'Margin', 1);
 set(ax, 'XLim', [live(1) - 0.5, live(end) + 0.5], 'YLim', yl, 'XTick', 600:100:1200, 'YTick', 50:50:300);
 finishAxes(ax, 'Time step (-)', 'Chloride (mg/L)', false);
 panelLabel(ax, '(a)', 1.3);
@@ -225,7 +227,7 @@ for k = 1:numel(counts)
 end
 plot(ax2, margin * [1 1], [0 205], ':', 'Color', pal.darkBlue, 'LineWidth', 1.4);
 text(margin - 3, 198, {'margin', sprintf('%.1f mg/L', margin)}, 'Parent', ax2, 'HorizontalAlignment', 'right', ...
-     'VerticalAlignment', 'top', 'FontSize', 8, 'Color', pal.ink);
+     'VerticalAlignment', 'top', 'FontSize', fs(8), 'Color', pal.ink);
 set(ax2, 'XLim', [-60 60], 'YLim', [0 205], 'XTick', -60:30:60, 'YTick', 0:50:200);
 finishAxes(ax2, {'Observed - forecast', 'in calibration (mg/L)'}, 'Number of steps', false);
 panelLabel(ax2, '(b)', 1.15);
@@ -274,9 +276,9 @@ plot(ax, 1 ./ kGrid, curve, '-', 'Color', pal.blue, 'LineWidth', 1.4);
 plot(ax, 8, truth, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 6, 'MarkerFaceColor', pal.ink, ...
      'MarkerEdgeColor', 'w', 'LineWidth', 0.75);
 text(8 * 1.3, truth + 0.03, sprintf('1/{\\kappa} = 8 d: %.2f', truth), 'Parent', ax, ...
-     'HorizontalAlignment', 'left', 'VerticalAlignment', 'bottom', 'FontSize', 8.5, 'Color', pal.ink);
+     'HorizontalAlignment', 'left', 'VerticalAlignment', 'bottom', 'FontSize', fs(8.5), 'Color', pal.ink);
 text(0.27, tail + 0.025, sprintf('samples alone: %.3f', tail), 'Parent', ax, ...
-     'HorizontalAlignment', 'left', 'VerticalAlignment', 'bottom', 'FontSize', 8.5, 'Color', pal.ink2);
+     'HorizontalAlignment', 'left', 'VerticalAlignment', 'bottom', 'FontSize', fs(8.5), 'Color', pal.ink2);
 set(ax, 'XScale', 'log', 'XLim', [0.2 500], 'YLim', [0 1.05], 'XTick', [1 10 100], ...
     'XTickLabel', {'1', '10', '100'}, 'YTick', 0:0.2:1);
 grid(ax, 'on');
@@ -297,10 +299,10 @@ for d = 1:size(designs, 1)
         lab = {'1/{\kappa}', sprintf('%.1f-%.1f d', tau(d, 2), tau(d, 3))};
     end
     text(d, band(d, 1) - 0.025, lab, 'Parent', ax2, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'top', ...
-         'FontSize', 8, 'Color', pal.ink2);
+         'FontSize', fs(8), 'Color', pal.ink2);
 end
 set(ax2, 'XLim', [0.4 4.6], 'YLim', [0 1.05], 'XTick', 1:4, ...
-    'XTickLabel', {'quarterly', 'monthly', 'weekly', 'daily logger'}, 'YTick', 0:0.2:1);
+    'XTickLabel', {'quarterly', 'monthly', 'weekly', 'logger'}, 'YTick', 0:0.2:1);
 grid(ax2, 'on');
 set(ax2, 'XGrid', 'off');
 finishAxes(ax2, 'Sampling of an 8-year chloride record', 'Robust warning band (-)', false);
@@ -383,9 +385,9 @@ yl = [-2.0 2.0];
 patch('Parent', ax, 'XData', [3 8 8 3], 'YData', yl([1 1 2 2]), 'FaceColor', pal.spanGray, 'EdgeColor', 'none');
 plot(ax, [2 2], yl, '-', 'Color', pal.muted, 'LineWidth', 0.8);
 text(5.5, 1.8, 'drought: recharge \times 0.3', 'Parent', ax, 'HorizontalAlignment', 'center', ...
-     'VerticalAlignment', 'middle', 'FontSize', 8, 'Color', pal.ink2);
+     'VerticalAlignment', 'middle', 'FontSize', fs(8), 'Color', pal.ink2);
 text(2.08, 1.45, 'pumping \times 2', 'Parent', ax, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'middle', ...
-     'FontSize', 8, 'Color', pal.ink2);
+     'FontSize', fs(8), 'Color', pal.ink2);
 plot(ax, yr, ref(:, bc), '-', 'Color', pal.refGray, 'LineWidth', 2.6);
 plot(ax, yr, hFixed(:, bc), '-.', 'Color', pal.aqua, 'LineWidth', 1.0);
 plot(ax, yr, hNoFlow(:, bc), '--', 'Color', pal.orange, 'LineWidth', 1.0);
@@ -406,11 +408,11 @@ plot(ax2, period, abs(Zexact), '-', 'Color', pal.refGray, 'LineWidth', 2.6);
 plot(ax2, [period(end) period(1)], p.c * [1 1], '-.', 'Color', pal.aqua, 'LineWidth', 1.0);
 plot(ax2, period, abs(Zlearned), '-', 'Color', pal.blue, 'LineWidth', 0.9);
 text(0.0115, 1.9, 'exact', 'Parent', ax2, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'top', ...
-     'FontSize', 8, 'Color', pal.ink2);
+     'FontSize', fs(8), 'Color', pal.ink2);
 text(0.03, 13, 'learned', 'Parent', ax2, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'middle', ...
-     'FontSize', 8, 'Color', pal.ink2);
+     'FontSize', fs(8), 'Color', pal.ink2);
 text(40, 6.6, 'fixed head', 'Parent', ax2, 'HorizontalAlignment', 'right', 'VerticalAlignment', 'bottom', ...
-     'FontSize', 8, 'Color', pal.ink2);
+     'FontSize', fs(8), 'Color', pal.ink2);
 set(ax2, 'XScale', 'log', 'YScale', 'log', 'XLim', [0.01 50], 'YLim', [0.08 20], 'XTick', [0.01 0.1 1 10], ...
     'XTickLabel', {'0.01', '0.1', '1', '10'}, 'YTick', [0.1 1 10], 'YTickLabel', {'0.1', '1', '10'});
 grid(ax2, 'on');
@@ -494,14 +496,14 @@ zy = [min(Y(zone)) - g.dy / 2, max(Y(zone)) + g.dy / 2];
 patch('Parent', ax, 'XData', zx([1 2 2 1]), 'YData', zy([1 1 2 2]), 'FaceColor', pal.zoneTint, ...
       'EdgeColor', pal.orange, 'LineWidth', 0.8);
 text(zx(1) + 0.02, zy(2) + 0.03, 'toe zone (goal)', 'Parent', ax, 'HorizontalAlignment', 'left', ...
-     'VerticalAlignment', 'bottom', 'FontSize', 8, 'Color', pal.ink);
+     'VerticalAlignment', 'bottom', 'FontSize', fs(8), 'Color', pal.ink);
 levels = [0.1 0.5 0.9];
 for k = 1:3
     [M, hc] = contour(ax, xy, yy, Cy, levels(k) * [1 1]);
     set(hc, 'LineColor', pal.muted, 'LineWidth', 0.8);
     [xt, yt] = topOfContour(M);
     text(xt, min(yt + 0.06, 0.95), sprintf('%.1f', levels(k)), 'Parent', ax, 'HorizontalAlignment', 'center', ...
-         'VerticalAlignment', 'middle', 'FontSize', 7.5, 'Color', pal.ink2, 'BackgroundColor', 'w', 'Margin', 0.5);
+         'VerticalAlignment', 'middle', 'FontSize', fs(7.5), 'Color', pal.ink2, 'BackgroundColor', 'w', 'Margin', 0.5);
 end
 inR = ismember(1:12, combs(ir, :));
 inS = ismember(1:12, S);
@@ -518,12 +520,12 @@ for j = 1:12
              'MarkerFaceColor', 'w', 'MarkerEdgeColor', pal.ink2, 'LineWidth', 0.8);
     end
     text(X(cand(j)) + 0.045, Y(cand(j)) + 0.05, sprintf('%d', j), 'Parent', ax, 'HorizontalAlignment', 'left', ...
-         'VerticalAlignment', 'bottom', 'FontSize', 8, 'Color', pal.ink);
+         'VerticalAlignment', 'bottom', 'FontSize', fs(8), 'Color', pal.ink);
 end
 plot(ax, X(supply), Y(supply), 'LineStyle', 'none', 'Marker', 'd', 'MarkerSize', 6.5, 'MarkerFaceColor', pal.ink, ...
      'MarkerEdgeColor', 'w', 'LineWidth', 0.75);
 text(X(supply) + 0.045, Y(supply), 'supply', 'Parent', ax, 'HorizontalAlignment', 'left', ...
-     'VerticalAlignment', 'middle', 'FontSize', 8, 'Color', pal.ink);
+     'VerticalAlignment', 'middle', 'FontSize', fs(8), 'Color', pal.ink);
 set(ax, 'XLim', [0 g.Lx], 'YLim', [0 g.Ly], 'XTick', 0:0.25:2, 'YTick', 0:0.25:1);
 finishAxes(ax, 'Distance from the inland boundary, x (m)', 'Height, y (m)', true);
 panelLabel(ax, '(a)', 1.4);
@@ -542,9 +544,9 @@ plot(ax2, 3 + 0.36 * jit, gs, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 
      'MarkerFaceColor', pal.dotGray, 'MarkerEdgeColor', 'none');
 plot(ax2, 3 + [-0.26 0.26], median(gains) * [1 1], '-', 'Color', pal.ink, 'LineWidth', 1.2);
 text(2.7, median(gains), sprintf('median %.3f', median(gains)), 'Parent', ax2, 'HorizontalAlignment', 'right', ...
-     'VerticalAlignment', 'middle', 'FontSize', 8, 'Color', pal.ink);
+     'VerticalAlignment', 'middle', 'FontSize', fs(8), 'Color', pal.ink);
 text(2.7, 0.3, {sprintf('all %d designs', numel(gains)), 'of 3 sensors'}, 'Parent', ax2, ...
-     'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', 'FontSize', 8, 'Color', pal.ink2);
+     'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', 'FontSize', fs(8), 'Color', pal.ink2);
 gsteps = [steps.gain];
 plot(ax2, 1:numel(gsteps), gsteps, '-', 'Color', pal.blue, 'LineWidth', 1.2);
 plot(ax2, 1:numel(gsteps), gsteps, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSize', 6.5, ...
@@ -552,11 +554,11 @@ plot(ax2, 1:numel(gsteps), gsteps, 'LineStyle', 'none', 'Marker', 'o', 'MarkerSi
 added = [steps.added];
 for k = 1:numel(gsteps)
     if k == 1
-        text(k, gsteps(k) - 0.13, sprintf('sensor %d', added(k)), 'Parent', ax2, 'HorizontalAlignment', 'center', ...
-             'VerticalAlignment', 'top', 'FontSize', 8, 'Color', pal.ink);
+        text(k + 0.12, gsteps(k) - 0.13, sprintf('sensor %d', added(k)), 'Parent', ax2, 'HorizontalAlignment', 'center', ...
+             'VerticalAlignment', 'top', 'FontSize', fs(8), 'Color', pal.ink);
     else
         text(k, gsteps(k) + 0.13, sprintf('+ %d', added(k)), 'Parent', ax2, 'HorizontalAlignment', 'center', ...
-             'VerticalAlignment', 'bottom', 'FontSize', 8, 'Color', pal.ink);
+             'VerticalAlignment', 'bottom', 'FontSize', fs(8), 'Color', pal.ink);
     end
 end
 set(ax2, 'XLim', [0.5 3.5], 'YLim', [0 3], 'XTick', 1:3, 'YTick', 0:0.5:3);
@@ -609,8 +611,8 @@ last = min(first + 29, N);
 say(lg, '  plotted: days 2-%d; %d blocks of 30 days (the last one has %d days); largest true daily recharge %.1f mm/d\n', ...
     N, nb, last(end) - first(end) + 1, max(o.R));
 
-fig = newFigure(16, 9.4);
-ax = newAxes(fig, [1.6 5.5 14.15 3.0]);
+fig = newFigure(16, 9.9);
+ax = newAxes(fig, [1.6 5.95 14.15 3.0]);
 day = (2:N).';
 plot(ax, [0 N + 1], [0 0], '-', 'Color', pal.muted, 'LineWidth', 0.5);
 plot(ax, day, R(2:end), '-', 'Color', pal.lightBlue, 'LineWidth', 0.5);
@@ -622,9 +624,9 @@ panelLabel(ax, '(a)', 1.45);
 items = {legendItem('line', 'true recharge (soil-water balance)', pal.ink, '-', 1.0), ...
          legendItem('line', sprintf('recharge from heads with 1 cm noise: daily rms error %.1f mm (predicted %.1f mm)', ...
                     eDaily, predicted), pal.lightBlue, '-', 1.2)};
-drawLegend(fig, [1.6 8.6 14.15 0.75], items, 2, 14.15);
+drawLegend(fig, [1.6 9.05 14.15 0.75], items, 2, 14.15);
 
-ax2 = newAxes(fig, [1.6 1.25 14.15 3.85]);
+ax2 = newAxes(fig, [1.6 1.45 14.15 3.85]);
 for k = 1:nb
     patch('Parent', ax2, 'XData', [first(k) - 0.5, last(k) + 0.5, last(k) + 0.5, first(k) - 0.5], ...
           'YData', [0 0 mTrue(k) mTrue(k)], 'FaceColor', pal.barGray, 'EdgeColor', 'w', 'LineWidth', 0.6);
@@ -637,12 +639,12 @@ set(ax2, 'XLim', [0 N + 1], 'YLim', [-20 175], 'XTick', 0:100:1100, 'YTick', 0:5
 grid(ax2, 'on');
 set(ax2, 'XGrid', 'off');
 text(14, 166, sprintf('30-day rms error %.1f mm; mean 30-day recharge %.1f mm', eMonthly, meanMonthly), ...
-     'Parent', ax2, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'middle', 'FontSize', 8.5, 'Color', pal.ink);
+     'Parent', ax2, 'HorizontalAlignment', 'left', 'VerticalAlignment', 'middle', 'FontSize', fs(8.5), 'Color', pal.ink);
 finishAxes(ax2, 'Time from 1 September of the first year (days)', '30-day recharge (mm)', false);
 panelLabel(ax2, '(b)', 1.45);
 items = {legendItem('patch', 'true', pal.barGray, '-', 1), ...
          legendItem('marker', 'from heads', pal.blue, 'o', 5, 'w')};
-drawLegend(fig, [13.45 4.05 2.3 0.8], items, 2, 2.3);
+drawLegend(fig, [13.45 4.25 2.3 0.8], items, 2, 2.3);
 saveFigure(fig, outDir, name, lg);
 end
 
@@ -682,8 +684,8 @@ function fig = newFigure(w, h)
 fig = figure('Visible', 'off', 'Color', 'w', 'Units', 'centimeters', 'Position', [2 2 w h], ...
              'PaperUnits', 'centimeters', 'PaperSize', [w h], 'PaperPosition', [0 0 w h], ...
              'PaperPositionMode', 'manual', 'InvertHardcopy', 'off', ...
-             'DefaultAxesFontName', 'Helvetica', 'DefaultAxesFontSize', 9, ...
-             'DefaultTextFontName', 'Helvetica', 'DefaultTextFontSize', 9, ...
+             'DefaultAxesFontName', 'Helvetica', 'DefaultAxesFontSize', fs(9), ...
+             'DefaultTextFontName', 'Helvetica', 'DefaultTextFontSize', fs(9), ...
              'DefaultAxesLineWidth', 0.5, 'DefaultLineLineWidth', 1.0, 'DefaultAxesTickDir', 'out', ...
              'DefaultAxesXColor', [0.15 0.15 0.15], 'DefaultAxesYColor', [0.15 0.15 0.15], ...
              'DefaultTextColor', [0.1 0.1 0.1]);
@@ -702,7 +704,7 @@ function finishAxes(ax, xl, yl, isMap)
 % Fonts, ticks and labels (10 pt labels, 9 pt tick labels). A map (ISMAP) is boxed with its axes over the data;
 % a chart keeps its light grid under the data.
 pal = palette();
-set(ax, 'FontName', 'Helvetica', 'FontSize', 9, 'TickDir', 'out', 'LineWidth', 0.5, ...
+set(ax, 'FontName', 'Helvetica', 'FontSize', fs(9), 'TickDir', 'out', 'LineWidth', 0.5, ...
     'XColor', [0.15 0.15 0.15], 'YColor', [0.15 0.15 0.15], 'Color', 'w', 'GridColor', pal.grid, ...
     'GridAlpha', 1, 'GridLineStyle', '-', 'TickLength', [0.012 0.012]);
 if isMap
@@ -711,10 +713,10 @@ else
     set(ax, 'Box', 'off', 'Layer', 'bottom');
 end
 if ~isempty(xl)
-    xlabel(ax, xl, 'FontName', 'Helvetica', 'FontSize', 10, 'Color', [0.1 0.1 0.1]);
+    xlabel(ax, xl, 'FontName', 'Helvetica', 'FontSize', fs(10), 'Color', [0.1 0.1 0.1]);
 end
 if ~isempty(yl)
-    ylabel(ax, yl, 'FontName', 'Helvetica', 'FontSize', 10, 'Color', [0.1 0.1 0.1]);
+    ylabel(ax, yl, 'FontName', 'Helvetica', 'FontSize', fs(10), 'Color', [0.1 0.1 0.1]);
 end
 end
 
@@ -722,7 +724,7 @@ function panelLabel(ax, s, offsetCm)
 % Panel letter at the top left, OFFSETCM to the left of the axes.
 pos = get(ax, 'Position');
 text('Parent', ax, 'Units', 'normalized', 'Position', [-offsetCm / pos(3), 1 + 0.1 / pos(4), 0], 'String', s, ...
-     'FontName', 'Helvetica', 'FontSize', 10, 'FontWeight', 'bold', 'HorizontalAlignment', 'left', ...
+     'FontName', 'Helvetica', 'FontSize', fs(10), 'FontWeight', 'bold', 'HorizontalAlignment', 'left', ...
      'VerticalAlignment', 'bottom', 'Clipping', 'off');
 end
 
@@ -757,7 +759,7 @@ for k = 1:numel(items)
             patch('Parent', ax, 'XData', x0 + [0.1 0.7 0.7 0.1], 'YData', y0 + 0.12 * [-1 -1 1 1], ...
                   'FaceColor', it.color, 'EdgeColor', it.edge);
     end
-    text(x0 + 0.9, y0, it.label, 'Parent', ax, 'FontName', 'Helvetica', 'FontSize', 8, ...
+    text(x0 + 0.9, y0, it.label, 'Parent', ax, 'FontName', 'Helvetica', 'FontSize', fs(8), ...
          'HorizontalAlignment', 'left', 'VerticalAlignment', 'middle', 'Clipping', 'off');
 end
 set(ax, 'XLim', [0 pos(3)], 'YLim', [0 pos(4)], 'Visible', 'off');
@@ -772,10 +774,10 @@ for k = 1:numel(lev) - 1
           'FaceColor', cmap(k, :), 'EdgeColor', 'none');
 end
 set(ax, 'XLim', lev([1 end]), 'YLim', [0 1], 'XTick', ticks, 'YTick', [], 'XAxisLocation', 'top', ...
-    'Box', 'on', 'Layer', 'top', 'TickDir', 'out', 'FontName', 'Helvetica', 'FontSize', 9, 'LineWidth', 0.5, ...
+    'Box', 'on', 'Layer', 'top', 'TickDir', 'out', 'FontName', 'Helvetica', 'FontSize', fs(9), 'LineWidth', 0.5, ...
     'XColor', [0.15 0.15 0.15], 'YColor', [0.15 0.15 0.15], 'TickLength', [0.03 0.03]);
 text('Parent', ax, 'Units', 'normalized', 'Position', [-0.04, 0.5, 0], 'String', label, 'FontName', 'Helvetica', ...
-     'FontSize', 10, 'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', 'Clipping', 'off');
+     'FontSize', fs(10), 'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', 'Clipping', 'off');
 end
 
 function [xp, yp, Cp] = padToEdges(g, C)
@@ -840,4 +842,10 @@ fprintf(1, varargin{:});
 if lg > 0
     fprintf(lg, varargin{:});
 end
+end
+
+
+function v = fs(n)
+%FS Font size of the figures: the base size N (points) enlarged by 8 %.
+v = 1.08 * n;
 end

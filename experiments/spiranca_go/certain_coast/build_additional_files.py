@@ -58,6 +58,15 @@ PARTS = [
      'equations, and deep reinforcement learning kept inside the certified limits (supplement to WP2, WP3 and WP5)',
      'Decisions in extreme events: final assembled system and deep reinforcement learning',
      os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Decisions_DRL.docx')),
+    ('Theory: the decisions of many stakeholders in a coastal aquifer under normal, drought, flood and extreme '
+     'conditions — the state of the art 2020–2026, a decision flowchart, theorems with proofs and worked examples '
+     '(preparatory work of the NPD\'s team, November 2026)',
+     'Theory: decisions of many stakeholders under normal, drought, flood and extreme conditions',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Stakeholder_Decisions_Theory.docx')),
+    ('The decision flowchart for a shared coastal aquifer: the four regimes, the actions of each stakeholder, the exit '
+     'test and the learning step, as one page and three tables',
+     'The decision flowchart for a shared coastal aquifer',
+     os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Decision_Flowchart.docx')),
     ('The project at a glance: structure, communication, team, deliverables and timeline of the work plan, in five '
      'figures drawn from the tables of the form',
      'The project at a glance: structure, communication, team, deliverables and timeline',

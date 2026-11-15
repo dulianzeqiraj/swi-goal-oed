@@ -818,6 +818,11 @@ def af_texts():
              f'the SHOCK-GO implementation report on the earthquake in the aquifer, {of("Implementation report")} pages',
              f'decisions in extreme events, with the final assembled system of equations and deep reinforcement learning '
              f'kept inside the certified limits, {of("Decisions in extreme")} pages']
+    if any(k.startswith('Theory: decisions') for k in short):
+        parts.append(f'the theory of the decisions of many stakeholders in normal, drought, flood and extreme conditions, '
+                     f'with theorems, proofs and worked examples, {of("Theory: decisions")} pages')
+    if any(k.startswith('The decision flowchart') for k in short):
+        parts.append(f'the decision flowchart with its tables, {of("The decision flowchart")} pages')
     if glance:
         parts.append(f'the project at a glance in five figures (structure, communication, team, deliverables, Gantt chart), '
                      f'{pg[glance]} pages')
@@ -832,14 +837,13 @@ def af_texts():
               'whose open-source version is updated continuously.')
     info = (f'The additional files open with the state of the art, what {N_PAPERS} key papers of 2020–2026 have done, '
             'what they have not done and what CERTAIN-COAST brings, and with a mathematical state of the art. They '
-            'continue with the technical annex, which summarises the methods and their preparatory tests, a technical '
-            'note on the coupled model and the placement of recharge and supply wells, a theory note on the inland '
-            'boundary of that model, learned from piezometers, and an implementation report on the earthquake in the '
-            'aquifer. A further part states the decisions the operators must take in extreme events, writes the '
-            'equations as one final assembled system and adds deep reinforcement learning kept inside the certified '
-            'limits; ' + ('the project at a glance and ' if glance else '') + 'the CVs of the two Project Directors close '
-            'the files. The full methodology, work packages, risk assessment and data management plan are available on '
-            'request.')
+            'continue with the technical annex (methods and preparatory tests), a technical note on the coupled model and '
+            'the placement of wells, a theory note on the inland boundary learned from piezometers and a report on the '
+            'earthquake in the aquifer. Further parts write the decisions in extreme events as one final assembled system '
+            'with deep reinforcement learning kept inside the certified limits, and prove what each stakeholder should do '
+            'in normal, drought, flood and extreme conditions, with a decision flowchart; '
+            + ('the project at a glance and ' if glance else '') + 'the CVs of the two Project Directors close the files. '
+            'The full methodology, work packages, risk assessment and data management plan are available on request.')
     return check, upload, info
 
 
@@ -1025,7 +1029,8 @@ def main(out):
             ['Nationality (and other nationalities)', 'Albanian', 'Qatari'],
             ['Telephone, mobile, personal and work e-mail; online profile (optional)', '[contact data]', '[from the partner form]'],
             ['Current job title; name, country and postal address of the institution',
-             'Associate Professor; Faculty of Geology and Mining, Polytechnic University of Tirana, Albania; [postal address]',
+             'Associate Professor; hydrogeologist and geo-environmental engineer; Faculty of Geology and Mining, Polytechnic '
+             'University of Tirana, Albania; [postal address]',
              'Research Professor and Manager of the research vessel Janan; Environmental Science Center, Qatar University, '
              'P.O. Box 2713, Doha, Qatar'],
             ['Employment history (three rows)', '2008–: Faculty of Geology and Mining, UPT (lecturer, then associate professor); '

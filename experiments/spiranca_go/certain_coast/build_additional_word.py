@@ -44,7 +44,10 @@ ORANGE, CREAM = 'C55A11', 'FDF3EA'
 REPO = 'https://github.com/dulianzeqiraj/certain-coast'           # the open-source code
 DOI = '10.5281/zenodo.24148762'                                  # its archive on Zenodo (all versions)
 COVER_FIG = os.path.join(HERE, 'guide', 'fig', 'fig01_system.png')
-EQ_DPI = 400          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
+EQ_DPI = 360          # equation pictures of the PDF: sharp in print, and the PDF stays under 10 MB
+EQ_INLINE_SCALE = 1.15   # inline formulas a little larger than the text (the math font has a smaller x-height than Arial)
+EQ_DISPLAY_SCALE = 1.08  # display equations a little larger
+EQ_ALPHA_GAMMA = 0.8     # slightly heavier strokes, so the equations read clearly on screen
 PAGES_JSON = os.path.join(ROOT, 'docs', 'certain_coast', 'CERTAIN-COAST_Additional_Files_pages.json')
 RED_NOTE = (' Equations set in red are new in this proposal, results of the preparatory work of the NPD\'s team; '
             'equations in black are standard.')
@@ -54,6 +57,8 @@ SHORT = ['State of the art: what has been done and what CERTAIN-COAST brings',
          'Theory note: BEYOND-GO, the boundary where the model is cut',
          'Implementation report: SHOCK-GO, the earthquake in the aquifer',
          'Decisions in extreme events: final assembled system and deep reinforcement learning',
+         'Theory: decisions of many stakeholders under normal, drought, flood and extreme conditions',
+         'The decision flowchart for a shared coastal aquifer',
          'The project at a glance: structure, communication, team, deliverables and timeline',
          'CV of the NATO-country Project Director', 'CV of the partner-country Project Director']
 # the line under the title of each part in the contents and in its banner
@@ -73,13 +78,19 @@ BLURB = [
     'The decisions the operators and the end-user must take when an extreme event comes, the equations of the project '
     'as one final assembled system with the decisions in it, and deep reinforcement learning that recommends only '
     'decisions inside the certified safe window. Supplement to WP2, WP3 and WP5.',
+    'What each stakeholder (agency, water utility, farmers, tourism, civil protection) should do in each regime of the '
+    'aquifer and how the system leaves it: five theorems and three propositions with proofs, and seven worked examples '
+    'on a synthetic coastal aquifer. Preparatory work of the NPD\'s team, November 2026.',
+    'The decision flowchart read once per season: monitoring, the forecast layer, the classification of the regime, '
+    'the actions of each stakeholder in each regime, the exit test with its hysteresis band and the learning step.',
     'The work plan in five figures: who leads each work package and what passes between them, how the results reach '
     'each audience, who does the work, when each deliverable is due, and the Gantt chart with the evidence gates.',
     'Assoc. Prof. Dr. Dulian Zeqiraj, Faculty of Geology and Mining, Polytechnic University of Tirana.',
     'Prof. Jassim Al-Khayat, Environmental Science Center, Qatar University.']
 # the running header of each part
 HEADER = ['State of the art', 'Mathematical state of the art', 'Technical annex', 'Technical note: the assembled system', 'Theory note: BEYOND-GO',
-          'Implementation report: SHOCK-GO', 'Decisions in extreme events', 'The project at a glance',
+          'Implementation report: SHOCK-GO', 'Decisions in extreme events', 'Theory: stakeholder decisions by regime',
+          'The decision flowchart', 'The project at a glance',
           'CV of the NATO-country Project Director',
           'CV of the partner-country Project Director']
 # what is new in each part, in the words of the part itself (its innovation box, or Table 3 of the annex)
@@ -115,7 +126,17 @@ NEW = [
      'and the decisions of every operator, and a deep reinforcement learning agent recommends only decisions inside '
      'the certified safe window. When no decision is safe, a rule agreed before the season shows the trade-off between '
      'the hazards to the people who decide.'),
-    ('Work plan', 8,
+    ('Stakeholder decisions by regime', 8,
+     'A charge rule for a resource with two opposite hazards: personalised by damage shares, a tax in drought and a '
+     'subsidy for drainage where flood risk dominates; the value of stored water that tells the agency when to hedge '
+     'before a drought and when to draw down before a flood; a robust limit from a short record that becomes exactly '
+     'the safe yield once a season without recharge cannot be excluded; the flood-to-drought double dividend of managed '
+     'recharge; and the tipping premium that users internalise only one N-th of (Theorems 1–5).'),
+    ('Decision flowchart', 9,
+     'One operational scheme that assigns, in every regime, the actions, the instruments and the theorem behind them to '
+     'each stakeholder, with security reports as a direct trigger of the extreme regime and a hysteresis band for the '
+     'way out.'),
+    ('Work plan', 10,
      'A work plan built around evidence gates: each certified result is tested at a gate with a pass test and a '
      'fallback fixed in advance before the next work package relies on it, and the gates stand on the critical path. '
      'The figures are drawn from the tables of the form, so the two cannot disagree.'),
@@ -818,9 +839,10 @@ def contents(doc, pages):
         'proofs and the numerical checks behind it; every number in them is computed by the scripts of the preparatory '
         'work of the NPD\'s team. Part 7 states the decisions the operators must take in extreme events, writes the '
         'equations as one final assembled system and adds deep reinforcement learning kept inside the certified limits; '
-        'each of Parts 1 to 6 opens with what it gives to that agent. Part 8 shows the work plan in five figures, and '
-        'Parts 9 and 10 are the CVs of the two Project Directors.',
-        'The equations of Parts 1 to 7 are set as native Word math.' + RED_NOTE + ' The names of the preparatory '
+        'each of Parts 1 to 6 opens with what it gives to that agent. Part 8 proves what each stakeholder should do in '
+        'normal, drought, flood and extreme conditions, and Part 9 gives the same decisions as one flowchart. Part 10 '
+        'shows the work plan in five figures, and Parts 11 and 12 are the CVs of the two Project Directors.',
+        'The equations of Parts 1 to 9 are set as native Word math.' + RED_NOTE + ' The names of the preparatory '
         'experiments are given in English (BEYOND-GO, SHOCK-GO, ASSEMBLY-GO, ...).',
         'Every figure is a result of the author\'s code. The open-source code of the project (MATLAB, also runs in the '
         'free GNU Octave) is updated continuously; if the project is funded, its final stage is a three-dimensional '
@@ -1044,6 +1066,8 @@ def build(out, pages):
         n_j = PP.justify(elements, ppr_insert)           # justified body text
         n_c = PP.caption_notes(elements, note_run)       # the code note under every figure caption
         n_red, n_red_in = PP.colour_equations(elements, i)   # the equations new in this proposal, in red
+        if i in PP.THEOREM_PARTS:                            # the author's own theorems, in red
+            n_red_in += PP.colour_theorems(elements)
         print(f'  part {i + 1}: {n_ed} edit(s), {n_j} paragraph(s) justified, {n_c} caption note(s), '
               f'{n_red} numbered and {n_red_in} inline equation(s) in red')
         for el in elements:
@@ -1150,6 +1174,8 @@ def pdf_for_upload(docx_path, outdir):
     rdir = os.path.join(outdir, base + '_render')
     os.makedirs(rdir, exist_ok=True)
     rendered = os.path.join(rdir, base + '.docx')
+    omml_render.INLINE_SCALE, omml_render.DISPLAY_SCALE = EQ_INLINE_SCALE, EQ_DISPLAY_SCALE
+    omml_render.ALPHA_GAMMA = EQ_ALPHA_GAMMA
     st = omml_render.render_equations(docx_path, rendered, dpi=EQ_DPI, workdir=os.path.join(rdir, 'eq'))
     print('  equations drawn for the PDF:', {k: v for k, v in st.items() if isinstance(v, (int, float))})
     shrink_media(rendered)

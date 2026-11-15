@@ -1,23 +1,23 @@
 CERTAIN-COAST 0.1.0 from /home/user/dulianzeqiraj/certain-coast
-GNU Octave 8.4.0 (graphics toolkit qt), 2026-11-14 16:58:48
+GNU Octave 8.4.0 (graphics toolkit qt), 2026-11-15 02:56:41
 
 === fig1_henry
 Henry benchmark: Henry number phi*Dmol/Q = 0.100
   16 x  8: toe 1.4226 m (0.711 of the length), residual 3.2e-17, 8 Newton steps, 0.1 s
   32 x 16: toe 1.3971 m (0.699 of the length), residual 2.3e-16, 7 Newton steps, 0.3 s
   41 x 21: toe 1.3918 m (0.696 of the length), residual 3.5e-14, 7 Newton steps, 0.6 s
-  61 x 31: toe 1.3864 m (0.693 of the length), residual 7.0e-13, 7 Newton steps, 1.6 s
+  61 x 31: toe 1.3864 m (0.693 of the length), residual 7.0e-13, 7 Newton steps, 1.5 s
   plotted: field of the 61 x 31 grid; the 0.5 isochlor meets the base at 1.3864 m and the sea boundary at y = 0.93 m
-saved /tmp/work/scratchpad/matlab_figs/figures/fig1_henry.png and /tmp/work/scratchpad/matlab_figs/figures/fig1_henry.pdf
-(3.7 s)
+saved /tmp/work/scratchpad/mfigs4/out/fig1_henry.png and /tmp/work/scratchpad/mfigs4/out/fig1_henry.pdf
+(3.5 s)
 
 === fig2_alarm
 margin 23.9 mg/L; events 23, missed 0; 95% upper bound on the miss rate 0.122
   plotted: alarm level (limit - margin) 226.1 mg/L; alarm on at 119 of 600 live steps (96 of them without an event)
   plotted: 600 calibration errors (steps 1-600), 59 of them above the margin; live steps 601-1200
   plotted: histogram of the calibration errors in bins of 10 mg/L from -60 to 60 (600 of 600 errors)
-saved /tmp/work/scratchpad/matlab_figs/figures/fig2_alarm.png and /tmp/work/scratchpad/matlab_figs/figures/fig2_alarm.pdf
-(1.3 s)
+saved /tmp/work/scratchpad/mfigs4/out/fig2_alarm.png and /tmp/work/scratchpad/mfigs4/out/fig2_alarm.pdf
+(1.2 s)
 
 === fig3_betweensamples
 probability of crossing in the season 0.79; at the samples alone (marginal tail) 0.023
@@ -27,8 +27,8 @@ weekly samples     correlation time    6.8 d, 95% interval    5.5-   8.3 d; warn
 daily logger       correlation time    7.6 d, 95% interval    7.2-   8.1 d; warning band 0.79-0.82
   plotted: crossing curve over correlation times 0.25-400 d (41 rates, 8000 paths, season 120 d, z = 2)
   inputs of the example: limit 250 mg/L, mean 180 mg/L, standard deviation 35 mg/L, true correlation time 8 d
-saved /tmp/work/scratchpad/matlab_figs/figures/fig3_betweensamples.png and /tmp/work/scratchpad/matlab_figs/figures/fig3_betweensamples.pdf
-(8.1 s)
+saved /tmp/work/scratchpad/mfigs4/out/fig3_betweensamples.png and /tmp/work/scratchpad/mfigs4/out/fig3_betweensamples.pdf
+(7.2 s)
 
 === fig4_boundary
 20 years, error at the boundary cell (m, rms):
@@ -47,15 +47,15 @@ Prediction of a drought with doubled pumping, 10 years (m, rms at the boundary c
     period  0.0137 years: exact 3.706, learned 12.379 (+234%)
   fixed head: |Z| = 5.0 m/d at every period; no flow: Z = 0 (not on the log scale)
   inputs of the example: piezometers in cells 18 and 19 with 2 mm noise, 7305 days of calibration; prediction: pumping 0.6 -> 1.2 m2/d from year 2, recharge x 0.3 in years 3-8
-saved /tmp/work/scratchpad/matlab_figs/figures/fig4_boundary.png and /tmp/work/scratchpad/matlab_figs/figures/fig4_boundary.pdf
-(7.7 s)
+saved /tmp/work/scratchpad/mfigs4/out/fig4_boundary.png and /tmp/work/scratchpad/mfigs4/out/fig4_boundary.pdf
+(7.6 s)
 
 === fig5_network
 Salt mass near the toe: greedy design [4 7 8] gives 2.539 nats; exhaustive optimum [4 7 8] 2.539; median design 1.457
 Supply cell above its limit (prior probability 0.38): best design [7 8 11] gives 0.500 nats;
   the salt-mass design [4 7 8] gives it 0.499 nats (100% of that optimum).
   plotted: greedy order [7 4 8]; gain after each added sensor [2.03 2.422 2.539] nats; all 220 designs of 3 sensors: 0.069-2.539 nats
-saved /tmp/work/scratchpad/matlab_figs/figures/fig5_network.png and /tmp/work/scratchpad/matlab_figs/figures/fig5_network.pdf
+saved /tmp/work/scratchpad/mfigs4/out/fig5_network.png and /tmp/work/scratchpad/mfigs4/out/fig5_network.pdf
 (1.4 s)
 
 === fig6_recharge
@@ -64,7 +64,7 @@ recharge from heads: daily error 2.8 mm (predicted 2.8); monthly error 2.6 mm (m
 scaled parameters: largest head change 2.7e-15 m, recharge 599 mm/yr instead of 399
 so a pumping test (Sy), a soil-moisture probe or a chloride balance is needed to fix the amount.
   plotted: days 2-1096; 37 blocks of 30 days (the last one has 15 days); largest true daily recharge 9.5 mm/d
-saved /tmp/work/scratchpad/matlab_figs/figures/fig6_recharge.png and /tmp/work/scratchpad/matlab_figs/figures/fig6_recharge.pdf
-(1.3 s)
+saved /tmp/work/scratchpad/mfigs4/out/fig6_recharge.png and /tmp/work/scratchpad/mfigs4/out/fig6_recharge.pdf
+(1.2 s)
 
 6 figure(s) made: fig1_henry, fig2_alarm, fig3_betweensamples, fig4_boundary, fig5_network, fig6_recharge
