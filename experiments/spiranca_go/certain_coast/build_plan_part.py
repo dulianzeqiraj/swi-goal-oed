@@ -7,6 +7,7 @@ import os
 import sys
 
 from docx import Document
+from docx.enum.section import WD_ORIENT, WD_SECTION
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
@@ -85,6 +86,12 @@ def main(figdir, out):
            'and a fallback before the next work package relies on it, and the gates stand on the critical path, so '
            'the plan shows where the project can fail early and what it does then.', size=10.5)
     para(doc, 6)
+    # the figures on landscape pages, 21.5 cm wide instead of 17 cm: their text prints about 27 % larger
+    ls = doc.add_section(WD_SECTION.NEW_PAGE)
+    ls.orientation = WD_ORIENT.LANDSCAPE
+    ls.page_width, ls.page_height = Cm(29.7), Cm(21.0)
+    ls.left_margin = ls.right_margin = Cm(2.0)
+    ls.top_margin, ls.bottom_margin = Cm(1.4), Cm(1.3)
     for k, (fn, cap) in enumerate(FIGS, 1):
         path = os.path.join(figdir, fn)
         if not os.path.exists(path):
@@ -96,7 +103,7 @@ def main(figdir, out):
         p = para(doc, 2)
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p.paragraph_format.keep_with_next = True
-        p.add_run().add_picture(path, width=Cm(17.0))
+        p.add_run().add_picture(path, width=Cm(21.5))
         p = para(doc, 10)
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         run(p, f'Figure {k}. {cap}', italic=True, size=9.5, color=GREY)

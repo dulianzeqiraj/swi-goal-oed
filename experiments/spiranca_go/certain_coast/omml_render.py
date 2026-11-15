@@ -1090,9 +1090,18 @@ def typeset(mtex, arrays, size_pt, dpi, display):
     return img, asc_px
 
 
+# Set larger than 1 to make the equations of the PDF stand out more from the text: the STIX math font has a smaller
+# x-height than Arial, so at the size of the text an inline formula looks smaller and lighter than the words around it.
+INLINE_SCALE = 1.0          # inline formulas: typeset at this multiple of the size of the text beside them
+DISPLAY_SCALE = 1.0         # display equations: the same for their size
+ALPHA_GAMMA = 1.0           # below 1 darkens the anti-aliased edges, so thin strokes read a little heavier
+
+
 def _png(cov, color):
     """8-bit palette PNG: one colour, 256 levels of transparency."""
     from PIL import Image
+    if ALPHA_GAMMA != 1.0:
+        cov = np.clip(np.rint(255.0 * (cov.astype(np.float64) / 255.0) ** ALPHA_GAMMA), 0, 255).astype(np.uint8)
     r, g, b = (int(color[k:k + 2], 16) for k in (0, 2, 4))
     im = Image.frombytes('P', (cov.shape[1], cov.shape[0]), np.ascontiguousarray(cov).tobytes())
     im.putpalette([r, g, b] * 256)
@@ -1698,8 +1707,9 @@ def _render(src_docx, dst_docx, red, dpi, display_pt, default_inline_pt, work, t
             res = {'error': 'pandoc gave no LaTeX', 'tex': None}
         else:
             try:
-                mtex, arrays = tex_to_mathtext(tex, display, size)
-                cov, asc_px = typeset(mtex, arrays, size, dpi, display)
+                ts = size * (DISPLAY_SCALE if display else INLINE_SCALE)
+                mtex, arrays = tex_to_mathtext(tex, display, ts)
+                cov, asc_px = typeset(mtex, arrays, ts, dpi, display)
                 png = _png(cov, color)
                 emu_px = EMU_PER_INCH / dpi
                 h_px, w_px = cov.shape
