@@ -1,0 +1,6 @@
+ensembles 134s
+65 designs re-estimated 234s
+rA: best ['P17', 'A3', 'A10', 'A13', 'A23'] 0.455 nats (ESS 77); area 69%, areaEns 71%, hA 100%, meanAB 100%, pragLin 100%, pragEns 99%, pragNSA 99%, pragNS 99%
+rAB: best ['P17', 'A3', 'A10', 'A13', 'A23'] 0.434 nats (ESS 77); area 48%, areaEns 50%, hA 100%, meanAB 100%, pragLin 100%, pragEns 99%, pragNSA 99%, pragNS 99%
+rArea: best ['A3', 'A10', 'A13', 'A23', 'A28'] 0.395 nats (ESS 86); area 96%, areaEns 97%, hA 97%, meanAB 97%, pragLin 97%, pragEns 98%, pragNSA 98%, pragNS 98%
+done 234s

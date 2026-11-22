@@ -1,0 +1,27 @@
+{
+ "order": [
+  "theta_inner",
+  "theta_outer",
+  "noise_ns",
+  "noise_ex"
+ ],
+ "shapes": {
+  "theta_inner": [
+   12000,
+   12
+  ],
+  "theta_outer": [
+   2000,
+   12
+  ],
+  "noise_ns": [
+   12000,
+   16
+  ],
+  "noise_ex": [
+   2000,
+   16
+  ]
+ },
+ "dtype": "float64 little-endian, row by row"
+}

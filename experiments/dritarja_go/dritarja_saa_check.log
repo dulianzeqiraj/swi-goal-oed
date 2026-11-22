@@ -1,0 +1,9 @@
+obs window  1: in-sample loss of the network 0.46225, of the optimal rule 0.41217 (network - optimal: +12.15%); 1185 weights
+obs window  2: in-sample loss of the network 0.43332, of the optimal rule 0.41269 (network - optimal: +5.00%); 1249 weights
+obs window  4: in-sample loss of the network 0.41787, of the optimal rule 0.41209 (network - optimal: +1.40%); 1377 weights
+obs window  8: in-sample loss of the network 0.41304, of the optimal rule 0.41180 (network - optimal: +0.30%); 1633 weights
+obs window 16: in-sample loss of the network 0.41144, of the optimal rule 0.41175 (network - optimal: -0.08%); 2145 weights
+obs window 32: in-sample loss of the network 0.41012, of the optimal rule 0.41295 (network - optimal: -0.69%); 3169 weights
+arx window  1: in-sample loss of the network 0.41904, of the optimal rule 0.41712 (network - optimal: +0.46%); 1281 weights
+arx window  2: in-sample loss of the network 0.41220, of the optimal rule 0.41209 (network - optimal: +0.03%); 1377 weights
+arx window  4: in-sample loss of the network 0.41179, of the optimal rule 0.41232 (network - optimal: -0.13%); 1569 weights

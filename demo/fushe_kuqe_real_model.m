@@ -19,11 +19,11 @@ function fushe_kuqe_real_model(xlsxfile)
 %   modelled head 0 (coast) to ~14 m (interior); Ghyben-Herzberg toe
 %   penetration ~1.4 km mean (3.5 km max).
 %
-%   Usage:  fushe_kuqe_real_model('Fushe_Kuqe_All_Data.xlsx')
+%   Usage:  fushe_kuqe_real_model('../data/Fushe_Kuqe_All_Data.xlsx')
 %
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
 
-    if nargin<1, xlsxfile='Fushe_Kuqe_All_Data.xlsx'; end
+    if nargin<1, xlsxfile=fullfile(fileparts(mfilename('fullpath')),'..','data','Fushe_Kuqe_All_Data.xlsx'); end
 
     % ---- representative parameters (EDIT to your site knowledge) -----------
     par.b_thick = 30;        % aquifer thickness [m]   (literature T/K -> 20-40 m)

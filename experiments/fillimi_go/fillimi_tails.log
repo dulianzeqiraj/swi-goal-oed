@@ -1,0 +1,9 @@
+beta=0.3  mobile 1000 m  fitted exponent  -2.34   theory -2.30
+beta=0.3  mobile 4750 m  fitted exponent  -2.34   theory -2.30
+beta=0.3  clay 2500 m    fitted exponent  -0.33   theory -0.30
+beta=0.5  mobile 1000 m  fitted exponent  -2.55   theory -2.50
+beta=0.5  mobile 4750 m  fitted exponent  -2.55   theory -2.50
+beta=0.5  clay 2500 m    fitted exponent  -0.51   theory -0.50
+beta=0.7  mobile 1000 m  fitted exponent  -2.76   theory -2.70
+beta=0.7  mobile 4750 m  fitted exponent  -2.76   theory -2.70
+beta=0.7  clay 2500 m    fitted exponent  -0.70   theory -0.70

@@ -1,0 +1,24 @@
+observed well deviation used for unit-level queries (meq/L): Cl 6.78, Na 4.36, K 0.05, Ca 1.68, Mg 2.05, SO4 0.70, HCO3 0.70
+no stoichiometry, baseline only                            fibre 6; unidentified share of Q1 6.69e-02, Q2 3.79e-01, Q3 2.16e-02
+no stoichiometry, pumping regime                           fibre 4; unidentified share of Q1 5.25e-16, Q2 3.10e-01, Q3 2.24e-16
+no stoichiometry, irrigation regime                        fibre 2; unidentified share of Q1 5.96e-16, Q2 1.36e-01, Q3 2.19e-16
+no stoichiometry, clay-facies regime                       fibre 2; unidentified share of Q1 5.64e-02, Q2 1.60e-16, Q3 1.68e-02
+no stoichiometry, pumping + clay-facies regimes            fibre 1; unidentified share of Q1 1.65e-16, Q2 3.12e-16, Q3 1.34e-16
+no stoichiometry, irrigation + clay-facies regimes         fibre 0; unidentified share of Q1 0.00e+00, Q2 0.00e+00, Q3 0.00e+00
+no stoichiometry, all three regimes                        fibre 0; unidentified share of Q1 0.00e+00, Q2 0.00e+00, Q3 0.00e+00
+seawater signature known, baseline only                    fibre 4; unidentified share of Q1 2.94e-03, Q2 5.54e-01, Q3 1.45e-04
+seawater signature known, pumping regime                   fibre 2; unidentified share of Q1 2.85e-17, Q2 2.92e-01, Q3 1.29e-18
+seawater signature known, clay-facies regime               fibre 1; unidentified share of Q1 2.51e-03, Q2 2.23e-16, Q3 1.08e-04
+seawater signature known, pumping + clay-facies regimes    fibre 0; unidentified share of Q1 0.00e+00, Q2 0.00e+00, Q3 0.00e+00
+seawater + weathering signatures known, baseline only      fibre 2; unidentified share of Q1 4.98e-04, Q2 5.65e-01, Q3 6.98e-05
+seawater + weathering signatures known, pumping regime     fibre 1; unidentified share of Q1 6.23e-18, Q2 2.67e-01, Q3 4.62e-19
+seawater + weathering signatures known, clay-facies regime fibre 0; unidentified share of Q1 0.00e+00, Q2 0.00e+00, Q3 0.00e+00
+all three signatures known, baseline only                  fibre 0; unidentified share of Q1 0.00e+00, Q2 0.00e+00, Q3 0.00e+00
+exchange signature known only, baseline only               fibre 4; unidentified share of Q1 9.55e-02, Q2 2.43e-01, Q3 3.08e-02
+no stoichiometry, baseline only                            relative error of the counterfactual (median / 90th pct): seawater halved 0.066 / 0.143, no exchange 4.034 / 5.821; spread over equally good fits 0.095, 5.397
+seawater + weathering signatures known, baseline only      relative error of the counterfactual (median / 90th pct): seawater halved 0.021 / 0.042, no exchange 1.880 / 3.245; spread over equally good fits 0.054, 2.983
+no stoichiometry, pumping regime                           relative error of the counterfactual (median / 90th pct): seawater halved 0.028 / 0.066, no exchange 3.771 / 6.733; spread over equally good fits 0.001, 0.063
+no stoichiometry, irrigation + clay-facies regimes         relative error of the counterfactual (median / 90th pct): seawater halved 0.065 / 0.156, no exchange 1.691 / 4.703; spread over equally good fits 0.057, 0.226
+seawater signature known, pumping + clay-facies regimes    relative error of the counterfactual (median / 90th pct): seawater halved 0.032 / 0.057, no exchange 0.152 / 0.297; spread over equally good fits 0.033, 0.125
+all three signatures known, baseline only                  relative error of the counterfactual (median / 90th pct): seawater halved 0.010 / 0.013, no exchange 0.000 / 0.000; spread over equally good fits 0.000, 0.000
+runtime 502 s

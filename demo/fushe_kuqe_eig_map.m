@@ -20,11 +20,11 @@ function fushe_kuqe_eig_map(xlsxfile)
 %   (Eftimi 2003; Cenameri & Beqiraj 2016/2018); intrusion/toe is a model
 %   estimate (no chloride data).
 %
-%   Usage:  addpath ../src; fushe_kuqe_eig_map('Fushe_Kuqe_All_Data.xlsx')
+%   Usage:  addpath ../src; fushe_kuqe_eig_map('../data/Fushe_Kuqe_All_Data.xlsx')
 %
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
 
-    if nargin<1, xlsxfile='Fushe_Kuqe_All_Data.xlsx'; end
+    if nargin<1, xlsxfile=fullfile(fileparts(mfilename('fullpath')),'..','data','Fushe_Kuqe_All_Data.xlsx'); end
     if exist('fushe_kuqe_field_design','file')~=2, addpath(fullfile('..','src')); end
 
     % ---- ONE shared physical model, SAME default as fushe_kuqe_design and

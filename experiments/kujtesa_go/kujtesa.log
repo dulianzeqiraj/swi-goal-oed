@@ -1,0 +1,10 @@
+optimal pumping rule K* on (m, h, X, c) = [-0.6947 -1.4381  0.7343  0.3834]; closed-loop eigenvalues [0.995 +0.j     0.7   +0.j     0.6593+0.2241j 0.6593-0.2241j]
+modal contraction of fitted value iteration: max |measured - g mu_i mu_j| over all mode pairs = 6.39e-15
+updates to reach 1% error: slow x slow mode 230 (predicted 230); slow x fast 13; fastest pair 7
+Q-iteration of the control problem: iterations until the pumping gain is within 1%: m 8, h 7, X 7, c 7; tail contraction of the gain on c 0.9802 (g mu_slow = 0.9851, g mu_slow^2 = 0.9802)
+exact relative error of P_cc after 25/50/100 updates: FVI 0.341/0.207/0.076 (below 10% at 87); FVI, lambda-returns 0.006/0.000/0.000 (below 10% at 10); FVI, physics shaping 0.064/0.039/0.014 (below 10% at 3)
+physics potential from a model with clay memory 0.993 instead of 0.995: initial slow-mode error 18.8% of the unshaped one; saves 83 updates
+neural FVI                   : P_cc error (median of 5 seeds) after 25/50/100/200 updates 0.234/0.258/0.074/0.097; first below 10% at 9; mean in the second half 0.067 (90th pct 0.117); total error at the end 0.0071; slow-mode noise: sd of residual 0.0034, sd of error 0.0637, ratio 19.00 (white-noise prediction 5.04, worst case 50.4)
+neural FVI, lambda-returns   : P_cc error (median of 5 seeds) after 25/50/100/200 updates 0.175/0.025/0.006/0.006; first below 10% at 13; mean in the second half 0.007 (90th pct 0.013); total error at the end 0.0009; slow-mode noise: sd of residual 0.0029, sd of error 0.0067, ratio 2.31 (white-noise prediction 1.80, worst case 5.9)
+neural FVI, physics shaping  : P_cc error (median of 5 seeds) after 25/50/100/200 updates 0.066/0.037/0.015/0.004; first below 10% at 4; mean in the second half 0.008 (90th pct 0.015); total error at the end 0.0004; slow-mode noise: sd of residual 0.0004, sd of error 0.0066, ratio 16.74 (white-noise prediction 5.04, worst case 50.4)
+runtime 427 s

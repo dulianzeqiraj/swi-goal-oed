@@ -1,0 +1,4 @@
+  120 months (10 years): mean excess of the deployed rule 10.744% (SE 4.153%), predicted tr(H I^-1)/(2 N J*) 2.092%, ratio 5.14; unstable 13/100; sd of the estimates / Cramer-Rao 0.94, 0.85, 1.07, 1.36
+  360 months (30 years): mean excess of the deployed rule 1.121% (SE 0.251%), predicted tr(H I^-1)/(2 N J*) 0.697%, ratio 1.61; unstable 6/100; sd of the estimates / Cramer-Rao 0.87, 1.02, 0.90, 1.36
+ 1200 months (100 years): mean excess of the deployed rule 0.287% (SE 0.052%), predicted tr(H I^-1)/(2 N J*) 0.209%, ratio 1.37; unstable 0/100; sd of the estimates / Cramer-Rao 1.20, 1.03, 0.78, 1.11
+100 replications per length; 103 s

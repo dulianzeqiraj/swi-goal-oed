@@ -1,0 +1,7 @@
+mse phys=True N=80 wP=100 wH=100 (22s) | eta: 3.00x sd2.20 cov0.59 qL: 2.00x sd6.96 cov1.00 r: 4.61x sd5.04 cov0.92 h0: 4.25x sd3.91 cov0.98 | P_rms 4.2 | cons 96.3 cm fit_d 92.0 fit_p 27.6
+mse phys=True N=80 wP=100 wH=300 (21s) | eta: 3.00x sd2.20 cov0.58 qL: 2.00x sd6.77 cov1.00 r: 4.03x sd4.72 cov0.95 h0: 3.50x sd3.45 cov0.98 | P_rms 4.1 | cons 59.9 cm fit_d 57.9 fit_p 21.5
+l2 phys=True N=80 wP=30 wH=30 (21s) | eta: 3.00x sd2.20 cov0.59 qL: 2.27x sd7.16 cov1.00 r: 5.73x sd6.79 cov0.92 h0: 5.56x sd4.86 cov0.97 | P_rms 8.5 | cons 201.0 cm fit_d 196.5 fit_p 39.0
+l2 phys=True N=80 wP=100 wH=100 (21s) | eta: 2.99x sd2.20 cov0.57 qL: 1.96x sd6.80 cov1.00 r: 3.93x sd4.41 cov0.90 h0: 3.80x sd3.97 cov0.92 | P_rms 1.4 | cons 109.7 cm fit_d 101.9 fit_p 20.2
+l2 phys=True N=80 wP=300 wH=300 (21s) | eta: 2.99x sd2.19 cov0.58 qL: 1.97x sd6.71 cov1.00 r: 4.30x sd5.19 cov0.91 h0: 6.95x sd10.04 cov0.97 | P_rms 0.5 | cons 77.7 cm fit_d 70.8 fit_p 20.6
+l2 phys=False N=80 wP=100 wH=100 (21s) | eta: 3.00x sd2.20 cov0.57 qL: 2.02x sd7.01 cov1.00 r: 4.52x sd4.73 cov0.86 h0: 10.05x sd6.65 cov0.81 | P_rms 1.2 | cons 34.8 cm fit_d 0.3 fit_p 104.2
+mse phys=True N=80 wP=300 wH=30 (20s) | eta: 3.00x sd2.20 cov0.59 qL: 2.12x sd7.17 cov1.00 r: 4.63x sd5.00 cov0.84 h0: 5.52x sd4.61 cov0.94 | P_rms 2.2 | cons 149.9 cm fit_d 149.4 fit_p 39.9

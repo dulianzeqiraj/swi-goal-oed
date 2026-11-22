@@ -1,0 +1,7 @@
+__pycache__/
+*_stdout.txt
+res/ensemble.npz
+res/figs/
+*.docx
+*.pdf
+res_fk/

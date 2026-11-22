@@ -8,3 +8,69 @@ octave-workspace
 
 # progress file of the refinement ladder (the archived result is r2_gate2_refine.csv)
 revision_r2/r2_results/r2_gate2_refine_partial.csv
+
+# chloride study: large or regenerated outputs (fkcl_post.py, fkcl_sensitivity.py, fkcl_run_all.m)
+__pycache__/
+chloride_fk/results/post_ensemble.npz
+chloride_fk/results/calib_ensemble_shallow.npz
+chloride_fk/results_matlab/
+chloride_fk/figures_matlab/
+chloride_fk/tsv/
+
+# VEGLA-GO graph-space cache (rebuilt by vegla_exp.py in about 1 minute)
+experiments/vegla_go/vegla_space.npz
+
+# HARTA-GO: prior ensembles (about 10 MB, rebuilt by harta_ens.py in about 3 minutes) and run logs
+experiments/harta_go/harta_ens.npz
+experiments/harta_go/*.log
+# JEHONA-GO run logs
+experiments/jehona_go/*.log
+# SHKALLA-GO: prior banks (about 8.5 MB, rebuilt by shkalla_exp.py in about 9 minutes) and run logs
+experiments/shkalla_go/shkalla_bank.npz
+experiments/shkalla_go/*.log
+# DARA-GO: cores of map D (about 4 MB, rebuilt by dara_exp.py) and run logs
+experiments/dara_go/dara_maps.npz
+experiments/dara_go/*.log
+# KURSIM-GO run logs
+experiments/kursim_go/*.log
+# BESA-GO run logs
+experiments/besa_go/*.log
+# QENDRESA-GO run logs
+experiments/qendresa_go/*.log
+# ZGJEDHJA-GO run logs
+experiments/zgjedhja_go/*.log
+experiments/baraspesha_go/*.log
+experiments/mjegulla_go/*.log
+experiments/gjurma_go/*.log
+# ZBULIMI-GO: console copy of the run log (zbulimi.log holds the same text)
+experiments/*/run_*.out
+# VENDI-GO: approximation-error statistics and pumping calibration (about 4 MB, rebuilt by vendi.py setup in about 1 minute)
+experiments/vendi_go/res/setup.npz
+# SIGURIA-GO: scenario ensembles (about 80 MB, rebuilt by siguria.py ensemble in about 3 minutes) and figure arrays
+experiments/siguria_go/res/*.npz
+experiments/bashkimi_go/res/*.npz
+experiments/koalicioni_go/res/run_log.txt
+experiments/pusi_go/res/ens.npz
+
+# KARST-GO diagram: KaTeX install and generated page (rebuilt by karst_diagram.py)
+experiments/karst_go/node_modules
+experiments/karst_go/package-lock.json
+experiments/karst_go/karst_diagram.html
+experiments/karst_go/word_karst
+
+# ML paradigm diagrams: KaTeX install, generated pages and Word copies (rebuilt by run_all.sh)
+experiments/ml_paradigms/node_modules
+experiments/ml_paradigms/package-lock.json
+experiments/ml_paradigms/*.html
+experiments/ml_paradigms/*.docx
+experiments/ml_paradigms/__pycache__
+experiments/ml_paradigms/word/out
+experiments/ml_paradigms/word/draft*.docx
+experiments/ml_paradigms/word/eq*.json
+experiments/ml_paradigms/word/content.json
+experiments/ml_paradigms/*.png
+experiments/ml_paradigms/*.pdf
+experiments/ml_paradigms/word/hero*.png
+# RINDERTIMI-GO: the trained FNO weights (about 6 MB, rebuilt by rgo_net.py in about 25 minutes on four CPU cores)
+experiments/rindertimi_go/res/rgo_params.npz
+experiments/rindertimi_go/res/run1_rain_channel/rgo_params.npz

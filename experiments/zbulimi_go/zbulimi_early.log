@@ -1,0 +1,8 @@
+month  50: raw estimate out of range in   0% of runs; excess cost of the rule median 0.009, mean 0.014; median condition number of the information 7.0e+04
+month 100: raw estimate out of range in  10% of runs; excess cost of the rule median 0.015, mean 0.035; median condition number of the information 1.7e+05
+month 150: raw estimate out of range in  81% of runs; excess cost of the rule median 0.785, mean 1.865; median condition number of the information 2.1e+04
+month 200: raw estimate out of range in  26% of runs; excess cost of the rule median 0.011, mean 0.032; median condition number of the information 2.0e+02
+month 250: raw estimate out of range in  11% of runs; excess cost of the rule median 0.009, mean 0.012; median condition number of the information 1.9e+02
+month 300: raw estimate out of range in   8% of runs; excess cost of the rule median 0.007, mean 0.011; median condition number of the information 2.2e+02
+month 350: raw estimate out of range in   6% of runs; excess cost of the rule median 0.007, mean 0.011; median condition number of the information 2.3e+02
+month 400: raw estimate out of range in   8% of runs; excess cost of the rule median 0.007, mean 0.010; median condition number of the information 2.7e+02
