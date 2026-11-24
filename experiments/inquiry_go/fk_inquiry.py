@@ -25,6 +25,7 @@ TAU = 0.5
 GAP = float(os.environ.get('FK_GAP', '0.02'))            # relative gap at which a programme stops
 SEVEN = os.environ.get('FK_SEVEN', '0') == '1'       # with the squeeze of the cover as a seventh source
 NS = 7 if SEVEN else 6
+WELL7 = os.environ.get('FK_WELL', '340')              # the well of the seven-source run: 340 or 503
 SCREENS = ['top', 'middle', 'base']                    # 'sh', 'mid', 'dp' of fk_core.screen_cells
 # Br/Cl by mass of the six sources: the illustrative literature intervals of HYPOTHESIS-GO (hip_infer.BR), not
 # measured at the site
@@ -33,10 +34,11 @@ BR = np.array([[3.35e-3, 3.50e-3], [3.35e-3, 3.50e-3], [3.0e-3, 5.0e-3], [1.2e-3
 if SEVEN:
     BR = np.vstack([BR, [2.9e-3, 3.8e-3]])
 BR_SD = (0.05, 0.005)                                  # relative and absolute error of a bromide analysis (mg/L)
-VERDICTS = ([('340', 'RS'), ('340', 'DB'), ('340', 'SQ')] if SEVEN else
+VERDICTS = (([('503', 'MS'), ('503', 'RS'), ('503', 'DB'), ('503', 'SQ')] if WELL7 == '503' else
+             [('340', 'RS'), ('340', 'DB'), ('340', 'SQ')]) if SEVEN else
             [('340', 'MS'), ('340', 'RS'), ('340', 'DB'), ('503', 'MS')])
 SRC = I.SRC + (['SQ'] if SEVEN else [])
-RAW = 'fk_inquiry7_raw.json' if SEVEN else 'fk_inquiry_raw.json'
+RAW = (f'fk_inquiry7{"_503" if WELL7 == "503" else ""}_raw.json') if SEVEN else 'fk_inquiry_raw.json'
 _G = {}
 
 
@@ -186,10 +188,15 @@ def S_MAXCL(G, hi):
     return max(float(np.max(a @ hi)) for a in G)
 
 
-DIST = [2.5, 3.5, 4.5, 5.5] if SEVEN else [1.5, 2.5, 3.5, 4.5, 5.5, 6.5]      # km from the shoreline, new samples
-SITE = [('340', 1), ('340', 2)] if SEVEN else [('340', 1), ('340', 2), ('503', 0), ('503', 2)]
-BROM = ['340'] if SEVEN else ['340', '503']
-AGAIN = [('340', 10.0), ('340', 20.0)] if SEVEN else []      # the same well again, years after the heads settle
+if SEVEN and WELL7 == '503':
+    DIST, SITE, BROM, AGAIN = [1.5, 2.5, 3.5, 4.5], [('503', 0), ('503', 2)], ['503'], [('503', 10.0), ('503', 20.0)]
+elif SEVEN:
+    DIST, SITE, BROM, AGAIN = [2.5, 3.5, 4.5, 5.5], [('340', 1), ('340', 2)], ['340'], [('340', 10.0), ('340', 20.0)]
+else:
+    DIST = [1.5, 2.5, 3.5, 4.5, 5.5, 6.5]                  # km from the shoreline, new samples
+    SITE = [('340', 1), ('340', 2), ('503', 0), ('503', 2)]  # another screen at the site of a sampled well
+    BROM = ['340', '503']
+    AGAIN = []                                             # the same well again, years after the heads settle
 
 
 def questions():

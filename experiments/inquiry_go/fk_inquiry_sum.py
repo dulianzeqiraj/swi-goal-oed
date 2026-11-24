@@ -59,7 +59,7 @@ def length(A):
 
 
 def main():
-    tag = '7' if os.environ.get('FK_SEVEN', '0') == '1' else ''
+    tag = ('7_503' if os.environ.get('FK_WELL', '340') == '503' else '7') if os.environ.get('FK_SEVEN', '0') == '1' else ''
     raw = json.load(open(os.path.join(HERE, 'res', f'fk_inquiry{tag}_raw.json')))
     Q, runs = raw['questions'], raw['raw']
     out = dict(n=len(runs), questions=Q, verdicts={}, nan=int(sum(r['nan'] for r in runs)),
