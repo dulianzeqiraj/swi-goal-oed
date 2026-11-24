@@ -10,7 +10,15 @@ therefore a solute source through the top with the known pattern b'(x) dh(x) and
 S_SQ = c_clay S'sk / T, which the physics caps.  dh is the difference between the head without pumping and the head
 with pumping in the same simulation.  The response per unit strength is computed with the transport operator of the
 steady state, like the other tagged terms; the release is treated as steady at its mean rate (a first test: the
-real release is a pulse that follows the decline)."""
+real release is a pulse that follows the decline).
+
+       python fk_squeeze.py transient [workers] -> res/fk_squeeze_trans.npz
+       python fk_squeeze.py infer_t [workers]   -> res/fk_squeeze_trans.json
+The transient run starts from the steady state without pumping, raises the pumping linearly to its present value in
+RAMP_YR years and holds it. At every step the flux through the top is  c_clay S'sk b'(x) (h_before - h_now) / dt  where
+the head falls, so the term is a pulse that follows the decline; its strength is now the product c_clay S'sk. The
+response at the screens is stored at the end of the decline and at later times. The other six terms keep their
+steady responses."""
 import json
 import os
 import sys
@@ -36,6 +44,9 @@ S_CAP = C_CLAY[1] * SSK[1] / (T_YR[0] * 365.25)        # generous cap of the str
 S_MID = 10000.0 * 1e-3 / (40.0 * 365.25)               # a central value
 U_MAX = 200.0                                          # 'uncapped': strengths up to U_MAX caps
 TAU = 0.5
+RAMP_YR, DT_YR = 30.0, 0.5                             # the decline is taken as linear over RAMP_YR years
+AFTER_YR = [0.0, 5.0, 10.0, 20.0, 40.0]                # years after the heads settle at which the response is stored
+P_CAP = C_CLAY[1] * SSK[1]                             # cap of the product c_clay S'sk [g/m4]
 _G = {}
 
 
@@ -83,7 +94,7 @@ def resp(nw=4):
 class Model:
     """Mixed-integer set of one simulation with the seven strengths (the squeeze strength in units of the cap)."""
 
-    def __init__(self, j, gsq, lib, u_max):
+    def __init__(self, j, gsq, lib, u_max, scale=None):
         g = base(); E = g['E']
         y, eps, kap = g['y'], g['eps'], g['kap']
         lo = np.zeros(7); hi = np.zeros(7)
@@ -93,7 +104,7 @@ class Model:
         self.G = []
         for c, q, yi, ei in zip(g['cols'], g['scr'], y, eps):
             G6 = np.asarray(E['resp'][j][c, q, :], float)
-            G7 = np.c_[np.where(np.isfinite(G6), G6, 0.0), gsq[c, q] * S_CAP]
+            G7 = np.c_[np.where(np.isfinite(G6), G6, 0.0), gsq[c, q] * (S_CAP if scale is None else scale)]
             G7 = np.where(np.abs(G7) < 1e-12, 0.0, G7)
             a, b = G7 @ lo, G7 @ hi
             self.G.append(G7[(a <= yi + kap * ei) & (b >= yi - kap * ei)])
@@ -184,6 +195,80 @@ def infer_job(args):
     return out
 
 
+def trans_job(j):
+    g = base(); E = g['E']
+    calib = _G.setdefault('calib', dict(np.load(CALIB)))
+    th = {k: (int(E['th_' + k][j]) if k == 'member' else float(E['th_' + k][j])) for k in FC.THETA_FK}
+    p = FC.areal_params(calib, th['member']); geo = FC.geometry(p)
+    Qw = th['rQ'] * th['Qin']
+    s = FC.solve(FC.FKSection(geo, vL=0.0, Kmul=th['Kmul'], aniso=th['aniso'], Qin=th['Qin'], Qw=0.0, x_wf=th['x_wf'],
+                              aL=th['aL'], aT=th['aT']))
+    ok0 = bool(s.dc < 1e-6)
+    cover = np.clip(geo['top'] + geo['ground'], 0.0, None)
+    cols = np.arange(s.nx); topc = s.idx[s.jtop[cols], cols]
+    c = s.c.copy(); gsq = np.zeros(s.N)
+    hp = s.head_top()
+    dt = DT_YR * 365.25; ramp = RAMP_YR * 365.25
+    rec = [ramp + a * 365.25 for a in AFTER_YR]
+    out = np.zeros((len(rec), s.nx, 3), np.float32); toe = []
+    cells = [s.screen_cells(k) for k in ('sh', 'mid', 'dp')]
+    t, n = 0.0, 0
+    while n < len(rec):
+        t += dt
+        Q = Qw * min(t / ramp, 1.0)
+        ck = c.copy()
+        for _ in range(2):
+            h, qx, qz, qs = s.flow(ck, Qw=Q)
+            A, rs, rl, re = s.tmatrix(qx, qz, qs, Qw=Q, dt=dt)
+            lu = spla.splu(A)
+            ck = np.clip(lu.solve(rs + FC.H.PHI * s.vol / dt * c), 0.0, 1.0)
+        hn = s.head_top(h)
+        b = np.zeros(s.N); b[topc] = s.dx * cover * np.clip(hp - hn, 0.0, None) / dt
+        gsq = lu.solve(b + FC.H.PHI * s.vol / dt * gsq)
+        c, hp = ck, hn
+        if t >= rec[n] - 1e-6:
+            for q in range(3):
+                out[n, :, q] = [gsq[cc].mean() if len(cc) else 0.0 for cc in cells[q]]
+            s.c = c; toe.append(s.toe(0.02)); n += 1
+    return j, out, ok0, float(np.mean(hn[s.wf_cols])), toe
+
+
+def transient(nw=4):
+    g = base(); t0 = time.time()
+    with Pool(nw) as pool:
+        res = pool.map(trans_job, g['heads'])
+    np.savez_compressed(os.path.join(HERE, 'res', 'fk_squeeze_trans.npz'), members=np.array([r[0] for r in res]),
+                        G_T=np.array([r[1] for r in res]), ok0=np.array([r[2] for r in res]),
+                        h_wf_end=np.array([r[3] for r in res]), toe=np.array([r[4] for r in res]), after=np.array(AFTER_YR))
+    print('done', f'{time.time() - t0:.0f}s', len(res), 'members; natural state converged in', sum(r[2] for r in res))
+
+
+def infer_t_job(args):
+    j, GT = args
+    out = dict(j=j, t=[])
+    for n in range(GT.shape[0]):
+        m = Model(j, GT[n], list(range(7)), 1.0, scale=P_CAP)             # strength in units of the cap of the product
+        d = dict(feas=m.feasible())
+        d['need_340'] = m.min_u([m.cls(2, 6, True)]) if d['feas'] else None
+        d['max_340'] = m.max_share(2, 6) if d['feas'] else None
+        d['sparse'] = Model(j, GT[n], [0, 2, 6], 1.0, scale=P_CAP).min_u()
+        out['t'].append(d)
+    return out
+
+
+def infer_t(nw=4):
+    g = base(); t0 = time.time()
+    z = np.load(os.path.join(HERE, 'res', 'fk_squeeze_trans.npz'))
+    with Pool(nw) as pool:
+        res = pool.map(infer_t_job, [(int(j), z['G_T'][n]) for n, j in enumerate(z['members'])])
+    c340 = g['cols'][2]
+    resp = z['G_T'][:, :, c340, 0].astype(float)                           # members x times x positions of well 340
+    json.dump(dict(after=z['after'].tolist(), P_CAP=P_CAP, ramp=RAMP_YR, runs=res,
+                   resp_340=np.median(resp, axis=2).tolist(), seconds=time.time() - t0),
+              open(os.path.join(HERE, 'res', 'fk_squeeze_trans.json'), 'w'))
+    print('done', f'{time.time() - t0:.0f}s')
+
+
 def infer(nw=4):
     g = base(); t0 = time.time()
     z = np.load(os.path.join(HERE, 'res', 'fk_squeeze_resp.npz'))
@@ -200,4 +285,4 @@ def infer(nw=4):
 
 if __name__ == '__main__':
     nw = int(sys.argv[2]) if len(sys.argv) > 2 else 4
-    (resp if sys.argv[1] == 'resp' else infer)(nw)
+    dict(resp=resp, infer=infer, transient=transient, infer_t=infer_t)[sys.argv[1]](nw)
