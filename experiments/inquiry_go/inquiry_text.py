@@ -175,7 +175,28 @@ def stats(R):
     return out
 
 
-def blocks(R=None, ION=None):
+ROOTS = {'MS': 'sea', 'LG': 'lagoon', 'AN': 'surface', 'DB': 'base', 'RS': 'none'}
+
+
+def root_stats(RP):
+    runs = [r for r in RP['runs'] if r['ok']]
+    out = dict(n=len(runs), n_rs=sum(r['rs'] for r in runs), cases={})
+    for name in RP['cases']:
+        pts = [p for r in runs for p in r['cases'][name]['points']]
+        bod = [b for r in runs for b in r['cases'][name]['bodies']]
+        nl = [p for r in runs if not r['rs'] for p in r['cases'][name]['points']]
+        nb = [b for r in runs if not r['rs'] for b in r['cases'][name]['bodies']]
+        rs = [p for p in pts if p[0] == 'RS']; ms = [p for p in pts if p[0] == 'MS']
+        out['cases'][name] = dict(
+            n=len(pts), asc=sum(ROOTS[p[0]] == p[3] for p in pts) / len(pts),
+            near=sum(ROOTS[p[0]] == p[2] for p in pts) / len(pts),
+            sea=sum(p[3] == 'sea' for p in ms) / max(len(ms), 1), rs=sum(p[3] == 'none' for p in rs) / max(len(rs), 1),
+            n_rs=len(rs), nl=len(nl), nl_none=sum(p[3] == 'none' for p in nl), nb=len(nb),
+            nb_none=sum(b[1] == 'none' for b in nb), core=sum(ROOTS[b[0]] == b[1] for b in bod) / len(bod), n_bod=len(bod))
+    return out
+
+
+def blocks(R=None, ION=None, RP=None):
     BL = []
     a = BL.append
     s = stats(R) if R else None
@@ -208,6 +229,13 @@ def blocks(R=None, ION=None):
         'diagnosis [SF14] and worst-case designs exist for groundwater models [PT23]. Nothing was found for the '
         'origin of chloride. The contribution is the transfer to that problem, with the physics, the unknown well '
         'positions and the anchors (Section 1).']
+    if RP:
+        c0 = root_stats(RP)['cases']['clean image']
+        brief.append(f'**A negative result.** ROOT-GO, one of the four companion ideas, was tested on '
+                     f'{root_stats(RP)["n"]} synthetic truths. Its proposition holds, but as a rule for telling the '
+                     f'source of the salt at a point it does no better than taking the nearest source zone '
+                     f'({100 * c0["asc"]:.0f}% against {100 * c0["near"]:.0f}%). It is kept only as a necessary '
+                     f'condition.')
     if s:
         h, g, d, r_ = s['INQUIRY']['cum'], s['goal variance']['cum'], s['D-optimal']['cum'], s['random']['cum']
         brief.append(f'**First test.** On the synthetic section of HYPOTHESIS-GO ({N} truths with an open verdict), '
@@ -473,8 +501,8 @@ def blocks(R=None, ION=None):
 
     # ---------------------------------------------------------------- companions
     a(('h', f'{k}. Four companion ideas'))
-    a(('p', 'Each of the four is a question, or a term, that INQUIRY-GO can use. None has been tested yet. What a '
-            'search of the literature found is said with each.'))
+    a(('p', 'Each of the four is a question, or a term, that INQUIRY-GO can use. One has been tested (ROOT-GO, with a '
+            'negative result); the others have not. What a search of the literature found is said with each.'))
     a(('h2', f'{k}.1 PHASE-GO: the Moon and the pump as anchors'))
     a(('p', 'A conductivity logger in a well records the salinity every few minutes. The sea tide moves the '
             'groundwater to and fro along the sea–land axis by a displacement $\\zeta(t)$. If the salinity has a '
@@ -517,6 +545,46 @@ def blocks(R=None, ION=None):
             'set must be followed in depth, because a wedge is rooted along the base of the aquifer. And a body that '
             'was fed from the boundary and later cut off looks like legacy salt; a history of steadily falling heads '
             'makes that unlikely.'))
+    if RP:
+        rs_ = root_stats(RP)
+        a(('p', f'**Test.** The rule was tried on {rs_["n"]} truths of the synthetic section of HYPOTHESIS-GO '
+                f'({rs_["n_rs"]} with legacy salinity), on images of the chloride field of 20 by 120 cells: clean, '
+                'with multiplicative noise of 10% and 30%, and coarsened fourfold with 10% noise. Every cell is '
+                'given to the maximum that steepest ascent reaches; maxima whose persistence is below one standard '
+                'deviation of the noise are merged; the root of a point is the place of the maximum of its body '
+                '(sea face, top, base, or interior). It is compared with the source that supplies most of the '
+                'chloride at the point, for points above 250 mg/L with one source above half, and with a naive '
+                'rule: the nearest source zone.'))
+        rows = []
+        for name in RP['cases']:
+            c = rs_['cases'][name]
+            rows.append([name, f'{100 * c["asc"]:.0f}%', f'{100 * c["near"]:.0f}%', f'{100 * c["sea"]:.0f}%',
+                         f'{100 * c["rs"]:.0f}%', f'{c["nl_none"]} of {c["nl"]}', f'{c["nb_none"]} of {c["nb"]}',
+                         f'{100 * c["core"]:.0f}%'])
+        a(('table', ['Image', 'Root agrees with the main source of the point', 'Nearest zone agrees',
+                     'Sea points rooted at the sea', 'Legacy points rootless',
+                     'Rootless points in truths without legacy', 'Rootless bodies in truths without legacy',
+                     'Root agrees with the source at the core of the body'], rows,
+           [3.0, 2.3, 1.7, 1.8, 1.7, 2.4, 2.2, 1.9], 8))
+        a(('cap', f'Table {{{{root}}}}. ROOT-GO on {rs_["n"]} synthetic truths. Columns 6 and 7 test Proposition 3: '
+                  'without an internal source no point and no body may be rootless.'))
+        c0, c1, c3 = (rs_['cases'][n_] for n_ in ('clean image', 'noise 10%', 'noise 30%'))
+        a(('p', f'The proposition holds on clean images: no rootless point among {c0["nl"]} and no rootless body '
+                f'among {c0["nb"]} when there is no legacy salinity. As a rule for the origin the result is negative, '
+                f'for three reasons. First, the root agrees with the main source of a point in {100 * c0["asc"]:.0f}% '
+                f'of the cases, against {100 * c0["near"]:.0f}% for the nearest zone: a weaker source on the flank of '
+                'a stronger body has no maximum of its own, because the field is a sum, so its points are given to '
+                f'the stronger body. Second, legacy salinity is never rootless here ({100 * c0["rs"]:.0f}% of '
+                f'{c0["n_rs"]} points): its release zone lies against the base, so its maximum sits on a boundary. '
+                f'Third, noise makes rootless bodies that are not legacy: {c1["nb_none"]} of {c1["nb"]} bodies at 10% '
+                f'noise and {c3["nb_none"]} of {c3["nb"]} at 30% in truths without legacy, and the certificate is '
+                f'then wrong. What works is the sea: every point fed by the wedge is rooted at the sea face in clean '
+                f'and in coarse images, and the root agrees with the source at the core of a body in '
+                f'{100 * c0["core"]:.0f}% of the bodies.'))
+        a(('p', 'ROOT-GO is therefore set aside as a way of telling the origin at a well. What remains is a necessary '
+                'condition that costs nothing: a body that is rooted nowhere in a clean and complete image cannot be '
+                'fed from a boundary. A fair second test would need a geometry in which the legacy salt lies away '
+                'from the base.'))
     a(('h2', f'{k}.3 TIME-GO: where and when'))
     a(('p', 'ORIGIN-GO mixes sources. Each source also has an age at the sample. Let $g_{k}$ be '
             'the measure of the water of source $k$ over its age $\\tau$, in a sample taken at time $T$. Every '
@@ -574,8 +642,8 @@ def blocks(R=None, ION=None):
               'conformal rule, with studentized scores; costs', 'the synthetic library'],
         ['4', 'PHASE-GO: tidal and two-rate responses of the tagged components; power of the lunar test at the '
               'Adriatic tide', 'new runs of the section'],
-        ['5', 'ROOT-GO on the synthetic fields; SQUEEZE-GO as a seventh term of the Fushë-Kuqe section, with a '
-              'cap from the head decline and a check against InSAR', 'new runs; certain-coast'],
+        ['5', 'SQUEEZE-GO as a seventh term of the Fushë-Kuqe section, with a cap from the head decline and a '
+              'check against InSAR (ROOT-GO was tested and set aside, Section 4.2)', 'new runs; certain-coast'],
         ['6', 'Field: bromide (and δ³⁷Cl) at wells 340 and 503; a conductivity logger at a coastal well',
          'two to four analyses; one logger'],
     ], [1.2, 11.6, 4.2], 9))
@@ -597,7 +665,7 @@ def blocks(R=None, ION=None):
             'are not decisive differently.'))
     a(('b', 'The searches of Section 1 and of the companion ideas were web searches of one day. Every reference '
             'was checked on Crossref and is known from its abstract or record; [F26] was not read.'))
-    a(('b', 'The four companion ideas are untested.'))
+    a(('b', 'Three of the four companion ideas are untested; the fourth, ROOT-GO, failed its first test.'))
     if ION and P is not None:
         a(('b', 'The finding rests on four analyses published in 2016, one per well.'))
     a(('refs',))

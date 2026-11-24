@@ -23,7 +23,8 @@ VERIFY = ('Verification note. Every reference with a DOI was checked on Crossref
           'searches of Section 1 and of the companion ideas were web searches made on 24 November 2026: SF14, PW89, PT23, '
           'PT16, K15, KV89, NG16, C15, Fa18, RG87, At25, Mi26, Ba17, Ma14, Ju21, St25, Li17 and Av04 are known from their '
           'abstracts, records or search summaries, and F26 from a search summary only. Every number '
-          'of the synthetic test is computed by experiments/inquiry_go/inquiry_poc.py on the library of HYPOTHESIS-GO; '
+          'of the synthetic tests is computed by experiments/inquiry_go (inquiry_poc.py on the library of HYPOTHESIS-GO, '
+          'root_poc.py on its section); '
           'the numbers of the chemistry section by fk_ions.py from the workbook of the chloride manuscript, which is '
           'not in the public repository. Generative AI tools assisted with the reading, the code and the drafting of '
           'this note; the author checks the statements, numbers and references and is responsible for them.')
@@ -35,7 +36,9 @@ def main(out, ions=None):
     ION = json.load(open(ions)) if ions else None
     work = tempfile.mkdtemp()
     figs = {'poc': HF.fig_poc(work, R)} if R else {}
-    BL, _ = T.blocks(R, ION)
+    pp = os.path.join(HERE, 'res', 'root_poc.json')
+    RP = json.load(open(pp)) if os.path.exists(pp) else None
+    BL, _ = T.blocks(R, ION, RP)
     B.REFS = T.REFS
     B.render(BL, T.REFS, figs, out, VERIFY, work)
 
