@@ -61,6 +61,35 @@ REFS = [
             '29(1).', 'https://doi.org/10.1609/aaai.v29i1.9694'),
     ('F26', 'Fotias, S.-P. (2026). Resolution-aware experimental design under partial identifiability. Preprint '
             'arXiv:2609.03686 (not read; known from a search summary).', 'https://arxiv.org/abs/2609.03686'),
+    ('Fa18', 'Fadili, A., Malaurent, P., Najib, S., Mehdi, K., Riss, J. & Makan, A. (2018). Groundwater hydrodynamics '
+             'and salinity response to oceanic tide in coastal aquifers: case study of Sahel Doukkala, Morocco. '
+             'Hydrogeology Journal 26(7), 2459–2473.', 'https://doi.org/10.1007/s10040-018-1812-4'),
+    ('RG87', 'Reilly, T. E. & Goodman, A. S. (1987). Analysis of saltwater upconing beneath a pumping well. Journal of '
+             'Hydrology 89(3–4), 169–204.', 'https://doi.org/10.1016/0022-1694(87)90179-X'),
+    ('At25', 'Attia, M., Tsai, F. T.-C., Yang, S., Minsley, B. J. & Kress, W. H. (2025). Airborne geophysical analysis '
+             'to decipher salinization for coastal Louisiana. Water Research 275, 123215.',
+     'https://doi.org/10.1016/j.watres.2025.123215'),
+    ('Mi26', 'Minsley, B. J., Michael, H. A., Lindaman, M. A., Ball, L. B., James, S. R., Rigby, J., Kress, W. H. & '
+             'Tsai, F. T.-C. (2026). The saline groundwater legacy of a large buried coastal paleo-estuary. Nature '
+             'Communications 17, 9119.', 'https://doi.org/10.1038/s41467-026-76005-5'),
+    ('Ba17', 'Bardsley, E. (2017). A nonparametric approach toward upper bounds to transit time distribution '
+             'functions. Hydrology and Earth System Sciences Discussions (preprint).',
+     'https://doi.org/10.5194/hess-2017-404'),
+    ('Ma14', 'Massoudieh, A., Visser, A., Sharifi, S. & Broers, H. P. (2014). A Bayesian modeling approach for '
+             'estimation of a shape-free groundwater age distribution using multiple tracers. Applied Geochemistry '
+             '50, 252–264.', 'https://doi.org/10.1016/j.apgeochem.2013.10.004'),
+    ('Ju21', 'Ju, Y., Massoudieh, A., Green, C. T., Lee, K.-K. & Kaown, D. (2021). Complexity of groundwater age '
+             'mixing near a seawater intrusion zone based on multiple tracers and Bayesian inference. Science of the '
+             'Total Environment 753, 141994.', 'https://doi.org/10.1016/j.scitotenv.2020.141994'),
+    ('St25', 'Stuyfzand, P. J., Nienhuis, P. R. & Post, V. E. A. (2025). Radiocarbon age dating and quality evolution '
+             'of seawater intruding beneath a freshwater lens. Applied Geochemistry 193, 106564.',
+     'https://doi.org/10.1016/j.apgeochem.2025.106564'),
+    ('Li17', 'Li, J., Liang, X., Zhang, Y., Liu, Y., Chen, N., Abubakari, A. & Jin, M. (2017). Salinization of '
+             'porewater in a multiple aquitard-aquifer system in Jiangsu coastal plain, China. Hydrogeology Journal '
+             '25(8), 2377–2390.', 'https://doi.org/10.1007/s10040-017-1622-0'),
+    ('Av04', 'Avisar, D., Rosenthal, E., Shulman, H., Zilberbrand, M., Flexer, A., Kronfeld, J., Ben Avraham, Z. & '
+             'Fleischer, L. (2004). The Pliocene Yafo Formation in Israel: hydrogeologically inert or active? '
+             'Hydrogeology Journal 12(3), 291–304.', 'https://doi.org/10.1007/s10040-004-0322-8'),
     ('AF75', 'Atkinson, A. C. & Fedorov, V. V. (1975). The design of experiments for discriminating between two rival '
              'models. Biometrika 62(1), 57–70.', 'https://doi.org/10.1093/biomet/62.1.57'),
     ('R21', 'Rothenhäusler, D., Meinshausen, N., Bühlmann, P. & Peters, J. (2021). Anchor regression: heterogeneous '
@@ -444,7 +473,8 @@ def blocks(R=None, ION=None):
 
     # ---------------------------------------------------------------- companions
     a(('h', f'{k}. Four companion ideas'))
-    a(('p', 'Each of the four is a question, or a term, that INQUIRY-GO can use. None has been tested yet.'))
+    a(('p', 'Each of the four is a question, or a term, that INQUIRY-GO can use. None has been tested yet. What a '
+            'search of the literature found is said with each.'))
     a(('h2', f'{k}.1 PHASE-GO: the Moon and the pump as anchors'))
     a(('p', 'A conductivity logger in a well records the salinity every few minutes. The sea tide moves the '
             'groundwater to and fro along the sea–land axis by a displacement $\\zeta(t)$. If the salinity has a '
@@ -458,9 +488,11 @@ def blocks(R=None, ION=None):
             'while a source limited by its flux $M$ (diffusion out of clays, a surface load) is diluted, '
             '$c\\approx M/Q$. Both become rows of the linear programmes once the ensemble stores the response of '
             'each tagged component to the tide and to the rate. Tide-induced fluctuations of salinity in wells have '
-            'been measured and modelled [L17]; their phase as a test of provenance with a stated error is, to our '
-            'knowledge, new. Open point: the tide of the Adriatic is small, so the power of the test must be '
-            'computed before a logger is installed.'))
+            'been measured and modelled [L17, Fa18], and the discharge rate of a well and the salinity of its water '
+            'are known to be related when salt water cones up from below [RG87]. The search found no work that uses '
+            'the phase of the tidal salinity signal to tell on which side the salt lies, or a change of the rate to '
+            'tell the kind of source. Open point: the tide of the Adriatic is small, so the power of the test must '
+            'be computed before a logger is installed.'))
     a(('h2', f'{k}.2 ROOT-GO: where the saline body is rooted'))
     a(('prop', 'Proposition 3 (rooted salt).',
        'Let the chloride obey $\\phi\\,\\partial_{t}c+q\\cdot\\nabla c-\\nabla\\cdot(D\\nabla c)=\\sum_{j}w_{j}\\,'
@@ -477,7 +509,11 @@ def blocks(R=None, ION=None):
             'legacy salt or the product of an internal source such as clays. Which holds can be '
             'read from an image of the salinity (conductivity logs in the existing wells, an electrical or '
             'electromagnetic profile) without a flow model, by following the set above the level found at the well. '
-            'Topological persistence [E02] says which components survive the noise of the image. Two cautions. The '
+            'Topological persistence [E02] says which components survive the noise of the image. Airborne electromagnetic '
+            'surveys already tell saline bodies tied to the present sea from relict ones, by their shape and their '
+            'geological setting [At25, Mi26]; the search found no use of the maximum principle or of topological '
+            'persistence for this, and no use of persistence for groundwater salinity at all. Three cautions. Clay '
+            'and salt water look alike to an electrical instrument. The '
             'set must be followed in depth, because a wedge is rooted along the base of the aquifer. And a body that '
             'was fed from the boundary and later cut off looks like legacy salt; a history of steadily falling heads '
             'makes that unlikely.'))
@@ -493,8 +529,13 @@ def blocks(R=None, ION=None):
             'linear functionals of the measures, so its sharp bounds are a linear-fractional programme over '
             'measures, of the kind solved for moment problems [BP05]. With the ages in classes it is the programme '
             'of ORIGIN-GO with each pair of source and age class as an end-member. No flow model and no shape of '
-            'the age distribution is assumed; shape-free fits of age distributions exist [V13], but they return a '
-            'fit and not a bound. Tritium and carbon-14 have dated intruded seawater before [S05]. Needs: tritium '
+            'the age distribution is assumed. The bound has a precedent: Bardsley [Ba17], in a discussion paper, '
+            'obtains upper bounds of the fraction of water younger than a given age by linear programming over '
+            'discrete age distributions, for one water, and notes that such bounds come out near one unless the '
+            'shape is constrained. Shape-free fits also exist [V13, Ma14] and have been used next to a zone of '
+            'seawater intrusion [Ju21]; tritium and carbon-14 have dated intruded seawater [S05, St25]. What '
+            'TIME-GO adds is the source as a second dimension and the chloride share as the quantity bounded. '
+            'Whether its bounds are informative with the tracers at hand must be tested first. Needs: tritium '
             'and carbon-14 at the saline wells.'))
     a(('h2', f'{k}.4 SQUEEZE-GO: a seventh term of the equations'))
     a(('p', 'When the head of a confined aquifer falls, its clay layers compact and expel pore water into the '
@@ -507,10 +548,12 @@ def blocks(R=None, ION=None):
             '1 kg of chloride per square metre. Two properties make it a useful hypothesis term. Its strength has a '
             'cap that can be measured from space, the subsidence, which the InSAR tools of certain-coast read. And '
             'its signature in time is the rate of the head decline: it acts while the heads fall and stops when '
-            'they settle, whereas a wedge keeps advancing. The mechanism is documented for arsenic released from '
-            'compacting clays [SKF18, E13], and diffusion out of marine clays is a known source of salinity in '
-            'confined delta aquifers [WJ12]. As a term with a cap in a certified analysis of the origin it is, to '
-            'our knowledge, new. At Fushë-Kuqe the head fell from 8.0 to 1.5 m above the surface in the sector of '
+            'they settle, whereas a wedge keeps advancing. The mechanism is known. Saline pore water squeezed out of '
+            'compacting clays is described for the Jiangsu coastal plain [Li17], was judged of secondary importance '
+            'in the Israeli coastal plain [Av04], and is documented with InSAR for arsenic [SKF18, E13]; diffusion '
+            'out of marine clays is a known source of salinity in confined delta aquifers [WJ12]. The search found '
+            'no work that bounds the salt released by the measured subsidence, or that carries the mechanism as a '
+            'term with a cap in an analysis of the origin. At Fushë-Kuqe the head fell from 8.0 to 1.5 m above the surface in the sector of '
             'the pumping stations [CB16].'))
     k += 1
 
@@ -524,7 +567,7 @@ def blocks(R=None, ION=None):
         ['1', 'INQUIRY-GO on the stored Fushë-Kuqe ensemble: decisive share of a chloride sample at every position '
               'and screen, and of conservative tracers, for the open verdict at well 340 (legacy salinity or deep '
               'water)', 'no new simulation'],
-        ['2', 'Read [F26] and [PT23] in full and compare; literature search for the four companion ideas. A lower bound on the number of '
+        ['2', 'Read [F26], [PT23] and [Ba17] in full and compare. A lower bound on the number of '
               'questions from the number of explanations that remain, in the spirit of [J25]',
          'Crossref, the reference lists'],
         ['3', 'Model error: truths outside the library; tolerance calibrated on left-out observations by the '
@@ -552,9 +595,8 @@ def blocks(R=None, ION=None):
         a(('b', 'The test of Section 3 has no model error, equal costs and one verdict per truth.'))
     a(('b', 'The decisive share measures outcomes by their length; another weighting would rank the questions that '
             'are not decisive differently.'))
-    a(('b', 'The search of Section 1 was a web search of one day, with every reference checked on Crossref; [F26] '
-            'was not read. The four companion ideas were not searched: for them "to our knowledge" means only '
-            'that.'))
+    a(('b', 'The searches of Section 1 and of the companion ideas were web searches of one day. Every reference '
+            'was checked on Crossref and is known from its abstract or record; [F26] was not read.'))
     a(('b', 'The four companion ideas are untested.'))
     if ION and P is not None:
         a(('b', 'The finding rests on four analyses published in 2016, one per well.'))
