@@ -38,6 +38,29 @@ REFS = [
     ('ZT21', 'Zhou, Z. & Tartakovsky, D. M. (2021). Markov chain Monte Carlo with neural network surrogates: '
              'application to contaminant source identification. Stochastic Environmental Research and Risk '
              'Assessment 35(3), 639–651.', 'https://doi.org/10.1007/s00477-020-01888-9'),
+    ('SF14', 'Scott, J. K., Findeisen, R., Braatz, R. D. & Raimondo, D. M. (2014). Input design for guaranteed fault '
+             'diagnosis using zonotopes. Automatica 50(6), 1580–1589.', 'https://doi.org/10.1016/j.automatica.2014.03.016'),
+    ('PW89', 'Pronzato, L. & Walter, E. (1989). Experiment design in a bounded-error context: comparison with '
+             'D-optimality. Automatica 25(3), 383–391.', 'https://doi.org/10.1016/0005-1098(89)90006-X'),
+    ('PT23', 'Pham, H. V. & Tsai, F. T.-C. (2023). A robust experimental design for conceptual model discrimination '
+             'based on information theory. Advances in Water Resources 178, 104485.',
+     'https://doi.org/10.1016/j.advwatres.2023.104485'),
+    ('PT16', 'Pham, H. V. & Tsai, F. T.-C. (2016). Optimal observation network design for conceptual model '
+             'discrimination and uncertainty reduction. Water Resources Research 52(2), 1245–1264.',
+     'https://doi.org/10.1002/2015WR017474'),
+    ('K15', 'Kikuchi, C. P., Ferré, T. P. A. & Vrugt, J. A. (2015). On the optimal design of experiments for '
+            'conceptual and predictive discrimination of hydrologic system models. Water Resources Research 51(6), '
+            '4454–4481.', 'https://doi.org/10.1002/2014WR016795'),
+    ('KV89', 'Knopman, D. S. & Voss, C. I. (1989). Multiobjective sampling design for parameter estimation and model '
+             'discrimination in groundwater solute transport. Water Resources Research 25(10), 2245–2258.',
+     'https://doi.org/10.1029/WR025i010p02245'),
+    ('NG16', 'Nowak, W. & Guthke, A. (2016). Entropy-based experimental design for optimal model discrimination in '
+             'the geosciences. Entropy 18(11), 409.', 'https://doi.org/10.3390/e18110409'),
+    ('C15', 'Chen, Y., Javdani, S., Karbasi, A., Bagnell, J. A., Srinivasa, S. & Krause, A. (2015). Submodular '
+            'surrogates for value of information. Proceedings of the AAAI Conference on Artificial Intelligence '
+            '29(1).', 'https://doi.org/10.1609/aaai.v29i1.9694'),
+    ('F26', 'Fotias, S.-P. (2026). Resolution-aware experimental design under partial identifiability. Preprint '
+            'arXiv:2609.03686 (not read; known from a search summary).', 'https://arxiv.org/abs/2609.03686'),
     ('AF75', 'Atkinson, A. C. & Fedorov, V. V. (1975). The design of experiments for discriminating between two rival '
              'models. Biometrika 62(1), 57–70.', 'https://doi.org/10.1093/biomet/62.1.57'),
     ('R21', 'Rothenhäusler, D., Meinshausen, N., Bühlmann, P. & Peters, J. (2021). Anchor regression: heterogeneous '
@@ -151,7 +174,11 @@ def blocks(R=None, ION=None):
         '**The design literature.** The twenty papers of the folder on optimal experimental design give sample '
         'pairs in place of adjoints and a term for the model error [KN25], a search without gradients [G26] and '
         'policies refined after each outcome [S25]. They do not give a criterion for a target that is a set and a '
-        'verdict.']
+        'verdict.',
+        '**Novelty, after a search.** The idea of a guaranteed discriminating experiment exists in set-based fault '
+        'diagnosis [SF14] and worst-case designs exist for groundwater models [PT23]. Nothing was found for the '
+        'origin of chloride. The contribution is the transfer to that problem, with the physics, the unknown well '
+        'positions and the anchors (Section 1).']
     if s:
         h, g, d, r_ = s['INQUIRY']['cum'], s['goal variance']['cum'], s['D-optimal']['cum'], s['random']['cum']
         brief.append(f'**First test.** On the synthetic section of HYPOTHESIS-GO ({N} truths with an open verdict), '
@@ -208,6 +235,25 @@ def blocks(R=None, ION=None):
             'INQUIRY-GO keeps the set and asks for a guarantee. Its classical relative is the design for '
             'discriminating between rival models [AF75], which maximises the lack of fit of the rival model at its '
             'best parameters; the decisive question is that idea for sets, with the aquifer unknown.'))
+
+    a(('p', '**What a search of the literature found (24 November 2026).** The decisive question is not new as an '
+            'idea. In control engineering, set-based active fault diagnosis designs an input whose outputs are '
+            'guaranteed to be consistent with at most one of several models [SF14]; this is Proposition 1 below with '
+            'an input in place of a measurement, and experiment design with bounded errors is older still [PW89]. In '
+            'groundwater hydrology the design of sampling for discriminating conceptual models is established '
+            '[KV89, K15, PT16, NG16], and Pham and Tsai [PT23] already design for the worst case, maximising the '
+            'information that an experiment is guaranteed to give. In machine learning, tests are chosen so that the '
+            'remaining hypotheses fall into one decision region, with a prior over the hypotheses [C15]. A preprint '
+            'of 2026 [F26], which could not be opened and is known here only from a search summary, chooses '
+            'experiments by the size of the set of candidate structures they leave, with a control of the '
+            'probability of excluding the true one, and reports subsurface-flow tests; it must be read before any '
+            'claim is made. No work was found that designs measurements for the origin of chloride or of salinity, '
+            'or that ranks tracers for a mixing analysis by a formal criterion.'))
+    a(('p', 'What remains particular to INQUIRY-GO, as far as this search goes, is a transfer and a combination, not '
+            'a new principle. The target is a verdict on shares, linear in the source strengths through the tagged '
+            'terms of the transport equations. The aquifer enters as a union over simulations, with well positions '
+            'that may be unknown. The decisive share grades the questions that are not decisive and states the '
+            'outcomes that would certify each answer. And the questions include anchors of different kinds.'))
 
     # ---------------------------------------------------------------- 2
     a(('h', '2. INQUIRY-GO'))
@@ -478,7 +524,7 @@ def blocks(R=None, ION=None):
         ['1', 'INQUIRY-GO on the stored Fushë-Kuqe ensemble: decisive share of a chloride sample at every position '
               'and screen, and of conservative tracers, for the open verdict at well 340 (legacy salinity or deep '
               'water)', 'no new simulation'],
-        ['2', 'Literature search for the five ideas, before any claim of novelty. A lower bound on the number of '
+        ['2', 'Read [F26] and [PT23] in full and compare; literature search for the four companion ideas. A lower bound on the number of '
               'questions from the number of explanations that remain, in the spirit of [J25]',
          'Crossref, the reference lists'],
         ['3', 'Model error: truths outside the library; tolerance calibrated on left-out observations by the '
@@ -506,8 +552,9 @@ def blocks(R=None, ION=None):
         a(('b', 'The test of Section 3 has no model error, equal costs and one verdict per truth.'))
     a(('b', 'The decisive share measures outcomes by their length; another weighting would rank the questions that '
             'are not decisive differently.'))
-    a(('b', 'The novelty of the five ideas has not been checked by a literature search; "to our knowledge" means '
-            'only that.'))
+    a(('b', 'The search of Section 1 was a web search of one day, with every reference checked on Crossref; [F26] '
+            'was not read. The four companion ideas were not searched: for them "to our knowledge" means only '
+            'that.'))
     a(('b', 'The four companion ideas are untested.'))
     if ION and P is not None:
         a(('b', 'The finding rests on four analyses published in 2016, one per well.'))
