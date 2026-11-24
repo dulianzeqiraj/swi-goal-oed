@@ -24,6 +24,7 @@ these intervals widened by the tolerance.
 | `inquiry_text.py`, `build_inquiry_doc.py` | the text and the Word builder (uses `../hipoteza_go/build_hip_doc.py` and `../word_tools`) |
 | `fk_inquiry.py`, `fk_inquiry_sum.py` | INQUIRY-GO on the stored Fushë-Kuqe ensemble of HYPOTHESIS-GO (`../hipoteza_go/res_fk`, not committed): mixed-integer programmes with the well positions as binary variables; outcome sets, decisive shares and sharp share bounds by bisection (`python fk_inquiry.py 4`, about half an hour on four cores; `python fk_inquiry.py shares`; `python fk_inquiry_sum.py`). The results are field results and are not committed |
 | `root_poc.py` | test of the companion idea ROOT-GO on the synthetic section: basins of the chloride image under steepest ascent with a persistence threshold, the root of each body, comparison with the main source of each point and with the nearest source zone → `res/root_poc.json` (`python root_poc.py 200 4 2027`, three minutes). The result is negative: see the note |
+| `fk_squeeze.py` | the companion idea SQUEEZE-GO as a seventh term of the Fushë-Kuqe section: chloride expelled from the compacting cover, with the pattern cover thickness × head decline and one strength; new solves of the head-consistent simulations for its response (`python fk_squeeze.py resp`), then the mixed-integer inference with seven sources (`python fk_squeeze.py infer`). The results are field results and are not committed |
 | `fk_ions.py` | two readings of the major ions of four wells (seawater mixing; fresh water plus sodium chloride). It reads the workbook of the chloride manuscript; its output holds field data and is not committed |
 
 Run: `python inquiry_poc.py 40 4 4000 2027` (40 truths, four workers, the whole library; about a quarter of an hour),
@@ -45,5 +46,5 @@ then `python build_inquiry_doc.py OUT.docx [IONS.json]`.
 
 The truth is a member of the library (no model error) and the tolerance is not inflated; equal costs; one verdict per
 truth. The decisive share measures outcomes by their length. The text of the field sections of the notes is kept
-in private modules that are not committed; without them the builder leaves those sections out. Of the companion ideas of the note, ROOT-GO is tested by `root_poc.py`; PHASE-GO,
-TIME-GO and SQUEEZE-GO are not implemented.
+in private modules that are not committed; without them the builder leaves those sections out. Of the companion ideas of the note, ROOT-GO is tested by `root_poc.py` and SQUEEZE-GO by
+`fk_squeeze.py`; PHASE-GO and TIME-GO are not implemented.

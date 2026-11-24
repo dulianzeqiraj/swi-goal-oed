@@ -501,8 +501,8 @@ def blocks(R=None, ION=None, RP=None):
 
     # ---------------------------------------------------------------- companions
     a(('h', f'{k}. Four companion ideas'))
-    a(('p', 'Each of the four is a question, or a term, that INQUIRY-GO can use. One has been tested (ROOT-GO, with a '
-            'negative result); the others have not. What a search of the literature found is said with each.'))
+    a(('p', 'Each of the four is a question, or a term, that INQUIRY-GO can use. ROOT-GO has been tested, with a '
+            'negative result, and SQUEEZE-GO has had a first test on the field section, reported in an internal note; the other two have not. What a search of the literature found is said with each.'))
     a(('h2', f'{k}.1 PHASE-GO: the Moon and the pump as anchors'))
     a(('p', 'A conductivity logger in a well records the salinity every few minutes. The sea tide moves the '
             'groundwater to and fro along the sea–land axis by a displacement $\\zeta(t)$. If the salinity has a '
@@ -642,8 +642,9 @@ def blocks(R=None, ION=None, RP=None):
               'conformal rule, with studentized scores; costs', 'the synthetic library'],
         ['4', 'PHASE-GO: tidal and two-rate responses of the tagged components; power of the lunar test at the '
               'Adriatic tide', 'new runs of the section'],
-        ['5', 'SQUEEZE-GO as a seventh term of the Fushë-Kuqe section, with a cap from the head decline and a '
-              'check against InSAR (ROOT-GO was tested and set aside, Section 4.2)', 'new runs; certain-coast'],
+        ['5', 'SQUEEZE-GO as a seventh term of the Fushë-Kuqe section: a first steady test is done (internal '
+              'note); next a transient run, and a cap from the measured subsidence (ROOT-GO was tested and set '
+              'aside, Section 4.2)', 'new runs; certain-coast'],
         ['6', 'Field: bromide (and δ³⁷Cl) at wells 340 and 503; a conductivity logger at a coastal well',
          'two to four analyses; one logger'],
     ], [1.2, 11.6, 4.2], 9))
@@ -665,7 +666,8 @@ def blocks(R=None, ION=None, RP=None):
             'are not decisive differently.'))
     a(('b', 'The searches of Section 1 and of the companion ideas were web searches of one day. Every reference '
             'was checked on Crossref and is known from its abstract or record; [F26] was not read.'))
-    a(('b', 'Three of the four companion ideas are untested; the fourth, ROOT-GO, failed its first test.'))
+    a(('b', 'Of the four companion ideas, ROOT-GO failed its first test, SQUEEZE-GO has had a first steady test '
+            'on the field section (internal note), and PHASE-GO and TIME-GO are untested.'))
     if ION and P is not None:
         a(('b', 'The finding rests on four analyses published in 2016, one per well.'))
     a(('refs',))
