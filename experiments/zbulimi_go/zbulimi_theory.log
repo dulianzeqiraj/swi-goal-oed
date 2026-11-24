@@ -1,0 +1,10 @@
+singular values of K*: [2.65416609 0.         0.        ]; exploration-cost identity tr(M Se), max relative error over 20 random Se: 5.0e-15
+self-confirming points found: 1293; excess cost per month median 0.1195, 90th percentile 0.9023, max 3.4967 (J* = 0.6334)
+beta x 0.5: constants head-neutral 3.259, isotropic 3.993, ratio 1.225
+beta x 1.0: constants head-neutral 0.846, isotropic 1.072, ratio 1.267
+beta x 1.5: constants head-neutral 0.385, isotropic 0.502, ratio 1.305
+beta x 2.0: constants head-neutral 0.220, isotropic 0.296, ratio 1.343
+beta x 3.0: constants head-neutral 0.101, isotropic 0.143, ratio 1.418
+2 well fields: constants head-neutral 0.510, isotropic 0.662, ratio 1.297
+3 well fields: constants head-neutral 0.846, isotropic 1.072, ratio 1.267
+4 well fields: constants head-neutral 1.194, isotropic 1.426, ratio 1.194

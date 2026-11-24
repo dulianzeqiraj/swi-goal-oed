@@ -1,0 +1,40 @@
+J* = 0.4270; cost Hessian of the 4-parameter model (relative change with the step: 6.9e-05); eigenvalues [0.2332 1.056  1.878  5.4895]
+operators near-optimal unrecorded variation sd 0.03 (cost +0.2%): years of logs for 1% / 0.1% excess, 4-parameter model 21.2 / 212, 8-parameter model 45.2 / 452; shares of tr(H I^-1) (4 par.) pumping -> head 9%, head -> toe 34%, toe retention 34%, clay -> toe 37%; Fisher step check 4.1e-05
+operators near-optimal unrecorded variation sd 0.10 (cost +1.9%): years of logs for 1% / 0.1% excess, 4-parameter model 20.9 / 209, 8-parameter model 44.2 / 442; shares of tr(H I^-1) (4 par.) pumping -> head 9%, head -> toe 34%, toe retention 35%, clay -> toe 38%; Fisher step check 3.9e-05
+operators near-optimal unrecorded variation sd 0.30 (cost +16.9%): years of logs for 1% / 0.1% excess, 4-parameter model 19.1 / 191, 8-parameter model 38.7 / 387; shares of tr(H I^-1) (4 par.) pumping -> head 7%, head -> toe 33%, toe retention 35%, clay -> toe 40%; Fisher step check 3.0e-05
+operators timid        unrecorded variation sd 0.03 (cost +107.8%): years of logs for 1% / 0.1% excess, 4-parameter model 11.9 / 119, 8-parameter model 20.2 / 202; shares of tr(H I^-1) (4 par.) pumping -> head 65%, head -> toe 17%, toe retention 12%, clay -> toe 18%; Fisher step check 5.7e-05
+operators timid        unrecorded variation sd 0.10 (cost +110.0%): years of logs for 1% / 0.1% excess, 4-parameter model 10.8 / 108, 8-parameter model 18.5 / 185; shares of tr(H I^-1) (4 par.) pumping -> head 62%, head -> toe 18%, toe retention 13%, clay -> toe 19%; Fisher step check 5.7e-05
+operators timid        unrecorded variation sd 0.30 (cost +129.0%): years of logs for 1% / 0.1% excess, 4-parameter model 7.0 / 70, 8-parameter model 15.0 / 150; shares of tr(H I^-1) (4 par.) pumping -> head 43%, head -> toe 26%, toe retention 19%, clay -> toe 29%; Fisher step check 5.7e-05
+clay retention 0.95: memory 20 months, open-loop radius 0.9762, J* 0.4217; years for 1% excess 19.6; share of clay -> toe 46%
+clay retention 0.98: memory 50 months, open-loop radius 1.0000, J* 0.4242; years for 1% excess 20.3; share of clay -> toe 38%
+clay retention 0.99: memory 100 months, open-loop radius 1.0084, J* 0.4259; years for 1% excess 20.7; share of clay -> toe 37%
+clay retention 0.995: memory 200 months, open-loop radius 1.0127, J* 0.4270; years for 1% excess 20.9; share of clay -> toe 38%
+clay retention 0.998: memory 500 months, open-loop radius 1.0153, J* 0.4279; years for 1% excess 21.1; share of clay -> toe 38%
+dither cost 0.5% of J*, AR(1) phi 0.00: sd 0.052; years for 1% 20.85 (no dither 20.92); log det I 4.85
+dither cost 0.5% of J*, AR(1) phi 0.50: sd 0.052; years for 1% 20.80 (no dither 20.92); log det I 4.86
+dither cost 0.5% of J*, AR(1) phi 0.80: sd 0.052; years for 1% 20.73 (no dither 20.92); log det I 4.86
+dither cost 0.5% of J*, AR(1) phi 0.90: sd 0.052; years for 1% 20.70 (no dither 20.92); log det I 4.86
+dither cost 0.5% of J*, AR(1) phi 0.95: sd 0.052; years for 1% 20.66 (no dither 20.92); log det I 4.87
+dither cost 0.5% of J*, AR(1) phi 0.98: sd 0.052; years for 1% 20.63 (no dither 20.92); log det I 4.87
+dither cost 2.0% of J*, AR(1) phi 0.00: sd 0.103; years for 1% 20.64 (no dither 20.92); log det I 4.92
+dither cost 2.0% of J*, AR(1) phi 0.50: sd 0.103; years for 1% 20.45 (no dither 20.92); log det I 4.93
+dither cost 2.0% of J*, AR(1) phi 0.80: sd 0.103; years for 1% 20.20 (no dither 20.92); log det I 4.95
+dither cost 2.0% of J*, AR(1) phi 0.90: sd 0.103; years for 1% 20.05 (no dither 20.92); log det I 4.96
+dither cost 2.0% of J*, AR(1) phi 0.95: sd 0.103; years for 1% 19.94 (no dither 20.92); log det I 4.97
+dither cost 2.0% of J*, AR(1) phi 0.98: sd 0.103; years for 1% 19.83 (no dither 20.92); log det I 4.99
+budget 0.5%: goal-oriented choice phi 0.98 (20.63 years), D-optimal choice phi 0.98 (20.63 years), white dither 20.85 years
+budget 2.0%: goal-oriented choice phi 0.98 (19.83 years), D-optimal choice phi 0.98 (19.83 years), white dither 20.64 years
+monitoring: head + sentinel chloride (baseline)           J* 0.4270; years for 1% 20.9; absolute excess after 10 years 0.00893; log det I 4.83
+monitoring: sentinel chloride noise halved                J* 0.4189; years for 1% 13.7; absolute excess after 10 years 0.00574; log det I 5.63
+monitoring: the operators' toe reading logged             J* 0.4201; years for 1% 10.2; absolute excess after 10 years 0.00430; log det I 6.67
+monitoring: a second sentinel that sees more clay salt    J* 0.4183; years for 1% 16.9; absolute excess after 10 years 0.00708; log det I 5.54
+monitoring: head noise 0.02 instead of 0.05               J* 0.4156; years for 1% 21.1; absolute excess after 10 years 0.00876; log det I 4.85
+monitoring: a soil-moisture probe                         J* 0.3032; years for 1% 29.8; absolute excess after 10 years 0.00903; log det I 4.90
+operators at 1.0 x the optimal gain: their cost +1.9%, years for 1% 20.9
+operators at 0.9 x the optimal gain: their cost +3.1%, years for 1% 18.2
+operators at 0.8 x the optimal gain: their cost +7.3%, years for 1% 15.7
+operators at 0.7 x the optimal gain: their cost +16.2%, years for 1% 13.7
+operators at 0.6 x the optimal gain: their cost +32.2%, years for 1% 12.1
+operators at 0.5 x the optimal gain: their cost +60.2%, years for 1% 11.0
+operators at 0.4 x the optimal gain: their cost +110.0%, years for 1% 10.8
+equal extra cost 5.5% of J*: operators at 0.8 x gain -> 15.7 years; slow dither (phi 0.98, sd 0.171) -> 18.3 years

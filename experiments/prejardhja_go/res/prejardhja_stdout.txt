@@ -1,0 +1,18 @@
+grid: 186609 decisions
+Pareto front: 3508 decisions (15 s)
+P0 wrong-story matrix
+P2 test choice
+  best tests ['T1', 'T2', 'T3', 'T4'] beta 0.03; upconing under A: ['T1', 'T2', 'T3', 'T4'] (20 s)
+P1 policies
+  done (21 s)
+P3 risk split and ledger
+P4 monitoring
+  done (21 s)
+P5 stress tests
+/home/user/swi-goal-oed/experiments/prejardhja_go/prejardhja_exp.py:196: RuntimeWarning: overflow encountered in exp
+  E[:, k] = np.exp(ll_num[:, others] - ll_den[:, [k]]).mean(1)
+/home/user/swi-goal-oed/experiments/prejardhja_go/prejardhja_exp.py:437: RuntimeWarning: overflow encountered in exp
+  keep[:, h] = np.exp(ll[:, others] - ll[:, [h]]).mean(1) < 1.0 / beta
+P3b price of safety
+P6 checks
+saved res/prejardhja.json (85 s)

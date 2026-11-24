@@ -1,0 +1,31 @@
+local coastal drift | host loss [0.7673168076534219, 0.07899394761809538]
+  Monitoring agency        treated 0.50  V 0.0978  R +0.1999 ± 0.0579
+  Private irrigators       treated 0.85  V 0.1642  R +0.2125 ± 0.0632
+  Coastal hotels           treated 1.00  V 0.1210  R +0.1206 ± 0.0575
+  Municipal coastal wells  treated 0.00  V 0.0146  R -0.0950 ± 0.0465
+  Research campaign        treated 0.50  V 0.0717  R +0.1210 ± 0.0509
+  grand {'V': [0.24288651054288501, 0.00802167641729899], 'R': [0.2509003817235349, 0.0638810139159817]}
+  pair agency+irrigators      synergy pred -0.0742  real -0.1792 ± 0.0574  EIG -1.414  P(pred>0) 0.01 P(real>0) 0.34
+  pair agency+hotels          synergy pred -0.0307  real -0.1155 ± 0.0520  EIG -0.176  P(pred>0) 0.04 P(real>0) 0.47
+  pair agency+municipal       synergy pred -0.0140  real +0.0924 ± 0.0459  EIG -0.158  P(pred>0) 0.01 P(real>0) 0.53
+  pair agency+research        synergy pred -0.0372  real -0.1110 ± 0.0469  EIG -0.435  P(pred>0) 0.01 P(real>0) 0.43
+  pair irrigators+hotels      synergy pred -0.0790  real -0.1198 ± 0.0558  EIG -1.099  P(pred>0) 0.01 P(real>0) 0.47
+  pair irrigators+municipal   synergy pred -0.0050  real +0.0974 ± 0.0462  EIG +0.242  P(pred>0) 0.34 P(real>0) 0.54
+  pair irrigators+research    synergy pred -0.0538  real -0.1076 ± 0.0500  EIG -0.640  P(pred>0) 0.01 P(real>0) 0.42
+  pair hotels+municipal       synergy pred +0.0123  real +0.1054 ± 0.0388  EIG +0.820  P(pred>0) 0.99 P(real>0) 0.61
+  pair hotels+research        synergy pred -0.0356  real -0.0757 ± 0.0494  EIG -0.385  P(pred>0) 0.04 P(real>0) 0.52
+  pair municipal+research     synergy pred -0.0073  real +0.0790 ± 0.0412  EIG -0.014  P(pred>0) 0.14 P(real>0) 0.54
+calibration {'pred': 0.17208739060514877, 'real': 0.1968705330716144, 'slope': 0.9759479772617526, 'corr': 0.1598930597663324}
+cost 0.0: single +0.2052  greedy +0.2509  optimal +0.2509  adaptive +0.2509  all +0.2509  oracle +0.2902 | sizes opt 5.00 adapt 4.99 | adapt-opt -0.0000±0.0000 opt-greedy +0.0000±0.0000 opt-single +0.0457±0.0145 greedy differs 0.00 HM in opt 1.00
+cost 0.01: single +0.1952  greedy +0.2089  optimal +0.2035  adaptive +0.2135  all +0.2009  oracle +0.2687 | sizes opt 3.30 adapt 3.23 | adapt-opt +0.0100±0.0100 opt-greedy -0.0054±0.0105 opt-single +0.0083±0.0161 greedy differs 0.02 HM in opt 0.50
+cost 0.02: single +0.1853  greedy +0.1870  optimal +0.1869  adaptive +0.1908  all +0.1509  oracle +0.2540 | sizes opt 2.41 adapt 2.43 | adapt-opt +0.0039±0.0037 opt-greedy -0.0001±0.0003 opt-single +0.0016±0.0136 greedy differs 0.01 HM in opt 0.01
+cost 0.04: single +0.1655  greedy +0.1623  optimal +0.1619  adaptive +0.1623  all +0.0509  oracle +0.2339 | sizes opt 1.54 adapt 1.61 | adapt-opt +0.0004±0.0064 opt-greedy -0.0003±0.0009 opt-single -0.0036±0.0091 greedy differs 0.04 HM in opt 0.00
+shapley pred [0.0454, 0.0866, 0.0717, 0.0104, 0.0288] real [0.081, 0.0953, 0.0455, -0.0167, 0.0458] banzhaf [0.0401, 0.0806, 0.0679, 0.0097, 0.0239]
+  per record [0.00015, 0.00072, 0.00224, 0.00026, 0.0012] host share [0.6226698388243055, 0.003132746825584243] convex 0.0 core 0.02 corr 0.251 real convex/core 0.005 0.005
+marginal rule {'core': 0.0, 'host_share': [0.5854338080498784, 0.011803067808339335], 'core_real': 0.005} pair rule {'core': 0.655, 'host_share': [0.6016367312137015, 0.0108429646875529], 'core_real': 0.005}
+robustness {'0.001': (0.993, 0.994, 0.0013, 0.003), '0.003': (0.981, 0.984, 0.0024, 0.0036), '0.01': (0.944, 0.941, -0.0029, 0.0034)}
+privacy eps 1.0: shapley tau 0.40 | c0.0: net +0.2429 same 0.10  c0.01: net +0.1788 same 0.01  c0.02: net +0.1539 same 0.02  c0.04: net +0.1341 same 0.20
+privacy eps 3.0: shapley tau 0.60 | c0.0: net +0.2471 same 0.17  c0.01: net +0.2170 same 0.07  c0.02: net +0.1811 same 0.08  c0.04: net +0.1617 same 0.35
+privacy eps 10.0: shapley tau 0.73 | c0.0: net +0.2435 same 0.19  c0.01: net +0.2114 same 0.29  c0.02: net +0.1969 same 0.30  c0.04: net +0.1753 same 0.46
+privacy eps 30.0: shapley tau 0.83 | c0.0: net +0.2490 same 0.58  c0.01: net +0.2100 same 0.39  c0.02: net +0.1883 same 0.64  c0.04: net +0.1725 same 0.55
+clip {'conservative': 1.0, 'mean_bias': -0.02973969452659339}

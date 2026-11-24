@@ -1,0 +1,10 @@
+none  mobile 250 m   V_BC(inf)=0.0397 V_IC(0)=0.0069 lam_bar= 14.102/yr t*=0.04901180082868454 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-115.62 chk=2.5e-13 ICshare20=0.000 vbc_mono=True
+none  mobile 1000 m  V_BC(inf)=0.4672 V_IC(0)=0.0837 lam_bar=  3.091/yr t*=0.2899409318994375 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-115.62 chk=2.2e-13 ICshare20=0.000 vbc_mono=True
+none  mobile 2500 m  V_BC(inf)=1.8155 V_IC(0)=0.2507 lam_bar=  1.089/yr t*=0.4643160972669308 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-115.62 chk=7.0e-14 ICshare20=0.000 vbc_mono=True
+none  mobile 4750 m  V_BC(inf)=3.0544 V_IC(0)=0.4839 lam_bar=  0.901/yr t*=0.5930620369040981 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-115.62 chk=1.1e-13 ICshare20=0.000 vbc_mono=True
+power mobile 250 m   V_BC(inf)=0.0223 V_IC(0)=0.0106 lam_bar= 15.243/yr t*=0.09417291973433016 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-2.77 chk=5.5e-15 ICshare20=0.002 vbc_mono=True | legacy peak t=0.5 yr V=0.0033 share20=0.003 t*=0.01
+power mobile 1000 m  V_BC(inf)=0.2074 V_IC(0)=0.1065 lam_bar=  3.740/yr t*=0.4433984017606853 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-2.79 chk=3.1e-15 ICshare20=0.004 vbc_mono=True | legacy peak t=0.7 yr V=0.0345 share20=0.005 t*=0.11496262433732803
+power mobile 2500 m  V_BC(inf)=0.7247 V_IC(0)=0.2466 lam_bar=  1.743/yr t*=0.6413469421967949 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-2.80 chk=2.3e-15 ICshare20=0.006 vbc_mono=True | legacy peak t=1.2 yr V=0.0921 share20=0.007 t*=0.10876249464839158
+power mobile 4750 m  V_BC(inf)=1.1530 V_IC(0)=0.4752 lam_bar=  1.423/yr t*=0.9102817036070134 Jensen t*>=0.00 ok=True cm=[True, True] slope50-400=-2.80 chk=3.2e-15 ICshare20=0.007 vbc_mono=True | legacy peak t=1.5 yr V=0.1441 share20=0.008 t*=0.22222636420132966
+power clay 2500 m    V_BC(inf)=0.3671 V_IC(0)=6.8423 lam_bar=  0.274/yr t*=105.27094169130699 Jensen t*>=5.33 ok=True cm=[True, True] slope50-400=-0.93 chk=8.0e-14 ICshare20=0.773 vbc_mono=True | legacy peak t=0.0 yr V=0.9911 share20=0.116 t*=5.79272533560599
+runtime 80 s

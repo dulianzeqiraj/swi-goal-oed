@@ -1,0 +1,13 @@
+T25 state abduction: max relative error of c*phi 1.08e-15; twin interface from the heads alone vs re-solved: 1.46e-11 m  [7s]
+ensemble recomputed (max difference to the stored summaries 0.0e+00); smallest change of shallow chloride under c < 1 over all cells and draws: 0.00e+00 mg/L  [137s]
+T26 A: factual post med 31.3 [9.75, 63.1] | counterfactual c=0.6 post med 65.4 | effect prior [1.38, 58.6] post med 32.9 [12.4, 49.6]
+T26 T: factual post med 94.8 [63.6, 124] | counterfactual c=0.6 post med 128 | effect prior [14.8, 40.1] post med 33.4 [28.1, 40.7]
+T26 F: factual post med 9.57 [2.89, 25.8] | counterfactual c=0.6 post med 35.3 | effect prior [4.59e-07, 43.7] post med 24.4 [15, 41.9]
+T27 A: effect IS coverage 0.883 -> conformal 0.887 (q 1.53); level IS 0.897 -> conformal 0.897; Fushe-Kuqe conformal effect band [15.3, 49.3]
+T27 T: effect IS coverage 0.900 -> conformal 0.900 (q 1.63); level IS 0.923 -> conformal 0.897; Fushe-Kuqe conformal effect band [27.4, 40.1]
+T27 F: effect IS coverage 0.913 -> conformal 0.893 (q 1.36); level IS 0.910 -> conformal 0.890; Fushe-Kuqe conformal effect band [14.7, 36.8]
+T28 A: 90% width of the effect, facts none/heads/chloride/all = 57.3/59.3/34.3/37.2 | posterior variance shares w 0.62 R 0.02 eta 0.00 b_c 0.01 b_e 0.00 L_B 0.00 ground 0.00 Cl_s 0.00 | beta 0/0.25/0.5 median 32.9/47.7/64.1
+T28 T: 90% width of the effect, facts none/heads/chloride/all = 25.3/25.6/13.2/12.6 | posterior variance shares w 0.00 R 0.01 eta 0.00 b_c 0.00 b_e 0.00 L_B 0.54 ground 0.00 Cl_s 0.00 | beta 0/0.25/0.5 median 33.4/33.4/33.4
+T28 F: 90% width of the effect, facts none/heads/chloride/all = 43.7/42.4/25.6/26.8 | posterior variance shares w 0.74 R 0.21 eta 0.01 b_c 0.01 b_e 0.00 L_B 0.00 ground 0.00 Cl_s 0.00 | beta 0/0.25/0.5 median 24.4/25.6/26.9
+maps: cells with posterior exceedance probability >= 0.5: factual 30.9 km2, counterfactual 65.4 km2
+done in 147s

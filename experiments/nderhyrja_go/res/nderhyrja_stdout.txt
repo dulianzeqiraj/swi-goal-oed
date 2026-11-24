@@ -1,0 +1,23 @@
+bed: 48 piezometers, 5 reference channels, var(q)^0.5 = 0.2993 m
+self-checks: {"schur_gain_err": 7.993605777301127e-15, "n1_closed_form_err": 3.497202527569243e-15, "n1_naive_gain": 0.0, "n1_indep_gain": 0.0, "n1_alone": 0.0, "n2_with_refs": 4.464647101880974, "n2_ceiling": 4.510773031023664, "n2_without_refs": 2.52323538025723, "n2_limit_gaps": [0.00473950494507136, 0.0004752625658568377, 4.753942182489368e-05, 4.75407388123017e-06], "n2_corrected_mean_err": 3.977877922363831e-16, "n2_min_penalty": 1.5015495881945995, "n3_grad_err": 1.998342935571884e-09, "n3_amp_derivs_max": -0.17952734410187077, "n4_inflation_t": 0.0074497818141299145, "n4_binary_err": 1.2434497875801753e-14, "n4_grad_err": 3.2357448803699285e-09, "n4_max_second_diff": -0.16653434213799656}
+T33 barometer gain at n = 0, 4, 8, 16: [0.0, 0.53, 0.5522, 0.4562]
+k= 4 (71s): indep: nom 3.04 worst 1.69 refs 0, naive: nom 2.94 worst 1.63 refs 0, nominal_norefs: nom 3.17 worst 1.92 refs 0, nominal: nom 3.17 worst 1.92 refs 0, robust_norefs: nom 3.17 worst 1.92 refs 0, nderhyrja: nom 3.27 worst 2.13 refs 1
+      certificate 3.583 vs robust value 2.127 (gap 40.6%, 7 scenarios, 3 rounds)
+k= 6 (86s): indep: nom 4.22 worst 2.29 refs 0, naive: nom 4.37 worst 2.43 refs 0, nominal_norefs: nom 4.51 worst 2.55 refs 0, nominal: nom 4.61 worst 2.63 refs 0, robust_norefs: nom 4.57 worst 2.70 refs 0, nderhyrja: nom 4.54 worst 3.15 refs 2
+      certificate 4.453 vs robust value 3.146 (gap 29.3%, 6 scenarios, 2 rounds)
+k= 8 (84s): indep: nom 5.05 worst 2.74 refs 0, naive: nom 5.58 worst 3.13 refs 0, nominal_norefs: nom 5.68 worst 3.32 refs 0, nominal: nom 5.98 worst 3.98 refs 2, robust_norefs: nom 5.62 worst 3.37 refs 0, nderhyrja: nom 5.75 worst 4.08 refs 3
+      certificate 5.291 vs robust value 4.078 (gap 22.9%, 6 scenarios, 2 rounds)
+k=10 (85s): indep: nom 6.06 worst 3.30 refs 0, naive: nom 6.62 worst 3.74 refs 0, nominal_norefs: nom 6.75 worst 3.91 refs 0, nominal: nom 7.03 worst 4.60 refs 2, robust_norefs: nom 6.68 worst 3.95 refs 0, nderhyrja: nom 7.04 worst 4.85 refs 3
+      certificate 6.088 vs robust value 4.852 (gap 20.3%, 6 scenarios, 2 rounds)
+k=12 (88s): indep: nom 6.64 worst 3.67 refs 0, naive: nom 7.53 worst 4.25 refs 0, nominal_norefs: nom 7.65 worst 4.36 refs 0, nominal: nom 8.18 worst 5.48 refs 3, robust_norefs: nom 7.52 worst 4.48 refs 0, nderhyrja: nom 8.07 worst 5.59 refs 4
+      certificate 6.841 vs robust value 5.590 (gap 18.3%, 6 scenarios, 2 rounds)
+k=14 (90s): indep: nom 7.62 worst 4.31 refs 0, naive: nom 8.44 worst 4.85 refs 0, nominal_norefs: nom 8.51 worst 4.90 refs 0, nominal: nom 9.20 worst 6.22 refs 4, robust_norefs: nom 8.33 worst 4.94 refs 0, nderhyrja: nom 9.14 worst 6.31 refs 5
+      certificate 7.455 vs robust value 6.309 (gap 15.4%, 6 scenarios, 2 rounds)
+k=16 (94s): indep: nom 8.49 worst 4.85 refs 0, naive: nom 9.22 worst 5.32 refs 0, nominal_norefs: nom 9.28 worst 5.40 refs 0, nominal: nom 10.21 worst 6.96 refs 5, robust_norefs: nom 9.22 worst 5.45 refs 0, nderhyrja: nom 10.24 worst 6.98 refs 5
+      certificate 7.944 vs robust value 6.984 (gap 12.1%, 6 scenarios, 2 rounds)
+  T35 small k=3: greedy+exchange 1.3444, exhaustive 1.3444, certificate 1.7612
+  T35 small k=4: greedy+exchange 1.9129, exhaustive 1.9129, certificate 2.2832
+  T35 small k=5: greedy+exchange 2.4002, exhaustive 2.4002, certificate 2.5911
+  T35 small k=6: greedy+exchange 2.7389, exhaustive 2.7389, certificate 2.7828
+T36: {"indep": {"ignore": [0.618, 0.2187], "nominal": [0.89, 0.1772], "robust": [0.925, 0.1844]}, "nominal_norefs": {"ignore": [0.492, 0.2518], "nominal": [0.884, 0.16], "robust": [0.932, 0.167]}, "nderhyrja": {"ignore": [0.536, 0.2427], "nominal": [0.885, 0.1332], "robust": [0.932, 0.1376]}}
+done in 608 s

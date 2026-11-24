@@ -1,0 +1,1391 @@
+{
+ "phillips2003": {
+  "doi": "10.1007/s00442-003-1218-3",
+  "title": "Source partitioning using stable isotopes: coping with too many sources",
+  "authors": [
+   {
+    "given": "Donald L.",
+    "family": "Phillips"
+   },
+   {
+    "given": "Jillian W.",
+    "family": "Gregg"
+   }
+  ],
+  "year": 2003,
+  "journal": "Oecologia",
+  "volume": "136",
+  "issue": "2",
+  "page": "261-269",
+  "publisher": "Springer Science and Business Media LLC",
+  "type": "journal-article"
+ },
+ "stock2018": {
+  "doi": "10.7717/peerj.5096",
+  "title": "Analyzing mixing systems using a new generation of Bayesian tracer mixing models",
+  "authors": [
+   {
+    "given": "Brian C.",
+    "family": "Stock"
+   },
+   {
+    "given": "Andrew L.",
+    "family": "Jackson"
+   },
+   {
+    "given": "Eric J.",
+    "family": "Ward"
+   },
+   {
+    "given": "Andrew C.",
+    "family": "Parnell"
+   },
+   {
+    "given": "Donald L.",
+    "family": "Phillips"
+   },
+   {
+    "given": "Brice X.",
+    "family": "Semmens"
+   }
+  ],
+  "year": 2018,
+  "journal": "PeerJ",
+  "volume": "6",
+  "issue": null,
+  "page": "e5096",
+  "publisher": "PeerJ",
+  "type": "journal-article"
+ },
+ "phillips2014": {
+  "doi": "10.1139/cjz-2014-0127",
+  "title": "Best practices for use of stable isotope mixing models in food-web studies",
+  "authors": [
+   {
+    "given": "Donald L.",
+    "family": "Phillips"
+   },
+   {
+    "given": "Richard",
+    "family": "Inger"
+   },
+   {
+    "given": "Stuart",
+    "family": "Bearhop"
+   },
+   {
+    "given": "Andrew L.",
+    "family": "Jackson"
+   },
+   {
+    "given": "Jonathan W.",
+    "family": "Moore"
+   },
+   {
+    "given": "Andrew C.",
+    "family": "Parnell"
+   },
+   {
+    "given": "Brice X.",
+    "family": "Semmens"
+   },
+   {
+    "given": "Eric J.",
+    "family": "Ward"
+   }
+  ],
+  "year": 2014,
+  "journal": "Canadian Journal of Zoology",
+  "volume": "92",
+  "issue": "10",
+  "page": "823-835",
+  "publisher": "Canadian Science Publishing",
+  "type": "journal-article"
+ },
+ "christophersen1992": {
+  "doi": "10.1029/91WR02518",
+  "title": "Multivariate analysis of stream water chemical data: The use of principal components analysis for the end‐member mixing problem",
+  "authors": [
+   {
+    "given": "Nils",
+    "family": "Christophersen"
+   },
+   {
+    "given": "Richard P.",
+    "family": "Hooper"
+   }
+  ],
+  "year": 1992,
+  "journal": "Water Resources Research",
+  "volume": "28",
+  "issue": "1",
+  "page": "99-107",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "hooper2003": {
+  "doi": "10.1029/2002WR001528",
+  "title": "Diagnostic tools for mixing models of stream water chemistry",
+  "authors": [
+   {
+    "given": "Richard P.",
+    "family": "Hooper"
+   }
+  ],
+  "year": 2003,
+  "journal": "Water Resources Research",
+  "volume": "39",
+  "issue": "3",
+  "page": "2002WR001528",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "genereux1998": {
+  "doi": "10.1029/98WR00010",
+  "title": "Quantifying uncertainty in tracer‐based hydrograph separations",
+  "authors": [
+   {
+    "given": "David",
+    "family": "Genereux"
+   }
+  ],
+  "year": 1998,
+  "journal": "Water Resources Research",
+  "volume": "34",
+  "issue": "4",
+  "page": "915-919",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "barthold2011": {
+  "doi": "10.1029/2011WR010604",
+  "title": "How many tracers do we need for end member mixing analysis (EMMA)? A sensitivity analysis",
+  "authors": [
+   {
+    "given": "Frauke K.",
+    "family": "Barthold"
+   },
+   {
+    "given": "Christoph",
+    "family": "Tyralla"
+   },
+   {
+    "given": "Katrin",
+    "family": "Schneider"
+   },
+   {
+    "given": "Kellie B.",
+    "family": "Vaché"
+   },
+   {
+    "given": "Hans‐Georg",
+    "family": "Frede"
+   },
+   {
+    "given": "Lutz",
+    "family": "Breuer"
+   }
+  ],
+  "year": 2011,
+  "journal": "Water Resources Research",
+  "volume": "47",
+  "issue": "8",
+  "page": "2011WR010604",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "parnell2010": {
+  "doi": "10.1371/journal.pone.0009672",
+  "title": "Source Partitioning Using Stable Isotopes: Coping with Too Much Variation",
+  "authors": [
+   {
+    "given": "Andrew C.",
+    "family": "Parnell"
+   },
+   {
+    "given": "Richard",
+    "family": "Inger"
+   },
+   {
+    "given": "Stuart",
+    "family": "Bearhop"
+   },
+   {
+    "given": "Andrew L.",
+    "family": "Jackson"
+   }
+  ],
+  "year": 2010,
+  "journal": "PLoS ONE",
+  "volume": "5",
+  "issue": "3",
+  "page": "e9672",
+  "publisher": "Public Library of Science (PLoS)",
+  "type": "journal-article"
+ },
+ "moore2008": {
+  "doi": "10.1111/j.1461-0248.2008.01163.x",
+  "title": "Incorporating uncertainty and prior information into stable isotope mixing models",
+  "authors": [
+   {
+    "given": "Jonathan W.",
+    "family": "Moore"
+   },
+   {
+    "given": "Brice X.",
+    "family": "Semmens"
+   }
+  ],
+  "year": 2008,
+  "journal": "Ecology Letters",
+  "volume": "11",
+  "issue": "5",
+  "page": "470-480",
+  "publisher": "Wiley",
+  "type": "journal-article"
+ },
+ "davis1998": {
+  "doi": "10.1111/j.1745-6584.1998.tb01099.x",
+  "title": "Uses of Chloride/Bromide Ratios in Studies of Potable Water",
+  "authors": [
+   {
+    "given": "Stanley N.",
+    "family": "Davis"
+   },
+   {
+    "given": "Donald O.",
+    "family": "Whittemore"
+   },
+   {
+    "given": "June",
+    "family": "Fabryka‐Martin"
+   }
+  ],
+  "year": 1998,
+  "journal": "Groundwater",
+  "volume": "36",
+  "issue": "2",
+  "page": "338-350",
+  "publisher": "Wiley",
+  "type": "journal-article"
+ },
+ "alcala2008": {
+  "doi": "10.1016/j.jhydrol.2008.06.028",
+  "title": "Using the Cl/Br ratio as a tracer to identify the origin of salinity in aquifers in Spain and Portugal",
+  "authors": [
+   {
+    "given": "Francisco J.",
+    "family": "Alcalá"
+   },
+   {
+    "given": "Emilio",
+    "family": "Custodio"
+   }
+  ],
+  "year": 2008,
+  "journal": "Journal of Hydrology",
+  "volume": "359",
+  "issue": "1-2",
+  "page": "189-207",
+  "publisher": "Elsevier BV",
+  "type": "journal-article"
+ },
+ "werner2013": {
+  "doi": "10.1016/j.advwatres.2012.03.004",
+  "title": "Seawater intrusion processes, investigation and management: Recent advances and future challenges",
+  "authors": [
+   {
+    "given": "Adrian D.",
+    "family": "Werner"
+   },
+   {
+    "given": "Mark",
+    "family": "Bakker"
+   },
+   {
+    "given": "Vincent E.A.",
+    "family": "Post"
+   },
+   {
+    "given": "Alexander",
+    "family": "Vandenbohede"
+   },
+   {
+    "given": "Chunhui",
+    "family": "Lu"
+   },
+   {
+    "given": "Behzad",
+    "family": "Ataie-Ashtiani"
+   },
+   {
+    "given": "Craig T.",
+    "family": "Simmons"
+   },
+   {
+    "given": "D.A.",
+    "family": "Barry"
+   }
+  ],
+  "year": 2013,
+  "journal": "Advances in Water Resources",
+  "volume": "51",
+  "issue": null,
+  "page": "3-26",
+  "publisher": "Elsevier BV",
+  "type": "journal-article"
+ },
+ "vengosh2014": {
+  "doi": "10.1016/B978-0-08-095975-7.00909-8",
+  "title": "Salinization and Saline Environments",
+  "authors": [
+   {
+    "given": "A.",
+    "family": "Vengosh"
+   }
+  ],
+  "year": 2014,
+  "journal": "Treatise on Geochemistry",
+  "volume": null,
+  "issue": null,
+  "page": "325-378",
+  "publisher": "Elsevier",
+  "type": "book-chapter"
+ },
+ "panno2006": {
+  "doi": "10.1111/j.1745-6584.2005.00127.x",
+  "title": "Characterization and Identification of Na‐Cl Sources in Ground Water",
+  "authors": [
+   {
+    "given": "S.V.",
+    "family": "Panno"
+   },
+   {
+    "given": "K.C.",
+    "family": "Hackley"
+   },
+   {
+    "given": "H.H.",
+    "family": "Hwang"
+   },
+   {
+    "given": "S.E.",
+    "family": "Greenberg"
+   },
+   {
+    "given": "I.G.",
+    "family": "Krapac"
+   },
+   {
+    "given": "S.",
+    "family": "Landsberger"
+   },
+   {
+    "given": "D.J.",
+    "family": "O'Kelly"
+   }
+  ],
+  "year": 2006,
+  "journal": "Groundwater",
+  "volume": "44",
+  "issue": "2",
+  "page": "176-187",
+  "publisher": "Wiley",
+  "type": "journal-article"
+ },
+ "katz2011": {
+  "doi": "10.1016/j.jhydrol.2010.11.017",
+  "title": "Using Cl/Br ratios and other indicators to assess potential impacts on groundwater quality from septic systems: A review and examples from principal aquifers in the United States",
+  "authors": [
+   {
+    "given": "Brian G.",
+    "family": "Katz"
+   },
+   {
+    "given": "Sandra M.",
+    "family": "Eberts"
+   },
+   {
+    "given": "Leon J.",
+    "family": "Kauffman"
+   }
+  ],
+  "year": 2011,
+  "journal": "Journal of Hydrology",
+  "volume": "397",
+  "issue": "3-4",
+  "page": "151-166",
+  "publisher": "Elsevier BV",
+  "type": "journal-article"
+ },
+ "land2004": {
+  "doi": "10.3133/sir20045067",
+  "title": "Ground-water quality of coastal aquifer systems in the West Coast Basin, Los Angeles County, California, 1999-2002",
+  "authors": [
+   {
+    "given": "Michael",
+    "family": "Land"
+   },
+   {
+    "given": "Eric G.",
+    "family": "Reichard"
+   },
+   {
+    "given": "Steven M.",
+    "family": "Crawford"
+   },
+   {
+    "given": "Rhett R.",
+    "family": "Everett"
+   },
+   {
+    "given": "Mark W.",
+    "family": "Newhouse"
+   },
+   {
+    "given": "Colin F.",
+    "family": "Williams"
+   }
+  ],
+  "year": 2004,
+  "journal": "Scientific Investigations Report",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "US Geological Survey",
+  "type": "report-component"
+ },
+ "vengosh2005": {
+  "doi": "10.1029/2004WR003344",
+  "title": "Sources of salinity and boron in the Gaza strip: Natural contaminant flow in the southern Mediterranean coastal aquifer",
+  "authors": [
+   {
+    "given": "Avner",
+    "family": "Vengosh"
+   },
+   {
+    "given": "Wolfram",
+    "family": "Kloppmann"
+   },
+   {
+    "given": "Amer",
+    "family": "Marei"
+   },
+   {
+    "given": "Yakov",
+    "family": "Livshitz"
+   },
+   {
+    "given": "Alexis",
+    "family": "Gutierrez"
+   },
+   {
+    "given": "Mazen",
+    "family": "Banna"
+   },
+   {
+    "given": "Catherine",
+    "family": "Guerrot"
+   },
+   {
+    "given": "Irena",
+    "family": "Pankratov"
+   },
+   {
+    "given": "Hadas",
+    "family": "Raanan"
+   }
+  ],
+  "year": 2005,
+  "journal": "Water Resources Research",
+  "volume": "41",
+  "issue": "1",
+  "page": "2004WR003344",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "piper1953": {
+  "doi": "10.3133/wsp1136",
+  "title": "Native and contaminated ground waters in the Long Beach-Santa Ana area, California",
+  "authors": [],
+  "year": 1953,
+  "journal": "",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "US Geological Survey",
+  "type": "report"
+ },
+ "hem1985": {
+  "doi": "10.3133/wsp2254",
+  "title": "Study and interpretation of the chemical characteristics of natural water",
+  "authors": [],
+  "year": 1985,
+  "journal": "",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "US Geological Survey",
+  "type": "report"
+ },
+ "craig1961": {
+  "doi": "10.1126/science.133.3465.1702",
+  "title": "Isotopic Variations in Meteoric Waters",
+  "authors": [
+   {
+    "given": "Harmon",
+    "family": "Craig"
+   }
+  ],
+  "year": 1961,
+  "journal": "Science",
+  "volume": "133",
+  "issue": "3465",
+  "page": "1702-1703",
+  "publisher": "American Association for the Advancement of Science (AAAS)",
+  "type": "journal-article"
+ },
+ "dansgaard1964": {
+  "doi": "10.3402/tellusa.v16i4.8993",
+  "title": "Stable isotopes in precipitation",
+  "authors": [
+   {
+    "given": "W.",
+    "family": "Dansgaard"
+   }
+  ],
+  "year": 2012,
+  "journal": "Tellus A: Dynamic Meteorology and Oceanography",
+  "volume": "16",
+  "issue": "4",
+  "page": "436",
+  "publisher": "Stockholm University Press",
+  "type": "journal-article"
+ },
+ "stark1992": {
+  "doi": "10.1029/92JB00739",
+  "title": "Inference in infinite‐dimensional inverse problems: Discretization and duality",
+  "authors": [
+   {
+    "given": "Philip B.",
+    "family": "Stark"
+   }
+  ],
+  "year": 1992,
+  "journal": "Journal of Geophysical Research: Solid Earth",
+  "volume": "97",
+  "issue": "B10",
+  "page": "14055-14082",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "stark2015": {
+  "doi": "10.1137/130920721",
+  "title": "Constraints versus Priors",
+  "authors": [
+   {
+    "given": "Philip B.",
+    "family": "Stark"
+   }
+  ],
+  "year": 2015,
+  "journal": "SIAM/ASA Journal on Uncertainty Quantification",
+  "volume": "3",
+  "issue": "1",
+  "page": "586-598",
+  "publisher": "Society for Industrial & Applied Mathematics (SIAM)",
+  "type": "journal-article"
+ },
+ "oldenburg1983": {
+  "doi": "10.1029/JB088iB09p07387",
+  "title": "Funnel functions in linear and nonlinear appraisal",
+  "authors": [
+   {
+    "given": "D. W.",
+    "family": "Oldenburg"
+   }
+  ],
+  "year": 1983,
+  "journal": "Journal of Geophysical Research: Solid Earth",
+  "volume": "88",
+  "issue": "B9",
+  "page": "7387-7398",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "manski2003": {
+  "doi": "10.1007/b97478",
+  "title": "Partial Identification of Probability Distributions",
+  "authors": [],
+  "year": 2003,
+  "journal": "Springer Series in Statistics",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "Springer-Verlag",
+  "type": "book"
+ },
+ "tamer2010": {
+  "doi": "10.1146/annurev.economics.050708.143401",
+  "title": "Partial Identification in Econometrics",
+  "authors": [
+   {
+    "given": "Elie",
+    "family": "Tamer"
+   }
+  ],
+  "year": 2010,
+  "journal": "Annual Review of Economics",
+  "volume": "2",
+  "issue": "1",
+  "page": "167-195",
+  "publisher": "Annual Reviews",
+  "type": "journal-article"
+ },
+ "imbens2004": {
+  "doi": "10.1111/j.1468-0262.2004.00555.x",
+  "title": "Confidence Intervals for Partially Identified Parameters",
+  "authors": [
+   {
+    "given": "Guido W.",
+    "family": "Imbens"
+   },
+   {
+    "given": "Charles F.",
+    "family": "Manski"
+   }
+  ],
+  "year": 2004,
+  "journal": "Econometrica",
+  "volume": "72",
+  "issue": "6",
+  "page": "1845-1857",
+  "publisher": "The Econometric Society",
+  "type": "journal-article"
+ },
+ "poirier1998": {
+  "doi": "10.1017/S0266466698144043",
+  "title": "REVISING BELIEFS IN NONIDENTIFIED MODELS",
+  "authors": [
+   {
+    "given": "Dale J.",
+    "family": "Poirier"
+   }
+  ],
+  "year": 1998,
+  "journal": "Econometric Theory",
+  "volume": "14",
+  "issue": "4",
+  "page": "483-509",
+  "publisher": "Cambridge University Press (CUP)",
+  "type": "journal-article"
+ },
+ "moon2012": {
+  "doi": "10.3982/ECTA8360",
+  "title": "Bayesian and Frequentist Inference in Partially Identified Models",
+  "authors": [],
+  "year": 2012,
+  "journal": "Econometrica",
+  "volume": "80",
+  "issue": "2",
+  "page": "755-782",
+  "publisher": "The Econometric Society",
+  "type": "journal-article"
+ },
+ "gustafson2015": {
+  "doi": "10.1201/b18308",
+  "title": "Bayesian Inference for Partially Identified Models",
+  "authors": [
+   {
+    "given": "Paul",
+    "family": "Gustafson"
+   }
+  ],
+  "year": 2015,
+  "journal": "",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "Chapman and Hall/CRC",
+  "type": "reference-book"
+ },
+ "charnes1962": {
+  "doi": "10.1002/nav.3800090303",
+  "title": "Programming with linear fractional functionals",
+  "authors": [
+   {
+    "given": "A.",
+    "family": "Charnes"
+   },
+   {
+    "given": "W. W.",
+    "family": "Cooper"
+   }
+  ],
+  "year": 1962,
+  "journal": "Naval Research Logistics Quarterly",
+  "volume": "9",
+  "issue": "3-4",
+  "page": "181-186",
+  "publisher": "Wiley",
+  "type": "journal-article"
+ },
+ "hoffman1952": {
+  "doi": "10.6028/jres.049.027",
+  "title": "On approximate solutions of systems of linear inequalities",
+  "authors": [
+   {
+    "given": "A.J.",
+    "family": "Hoffman"
+   }
+  ],
+  "year": 1952,
+  "journal": "Journal of Research of the National Bureau of Standards",
+  "volume": "49",
+  "issue": "4",
+  "page": "263",
+  "publisher": "National Institute of Standards and Technology (NIST)",
+  "type": "journal-article"
+ },
+ "farkas1902": {
+  "doi": "10.1515/crll.1902.124.1",
+  "title": "Theorie der einfachen Ungleichungen.",
+  "authors": [],
+  "year": 1902,
+  "journal": "Journal für die reine und angewandte Mathematik (Crelles Journal)",
+  "volume": "1902",
+  "issue": "124",
+  "page": "1-27",
+  "publisher": "Walter de Gruyter GmbH",
+  "type": "journal-article"
+ },
+ "tarantola2005": {
+  "doi": "10.1137/1.9780898717921",
+  "title": "Inverse Problem Theory and Methods for Model Parameter Estimation",
+  "authors": [
+   {
+    "given": "Albert",
+    "family": "Tarantola"
+   }
+  ],
+  "year": 2005,
+  "journal": "",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "Society for Industrial and Applied Mathematics",
+  "type": "monograph"
+ },
+ "stuart2010": {
+  "doi": "10.1017/S0962492910000061",
+  "title": "Inverse problems: A Bayesian perspective",
+  "authors": [
+   {
+    "given": "A. M.",
+    "family": "Stuart"
+   }
+  ],
+  "year": 2010,
+  "journal": "Acta Numerica",
+  "volume": "19",
+  "issue": null,
+  "page": "451-559",
+  "publisher": "Cambridge University Press (CUP)",
+  "type": "journal-article"
+ },
+ "neupauer1999": {
+  "doi": "10.1029/1999WR900190",
+  "title": "Adjoint method for obtaining backward‐in‐time location and travel time probabilities of a conservative groundwater contaminant",
+  "authors": [
+   {
+    "given": "Roseanna M.",
+    "family": "Neupauer"
+   },
+   {
+    "given": "John L.",
+    "family": "Wilson"
+   }
+  ],
+  "year": 1999,
+  "journal": "Water Resources Research",
+  "volume": "35",
+  "issue": "11",
+  "page": "3389-3398",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "chaloner1995": {
+  "doi": "10.1214/ss/1177009939",
+  "title": "Bayesian Experimental Design: A Review",
+  "authors": [
+   {
+    "given": "Kathryn",
+    "family": "Chaloner"
+   },
+   {
+    "given": "Isabella",
+    "family": "Verdinelli"
+   }
+  ],
+  "year": 1995,
+  "journal": "Statistical Science",
+  "volume": "10",
+  "issue": "3",
+  "page": "273-304",
+  "publisher": "Institute of Mathematical Statistics",
+  "type": "journal-article"
+ },
+ "zeqiraj2026": {
+  "doi": "10.1016/j.jhydrol.2026.136559",
+  "title": "Goal-oriented Bayesian experimental design for variable-density seawater intrusion: Adjoint expected information gain for joint monitoring and managed-aquifer-recharge placement",
+  "authors": [
+   {
+    "given": "Dulian",
+    "family": "Zeqiraj"
+   }
+  ],
+  "year": 2026,
+  "journal": "Journal of Hydrology",
+  "volume": "680",
+  "issue": null,
+  "page": "136559",
+  "publisher": "Elsevier BV",
+  "type": "journal-article"
+ },
+ "huangfu2018": {
+  "doi": "10.1007/s12532-017-0130-5",
+  "title": "Parallelizing the dual revised simplex method",
+  "authors": [
+   {
+    "given": "Q.",
+    "family": "Huangfu"
+   },
+   {
+    "given": "J. A. J.",
+    "family": "Hall"
+   }
+  ],
+  "year": 2018,
+  "journal": "Mathematical Programming Computation",
+  "volume": "10",
+  "issue": "1",
+  "page": "119-142",
+  "publisher": "Springer Science and Business Media LLC",
+  "type": "journal-article"
+ },
+ "virtanen2020": {
+  "doi": "10.1038/s41592-019-0686-2",
+  "title": "SciPy 1.0: fundamental algorithms for scientific computing in Python",
+  "authors": [
+   {
+    "given": "Pauli",
+    "family": "Virtanen"
+   },
+   {
+    "given": "Ralf",
+    "family": "Gommers"
+   },
+   {
+    "given": "Travis E.",
+    "family": "Oliphant"
+   },
+   {
+    "given": "Matt",
+    "family": "Haberland"
+   },
+   {
+    "given": "Tyler",
+    "family": "Reddy"
+   },
+   {
+    "given": "David",
+    "family": "Cournapeau"
+   },
+   {
+    "given": "Evgeni",
+    "family": "Burovski"
+   },
+   {
+    "given": "Pearu",
+    "family": "Peterson"
+   },
+   {
+    "given": "Warren",
+    "family": "Weckesser"
+   },
+   {
+    "given": "Jonathan",
+    "family": "Bright"
+   },
+   {
+    "given": "Stéfan J.",
+    "family": "van der Walt"
+   },
+   {
+    "given": "Matthew",
+    "family": "Brett"
+   },
+   {
+    "given": "Joshua",
+    "family": "Wilson"
+   },
+   {
+    "given": "K. Jarrod",
+    "family": "Millman"
+   },
+   {
+    "given": "Nikolay",
+    "family": "Mayorov"
+   },
+   {
+    "given": "Andrew R. J.",
+    "family": "Nelson"
+   },
+   {
+    "given": "Eric",
+    "family": "Jones"
+   },
+   {
+    "given": "Robert",
+    "family": "Kern"
+   },
+   {
+    "given": "Eric",
+    "family": "Larson"
+   },
+   {
+    "given": "C J",
+    "family": "Carey"
+   },
+   {
+    "given": "İlhan",
+    "family": "Polat"
+   },
+   {
+    "given": "Yu",
+    "family": "Feng"
+   },
+   {
+    "given": "Eric W.",
+    "family": "Moore"
+   },
+   {
+    "given": "Jake",
+    "family": "VanderPlas"
+   },
+   {
+    "given": "Denis",
+    "family": "Laxalde"
+   },
+   {
+    "given": "Josef",
+    "family": "Perktold"
+   },
+   {
+    "given": "Robert",
+    "family": "Cimrman"
+   },
+   {
+    "given": "Ian",
+    "family": "Henriksen"
+   },
+   {
+    "given": "E. A.",
+    "family": "Quintero"
+   },
+   {
+    "given": "Charles R.",
+    "family": "Harris"
+   },
+   {
+    "given": "Anne M.",
+    "family": "Archibald"
+   },
+   {
+    "given": "Antônio H.",
+    "family": "Ribeiro"
+   },
+   {
+    "given": "Fabian",
+    "family": "Pedregosa"
+   },
+   {
+    "given": "Paul",
+    "family": "van Mulbregt"
+   },
+   {
+    "given": "",
+    "family": "SciPy 1.0 Contributors"
+   },
+   {
+    "given": "Aditya",
+    "family": "Vijaykumar"
+   },
+   {
+    "given": "Alessandro Pietro",
+    "family": "Bardelli"
+   },
+   {
+    "given": "Alex",
+    "family": "Rothberg"
+   },
+   {
+    "given": "Andreas",
+    "family": "Hilboll"
+   },
+   {
+    "given": "Andreas",
+    "family": "Kloeckner"
+   },
+   {
+    "given": "Anthony",
+    "family": "Scopatz"
+   },
+   {
+    "given": "Antony",
+    "family": "Lee"
+   },
+   {
+    "given": "Ariel",
+    "family": "Rokem"
+   },
+   {
+    "given": "C. Nathan",
+    "family": "Woods"
+   },
+   {
+    "given": "Chad",
+    "family": "Fulton"
+   },
+   {
+    "given": "Charles",
+    "family": "Masson"
+   },
+   {
+    "given": "Christian",
+    "family": "Häggström"
+   },
+   {
+    "given": "Clark",
+    "family": "Fitzgerald"
+   },
+   {
+    "given": "David A.",
+    "family": "Nicholson"
+   },
+   {
+    "given": "David R.",
+    "family": "Hagen"
+   },
+   {
+    "given": "Dmitrii V.",
+    "family": "Pasechnik"
+   },
+   {
+    "given": "Emanuele",
+    "family": "Olivetti"
+   },
+   {
+    "given": "Eric",
+    "family": "Martin"
+   },
+   {
+    "given": "Eric",
+    "family": "Wieser"
+   },
+   {
+    "given": "Fabrice",
+    "family": "Silva"
+   },
+   {
+    "given": "Felix",
+    "family": "Lenders"
+   },
+   {
+    "given": "Florian",
+    "family": "Wilhelm"
+   },
+   {
+    "given": "G.",
+    "family": "Young"
+   },
+   {
+    "given": "Gavin A.",
+    "family": "Price"
+   },
+   {
+    "given": "Gert-Ludwig",
+    "family": "Ingold"
+   },
+   {
+    "given": "Gregory E.",
+    "family": "Allen"
+   },
+   {
+    "given": "Gregory R.",
+    "family": "Lee"
+   },
+   {
+    "given": "Hervé",
+    "family": "Audren"
+   },
+   {
+    "given": "Irvin",
+    "family": "Probst"
+   },
+   {
+    "given": "Jörg P.",
+    "family": "Dietrich"
+   },
+   {
+    "given": "Jacob",
+    "family": "Silterra"
+   },
+   {
+    "given": "James T",
+    "family": "Webber"
+   },
+   {
+    "given": "Janko",
+    "family": "Slavič"
+   },
+   {
+    "given": "Joel",
+    "family": "Nothman"
+   },
+   {
+    "given": "Johannes",
+    "family": "Buchner"
+   },
+   {
+    "given": "Johannes",
+    "family": "Kulick"
+   },
+   {
+    "given": "Johannes L.",
+    "family": "Schönberger"
+   },
+   {
+    "given": "José Vinícius",
+    "family": "de Miranda Cardoso"
+   },
+   {
+    "given": "Joscha",
+    "family": "Reimer"
+   },
+   {
+    "given": "Joseph",
+    "family": "Harrington"
+   },
+   {
+    "given": "Juan Luis Cano",
+    "family": "Rodríguez"
+   },
+   {
+    "given": "Juan",
+    "family": "Nunez-Iglesias"
+   },
+   {
+    "given": "Justin",
+    "family": "Kuczynski"
+   },
+   {
+    "given": "Kevin",
+    "family": "Tritz"
+   },
+   {
+    "given": "Martin",
+    "family": "Thoma"
+   },
+   {
+    "given": "Matthew",
+    "family": "Newville"
+   },
+   {
+    "given": "Matthias",
+    "family": "Kümmerer"
+   },
+   {
+    "given": "Maximilian",
+    "family": "Bolingbroke"
+   },
+   {
+    "given": "Michael",
+    "family": "Tartre"
+   },
+   {
+    "given": "Mikhail",
+    "family": "Pak"
+   },
+   {
+    "given": "Nathaniel J.",
+    "family": "Smith"
+   },
+   {
+    "given": "Nikolai",
+    "family": "Nowaczyk"
+   },
+   {
+    "given": "Nikolay",
+    "family": "Shebanov"
+   },
+   {
+    "given": "Oleksandr",
+    "family": "Pavlyk"
+   },
+   {
+    "given": "Per A.",
+    "family": "Brodtkorb"
+   },
+   {
+    "given": "Perry",
+    "family": "Lee"
+   },
+   {
+    "given": "Robert T.",
+    "family": "McGibbon"
+   },
+   {
+    "given": "Roman",
+    "family": "Feldbauer"
+   },
+   {
+    "given": "Sam",
+    "family": "Lewis"
+   },
+   {
+    "given": "Sam",
+    "family": "Tygier"
+   },
+   {
+    "given": "Scott",
+    "family": "Sievert"
+   },
+   {
+    "given": "Sebastiano",
+    "family": "Vigna"
+   },
+   {
+    "given": "Stefan",
+    "family": "Peterson"
+   },
+   {
+    "given": "Surhud",
+    "family": "More"
+   },
+   {
+    "given": "Tadeusz",
+    "family": "Pudlik"
+   },
+   {
+    "given": "Takuya",
+    "family": "Oshima"
+   },
+   {
+    "given": "Thomas J.",
+    "family": "Pingel"
+   },
+   {
+    "given": "Thomas P.",
+    "family": "Robitaille"
+   },
+   {
+    "given": "Thomas",
+    "family": "Spura"
+   },
+   {
+    "given": "Thouis R.",
+    "family": "Jones"
+   },
+   {
+    "given": "Tim",
+    "family": "Cera"
+   },
+   {
+    "given": "Tim",
+    "family": "Leslie"
+   },
+   {
+    "given": "Tiziano",
+    "family": "Zito"
+   },
+   {
+    "given": "Tom",
+    "family": "Krauss"
+   },
+   {
+    "given": "Utkarsh",
+    "family": "Upadhyay"
+   },
+   {
+    "given": "Yaroslav O.",
+    "family": "Halchenko"
+   },
+   {
+    "given": "Yoshiki",
+    "family": "Vázquez-Baeza"
+   }
+  ],
+  "year": 2020,
+  "journal": "Nature Methods",
+  "volume": "17",
+  "issue": "3",
+  "page": "261-272",
+  "publisher": "Springer Science and Business Media LLC",
+  "type": "journal-article"
+ },
+ "izbicki1996": {
+  "doi": "10.3133/fs12596",
+  "title": "Seawater Intrusion in a Coastal California Aquifer",
+  "authors": [
+   {
+    "given": "John A.",
+    "family": "Izbicki"
+   }
+  ],
+  "year": 1996,
+  "journal": "Fact Sheet",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "US Geological Survey",
+  "type": "report-component"
+ },
+ "post2013": {
+  "doi": "10.1038/nature12858",
+  "title": "Offshore fresh groundwater reserves as a global phenomenon",
+  "authors": [
+   {
+    "given": "Vincent E.A.",
+    "family": "Post"
+   },
+   {
+    "given": "Jacobus",
+    "family": "Groen"
+   },
+   {
+    "given": "Henk",
+    "family": "Kooi"
+   },
+   {
+    "given": "Mark",
+    "family": "Person"
+   },
+   {
+    "given": "Shemin",
+    "family": "Ge"
+   },
+   {
+    "given": "W. Mike",
+    "family": "Edmunds"
+   }
+  ],
+  "year": 2013,
+  "journal": "Nature",
+  "volume": "504",
+  "issue": "7478",
+  "page": "71-78",
+  "publisher": "Springer Science and Business Media LLC",
+  "type": "journal-article"
+ }
+}

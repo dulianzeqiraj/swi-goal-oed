@@ -1,0 +1,9 @@
+obs window  1: neural excess cost (median of 2 seeds) 1.47e-01 [1.47e-01, 1.47e-01], paired SE 1.8e-03; best linear policy of this window 1.38e-01
+obs window  2: neural excess cost (median of 2 seeds) 6.18e-02 [6.13e-02, 6.23e-02], paired SE 9.1e-04; best linear policy of this window 5.74e-02
+obs window  4: neural excess cost (median of 2 seeds) 2.20e-02 [2.12e-02, 2.28e-02], paired SE 5.8e-04; best linear policy of this window 1.67e-02
+obs window  8: neural excess cost (median of 2 seeds) 1.52e-02 [1.48e-02, 1.56e-02], paired SE 4.9e-04; best linear policy of this window 6.11e-03
+obs window 16: neural excess cost (median of 2 seeds) 1.58e-02 [1.49e-02, 1.67e-02], paired SE 4.1e-04; best linear policy of this window 2.87e-03
+obs window 32: neural excess cost (median of 2 seeds) 1.33e-02 [1.27e-02, 1.39e-02], paired SE 3.5e-04; best linear policy of this window 7.70e-04
+arx window  1: neural excess cost (median of 2 seeds) 1.33e-02 [1.29e-02, 1.37e-02], paired SE 6.2e-04; best linear policy of this window 8.74e-03
+arx window  2: neural excess cost (median of 2 seeds) 1.43e-02 [1.36e-02, 1.49e-02], paired SE 6.1e-04; best linear policy of this window 2.40e-04
+arx window  4: neural excess cost (median of 2 seeds) 1.42e-02 [1.33e-02, 1.50e-02], paired SE 5.7e-04; best linear policy of this window -8.87e-13

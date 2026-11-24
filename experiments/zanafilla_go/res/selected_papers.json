@@ -1,0 +1,1208 @@
+[
+ {
+  "id": "O1",
+  "inst": "University of Oxford",
+  "year": 2022,
+  "title": "Krypton‐81 Dating Constrains Timing of Deep Groundwater Flow Activation",
+  "authors": [
+   "Ji‐Hyun Kim",
+   "Grant Ferguson",
+   "Mark Person",
+   "Wei Jiang",
+   "Zheng‐Tian Lu",
+   "Florian Ritterbusch",
+   "Guo‐Min Yang",
+   "Rebecca Tyne",
+   "Lydia Bailey",
+   "Chris Ballentine",
+   "Peter Reiners",
+   "Jennifer McIntosh"
+  ],
+  "venue": "Geophysical Research Letters, 49(11), e2021GL097618",
+  "doi": "10.1029/2021gl097618",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2021gl097618",
+   "matches": [
+    {
+     "author": "Rebecca Tyne",
+     "affiliation": "Department of Earth Sciences University of Oxford  Oxford UK"
+    },
+    {
+     "author": "Chris Ballentine",
+     "affiliation": "Department of Earth Sciences University of Oxford  Oxford UK"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Krypton‐81 dating provides new insights into the timing, mechanisms, and extent of meteoric flushing versus retention of saline fluids in the subsurface in response to changes in geologic and/or climatic forcings over 50 ka to 1.2 Ma year timescales. Remnant Paleozoic seawater‐derived brines associated with evaporites in the Paradox Basin, Colorado Plateau, are beyond the 81 Kr dating range (>1.2 Ma) and have likely been preserved due to negative fluid buoyancy and low permeability. 81 Kr dating of formation waters above the evaporites indicates topographically‐driven meteoric recharge and salt dissolution since the Late Pleistocene (0.03–0.8 Ma). Formation waters below the evaporites (up to 3 km depth), in basal aquifers, contain relatively young meteoric water components (0.4–1.1 Ma based on 81 Kr) that partially flushed remnant brines and dissolved evaporites. We demonstrate that recent, rapid denudation of the Colorado Plateau (<4–10 Ma) activated deep, basinal‐scale flow systems as recorded in 81 Kr groundwater age distributions.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2021gl097618 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Uses 81Kr ages of formation waters above and below the Paradox Basin evaporites to separate remnant Paleozoic seawater-derived brines (beyond the 1.2 Ma dating range) from Pleistocene meteoric recharge that dissolved salt and partially flushed those brines. It is a worked example of telling relict seawater/brine, evaporite dissolution and meteoric water apart with an age tracer, the discrimination that chloride concentrations alone cannot make from sparse wells.",
+  "crossref_title": "Krypton‐81 Dating Constrains Timing of Deep Groundwater Flow Activation",
+  "crossref_year": 2022,
+  "venue_formatted": "Geophysical Research Letters 49(11), e2021GL097618 (2022)"
+ },
+ {
+  "id": "O2",
+  "inst": "University of Oxford",
+  "year": 2021,
+  "title": "Crustal Groundwater Volumes Greater Than Previously Thought",
+  "authors": [
+   "Grant Ferguson",
+   "Jennifer C. McIntosh",
+   "Oliver Warr",
+   "Barbara Sherwood Lollar",
+   "Christopher J. Ballentine",
+   "James S. Famiglietti",
+   "Ji‐Hyun Kim",
+   "Joseph R. Michalski",
+   "John F. Mustard",
+   "Jesse Tarnas",
+   "Jeffrey J. McDonnell"
+  ],
+  "venue": "Geophysical Research Letters, 48(16), e2021GL093549",
+  "doi": "10.1029/2021gl093549",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2021gl093549",
+   "matches": [
+    {
+     "author": "Christopher J. Ballentine",
+     "affiliation": "Department of Earth Sciences University of Oxford  Oxford UK"
+    }
+   ],
+   "note": "Also on the paper: Jesse Tarnas, 'Jet Propulsion Laboratory California Institute of Technology Pasadena CA USA' (JPL/Caltech); the paper is counted for Oxford only."
+  },
+  "abstract": {
+   "text": "Global groundwater volumes in the upper 2 km of the Earth's continental crust—critical for water security—are well estimated. Beyond these depths, a vast body of largely saline and non‐potable groundwater exists down to at least 10 km—a volume that has not yet been quantified reliably at the global scale. Here, we estimate the amount of groundwater present in the upper 10 km of the Earth's continental crust by examining the distribution of sedimentary and crystalline rocks with depth and applying porosity‐depth relationships. We demonstrate that groundwater in the 2–10 km zone (what we call “deep groundwater”) has a volume comparable to that of groundwater in the upper 2 km of the Earth's crust. These new estimates make groundwater the largest continental reservoir of water, ahead of ice sheets, provide a basis to quantify geochemical cycles, and constrain the potential for large‐scale isolation of waste fluids.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2021gl093549 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Estimates the volume of largely saline, non-potable groundwater in the 2-10 km crust from rock-type distributions and porosity-depth relations and finds it comparable to the volume in the upper 2 km. It frames deep saline groundwater as a large and poorly quantified reservoir, that is, a source term (upwelling or leaking brine) that a coastal chloride inversion should keep in its prior rather than exclude.",
+  "crossref_title": "Crustal Groundwater Volumes Greater Than Previously Thought",
+  "crossref_year": 2021,
+  "venue_formatted": "Geophysical Research Letters 48(16), e2021GL093549 (2021)"
+ },
+ {
+  "id": "O3",
+  "inst": "University of Oxford",
+  "year": 2020,
+  "title": "Seismic Reflection Methods in Offshore Groundwater Research",
+  "authors": [
+   "Claudia Bertoni",
+   "Johanna Lofi",
+   "Aaron Micallef",
+   "Henning Moe"
+  ],
+  "venue": "Geosciences, 10(8), 299",
+  "doi": "10.3390/geosciences10080299",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.3390/geosciences10080299",
+   "matches": [
+    {
+     "author": "Claudia Bertoni",
+     "affiliation": "Department of Earth Sciences, University of Oxford, South Parks Road, Oxford OX1 3AN, UK"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "There is growing evidence that passive margin sediments in offshore settings host large volumes of fresh and brackish water of meteoric origin in submarine sub-surface reservoirs. Marine geophysical methods, in particular seismic reflection data, can help characterize offshore hydrogeological systems and yet the existing global database of industrial basin wide surveys remains untapped in this context. In this paper we highlight the importance of these data in groundwater exploration, by reviewing existing studies that apply physical stratigraphy and morpho-structural interpretation techniques to provide important information on—reservoir (aquifer) properties and architecture, permeability barriers, paleo-continental environments, sea-level changes and shift of coastal facies through time and conduits for water flow. We then evaluate the scientific and applied relevance of such methodology within a holistic workflow for offshore groundwater research.",
+   "source": "Crossref record https://api.crossref.org/works/10.3390/geosciences10080299 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Reviews how seismic reflection data and seismic stratigraphy characterise offshore aquifer architecture, permeability barriers, palaeo-environments, sea-level changes and shifts of coastal facies that host fresh and brackish water of meteoric origin beneath continental margins. That architecture decides whether coastal salinity can be relict (emplaced during earlier sea-level stands) or modern intrusion, so it constrains both the forward model and the prior of a chloride-source inversion.",
+  "crossref_title": "Seismic Reflection Methods in Offshore Groundwater Research",
+  "crossref_year": 2020,
+  "venue_formatted": "Geosciences 10(8), 299 (2020)"
+ },
+ {
+  "id": "O4",
+  "inst": "University of Oxford",
+  "year": 2025,
+  "title": "Simulation-based inference advances water quality mapping in shallow coral reef environments",
+  "authors": [
+   "Pirta Palola",
+   "Varunan Theenathayalan",
+   "Cornelius Schröder",
+   "Victor Martinez-Vicente",
+   "Antoine Collin",
+   "Rosalie Wright",
+   "Melissa Ward",
+   "Eleanor Thomson",
+   "Patricia Lopez-Garcia",
+   "Eric J. Hochberg",
+   "Yadvinder Malhi",
+   "Lisa M. Wedding"
+  ],
+  "venue": "Royal Society Open Science, 12(5), 241471",
+  "doi": "10.1098/rsos.241471",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1098/rsos.241471",
+   "matches": [
+    {
+     "author": "Pirta Palola",
+     "affiliation": "School of Geography and the Environment, University of Oxford"
+    },
+    {
+     "author": "Rosalie Wright",
+     "affiliation": "School of Geography and the Environment, University of Oxford"
+    },
+    {
+     "author": "Melissa Ward",
+     "affiliation": "School of Geography and the Environment, University of Oxford"
+    },
+    {
+     "author": "Eleanor Thomson",
+     "affiliation": "School of Geography and the Environment, University of Oxford"
+    },
+    {
+     "author": "Yadvinder Malhi",
+     "affiliation": "Environmental Change Institute, University of Oxford"
+    },
+    {
+     "author": "Lisa M. Wedding",
+     "affiliation": "School of Geography and the Environment, University of Oxford"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Human activities are altering coral reef ecosystems worldwide. Optical remote sensing via satellites and drones can offer novel insights into where and how coral reefs are changing. However, interpretation of the observed optical signal (remote-sensing reflectance) is an ill-posed inverse problem, as there may be multiple different combinations of water constituents, depth and benthic reflectance that result in a similar optical signal. Here, we apply a new approach, simulation-based inference, for addressing the inverse problem in marine remote sensing. The simulation-based inference algorithm combines physics-based analytical modelling with approximate Bayesian inference and machine learning. The input to the algorithm is remote-sensing reflectance, and the output is the likely range (posterior probability density) of phytoplankton and suspended minerals concentrations, coloured dissolved organic matter absorption, wind speed and depth. We compare inference models trained with simulated hyperspectral or multispectral reflectance spectra characterized by different signal-to-noise ratios. We apply the inference model to in situ radiometric data (n = 4) and multispectral drone imagery collected on the Tetiaroa atoll (South Pacific). We show that water constituent concentrations can be estimated from hyperspectral and multispectral remote-sensing reflectance in optically shallow environments, assuming a single benthic cover. Future developments should consider spectral mixing of multiple benthic cover types.",
+   "source": "Crossref record https://api.crossref.org/works/10.1098/rsos.241471 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Applies simulation-based inference to an explicitly ill-posed inversion (remote-sensing reflectance to water-constituent concentrations, depth and wind speed), returning posterior densities and comparing hyperspectral and multispectral inputs at different signal-to-noise ratios. It shows how amortised posteriors make non-unique combinations of constituents visible, the same degeneracy that arises when several chloride sources reproduce the same sparse, noisy well chemistry.",
+  "crossref_title": "Simulation-based inference advances water quality mapping in shallow coral reef environments",
+  "crossref_year": 2025,
+  "venue_formatted": "Royal Society Open Science 12(5), 241471 (2025)"
+ },
+ {
+  "id": "O5",
+  "inst": "University of Oxford",
+  "year": 2025,
+  "title": "Sparse identification of nonlocal interaction kernels in nonlinear gradient flow equations via partial inversion",
+  "authors": [
+   "José A. Carrillo",
+   "Gissell Estrada-Rodriguez",
+   "László Mikolás",
+   "Sui Tang"
+  ],
+  "venue": "Mathematical Models and Methods in Applied Sciences, 35(05), 1073-1131",
+  "doi": "10.1142/s0218202525500137",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1142/s0218202525500137",
+   "matches": [
+    {
+     "author": "José A. Carrillo",
+     "affiliation": "Mathematical Institute, University of Oxford, Woodstock Road, Oxford OX2 6GG, UK"
+    },
+    {
+     "author": "László Mikolás",
+     "affiliation": "Mathematical Institute, University of Oxford, Woodstock Road, Oxford OX2 6GG, UK"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "We address the inverse problem of identifying nonlocal interaction potentials in nonlinear aggregation–diffusion equations from noisy discrete trajectory data. Our approach involves formulating and solving a regularized variational problem, which requires minimizing a quadratic error functional across a set of hypothesis functions, further augmented by a sparsity-enhancing regularizer. We employ a partial inversion algorithm, akin to the CoSaMP and subspace pursuit algorithms, to solve the basis pursuit problem. A key theoretical contribution is our novel stability estimate for the PDEs, validating the error functional ability in controlling the 2-Wasserstein distance between solutions generated using the true and estimated interaction potentials. Our work also includes an error analysis of estimators caused by discretization and observational errors in practical implementations. We demonstrate the effectiveness of the methods through various 1D and 2D examples showcasing collective behaviors.",
+   "source": "Crossref record https://api.crossref.org/works/10.1142/s0218202525500137 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Identifies nonlocal interaction kernels in aggregation-diffusion PDEs from noisy discrete trajectory data through a sparsity-regularised variational problem solved by partial inversion, backed by a PDE stability estimate and an error analysis for discretisation and observation noise. It is a template for sparse, regularised identification of the few active terms of a transport PDE (for chloride, which source terms are switched on) when data are noisy and few.",
+  "crossref_title": "Sparse identification of nonlocal interaction kernels in nonlinear gradient flow equations via partial inversion",
+  "crossref_year": 2025,
+  "venue_formatted": "Mathematical Models and Methods in Applied Sciences 35(05), 1073–1131 (2025)"
+ },
+ {
+  "id": "C1",
+  "inst": "Caltech",
+  "year": 2026,
+  "title": "The Ensemble Kalman Inversion Race",
+  "authors": [
+   "Rebecca Gjini",
+   "Matthias Morzfeld",
+   "Oliver R. A. Dunbar",
+   "Tapio Schneider"
+  ],
+  "venue": "Journal of Advances in Modeling Earth Systems, 18(9), e2025MS005629",
+  "doi": "10.1029/2025ms005629",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2025ms005629",
+   "matches": [
+    {
+     "author": "Oliver R. A. Dunbar",
+     "affiliation": "California Institute of Technology  Pasadena CA USA"
+    },
+    {
+     "author": "Tapio Schneider",
+     "affiliation": "California Institute of Technology  Pasadena CA USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Ensemble Kalman methods were initially developed to solve nonlinear data assimilation problems in oceanography but are now popular in applications far beyond their original use cases. Of particular interest is climate model calibration. As hybrid physics and machine‐learning models advance, the number of parameters and complexity of parameterizations in climate models will continue to grow. To fully realize these advances, we must move from laborious hand‐tuning to calibration‐driven model development in rapid iteration cycles. Thus, robust calibration of these parameters plays an increasingly important role. We focus on learning climate model parameters by minimizing the misfit between modeled and observed climate statistics in an idealized setting. Ensemble Kalman methods are a natural choice for this problem because they are derivative‐free, scalable to high dimensions, and robust to noise caused by statistical observations. Given the many variants of ensemble methods proposed, an important question is: Which ensemble Kalman method should be used for climate model calibration ? To answer this question, we perform systematic numerical experiments to explore the relative computational efficiencies of several ensemble Kalman methods. The numerical experiments involve statistical observations of Lorenz‐type models of increasing complexity, frequently used to represent simplified atmospheric systems, with some featuring neural network parameterizations. For each test problem, several ensemble Kalman methods and a derivative‐based method “race” to reach a specified accuracy, and we measure the computational cost required to achieve the desired accuracy. We investigate how prior information and the parameter or data dimensions define the computational costs of the various methods.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2025ms005629 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Races several ensemble Kalman inversion variants against a derivative-based method for calibrating Lorenz-type models (some with neural-network parameterisations) to noisy statistical observations, measuring the cost to reach a set accuracy as prior information and parameter and data dimensions change. For an expensive variable-density coastal model, it indicates which derivative-free ensemble method is cheapest for calibrating source and transport parameters to noisy chloride data.",
+  "crossref_title": "The Ensemble Kalman Inversion Race",
+  "crossref_year": 2026,
+  "venue_formatted": "Journal of Advances in Modeling Earth Systems 18(9), e2025MS005629 (2026)"
+ },
+ {
+  "id": "C2",
+  "inst": "Caltech",
+  "year": 2026,
+  "title": "Bayesian Posterior Perturbation Analysis with Integral Probability Metrics",
+  "authors": [
+   "Alfredo Garbuno-Iñigo",
+   "Tapio Helin",
+   "Franca Hoffmann",
+   "Bamdad Hosseini"
+  ],
+  "venue": "Bayesian Analysis, advance publication (no volume/issue assigned in Crossref), 1-26",
+  "doi": "10.1214/26-ba1608",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1214/26-ba1608",
+   "matches": [
+    {
+     "author": "Franca Hoffmann",
+     "affiliation": "Computing and Mathematical Sciences, California Institute of Technology, Pasadena, CA, USA"
+    }
+   ],
+   "note": "Crossref lists this as advance publication (volume and issue recorded as -1)."
+  },
+  "abstract": {
+   "text": "In recent years, Bayesian inference in large-scale inverse problems found in science, engineering and machine learning has gained significant attention. This paper examines the robustness of the Bayesian approach by analyzing the stability of posterior measures in relation to perturbations in the likelihood potential and the prior measure. We present new stability results using a family of integral probability metrics (divergences) akin to dual problems that arise in optimal transport. Our results stand out from previous works in three directions: (1) We construct new families of integral probability metrics that are adapted to the problem at hand; (2) These new metrics allow us to study both likelihood and prior perturbations in a convenient way; and (3) our analysis accommodates likelihood potentials that are only locally Lipschitz, making them applicable to a wide range of nonlinear inverse problems. Our theoretical findings are further reinforced through specific and novel examples where the approximation rates of posterior measures are obtained for different types of perturbations and provide a path towards the convergence analysis of recently adapted machine learning techniques for Bayesian inverse problems such as data-driven priors and neural network surrogates.",
+   "source": "Crossref record https://api.crossref.org/works/10.1214/26-ba1608 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Proves stability of Bayesian posteriors under perturbations of the likelihood potential and of the prior using purpose-built integral probability metrics, allowing locally Lipschitz potentials, and works out approximation rates for several perturbation types as a route to analysing neural-network surrogates and data-driven priors. This is the well-posedness argument needed to show that a chloride-source posterior changes controllably when the transport model is replaced by a surrogate or the source prior is learned.",
+  "crossref_title": "Bayesian Posterior Perturbation Analysis with Integral Probability Metrics",
+  "crossref_year": 2026,
+  "venue_formatted": "Bayesian Analysis, advance publication (2026)"
+ },
+ {
+  "id": "C3",
+  "inst": "Caltech",
+  "year": 2025,
+  "title": "DeepGEM‐EGF: A Bayesian Strategy for Joint Estimates of Source‐Time Functions and Empirical Green's Functions",
+  "authors": [
+   "Théa Ragon",
+   "Angela F. Gao",
+   "Zachary E. Ross"
+  ],
+  "venue": "Journal of Geophysical Research: Solid Earth, 130(12), e2025JB031260",
+  "doi": "10.1029/2025jb031260",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2025jb031260",
+   "matches": [
+    {
+     "author": "Théa Ragon",
+     "affiliation": "Seismological Laboratory California Institute of Technology  Pasadena CA USA"
+    },
+    {
+     "author": "Angela F. Gao",
+     "affiliation": "Computing and Mathematical Sciences Department California Institute of Technology  Pasadena CA USA"
+    },
+    {
+     "author": "Zachary E. Ross",
+     "affiliation": "Seismological Laboratory California Institute of Technology  Pasadena CA USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "An earthquake record is the convolution of source radiation, path propagation and site effects, and instrument response. Isolating the source component requires solving an ill‐posed inverse problem. Whether the instability of inferred source parameters arises from varying properties of the source, or from approximations we introduce in solving the problem, remains an open question. Such approximations often derive from limited knowledge of the forward problem. The Empirical Green's function (EGF) approach offers a partial remedy, by approximating the forward response of large events using the records of smaller events. The choice of the best small event drastically influences the properties estimated for the larger earthquake. Discriminating variability in source properties from epistemic uncertainties, stemming from the forward problem or other modeling assumptions, requires us to reliably account for, and propagate, any bias or trade‐off introduced in the problem. We propose a Bayesian inversion framework that aims at providing reliable and probabilistic estimates of source parameters (here, for the source‐time function or STF), and their posterior uncertainty, in the time domain. We jointly solve for the best EGF using one or a few small events as prior EGF. Our approach expands on DeepGEM, an unsupervised generalized expectation‐maximization framework for tomography. We demonstrate, with toy models and various applications to mainshocks of ranging from 4 to 6.3, the potential of DeepGEM‐EGF to disentangle the variability of the seismic source from biases introduced by modeling assumptions.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2025jb031260 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Proposes DeepGEM-EGF, a Bayesian inversion built on an unsupervised generalised expectation-maximisation framework that jointly estimates earthquake source-time functions and the empirical Green's function, so that source variability is separated from forward-model bias. It is the same structure as inferring a chloride input history when the aquifer's transport response (the Green's function) is itself uncertain.",
+  "crossref_title": "DeepGEM‐EGF: A Bayesian Strategy for Joint Estimates of Source‐Time Functions and Empirical Green's Functions",
+  "crossref_year": 2025,
+  "venue_formatted": "Journal of Geophysical Research: Solid Earth 130(12), e2025JB031260 (2025)"
+ },
+ {
+  "id": "C4",
+  "inst": "Caltech",
+  "year": 2022,
+  "title": "Bayesian differential moment tensor inversion: theory and application to the North Korea nuclear tests",
+  "authors": [
+   "Zhe Jia",
+   "Zhongwen Zhan",
+   "Donald Helmberger"
+  ],
+  "venue": "Geophysical Journal International, 229(3), 2034-2046",
+  "doi": "10.1093/gji/ggac053",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1093/gji/ggac053",
+   "matches": [
+    {
+     "author": "Zhe Jia",
+     "affiliation": "Seismological Laboratory, California Institute of Technology , Pasadena, CA 91125, USA"
+    },
+    {
+     "author": "Zhongwen Zhan",
+     "affiliation": "Seismological Laboratory, California Institute of Technology , Pasadena, CA 91125, USA"
+    },
+    {
+     "author": "Donald Helmberger",
+     "affiliation": "Seismological Laboratory, California Institute of Technology , Pasadena, CA 91125, USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Moment tensors are key to seismic discrimination but often require accurate Green's functions for estimation. This limits the regions, frequency bands and wave types in moment tensor inversions. In this study, we propose a differential moment tensor inversion (diffMT) method that uses relative measurements to remove the path effects shared by clustered events, thereby improving the accuracy of source parameters. Using results from regular inversions as a priori distribution, we apply Bayesian Markov Chain Monte Carlo to invert the body- and surface wave amplitude ratios of an event pair for refined moment tensors of both events. Applications to three North Korea nuclear tests from 2013 to 2016 demonstrate that diffMT reduces the uncertainties substantially compared with the traditional waveform-based moment tensor inversion. Our results suggest high percentages of explosive components with similar double-couple components for the North Korea nuclear tests.",
+   "source": "Crossref record https://api.crossref.org/works/10.1093/gji/ggac053 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Introduces differential moment-tensor inversion, in which amplitude ratios of clustered event pairs cancel shared path effects and Bayesian MCMC with priors from regular inversions substantially reduces source-parameter uncertainty for the North Korean nuclear tests. Cancelling an unknown shared path term with ratios is the inverse-problem rationale for using Cl/Br and other ion ratios to remove dilution and isolate the chloride source.",
+  "crossref_title": "Bayesian differential moment tensor inversion: theory and application to the North Korea nuclear tests",
+  "crossref_year": 2022,
+  "venue_formatted": "Geophysical Journal International 229(3), 2034–2046 (2022)"
+ },
+ {
+  "id": "M1",
+  "inst": "MIT",
+  "year": 2022,
+  "title": "Natural and Anthropogenic Processes Affecting Domestic Groundwater Quality within the Northwestern Appalachian Basin",
+  "authors": [
+   "H. G. Siegel",
+   "M. A. Soriano",
+   "C. J. Clark",
+   "N. P. Johnson",
+   "H. G. Wulsin",
+   "N. C. Deziel",
+   "D. L. Plata",
+   "T. H. Darrah",
+   "J. E. Saiers"
+  ],
+  "venue": "Environmental Science & Technology, 56(19), 13761-13773",
+  "doi": "10.1021/acs.est.2c04011",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1021/acs.est.2c04011",
+   "matches": [
+    {
+     "author": "D. L. Plata",
+     "affiliation": "Department of Civil and Environmental Engineering, Massachusetts Institute of Technology, Cambridge, Massachusetts 02139, United States"
+    }
+   ],
+   "note": "Crossref deposits author names as initials for this record; full first names were not inferred."
+  },
+  "abstract": {
+   "text": "abstract not available",
+   "source": "Crossref record https://api.crossref.org/works/10.1021/acs.est.2c04011 has no abstract field. WebSearch (standard) located the PubMed record https://pubmed.ncbi.nlm.nih.gov/36129683/ but returned only a paraphrased summary, so no verbatim abstract is reproduced here."
+  },
+  "topic": "A",
+  "why_relevant": "According to the PubMed record as summarised by WebSearch (not verbatim), the study pairs 216 domestic-well samples from Ohio and West Virginia with an integrated contaminant-source attribution, linking upland salinity to road salt and domestic sewage and valley groundwater to mixing with long-residence basin brines and roughly 4-10% mine-discharge-like water. It is the closest analogue in this list to attributing chloride to anthropogenic versus brine end-members from sparse multi-solute well chemistry.",
+  "crossref_title": "Natural and Anthropogenic Processes Affecting Domestic Groundwater Quality within the Northwestern Appalachian Basin",
+  "crossref_year": 2022,
+  "venue_formatted": "Environmental Science & Technology 56(19), 13761–13773 (2022)"
+ },
+ {
+  "id": "M2",
+  "inst": "MIT",
+  "year": 2020,
+  "title": "Isotopic variation in groundwater across the conterminous United States – Insight into hydrologic processes",
+  "authors": [
+   "Mason O. Stahl",
+   "Jaclyn Gehring",
+   "Yusuf Jameel"
+  ],
+  "venue": "Hydrological Processes, 34(16), 3506-3523",
+  "doi": "10.1002/hyp.13832",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1002/hyp.13832",
+   "matches": [
+    {
+     "author": "Yusuf Jameel",
+     "affiliation": "Department of Civil and Environmental Engineering Massachusetts Institute of Technology  Cambridge Massachusetts USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Groundwater supplies a significant proportion of water use in the United States and is critical to the maintenance of healthy ecosystems and environmental processes, thus characterizing aquifer hydrology is important to managing and preserving these resources. While groundwater isotopes provide insight into hydrologic and ecologic processes, their application is limited to where measurements exist. To help overcome this limitation, we used the random forest algorithm to develop a predictive model for shallow groundwater isotopes in the conterminous United States. Our model uses environmental variables (e.g. temperature, elevation, precipitation isotopes) as predictors. We used our model to develop the first shallow groundwater isoscape of δ 2 H and δ 18 O for the conterminous United States. We describe the patterns in groundwater isotopes using both observations and our modelled isoscape. We find that throughout much of the Eastern United States, groundwater isotopes are close to annual amount weighted precipitation, while groundwater isotopes are significantly depleted relative precipitation across much of the High Plains and Western United States. Furthermore, we compare the observations compiled for this study to isotopes of precipitation, which allows us to determine the relative recharge efficiency (i.e. ratio of groundwater recharge to precipitation) between seasons and the proportion of annual recharge that occurs in a given season. Our findings suggest that winter recharge is generally more efficient than summer recharge; however, the dominant recharge season is more varied as it is the product of both seasonal recharge efficiency and the seasonal timing of precipitation. Parts of the central United States have summer dominant recharge, which is likely the result of heavy summer precipitation/nocturnal summer precipitation. Interestingly, parts of coastal California appear to have summer dominant recharge, which we suggest could be due to recharge from fog‐drip. Our results summarize spatial patterns in groundwater isotopes across the conterminous United States, provide insight into the hydrologic processes affecting shallow groundwater, and are valuable information for future ecologic and hydrologic studies.",
+   "source": "Crossref record https://api.crossref.org/works/10.1002/hyp.13832 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Builds a random-forest model of shallow-groundwater d2H and d18O across the conterminous United States (the first such isoscape) and compares observations with precipitation isotopes to infer seasonal recharge efficiency. A modelled meteoric isotope baseline at each well is what lets a seawater or evaporated-brine component be detected in coastal groundwater when local isotope data are sparse.",
+  "crossref_title": "Isotopic variation in groundwater across the conterminous United States – Insight into hydrologic processes",
+  "crossref_year": 2020,
+  "venue_formatted": "Hydrological Processes 34(16), 3506–3523 (2020)"
+ },
+ {
+  "id": "M3",
+  "inst": "MIT",
+  "year": 2024,
+  "title": "Seasonality of submarine groundwater discharge to an Arctic coastal lagoon",
+  "authors": [
+   "Emma J. Bullock",
+   "Isabel V. Schaal",
+   "M. Bayani Cardenas",
+   "James W. McClelland",
+   "Paul B. Henderson",
+   "Matthew A. Charette"
+  ],
+  "venue": "Limnology and Oceanography, 69(6), 1429-1438",
+  "doi": "10.1002/lno.12585",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1002/lno.12585",
+   "matches": [
+    {
+     "author": "Emma J. Bullock",
+     "affiliation": "MIT‐WHOI Joint Program in Oceanography/Applied Ocean Science and Engineering Cambridge and Woods Hole Massachusetts USA"
+    },
+    {
+     "author": "Isabel V. Schaal",
+     "affiliation": "MIT‐WHOI Joint Program in Oceanography/Applied Ocean Science and Engineering Cambridge and Woods Hole Massachusetts USA"
+    }
+   ],
+   "note": "The matched affiliation is the MIT-WHOI Joint Program in Oceanography/Applied Ocean Science and Engineering (an MIT degree programme run jointly with the Woods Hole Oceanographic Institution); the string names MIT."
+  },
+  "abstract": {
+   "text": "Supra‐permafrost submarine groundwater discharge (SGD) in the Arctic is potentially important for coastal biogeochemistry and will likely increase over the coming decades owing to climate change. Despite this, land‐to‐ocean material fluxes via SGD in Arctic environments have seldom been quantified. This study used radium (Ra) isotopes to quantify SGD fluxes to an Arctic coastal lagoon (Simpson Lagoon, Alaska) during five sampling periods between 2021 and 2023. Using a Ra mass balance model, we found that the SGD water flux was substantial and dependent on environmental conditions. No measurable SGD was detected during the spring sampling period (June 2022), when the lagoon was partially ice‐covered. During ice‐free periods, the main driver of SGD in this location is wind‐driven lagoon water level changes, not tides, which control surface water recirculation through sediments along the lagoon boundary. A combination of wind strength and direction led to low SGD fluxes in July 2022, with an SGD flux of (6 ± 3) × 10 6 m 3 d −1, moderate fluxes in August 2021 and July 2023, which had an average flux of (17 ± 9) × 10 6 m 3 d −1, and high fluxes in October 2022, at (79 ± 16) × 10 6 m 3 d −1. This work demonstrates how soil and environmental conditions in the Arctic impact Ra mobilization, laying a foundation for future SGD studies in the Arctic and shedding light on the major processes driving Ra fluxes in this important environment.",
+   "source": "Crossref record https://api.crossref.org/works/10.1002/lno.12585 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Quantifies submarine groundwater discharge to an Arctic coastal lagoon with a radium-isotope mass balance over five campaigns and finds that wind-driven lagoon water-level changes, not tides, drive recirculation of lagoon water through the sediments. It is a tracer-based (Ra) estimate of seawater-groundwater exchange at a coastline and shows that the forcing of saline recirculation must be identified before salinity in coastal sediments is attributed to a source.",
+  "crossref_title": "Seasonality of submarine groundwater discharge to an Arctic coastal lagoon",
+  "crossref_year": 2024,
+  "venue_formatted": "Limnology and Oceanography 69(6), 1429–1438 (2024)"
+ },
+ {
+  "id": "M4",
+  "inst": "MIT",
+  "year": 2024,
+  "title": "Laplace priors and spatial inhomogeneity in Bayesian inverse problems",
+  "authors": [
+   "Sergios Agapiou",
+   "Sven Wang"
+  ],
+  "venue": "Bernoulli, 30(2), 878-910",
+  "doi": "10.3150/22-bej1563",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.3150/22-bej1563",
+   "matches": [
+    {
+     "author": "Sven Wang",
+     "affiliation": "Institute for Data, Systems and Society, Massachusetts Institute of Technology, Cambridge, USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Spatially inhomogeneous functions, which may be smooth in some regions and rough in other regions, are modelled naturally in a Bayesian manner using so-called Besov priors which are given by random wavelet expansions with Laplace-distributed coefficients. This paper studies theoretical guarantees for such prior measures – specifically, we examine their frequentist posterior contraction rates in the setting of non-linear inverse problems with Gaussian white noise. Our results are first derived under a general local Lipschitz assumption on the forward map. We then verify the assumption for two non-linear inverse problems arising from elliptic partial differential equations, the Darcy flow model from geophysics as well as a model for the Schrödinger equation appearing in tomography. In the course of the proofs, we also obtain novel concentration inequalities for penalized least squares estimators with ℓ1 wavelet penalty, which have a natural interpretation as maximum a posteriori (MAP) estimators. The true parameter is assumed to belong to some spatially inhomogeneous Besov class B11α, with α>0 sufficiently large. In a setting with direct observations, we complement these upper bounds with a lower bound on the rate of contraction for arbitrary Gaussian priors. An immediate consequence of our results is that while Laplace priors can achieve minimax-optimal rates over B11α-classes, Gaussian priors are limited to a (by a polynomial factor) slower contraction rate. This gives information-theoretical justification for the intuition that Laplace priors are more compatible with ℓ1 regularity structure in the underlying parameter.",
+   "source": "Crossref record https://api.crossref.org/works/10.3150/22-bej1563 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Proves frequentist posterior contraction rates for Laplace-type (Besov) priors in nonlinear inverse problems, including the Darcy-flow model, and shows that Gaussian priors contract polynomially more slowly for spatially inhomogeneous parameters. For a chloride inversion with sharp facies contrasts or localised sources, it gives theoretical grounds for sparsity-promoting priors over Gaussian ones.",
+  "crossref_title": "Laplace priors and spatial inhomogeneity in Bayesian inverse problems",
+  "crossref_year": 2024,
+  "venue_formatted": "Bernoulli 30(2), 878–910 (2024)"
+ },
+ {
+  "id": "M5",
+  "inst": "MIT",
+  "year": 2022,
+  "title": "Analyses of internal structures and defects in materials using physics-informed neural networks",
+  "authors": [
+   "Enrui Zhang",
+   "Ming Dao",
+   "George Em Karniadakis",
+   "Subra Suresh"
+  ],
+  "venue": "Science Advances, 8(7), eabk0644",
+  "doi": "10.1126/sciadv.abk0644",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1126/sciadv.abk0644",
+   "matches": [
+    {
+     "author": "Ming Dao",
+     "affiliation": "Department of Materials Science and Engineering, Massachusetts Institute of Technology, Cambridge, MA 02139, USA."
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Characterizing internal structures and defects in materials is a challenging task, often requiring solutions to inverse problems with unknown topology, geometry, material properties, and nonlinear deformation. Here, we present a general framework based on physics-informed neural networks for identifying unknown geometric and material parameters. By using a mesh-free method, we parameterize the geometry of the material using a differentiable and trainable method that can identify multiple structural features. We validate this approach for materials with internal voids/inclusions using constitutive models that encompass the spectrum of linear elasticity, hyperelasticity, and plasticity. We predict the size, shape, and location of the internal void/inclusion as well as the elastic modulus of the inclusion. Our general framework can be applied to other inverse problems in different applications that involve unknown material properties and highly deformable geometries, targeting material characterization, quality assurance, and structural design.",
+   "source": "Crossref record https://api.crossref.org/works/10.1126/sciadv.abk0644 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Develops a physics-informed neural network framework that identifies unknown geometry (size, shape and location of internal voids or inclusions) and material parameters from deformation data, across linear-elastic, hyperelastic and plastic models. It demonstrates PINN-based identification of hidden internal structure, the analogue of locating an unknown saline body or source zone inside an aquifer from a few point observations.",
+  "crossref_title": "Analyses of internal structures and defects in materials using physics-informed neural networks",
+  "crossref_year": 2022,
+  "venue_formatted": "Science Advances 8(7), eabk0644 (2022)"
+ },
+ {
+  "id": "P1",
+  "inst": "Princeton University",
+  "year": 2026,
+  "title": "Impact of Groundwater‐Surface Water Interaction on the Chesapeake Bay Density, Stratification and Mixing Under Normal and Extreme Weather Conditions",
+  "authors": [
+   "Seyedeh Fardis Pourreza Ahmadi",
+   "Bishnupriya Sahoo",
+   "Chen Yang",
+   "Reed Maxwell",
+   "Meng Xia"
+  ],
+  "venue": "Journal of Geophysical Research: Oceans, 131(8), e2026JC024172",
+  "doi": "10.1029/2026jc024172",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2026jc024172",
+   "matches": [
+    {
+     "author": "Chen Yang",
+     "affiliation": "Princeton University  Princeton NJ USA"
+    },
+    {
+     "author": "Reed Maxwell",
+     "affiliation": "Princeton University  Princeton NJ USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Submarine Groundwater Discharge (SGD) is often omitted from estuarine circulation modeling systems despite its potential to alter salinity, density, and stratification. So, this study employed a one‐way coupled PARallel Flow (ParFlow)–Finite Volume Community Ocean Model (FVCOM) framework to investigate the hydrodynamic influence of terrestrially derived meteoric groundwater discharge on the Chesapeake Bay. The results show that SGD effects vary spatially and seasonally, whereas the groundwater recharge/discharge is more likely to echo the precipitation events. Submarine Groundwater Discharge effects become more significant during the low river flow conditions, especially in summer and in Middle Bay due to the high SGD to river discharge ratio. Under baseline conditions, SGD slowly enhances stratification (0%–2%) by freshening the bottom layer and sharpening the adjacent halocline where river discharges being trapped above the pycnocline barely modifies the deeper and denser layers. During Hurricane Ida, prolonged period of precipitation elevated the SGD, which resulted in a 20% salinity reduction, however, wind driven mixing dominated stratification during the storm peak and SGD‐driven bottom freshening re‐establishes stratification during post‐storm recovery. Sensitivity experiments addressing uncertainties in SGD volume show that an ideal tenfold SGD intensification produces an 8% salinity reduction and a 10% (30%) stratification enhancement (reduction) throughout the bay (shallow Upper Bay). While river discharge dominates the estuarine freshwater budget, SGD exerts a physically distinct and disproportionate secondary influence on deep‐layer density, salt intrusion, exchange circulation, and stratification, with implications for oxygen dynamics and biogeochemical cycling in this vulnerable estuary.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2026jc024172 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Couples ParFlow with FVCOM to show that submarine discharge of meteoric groundwater freshens the bottom layer of Chesapeake Bay and alters stratification, with a 20% salinity reduction during Hurricane Ida. It quantifies groundwater-sea salinity exchange and storm forcing at a coastline, which set the seaward boundary behaviour of a coastal chloride model.",
+  "crossref_title": "Impact of Groundwater‐Surface Water Interaction on the Chesapeake Bay Density, Stratification and Mixing Under Normal and Extreme Weather Conditions",
+  "crossref_year": 2026,
+  "venue_formatted": "Journal of Geophysical Research: Oceans 131(8), e2026JC024172 (2026)"
+ },
+ {
+  "id": "P2",
+  "inst": "Princeton University",
+  "year": 2025,
+  "title": "A Deep‐Learning Based Parameter Inversion Framework for Large‐Scale Groundwater Models",
+  "authors": [
+   "Amanda Triplett",
+   "Andrew Bennett",
+   "Laura E. Condon",
+   "Peter Melchior",
+   "Reed M. Maxwell"
+  ],
+  "venue": "Geophysical Research Letters, 52(8), e2024GL114285",
+  "doi": "10.1029/2024gl114285",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2024gl114285",
+   "matches": [
+    {
+     "author": "Peter Melchior",
+     "affiliation": "Department of Astrophysical Sciences Princeton University  Princeton NJ USA"
+    },
+    {
+     "author": "Peter Melchior",
+     "affiliation": "Center for Statistics and Machine Learning Princeton University  Princeton NJ USA"
+    },
+    {
+     "author": "Reed M. Maxwell",
+     "affiliation": "Integrated Groundwater Modeling Center Princeton University  Princeton NJ USA"
+    },
+    {
+     "author": "Reed M. Maxwell",
+     "affiliation": "Department of Civil and Environmental Engineering Princeton University  Princeton NJ USA"
+    },
+    {
+     "author": "Reed M. Maxwell",
+     "affiliation": "High Meadows Environmental Institute Princeton University  Princeton NJ USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Hydrogeologic models generally require gridded subsurface properties, however these inputs are often difficult to obtain and highly uncertain. Parametrizing computationally expensive models where extensive calibration is computationally infeasible is a long standing challenge in hydrogeology. Here we present a machine learning framework to address this challenge. We train an inversion model to learn the relationship between water table depth and hydraulic conductivity using a small number of physical simulations. For a 31M grid cell model of the US we demonstrate that the inversion model can produce a reliable K field using only 30 simulations for training. Furthermore, we show that the inversion model captures physically realistic relationships between variables, even for relationships that were not directly trained on. While there are still limitations for out of sample parameters, the general framework presented here provides a promising approach for parametrizing expensive models.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2024gl114285 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Trains a deep-learning inversion model on only 30 ParFlow simulations to map water-table depth to hydraulic conductivity for a 31-million-cell model of the US, checks that the learned relationships are physically realistic, and notes limits out of sample. It shows that a learned inversion can parametrise an expensive groundwater model from very few runs, the computational bottleneck of a Bayesian chloride-source inversion with a variable-density model.",
+  "crossref_title": "A Deep‐Learning Based Parameter Inversion Framework for Large‐Scale Groundwater Models",
+  "crossref_year": 2025,
+  "venue_formatted": "Geophysical Research Letters 52(8), e2024GL114285 (2025)"
+ },
+ {
+  "id": "P3",
+  "inst": "Princeton University",
+  "year": 2026,
+  "title": "How sparse and how noisy? Systematic benchmarking of inverse physics-informed neural networks for Manning friction estimation in shallow water equations",
+  "authors": [
+   "Soheil Radfar"
+  ],
+  "venue": "Physics of Fluids, 38(8), 086611",
+  "doi": "10.1063/5.0349054",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1063/5.0349054",
+   "matches": [
+    {
+     "author": "Soheil Radfar",
+     "affiliation": "Department of Civil and Environmental Engineering, Princeton University , Princeton, New Jersey 08544,"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Physics-informed neural networks (PINNs) offer a promising framework for inverse hydrodynamic modeling because they can combine sparse observations with governing physical constraints. However, their reliability for estimating hydraulic parameters under realistic data limitations remains insufficiently characterized. This study systematically benchmarks inverse PINN recovery of the Manning friction coefficient in the shallow water equations under controlled variations in observation sparsity, observation noise, and observed variable type. Two benchmark cases are considered: a one-dimensional MacDonald subcritical channel with an analytical steady reference solution and a two-dimensional sloped channel with a parabolic transverse bed generated using a balanced finite-volume solver. The Manning coefficient is treated as a trainable positive scalar and recovered jointly with the flow field using a two-phase optimization strategy that first fits the available observations and then incorporates the physics residual. Results show that the two-dimensional benchmark achieves stable friction recovery, with errors below 5% for as few as five observations of depth and velocity and noise levels up to 20% of the field standard deviation. Recovery remains stable up to 20% noise when 50 observations are used, and the residual error level coincides with the discretization error of the finite-volume reference solution itself, which bounds the accuracy attainable on that benchmark. In contrast, the one-dimensional benchmark exhibits an error that decreases systematically with observation count, from approximately 11% with five observations to 0.2% with fifty, indicating a data-density limitation. Observation-type ablation further shows that friction recovery degrades substantially when only depth or only velocity is observed, demonstrating that joint depth–velocity information is essential for reliable inverse identification. Overall, the results provide a reproducible benchmark for assessing when inverse PINNs can and cannot reliably estimate Manning friction from sparse and noisy shallow water observations.",
+   "source": "Crossref record https://api.crossref.org/works/10.1063/5.0349054 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Benchmarks inverse PINNs that recover the Manning friction coefficient from shallow-water observations under controlled observation sparsity, noise up to 20% and observed-variable type, and finds that joint depth and velocity data are needed for reliable identification. It is a template for testing when a PINN-based chloride inversion can be trusted given the number of wells, the noise level and which variables (chloride only, or chloride plus heads) are observed.",
+  "crossref_title": "How sparse and how noisy? Systematic benchmarking of inverse physics-informed neural networks for Manning friction estimation in shallow water equations",
+  "crossref_year": 2026,
+  "venue_formatted": "Physics of Fluids 38(8), 086611 (2026)"
+ },
+ {
+  "id": "P4",
+  "inst": "Princeton University",
+  "year": 2026,
+  "title": "Two datasets are better than one: method of double moments for 3D reconstruction in cryo-EM",
+  "authors": [
+   "Joe Kileel",
+   "Oscar Mickelin",
+   "Amit Singer",
+   "Sheng Xu"
+  ],
+  "venue": "Inverse Problems, 42(7), 075016",
+  "doi": "10.1088/1361-6420/ae7fb2",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1088/1361-6420/ae7fb2",
+   "matches": [
+    {
+     "author": "Amit Singer",
+     "affiliation": "Princeton University"
+    },
+    {
+     "author": "Sheng Xu",
+     "affiliation": "Princeton University"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Cryo-electron microscopy is a powerful imaging technique for reconstructing three-dimensional molecular structures from noisy tomographic projection images of randomly oriented particles. We introduce a new data fusion framework, termed the method of double moments, which reconstructs molecular structures from two instances of the second-order moment of projection images obtained under distinct orientation distributions: one uniform, the other non-uniform and unknown. We prove that these moments generically uniquely determine the underlying structure, up to a global rotation and reflection, and we develop a convex-relaxation-based algorithm that achieves accurate recovery using only second-order statistics. Our results demonstrate the advantage of collecting and modeling multiple datasets under different experimental conditions, illustrating that leveraging dataset diversity can substantially enhance reconstruction quality in computational imaging tasks.",
+   "source": "Crossref record https://api.crossref.org/works/10.1088/1361-6420/ae7fb2 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Proves that second-order moments of two cryo-EM datasets, one with uniform and one with an unknown non-uniform orientation distribution, generically determine the structure uniquely up to rotation and reflection, and gives a convex-relaxation recovery algorithm. It formalises how fusing two differently sampled datasets restores identifiability, as combining two tracer data sets (chloride with water isotopes, or two campaigns) can for chloride sources.",
+  "crossref_title": "Two datasets are better than one: method of double moments for 3D reconstruction in cryo-EM",
+  "crossref_year": 2026,
+  "venue_formatted": "Inverse Problems 42(7), 075016 (2026)"
+ },
+ {
+  "id": "X1",
+  "inst": "Max Planck Society (Max Planck institute)",
+  "year": 2026,
+  "title": "Can radon help to improve methane emission estimates? Results from a dual-tracer inversion",
+  "authors": [
+   "Fabian Maier",
+   "Christian Rödenbeck",
+   "Ute Karstens",
+   "Frank-Thomas Koch",
+   "Maksym Gachkivskyi",
+   "Andrew Smerald",
+   "Christoph Gerbig"
+  ],
+  "venue": "Atmospheric Chemistry and Physics, 26(20), 14699-14723",
+  "doi": "10.5194/acp-26-14699-2026",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.5194/acp-26-14699-2026",
+   "matches": [
+    {
+     "author": "Fabian Maier",
+     "affiliation": "Max Planck Institute for Biogeochemistry (Jena, Germany)"
+    }
+   ],
+   "note": "Max Planck Institute for Biogeochemistry, Jena. Crossref gives an affiliation only for the first author."
+  },
+  "abstract": {
+   "text": "A major source of uncertainty in inverse modelling of greenhouse gas emissions are deficits in atmospheric transport models, in particular in the description of vertical mixing within the planetary boundary layer (PBL). The properties of radon-222 (Rn) makes it a suitable natural tracer for vertical mixing in the PBL. When comparing the CH 4 model-data mismatch (MDM), i.e. the differences between the observed and modelled CH 4 concentrations, with the MDM of Rn, we found substantial correlations for several observation sites in central Europe in 2021 (the median CH 4 -Rn MDM correlation coefficient is 0.6), indicating that a large part of the CH 4 and Rn MDM variability can be explained by common errors in the simulated (vertical) transport. We aim to exploit this information in a joint inversion for CH 4 and Rn by taking into account prior uncertainties and making use of the fact that the transport model error is correlated between the two gases. We use simultaneous CH 4 and Rn observations from 17 sites across central Europe in 2021. The dual-tracer CH 4 -Rn inversion yields lower CH 4 fluxes in several countries covered by the observation sites compared to a single-tracer CH 4 -only inversion without Rn information. The differences in country-total CH 4 fluxes between the dual-tracer and single-tracer inversions are on the order of a few percent and depend on the assumed uncertainty for the Rn prior fluxes. These findings underscore the importance of accurate Rn flux maps for fully leveraging the dual-tracer approach and enhancing the reliability of CH 4 flux estimates.",
+   "source": "Crossref record https://api.crossref.org/works/10.5194/acp-26-14699-2026 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Runs a joint CH4-radon inversion over central Europe that exploits the correlation of transport-model errors between the two gases (radon traces vertical mixing), and finds country CH4 fluxes shift by a few percent depending on the radon prior. It shows how a second tracer with constrained sources can absorb transport-model error in a source inversion, the analogue of using a co-transported tracer to pin down mixing when inverting for chloride sources.",
+  "crossref_title": "Can radon help to improve methane emission estimates? Results from a dual-tracer inversion",
+  "crossref_year": 2026,
+  "venue_formatted": "Atmospheric Chemistry and Physics 26(20), 14699–14723 (2026)"
+ },
+ {
+  "id": "X2",
+  "inst": "Max Planck Society (Max Planck institute)",
+  "year": 2022,
+  "title": "Information Field Theory and Artificial Intelligence",
+  "authors": [
+   "Torsten Enßlin"
+  ],
+  "venue": "Entropy, 24(3), 374",
+  "doi": "10.3390/e24030374",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.3390/e24030374",
+   "matches": [
+    {
+     "author": "Torsten Enßlin",
+     "affiliation": "Max Planck Institute for Astrophysics, Karl-Schwarzschild-Strasse 1, 85748 Garching, Germany"
+    }
+   ],
+   "note": "Max Planck Institute for Astrophysics, Garching."
+  },
+  "abstract": {
+   "text": "Information field theory (IFT), the information theory for fields, is a mathematical framework for signal reconstruction and non-parametric inverse problems. Artificial intelligence (AI) and machine learning (ML) aim at generating intelligent systems, including such for perception, cognition, and learning. This overlaps with IFT, which is designed to address perception, reasoning, and inference tasks. Here, the relation between concepts and tools in IFT and those in AI and ML research are discussed. In the context of IFT, fields denote physical quantities that change continuously as a function of space (and time) and information theory refers to Bayesian probabilistic logic equipped with the associated entropic information measures. Reconstructing a signal with IFT is a computational problem similar to training a generative neural network (GNN) in ML. In this paper, the process of inference in IFT is reformulated in terms of GNN training. In contrast to classical neural networks, IFT based GNNs can operate without pre-training thanks to incorporating expert knowledge into their architecture. Furthermore, the cross-fertilization of variational inference methods used in IFT and ML are discussed. These discussions suggest that IFT is well suited to address many problems in AI and ML research and application.",
+   "source": "Crossref record https://api.crossref.org/works/10.3390/e24030374 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Explains information field theory, a Bayesian framework for signal reconstruction and non-parametric inverse problems on fields, and recasts IFT inference as training a generative neural network that needs no pre-training because expert knowledge sits in its architecture. A chloride field reconstructed from sparse wells is exactly such a field-inference problem, and IFT gives priors and variational inference with uncertainty built in.",
+  "crossref_title": "Information Field Theory and Artificial Intelligence",
+  "crossref_year": 2022,
+  "venue_formatted": "Entropy 24(3), 374 (2022)"
+ },
+ {
+  "id": "X3",
+  "inst": "Max Planck Society (Max Planck institute)",
+  "year": 2020,
+  "title": "Training deep neural density estimators to identify mechanistic models of neural dynamics",
+  "authors": [
+   "Pedro J Gonçalves",
+   "Jan-Matthis Lueckmann",
+   "Michael Deistler",
+   "Marcel Nonnenmacher",
+   "Kaan Öcal",
+   "Giacomo Bassetto",
+   "Chaitanya Chintaluri",
+   "William F Podlaski",
+   "Sara A Haddad",
+   "Tim P Vogels",
+   "David S Greenberg",
+   "Jakob H Macke"
+  ],
+  "venue": "eLife, 9, e56261",
+  "doi": "10.7554/elife.56261",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.7554/elife.56261",
+   "matches": [
+    {
+     "author": "Pedro J Gonçalves",
+     "affiliation": "Max Planck Research Group Neural Systems Analysis, Center of Advanced European Studies and Research (caesar), Bonn, Germany"
+    },
+    {
+     "author": "Jan-Matthis Lueckmann",
+     "affiliation": "Max Planck Research Group Neural Systems Analysis, Center of Advanced European Studies and Research (caesar), Bonn, Germany"
+    },
+    {
+     "author": "Marcel Nonnenmacher",
+     "affiliation": "Max Planck Research Group Neural Systems Analysis, Center of Advanced European Studies and Research (caesar), Bonn, Germany"
+    },
+    {
+     "author": "Kaan Öcal",
+     "affiliation": "Max Planck Research Group Neural Systems Analysis, Center of Advanced European Studies and Research (caesar), Bonn, Germany"
+    },
+    {
+     "author": "Giacomo Bassetto",
+     "affiliation": "Max Planck Research Group Neural Systems Analysis, Center of Advanced European Studies and Research (caesar), Bonn, Germany"
+    },
+    {
+     "author": "Sara A Haddad",
+     "affiliation": "Max Planck Institute for Brain Research, Frankfurt, Germany"
+    },
+    {
+     "author": "Jakob H Macke",
+     "affiliation": "Max Planck Research Group Neural Systems Analysis, Center of Advanced European Studies and Research (caesar), Bonn, Germany"
+    },
+    {
+     "author": "Jakob H Macke",
+     "affiliation": "Max Planck Institute for Intelligent Systems, Tübingen, Germany"
+    }
+   ],
+   "note": "Max Planck affiliations on the paper: Max Planck Research Group Neural Systems Analysis at caesar (Bonn), Max Planck Institute for Intelligent Systems (Tuebingen) and Max Planck Institute for Brain Research (Frankfurt). The paper also has University of Oxford authors (Centre for Neural Circuits and Behaviour); it is counted for Max Planck only."
+  },
+  "abstract": {
+   "text": "Mechanistic modeling in neuroscience aims to explain observed phenomena in terms of underlying causes. However, determining which model parameters agree with complex and stochastic neural data presents a significant challenge. We address this challenge with a machine learning tool which uses deep neural density estimators—trained using model simulations—to carry out Bayesian inference and retrieve the full space of parameters compatible with raw data or selected data features. Our method is scalable in parameters and data features and can rapidly analyze new data after initial training. We demonstrate the power and flexibility of our approach on receptive fields, ion channels, and Hodgkin–Huxley models. We also characterize the space of circuit configurations giving rise to rhythmic activity in the crustacean stomatogastric ganglion, and use these results to derive hypotheses for underlying compensation mechanisms. Our approach will help close the gap between data-driven and theory-driven models of neural dynamics.",
+   "source": "Crossref record https://api.crossref.org/works/10.7554/elife.56261 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Introduces neural posterior estimation with deep neural density estimators trained on model simulations, which returns the full space of parameters compatible with data and analyses new data quickly after training, demonstrated on several neuroscience models and used to map the space of circuit configurations that produce rhythmic activity in the stomatogastric ganglion. Returning every parameter set compatible with the data is what is needed to expose non-identifiable combinations of chloride sources instead of a single best fit.",
+  "crossref_title": "Training deep neural density estimators to identify mechanistic models of neural dynamics",
+  "crossref_year": 2020,
+  "venue_formatted": "eLife 9, e56261 (2020)"
+ },
+ {
+  "id": "X4",
+  "inst": "Max Planck Society (Max Planck institute)",
+  "year": 2025,
+  "title": "Fast and reliable probabilistic reflectometry inversion with prior-amortized neural posterior estimation",
+  "authors": [
+   "Vladimir Starostin",
+   "Maximilian Dax",
+   "Alexander Gerlach",
+   "Alexander Hinderhofer",
+   "Álvaro Tejero-Cantero",
+   "Frank Schreiber"
+  ],
+  "venue": "Science Advances, 11(11), eadr9668",
+  "doi": "10.1126/sciadv.adr9668",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1126/sciadv.adr9668",
+   "matches": [
+    {
+     "author": "Maximilian Dax",
+     "affiliation": "Max Planck Institute for Intelligent Systems, Tübingen, Germany."
+    }
+   ],
+   "note": "Max Planck Institute for Intelligent Systems, Tuebingen (Maximilian Dax)."
+  },
+  "abstract": {
+   "text": "Reconstructing the structure of thin films and multilayers from measurements of scattered x-rays or neutrons is key to progress in physics, chemistry, and biology. However, finding all structures compatible with reflectometry data is computationally prohibitive for standard algorithms, which typically results in unreliable analysis with only a single potential solution identified. We address this lack of reliability with a probabilistic deep learning method that identifies all realistic structures in seconds, redefining standards in reflectometry. Our method, prior-amortized neural posterior estimation (PANPE), combines simulation-based inference with adaptive priors that inform the inference network about known structural properties and controllable experimental conditions. PANPE networks support key scenarios such as high-throughput sample characterization, real-time monitoring of evolving structures, or the corefinement of several experimental datasets and can be adapted to provide fast, reliable, and flexible inference across many other inverse problems.",
+   "source": "Crossref record https://api.crossref.org/works/10.1126/sciadv.adr9668 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Presents prior-amortised neural posterior estimation (PANPE), which finds all realistic thin-film structures compatible with reflectometry data in seconds, with adaptive priors and co-refinement of several datasets. It targets the same failure as single-solution chloride inversions, namely missed alternative solutions, and shows how prior information can be passed to an amortised network at inference time.",
+  "crossref_title": "Fast and reliable probabilistic reflectometry inversion with prior-amortized neural posterior estimation",
+  "crossref_year": 2025,
+  "venue_formatted": "Science Advances 11(11), eadr9668 (2025)"
+ },
+ {
+  "id": "H1",
+  "inst": "Harvard University",
+  "year": 2024,
+  "title": "Acceleration of Deep Subsurface Fluid Fluxes in the Anthropocene",
+  "authors": [
+   "Grant Ferguson",
+   "Lydia R. Bailey",
+   "Ji‐Hyun Kim",
+   "Magdalena R. Osburn",
+   "Peter W. Reiners",
+   "Henrik Drake",
+   "Bradley S. Stevenson",
+   "Jennifer C. McIntosh"
+  ],
+  "venue": "Earth's Future, 12(4), e2024EF004496",
+  "doi": "10.1029/2024ef004496",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2024ef004496",
+   "matches": [
+    {
+     "author": "Lydia R. Bailey",
+     "affiliation": "Department of Earth &amp; Planetary Sciences Harvard University  Cambridge MA USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "The Anthropocene has been framed around humanity's impact on atmospheric, biologic, and near‐surface processes, such as land use and vegetation change, greenhouse gas emissions, and the above‐ground hydrologic cycle. Groundwater extraction has lowered water tables in many key aquifers but comparatively little attention has been given to the impacts in the deeper subsurface. Here, we show that fluid fluxes from the extraction and injection of fluids associated with oil and gas production and inflow of water into mines likely exceed background flow rates in deep (>500 m) groundwater systems at a global scale. Projected carbon capture and sequestration (CCS), geothermal energy production, and lithium extraction to facilitate the energy transition will require fluid production rates exceeding current oil and co‐produced water extraction. Natural analogs and geochemical modeling indicate that subsurface fluid manipulation in the Anthropocene will likely appear in the rock record. The magnitude and importance of these changes are unclear, due to a lack of understanding of how deep subsurface hydrologic and geochemical cycles and associated microbial life interact with the rest of the Earth system.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2024ef004496 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Shows that fluid fluxes from oil and gas extraction and injection and from mine inflows likely exceed natural flow in deep (more than 500 m) groundwater systems globally, and that CCS, geothermal and lithium extraction will add more. Human-driven mobilisation of deep saline fluids is a candidate chloride pathway (upconing or leakage of brines) that a coastal source attribution has to consider.",
+  "crossref_title": "Acceleration of Deep Subsurface Fluid Fluxes in the Anthropocene",
+  "crossref_year": 2024,
+  "venue_formatted": "Earth's Future 12(4), e2024EF004496 (2024)"
+ },
+ {
+  "id": "H2",
+  "inst": "Harvard University",
+  "year": 2023,
+  "title": "Recent Developments in Partial Identification",
+  "authors": [
+   "Brendan Kline",
+   "Elie Tamer"
+  ],
+  "venue": "Annual Review of Economics, 15(1), 125-150",
+  "doi": "10.1146/annurev-economics-051520-021124",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1146/annurev-economics-051520-021124",
+   "matches": [
+    {
+     "author": "Elie Tamer",
+     "affiliation": "2Department of Economics, Harvard University, Cambridge, Massachusetts, USA; email: [e-mail redacted]"
+    }
+   ],
+   "note": "The Crossref affiliation string also contains an e-mail address, redacted here as [e-mail redacted]."
+  },
+  "abstract": {
+   "text": "Identification strategies concern what can be learned about the value of a parameter based on the data and the model assumptions. The literature on partial identification is motivated by the fact that it is not possible to learn the exact value of the parameter for many empirically relevant cases. A typical result in the literature on partial identification is a statement about characterizing the identified set, which summarizes what can be learned about the parameter of interest given the data and model assumptions. For instance, this may mean that the value of the parameter can be learned to be necessarily within some set of values. First, the review surveys the general frameworks that have been developed for conducting a partial identification analysis. Second, the review surveys some of the more recent results on partial identification.",
+   "source": "Crossref record https://api.crossref.org/works/10.1146/annurev-economics-051520-021124 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Reviews partial identification: what can be learned about a parameter from data and model assumptions when its exact value cannot be learned, framed as the identified set, with general frameworks and recent results. It gives the vocabulary and tools for reporting chloride-source fractions as identified sets or bounds when sparse tracers cannot point-identify them.",
+  "crossref_title": "Recent Developments in Partial Identification",
+  "crossref_year": 2023,
+  "venue_formatted": "Annual Review of Economics 15(1), 125–150 (2023)"
+ },
+ {
+  "id": "H3",
+  "inst": "Harvard University",
+  "year": 2024,
+  "title": "Partial Identification of the Effects of Sustained Treatment Strategies",
+  "authors": [
+   "Elizabeth W. Diemer",
+   "Joy Shi",
+   "Sonja A. Swanson"
+  ],
+  "venue": "Epidemiology, 35(3), 308-312",
+  "doi": "10.1097/ede.0000000000001721",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1097/ede.0000000000001721",
+   "matches": [
+    {
+     "author": "Elizabeth W. Diemer",
+     "affiliation": "CAUSALab, Harvard T.H. Chan School of Public Health, Boston, MA"
+    },
+    {
+     "author": "Elizabeth W. Diemer",
+     "affiliation": "Department of Epidemiology, Harvard T.H. Chan School of Public Health, Boston, MA"
+    },
+    {
+     "author": "Joy Shi",
+     "affiliation": "CAUSALab, Harvard T.H. Chan School of Public Health, Boston, MA"
+    },
+    {
+     "author": "Joy Shi",
+     "affiliation": "Department of Epidemiology, Harvard T.H. Chan School of Public Health, Boston, MA"
+    },
+    {
+     "author": "Sonja A. Swanson",
+     "affiliation": "CAUSALab, Harvard T.H. Chan School of Public Health, Boston, MA"
+    },
+    {
+     "author": "Sonja A. Swanson",
+     "affiliation": "Department of Epidemiology, Harvard T.H. Chan School of Public Health, Boston, MA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Although many epidemiologic studies focus on point identification, it is also possible to partially identify causal effects under consistency and the data alone. However, the literature on the so-called “assumption-free” bounds has focused on settings with time-fixed exposures. We describe assumption-free bounds for the effects of both static and dynamic sustained interventions. To provide intuition for the width of the bounds, we also discuss a mathematical connection between assumption-free bounds and clone-censor-weight approaches to causal effect estimation. The bounds, which are often wide in practice, can provide important information about the degree to which causal analyses depend on unverifiable assumptions made by investigators.",
+   "source": "Crossref record https://api.crossref.org/works/10.1097/ede.0000000000001721 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Derives assumption-free bounds for the effects of static and dynamic sustained interventions using only consistency and the data, and relates bound width to clone-censor-weight estimation. Carried over to chloride, the width of such assumption-free bounds measures how much a source attribution rests on untestable modelling assumptions.",
+  "crossref_title": "Partial Identification of the Effects of Sustained Treatment Strategies",
+  "crossref_year": 2024,
+  "venue_formatted": "Epidemiology 35(3), 308–312 (2024)"
+ },
+ {
+  "id": "H4",
+  "inst": "Harvard University",
+  "year": 2021,
+  "title": "Empirical Frequentist Coverage of Deep Learning Uncertainty Quantification Procedures",
+  "authors": [
+   "Benjamin Kompa",
+   "Jasper Snoek",
+   "Andrew L. Beam"
+  ],
+  "venue": "Entropy, 23(12), 1608",
+  "doi": "10.3390/e23121608",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.3390/e23121608",
+   "matches": [
+    {
+     "author": "Benjamin Kompa",
+     "affiliation": "Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA"
+    },
+    {
+     "author": "Andrew L. Beam",
+     "affiliation": "Department of Biomedical Informatics, Harvard Medical School, Boston, MA 02115, USA"
+    },
+    {
+     "author": "Andrew L. Beam",
+     "affiliation": "Department of Epidemiology, Harvard School of Public Health, Boston, MA 02115, USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Uncertainty quantification for complex deep learning models is increasingly important as these techniques see growing use in high-stakes, real-world settings. Currently, the quality of a model’s uncertainty is evaluated using point-prediction metrics, such as the negative log-likelihood (NLL), expected calibration error (ECE) or the Brier score on held-out data. Marginal coverage of prediction intervals or sets, a well-known concept in the statistical literature, is an intuitive alternative to these metrics but has yet to be systematically studied for many popular uncertainty quantification techniques for deep learning models. With marginal coverage and the complementary notion of the width of a prediction interval, downstream users of deployed machine learning models can better understand uncertainty quantification both on a global dataset level and on a per-sample basis. In this study, we provide the first large-scale evaluation of the empirical frequentist coverage properties of well-known uncertainty quantification techniques on a suite of regression and classification tasks. We find that, in general, some methods do achieve desirable coverage properties on in distribution samples, but that coverage is not maintained on out-of-distribution data. Our results demonstrate the failings of current uncertainty quantification techniques as dataset shift increases and reinforce coverage as an important metric in developing models for real-world applications.",
+   "source": "Crossref record https://api.crossref.org/works/10.3390/e23121608 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "C",
+  "why_relevant": "Evaluates the empirical frequentist coverage and interval width of popular deep-learning uncertainty-quantification methods on regression and classification tasks and finds that coverage holds in distribution but is lost under dataset shift. ML predictions of chloride at unsampled wells are out of distribution almost by construction, so coverage must be checked (for example with conformal methods) before ML uncertainty is trusted.",
+  "crossref_title": "Empirical Frequentist Coverage of Deep Learning Uncertainty Quantification Procedures",
+  "crossref_year": 2021,
+  "venue_formatted": "Entropy 23(12), 1608 (2021)"
+ },
+ {
+  "id": "B1",
+  "inst": "UC Berkeley",
+  "year": 2022,
+  "title": "Transit Time Estimation in Catchments: Recent Developments and Future Directions",
+  "authors": [
+   "Paolo Benettin",
+   "Nicolas B. Rodriguez",
+   "Matthias Sprenger",
+   "Minseok Kim",
+   "Julian Klaus",
+   "Ciaran J. Harman",
+   "Ype van der Velde",
+   "Markus Hrachowitz",
+   "Gianluca Botter",
+   "Kevin J. McGuire",
+   "James W. Kirchner",
+   "Andrea Rinaldo",
+   "Jeffrey J. McDonnell"
+  ],
+  "venue": "Water Resources Research, 58(11), e2022WR033096",
+  "doi": "10.1029/2022wr033096",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2022wr033096",
+   "matches": [
+    {
+     "author": "James W. Kirchner",
+     "affiliation": "Department of Earth and Planetary Science University of California  Berkeley CA USA"
+    }
+   ],
+   "note": "Also on the paper: Matthias Sprenger, 'Earth & Environmental Sciences Area Lawrence Berkeley National Laboratory Berkeley CA USA' (LBNL). The paper is counted for UC Berkeley because James W. Kirchner's UC Berkeley affiliation is also on it."
+  },
+  "abstract": {
+   "text": "Water transit time is now a standard measure in catchment hydrological and ecohydrological research. The last comprehensive review of transit time modeling approaches was published 15+ years ago. But since then the field has largely expanded with new data, theory and applications. Here, we review these new developments with focus on water‐age‐balance approaches and data‐based approaches. We discuss and compare methods including StorAge‐Selection functions, well/partially mixed compartments, water age tracking through spatially distributed models, direct transit time estimates from controlled experiments, young water fractions, and ensemble hydrograph separation. We unify some of the heterogeneity in the literature that has crept in with these many new approaches, in an attempt to clarify the key differences and similarities among them. Finally, we point to open questions in transit time research, including what we still need from theory, models, field work, and community practice.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2022wr033096 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Reviews transit-time estimation in catchments: StorAge-Selection functions, well and partially mixed compartments, age tracking in distributed models, controlled experiments, young water fractions and ensemble hydrograph separation, with open questions. Transit-time estimation is itself an inversion of conservative-tracer time series (for example stable water isotopes or chloride), so the review supplies the water-age and mixing machinery for relating chloride records to recharge and residence times.",
+  "crossref_title": "Transit Time Estimation in Catchments: Recent Developments and Future Directions",
+  "crossref_year": 2022,
+  "venue_formatted": "Water Resources Research 58(11), e2022WR033096 (2022)"
+ },
+ {
+  "id": "B2",
+  "inst": "UC Berkeley",
+  "year": 2021,
+  "title": "Groundwater Recharge to Address Seawater Intrusion and Supply in an Urban Coastal Aquifer",
+  "authors": [
+   "Michael Kiparsky",
+   "Kathleen Miller",
+   "William Blomquist",
+   "Annapurna Holtzapple",
+   "Anita Milman"
+  ],
+  "venue": "Case Studies in the Environment, 5(1), 1223118",
+  "doi": "10.1525/cse.2021.1223118",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1525/cse.2021.1223118",
+   "matches": [
+    {
+     "author": "Michael Kiparsky",
+     "affiliation": "1Center for Law, Energy & the Environment, University of California, Berkeley School of Law, Berkeley, CA, USA"
+    },
+    {
+     "author": "Kathleen Miller",
+     "affiliation": "1Center for Law, Energy & the Environment, University of California, Berkeley School of Law, Berkeley, CA, USA"
+    },
+    {
+     "author": "Annapurna Holtzapple",
+     "affiliation": "1Center for Law, Energy & the Environment, University of California, Berkeley School of Law, Berkeley, CA, USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "The Orange County Water District (OCWD) was created in 1933 by the California Legislature and tasked with managing water resources in Orange County. As a part of its strategy to fight seawater intrusion and guarantee a reliable groundwater supply in the basin, OCWD built a recycled wastewater facility that treats wastewater received from the Orange County Sanitation District and recharges the water into the basin through injection wells and infiltration ponds. OCWD’s first recycled wastewater facility, Water Factory 21, began operating in 1975 and was replaced in 2008 by the Groundwater Replenishment System (GWRS). Recharged water not serving as a barrier for seawater instruction is pumped by local water districts and municipalities (referred to as “producers”), who pay a pumping fee to OCWD. Water provided by GWRS is both more reliable and less expensive for the producers than water acquired from other sources, including imported surface water. In responding to the recognized threat of seawater intrusion, OCWD owes its success to creatively enabling recharge through the development of novel source water. OCWD’s broad purview and authority to manage groundwater, combined with its effective implementation and long-term stewardship of the recharge program as it has evolved over many years, have enabled innovation in MAR using treated wastewater.",
+   "source": "Crossref record https://api.crossref.org/works/10.1525/cse.2021.1223118 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "A",
+  "why_relevant": "Describes how the Orange County Water District (California) fights seawater intrusion by recharging treated recycled wastewater through injection wells and infiltration ponds (Water Factory 21, then the Groundwater Replenishment System) as a barrier and supply. In a managed coastal aquifer this engineered recharge is an extra end-member and a hydraulic barrier that a chloride mixing model must include next to seawater and native groundwater.",
+  "crossref_title": "Groundwater Recharge to Address Seawater Intrusion and Supply in an Urban Coastal Aquifer",
+  "crossref_year": 2021,
+  "venue_formatted": "Case Studies in the Environment 5(1), 1223118 (2021)"
+ },
+ {
+  "id": "B3",
+  "inst": "UC Berkeley",
+  "year": 2025,
+  "title": "Inferences of Source Lithologies for Chicxulub Microtektites Using a Bayesian Approach",
+  "authors": [
+   "Jack Carter",
+   "Paolo Sanchez",
+   "Anthony J. Fuentes",
+   "Paul R. Renne",
+   "Dale H. Burns",
+   "Hermann D. Bermúdez"
+  ],
+  "venue": "Geochemistry, Geophysics, Geosystems, 26(3), e2024GC011924",
+  "doi": "10.1029/2024gc011924",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1029/2024gc011924",
+   "matches": [
+    {
+     "author": "Jack Carter",
+     "affiliation": "Department of Earth and Planetary Science University of California Berkeley  Berkeley CA USA"
+    },
+    {
+     "author": "Paolo Sanchez",
+     "affiliation": "Department of Earth and Planetary Science University of California Berkeley  Berkeley CA USA"
+    },
+    {
+     "author": "Anthony J. Fuentes",
+     "affiliation": "Department of Earth and Planetary Science University of California Berkeley  Berkeley CA USA"
+    },
+    {
+     "author": "Paul R. Renne",
+     "affiliation": "Department of Earth and Planetary Science University of California Berkeley  Berkeley CA USA"
+    }
+   ],
+   "note": "Carter, Fuentes and Renne also list the Berkeley Geochronology Center (an independent institute, not LBNL)."
+  },
+  "abstract": {
+   "text": "The Chicxulub impact on the Yucatán Peninsula at the Cretaceous‐Paleogene boundary (KPB) was a likely contributor to the end‐Cretaceous mass extinction. Glassy objects produced by quenched melt from the impact were distributed over a large region centered on the Caribbean basin and have long been known to preserve compositional information that could allow for more robust constraints on the pre‐impact target lithologies. The Chicxulub‐derived glasses are generally altered in most localities, but a recently discovered deposit at Gorgonilla Island, Colombia, yields a large percentage of unaltered glassy microtektites up to ∼2 mm (There is inconsistent usage of these terms in the literature. We use the term microtektites herein to distinguish them from e.g., the tektites of the Australasian strewn field, which reach sizes many orders of magnitude larger) in dimension. Backscattered electron and X‐ray imaging reveal that most of the Gorgonilla microtektites are composed of intricate mixtures of diverse compositions juxtaposed in schlieren textures. Electron probe microanalysis (EPMA) of 521 analyses in 90 unaltered microtektites encompassing the observed range of colors and shapes, reveals a continuous range of compositions. The EPMA data reveal a binary mixture of granitic and Ca‐S‐rich components as has been previously inferred for these and other KPB microtektites. We formulate a reversible jump Bayesian model and infer that a six‐component endmember mixture of granitoid (∼70%), limestone (∼14%), mafic igneous (∼10%), shale (∼4%), anhydrite (∼0.3%), and halite (∼0.1%) can adequately explain the observed data set. From our model‐derived lithology budget, we make conservative estimates of lower bounds for the volatile budgets of sulfur (Gt), CO 2 (Gt), and H 2 O (Gt). Combining our model estimates of target lithology with impact simulation may allow for more accurate predictions of the subsequent climate effects.",
+   "source": "Crossref record https://api.crossref.org/works/10.1029/2024gc011924 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Fits a reversible-jump Bayesian end-member mixture model to 521 electron-microprobe analyses of Chicxulub microtektites and infers a six-component mixture that includes anhydrite (about 0.3%) and halite (about 0.1%). It is a direct template for Bayesian unmixing with an unknown number of sources, including evaporite end-members, from noisy compositional data.",
+  "crossref_title": "Inferences of Source Lithologies for Chicxulub Microtektites Using a Bayesian Approach",
+  "crossref_year": 2025,
+  "venue_formatted": "Geochemistry, Geophysics, Geosystems 26(3), e2024GC011924 (2025)"
+ },
+ {
+  "id": "B4",
+  "inst": "UC Berkeley",
+  "year": 2020,
+  "title": "Combined use of radiocarbon and stable carbon isotopes for the source mixing model in a stream food web",
+  "authors": [
+   "Naoto F. Ishikawa",
+   "Jacques C. Finlay",
+   "Hiromi Uno",
+   "Nanako O. Ogawa",
+   "Naohiko Ohkouchi",
+   "Ichiro Tayasu",
+   "Mary E. Power"
+  ],
+  "venue": "Limnology and Oceanography, 65(11), 2688-2696",
+  "doi": "10.1002/lno.11541",
+  "affiliation_evidence": {
+   "evidence_type": "Crossref record, author[].affiliation[].name",
+   "source": "https://api.crossref.org/works/10.1002/lno.11541",
+   "matches": [
+    {
+     "author": "Hiromi Uno",
+     "affiliation": "Department of Integrative Biology University of California  Berkeley California USA"
+    },
+    {
+     "author": "Mary E. Power",
+     "affiliation": "Department of Integrative Biology University of California  Berkeley California USA"
+    }
+   ]
+  },
+  "abstract": {
+   "text": "Radiocarbon natural abundance (Δ 14 C) has emerged as a useful dietary tracer in freshwater ecology for the past decade, yet its applicability for separating aquatic and terrestrial resources has not been examined quantitatively. Here, we report Δ 14 C values of stream invertebrates in different functional feeding groups collected from the upper South Fork Eel River watershed, northern California. We found that algae‐grazing insect larvae show low Δ 14 C values (−43.1 ± 21.8‰, mean ± standard deviation, N = 6), reflecting the signal of dissolved inorganic carbon weathered from ancient inorganic carbon or respiration of old organic carbon. In contrast, the Δ 14 C values of leaf‐shredding insect larvae (21.7 ± 31.9‰, N = 5) were close to those of contemporary atmospheric CO 2 except at the SF Eel River where algal production was highest. The Δ 14 C values of predators (−6.1 ± 35.7‰, N = 14) were intermediate between those of grazers and shredders. In a Bayesian mixing model, Δ 14 C provided a more ecologically realistic estimate for terrestrial vs. aquatic source contributions to invertebrates with lower uncertainty (i.e., narrower credible interval) than did the stable carbon isotopes (δ 13 C). These results demonstrate that Δ 14 C can be used, in combination with δ 13 C, to more precisely estimate organic matter sources to stream animals.",
+   "source": "Crossref record https://api.crossref.org/works/10.1002/lno.11541 (field 'abstract'; JATS/XML tags removed, so sub- and superscripts and inline math are flattened)"
+  },
+  "topic": "B",
+  "why_relevant": "Shows in a Bayesian mixing model that adding radiocarbon to stable carbon isotopes gives source contributions with narrower credible intervals than d13C alone. It is a clean demonstration that an independent second tracer improves the identifiability of mixing fractions, as adding isotopes or Br to chloride does.",
+  "crossref_title": "Combined use of radiocarbon and stable carbon isotopes for the source mixing model in a stream food web",
+  "crossref_year": 2020,
+  "venue_formatted": "Limnology and Oceanography 65(11), 2688–2696 (2020)"
+ }
+]

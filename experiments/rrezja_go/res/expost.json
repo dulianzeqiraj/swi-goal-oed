@@ -1,0 +1,17 @@
+{
+ "rho_env": 0.29278639411020446,
+ "none": {
+  "worst_median": 0.10954941141198699,
+  "worst_q90": 0.10954941141198699,
+  "share_worst_above_alpha": 1.0,
+  "share_worst_plus_margin_above_alpha": 1.0,
+  "calibrated_median": 0.038281839601306614
+ },
+ "chloride sample (A30)": {
+  "worst_median": 0.06572995354725562,
+  "worst_q90": 0.13948548423375423,
+  "share_worst_above_alpha": 0.2015,
+  "share_worst_plus_margin_above_alpha": 0.5555,
+  "calibrated_median": 0.01608140242765206
+ }
+}

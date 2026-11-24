@@ -1,0 +1,102 @@
+{
+ "H2": {
+  "A  chloride at 4 wells": {
+   "n": 148,
+   "dom": 142,
+   "by": {
+    "MS": 49,
+    "LG": 1,
+    "FW": 0,
+    "AN": 22,
+    "RS": 70,
+    "DB": 0
+   }
+  },
+  "B  chloride at all wells": {
+   "n": 352,
+   "dom": 338,
+   "by": {
+    "MS": 74,
+    "LG": 12,
+    "FW": 0,
+    "AN": 56,
+    "RS": 196,
+    "DB": 0
+   }
+  },
+  "C  + Br, d18O, tritium": {
+   "n": 352,
+   "dom": 338,
+   "by": {
+    "MS": 74,
+    "LG": 12,
+    "FW": 0,
+    "AN": 56,
+    "RS": 196,
+    "DB": 0
+   }
+  },
+  "D  + end-members sampled": {
+   "n": 352,
+   "dom": 338,
+   "by": {
+    "MS": 74,
+    "LG": 12,
+    "FW": 0,
+    "AN": 56,
+    "RS": 196,
+    "DB": 0
+   }
+  }
+ },
+ "H4": {
+  "A  chloride at 4 wells": {
+   "n": 78,
+   "dom": 59,
+   "by": {
+    "MS": 21,
+    "LG": 0,
+    "FW": 0,
+    "AN": 0,
+    "RS": 9,
+    "DB": 29
+   }
+  },
+  "B  chloride at all wells": {
+   "n": 178,
+   "dom": 128,
+   "by": {
+    "MS": 28,
+    "LG": 3,
+    "FW": 0,
+    "AN": 0,
+    "RS": 29,
+    "DB": 68
+   }
+  },
+  "C  + Br, d18O, tritium": {
+   "n": 178,
+   "dom": 128,
+   "by": {
+    "MS": 28,
+    "LG": 3,
+    "FW": 0,
+    "AN": 0,
+    "RS": 29,
+    "DB": 68
+   }
+  },
+  "D  + end-members sampled": {
+   "n": 178,
+   "dom": 128,
+   "by": {
+    "MS": 28,
+    "LG": 3,
+    "FW": 0,
+    "AN": 0,
+    "RS": 29,
+    "DB": 68
+   }
+  }
+ }
+}

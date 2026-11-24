@@ -17,7 +17,7 @@ function gate3_field(xlsxfile)
 %
 %   Author: D. Zeqiraj.  License: MIT (see LICENSE).
 
-    if nargin<1, xlsxfile='Fushe_Kuqe_All_Data.xlsx'; end
+    if nargin<1, xlsxfile=fullfile(fileparts(mfilename('fullpath')),'..','data','Fushe_Kuqe_All_Data.xlsx'); end
     addpath(fullfile(fileparts(mfilename('fullpath')),'..','src'));
 
     % --- real inside-aquifer wells: [X Y K] (Gauss-Kruger, m; K m/day) -----

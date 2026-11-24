@@ -1,0 +1,17 @@
+pool of 500 cases in 26s
+eta   n= 50  CRC risk 0.082 (p90 0.092, <=alpha in 0.99) w1.17 | RCPS risk 0.023 (p90 0.030, <=alpha in 1.00) w1.54
+eta   n=100  CRC risk 0.090 (p90 0.098, <=alpha in 0.94) w1.14 | RCPS risk 0.042 (p90 0.048, <=alpha in 1.00) w1.38
+eta   n=200  CRC risk 0.095 (p90 0.101, <=alpha in 0.81) w1.13 | RCPS risk 0.060 (p90 0.065, <=alpha in 1.00) w1.27
+qL    n= 50  CRC risk 0.082 (p90 0.100, <=alpha in 0.92) w1.16 | RCPS risk 0.024 (p90 0.032, <=alpha in 1.00) w1.52
+qL    n=100  CRC risk 0.091 (p90 0.103, <=alpha in 0.84) w1.13 | RCPS risk 0.043 (p90 0.051, <=alpha in 1.00) w1.36
+qL    n=200  CRC risk 0.095 (p90 0.107, <=alpha in 0.73) w1.11 | RCPS risk 0.060 (p90 0.069, <=alpha in 1.00) w1.26
+r     n= 50  CRC risk 0.082 (p90 0.093, <=alpha in 0.98) w1.18 | RCPS risk 0.023 (p90 0.029, <=alpha in 1.00) w1.54
+r     n=100  CRC risk 0.091 (p90 0.098, <=alpha in 0.90) w1.14 | RCPS risk 0.042 (p90 0.048, <=alpha in 1.00) w1.37
+r     n=200  CRC risk 0.095 (p90 0.102, <=alpha in 0.78) w1.13 | RCPS risk 0.060 (p90 0.065, <=alpha in 1.00) w1.27
+h0    n= 50  CRC risk 0.083 (p90 0.108, <=alpha in 0.83) w1.18 | RCPS risk 0.025 (p90 0.039, <=alpha in 1.00) w1.53
+h0    n=100  CRC risk 0.091 (p90 0.109, <=alpha in 0.76) w1.15 | RCPS risk 0.043 (p90 0.055, <=alpha in 1.00) w1.37
+h0    n=200  CRC risk 0.095 (p90 0.112, <=alpha in 0.68) w1.14 | RCPS risk 0.060 (p90 0.073, <=alpha in 1.00) w1.27
+kappa n= 50  CRC risk 0.097 (p90 0.158, <=alpha in 0.60) w1.41 | RCPS risk 0.038 (p90 0.076, <=alpha in 0.96) w1.93
+kappa n=100  CRC risk 0.098 (p90 0.140, <=alpha in 0.56) w1.37 | RCPS risk 0.049 (p90 0.080, <=alpha in 0.97) w1.74
+kappa n=200  CRC risk 0.099 (p90 0.137, <=alpha in 0.56) w1.36 | RCPS risk 0.064 (p90 0.097, <=alpha in 0.93) w1.58
+Bonferroni needs n >= {'weeks': 639, 'cells': 319}; done in 52s

@@ -1,0 +1,5 @@
+G margin -0.154 {'nomargin': ('S3.5-R3.0', 5.8, 0.04), 'withmargin': ('S3.5-R3.0', 5.95, 0.08)}
+U margin -0.077 {'nomargin': ('S3.5-R3.0', 5.9, 0.04), 'withmargin': ('S3.5-R3.0', 5.98, 0.08)}
+S margin -0.001 {'nomargin': ('S2.5-R3.0', 5.16, 0.2), 'withmargin': ('S2.5-R3.0', 5.16, 0.2)}
+N margin -0.380 {'nomargin': ('S2.5-R3.0', 4.39, 0.04), 'withmargin': ('S2.5-R3.0', 4.77, 0.08)}
+F best S3.5-R3.0 6.36

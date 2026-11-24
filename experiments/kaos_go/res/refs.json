@@ -1,0 +1,1744 @@
+{
+ "A1": {
+  "doi": "10.1126/sciadv.abj2619",
+  "authors": [
+   {
+    "family": "Browne",
+    "given": "Christopher A."
+   },
+   {
+    "family": "Datta",
+    "given": "Sujit S."
+   }
+  ],
+  "year": 2021,
+  "title": "Elastic turbulence generates anomalous flow resistance in porous media",
+  "journal": "Science Advances",
+  "volume": "7",
+  "issue": "45",
+  "page": "eabj2619",
+  "type": "journal-article",
+  "publisher": "American Association for the Advancement of Science (AAAS)"
+ },
+ "A2": {
+  "doi": "10.1017/jfm.2020.122",
+  "authors": [
+   {
+    "family": "Browne",
+    "given": "Christopher A."
+   },
+   {
+    "family": "Shih",
+    "given": "Audrey"
+   },
+   {
+    "family": "Datta",
+    "given": "Sujit S."
+   }
+  ],
+  "year": 2020,
+  "title": "Bistability in the unstable flow of polymer solutions through pore constriction arrays",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "890",
+  "issue": null,
+  "page": "A2",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "A3": {
+  "doi": "10.1017/jfm.2023.337",
+  "authors": [
+   {
+    "family": "Browne",
+    "given": "Christopher A."
+   },
+   {
+    "family": "Huang",
+    "given": "Richard B."
+   },
+   {
+    "family": "Zheng",
+    "given": "Callie W."
+   },
+   {
+    "family": "Datta",
+    "given": "Sujit S."
+   }
+  ],
+  "year": 2023,
+  "title": "Homogenizing fluid transport in stratified porous media using an elastic flow instability",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "963",
+  "issue": null,
+  "page": "A30",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "A4": {
+  "doi": "10.1073/pnas.2320962121",
+  "authors": [
+   {
+    "family": "Browne",
+    "given": "Christopher A."
+   },
+   {
+    "family": "Datta",
+    "given": "Sujit S."
+   }
+  ],
+  "year": 2024,
+  "title": "Harnessing elastic instabilities for enhanced mixing and reaction kinetics in porous media",
+  "journal": "Proceedings of the National Academy of Sciences",
+  "volume": "121",
+  "issue": "29",
+  "page": "e2320962121",
+  "type": "journal-article",
+  "publisher": "National Academy of Sciences"
+ },
+ "A5": {
+  "doi": "10.1103/physrevfluids.6.033304",
+  "authors": [
+   {
+    "family": "Kumar",
+    "given": "Manish"
+   },
+   {
+    "family": "Aramideh",
+    "given": "Soroush"
+   },
+   {
+    "family": "Browne",
+    "given": "Christopher A."
+   },
+   {
+    "family": "Datta",
+    "given": "Sujit S."
+   },
+   {
+    "family": "Ardekani",
+    "given": "Arezoo M."
+   }
+  ],
+  "year": 2021,
+  "title": "Numerical investigation of multistability in the unstable flow of a polymer solution through porous media",
+  "journal": "Physical Review Fluids",
+  "volume": "6",
+  "issue": "3",
+  "page": "033304",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S1": {
+  "doi": "10.1007/bf01036523",
+  "authors": [
+   {
+    "family": "Whitaker",
+    "given": "Stephen"
+   }
+  ],
+  "year": 1986,
+  "title": "Flow in porous media I: A theoretical derivation of Darcy's law",
+  "journal": "Transport in Porous Media",
+  "volume": "1",
+  "issue": "1",
+  "page": "3-25",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S2": {
+  "doi": "10.3233/asy-1989-2302",
+  "authors": [
+   {
+    "family": "Allaire",
+    "given": "Grégoire"
+   }
+  ],
+  "year": 1989,
+  "title": "Homogenization of the stokes flow in a connected porous medium",
+  "journal": "Asymptotic Analysis",
+  "volume": "2",
+  "issue": "3",
+  "page": "203-222",
+  "type": "journal-article",
+  "publisher": "SAGE Publications"
+ },
+ "S3": {
+  "doi": "10.1017/s0022112091001258",
+  "authors": [
+   {
+    "family": "Mei",
+    "given": "C. C."
+   },
+   {
+    "family": "Auriault",
+    "given": "J.-L."
+   }
+  ],
+  "year": 1991,
+  "title": "The effect of weak inertia on flow through a porous medium",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "222",
+  "issue": null,
+  "page": "647-663",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "S4": {
+  "doi": "10.1007/978-94-009-6175-3_4",
+  "authors": [
+   {
+    "family": "Dybbs",
+    "given": "A."
+   },
+   {
+    "family": "Edwards",
+    "given": "R. V."
+   }
+  ],
+  "year": 1984,
+  "title": "A New Look at Porous Media Fluid Mechanics — Darcy to Turbulent",
+  "journal": "Fundamentals of Transport Phenomena in Porous Media",
+  "volume": null,
+  "issue": null,
+  "page": "199-256",
+  "type": "book-chapter",
+  "publisher": "Springer Netherlands"
+ },
+ "S5": {
+  "doi": "10.1017/s002211209700671x",
+  "authors": [
+   {
+    "family": "KOCH",
+    "given": "DONALD L."
+   },
+   {
+    "family": "LADD",
+    "given": "ANTHONY J. C."
+   }
+  ],
+  "year": 1997,
+  "title": "Moderate Reynolds number flows through periodic and random arrays of aligned cylinders",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "349",
+  "issue": null,
+  "page": "31-66",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "S6": {
+  "doi": "10.1016/j.compfluid.2016.05.030",
+  "authors": [
+   {
+    "family": "Agnaou",
+    "given": "M."
+   },
+   {
+    "family": "Lasseux",
+    "given": "D."
+   },
+   {
+    "family": "Ahmadi",
+    "given": "A."
+   }
+  ],
+  "year": 2016,
+  "title": "From steady to unsteady laminar flow in model porous structures: an investigation of the first Hopf bifurcation",
+  "journal": "Computers & Fluids",
+  "volume": "136",
+  "issue": null,
+  "page": "67-82",
+  "type": "journal-article",
+  "publisher": "Elsevier BV"
+ },
+ "S7": {
+  "doi": "10.1146/annurev-fluid-010719-060317",
+  "authors": [
+   {
+    "family": "Wood",
+    "given": "Brian D."
+   },
+   {
+    "family": "He",
+    "given": "Xiaoliang"
+   },
+   {
+    "family": "Apte",
+    "given": "Sourabh V."
+   }
+  ],
+  "year": 2020,
+  "title": "Modeling Turbulent Flows in Porous Media",
+  "journal": "Annual Review of Fluid Mechanics",
+  "volume": "52",
+  "issue": "1",
+  "page": "171-203",
+  "type": "journal-article",
+  "publisher": "Annual Reviews"
+ },
+ "S8": {
+  "doi": "10.1017/jfm.2015.9",
+  "authors": [
+   {
+    "family": "Jin",
+    "given": "Y."
+   },
+   {
+    "family": "Uth",
+    "given": "M.-F."
+   },
+   {
+    "family": "Kuznetsov",
+    "given": "A. V."
+   },
+   {
+    "family": "Herwig",
+    "given": "H."
+   }
+  ],
+  "year": 2015,
+  "title": "Numerical investigation of the possibility of macroscopic turbulence in porous media: a direct numerical simulation study",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "766",
+  "issue": null,
+  "page": "76-103",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "S9": {
+  "doi": "10.1103/physrevlett.111.174101",
+  "authors": [
+   {
+    "family": "Lester",
+    "given": "D. R."
+   },
+   {
+    "family": "Metcalfe",
+    "given": "G."
+   },
+   {
+    "family": "Trefry",
+    "given": "M. G."
+   }
+  ],
+  "year": 2013,
+  "title": "Is Chaotic Advection Inherent to Porous Media Flow?",
+  "journal": "Physical Review Letters",
+  "volume": "111",
+  "issue": "17",
+  "page": "174101",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S10": {
+  "doi": "10.1016/j.advwatres.2016.09.007",
+  "authors": [
+   {
+    "family": "Lester",
+    "given": "D.R."
+   },
+   {
+    "family": "Trefry",
+    "given": "M.G."
+   },
+   {
+    "family": "Metcalfe",
+    "given": "G."
+   }
+  ],
+  "year": 2016,
+  "title": "Chaotic advection at the pore scale: Mechanisms, upscaling and implications for macroscopic transport",
+  "journal": "Advances in Water Resources",
+  "volume": "97",
+  "issue": null,
+  "page": "175-192",
+  "type": "journal-article",
+  "publisher": "Elsevier BV"
+ },
+ "S11": {
+  "doi": "10.1073/pnas.2002858117",
+  "authors": [
+   {
+    "family": "Heyman",
+    "given": "Joris"
+   },
+   {
+    "family": "Lester",
+    "given": "Daniel R."
+   },
+   {
+    "family": "Turuban",
+    "given": "Régis"
+   },
+   {
+    "family": "Méheust",
+    "given": "Yves"
+   },
+   {
+    "family": "Le Borgne",
+    "given": "Tanguy"
+   }
+  ],
+  "year": 2020,
+  "title": "Stretching and folding sustain microscale chemical gradients in porous media",
+  "journal": "Proceedings of the National Academy of Sciences",
+  "volume": "117",
+  "issue": "24",
+  "page": "13359-13365",
+  "type": "journal-article",
+  "publisher": "National Academy of Sciences"
+ },
+ "S12": {
+  "doi": "10.1017/jfm.2020.113",
+  "authors": [
+   {
+    "family": "Souzy",
+    "given": "M."
+   },
+   {
+    "family": "Lhuissier",
+    "given": "H."
+   },
+   {
+    "family": "Méheust",
+    "given": "Y."
+   },
+   {
+    "family": "Le Borgne",
+    "given": "T."
+   },
+   {
+    "family": "Metzger",
+    "given": "B."
+   }
+  ],
+  "year": 2020,
+  "title": "Velocity distributions, dispersion and stretching in three-dimensional porous media",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "891",
+  "issue": null,
+  "page": "A16",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "S13": {
+  "doi": "10.1103/physrevlett.126.034505",
+  "authors": [
+   {
+    "family": "Heyman",
+    "given": "J."
+   },
+   {
+    "family": "Lester",
+    "given": "D. R."
+   },
+   {
+    "family": "Le Borgne",
+    "given": "T."
+   }
+  ],
+  "year": 2021,
+  "title": "Scalar Signatures of Chaotic Mixing in Porous Media",
+  "journal": "Physical Review Letters",
+  "volume": "126",
+  "issue": "3",
+  "page": "034505",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S14": {
+  "doi": "10.1017/jfm.2025.10477",
+  "authors": [
+   {
+    "family": "Lester",
+    "given": "Daniel Robert"
+   },
+   {
+    "family": "Heyman",
+    "given": "Joris"
+   },
+   {
+    "family": "Méheust",
+    "given": "Yves"
+   },
+   {
+    "family": "Le Borgne",
+    "given": "Tanguy"
+   }
+  ],
+  "year": 2025,
+  "title": "A unified theory of pore-scale chaotic advection",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "1017",
+  "issue": null,
+  "page": "A13",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "S15": {
+  "doi": "10.1017/jfm.2025.10551",
+  "authors": [
+   {
+    "family": "Lester",
+    "given": "Daniel Robert"
+   },
+   {
+    "family": "Metcalfe",
+    "given": "Guy"
+   },
+   {
+    "family": "Trefry",
+    "given": "Michael"
+   },
+   {
+    "family": "Dentz",
+    "given": "Marco"
+   }
+  ],
+  "year": 2025,
+  "title": "Is chaotic advection inherent to heterogeneous Darcy flow?",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "1018",
+  "issue": null,
+  "page": "A35",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "S16": {
+  "doi": "10.1029/2018wr023864",
+  "authors": [
+   {
+    "family": "Trefry",
+    "given": "M. G."
+   },
+   {
+    "family": "Lester",
+    "given": "D. R."
+   },
+   {
+    "family": "Metcalfe",
+    "given": "G."
+   },
+   {
+    "family": "Wu",
+    "given": "J."
+   }
+  ],
+  "year": 2019,
+  "title": "Temporal Fluctuations and Poroelasticity Can Generate Chaotic Advection in Natural Groundwater Systems",
+  "journal": "Water Resources Research",
+  "volume": "55",
+  "issue": "4",
+  "page": "3347-3374",
+  "type": "journal-article",
+  "publisher": "American Geophysical Union (AGU)"
+ },
+ "S17": {
+  "doi": "10.1029/2019wr025982",
+  "authors": [
+   {
+    "family": "Wu",
+    "given": "J."
+   },
+   {
+    "family": "Lester",
+    "given": "D. R."
+   },
+   {
+    "family": "Trefry",
+    "given": "M. G."
+   },
+   {
+    "family": "Metcalfe",
+    "given": "G."
+   }
+  ],
+  "year": 2020,
+  "title": "When Do Complex Transport Dynamics Arise in Natural Groundwater Systems?",
+  "journal": "Water Resources Research",
+  "volume": "56",
+  "issue": "2",
+  "page": "e2019WR025982",
+  "type": "journal-article",
+  "publisher": "American Geophysical Union (AGU)"
+ },
+ "S18": {
+  "doi": "10.1007/s11242-022-01852-x",
+  "authors": [
+   {
+    "family": "Dentz",
+    "given": "Marco"
+   },
+   {
+    "family": "Hidalgo",
+    "given": "Juan J."
+   },
+   {
+    "family": "Lester",
+    "given": "Daniel"
+   }
+  ],
+  "year": 2023,
+  "title": "Mixing in Porous Media: Concepts and Approaches Across Scales",
+  "journal": "Transport in Porous Media",
+  "volume": "146",
+  "issue": "1-2",
+  "page": "5-53",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S19": {
+  "doi": "10.1073/pnas.2111651118",
+  "authors": [
+   {
+    "family": "Haward",
+    "given": "Simon J."
+   },
+   {
+    "family": "Hopkins",
+    "given": "Cameron C."
+   },
+   {
+    "family": "Shen",
+    "given": "Amy Q."
+   }
+  ],
+  "year": 2021,
+  "title": "Stagnation points control chaotic fluctuations in viscoelastic porous media flow",
+  "journal": "Proceedings of the National Academy of Sciences",
+  "volume": "118",
+  "issue": "38",
+  "page": "e2111651118",
+  "type": "journal-article",
+  "publisher": "National Academy of Sciences"
+ },
+ "S20": {
+  "doi": "10.1103/physrevlett.124.164501",
+  "authors": [
+   {
+    "family": "Walkama",
+    "given": "Derek M."
+   },
+   {
+    "family": "Waisbord",
+    "given": "Nicolas"
+   },
+   {
+    "family": "Guasto",
+    "given": "Jeffrey S."
+   }
+  ],
+  "year": 2020,
+  "title": "Disorder Suppresses Chaos in Viscoelastic Flows",
+  "journal": "Physical Review Letters",
+  "volume": "124",
+  "issue": "16",
+  "page": "164501",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S21": {
+  "doi": "10.1103/physrevfluids.5.013801",
+  "authors": [
+   {
+    "family": "Gao",
+    "given": "Ying"
+   },
+   {
+    "family": "Lin",
+    "given": "Qingyang"
+   },
+   {
+    "family": "Bijeljic",
+    "given": "Branko"
+   },
+   {
+    "family": "Blunt",
+    "given": "Martin J."
+   }
+  ],
+  "year": 2020,
+  "title": "Pore-scale dynamics and the multiphase Darcy law",
+  "journal": "Physical Review Fluids",
+  "volume": "5",
+  "issue": "1",
+  "page": "013801",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S22": {
+  "doi": "10.3389/frwa.2021.671399",
+  "authors": [
+   {
+    "family": "Rücker",
+    "given": "Maja"
+   },
+   {
+    "family": "Georgiadis",
+    "given": "Apostolos"
+   },
+   {
+    "family": "Armstrong",
+    "given": "Ryan T."
+   },
+   {
+    "family": "Ott",
+    "given": "Holger"
+   },
+   {
+    "family": "Brussee",
+    "given": "Niels"
+   },
+   {
+    "family": "van der Linde",
+    "given": "Hilbert"
+   },
+   {
+    "family": "Simon",
+    "given": "Ludwig"
+   },
+   {
+    "family": "Enzmann",
+    "given": "Frieder"
+   },
+   {
+    "family": "Kersten",
+    "given": "Michael"
+   },
+   {
+    "family": "Berg",
+    "given": "Steffen"
+   }
+  ],
+  "year": 2021,
+  "title": "The Origin of Non-thermal Fluctuations in Multiphase Flow in Porous Media",
+  "journal": "Frontiers in Water",
+  "volume": "3",
+  "issue": null,
+  "page": "671399",
+  "type": "journal-article",
+  "publisher": "Frontiers Media SA"
+ },
+ "S23": {
+  "doi": "10.1103/physreve.104.035106",
+  "authors": [
+   {
+    "family": "McClure",
+    "given": "James E."
+   },
+   {
+    "family": "Berg",
+    "given": "Steffen"
+   },
+   {
+    "family": "Armstrong",
+    "given": "Ryan T."
+   }
+  ],
+  "year": 2021,
+  "title": "Thermodynamics of fluctuations based on time-and-space averages",
+  "journal": "Physical Review E",
+  "volume": "104",
+  "issue": "3",
+  "page": "035106",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S24": {
+  "doi": "10.1029/2023gl104473",
+  "authors": [
+   {
+    "family": "Spurin",
+    "given": "Catherine"
+   },
+   {
+    "family": "Roberts",
+    "given": "Gareth G."
+   },
+   {
+    "family": "O’Malley",
+    "given": "Conor P. B."
+   },
+   {
+    "family": "Kurotori",
+    "given": "Takeshi"
+   },
+   {
+    "family": "Krevor",
+    "given": "Samuel"
+   },
+   {
+    "family": "Blunt",
+    "given": "Martin J."
+   },
+   {
+    "family": "Tchelepi",
+    "given": "Hamdi"
+   }
+  ],
+  "year": 2023,
+  "title": "Pore‐Scale Fluid Dynamics Resolved in Pressure Fluctuations at the Darcy Scale",
+  "journal": "Geophysical Research Letters",
+  "volume": "50",
+  "issue": "18",
+  "page": "e2023GL104473",
+  "type": "journal-article",
+  "publisher": "American Geophysical Union (AGU)"
+ },
+ "S25": {
+  "doi": "10.1038/s42005-022-00826-1",
+  "authors": [
+   {
+    "family": "Primkulov",
+    "given": "Bauyrzhan K."
+   },
+   {
+    "family": "Zhao",
+    "given": "Benzhong"
+   },
+   {
+    "family": "MacMinn",
+    "given": "Christopher W."
+   },
+   {
+    "family": "Juanes",
+    "given": "Ruben"
+   }
+  ],
+  "year": 2022,
+  "title": "Avalanches in strong imbibition",
+  "journal": "Communications Physics",
+  "volume": "5",
+  "issue": "1",
+  "page": "52",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S26": {
+  "doi": "10.1103/physrevresearch.7.l012032",
+  "authors": [
+   {
+    "family": "Residori",
+    "given": "Mirko"
+   },
+   {
+    "family": "Mandal",
+    "given": "Suvendu"
+   },
+   {
+    "family": "Voigt",
+    "given": "Axel"
+   },
+   {
+    "family": "Kurzthaler",
+    "given": "Christina"
+   }
+  ],
+  "year": 2025,
+  "title": "Flow through porous media at the percolation transition",
+  "journal": "Physical Review Research",
+  "volume": "7",
+  "issue": "1",
+  "page": "L012032",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S27": {
+  "doi": "10.1103/physrevlett.132.188301",
+  "authors": [
+   {
+    "family": "Keogh",
+    "given": "Ryan R."
+   },
+   {
+    "family": "Kozhukhov",
+    "given": "Timofey"
+   },
+   {
+    "family": "Thijssen",
+    "given": "Kristian"
+   },
+   {
+    "family": "Shendruk",
+    "given": "Tyler N."
+   }
+  ],
+  "year": 2024,
+  "title": "Active Darcy’s Law",
+  "journal": "Physical Review Letters",
+  "volume": "132",
+  "issue": "18",
+  "page": "188301",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S28": {
+  "doi": "10.1098/rspa.2020.0111",
+  "authors": [
+   {
+    "family": "Hewitt",
+    "given": "D. R."
+   }
+  ],
+  "year": 2020,
+  "title": "Vigorous convection in porous media",
+  "journal": "Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+  "volume": "476",
+  "issue": "2239",
+  "page": "20200111",
+  "type": "journal-article",
+  "publisher": "The Royal Society"
+ },
+ "S29": {
+  "doi": "10.1140/epje/s10189-023-00390-8",
+  "authors": [
+   {
+    "family": "De Paoli",
+    "given": "Marco"
+   }
+  ],
+  "year": 2023,
+  "title": "Convective mixing in porous media: a review of Darcy, pore-scale and Hele-Shaw studies",
+  "journal": "The European Physical Journal E",
+  "volume": "46",
+  "issue": "12",
+  "page": "129",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S30": {
+  "doi": "10.1017/s0022112099007545",
+  "authors": [
+   {
+    "family": "GROSSMANN",
+    "given": "SIEGFRIED"
+   },
+   {
+    "family": "LOHSE",
+    "given": "DETLEF"
+   }
+  ],
+  "year": 2000,
+  "title": "Scaling in thermal convection: a unifying theory",
+  "journal": "Journal of Fluid Mechanics",
+  "volume": "407",
+  "issue": null,
+  "page": "27-56",
+  "type": "journal-article",
+  "publisher": "Cambridge University Press (CUP)"
+ },
+ "S31": {
+  "doi": "10.1007/s00440-020-00983-w",
+  "authors": [
+   {
+    "family": "Duerinckx",
+    "given": "Mitia"
+   },
+   {
+    "family": "Gloria",
+    "given": "Antoine"
+   },
+   {
+    "family": "Otto",
+    "given": "Felix"
+   }
+  ],
+  "year": 2020,
+  "title": "Robustness of the pathwise structure of fluctuations in stochastic homogenization",
+  "journal": "Probability Theory and Related Fields",
+  "volume": "178",
+  "issue": "1-2",
+  "page": "531-566",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S32": {
+  "doi": "10.1002/nla.2296",
+  "authors": [
+   {
+    "family": "Khoromskaia",
+    "given": "Venera"
+   },
+   {
+    "family": "Khoromskij",
+    "given": "Boris N."
+   },
+   {
+    "family": "Otto",
+    "given": "Felix"
+   }
+  ],
+  "year": 2020,
+  "title": "Numerical study in stochastic homogenization for elliptic partial differential equations: Convergence rate in the size of representative volume elements",
+  "journal": "Numerical Linear Algebra with Applications",
+  "volume": "27",
+  "issue": "3",
+  "page": "e2296",
+  "type": "journal-article",
+  "publisher": "Wiley"
+ },
+ "S33": {
+  "doi": "10.1214/10-aop571",
+  "authors": [
+   {
+    "family": "Gloria",
+    "given": "Antoine"
+   },
+   {
+    "family": "Otto",
+    "given": "Felix"
+   }
+  ],
+  "year": 2011,
+  "title": "An optimal variance estimate in stochastic homogenization of discrete elliptic equations",
+  "journal": "The Annals of Probability",
+  "volume": "39",
+  "issue": "3",
+  "page": "779-856",
+  "type": "journal-article",
+  "publisher": "Institute of Mathematical Statistics"
+ },
+ "S34": {
+  "doi": "10.1143/jpsj.12.570",
+  "authors": [
+   {
+    "family": "Kubo",
+    "given": "Ryogo"
+   }
+  ],
+  "year": 1957,
+  "title": "Statistical-Mechanical Theory of Irreversible Processes. I. General Theory and Simple Applications to Magnetic and Conduction Problems",
+  "journal": "Journal of the Physical Society of Japan",
+  "volume": "12",
+  "issue": "6",
+  "page": "570-586",
+  "type": "journal-article",
+  "publisher": "Physical Society of Japan"
+ },
+ "S35": {
+  "doi": "10.1063/5.0112998",
+  "authors": [
+   {
+    "family": "Frontin",
+    "given": "Cory V."
+   },
+   {
+    "family": "Darmofal",
+    "given": "David L."
+   }
+  ],
+  "year": 2022,
+  "title": "Output error behavior for discretizations of ergodic, chaotic systems of ordinary differential equations",
+  "journal": "Physics of Fluids",
+  "volume": "34",
+  "issue": "10",
+  "page": "105136",
+  "type": "journal-article",
+  "publisher": "AIP Publishing"
+ },
+ "S36": {
+  "doi": "10.1214/09-aos735",
+  "authors": [
+   {
+    "family": "Flegal",
+    "given": "James M."
+   },
+   {
+    "family": "Jones",
+    "given": "Galin L."
+   }
+  ],
+  "year": 2010,
+  "title": "Batch means and spectral variance estimators in Markov chain Monte Carlo",
+  "journal": "The Annals of Statistics",
+  "volume": "38",
+  "issue": "2",
+  "page": "1034-1070",
+  "type": "journal-article",
+  "publisher": "Institute of Mathematical Statistics"
+ },
+ "S37": {
+  "doi": "10.1214/24-aos2408",
+  "authors": [
+   {
+    "family": "Waudby-Smith",
+    "given": "Ian"
+   },
+   {
+    "family": "Arbour",
+    "given": "David"
+   },
+   {
+    "family": "Sinha",
+    "given": "Ritwik"
+   },
+   {
+    "family": "Kennedy",
+    "given": "Edward H."
+   },
+   {
+    "family": "Ramdas",
+    "given": "Aaditya"
+   }
+  ],
+  "year": 2024,
+  "title": "Time-uniform central limit theory and asymptotic confidence sequences",
+  "journal": "The Annals of Statistics",
+  "volume": "52",
+  "issue": "6",
+  "page": "2613-2640",
+  "type": "journal-article",
+  "publisher": "Institute of Mathematical Statistics"
+ },
+ "S38": {
+  "doi": "10.1214/23-aos2276",
+  "authors": [
+   {
+    "family": "Barber",
+    "given": "Rina Foygel"
+   },
+   {
+    "family": "Candès",
+    "given": "Emmanuel J."
+   },
+   {
+    "family": "Ramdas",
+    "given": "Aaditya"
+   },
+   {
+    "family": "Tibshirani",
+    "given": "Ryan J."
+   }
+  ],
+  "year": 2023,
+  "title": "Conformal prediction beyond exchangeability",
+  "journal": "The Annals of Statistics",
+  "volume": "51",
+  "issue": "2",
+  "page": "816-845",
+  "type": "journal-article",
+  "publisher": "Institute of Mathematical Statistics"
+ },
+ "S39": {
+  "doi": "10.3402/tellusa.v52i5.12283",
+  "authors": [
+   {
+    "family": "Lea",
+    "given": "Daniel J."
+   },
+   {
+    "family": "Allen",
+    "given": "Myles R."
+   },
+   {
+    "family": "Haine",
+    "given": "Thomas W. N."
+   }
+  ],
+  "year": 2000,
+  "title": "Sensitivity analysis of the climate of a chaotic system",
+  "journal": "Tellus A: Dynamic Meteorology and Oceanography",
+  "volume": "52",
+  "issue": "5",
+  "page": "523",
+  "type": "journal-article",
+  "publisher": "Stockholm University Press"
+ },
+ "S40": {
+  "doi": "10.1090/cams/10",
+  "authors": [
+   {
+    "family": "Levine",
+    "given": "Matthew"
+   },
+   {
+    "family": "Stuart",
+    "given": "Andrew"
+   }
+  ],
+  "year": 2022,
+  "title": "A framework for machine learning of model error in dynamical systems",
+  "journal": "Communications of the American Mathematical Society",
+  "volume": "2",
+  "issue": "7",
+  "page": "283-344",
+  "type": "journal-article",
+  "publisher": "American Mathematical Society (AMS)"
+ },
+ "S41": {
+  "doi": "10.1098/rspa.2020.1004",
+  "authors": [
+   {
+    "family": "Gupta",
+    "given": "Abhinav"
+   },
+   {
+    "family": "Lermusiaux",
+    "given": "Pierre F. J."
+   }
+  ],
+  "year": 2021,
+  "title": "Neural closure models for dynamical systems",
+  "journal": "Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences",
+  "volume": "477",
+  "issue": "2252",
+  "page": "20201004",
+  "type": "journal-article",
+  "publisher": "The Royal Society"
+ },
+ "S42": {
+  "doi": "10.1073/pnas.2101784118",
+  "authors": [
+   {
+    "family": "Kochkov",
+    "given": "Dmitrii"
+   },
+   {
+    "family": "Smith",
+    "given": "Jamie A."
+   },
+   {
+    "family": "Alieva",
+    "given": "Ayya"
+   },
+   {
+    "family": "Wang",
+    "given": "Qing"
+   },
+   {
+    "family": "Brenner",
+    "given": "Michael P."
+   },
+   {
+    "family": "Hoyer",
+    "given": "Stephan"
+   }
+  ],
+  "year": 2021,
+  "title": "Machine learning–accelerated computational fluid dynamics",
+  "journal": "Proceedings of the National Academy of Sciences",
+  "volume": "118",
+  "issue": "21",
+  "page": "e2101784118",
+  "type": "journal-article",
+  "publisher": "National Academy of Sciences"
+ },
+ "S43": {
+  "doi": "10.1137/24m1692393",
+  "authors": [
+   {
+    "family": "Auton",
+    "given": "Lucy C."
+   },
+   {
+    "family": "Dalwadi",
+    "given": "Mohit P."
+   },
+   {
+    "family": "Griffiths",
+    "given": "Ian M."
+   }
+  ],
+  "year": 2025,
+  "title": "A Homogenized Model for Dispersive Transport and Sorption in a Heterogeneous Porous Medium",
+  "journal": "SIAM Journal on Applied Mathematics",
+  "volume": "85",
+  "issue": "5",
+  "page": "2026-2054",
+  "type": "journal-article",
+  "publisher": "Society for Industrial & Applied Mathematics (SIAM)"
+ },
+ "S44": {
+  "doi": "10.1061/taceat.0006033",
+  "authors": [
+   {
+    "family": "Jacob",
+    "given": "C. E."
+   }
+  ],
+  "year": 1947,
+  "title": "Drawdown Test to Determine Effective Radius of Artesian Well",
+  "journal": "Transactions of the American Society of Civil Engineers",
+  "volume": "112",
+  "issue": "1",
+  "page": "1047-1064",
+  "type": "journal-article",
+  "publisher": "American Society of Civil Engineers (ASCE)"
+ },
+ "S45": {
+  "doi": "10.1007/s10040-015-1312-8",
+  "authors": [
+   {
+    "family": "Houben",
+    "given": "Georg J."
+   }
+  ],
+  "year": 2015,
+  "title": "Review: Hydraulics of water wells—flow laws and influence of geometry",
+  "journal": "Hydrogeology Journal",
+  "volume": "23",
+  "issue": "8",
+  "page": "1633-1657",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S46": {
+  "doi": "10.1016/0301-9322(82)90029-5",
+  "authors": [
+   {
+    "family": "Sangani",
+    "given": "A.S."
+   },
+   {
+    "family": "Acrivos",
+    "given": "A."
+   }
+  ],
+  "year": 1982,
+  "title": "Slow flow past periodic arrays of cylinders with application to heat transfer",
+  "journal": "International Journal of Multiphase Flow",
+  "volume": "8",
+  "issue": "3",
+  "page": "193-206",
+  "type": "journal-article",
+  "publisher": "Elsevier BV"
+ },
+ "S47": {
+  "doi": "10.1103/physreve.65.046308",
+  "authors": [
+   {
+    "family": "Guo",
+    "given": "Zhaoli"
+   },
+   {
+    "family": "Zheng",
+    "given": "Chuguang"
+   },
+   {
+    "family": "Shi",
+    "given": "Baochang"
+   }
+  ],
+  "year": 2002,
+  "title": "Discrete lattice effects on the forcing term in the lattice Boltzmann method",
+  "journal": "Physical Review E",
+  "volume": "65",
+  "issue": "4",
+  "page": "046308",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S48": {
+  "doi": "10.4208/cicp.2008.v3.p427",
+  "authors": [
+   {
+    "family": "Ginzburg",
+    "given": "Irina"
+   },
+   {
+    "family": "Verhaeghe",
+    "given": "Frederik"
+   },
+   {
+    "family": "d'Humi�res",
+    "given": "Dominique"
+   }
+  ],
+  "year": 2008,
+  "title": "Two-Relaxation-Time Lattice Boltzmann Scheme: About Parametrization, Velocity, Pressure and Mixed Boundary Conditions",
+  "journal": "Communications in Computational Physics",
+  "volume": "3",
+  "issue": "2",
+  "page": "427-478",
+  "type": "journal-article",
+  "publisher": "Global Science Press"
+ },
+ "S49": {
+  "doi": "10.1007/bf02128236",
+  "authors": [
+   {
+    "family": "Benettin",
+    "given": "Giancarlo"
+   },
+   {
+    "family": "Galgani",
+    "given": "Luigi"
+   },
+   {
+    "family": "Giorgilli",
+    "given": "Antonio"
+   },
+   {
+    "family": "Strelcyn",
+    "given": "Jean-Marie"
+   }
+  ],
+  "year": 1980,
+  "title": "Lyapunov Characteristic Exponents for smooth dynamical systems and for hamiltonian systems; a method for computing all of them. Part 1: Theory",
+  "journal": "Meccanica",
+  "volume": "15",
+  "issue": "1",
+  "page": "9-20",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S50": {
+  "doi": "10.1007/s11242-012-0070-5",
+  "authors": [
+   {
+    "family": "Tosco",
+    "given": "Tiziana"
+   },
+   {
+    "family": "Marchisio",
+    "given": "Daniele L."
+   },
+   {
+    "family": "Lince",
+    "given": "Federica"
+   },
+   {
+    "family": "Sethi",
+    "given": "Rajandrea"
+   }
+  ],
+  "year": 2013,
+  "title": "Extension of the Darcy–Forchheimer Law for Shear-Thinning Fluids and Validation via Pore-Scale Flow Simulations",
+  "journal": "Transport in Porous Media",
+  "volume": "96",
+  "issue": "1",
+  "page": "1-20",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S51": {
+  "doi": "10.1103/physreve.94.053118",
+  "authors": [
+   {
+    "family": "Crevacore",
+    "given": "Eleonora"
+   },
+   {
+    "family": "Tosco",
+    "given": "Tiziana"
+   },
+   {
+    "family": "Sethi",
+    "given": "Rajandrea"
+   },
+   {
+    "family": "Boccardo",
+    "given": "Gianluca"
+   },
+   {
+    "family": "Marchisio",
+    "given": "Daniele L."
+   }
+  ],
+  "year": 2016,
+  "title": "Recirculation zones induce non-Fickian transport in three-dimensional periodic porous media",
+  "journal": "Physical Review E",
+  "volume": "94",
+  "issue": "5",
+  "page": "053118",
+  "type": "journal-article",
+  "publisher": "American Physical Society (APS)"
+ },
+ "S52": {
+  "doi": "10.3390/e18110409",
+  "authors": [
+   {
+    "family": "Nowak",
+    "given": "Wolfgang"
+   },
+   {
+    "family": "Guthke",
+    "given": "Anneli"
+   }
+  ],
+  "year": 2016,
+  "title": "Entropy-Based Experimental Design for Optimal Model Discrimination in the Geosciences",
+  "journal": "Entropy",
+  "volume": "18",
+  "issue": "11",
+  "page": "409",
+  "type": "journal-article",
+  "publisher": "MDPI AG"
+ },
+ "S53": {
+  "doi": "10.1029/2020wr028100",
+  "authors": [
+   {
+    "family": "Schäfer Rodrigues Silva",
+    "given": "Aline"
+   },
+   {
+    "family": "Guthke",
+    "given": "Anneli"
+   },
+   {
+    "family": "Höge",
+    "given": "Marvin"
+   },
+   {
+    "family": "Cirpka",
+    "given": "Olaf A."
+   },
+   {
+    "family": "Nowak",
+    "given": "Wolfgang"
+   }
+  ],
+  "year": 2020,
+  "title": "Strategies for Simplifying Reactive Transport Models: A Bayesian Model Comparison",
+  "journal": "Water Resources Research",
+  "volume": "56",
+  "issue": "11",
+  "page": "e2020WR028100",
+  "type": "journal-article",
+  "publisher": "American Geophysical Union (AGU)"
+ },
+ "S54": {
+  "doi": "10.1007/s11242-021-01586-2",
+  "authors": [
+   {
+    "family": "Wagner",
+    "given": "Arndt"
+   },
+   {
+    "family": "Eggenweiler",
+    "given": "Elissa"
+   },
+   {
+    "family": "Weinhardt",
+    "given": "Felix"
+   },
+   {
+    "family": "Trivedi",
+    "given": "Zubin"
+   },
+   {
+    "family": "Krach",
+    "given": "David"
+   },
+   {
+    "family": "Lohrmann",
+    "given": "Christoph"
+   },
+   {
+    "family": "Jain",
+    "given": "Kartik"
+   },
+   {
+    "family": "Karadimitriou",
+    "given": "Nikolaos"
+   },
+   {
+    "family": "Bringedal",
+    "given": "Carina"
+   },
+   {
+    "family": "Voland",
+    "given": "Paul"
+   },
+   {
+    "family": "Holm",
+    "given": "Christian"
+   },
+   {
+    "family": "Class",
+    "given": "Holger"
+   },
+   {
+    "family": "Steeb",
+    "given": "Holger"
+   },
+   {
+    "family": "Rybak",
+    "given": "Iryna"
+   }
+  ],
+  "year": 2021,
+  "title": "Permeability Estimation of Regular Porous Structures: A Benchmark for Comparison of Methods",
+  "journal": "Transport in Porous Media",
+  "volume": "138",
+  "issue": "1",
+  "page": "1-23",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S55": {
+  "doi": "10.1038/s41598-021-83065-8",
+  "authors": [
+   {
+    "family": "Yiotis",
+    "given": "A."
+   },
+   {
+    "family": "Karadimitriou",
+    "given": "N. K."
+   },
+   {
+    "family": "Zarikos",
+    "given": "I."
+   },
+   {
+    "family": "Steeb",
+    "given": "H."
+   }
+  ],
+  "year": 2021,
+  "title": "Pore-scale effects during the transition from capillary- to viscosity-dominated flow dynamics within microfluidic porous-like domains",
+  "journal": "Scientific Reports",
+  "volume": "11",
+  "issue": "1",
+  "page": "3891",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S56": {
+  "doi": "10.1007/s11242-023-02012-5",
+  "authors": [
+   {
+    "family": "Valavanides",
+    "given": "Marios S."
+   }
+  ],
+  "year": 2023,
+  "title": "Flow Rate Dependency of Steady-State Two-Phase Flows in Pore Networks: Universal, Relative Permeability Scaling Function and System-Characteristic Invariants",
+  "journal": "Transport in Porous Media",
+  "volume": "150",
+  "issue": "3",
+  "page": "521-557",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S57": {
+  "doi": "10.1002/2015gl065423",
+  "authors": [
+   {
+    "family": "Porta",
+    "given": "G. M."
+   },
+   {
+    "family": "Bijeljic",
+    "given": "B."
+   },
+   {
+    "family": "Blunt",
+    "given": "M. J."
+   },
+   {
+    "family": "Guadagnini",
+    "given": "A."
+   }
+  ],
+  "year": 2015,
+  "title": "Continuum‐scale characterization of solute transport based on pore‐scale velocity distributions",
+  "journal": "Geophysical Research Letters",
+  "volume": "42",
+  "issue": "18",
+  "page": "7537-7545",
+  "type": "journal-article",
+  "publisher": "American Geophysical Union (AGU)"
+ },
+ "S58": {
+  "doi": "10.1038/s41467-022-31552-5",
+  "authors": [
+   {
+    "family": "Bordoloi",
+    "given": "Ankur Deep"
+   },
+   {
+    "family": "Scheidweiler",
+    "given": "David"
+   },
+   {
+    "family": "Dentz",
+    "given": "Marco"
+   },
+   {
+    "family": "Bouabdellaoui",
+    "given": "Mohammed"
+   },
+   {
+    "family": "Abbarchi",
+    "given": "Marco"
+   },
+   {
+    "family": "de Anna",
+    "given": "Pietro"
+   }
+  ],
+  "year": 2022,
+  "title": "Structure induced laminar vortices control anomalous dispersion in porous media",
+  "journal": "Nature Communications",
+  "volume": "13",
+  "issue": "1",
+  "page": "3820",
+  "type": "journal-article",
+  "publisher": "Springer Science and Business Media LLC"
+ },
+ "S59": {
+  "doi": "10.1093/biomet/62.1.57",
+  "authors": [
+   {
+    "family": "ATKINSON",
+    "given": "A. C."
+   },
+   {
+    "family": "FEDOROV",
+    "given": "V. V."
+   }
+  ],
+  "year": 1975,
+  "title": "The design of experiments for discriminating between two rival models",
+  "journal": "Biometrika",
+  "volume": "62",
+  "issue": "1",
+  "page": "57-70",
+  "type": "journal-article",
+  "publisher": "Oxford University Press (OUP)"
+ },
+ "S60": {
+  "doi": "10.1214/ss/1177009939",
+  "authors": [
+   {
+    "family": "Chaloner",
+    "given": "Kathryn"
+   },
+   {
+    "family": "Verdinelli",
+    "given": "Isabella"
+   }
+  ],
+  "year": 1995,
+  "title": "Bayesian Experimental Design: A Review",
+  "journal": "Statistical Science",
+  "volume": "10",
+  "issue": "3",
+  "page": "273-304",
+  "type": "journal-article",
+  "publisher": "Institute of Mathematical Statistics"
+ },
+ "S61": {
+  "doi": "10.1111/j.1467-9868.2010.00740.x",
+  "authors": [
+   {
+    "family": "Meinshausen",
+    "given": "Nicolai"
+   },
+   {
+    "family": "Bühlmann",
+    "given": "Peter"
+   }
+  ],
+  "year": 2010,
+  "title": "Stability Selection",
+  "journal": "Journal of the Royal Statistical Society Series B: Statistical Methodology",
+  "volume": "72",
+  "issue": "4",
+  "page": "417-473",
+  "type": "journal-article",
+  "publisher": "Oxford University Press (OUP)"
+ }
+}

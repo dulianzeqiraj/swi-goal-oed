@@ -1,0 +1,35 @@
+E1: 17856 pairs of linear programmes in 21 s
+E3 Cl + major ions: {"training world": {"n": 4401, "nn_coverage": 0.8875255623721882, "nn_width": 0.2743570568445586, "nn_decidable": 0.7827766416723472, "nn_wrong_when_decided": 0.0023222060957910013, "nn_median_abs_error": 0.010368087067054721, "cert_coverage": 0.9997727789138832, "cert_width": 0.9218698117519172, "cert_decidable": 0.02090433992274483, "nn_inside_certificate": 0.998863894569416, "nn_coverage_when_inside": 0.8876251137397634, "nn_coverage_when_outside": 0.8}, "shifted world": {"n": 5489, "nn_coverage": 0.5143013299325925, "nn_width": 0.3084153883296968, "nn_decidable": 0.719256695208599, "nn_wrong_when_decided": 0.06509625126646404, "nn_median_abs_error": 0.06202643674856534, "cert_coverage": 1.0, "cert_width": 0.9088877991845539, "cert_decidable": 0.024230278739296774, "nn_inside_certificate": 0.9785024594643833, "nn_coverage_when_inside": 0.521504375349097, "nn_coverage_when_outside": 0.1864406779661017}}
+E3 + B (all): {"training world": {"n": 4401, "nn_coverage": 0.8841172460804363, "nn_width": 0.2334403745492, "nn_decidable": 0.8354919336514428, "nn_wrong_when_decided": 0.0013598041881968997, "nn_median_abs_error": 0.009347181658973669, "cert_coverage": 0.9981822313110656, "cert_width": 0.8447956958157725, "cert_decidable": 0.06339468302658487, "nn_inside_certificate": 0.9952283571915473, "nn_coverage_when_inside": 0.8840182648401826, "nn_coverage_when_outside": 0.9047619047619048}, "shifted world": {"n": 5489, "nn_coverage": 0.5536527600655857, "nn_width": 0.25505994810296334, "nn_decidable": 0.7961377300054655, "nn_wrong_when_decided": 0.02494279176201373, "nn_median_abs_error": 0.03709888184017551, "cert_coverage": 0.999817817453088, "cert_width": 0.8072231331287009, "cert_decidable": 0.11040262342867553, "nn_inside_certificate": 0.9542721807250866, "nn_coverage_when_inside": 0.5675830469644902, "nn_coverage_when_outside": 0.26294820717131473}}
+E3 in 36 s
+E4 no end-member sampled + Br {'with an unlisted brine': {'n': 2781, 'empty': 0.20999640417116144, 'empty_where_brine_above_half_percent': 0.4865116279069767, 'n_brine': 1075}, 'model complete': {'n': 2685, 'empty': 0.0, 'empty_where_brine_above_half_percent': None, 'n_brine': 0}}
+E4 no end-member sampled + B (all) {'with an unlisted brine': {'n': 2781, 'empty': 0.21574973031283712, 'empty_where_brine_above_half_percent': 0.5013953488372093, 'n_brine': 1075}, 'model complete': {'n': 2685, 'empty': 0.0, 'empty_where_brine_above_half_percent': None, 'n_brine': 0}}
+E4 relict + fresh sampled + Br {'with an unlisted brine': {'n': 2781, 'empty': 0.23876303487953973, 'empty_where_brine_above_half_percent': 0.546046511627907, 'n_brine': 1075}, 'model complete': {'n': 2685, 'empty': 0.0, 'empty_where_brine_above_half_percent': None, 'n_brine': 0}}
+E4 relict + fresh sampled + B (all) {'with an unlisted brine': {'n': 2781, 'empty': 0.2581805106076951, 'empty_where_brine_above_half_percent': 0.5916279069767442, 'n_brine': 1075}, 'model complete': {'n': 2685, 'empty': 0.0029795158286778397, 'empty_where_brine_above_half_percent': None, 'n_brine': 0}}
+E1 none                             Cl               width 0.988 decidable 0.000 wrong 0.000 coverage 1.000 empty 0.000
+E1 none                             Cl + major ions  width 0.920 decidable 0.020 wrong 0.000 coverage 0.999 empty 0.000
+E1 none                             + Br             width 0.912 decidable 0.022 wrong 0.000 coverage 0.999 empty 0.000
+E1 none                             + d18O, d2H      width 0.894 decidable 0.035 wrong 0.000 coverage 0.999 empty 0.000
+E1 none                             + tritium        width 0.893 decidable 0.035 wrong 0.000 coverage 0.999 empty 0.000
+E1 none                             + B (all)        width 0.836 decidable 0.051 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict                           Cl               width 0.981 decidable 0.000 wrong 0.000 coverage 1.000 empty 0.000
+E1 relict                           Cl + major ions  width 0.838 decidable 0.082 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict                           + Br             width 0.802 decidable 0.108 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict                           + d18O, d2H      width 0.733 decidable 0.249 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict                           + tritium        width 0.731 decidable 0.250 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict                           + B (all)        width 0.634 decidable 0.386 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict + fresh                   Cl               width 0.973 decidable 0.000 wrong 0.000 coverage 1.000 empty 0.000
+E1 relict + fresh                   Cl + major ions  width 0.810 decidable 0.091 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict + fresh                   + Br             width 0.772 decidable 0.118 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict + fresh                   + d18O, d2H      width 0.701 decidable 0.263 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict + fresh                   + tritium        width 0.694 decidable 0.269 wrong 0.000 coverage 0.995 empty 0.004
+E1 relict + fresh                   + B (all)        width 0.599 decidable 0.413 wrong 0.000 coverage 0.995 empty 0.004
+E1 relict + fresh + anthropogenic   Cl               width 0.973 decidable 0.000 wrong 0.000 coverage 1.000 empty 0.000
+E1 relict + fresh + anthropogenic   Cl + major ions  width 0.808 decidable 0.093 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict + fresh + anthropogenic   + Br             width 0.770 decidable 0.121 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict + fresh + anthropogenic   + d18O, d2H      width 0.697 decidable 0.267 wrong 0.000 coverage 0.999 empty 0.000
+E1 relict + fresh + anthropogenic   + tritium        width 0.689 decidable 0.274 wrong 0.000 coverage 0.993 empty 0.005
+E1 relict + fresh + anthropogenic   + B (all)        width 0.582 decidable 0.446 wrong 0.000 coverage 0.993 empty 0.005
+E5 {'n': 250, 'median_abs_error': 0.061575630216150215, 'frac_error_above_0p25': 0.128, 'wrong_side_of_half': 0.036, 'mean_spread': 0.4222322249063658, 'truth_outside_ls_range': 0.168, 'truth_outside_set': 0.0, 'mean_set_width': 0.8580173229401631}
+E6 [{'i': 1, 'lp_lo': 0.20597291379980953, 'lp_hi': 1.0, 'n_consistent': 1684, 'mc_lo': 0.34702077122841984, 'mc_hi': 0.9999043033107787}, {'i': 9, 'lp_lo': 0.0, 'lp_hi': 0.9999472740712508, 'n_consistent': 1974, 'mc_lo': 1.3863100336288654e-05, 'mc_hi': 0.9998050781972792}, {'i': 9, 'lp_lo': 0.144539783451436, 'lp_hi': 0.9998979881660871, 'n_consistent': 655, 'mc_lo': 0.33168925307332725, 'mc_hi': 0.9996820233738368}, {'i': 12, 'lp_lo': 0.0, 'lp_hi': 0.9513321185843497, 'n_consistent': 0, 'mc_lo': None, 'mc_hi': None}, {'i': 16, 'lp_lo': 0.0, 'lp_hi': 0.9557062443388165, 'n_consistent': 0, 'mc_lo': None, 'mc_hi': None}, {'i': 1, 'lp_lo': 0.0, 'lp_hi': 1.0, 'n_consistent': 2733, 'mc_lo': 3.904973548575448e-05, 'mc_hi': 0.9999384269599549}]
+done in 74 s

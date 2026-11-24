@@ -1,0 +1,21 @@
+mse N=80 wP=100 wH=100 (21s) | eta: 3.00x sd2.20 cov0.59 qL: 1.98x sd6.99 cov1.00 r: 4.74x sd5.23 cov0.89 h0: 8.50x sd5.58 cov0.80 | P_rms 4.3 | cons 28.8 cm fit_d 4.4 fit_p 86.8
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-swi-goal-oed/a8e15b43-f375-5d4c-96fe-0c14a3d537f0/scratchpad/rgo_dev/explore.py", line 24, in <module>
+    s['phys'] = F.physics_check(smp, rows, y)
+                ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/home/user/swi-goal-oed/experiments/rindertimi_go/rgo_fundps.py", line 155, in physics_check
+    hs = M.simulate(h0, samples['eta'].T, samples['qL'].T, samples['r'].T)       # (NX, NT, S)
+  File "/home/user/swi-goal-oed/experiments/rindertimi_go/rgo_model.py", line 99, in simulate
+    h[:, n] = lu_solve(LU_IMP, b)
+              ~~~~~~~~^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/scipy/linalg/_decomp_lu.py", line 189, in lu_solve
+    return _lu_solve(lu, piv, b, trans=trans, overwrite_b=overwrite_b,
+                     check_finite=check_finite)
+  File "/usr/local/lib/python3.13/dist-packages/scipy/_lib/_util.py", line 1138, in wrapper
+    return f(*arrays, *other_args, **kwargs)
+  File "/usr/local/lib/python3.13/dist-packages/scipy/linalg/_decomp_lu.py", line 196, in _lu_solve
+    b1 = asarray_chkfinite(b)
+  File "/usr/local/lib/python3.13/dist-packages/numpy/lib/_function_base_impl.py", line 684, in asarray_chkfinite
+    raise ValueError(
+        "array must not contain infs or NaNs")
+ValueError: array must not contain infs or NaNs

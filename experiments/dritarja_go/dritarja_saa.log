@@ -1,0 +1,9 @@
+obs window  1: neural excess cost (full-batch training) 1.47e-01 (paired SE 1.8e-03, 550 L-BFGS iterations); best linear policy 1.38e-01
+obs window  2: neural excess cost (full-batch training) 6.03e-02 (paired SE 8.6e-04, 1000 L-BFGS iterations); best linear policy 5.74e-02
+obs window  4: neural excess cost (full-batch training) 1.96e-02 (paired SE 5.3e-04, 1000 L-BFGS iterations); best linear policy 1.67e-02
+obs window  8: neural excess cost (full-batch training) 9.18e-03 (paired SE 4.0e-04, 1000 L-BFGS iterations); best linear policy 6.11e-03
+obs window 16: neural excess cost (full-batch training) 7.25e-03 (paired SE 2.9e-04, 1000 L-BFGS iterations); best linear policy 2.87e-03
+obs window 32: neural excess cost (full-batch training) 9.14e-03 (paired SE 1.9e-04, 1000 L-BFGS iterations); best linear policy 7.70e-04
+arx window  1: neural excess cost (full-batch training) 1.31e-02 (paired SE 7.0e-04, 1000 L-BFGS iterations); best linear policy 8.74e-03
+arx window  2: neural excess cost (full-batch training) 4.52e-03 (paired SE 2.6e-04, 1000 L-BFGS iterations); best linear policy 2.40e-04
+arx window  4: neural excess cost (full-batch training) 3.35e-03 (paired SE 2.2e-04, 1000 L-BFGS iterations); best linear policy -8.87e-13

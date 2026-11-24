@@ -1,0 +1,498 @@
+{
+ "S1": {
+  "doi": "10.1111/j.1745-6584.1998.tb01099.x",
+  "title": "Uses of Chloride/Bromide Ratios in Studies of Potable Water",
+  "authors": [
+   {
+    "given": "Stanley N.",
+    "family": "Davis"
+   },
+   {
+    "given": "Donald O.",
+    "family": "Whittemore"
+   },
+   {
+    "given": "June",
+    "family": "Fabryka‐Martin"
+   }
+  ],
+  "year": 1998,
+  "journal": "Groundwater",
+  "volume": "36",
+  "issue": "2",
+  "page": "338-350",
+  "publisher": "Wiley",
+  "type": "journal-article"
+ },
+ "S21": {
+  "doi": "10.1111/j.1745-6584.1998.tb01085.x",
+  "title": "Ground Water Contaminant Source and Transport Parameter Identification by Correlation Coefficient Optimization",
+  "authors": [
+   {
+    "given": "P.",
+    "family": "Sidauruk"
+   },
+   {
+    "given": "A.H‐D.",
+    "family": "Cheng"
+   },
+   {
+    "given": "D.",
+    "family": "Ouazar"
+   }
+  ],
+  "year": 1998,
+  "journal": "Groundwater",
+  "volume": "36",
+  "issue": "2",
+  "page": "208-214",
+  "publisher": "Wiley",
+  "type": "journal-article"
+ },
+ "S2": {
+  "doi": "10.1016/j.jhydrol.2008.06.028",
+  "title": "Using the Cl/Br ratio as a tracer to identify the origin of salinity in aquifers in Spain and Portugal",
+  "authors": [
+   {
+    "given": "Francisco J.",
+    "family": "Alcalá"
+   },
+   {
+    "given": "Emilio",
+    "family": "Custodio"
+   }
+  ],
+  "year": 2008,
+  "journal": "Journal of Hydrology",
+  "volume": "359",
+  "issue": "1-2",
+  "page": "189-207",
+  "publisher": "Elsevier BV",
+  "type": "journal-article"
+ },
+ "S3": {
+  "doi": "10.1016/j.advwatres.2012.03.004",
+  "title": "Seawater intrusion processes, investigation and management: Recent advances and future challenges",
+  "authors": [
+   {
+    "given": "Adrian D.",
+    "family": "Werner"
+   },
+   {
+    "given": "Mark",
+    "family": "Bakker"
+   },
+   {
+    "given": "Vincent E.A.",
+    "family": "Post"
+   },
+   {
+    "given": "Alexander",
+    "family": "Vandenbohede"
+   },
+   {
+    "given": "Chunhui",
+    "family": "Lu"
+   },
+   {
+    "given": "Behzad",
+    "family": "Ataie-Ashtiani"
+   },
+   {
+    "given": "Craig T.",
+    "family": "Simmons"
+   },
+   {
+    "given": "D.A.",
+    "family": "Barry"
+   }
+  ],
+  "year": 2013,
+  "journal": "Advances in Water Resources",
+  "volume": "51",
+  "issue": null,
+  "page": "3-26",
+  "publisher": "Elsevier BV",
+  "type": "journal-article"
+ },
+ "S4": {
+  "doi": "10.1007/s10040-009-0496-1",
+  "title": "Coastal aquifers of Europe: an overview",
+  "authors": [
+   {
+    "given": "Emilio",
+    "family": "Custodio"
+   }
+  ],
+  "year": 2010,
+  "journal": "Hydrogeology Journal",
+  "volume": "18",
+  "issue": "1",
+  "page": "269-280",
+  "publisher": "Springer Science and Business Media LLC",
+  "type": "journal-article"
+ },
+ "S5": {
+  "doi": "10.1201/9781439833544",
+  "title": "Geochemistry, Groundwater and Pollution",
+  "authors": [
+   {
+    "given": "C.A.J.",
+    "family": "Appelo"
+   },
+   {
+    "given": "Dieke",
+    "family": "Postma"
+   }
+  ],
+  "year": 2004,
+  "journal": "",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "CRC Press",
+  "type": "book"
+ },
+ "S6": {
+  "doi": "10.12681/bgsg.11772",
+  "title": "ASSESSMENT OF SEAWATER INTRUSION IN FUSHE KUQE AQUIFER, ALBANIA",
+  "authors": [
+   {
+    "given": "S.",
+    "family": "Cenameri"
+   },
+   {
+    "given": "A.",
+    "family": "Beqiraj"
+   }
+  ],
+  "year": 2017,
+  "journal": "Bulletin of the Geological Society of Greece",
+  "volume": "50",
+  "issue": "2",
+  "page": "665",
+  "publisher": "National Documentation Centre (EKT)",
+  "type": "journal-article"
+ },
+ "S7": {
+  "doi": "10.6028/jres.049.027",
+  "title": "On approximate solutions of systems of linear inequalities",
+  "authors": [
+   {
+    "given": "A.J.",
+    "family": "Hoffman"
+   }
+  ],
+  "year": 1952,
+  "journal": "Journal of Research of the National Bureau of Standards",
+  "volume": "49",
+  "issue": "4",
+  "page": "263",
+  "publisher": "National Institute of Standards and Technology (NIST)",
+  "type": "journal-article"
+ },
+ "S8": {
+  "doi": "10.1002/nav.3800090303",
+  "title": "Programming with linear fractional functionals",
+  "authors": [
+   {
+    "given": "A.",
+    "family": "Charnes"
+   },
+   {
+    "given": "W. W.",
+    "family": "Cooper"
+   }
+  ],
+  "year": 1962,
+  "journal": "Naval Research Logistics Quarterly",
+  "volume": "9",
+  "issue": "3-4",
+  "page": "181-186",
+  "publisher": "Wiley",
+  "type": "journal-article"
+ },
+ "S9": {
+  "doi": "10.1007/b97478",
+  "title": "Partial Identification of Probability Distributions",
+  "authors": [],
+  "year": 2003,
+  "journal": "Springer Series in Statistics",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "Springer-Verlag",
+  "type": "book"
+ },
+ "S10": {
+  "doi": "10.1146/annurev.economics.050708.143401",
+  "title": "Partial Identification in Econometrics",
+  "authors": [
+   {
+    "given": "Elie",
+    "family": "Tamer"
+   }
+  ],
+  "year": 2010,
+  "journal": "Annual Review of Economics",
+  "volume": "2",
+  "issue": "1",
+  "page": "167-195",
+  "publisher": "Annual Reviews",
+  "type": "journal-article"
+ },
+ "S11": {
+  "doi": "10.3982/ECTA8360",
+  "title": "Bayesian and Frequentist Inference in Partially Identified Models",
+  "authors": [],
+  "year": 2012,
+  "journal": "Econometrica",
+  "volume": "80",
+  "issue": "2",
+  "page": "755-782",
+  "publisher": "The Econometric Society",
+  "type": "journal-article"
+ },
+ "S12": {
+  "doi": "10.1017/S0266466698144043",
+  "title": "REVISING BELIEFS IN NONIDENTIFIED MODELS",
+  "authors": [
+   {
+    "given": "Dale J.",
+    "family": "Poirier"
+   }
+  ],
+  "year": 1998,
+  "journal": "Econometric Theory",
+  "volume": "14",
+  "issue": "4",
+  "page": "483-509",
+  "publisher": "Cambridge University Press (CUP)",
+  "type": "journal-article"
+ },
+ "S13": {
+  "doi": "10.1017/S0962492910000061",
+  "title": "Inverse problems: A Bayesian perspective",
+  "authors": [
+   {
+    "given": "A. M.",
+    "family": "Stuart"
+   }
+  ],
+  "year": 2010,
+  "journal": "Acta Numerica",
+  "volume": "19",
+  "issue": null,
+  "page": "451-559",
+  "publisher": "Cambridge University Press (CUP)",
+  "type": "journal-article"
+ },
+ "S14": {
+  "doi": "10.1007/b138659",
+  "title": "Statistical and Computational Inverse Problems",
+  "authors": [
+   {
+    "given": "Jari P.",
+    "family": "Kaipio"
+   },
+   {
+    "given": "Erkki",
+    "family": "Somersalo"
+   }
+  ],
+  "year": 2005,
+  "journal": "Applied Mathematical Sciences",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "Springer New York",
+  "type": "book"
+ },
+ "S15": {
+  "doi": "10.1007/978-94-009-1740-8",
+  "title": "Regularization of Inverse Problems",
+  "authors": [
+   {
+    "given": "Heinz W.",
+    "family": "Engl"
+   },
+   {
+    "given": "Martin",
+    "family": "Hanke"
+   },
+   {
+    "given": "Andreas",
+    "family": "Neubauer"
+   }
+  ],
+  "year": 1996,
+  "journal": "",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "Springer Netherlands",
+  "type": "book"
+ },
+ "S16": {
+  "doi": "10.1007/b106715",
+  "title": "Algorithmic Learning in a Random World",
+  "authors": [],
+  "year": 2005,
+  "journal": "",
+  "volume": null,
+  "issue": null,
+  "page": null,
+  "publisher": "Springer-Verlag",
+  "type": "book"
+ },
+ "S17": {
+  "doi": "10.1073/pnas.1912789117",
+  "title": "The frontier of simulation-based inference",
+  "authors": [
+   {
+    "given": "Kyle",
+    "family": "Cranmer"
+   },
+   {
+    "given": "Johann",
+    "family": "Brehmer"
+   },
+   {
+    "given": "Gilles",
+    "family": "Louppe"
+   }
+  ],
+  "year": 2020,
+  "journal": "Proceedings of the National Academy of Sciences",
+  "volume": "117",
+  "issue": "48",
+  "page": "30055-30062",
+  "publisher": "National Academy of Sciences",
+  "type": "journal-article"
+ },
+ "S18": {
+  "doi": "10.1029/1999WR900190",
+  "title": "Adjoint method for obtaining backward‐in‐time location and travel time probabilities of a conservative groundwater contaminant",
+  "authors": [
+   {
+    "given": "Roseanna M.",
+    "family": "Neupauer"
+   },
+   {
+    "given": "John L.",
+    "family": "Wilson"
+   }
+  ],
+  "year": 1999,
+  "journal": "Water Resources Research",
+  "volume": "35",
+  "issue": "11",
+  "page": "3389-3398",
+  "publisher": "American Geophysical Union (AGU)",
+  "type": "journal-article"
+ },
+ "S19": {
+  "doi": "10.1109/MSP.2018.2877582",
+  "title": "Nonnegative Matrix Factorization for Signal and Data Analytics: Identifiability, Algorithms, and Applications",
+  "authors": [
+   {
+    "given": "Xiao",
+    "family": "Fu"
+   },
+   {
+    "given": "Kejun",
+    "family": "Huang"
+   },
+   {
+    "given": "Nicholas D.",
+    "family": "Sidiropoulos"
+   },
+   {
+    "given": "Wing-Kin",
+    "family": "Ma"
+   }
+  ],
+  "year": 2019,
+  "journal": "IEEE Signal Processing Magazine",
+  "volume": "36",
+  "issue": "2",
+  "page": "59-80",
+  "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+  "type": "journal-article"
+ },
+ "S20": {
+  "doi": "10.1016/B978-0-08-095975-7.00909-8",
+  "title": "Salinization and Saline Environments",
+  "authors": [
+   {
+    "given": "A.",
+    "family": "Vengosh"
+   }
+  ],
+  "year": 2014,
+  "journal": "Treatise on Geochemistry",
+  "volume": null,
+  "issue": null,
+  "page": "325-378",
+  "publisher": "Elsevier",
+  "type": "book-chapter"
+ },
+ "S25": {
+  "doi": "10.1007/s00442-003-1218-3",
+  "title": "Source partitioning using stable isotopes: coping with too many sources",
+  "authors": [
+   {
+    "given": "Donald L.",
+    "family": "Phillips"
+   },
+   {
+    "given": "Jillian W.",
+    "family": "Gregg"
+   }
+  ],
+  "year": 2003,
+  "journal": "Oecologia",
+  "volume": "136",
+  "issue": "2",
+  "page": "261-269",
+  "publisher": "Springer Science and Business Media LLC",
+  "type": "journal-article"
+ },
+ "S26": {
+  "doi": "10.7717/peerj.5096",
+  "title": "Analyzing mixing systems using a new generation of Bayesian tracer mixing models",
+  "authors": [
+   {
+    "given": "Brian C.",
+    "family": "Stock"
+   },
+   {
+    "given": "Andrew L.",
+    "family": "Jackson"
+   },
+   {
+    "given": "Eric J.",
+    "family": "Ward"
+   },
+   {
+    "given": "Andrew C.",
+    "family": "Parnell"
+   },
+   {
+    "given": "Donald L.",
+    "family": "Phillips"
+   },
+   {
+    "given": "Brice X.",
+    "family": "Semmens"
+   }
+  ],
+  "year": 2018,
+  "journal": "PeerJ",
+  "volume": "6",
+  "issue": null,
+  "page": "e5096",
+  "publisher": "PeerJ",
+  "type": "journal-article"
+ }
+}

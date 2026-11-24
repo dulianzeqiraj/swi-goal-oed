@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 1104" width="1700" height="1104"><defs>
+  <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd8ef"/><stop offset="1" stop-color="#8fb8e0"/></linearGradient>
+  <linearGradient id="salt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7d9fcb"/><stop offset="1" stop-color="#5677a8"/></linearGradient>
+  <linearGradient id="fresh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9f3fc"/><stop offset="1" stop-color="#d6e8f7"/></linearGradient>
+  <linearGradient id="vadose" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f0e1"/><stop offset="1" stop-color="#efe4cc"/></linearGradient>
+  <pattern id="sand" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="5" cy="6" r="1.7" fill="#b7a27a" opacity=".35"/><circle cx="16" cy="15" r="1.4" fill="#b7a27a" opacity=".3"/></pattern>
+  <pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#9aa1ab" stroke-width="3"/></pattern>
+  <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1f2328" flood-opacity=".18"/></filter>
+  <filter id="card" x="-5%" y="-10%" width="110%" height="125%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1f2328" flood-opacity=".10"/></filter>
+  <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5b6573"/></marker>
+  <marker id="ahn" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1F3864"/></marker>
+  <marker id="ahr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b9471a"/></marker>
+  <marker id="ahg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#11805a"/></marker>
+</defs><rect width="1700" height="1104" fill="#ffffff"/><text x="26" y="44" font-size="28" font-weight="600" fill="#5b6573" text-anchor="start" letter-spacing="2.2" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">ONE ASSIMILATION STEP, NORMAL AND EXTREME</text>
+<g filter="url(#card)"><rect x="16" y="92" width="520" height="212" rx="16" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2.5"/></g>
+<text x="36" y="134" font-size="30" font-weight="700" fill="#1b5fae" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">1  Forecast, one per regime</text>
+<text x="36" y="174" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,536">Xᶠ<tspan font-size="20" dy="7">r</tspan><tspan dy="-7"> </tspan> = Ψ₀(X) + m(X; θ) + ξ<tspan font-size="20" dy="7">r</tspan><tspan dy="-7"> </tspan></text>
+<text x="36" y="212" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,536">each regime carries the</text>
+<text x="36" y="250" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,536">event's own dynamics</text>
+<g filter="url(#card)"><rect x="590" y="92" width="520" height="212" rx="16" fill="#e6f6ef" stroke="#1baf7a" stroke-width="2.5"/></g>
+<text x="610" y="134" font-size="30" font-weight="700" fill="#11805a" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">2  Data arrive</text>
+<text x="610" y="174" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="590,1110">heads, tide gauge, meters,</text>
+<text x="610" y="212" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="590,1110">rain and soil moisture,</text>
+<text x="610" y="250" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="590,1110">chloride and EC samples</text>
+<g filter="url(#card)"><rect x="1164" y="92" width="520" height="212" rx="16" fill="#f1f2f4" stroke="#6b7280" stroke-width="2.5"/></g>
+<text x="1184" y="134" font-size="30" font-weight="700" fill="#4b5563" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">3  Spike or event?</text>
+<text x="1184" y="174" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1164,1684">each reading may be a spike:</text>
+<text x="1184" y="212" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1164,1684">exact mixture of no spike and</text>
+<text x="1184" y="250" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1164,1684">spike at sensor i (P10)</text>
+<path d="M536,198.0 L584,198.0" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M1110,198.0 L1158,198.0" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M1424,304 L1424,332 L276,332" stroke="#5b6573" stroke-width="3.5" fill="none"/>
+<path d="M276,332 L276,358" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M850,332 L850,358" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M1424,332 L1424,358" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<g filter="url(#card)"><rect x="16" y="364" width="520" height="300" rx="16" fill="#ffffff" stroke="#1baf7a" stroke-width="2.5"/></g>
+<text x="36" y="406" font-size="30" font-weight="700" fill="#11805a" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">Normal regime</text>
+<text x="36" y="446" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,536">boundaries as states: filter,</text>
+<text x="36" y="484" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,536">exact for heads (T1);</text>
+<text x="36" y="522" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,536">constants by inversion;</text>
+<text x="36" y="560" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,536">initial state by smoother (T3)</text>
+<rect x="17.5" y="365.5" width="517" height="10" rx="5" fill="#1baf7a"/>
+<rect x="36" y="602" width="250" height="44" rx="22" fill="#e6f6ef" stroke="#1baf7a" stroke-width="2"/>
+<text x="161" y="633" font-size="28" font-weight="600" fill="#11805a" text-anchor="middle" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="36,286">weight w<tspan font-size="20" dy="7">normal</tspan><tspan dy="-7"> </tspan></text>
+<g filter="url(#card)"><rect x="590" y="364" width="520" height="300" rx="16" fill="#ffffff" stroke="#2a78d6" stroke-width="2.5"/></g>
+<text x="610" y="406" font-size="30" font-weight="700" fill="#1b5fae" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">Surge regime</text>
+<text x="610" y="446" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="590,1110">the surge state opens and</text>
+<text x="610" y="484" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="590,1110">decays in 2 days; the gauge</text>
+<text x="610" y="522" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="590,1110">sees it at once, the heads</text>
+<text x="610" y="560" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="590,1110">a day later (E10)</text>
+<rect x="591.5" y="365.5" width="517" height="10" rx="5" fill="#2a78d6"/>
+<rect x="610" y="602" width="250" height="44" rx="22" fill="#eaf2fc" stroke="#2a78d6" stroke-width="2"/>
+<text x="735" y="633" font-size="28" font-weight="600" fill="#1b5fae" text-anchor="middle" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="610,860">weight w<tspan font-size="20" dy="7">surge</tspan><tspan dy="-7"> </tspan></text>
+<g filter="url(#card)"><rect x="1164" y="364" width="520" height="300" rx="16" fill="#ffffff" stroke="#eda100" stroke-width="2.5"/></g>
+<text x="1184" y="406" font-size="30" font-weight="700" fill="#8f6200" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">Drought or flood regime</text>
+<text x="1184" y="446" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1164,1684">recharge and E free; river,</text>
+<text x="1184" y="484" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1164,1684">drain and seepage switch:</text>
+<text x="1184" y="522" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1164,1684">ES-MDA, and the update</text>
+<text x="1184" y="560" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1164,1684">stays stable (Lemma 2)</text>
+<rect x="1165.5" y="365.5" width="517" height="10" rx="5" fill="#eda100"/>
+<rect x="1184" y="602" width="250" height="44" rx="22" fill="#fdf3dc" stroke="#eda100" stroke-width="2"/>
+<text x="1309" y="633" font-size="28" font-weight="600" fill="#8f6200" text-anchor="middle" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1184,1434">weight w<tspan font-size="20" dy="7">drought</tspan><tspan dy="-7"> </tspan></text>
+<path d="M276,664 L276,698" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M850,664 L850,698" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M1424,664 L1424,698" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<g filter="url(#card)"><rect x="16" y="704" width="1668" height="112" rx="16" fill="#eef2f8" stroke="#1F3864" stroke-width="2.5"/></g>
+<text x="36" y="748" font-size="30" font-weight="700" fill="#1F3864" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">4  Merge the regimes (Theorem 8)</text>
+<text x="36" y="790" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,1684">weight w<tspan font-size="20" dy="7">r</tspan><tspan dy="-7"> </tspan> ∝ prior of the regime × likelihood of the data; the posterior is the mixture, kept by its mean and covariance</text>
+<path d="M213.0,816 L213.0,862" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<g filter="url(#card)"><rect x="16" y="868" width="394" height="212" rx="16" fill="#fdece7" stroke="#e4572e" stroke-width="2.5"/></g>
+<text x="36" y="910" font-size="30" font-weight="700" fill="#b9471a" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">5  Alarm (T9)</text>
+<text x="36" y="950" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,410">NIS > χ²(m, 0.999)</text>
+<text x="36" y="988" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,410">under every regime =</text>
+<text x="36" y="1026" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="16,410">missing dynamics</text>
+<g filter="url(#card)"><rect x="440" y="868" width="394" height="212" rx="16" fill="#fbeaf1" stroke="#c2417a" stroke-width="2.5"/></g>
+<text x="460" y="910" font-size="30" font-weight="700" fill="#9b2c5e" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">6  Chloride (T7)</text>
+<text x="460" y="950" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="440,834">probit of the sea</text>
+<text x="460" y="988" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="440,834">fraction; a saturated</text>
+<text x="460" y="1026" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="440,834">sample is censored</text>
+<g filter="url(#card)"><rect x="864" y="868" width="394" height="212" rx="16" fill="#f1ecfa" stroke="#7d4fc9" stroke-width="2.5"/></g>
+<text x="884" y="910" font-size="30" font-weight="700" fill="#5d35a3" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">7  Constraints (P6)</text>
+<text x="884" y="950" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="864,1258">linear ones kept:</text>
+<text x="884" y="988" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="864,1258">charge, exchanger;</text>
+<text x="884" y="1026" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="864,1258">bounds by transform</text>
+<g filter="url(#card)"><rect x="1288" y="868" width="394" height="212" rx="16" fill="#f6efe6" stroke="#9c6b30" stroke-width="2.5"/></g>
+<text x="1308" y="910" font-size="30" font-weight="700" fill="#7a5122" text-anchor="start" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">8  Calibration (T5)</text>
+<text x="1308" y="950" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1288,1682">90% coverage by</text>
+<text x="1308" y="988" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1288,1682">regime; a drop points</text>
+<text x="1308" y="1026" font-size="28" font-weight="400" fill="#1f2328" text-anchor="start" style="font-family:Inter,'Liberation Sans',Arial,sans-serif" data-box="1288,1682">to a missing closure</text>
+<path d="M410,974.0 L434,974.0" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M834,974.0 L858,974.0" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M1258,974.0 L1282,974.0" stroke="#5b6573" stroke-width="3.5" fill="none" marker-end="url(#ah)"/>
+<path d="M1684,974.0 L1694,974.0 L1694,72 L276,72 L276,86" stroke="#1F3864" stroke-width="3.5" fill="none" stroke-dasharray="10 8" marker-end="url(#ahn)"/>
+<text x="1680" y="60" font-size="28" font-weight="600" fill="#1F3864" text-anchor="end" letter-spacing="0" style="font-family:Inter,'Liberation Sans',Arial,sans-serif">next step: a wrong start is forgotten (T4)</text></svg>
