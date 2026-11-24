@@ -23,14 +23,20 @@ import fk_infer as I  # noqa: E402
 
 TAU = 0.5
 GAP = float(os.environ.get('FK_GAP', '0.02'))            # relative gap at which a programme stops
-NS = 6
+SEVEN = os.environ.get('FK_SEVEN', '0') == '1'       # with the squeeze of the cover as a seventh source
+NS = 7 if SEVEN else 6
 SCREENS = ['top', 'middle', 'base']                    # 'sh', 'mid', 'dp' of fk_core.screen_cells
 # Br/Cl by mass of the six sources: the illustrative literature intervals of HYPOTHESIS-GO (hip_infer.BR), not
 # measured at the site
 BR = np.array([[3.35e-3, 3.50e-3], [3.35e-3, 3.50e-3], [3.0e-3, 5.0e-3], [1.2e-3, 2.8e-3], [2.9e-3, 3.8e-3],
                [2.9e-3, 3.8e-3]])
+if SEVEN:
+    BR = np.vstack([BR, [2.9e-3, 3.8e-3]])
 BR_SD = (0.05, 0.005)                                  # relative and absolute error of a bromide analysis (mg/L)
-VERDICTS = [('340', 'MS'), ('340', 'RS'), ('340', 'DB'), ('503', 'MS')]
+VERDICTS = ([('340', 'RS'), ('340', 'DB'), ('340', 'SQ')] if SEVEN else
+            [('340', 'MS'), ('340', 'RS'), ('340', 'DB'), ('503', 'MS')])
+SRC = I.SRC + (['SQ'] if SEVEN else [])
+RAW = 'fk_inquiry7_raw.json' if SEVEN else 'fk_inquiry_raw.json'
 _G = {}
 
 
@@ -42,10 +48,27 @@ def load():
         R = json.load(open(os.path.join(HIP, 'res_fk', 'fk_results_second.json')))
         y, eps = I.data()
         lo, hi = I.box(I.FULL)
+        mem = list(R['union_members'])
+        if SEVEN:
+            import fk_squeeze as FS
+            zq = np.load(os.path.join(HERE, 'res', 'fk_squeeze_resp.npz')); zt = np.load(os.path.join(HERE, 'res', 'fk_squeeze_trans.npz'))
+            fq = json.load(open(os.path.join(HERE, 'res', 'fk_squeeze.json')))
+            mem = [r['j'] for r in fq['runs'] if r['feas7']]
+            _G['sq'] = {int(j): zq['G_SQ'][n].astype(float) * FS.S_CAP for n, j in enumerate(zq['members'])}
+            _G['fade'] = {int(j): zt['G_T'][n].astype(float) for n, j in enumerate(zt['members'])}
+            _G['after'] = [float(a) for a in zt['after']]
+            lo, hi = np.r_[lo, 0.0], np.r_[hi, 1.0]                 # the squeeze strength in units of its cap
         _G.update(E=E, R=R, y=y, eps=eps, lo=lo, hi=hi, cols=[np.array(b) for b in R['bands']], scr=R['screens'],
-                  kap=R['union']['kappa_eff'], mem=list(R['union_members']),
+                  kap=R['union']['kappa_eff'], mem=mem,
                   wid={w[0]: n for n, w in enumerate(I.WELLS)})
     return _G
+
+
+def resp_all(j):
+    """Responses of simulation j at every column and screen, to the six sources (and to the squeeze at its cap)."""
+    g = load()
+    r = clean(g['E']['resp'][j])
+    return np.concatenate([r, g['sq'][j][:, :, None]], axis=2) if SEVEN else r
 
 
 def clean(a):
@@ -62,7 +85,8 @@ class Model:
         g = load()
         self.j = j
         y, eps, kap, lo, hi = g['y'], g['eps'], g['kap'], g['lo'], g['hi']
-        G0 = I.responses(g['E'], j, g['cols'], g['scr'])
+        ra = resp_all(j)
+        G0 = [ra[c, q, :] for c, q in zip(g['cols'], g['scr'])]
         self.keep, self.G = [], []
         for Gi, yi, ei in zip(G0, y, eps):
             a, b = Gi @ lo, Gi @ hi
@@ -95,7 +119,7 @@ class Model:
             Aeq[i, self.off[i]:self.off[i + 1]] = 1.0
         self.Aeq = Aeq
         self.integ = np.zeros(self.nv); self.integ[NS:self.iv] = 1.0
-        self.vmax = 1.2 * float(np.max(clean(g['E']['resp'][j]) @ hi))
+        self.vmax = 1.2 * float(np.max(ra @ hi))
         self.lob = np.r_[lo, np.zeros(self.iv - NS), -self.vmax, np.zeros(NS)]
         self.hib = np.r_[hi, np.ones(self.iv - NS), self.vmax, BR[:, 1] * hi]
 
@@ -162,9 +186,10 @@ def S_MAXCL(G, hi):
     return max(float(np.max(a @ hi)) for a in G)
 
 
-DIST = [1.5, 2.5, 3.5, 4.5, 5.5, 6.5]                  # km from the shoreline, new samples
-SITE = [('340', 1), ('340', 2), ('503', 0), ('503', 2)]  # another screen at the site of a sampled well
-BROM = ['340', '503']
+DIST = [2.5, 3.5, 4.5, 5.5] if SEVEN else [1.5, 2.5, 3.5, 4.5, 5.5, 6.5]      # km from the shoreline, new samples
+SITE = [('340', 1), ('340', 2)] if SEVEN else [('340', 1), ('340', 2), ('503', 0), ('503', 2)]
+BROM = ['340'] if SEVEN else ['340', '503']
+AGAIN = [('340', 10.0), ('340', 20.0)] if SEVEN else []      # the same well again, years after the heads settle
 
 
 def questions():
@@ -178,26 +203,34 @@ def questions():
         Q.append(dict(kind='site', well=w, screen=s_, label=f'{SCREENS[s_]} screen at the site of well {w}'))
     for w in BROM:
         Q.append(dict(kind='br', well=w, label=f'bromide of well {w}'))
+    for w, yr in AGAIN:
+        Q.append(dict(kind='again', well=w, years=yr, label=f'well {w} again, {yr:.0f} years after the heads settle'))
     return Q
 
 
 def member_job(j):
-    g = load(); E = g['E']; m = Model(j); Q = questions()
+    g = load(); E = g['E']; m = Model(j); Q = questions(); ra = resp_all(j)
     cv = np.zeros(m.nv); cv[m.iv] = 1.0
     prep = []
     for q in Q:
         if q['kind'] == 'new':
-            c = np.zeros(m.nv); c[:NS] = clean(E['resp'][j][q['col'], q['screen'], :]); prep.append((c, []))
+            c = np.zeros(m.nv); c[:NS] = ra[q['col'], q['screen'], :]; prep.append((c, []))
         elif q['kind'] == 'site':
             w = g['wid'][q['well']]
-            prep.append((cv, [m.tie(w, clean(E['resp'][j][g['cols'][w][m.keep[w]], q['screen'], :]))]))
+            prep.append((cv, [m.tie(w, ra[g['cols'][w][m.keep[w]], q['screen'], :])]))
+        elif q['kind'] == 'again':                    # the same well again, 'years' after the heads settle
+            w = g['wid'][q['well']]; cols = g['cols'][w][m.keep[w]]; scr = g['scr'][w]
+            F = g['fade'][j]; n = g['after'].index(q['years'])
+            ratio = np.where(F[0, cols, scr] > 1e-12, F[n, cols, scr] / np.maximum(F[0, cols, scr], 1e-12), 0.0)
+            rows = m.G[w].copy(); rows[:, 6] *= np.clip(ratio, 0.0, None)
+            prep.append((cv, [m.tie(w, rows)]))
         else:
             w = g['wid'][q['well']]
             prep.append((cv, [m.tie(w, m.G[w], into='B')]))
     out = dict(j=int(j), v={}, nan=0, npos=[int(n) for n in m.npos], tq=[0.0] * len(Q))
     t0 = time.time()
     for wn, src in VERDICTS:
-        w, k = g['wid'][wn], I.SRC.index(src)
+        w, k = g['wid'][wn], SRC.index(src)
         ex = {'yes': m.cls(w, k, True), 'no': m.cls(w, k, False)}
         feas = {c: bool(m.solve(np.zeros(m.nv), [ex[c]]).status != 2) for c in ex}
         rr = []
@@ -249,7 +282,7 @@ def shares(nw=4):
 def main(nw=4):
     g = load(); t0 = time.time()
     raw = []
-    path = os.path.join(HERE, 'res', 'fk_inquiry_raw.json')
+    path = os.path.join(HERE, 'res', RAW)
     with Pool(nw) as pool:
         for r in pool.imap_unordered(member_job, g['mem']):
             raw.append(r)

@@ -10,7 +10,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 K = 2.5
 SD = {'cl': (0.05, 1.0), 'br': (0.05, 0.005)}          # relative and absolute error
 FLOOR = {'cl': 1.0, 'br': 0.005}                       # mg/L, lower end of the logarithmic axis
-SRC = {'MS': 'the sea', 'RS': 'legacy salinity', 'DB': 'deep water'}
+SRC = {'MS': 'the sea', 'RS': 'legacy salinity', 'DB': 'deep water', 'SQ': 'the squeeze of the cover'}
 
 
 def consistent(kind, lo, hi):
@@ -59,7 +59,8 @@ def length(A):
 
 
 def main():
-    raw = json.load(open(os.path.join(HERE, 'res', 'fk_inquiry_raw.json')))
+    tag = '7' if os.environ.get('FK_SEVEN', '0') == '1' else ''
+    raw = json.load(open(os.path.join(HERE, 'res', f'fk_inquiry{tag}_raw.json')))
     Q, runs = raw['questions'], raw['raw']
     out = dict(n=len(runs), questions=Q, verdicts={}, nan=int(sum(r['nan'] for r in runs)),
                seconds=float(sum(r['sec'] for r in runs)))
@@ -88,7 +89,7 @@ def main():
             new = [v['delta'] for v, q in zip(V['q'], Q) if q['kind'] == 'new']
             V['mean_new'] = float(np.mean(new)); V['best'] = int(np.argmax([v['delta'] for v in V['q']]))
         out['verdicts'][key] = V
-    json.dump(out, open(os.path.join(HERE, 'res', 'fk_inquiry.json'), 'w'), indent=1)
+    json.dump(out, open(os.path.join(HERE, 'res', f'fk_inquiry{tag}.json'), 'w'), indent=1)
     return out
 
 
